@@ -1,0 +1,508 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "1",
+    "section": "A",
+    "batch": "d1a-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D1 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d1a-001",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "easy",
+      "stem": "Professional IS audit and assurance standards are BEST described as:",
+      "options": {
+        "A": "recommended practices that an auditor may adopt at their discretion.",
+        "B": "detailed procedures specifying exactly how each audit test must be performed.",
+        "C": "mandatory requirements with which certified practitioners must comply when performing IS audit and assurance work.",
+        "D": "a legal framework enforced against practitioners by financial regulators."
+      },
+      "answer": "C",
+      "why_correct": "Standards set the mandatory floor. They define what must be achieved in areas such as independence, competence, evidence and reporting, and departing from them requires justification.",
+      "why_wrong": {
+        "A": "Discretionary adoption describes guidelines, which assist in applying the standards but do not bind.",
+        "B": "Standards state what must be accomplished, not the specific steps. Procedures and techniques operate at that level.",
+        "D": "These are professional obligations issued by a professional body. Regulators may reference them, but they are not themselves law."
+      }
+    },
+    {
+      "id": "cisa-d1a-002",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "medium",
+      "stem": "An IS auditor is assigned to audit a system that they personally configured two years ago while working in the IT department. The auditor should FIRST:",
+      "options": {
+        "A": "disclose the previous involvement to audit management so that independence can be assessed and the assignment reconsidered.",
+        "B": "proceed with the audit, since two years is long enough for objectivity to be restored.",
+        "C": "decline the engagement without giving a reason.",
+        "D": "perform the audit but exclude from scope the areas they personally configured."
+      },
+      "answer": "A",
+      "why_correct": "The auditor's obligation is to surface the threat, not to resolve it alone. Audit management holds the information about other resources and can decide whether to reassign, add review, or accept and disclose the position.",
+      "why_wrong": {
+        "B": "Elapsed time does not cure a self-review threat. The auditor would still be evaluating the consequences of their own design decisions.",
+        "C": "Declining without explanation deprives management of the information needed to reassign the work appropriately, and the conflict goes unrecorded.",
+        "D": "Self-selecting a reduced scope is itself an impairment, and it conveniently removes from testing the area where the auditor's own work would be examined."
+      }
+    },
+    {
+      "id": "cisa-d1a-003",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "medium",
+      "stem": "During fieldwork an IS auditor obtains evidence suggesting that a senior manager has been overriding controls for personal gain. The auditor should MOST appropriately:",
+      "options": {
+        "A": "confront the manager directly to obtain an explanation before proceeding.",
+        "B": "complete the audit as planned and include the matter in the final report.",
+        "C": "discuss the matter informally with audit colleagues to see whether others have noticed it.",
+        "D": "report the matter promptly through the channels established for suspected irregularities, consistent with the audit charter and applicable standards."
+      },
+      "answer": "D",
+      "why_correct": "Suspected fraud follows a defined escalation route rather than the normal reporting timetable, because delay allows concealment and because the auditor is not the investigator. Prompt reporting preserves both evidence and the auditor's own position.",
+      "why_wrong": {
+        "A": "Alerting the subject gives them the opportunity to destroy evidence or align stories, and it exposes the auditor personally.",
+        "B": "Holding a suspected irregularity until the report is issued forfeits the chance to preserve evidence and may breach the auditor's obligations.",
+        "C": "Informal discussion is neither confidential nor a recognized reporting channel, and it risks the matter becoming known to the subject."
+      }
+    },
+    {
+      "id": "cisa-d1a-004",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "easy",
+      "stem": "Which of the following BEST describes the relationship between audit standards and audit guidelines?",
+      "options": {
+        "A": "Guidelines are mandatory, while standards are advisory statements of good practice.",
+        "B": "Standards define mandatory requirements, while guidelines explain how those requirements may be applied in practice.",
+        "C": "Both standards and guidelines are equally mandatory for certified practitioners.",
+        "D": "Guidelines apply to external auditors while standards apply to internal auditors."
+      },
+      "answer": "B",
+      "why_correct": "The hierarchy runs from binding to supporting. Standards state the requirement, guidelines assist in meeting it, and tools and techniques illustrate approaches that have worked elsewhere.",
+      "why_wrong": {
+        "A": "This inverts the relationship entirely.",
+        "C": "Treating guidance as mandatory would remove the professional judgment the framework is designed to accommodate.",
+        "D": "Neither is divided by audit type; both apply to the practitioner regardless of where they sit."
+      }
+    },
+    {
+      "id": "cisa-d1a-005",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "medium",
+      "stem": "An IS auditor is offered a substantial personal discount by a vendor whose contract the auditor is currently reviewing. The MOST appropriate action is to:",
+      "options": {
+        "A": "decline the offer and disclose it, because accepting could impair objectivity or the perception of it.",
+        "B": "accept the discount, provided the same offer is available to all employees.",
+        "C": "accept the discount and disclose the fact within the audit report.",
+        "D": "accept the discount only after the audit has been completed and the report issued."
+      },
+      "answer": "A",
+      "why_correct": "Objectivity has to be protected in appearance as well as in substance. A benefit received from the party under review would cause a reasonable observer to question the conclusions, whatever the auditor's actual intent.",
+      "why_wrong": {
+        "B": "A general employee offer is different from one extended to the person reviewing that vendor's contract during the review.",
+        "C": "Disclosure does not neutralize the conflict; the auditor still received a personal benefit from the audited party.",
+        "D": "Deferring acceptance until after the report looks like deferred consideration for a favorable outcome, which is worse."
+      }
+    },
+    {
+      "id": "cisa-d1a-006",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "medium",
+      "stem": "The audit charter PRIMARILY serves to:",
+      "options": {
+        "A": "define the detailed procedures to be followed for each category of audit.",
+        "B": "set out the audit engagements scheduled for the coming year.",
+        "C": "establish the audit function's purpose, authority, responsibility and reporting line, approved at a suitably senior level.",
+        "D": "specify the qualifications and experience required of audit staff."
+      },
+      "answer": "C",
+      "why_correct": "The charter is the mandate. It gives audit its right of access, defines the scope of its responsibility and establishes reporting to a level senior enough to protect its independence.",
+      "why_wrong": {
+        "A": "Detailed procedures belong in the audit manual and vary by engagement type.",
+        "B": "The schedule of engagements is the annual audit plan, which is derived from risk and approved separately.",
+        "D": "Staff competency requirements are a resourcing matter addressed outside the charter."
+      }
+    },
+    {
+      "id": "cisa-d1a-007",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "medium",
+      "stem": "An IS auditor's independence is MOST likely to be impaired if the auditor:",
+      "options": {
+        "A": "attends a product briefing hosted by a technology vendor.",
+        "B": "designed the control that they are now being asked to test for operating effectiveness.",
+        "C": "recommends improvements to a control after completing testing of it.",
+        "D": "discusses preliminary findings with the auditee before the report is issued."
+      },
+      "answer": "B",
+      "why_correct": "This is the self-review threat. An auditor evaluating their own design work is unlikely to conclude that it was inadequate, and no amount of care fully removes that pressure.",
+      "why_wrong": {
+        "A": "Attending a briefing builds knowledge and creates no obligation to the vendor.",
+        "C": "Recommending improvements after testing is a normal and expected part of the auditor's role.",
+        "D": "Clearing findings with the auditee before issue is good practice that improves factual accuracy."
+      }
+    },
+    {
+      "id": "cisa-d1a-008",
+      "topic": "Types of Audits, Assessments, and Reviews",
+      "difficulty": "medium",
+      "stem": "An organization wants independent assurance that controls at its payroll service provider operated effectively throughout the financial year. Which of the following is MOST appropriate?",
+      "options": {
+        "A": "A vulnerability assessment of the provider's externally facing systems.",
+        "B": "A compliance audit of the organization's own internal payroll process.",
+        "C": "An agreed-upon procedures engagement performed at a single point in time.",
+        "D": "An independent service auditor's report addressing the operating effectiveness of the provider's controls across the period."
+      },
+      "answer": "D",
+      "why_correct": "The requirement specifies operating effectiveness over a period at a third party. A service auditor's report covering that period is designed for exactly this purpose and can be relied on by the user entity.",
+      "why_wrong": {
+        "A": "A vulnerability assessment covers technical exposure at a moment in time and addresses a narrow slice of the control environment.",
+        "B": "Auditing the organization's own process says nothing about the controls operating inside the provider.",
+        "C": "Agreed-upon procedures report factual findings without an opinion, and a point-in-time engagement cannot address the full period."
+      }
+    },
+    {
+      "id": "cisa-d1a-009",
+      "topic": "Types of Audits, Assessments, and Reviews",
+      "difficulty": "medium",
+      "stem": "The PRIMARY difference between compliance testing and substantive testing is that:",
+      "options": {
+        "A": "compliance testing is performed by external auditors and substantive testing by internal auditors.",
+        "B": "substantive testing is used only in financial statement audits.",
+        "C": "compliance testing uses statistical sampling whereas substantive testing does not.",
+        "D": "compliance testing evaluates whether controls operate as intended, while substantive testing evaluates the accuracy and completeness of the underlying transactions or balances."
+      },
+      "answer": "D",
+      "why_correct": "The two answer different questions. Compliance testing asks whether the control worked; substantive testing asks whether the data is right, regardless of what the controls did.",
+      "why_wrong": {
+        "A": "Both techniques are used by internal and external auditors alike.",
+        "B": "Substantive procedures are used wherever the accuracy of data itself is in question, including operational and IT audits.",
+        "C": "Either approach can use statistical or judgmental selection; the sampling method is not what distinguishes them."
+      }
+    },
+    {
+      "id": "cisa-d1a-010",
+      "topic": "Types of Audits, Assessments, and Reviews",
+      "difficulty": "medium",
+      "stem": "An IS auditor is asked to review a system that is still under development. This engagement is BEST described as:",
+      "options": {
+        "A": "a post-implementation review of the delivered solution.",
+        "B": "a pre-implementation review, intended to identify control weaknesses while they can still be corrected economically.",
+        "C": "a compliance audit against the system development standard.",
+        "D": "a forensic examination of the development process."
+      },
+      "answer": "B",
+      "why_correct": "Reviewing during development is where audit involvement is cheapest and most influential, because controls can be built in rather than retrofitted. The auditor must still avoid taking design decisions that would compromise later independence.",
+      "why_wrong": {
+        "A": "A post-implementation review takes place after the system is live and in use.",
+        "C": "Compliance with the development standard may form part of the work but does not describe the engagement type.",
+        "D": "Forensic examination responds to suspected wrongdoing and follows evidential rules aimed at legal proceedings."
+      }
+    },
+    {
+      "id": "cisa-d1a-011",
+      "topic": "Types of Audits, Assessments, and Reviews",
+      "difficulty": "easy",
+      "stem": "Which of the following BEST describes an operational audit?",
+      "options": {
+        "A": "An evaluation of how efficiently and effectively an activity uses its resources to achieve its objectives.",
+        "B": "An examination of the assertions underlying the financial statements.",
+        "C": "A test of adherence to a specific law or regulation.",
+        "D": "An assessment of technical vulnerabilities present in an application."
+      },
+      "answer": "A",
+      "why_correct": "Operational audits look at performance rather than compliance or financial accuracy, asking whether the activity achieves its purpose economically and whether resources are being used well.",
+      "why_wrong": {
+        "B": "Examining financial statement assertions describes a financial audit.",
+        "C": "Testing adherence to a specific requirement describes a compliance audit.",
+        "D": "Identifying technical weaknesses describes a vulnerability assessment or technical security review."
+      }
+    },
+    {
+      "id": "cisa-d1a-012",
+      "topic": "Types of Audits, Assessments, and Reviews",
+      "difficulty": "medium",
+      "stem": "Management asks internal audit to assess the control environment against a framework and to advise on improvements, without expressing an opinion. This is BEST characterized as:",
+      "options": {
+        "A": "an assurance engagement providing a formal conclusion to a third party.",
+        "B": "a statutory audit required by law.",
+        "C": "a consulting engagement, for which independence considerations still apply and the nature of the work should be clearly communicated.",
+        "D": "a compliance audit against the requirements of the framework."
+      },
+      "answer": "C",
+      "why_correct": "The absence of an opinion and the advisory purpose make this consulting rather than assurance. Independence still matters, because advice given today may become the subject of assurance work tomorrow.",
+      "why_wrong": {
+        "A": "Assurance engagements are defined by the conclusion they express, which is explicitly absent here.",
+        "B": "Nothing in the request derives from a statutory obligation.",
+        "D": "A compliance audit would test adherence and report deviations rather than provide improvement advice."
+      }
+    },
+    {
+      "id": "cisa-d1a-013",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "medium",
+      "stem": "The PRIMARY benefit of risk-based audit planning is that it:",
+      "options": {
+        "A": "reduces the total number of audit engagements required each year.",
+        "B": "ensures every auditable entity is covered on a predictable fixed cycle.",
+        "C": "directs limited audit resources toward the areas where failure would most affect the organization's objectives.",
+        "D": "guarantees that all material weaknesses in the organization will be identified."
+      },
+      "answer": "C",
+      "why_correct": "Audit capacity is always smaller than the auditable universe. Risk-based planning is the mechanism for allocating that scarce resource where the consequences of control failure are greatest.",
+      "why_wrong": {
+        "A": "The number of engagements may rise or fall; efficiency is a by-product rather than the purpose.",
+        "B": "Fixed-cycle coverage is the rotational approach that risk-based planning deliberately replaces, because it gives equal attention to unequal risks.",
+        "D": "No audit approach can guarantee complete identification; audit provides reasonable, not absolute, assurance."
+      }
+    },
+    {
+      "id": "cisa-d1a-014",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "easy",
+      "stem": "The risk that a material weakness could exist in the absence of any related controls is BEST described as:",
+      "options": {
+        "A": "detection risk.",
+        "B": "control risk.",
+        "C": "residual risk.",
+        "D": "inherent risk."
+      },
+      "answer": "D",
+      "why_correct": "Inherent risk is the exposure that comes with the activity itself, assessed before considering what controls exist. It reflects complexity, volume, volatility and susceptibility to loss.",
+      "why_wrong": {
+        "A": "Detection risk is the risk that the auditor's own procedures fail to find a material error that is present.",
+        "B": "Control risk is the risk that the control environment fails to prevent or detect the error on a timely basis.",
+        "C": "Residual risk is what remains after controls have operated, which is inherent risk reduced by control effectiveness."
+      }
+    },
+    {
+      "id": "cisa-d1a-015",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "medium",
+      "stem": "Detection risk is BEST described as the risk that:",
+      "options": {
+        "A": "controls fail to prevent or detect an error on a timely basis.",
+        "B": "the auditor's procedures fail to detect a material error that actually exists.",
+        "C": "management overrides established controls for its own purposes.",
+        "D": "the audit engagement is not completed within the agreed budget."
+      },
+      "answer": "B",
+      "why_correct": "Detection risk sits with the auditor rather than the organization. It arises from sampling, from the procedures chosen and from how they are executed, and it is the component the auditor can directly influence.",
+      "why_wrong": {
+        "A": "Failure of controls to prevent or detect errors is control risk, which belongs to the organization.",
+        "C": "Management override is a specific control risk scenario, not the definition of detection risk.",
+        "D": "Budget overrun is an engagement management concern with no bearing on the audit risk model."
+      }
+    },
+    {
+      "id": "cisa-d1a-016",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "medium",
+      "stem": "If an IS auditor assesses control risk as high, the auditor should MOST appropriately respond by:",
+      "options": {
+        "A": "increasing the extent of substantive testing so that overall audit risk is reduced to an acceptable level.",
+        "B": "reducing substantive testing, because more effort will be spent testing the controls instead.",
+        "C": "issuing an adverse opinion on the area under review.",
+        "D": "postponing the engagement until management has improved the control environment."
+      },
+      "answer": "A",
+      "why_correct": "Audit risk combines inherent, control and detection risk. When control risk is high the auditor compensates by driving detection risk down, which means more substantive work: larger samples, broader coverage, more persuasive evidence.",
+      "why_wrong": {
+        "B": "Reduced substantive testing is the response to *low* control risk, where the auditor can place reliance on controls.",
+        "C": "An opinion is a conclusion reached after sufficient evidence has been gathered, not a substitute for gathering it.",
+        "D": "Postponing the audit removes assurance precisely where the risk assessment says it is most needed."
+      }
+    },
+    {
+      "id": "cisa-d1a-017",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "medium",
+      "stem": "The annual audit plan should be MOST directly driven by:",
+      "options": {
+        "A": "an assessment of risk across the auditable universe, aligned to organizational objectives and refreshed as conditions change.",
+        "B": "the areas that operational management has requested be reviewed.",
+        "C": "the areas covered in the previous year, rotated so that coverage is even over time.",
+        "D": "the specialisms and availability of the current audit team."
+      },
+      "answer": "A",
+      "why_correct": "The plan exists to give the board and management assurance where it matters most, so it has to start from risk relative to objectives. Treating it as a living document keeps it relevant when the risk profile shifts mid-year.",
+      "why_wrong": {
+        "B": "Management requests are a valuable input but reflect what management already worries about, not necessarily where the greatest unrecognized risk lies.",
+        "C": "Rotation gives equal attention to unequal risks and is exactly what risk-based planning improves upon.",
+        "D": "Available skills constrain how the plan is delivered and should be resolved through training or co-sourcing, not by narrowing the plan."
+      }
+    },
+    {
+      "id": "cisa-d1a-018",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "medium",
+      "stem": "During the year a significant new system is implemented that was not contemplated in the approved audit plan. The IS auditor should MOST appropriately:",
+      "options": {
+        "A": "take no action until the next annual planning cycle.",
+        "B": "begin auditing it immediately, displacing planned work without consultation.",
+        "C": "reassess the risk and propose an amendment to the plan for approval by the audit committee or equivalent body.",
+        "D": "request that the implementation be delayed until audit resources become available."
+      },
+      "answer": "C",
+      "why_correct": "A risk-based plan is meant to respond to change, but the plan was approved by a governing body and amendments belong to that body. Reassessing and proposing keeps both the responsiveness and the governance intact.",
+      "why_wrong": {
+        "A": "Waiting a full cycle leaves a newly introduced material risk unexamined during its most fragile period.",
+        "B": "Unilaterally displacing approved work removes assurance elsewhere without anyone deciding that trade-off is acceptable.",
+        "D": "Audit does not have authority to hold up business initiatives, and doing so would compromise its independence from operations."
+      }
+    },
+    {
+      "id": "cisa-d1a-019",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "hard",
+      "stem": "Materiality in an IS audit context is BEST understood as:",
+      "options": {
+        "A": "the monetary value of the assets processed by the system under review.",
+        "B": "the number of users affected by a control failure.",
+        "C": "the cost of implementing the control the auditor would recommend.",
+        "D": "the significance of a weakness such that it could influence the decisions or conclusions of those relying on the audit report, taking account of both financial and non-financial impact."
+      },
+      "answer": "D",
+      "why_correct": "Materiality is defined by its effect on the reader's judgment. In IS audit that frequently has nothing to do with money: loss of a safety-critical system, breach of regulated personal data, or failure of a control others depend upon can all be material at negligible monetary value.",
+      "why_wrong": {
+        "A": "Transaction value is one useful indicator but is a poor proxy on its own, and many critical systems process no monetary value at all.",
+        "B": "User counts measure reach, not significance. A weakness affecting three privileged users may be far more material.",
+        "C": "Remediation cost is relevant to the recommendation's practicality, not to whether the weakness matters."
+      }
+    },
+    {
+      "id": "cisa-d1a-020",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "easy",
+      "stem": "A control intended to reduce the likelihood that an error occurs in the first place is BEST classified as:",
+      "options": {
+        "A": "detective.",
+        "B": "preventive.",
+        "C": "corrective.",
+        "D": "compensating."
+      },
+      "answer": "B",
+      "why_correct": "Preventive controls act before the event, stopping the undesirable outcome from arising. Input validation, authorization requirements and segregation of duties all work this way.",
+      "why_wrong": {
+        "A": "Detective controls identify that something has already gone wrong, such as a reconciliation or an exception report.",
+        "C": "Corrective controls restore the situation after a problem has been detected, such as a restore from backup.",
+        "D": "Compensating controls substitute for a control that cannot be implemented, and may themselves be preventive or detective."
+      }
+    },
+    {
+      "id": "cisa-d1a-021",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "medium",
+      "stem": "A finance team is too small to achieve full segregation of duties, so management institutes detailed independent review of every transaction by the finance director. This review is BEST described as a:",
+      "options": {
+        "A": "preventive control that removes the underlying conflict.",
+        "B": "compensating control that mitigates the risk left by the missing segregation.",
+        "C": "directive control that instructs staff how to behave.",
+        "D": "deterrent control that discourages misconduct by threat of discovery."
+      },
+      "answer": "B",
+      "why_correct": "A compensating control is introduced precisely because the preferred control is impractical. It does not remove the underlying conflict but reduces the residual risk to an acceptable level, and the auditor should assess whether it genuinely does so.",
+      "why_wrong": {
+        "A": "The review happens after the transaction and does not remove the conflicting duties, which remain combined.",
+        "C": "Directive controls set expected behavior through policy and instruction rather than examining transactions.",
+        "D": "Deterrence may be a secondary effect, but the control's purpose is detection of actual errors and irregularities."
+      }
+    },
+    {
+      "id": "cisa-d1a-022",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "easy",
+      "stem": "Which of the following is the BEST example of a detective control?",
+      "options": {
+        "A": "A firewall rule that blocks traffic from unauthorized sources.",
+        "B": "A policy requiring passwords to be changed at defined intervals.",
+        "C": "Segregation of duties between transaction authorization and asset custody.",
+        "D": "Reconciliation of the general ledger to the subsidiary ledger, with differences investigated and resolved."
+      },
+      "answer": "D",
+      "why_correct": "A reconciliation compares two independently derived records after the fact and surfaces discrepancies. Investigating and resolving the differences is what completes the control.",
+      "why_wrong": {
+        "A": "A firewall rule blocks the unwanted traffic before it arrives, which makes it preventive.",
+        "B": "A password policy is directive, setting a rule that technical controls then enforce.",
+        "C": "Segregation of duties prevents one person from completing a harmful transaction unaided."
+      }
+    },
+    {
+      "id": "cisa-d1a-023",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "When evaluating whether a control is appropriately designed, an IS auditor should consider PRIMARILY whether:",
+      "options": {
+        "A": "the control is automated rather than performed manually.",
+        "B": "the control is documented in an approved procedure.",
+        "C": "the control, operating as described, would prevent or detect the risk it addresses on a timely basis.",
+        "D": "the control can be operated at reasonable cost."
+      },
+      "answer": "C",
+      "why_correct": "Design evaluation asks a hypothetical question: assuming the control works exactly as described, does it actually address the risk, and soon enough to matter? A control that would not achieve its objective even when performed perfectly is deficient in design regardless of how well it is executed.",
+      "why_wrong": {
+        "A": "Automation improves consistency but an automated control aimed at the wrong risk is still badly designed.",
+        "B": "Documentation supports consistent operation and testability but does not make the design effective.",
+        "D": "Cost affects whether the control is worth operating, which is a management decision rather than a design question."
+      }
+    },
+    {
+      "id": "cisa-d1a-024",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "hard",
+      "stem": "Which of the following BEST describes the audit advantage of an automated control over an equivalent manual control?",
+      "options": {
+        "A": "It applies consistently to every transaction, so testing a small number of instances together with the supporting IT general controls can support a conclusion about the whole population.",
+        "B": "It is inherently more accurate than any manual control could be.",
+        "C": "It removes the need for any management review of the process.",
+        "D": "It cannot be circumvented by users or administrators."
+      },
+      "answer": "A",
+      "why_correct": "Automated logic does not get tired or take shortcuts, so it either works or it does not. That consistency is what permits smaller samples, but only when general controls establish that the logic could not have been changed during the period.",
+      "why_wrong": {
+        "B": "An automated control implements whatever logic it was given. Coded incorrectly, it produces the same error consistently and at scale.",
+        "C": "Automated controls still generate exceptions that require human judgment, and unreviewed exception queues are a common finding.",
+        "D": "Anyone with sufficient privilege can alter configuration or logic, which is exactly why the general controls matter."
+      }
+    },
+    {
+      "id": "cisa-d1a-025",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "medium",
+      "stem": "IT general controls matter to an IS auditor PRIMARILY because:",
+      "options": {
+        "A": "they are usually the least costly controls to test.",
+        "B": "they are explicitly mandated by most regulatory regimes.",
+        "C": "they operate directly at the individual transaction level.",
+        "D": "the reliability of automated application controls depends on them, so weak general controls undermine any reliance placed on the application controls above them."
+      },
+      "answer": "D",
+      "why_correct": "General controls over change management, access and operations are what allow an auditor to conclude that an application control behaved the same way all year. Without them, testing the application control proves only how it behaved at the moment of testing.",
+      "why_wrong": {
+        "A": "General controls are often extensive and time-consuming to test, covering multiple platforms and processes.",
+        "B": "Regulatory attention varies by sector; the dependency exists whether or not a regulator has mentioned it.",
+        "C": "General controls operate at the environment level. Application controls are the ones acting on individual transactions."
+      }
+    },
+    {
+      "id": "cisa-d1a-026",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "medium",
+      "stem": "A control that is appropriately designed but is not performed consistently should BEST be reported as:",
+      "options": {
+        "A": "a design deficiency.",
+        "B": "an operating effectiveness deficiency.",
+        "C": "a scope limitation on the engagement.",
+        "D": "an inherent limitation of internal control."
+      },
+      "answer": "B",
+      "why_correct": "Design and operation are separate conclusions. Here the design is sound, so the deficiency lies in execution, and the distinction matters because the remedies differ: redesign versus discipline, training or monitoring.",
+      "why_wrong": {
+        "A": "A design deficiency means the control would not achieve its objective even if performed perfectly, which is not the case here.",
+        "C": "A scope limitation means the auditor was unable to obtain sufficient evidence, whereas here the evidence was obtained and showed inconsistency.",
+        "D": "Inherent limitations describe constraints affecting all internal control, such as collusion and management override, not a specific failure to perform."
+      }
+    }
+  ]
+}

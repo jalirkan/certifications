@@ -1,0 +1,584 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "3",
+    "section": "A",
+    "batch": "d3a-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D3 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d3a-001",
+      "topic": "Project Governance and Management",
+      "difficulty": "medium",
+      "stem": "The PRIMARY reason for establishing a project steering committee is to:",
+      "options": {
+        "A": "manage the project schedule and task assignments day to day.",
+        "B": "provide business direction and decision-making authority over scope, funding and priority throughout the project.",
+        "C": "perform quality assurance over the deliverables produced.",
+        "D": "allocate technical specialists to individual work packages."
+      },
+      "answer": "B",
+      "why_correct": "A steering committee exists to make the decisions the project manager cannot: whether to fund a change, which priority wins when two conflict, and whether the project should continue at all. It is the business voice with authority attached.",
+      "why_wrong": {
+        "A": "Day-to-day scheduling is the project manager's responsibility.",
+        "C": "Quality assurance is performed by a function with the independence and technique to assess deliverables.",
+        "D": "Resource assignment is handled by line management and the project manager."
+      }
+    },
+    {
+      "id": "cisa-d3a-002",
+      "topic": "Project Governance and Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a major systems project would be MOST concerned to find that:",
+      "options": {
+        "A": "the project is being delivered using an agile methodology.",
+        "B": "the project's scope has been formally changed on two occasions.",
+        "C": "the delivery schedule has slipped by approximately two weeks.",
+        "D": "no business owner has been identified as accountable for the project's outcome."
+      },
+      "answer": "D",
+      "why_correct": "Without an accountable business owner there is nobody to arbitrate requirements, defend the business case or answer for whether the investment delivered anything. Projects in this position tend to build what is technically interesting rather than what is needed.",
+      "why_wrong": {
+        "A": "Agile is a legitimate delivery approach; it changes how controls are evidenced rather than whether they exist.",
+        "B": "Formally approved scope changes indicate change control is working as intended.",
+        "C": "A two-week slip on a major project is ordinary variance rather than a governance failure."
+      }
+    },
+    {
+      "id": "cisa-d3a-003",
+      "topic": "Project Governance and Management",
+      "difficulty": "easy",
+      "stem": "A project business sponsor is BEST described as the person who:",
+      "options": {
+        "A": "owns the business case, secures the funding and is accountable for realizing the expected benefits.",
+        "B": "maintains the project plan and reports progress to stakeholders.",
+        "C": "approves the technical design decisions taken by the delivery team.",
+        "D": "leads the user acceptance testing effort on behalf of the business."
+      },
+      "answer": "A",
+      "why_correct": "The sponsor carries the accountability that makes the project worth doing. They champion it, fund it, resolve business obstacles, and remain answerable for whether the promised benefits actually arrive.",
+      "why_wrong": {
+        "B": "Planning and progress reporting are the project manager's responsibilities.",
+        "C": "Technical design authority sits with architecture and the technical lead.",
+        "D": "Acceptance testing is typically led by a business analyst or test manager on the users' behalf."
+      }
+    },
+    {
+      "id": "cisa-d3a-004",
+      "topic": "Project Governance and Management",
+      "difficulty": "medium",
+      "stem": "Scope creep is BEST controlled by:",
+      "options": {
+        "A": "freezing all requirements permanently at the start of the project.",
+        "B": "allowing the project manager discretion to absorb changes considered minor.",
+        "C": "a formal change control process assessing each proposed change for cost, schedule, benefit and risk before it is approved.",
+        "D": "shortening the overall duration of the project."
+      },
+      "answer": "C",
+      "why_correct": "Scope creep is not change itself but unassessed change. Making every proposal visible, costed and explicitly decided means the project grows only where someone accountable judged the growth worthwhile.",
+      "why_wrong": {
+        "A": "A permanent freeze is unrealistic; requirements legitimately evolve as understanding improves and the business changes.",
+        "B": "Discretion over small changes is exactly how creep accumulates, since individually minor items are never assessed collectively.",
+        "D": "A shorter timeline increases pressure to accept undocumented changes rather than reducing them."
+      }
+    },
+    {
+      "id": "cisa-d3a-005",
+      "topic": "Project Governance and Management",
+      "difficulty": "hard",
+      "stem": "Which of the following is the BEST indicator that a project is in serious difficulty?",
+      "options": {
+        "A": "The project has submitted a request for additional budget.",
+        "B": "Team members have been working substantial overtime.",
+        "C": "Reported completion percentages remain high while milestones are repeatedly missed.",
+        "D": "The delivery date has been formally revised on one occasion."
+      },
+      "answer": "C",
+      "why_correct": "The contradiction is the signal. High reported progress alongside missed milestones means the reporting has detached from reality, so nobody above the project can see the true position or intervene while there is still time.",
+      "why_wrong": {
+        "A": "A budget request may reflect an approved scope increase or an honest re-estimate, and at least it is visible.",
+        "B": "Overtime indicates pressure and is worth understanding, but it can also reflect a normal delivery peak.",
+        "D": "A single formally revised date shows the project is re-planning transparently."
+      }
+    },
+    {
+      "id": "cisa-d3a-006",
+      "topic": "Project Governance and Management",
+      "difficulty": "medium",
+      "stem": "A project reports its overall status as green while its risk register records several unmitigated high risks. The IS auditor should MOST appropriately conclude that:",
+      "options": {
+        "A": "status reporting does not reflect known risk, so governance bodies are taking decisions on an incomplete picture.",
+        "B": "the risk register overstates the exposures and should be revised downward.",
+        "C": "the project is being managed well, since risks have at least been identified.",
+        "D": "the risks recorded must lie outside the project's ability to control."
+      },
+      "answer": "A",
+      "why_correct": "Status and risk should be consistent. When they are not, the steering committee is being told everything is fine while the project's own records say otherwise, which removes the opportunity for the governing body to act.",
+      "why_wrong": {
+        "B": "Assuming the register is wrong reverses the burden; the reporting is what fails to reconcile with the evidence.",
+        "C": "Identification without mitigation or escalation is only the first step and does not justify a green status.",
+        "D": "Risks outside the project's control are precisely the ones that must be escalated, not quietly held."
+      }
+    },
+    {
+      "id": "cisa-d3a-007",
+      "topic": "Project Governance and Management",
+      "difficulty": "easy",
+      "stem": "The critical path in a project schedule is BEST described as:",
+      "options": {
+        "A": "the sequence of tasks that consumes the largest share of the budget.",
+        "B": "the tasks that have been assigned to the most experienced staff.",
+        "C": "the tasks that carry the greatest technical uncertainty.",
+        "D": "the longest sequence of dependent tasks, which determines the minimum possible project duration."
+      },
+      "answer": "D",
+      "why_correct": "The critical path has no float. Any delay to a task on it delays the whole project, which is why it defines the shortest achievable schedule and where management attention belongs.",
+      "why_wrong": {
+        "A": "Cost and duration are separate dimensions; expensive tasks may have considerable float.",
+        "B": "Staff assignment is a resourcing decision unrelated to schedule dependency.",
+        "C": "Technically risky tasks warrant attention but are not necessarily on the critical path."
+      }
+    },
+    {
+      "id": "cisa-d3a-008",
+      "topic": "Project Governance and Management",
+      "difficulty": "medium",
+      "stem": "Function point analysis is MOST useful for:",
+      "options": {
+        "A": "measuring the internal complexity of source code after it has been written.",
+        "B": "estimating software size and development effort based on the functionality delivered, independently of the technology used.",
+        "C": "tracking the density of defects discovered during testing.",
+        "D": "ranking requirements in order of business priority."
+      },
+      "answer": "B",
+      "why_correct": "Function points measure what the software does from the user's perspective, so estimates can be produced before technology is chosen and compared across projects built on different platforms.",
+      "why_wrong": {
+        "A": "Internal code complexity is measured by metrics such as cyclomatic complexity.",
+        "C": "Defect density is a quality measure, although function points can serve as its denominator.",
+        "D": "Requirement prioritization is a business value judgment, not a sizing technique."
+      }
+    },
+    {
+      "id": "cisa-d3a-009",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "easy",
+      "stem": "The PRIMARY purpose of a business case is to:",
+      "options": {
+        "A": "establish whether the proposed investment is justified, by setting out expected costs, benefits, risks and alternatives.",
+        "B": "obtain technical approval for the proposed solution architecture.",
+        "C": "document the project plan, schedule and resource requirements.",
+        "D": "satisfy the organization's procurement policy requirements."
+      },
+      "answer": "A",
+      "why_correct": "A business case supports an investment decision. It exists so that whoever commits the funding can weigh expected return against cost and risk, and compare this proposal against the alternatives including doing nothing.",
+      "why_wrong": {
+        "B": "Technical approval follows from architecture governance once the investment is agreed.",
+        "C": "Planning detail belongs in the project plan, which is produced after approval.",
+        "D": "Procurement compliance is an administrative requirement rather than the purpose of the case."
+      }
+    },
+    {
+      "id": "cisa-d3a-010",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a business case would be MOST concerned to find that:",
+      "options": {
+        "A": "some benefits are expressed in non-financial terms.",
+        "B": "the case evaluates three alternative options.",
+        "C": "benefits are stated with no named owner accountable for delivering them and no method defined for measuring whether they were achieved.",
+        "D": "the calculated payback period extends to four years."
+      },
+      "answer": "C",
+      "why_correct": "Benefits nobody owns and nobody can measure are assertions used to secure funding. They will never be tested after implementation, which is why so many projects are declared successful while delivering nothing measurable.",
+      "why_wrong": {
+        "A": "Non-financial benefits such as regulatory compliance or risk reduction are legitimate and often decisive.",
+        "B": "Evaluating alternatives is exactly what a sound business case should do.",
+        "D": "A four-year payback may be entirely acceptable depending on the nature of the investment."
+      }
+    },
+    {
+      "id": "cisa-d3a-011",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "medium",
+      "stem": "The 'do nothing' option should be included in a feasibility analysis PRIMARILY because:",
+      "options": {
+        "A": "it is invariably the least expensive of the available options.",
+        "B": "it establishes the baseline against which the value of every other option is measured.",
+        "C": "governance policy requires a minimum number of options to be considered.",
+        "D": "it demonstrates that the analysis was conducted thoroughly."
+      },
+      "answer": "B",
+      "why_correct": "Every claimed benefit is a benefit relative to something. Without the baseline, improvements that would have occurred anyway get attributed to the project, and the incremental value of investing is never actually established.",
+      "why_wrong": {
+        "A": "Doing nothing frequently carries substantial cost through lost opportunity, growing risk or accumulating technical debt.",
+        "C": "Meeting a required option count is a procedural formality with no analytical value.",
+        "D": "Appearing thorough is presentation rather than the reason the option matters."
+      }
+    },
+    {
+      "id": "cisa-d3a-012",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "medium",
+      "stem": "Benefits realization is BEST assessed:",
+      "options": {
+        "A": "at the point the business case is approved and funding released.",
+        "B": "at project closure, once all deliverables have been handed over.",
+        "C": "during user acceptance testing, when the system is first exercised.",
+        "D": "once the system has operated long enough for the expected benefits to materialize, by comparing outcomes against the business case."
+      },
+      "answer": "D",
+      "why_correct": "Benefits accrue through use, not delivery. Assessing them only after sufficient operating time, against the original case, is what closes the loop between what was promised and what was obtained.",
+      "why_wrong": {
+        "A": "At approval the benefits are forecasts; nothing has yet been realized.",
+        "B": "Project closure confirms deliverables were handed over, which is output rather than outcome.",
+        "C": "Acceptance testing establishes the system works as specified, not that the business gained anything."
+      }
+    },
+    {
+      "id": "cisa-d3a-013",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "hard",
+      "stem": "An organization approves projects on the basis of business cases but never revisits those cases after approval. The GREATEST risk is that:",
+      "options": {
+        "A": "project managers will lack motivation to deliver the stated benefits.",
+        "B": "business cases will be written with increasingly optimistic assumptions.",
+        "C": "the cost of the governance process will rise over time.",
+        "D": "projects continue consuming resources after their justification has ceased to hold, because nobody re-tests the assumptions."
+      },
+      "answer": "D",
+      "why_correct": "Assumptions decay. Markets shift, regulation changes, better options appear, and a project justified two years ago may no longer be worth finishing. Without re-examination the organization keeps funding it because it was once approved.",
+      "why_wrong": {
+        "A": "Motivation is a management concern and a downstream effect rather than the principal risk.",
+        "B": "Optimistic estimating is a real consequence of never being held to the numbers, but it is secondary to funding work that should have stopped.",
+        "C": "Governance cost would fall, not rise, in the absence of ongoing review."
+      }
+    },
+    {
+      "id": "cisa-d3a-014",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "medium",
+      "stem": "Which of the following would MOST undermine the reliability of a business case?",
+      "options": {
+        "A": "Benefits quantified using deliberately conservative assumptions.",
+        "B": "Costs and benefits estimated solely by the party advocating the project, with no independent challenge.",
+        "C": "Inclusion of sensitivity analysis showing how the result varies with key assumptions.",
+        "D": "Explicit statement of the assumptions on which the case depends."
+      },
+      "answer": "B",
+      "why_correct": "The advocate has every incentive to understate cost and overstate benefit, usually without any conscious intent to mislead. Independent challenge is the control that keeps the numbers honest enough to decide on.",
+      "why_wrong": {
+        "A": "Conservative assumptions strengthen a case, since the result holds even under pessimistic conditions.",
+        "C": "Sensitivity analysis reveals how fragile the conclusion is, which improves the quality of the decision.",
+        "D": "Stating assumptions explicitly allows them to be challenged and later tested."
+      }
+    },
+    {
+      "id": "cisa-d3a-015",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "easy",
+      "stem": "Feasibility analysis for a proposed system should MOST appropriately consider:",
+      "options": {
+        "A": "technical feasibility alone, since that determines whether the system can be built.",
+        "B": "economic feasibility alone, since cost governs whether it will be approved.",
+        "C": "technical, economic, operational, scheduling and legal or regulatory feasibility together.",
+        "D": "the capability of the proposed vendor alone."
+      },
+      "answer": "C",
+      "why_correct": "A proposal can be technically achievable, financially attractive and still fail because the organization cannot operate it, cannot deliver it in the window available, or cannot do so lawfully. All dimensions have to hold simultaneously.",
+      "why_wrong": {
+        "A": "Buildable systems are abandoned regularly for reasons that have nothing to do with technology.",
+        "B": "An attractive return is worthless if the solution cannot be operated or is not permitted.",
+        "D": "Vendor capability is one input within technical and operational feasibility."
+      }
+    },
+    {
+      "id": "cisa-d3a-016",
+      "topic": "System Development Methodologies",
+      "difficulty": "medium",
+      "stem": "The traditional waterfall approach is BEST characterized by the fact that:",
+      "options": {
+        "A": "each phase is substantially completed and approved before the next begins, which makes requirement errors discovered late expensive to correct.",
+        "B": "requirements are deliberately refined and reprioritized throughout delivery.",
+        "C": "working software is released to users every few weeks.",
+        "D": "business representatives are embedded within the delivery team."
+      },
+      "answer": "A",
+      "why_correct": "Waterfall's sequential gates give clear control points and documentation, at the cost of discovering requirement problems only when users finally see the system, by which time everything downstream has been built on the error.",
+      "why_wrong": {
+        "B": "Continuous refinement of requirements is characteristic of iterative and agile approaches.",
+        "C": "Frequent incremental releases describe agile delivery.",
+        "D": "Embedded business representatives are an agile practice; waterfall typically consults users at defined points."
+      }
+    },
+    {
+      "id": "cisa-d3a-017",
+      "topic": "System Development Methodologies",
+      "difficulty": "hard",
+      "stem": "Agile methods MOST significantly change the IS auditor's approach because:",
+      "options": {
+        "A": "agile projects do not produce documentation of any kind.",
+        "B": "control evidence must be found within short iterative cycles rather than at large phase gates, so the auditor looks for controls embedded in the delivery process itself.",
+        "C": "agile projects do not require formal testing.",
+        "D": "agile projects operate without any defined scope."
+      },
+      "answer": "B",
+      "why_correct": "The controls still exist but their evidence looks different: definition of done, automated test suites, pipeline approvals, backlog and sprint records. The auditor has to know where to look rather than expecting signed phase gates.",
+      "why_wrong": {
+        "A": "Agile favors valuable documentation over comprehensive documentation; it does not eliminate it.",
+        "C": "Agile typically increases testing, much of it automated and run continuously.",
+        "D": "Scope is defined and reprioritized continuously through the backlog rather than fixed in advance."
+      }
+    },
+    {
+      "id": "cisa-d3a-018",
+      "topic": "System Development Methodologies",
+      "difficulty": "hard",
+      "stem": "The GREATEST control risk in a DevOps environment with automated deployment to production is that:",
+      "options": {
+        "A": "deployments occur too frequently to be individually documented.",
+        "B": "developers are required to acquire operations skills they may lack.",
+        "C": "infrastructure is defined and managed as code.",
+        "D": "traditional segregation between development and production may be lost unless it is re-established through pipeline controls and approval gates."
+      },
+      "answer": "D",
+      "why_correct": "DevOps deliberately dissolves the handoff that used to enforce segregation. The control has to be rebuilt inside the pipeline through peer review, protected branches, automated gates and restricted deployment credentials, or a single engineer can move their own code to production unchecked.",
+      "why_wrong": {
+        "A": "Automated pipelines document deployments far more completely and reliably than manual processes did.",
+        "B": "Skills development is a resourcing consideration rather than a control weakness.",
+        "C": "Infrastructure as code improves control by making environment configuration versioned, reviewable and reproducible."
+      }
+    },
+    {
+      "id": "cisa-d3a-019",
+      "topic": "System Development Methodologies",
+      "difficulty": "medium",
+      "stem": "Prototyping is MOST appropriate when:",
+      "options": {
+        "A": "requirements are unclear and users need something concrete to react to before they can articulate what they need.",
+        "B": "requirements are stable, well understood and fully documented.",
+        "C": "the system performs a safety-critical function requiring formal verification.",
+        "D": "the work is being delivered under a fixed-price contract with defined deliverables."
+      },
+      "answer": "A",
+      "why_correct": "People are far better at critiquing something in front of them than at describing what they want in the abstract. Prototyping converts a specification problem into a feedback problem, which is much easier to solve.",
+      "why_wrong": {
+        "B": "Where requirements are already clear, prototyping adds cost without resolving any uncertainty.",
+        "C": "Safety-critical development demands rigorous specification and verification rather than exploratory iteration.",
+        "D": "Fixed-price arrangements depend on defined deliverables, which sit awkwardly with an exploratory approach."
+      }
+    },
+    {
+      "id": "cisa-d3a-020",
+      "topic": "System Development Methodologies",
+      "difficulty": "medium",
+      "stem": "The GREATEST risk associated with prototyping is that:",
+      "options": {
+        "A": "users become too closely involved in the development process.",
+        "B": "building successive prototypes takes longer than specifying the system.",
+        "C": "the prototype is pressed into production without the controls, error handling and documentation a production system requires.",
+        "D": "requirements continue to change during the course of the project."
+      },
+      "answer": "C",
+      "why_correct": "Prototypes are built to explore, deliberately omitting validation, security, error handling and audit trails. When one works well enough that management asks to keep it, all of those omissions go live with it.",
+      "why_wrong": {
+        "A": "Deep user involvement is the principal benefit of prototyping.",
+        "B": "Prototyping is usually faster at reaching a shared understanding than iterating on written specifications.",
+        "D": "Accommodating changing requirements is precisely what prototyping is designed to do."
+      }
+    },
+    {
+      "id": "cisa-d3a-021",
+      "topic": "System Development Methodologies",
+      "difficulty": "medium",
+      "stem": "When auditing an agile development project, an IS auditor should MOST importantly verify that:",
+      "options": {
+        "A": "a complete requirements specification was signed off before development commenced.",
+        "B": "a formal phase gate review was held at the conclusion of each stage.",
+        "C": "the team's definition of done incorporates the security, control and testing requirements the organization mandates.",
+        "D": "all system documentation was completed prior to the first release."
+      },
+      "answer": "C",
+      "why_correct": "The definition of done is where organizational requirements become enforceable in an agile team. If security review and control testing are inside it, they happen every iteration; if not, they are deferred indefinitely.",
+      "why_wrong": {
+        "A": "Requiring a signed specification up front contradicts the methodology and would not be evidence of control.",
+        "B": "Agile replaces phase gates with iteration reviews and continuous integration checkpoints.",
+        "D": "Documentation is produced incrementally alongside working software rather than completed in advance."
+      }
+    },
+    {
+      "id": "cisa-d3a-022",
+      "topic": "System Development Methodologies",
+      "difficulty": "easy",
+      "stem": "Reverse engineering of an existing application is MOST commonly undertaken in order to:",
+      "options": {
+        "A": "recover an understanding of a system whose documentation and original developers are no longer available.",
+        "B": "improve the runtime performance of the application.",
+        "C": "reduce the licensing costs associated with the software.",
+        "D": "satisfy a specific regulatory reporting obligation."
+      },
+      "answer": "A",
+      "why_correct": "Legacy systems commonly outlive their documentation and their authors. Reverse engineering reconstructs the business rules embedded in the code so the system can be maintained, replaced or migrated.",
+      "why_wrong": {
+        "B": "Performance improvement is achieved through profiling and optimization of a system already understood.",
+        "C": "Licensing cost is a commercial matter unaffected by understanding the code.",
+        "D": "Regulatory reporting draws on system output rather than on reconstructed internal logic."
+      }
+    },
+    {
+      "id": "cisa-d3a-023",
+      "topic": "System Development Methodologies",
+      "difficulty": "medium",
+      "asks": "control",
+      "stem": "When software is acquired rather than developed in house, the IS auditor should place PRIMARY emphasis on:",
+      "options": {
+        "A": "the quality of the vendor's underlying source code.",
+        "B": "the number of organizations that have already installed the product.",
+        "C": "the vendor's published product roadmap and release cadence.",
+        "D": "whether the package meets the organization's control and functional requirements, and how any gaps will be addressed through configuration or compensating controls."
+      },
+      "answer": "D",
+      "why_correct": "With a package the organization cannot change the software, so the audit question becomes fit and gap. Requirements the product cannot meet must be handled deliberately through configuration, process change or compensating controls rather than quietly accepted.",
+      "why_wrong": {
+        "A": "Source code is rarely available for commercial packages and is not where the organization's exposure lies.",
+        "B": "A large install base suggests viability but says nothing about fit with this organization's requirements.",
+        "C": "The roadmap matters for long-term planning but not for whether current requirements are met."
+      }
+    },
+    {
+      "id": "cisa-d3a-024",
+      "topic": "Control Identification and Design",
+      "difficulty": "medium",
+      "stem": "Application controls are MOST effectively identified and designed:",
+      "options": {
+        "A": "during user acceptance testing, when the system can be exercised.",
+        "B": "during requirements definition and design, so that they are built in rather than added afterward.",
+        "C": "after the system has entered production and actual weaknesses can be observed.",
+        "D": "during the post-implementation review."
+      },
+      "answer": "B",
+      "why_correct": "Controls designed alongside functionality become part of how the system works. Retrofitted controls are bolt-ons that are more expensive, less effective and frequently easier to bypass.",
+      "why_wrong": {
+        "A": "By acceptance testing the system is built, and adding controls means rework.",
+        "C": "Waiting for production means the organization is exposed while the weakness exists.",
+        "D": "The post-implementation review evaluates what was delivered; it is far too late to shape it."
+      }
+    },
+    {
+      "id": "cisa-d3a-025",
+      "topic": "Control Identification and Design",
+      "difficulty": "easy",
+      "stem": "Input validation controls PRIMARILY address the risk that:",
+      "options": {
+        "A": "inaccurate, incomplete or unauthorized data enters the system.",
+        "B": "unauthorized users gain access to the application.",
+        "C": "the system becomes unavailable to its users.",
+        "D": "data is intercepted or corrupted while being transmitted."
+      },
+      "answer": "A",
+      "why_correct": "Input controls act at the boundary, checking data for validity, reasonableness and completeness before it is accepted. Errors caught here never propagate into processing, reporting or downstream systems.",
+      "why_wrong": {
+        "B": "Access to the application is governed by authentication and authorization controls.",
+        "C": "Availability is addressed through resilience, capacity and recovery arrangements.",
+        "D": "Protection in transit is provided by transmission controls such as encryption and message integrity checks."
+      }
+    },
+    {
+      "id": "cisa-d3a-026",
+      "topic": "Control Identification and Design",
+      "difficulty": "easy",
+      "stem": "A check digit is BEST described as a control that:",
+      "options": {
+        "A": "verifies that the user entering a transaction is authorized to do so.",
+        "B": "confirms the total monetary value of a batch of transactions.",
+        "C": "detects transposition and transcription errors within a key identifier such as an account number.",
+        "D": "encrypts sensitive fields before they are stored."
+      },
+      "answer": "C",
+      "why_correct": "A check digit is computed from the other digits and appended to the identifier. Mistyping a digit or swapping two adjacent digits produces a value that fails the calculation and is rejected at entry.",
+      "why_wrong": {
+        "A": "Authorization to transact is established by access control rather than by data format checks.",
+        "B": "Batch value confirmation is performed by control totals covering the whole batch.",
+        "D": "Encryption protects confidentiality and has nothing to do with detecting keying errors."
+      }
+    },
+    {
+      "id": "cisa-d3a-027",
+      "topic": "Control Identification and Design",
+      "difficulty": "medium",
+      "stem": "Which of the following is the BEST example of a processing control?",
+      "options": {
+        "A": "A password required in order to access the application.",
+        "B": "A run-to-run control total comparing the balance carried forward from one processing stage to the balance brought forward at the next.",
+        "C": "A nightly backup of the application database.",
+        "D": "A firewall restricting network access to the application server."
+      },
+      "answer": "B",
+      "why_correct": "Run-to-run totals confirm that nothing was lost, added or altered between processing stages. They operate on data as it moves through the system, which is exactly what a processing control does.",
+      "why_wrong": {
+        "A": "A password is an access control operating before any processing occurs.",
+        "C": "Backup is a recovery control protecting availability.",
+        "D": "A firewall is a network security control operating outside the application."
+      }
+    },
+    {
+      "id": "cisa-d3a-028",
+      "topic": "Control Identification and Design",
+      "difficulty": "medium",
+      "stem": "An audit trail within an application is MOST valuable when it:",
+      "options": {
+        "A": "records only the transactions that failed validation.",
+        "B": "is retained for a minimum period of one year.",
+        "C": "is reviewed regularly by the application administrator.",
+        "D": "captures who did what and when, in a form that the person whose activity is recorded cannot alter."
+      },
+      "answer": "D",
+      "why_correct": "Completeness and tamper resistance are what give an audit trail evidential weight. A record the subject can edit proves nothing, and one that omits successful activity misses most of what matters.",
+      "why_wrong": {
+        "A": "Successful transactions are frequently the ones under investigation, particularly in fraud cases.",
+        "B": "Retention determines how far back you can look but says nothing about reliability.",
+        "C": "Review by the administrator whose own activity appears in the trail is a segregation of duties weakness."
+      }
+    },
+    {
+      "id": "cisa-d3a-029",
+      "topic": "Control Identification and Design",
+      "difficulty": "hard",
+      "stem": "The BEST time for an IS auditor to recommend controls for a new system is:",
+      "options": {
+        "A": "after go-live, when weaknesses can be observed in actual operation.",
+        "B": "during the post-implementation review, when the full picture is available.",
+        "C": "at the first annual audit following implementation.",
+        "D": "during requirements and design, when changes cost least and the auditor can preserve independence by advising rather than deciding."
+      },
+      "answer": "D",
+      "why_correct": "Early involvement is where audit adds most value per hour spent. The independence line is manageable provided the auditor advises on control objectives and leaves design decisions and their ownership with management.",
+      "why_wrong": {
+        "A": "Recommending controls after go-live means the organization runs exposed and pays rework costs.",
+        "B": "The post-implementation review assesses what was built; recommendations then compete with the next project for funding.",
+        "C": "Waiting a full year compounds both the exposure and the cost of correction."
+      }
+    },
+    {
+      "id": "cisa-d3a-030",
+      "topic": "Control Identification and Design",
+      "difficulty": "medium",
+      "stem": "Performing data validation at the point of entry rather than during later batch processing MOST significantly:",
+      "options": {
+        "A": "reduces the storage capacity required by the application.",
+        "B": "allows errors to be corrected immediately by the person who has the knowledge and the source documents needed to fix them.",
+        "C": "removes the need for processing controls further downstream.",
+        "D": "improves the overall throughput of the system."
+      },
+      "answer": "B",
+      "why_correct": "The person keying the data has the source document in front of them and knows what was intended. An error surfaced hours later reaches someone with neither, and correcting it becomes an investigation.",
+      "why_wrong": {
+        "A": "Storage requirements are essentially unaffected by when validation occurs.",
+        "C": "Processing controls remain necessary, since errors can be introduced during processing itself.",
+        "D": "Validating at entry adds a small overhead to each transaction rather than improving throughput."
+      }
+    }
+  ]
+}

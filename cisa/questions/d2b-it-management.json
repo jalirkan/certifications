@@ -1,0 +1,432 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "2",
+    "section": "B",
+    "batch": "d2b-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D2 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d2b-001",
+      "topic": "IT Resource Management",
+      "difficulty": "easy",
+      "stem": "The PRIMARY objective of IT resource management is to:",
+      "options": {
+        "A": "minimize the headcount employed within the IT function.",
+        "B": "maximize the utilization of installed hardware capacity.",
+        "C": "ensure that available people, technology and funding are allocated to deliver the organization's priorities.",
+        "D": "reduce the organization's reliance on external service providers."
+      },
+      "answer": "C",
+      "why_correct": "Resource management is fundamentally about allocation. Capacity is finite, so the discipline lies in directing it toward what the organization has decided matters most.",
+      "why_wrong": {
+        "A": "Reducing headcount is a cost strategy that can easily destroy the capability needed to deliver.",
+        "B": "High hardware utilization may indicate efficiency or dangerously little headroom, so it is not an objective in itself.",
+        "D": "External providers are a legitimate way to obtain capability; the decision is about the best mix, not minimizing one side."
+      }
+    },
+    {
+      "id": "cisa-d2b-002",
+      "topic": "IT Resource Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that one administrator is the only person who understands a business-critical legacy system. The GREATEST concern is:",
+      "options": {
+        "A": "key person dependency, since that individual's absence or departure would leave the organization unable to operate or recover the system.",
+        "B": "that the individual is likely to be carrying an excessive workload.",
+        "C": "that the system is old and approaching the end of its useful life.",
+        "D": "that the technical documentation for the system is incomplete."
+      },
+      "answer": "A",
+      "why_correct": "The organization's ability to run and recover a critical system rests on one person's continued availability and goodwill. Illness, resignation or dispute converts a staffing matter into an operational failure, and it also concentrates the opportunity for undetected misuse.",
+      "why_wrong": {
+        "B": "Workload is a wellbeing and retention concern that follows from the dependency rather than defining it.",
+        "C": "System age is a technology lifecycle matter; a modern system with one expert carries the same dependency.",
+        "D": "Missing documentation is a principal cause of the dependency, but the risk that matters is the operational exposure it creates."
+      }
+    },
+    {
+      "id": "cisa-d2b-003",
+      "topic": "IT Resource Management",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST mitigates key person dependency within an IT function?",
+      "options": {
+        "A": "Increasing the compensation paid to the individuals concerned.",
+        "B": "Requiring those individuals to give an extended notice period on resignation.",
+        "C": "Monitoring the activity of the individuals more closely.",
+        "D": "Cross-training other staff, documenting the environment, and requiring mandatory leave so that gaps surface while they can still be addressed."
+      },
+      "answer": "D",
+      "why_correct": "This removes the dependency rather than managing around it. Mandatory leave is the underrated element: it forces someone else to operate the system, which reveals undocumented knowledge and any activity that relied on nobody else looking.",
+      "why_wrong": {
+        "A": "Higher pay may aid retention but leaves the organization equally exposed to illness or a sudden departure.",
+        "B": "A notice period delays the loss without transferring any of the knowledge.",
+        "C": "Monitoring may detect misuse but does nothing to make the knowledge available to anyone else."
+      }
+    },
+    {
+      "id": "cisa-d2b-004",
+      "topic": "IT Resource Management",
+      "difficulty": "hard",
+      "stem": "An organization consistently under-delivers against its approved IT project portfolio. An IS auditor reviewing resource management would MOST likely find that:",
+      "options": {
+        "A": "project managers lack recognized professional certification.",
+        "B": "more projects have been approved than available capacity can deliver, because demand is never reconciled against capacity during prioritization.",
+        "C": "the approved projects are technically more complex than anticipated.",
+        "D": "external suppliers have failed to meet their delivery commitments."
+      },
+      "answer": "B",
+      "why_correct": "Chronic under-delivery across a whole portfolio points at systemic over-commitment rather than individual project failure. Approving work without testing it against realistic capacity guarantees that everything runs late simultaneously.",
+      "why_wrong": {
+        "A": "Certification correlates weakly with delivery, and would not explain a portfolio-wide pattern.",
+        "C": "Complexity affects individual estimates and would produce scattered overruns, not consistent shortfall across the portfolio.",
+        "D": "Supplier failure would affect the projects those suppliers touch rather than the entire programme."
+      }
+    },
+    {
+      "id": "cisa-d2b-005",
+      "topic": "IT Resource Management",
+      "difficulty": "medium",
+      "stem": "Capacity planning for IT human resources is MOST effective when it:",
+      "options": {
+        "A": "assumes that staff are fully productive on project work throughout the year.",
+        "B": "accounts for run-the-business effort, leave, training and expected attrition before committing the remaining capacity to change initiatives.",
+        "C": "is carried out once a year as part of the budgeting cycle.",
+        "D": "is delegated entirely to individual team leaders for their own areas."
+      },
+      "answer": "B",
+      "why_correct": "Most of an IT team's time is consumed keeping existing services running. Planning from gross headcount rather than genuinely available capacity is the most common reason project portfolios are systematically over-committed.",
+      "why_wrong": {
+        "A": "Nobody is fully productive on project work; support, meetings, leave and incidents consume a large share of every year.",
+        "C": "An annual exercise cannot respond to attrition, new demand or shifting priorities during the year.",
+        "D": "Local planning without an aggregate view misses cross-team dependencies and shared specialist constraints."
+      }
+    },
+    {
+      "id": "cisa-d2b-006",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "The MOST important consideration when outsourcing an IT function is that:",
+      "options": {
+        "A": "the vendor's pricing is lower than the cost of delivering the function internally.",
+        "B": "the vendor holds recognized industry certifications.",
+        "C": "the vendor has substantial experience within the organization's industry.",
+        "D": "accountability for the outsourced activity, and for the risk it carries, remains with the organization."
+      },
+      "answer": "D",
+      "why_correct": "Outsourcing transfers the work, never the accountability. Regulators, customers and the board still hold the organization responsible, which is why oversight, assurance and exit rights have to be designed into the arrangement from the start.",
+      "why_wrong": {
+        "A": "Cost is usually the motivation but says nothing about whether the risk is being managed.",
+        "B": "Certifications provide useful evidence of a control baseline but do not address where accountability sits.",
+        "C": "Industry experience improves service quality and is a selection criterion rather than the governing principle."
+      }
+    },
+    {
+      "id": "cisa-d2b-007",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a contract with a critical IT supplier would be MOST concerned to find that it omits:",
+      "options": {
+        "A": "the right to audit the vendor, or to receive independent assurance over the vendor's controls.",
+        "B": "a service credit regime applying when performance targets are missed.",
+        "C": "a clear statement of intellectual property ownership.",
+        "D": "an agreed escalation path for unresolved operational issues."
+      },
+      "answer": "A",
+      "why_correct": "Without a right to audit or a commitment to provide independent assurance, the organization has no mechanism to verify that controls it depends on are actually operating. It must simply trust the vendor's word for the life of the contract.",
+      "why_wrong": {
+        "B": "Service credits provide financial recompense but rarely approach the value of the disruption, and their absence does not blind the organization.",
+        "C": "Intellectual property terms matter commercially and can usually be resolved later without control consequences.",
+        "D": "Escalation paths are operationally useful and are frequently agreed outside the contract itself."
+      }
+    },
+    {
+      "id": "cisa-d2b-008",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "Before entering into a contract with a critical IT supplier, the organization should FIRST:",
+      "options": {
+        "A": "negotiate pricing and payment terms.",
+        "B": "agree the service levels the supplier will be held to.",
+        "C": "perform due diligence proportionate to the criticality of the service and the risk of the arrangement.",
+        "D": "draft the exit and transition plan for the end of the relationship."
+      },
+      "answer": "C",
+      "why_correct": "Due diligence establishes whether this supplier should be engaged at all, covering financial stability, control environment, subcontracting and concentration. Everything else assumes an answer to that question.",
+      "why_wrong": {
+        "A": "Negotiating price before assessing suitability risks a good deal with an unsuitable supplier.",
+        "B": "Service levels define what is expected but not whether the supplier can be relied upon to deliver it.",
+        "D": "Exit planning is essential and should be built into the contract, but it follows the decision to proceed."
+      }
+    },
+    {
+      "id": "cisa-d2b-009",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "An organization depends on a single supplier for a critical service, with no realistic alternative available. The GREATEST risk is that:",
+      "options": {
+        "A": "pricing may increase substantially at contract renewal.",
+        "B": "the quality of the service delivered may decline over time.",
+        "C": "the organization may become locked into the supplier's proprietary technology.",
+        "D": "the organization has no practical ability to exit or to sustain the service if the supplier fails, so continuity rests entirely on that one party."
+      },
+      "answer": "D",
+      "why_correct": "Concentration converts supplier failure into organizational failure. With no alternative and no ability to bring the service back in house, insolvency, acquisition or a major supplier outage leaves the organization with no options at all.",
+      "why_wrong": {
+        "A": "Price escalation is a real commercial consequence of weak bargaining position but is survivable.",
+        "B": "Declining quality is unwelcome and can be addressed through governance while service continues.",
+        "C": "Technology lock-in raises switching cost, which is a contributing factor to the continuity exposure rather than the exposure itself."
+      }
+    },
+    {
+      "id": "cisa-d2b-010",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "Fourth-party risk MOST accurately refers to risk arising from:",
+      "options": {
+        "A": "the organization's own employees and contractors.",
+        "B": "the subcontractors and suppliers that the organization's own vendors depend upon.",
+        "C": "competitors operating in the same market.",
+        "D": "regulators with authority over the organization's activities."
+      },
+      "answer": "B",
+      "why_correct": "Vendors have vendors. An organization can perform excellent due diligence on its direct supplier and still be exposed through a subprocessor it never assessed and may not even know exists, which is why disclosure of subcontracting matters contractually.",
+      "why_wrong": {
+        "A": "Employees and contractors represent internal and insider risk.",
+        "C": "Competitors present strategic and market risk rather than supply chain risk.",
+        "D": "Regulators are a source of compliance obligation, not a supply chain tier."
+      }
+    },
+    {
+      "id": "cisa-d2b-011",
+      "topic": "IT Vendor Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that vendor performance is formally reviewed only at contract renewal, on a three-year cycle. The GREATEST concern is that:",
+      "options": {
+        "A": "the review process consumes considerable management time when it occurs.",
+        "B": "the vendor may decline to participate in a review it is not contractually obliged to attend.",
+        "C": "performance problems and control weaknesses can persist for years before being formally addressed, by which point the organization has little remaining leverage.",
+        "D": "the contract may renew automatically before the review has been completed."
+      },
+      "answer": "C",
+      "why_correct": "Three years is long enough for degradation to become the accepted normal. Raising issues at renewal is also the weakest possible moment, since switching is rarely feasible and the supplier knows it.",
+      "why_wrong": {
+        "A": "The effort involved is a resourcing question rather than a risk to the organization.",
+        "B": "Suppliers generally engage with performance reviews as part of maintaining the relationship.",
+        "D": "Automatic renewal is a contract administration issue that is easily managed with diary controls."
+      }
+    },
+    {
+      "id": "cisa-d2b-012",
+      "topic": "IT Vendor Management",
+      "difficulty": "hard",
+      "stem": "An exit or transition plan for a critical outsourced service is important PRIMARILY because:",
+      "options": {
+        "A": "it preserves the organization's practical ability to change or repatriate the service without unacceptable disruption, and that ability erodes over time if never planned for.",
+        "B": "most standard contracts require one to be produced.",
+        "C": "it provides leverage to negotiate a reduction in the supplier's fees.",
+        "D": "it demonstrates good faith to the supplier during contract negotiations."
+      },
+      "answer": "A",
+      "why_correct": "Without a plan, knowledge, data formats and process understanding migrate to the supplier until leaving becomes impractical regardless of what the contract permits. Planning at the outset is what keeps the option genuinely available.",
+      "why_wrong": {
+        "B": "Contractual requirement may prompt the plan but does not explain why it matters.",
+        "C": "Improved negotiating position is a welcome side effect rather than the purpose.",
+        "D": "Demonstrating good faith is irrelevant; exit planning is about protecting the organization."
+      }
+    },
+    {
+      "id": "cisa-d2b-013",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "medium",
+      "stem": "A key performance indicator is BEST distinguished from a key risk indicator in that a key performance indicator:",
+      "options": {
+        "A": "measures how well an objective is being achieved, while a key risk indicator gives forward-looking signal that risk exposure is changing.",
+        "B": "is always expressed in financial terms.",
+        "C": "is reported to management less frequently.",
+        "D": "applies only within the information technology function."
+      },
+      "answer": "A",
+      "why_correct": "Performance indicators look at outcomes already achieved; risk indicators are leading measures intended to signal that exposure is building before the loss occurs. Organizations commonly report the first and neglect the second.",
+      "why_wrong": {
+        "B": "Both types are frequently non-financial, covering availability, error rates, staff turnover and similar measures.",
+        "C": "Reporting frequency depends on the metric and its volatility rather than on which category it falls into.",
+        "D": "Both are used across the whole organization, not solely within IT."
+      }
+    },
+    {
+      "id": "cisa-d2b-014",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing the IT metrics reported to the board would be MOST concerned to find that:",
+      "options": {
+        "A": "the metrics are presented as trends rather than single-period values.",
+        "B": "some of the metrics reported are qualitative rather than numeric.",
+        "C": "the metrics describe technical activity such as tickets closed and patches applied, without connecting to business outcomes or risk exposure.",
+        "D": "the metrics are collected and reported on a monthly cycle."
+      },
+      "answer": "C",
+      "why_correct": "A board cannot govern from activity counts. Reporting volume of work performed without tying it to service outcomes, business impact or risk gives directors no basis for the decisions they are there to make.",
+      "why_wrong": {
+        "A": "Trend presentation is more informative than point values and is good practice.",
+        "B": "Qualitative measures capture matters that resist quantification and are legitimate alongside numeric ones.",
+        "D": "Monthly collection is a reasonable cadence for most operational reporting."
+      }
+    },
+    {
+      "id": "cisa-d2b-015",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "medium",
+      "stem": "The GREATEST risk of relying on performance metrics that are self-reported by the function being measured is that:",
+      "options": {
+        "A": "the data may be presented in an inconsistent format between periods.",
+        "B": "definitions and measurement methods may be adjusted, consciously or otherwise, to produce favorable results, with no independent basis to detect it.",
+        "C": "preparing the reports consumes staff time that could be spent on delivery.",
+        "D": "the metrics reported may contain more detail than the audience requires."
+      },
+      "answer": "B",
+      "why_correct": "When the measured party also controls the definitions, the exclusions and the calculation, the number drifts toward the target without anyone deciding to mislead. Independent validation of the measurement basis is the control.",
+      "why_wrong": {
+        "A": "Formatting inconsistency is a presentation issue that is easily corrected.",
+        "C": "Reporting effort is an efficiency consideration rather than a reliability risk.",
+        "D": "Excessive detail affects usability and can be addressed through report design."
+      }
+    },
+    {
+      "id": "cisa-d2b-016",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "hard",
+      "stem": "IT reports that 98% of incidents were resolved within the agreed service level, yet complaints from the business are increasing. The IS auditor should FIRST:",
+      "options": {
+        "A": "accept the reported metric, since it is supported by system data.",
+        "B": "conclude that business perception is not aligned with objective reality.",
+        "C": "recommend that the organization replace its incident management system.",
+        "D": "examine how the metric is defined and calculated, including whether reclassification, clock-stopping or exclusions are affecting the reported figure."
+      },
+      "answer": "D",
+      "why_correct": "A large gap between measured performance and experienced performance almost always originates in the measurement. Pausing the clock while awaiting user response, reclassifying priority, or excluding certain categories can all produce a genuine 98% that means very little.",
+      "why_wrong": {
+        "A": "System-generated data reflects whatever the configuration counts, which is precisely what is in question.",
+        "B": "Dismissing consistent business feedback discards the strongest signal that something is wrong.",
+        "C": "Replacing the tool addresses neither the definition problem nor the underlying service issue."
+      }
+    },
+    {
+      "id": "cisa-d2b-017",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "medium",
+      "stem": "Benchmarking IT performance against comparable external organizations is MOST useful for:",
+      "options": {
+        "A": "setting internal service level targets directly from the benchmark values.",
+        "B": "providing context on whether internal performance and cost are broadly reasonable, prompting further questions rather than firm conclusions.",
+        "C": "determining the size of the organization's IT budget for the coming year.",
+        "D": "evaluating the performance of individual members of IT staff."
+      },
+      "answer": "B",
+      "why_correct": "Benchmarks are conversation starters. A figure well outside the comparator range is worth investigating, but differences in scope, definition, business model and risk appetite mean the benchmark rarely supports a conclusion on its own.",
+      "why_wrong": {
+        "A": "Service targets must come from business requirements, since other organizations have different needs.",
+        "C": "Budgets follow from strategy and planned initiatives rather than from peer averages.",
+        "D": "Organization-level benchmarks say nothing meaningful about individual performance."
+      }
+    },
+    {
+      "id": "cisa-d2b-018",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "medium",
+      "stem": "Quality assurance is BEST distinguished from quality control in that quality assurance:",
+      "options": {
+        "A": "focuses on the processes used to produce the deliverable, aiming to prevent defects, while quality control examines the deliverable itself to detect them.",
+        "B": "is performed only at the conclusion of a project.",
+        "C": "is carried out by the development team on its own work.",
+        "D": "applies exclusively to software development activities."
+      },
+      "answer": "A",
+      "why_correct": "The distinction is preventive versus detective. Quality assurance improves the process so that defects are less likely to be created; quality control inspects output to find the defects that were.",
+      "why_wrong": {
+        "B": "Quality assurance operates throughout the lifecycle, since improving the process late has little effect on work already done.",
+        "C": "Self-review by the producing team is precisely what an independent quality function is meant to supplement.",
+        "D": "Both disciplines apply across IT service delivery, operations and infrastructure work."
+      }
+    },
+    {
+      "id": "cisa-d2b-019",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the quality assurance function reports to the development manager whose work it reviews. The GREATEST concern is that:",
+      "options": {
+        "A": "quality assurance staff may lack sufficient technical expertise.",
+        "B": "the quality assurance function may be inadequately resourced.",
+        "C": "quality assurance independence is compromised, so adverse findings may be suppressed or softened under pressure from the person being assessed.",
+        "D": "quality assurance activity may duplicate testing already performed by developers."
+      },
+      "answer": "C",
+      "why_correct": "Reporting to the person whose work you assess creates an unavoidable conflict. Findings that would delay a release or reflect badly on the manager face pressure that no amount of professional integrity fully neutralizes.",
+      "why_wrong": {
+        "A": "Technical capability is a recruitment and training matter separate from reporting lines.",
+        "B": "Resourcing constrains coverage, and while the conflicted reporting line may worsen it, the independence problem is the root issue.",
+        "D": "Some overlap between developer testing and quality assurance is normal and often deliberate."
+      }
+    },
+    {
+      "id": "cisa-d2b-020",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "easy",
+      "asks": "definition",
+      "stem": "The cost of correcting a defect is generally LEAST when the defect is detected during:",
+      "options": {
+        "A": "user acceptance testing.",
+        "B": "system testing.",
+        "C": "live operation after deployment.",
+        "D": "requirements definition."
+      },
+      "answer": "D",
+      "why_correct": "A defect caught in requirements costs a conversation and a document revision. The same defect discovered later has been built upon by design, code, test cases and training material, all of which must be reworked.",
+      "why_wrong": {
+        "A": "By acceptance testing the solution is built and the fix requires rework plus a further test cycle.",
+        "B": "System testing is earlier than acceptance but still after design and construction have been completed.",
+        "C": "Production is the most expensive point of all, adding business impact, emergency change and potential data correction."
+      }
+    },
+    {
+      "id": "cisa-d2b-021",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "medium",
+      "stem": "A capability maturity model is MOST useful to an IS auditor for:",
+      "options": {
+        "A": "formally certifying that the organization's processes meet an external standard.",
+        "B": "calculating the return on investment of process improvement initiatives.",
+        "C": "selecting between competing technology vendors.",
+        "D": "assessing how consistently and repeatably a process is performed, and providing a structured basis for improvement recommendations."
+      },
+      "answer": "D",
+      "why_correct": "Maturity models describe a progression from ad hoc to optimized. Placing a process on that scale gives the auditor a defensible way to characterize current state and to frame recommendations as a realistic next step rather than an unbounded demand.",
+      "why_wrong": {
+        "A": "Certification is a separate formal exercise, and an internal audit assessment does not confer it.",
+        "B": "Return on investment requires financial modelling that maturity levels do not supply.",
+        "C": "Vendor selection depends on functional fit, cost and viability rather than internal process maturity."
+      }
+    },
+    {
+      "id": "cisa-d2b-022",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "hard",
+      "stem": "An organization measures software quality solely by the number of defects found during testing. The MOST significant limitation of this measure is that:",
+      "options": {
+        "A": "defect counts are difficult to compile accurately.",
+        "B": "testers may disagree about how defects should be classified by severity.",
+        "C": "it rewards finding defects rather than not creating them, and says nothing about the defects testing failed to find.",
+        "D": "collecting the measure consumes testing effort that could be spent on further testing."
+      },
+      "answer": "C",
+      "why_correct": "The metric is blind in both directions. A high count may mean thorough testing or poor construction, a low count may mean good code or weak testing, and neither tells you about defects that reached production undetected.",
+      "why_wrong": {
+        "A": "Defect counts are among the easiest measures to collect, since tracking tools produce them automatically.",
+        "B": "Severity disagreements are real but manageable through agreed classification criteria.",
+        "D": "The collection overhead is negligible where a defect tracking system is already in use."
+      }
+    }
+  ]
+}

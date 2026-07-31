@@ -1,0 +1,387 @@
+==============================================================================
+CISA DECISION RULES - generated from principles.json
+==============================================================================
+These are the rules that generate answers across domains. When a question is
+unfamiliar, work out which rule it turns on.
+
+------------------------------------------------------------------------------
+1. Risk assessment precedes control selection
+------------------------------------------------------------------------------
+  Controls are chosen because a risk assessment identified the exposure.
+  Anything that selects controls from a catalog, a peer benchmark, or last
+  year's findings has skipped the step that makes the selection defensible.
+
+  WHY: Controls exist to reduce risk relative to business objectives. Without
+  an assessment, the control set reflects someone else's assumptions and
+  effort goes where it is not needed while real exposures stay open.
+
+  TRAP: Reaching for the framework, the tool, or the training as the first
+  step. All three are plausible and all three presuppose an answer to a
+  question nobody has asked yet.
+
+  NOT WHEN: Applies to selecting and prioritizing controls. It does not mean a
+  risk assessment precedes every action - during an active incident,
+  containment comes first.
+
+------------------------------------------------------------------------------
+2. Prevent beats detect beats correct
+------------------------------------------------------------------------------
+  When the stem asks what BEST addresses a weakness, the preventive control
+  outranks the detective one, and detection outranks correction.
+
+  WHY: A control that stops the event removes the loss entirely. Detection
+  only shortens the exposure, and correction only limits what has already
+  happened.
+
+  TRAP: Choosing monitoring, logging, review or reporting when something could
+  have stopped the event outright. These feel responsible and are usually the
+  second-best answer.
+
+  NOT WHEN: ONLY when the stem asks what addresses or prevents a weakness. If
+  it asks about recovery, evidence, or what to do after an event, the ranking
+  inverts and detective or corrective controls win.
+
+------------------------------------------------------------------------------
+3. Accountability cannot be outsourced
+------------------------------------------------------------------------------
+  Tasks move to a provider; responsibility for the outcome does not. The
+  organization remains answerable for its data, its compliance and its risk
+  regardless of who performs the work.
+
+  WHY: Regulators, customers and the board hold the organization to account,
+  not its suppliers. That is why oversight, assurance rights and exit planning
+  have to be designed into the arrangement.
+
+  TRAP: Assuming a contract, a certification or a provider's own assurances
+  transfer the obligation. They transfer the activity and, at most, some
+  financial consequence.
+
+  NOT WHEN: About accountability specifically. Operational tasks genuinely do
+  transfer, and expecting the customer to patch a SaaS platform is the
+  opposite error.
+
+------------------------------------------------------------------------------
+4. Design evidence is not operating evidence
+------------------------------------------------------------------------------
+  Policies, approvals, charters, certifications and plans establish what
+  should happen. Only records of the control running over a period establish
+  that it did.
+
+  WHY: A control can be perfectly designed and never performed. Operating
+  effectiveness is a claim about a period of time and needs evidence covering
+  that period.
+
+  TRAP: Accepting an approved policy, a signed attestation, a certificate or a
+  documented procedure as proof the control works. Each is real evidence - of
+  design.
+
+  NOT WHEN: When the stem asks for evidence of operating effectiveness. If it
+  asks whether a control is appropriately designed, design evidence is exactly
+  what you want.
+
+------------------------------------------------------------------------------
+5. Completeness beats sampling
+------------------------------------------------------------------------------
+  The dangerous item is the one missing from your list. Reconcile the recorded
+  population against an independent source before concluding anything about
+  it.
+
+  WHY: A sample drawn from an incomplete population tells you only about the
+  part that was already known. No sample size compensates for records that
+  were never there.
+
+  TRAP: Treating a clean sample, a licence count, or a vendor console total as
+  evidence of coverage. All three describe the managed population and are
+  silent about what sits outside it.
+
+  NOT WHEN: Strongest where the risk is unmanaged or unrecorded items. Not
+  relevant when the population is closed and known.
+
+------------------------------------------------------------------------------
+6. Contain before eradicate before recover
+------------------------------------------------------------------------------
+  While something is actively spreading, stop the spread first. Investigation,
+  attribution, restoration and notification all follow.
+
+  WHY: Every minute of active propagation enlarges the loss. Containment
+  converts an expanding problem into a fixed one that can then be worked
+  methodically.
+
+  TRAP: Restoring from backup (reinfects and destroys evidence), hunting for
+  who caused it (belongs to later investigation), or notifying regulators
+  (depends on a scope assessment you cannot yet make).
+
+  NOT WHEN: Incident response specifically, and only while the incident is
+  live. Preparation work belongs before, and lessons learned after.
+
+------------------------------------------------------------------------------
+7. Never sample from a population the auditee controls
+------------------------------------------------------------------------------
+  Test from a population whose completeness you established independently, and
+  work from the system of record toward the approvals rather than the reverse.
+
+  WHY: A list produced by the party under review can omit exactly the records
+  that would reveal the problem, and nothing in the sample will show that it
+  did.
+
+  TRAP: Accepting a system-generated report because it looks authoritative, or
+  testing forward from approved requests, which can only ever confirm that
+  approved things happened.
+
+  NOT WHEN: Evidence gathering and sampling. Auditee-produced data is fine
+  once its completeness and accuracy have been separately established.
+
+------------------------------------------------------------------------------
+8. Address the cause, not the instance
+------------------------------------------------------------------------------
+  A finding is resolved when the mechanism that produced it is removed.
+  Correcting the specific exceptions found leaves the mechanism intact.
+
+  WHY: Instance-level fixes guarantee the same finding reappears at the next
+  audit, and the organization pays the cost repeatedly without ever buying the
+  fix.
+
+  TRAP: Accepting remediation of the sampled items, more training, or a policy
+  reminder as the answer when the process itself produced the failure.
+
+  NOT WHEN: Recommendations and problem management. During an active incident
+  a workaround that restores service is correct even though it is not a cure.
+
+------------------------------------------------------------------------------
+9. Business impact sets priority
+------------------------------------------------------------------------------
+  Criticality, recovery order and remediation sequence follow from consequence
+  to the business, not from technical difficulty, cost, user count or who
+  asked loudest.
+
+  WHY: Only the business can quantify what an outage or a breach costs it.
+  Priorities set inside IT track system complexity and visibility instead.
+
+  TRAP: Ranking by number of users affected, by monetary value alone, by cost
+  of the fix, or by how hard the work is.
+
+  NOT WHEN: Prioritization decisions. Not a rule about who performs the work.
+
+------------------------------------------------------------------------------
+10. Nobody marks their own homework
+------------------------------------------------------------------------------
+  Whoever performs an activity should not be the one who approves, reviews or
+  reports on it. Whoever can grant access can use it.
+
+  WHY: Self-review removes the independent check that makes the control
+  meaningful, and concentrating authorization with execution lets one person
+  complete a harmful action unaided.
+
+  TRAP: Accepting review by the person's own manager within the same function,
+  or treating logging as a substitute for separation. Detection after the fact
+  is not segregation.
+
+  NOT WHEN: Applies to control design and to auditor independence alike.
+  Compensating controls are legitimate where segregation is genuinely
+  impractical in a small team.
+
+------------------------------------------------------------------------------
+11. Management decides, the auditor evaluates
+------------------------------------------------------------------------------
+  The auditor assesses, reports and escalates. Management owns the decision,
+  accepts the risk, implements the control and answers for compliance.
+
+  WHY: An auditor who implements or decides is auditing their own work at the
+  next engagement, and the organization loses the independent view it created
+  the function to get.
+
+  TRAP: Having the auditor fix it, overrule management, remove a finding to
+  keep the peace, or go straight to a regulator. All feel decisive; each
+  destroys the role.
+
+  NOT WHEN: About the division of responsibility. It does not stop the auditor
+  recommending, advising early in a project, or escalating firmly to the audit
+  committee.
+
+------------------------------------------------------------------------------
+12. Authorization precedes action
+------------------------------------------------------------------------------
+  Before testing, changing, accessing or deploying, confirm that someone with
+  the authority to permit it has done so, in writing, with scope defined.
+
+  WHY: Without authorization the activity is indistinguishable from the attack
+  or the unauthorized change it resembles, and there is no agreed boundary
+  when something goes wrong.
+
+  TRAP: Focusing on the competence of the people, the quality of the tools, or
+  the technical safeguards instead of on whether permission exists.
+
+  NOT WHEN: Strongest for penetration testing, production changes and access
+  provisioning. Emergency procedures legitimately defer approval, but require
+  retrospective review.
+
+------------------------------------------------------------------------------
+13. Untested means unknown
+------------------------------------------------------------------------------
+  A control, plan, backup or recovery capability that has never been exercised
+  has unknown effectiveness, whatever its design says.
+
+  WHY: The failure surfaces at the moment of need, which is the worst possible
+  time to discover it. Testing converts an assumption into evidence.
+
+  TRAP: Accepting approval, documentation, vendor assurance or the existence
+  of the capability as evidence it works. Also accepting a partial test as a
+  full one.
+
+  NOT WHEN: Universal for controls that only run under stress: suppression
+  systems, generators, backups, continuity plans, failover.
+
+------------------------------------------------------------------------------
+14. A tool only sees what reaches it
+------------------------------------------------------------------------------
+  Monitoring, scanning, filtering and prevention are bounded by what is
+  actually fed to them. Sources not forwarding, traffic not decrypted and
+  assets not enrolled are invisible.
+
+  WHY: Coverage gaps produce false confidence, which is more dangerous than a
+  known absence of control because the risk is treated as managed.
+
+  TRAP: Judging a tool by its configuration, its rules or its licence count
+  rather than by what is in scope. Also assuming alerts generated equal alerts
+  reviewed.
+
+  NOT WHEN: Detection and prevention tooling. Not about tuning quality, which
+  is a separate weakness.
+
+------------------------------------------------------------------------------
+15. A control that acts too late has not acted
+------------------------------------------------------------------------------
+  Detection, review and escalation must happen inside the window in which they
+  can change the outcome. Beyond that window the control provides evidence,
+  not protection.
+
+  WHY: Objectives with deadlines - overnight batch, breach notification,
+  month-end close - are not met by a control operating on a monthly cycle.
+
+  TRAP: Accepting periodic review or after-the-fact reporting as adequate when
+  the stem sets an implicit deadline.
+
+  NOT WHEN: Wherever the stem attaches a time constraint. A quarterly review
+  is perfectly adequate for a risk that moves quarterly.
+
+------------------------------------------------------------------------------
+16. Direct and independent evidence outranks representation
+------------------------------------------------------------------------------
+  Evidence the auditor obtains or produces beats evidence supplied by the
+  party under review, which beats what that party says about it.
+
+  WHY: Reliability rises with the auditor's proximity to the evidence and with
+  the independence of its source. Inquiry is the weakest form and reports
+  intent rather than behavior.
+
+  TRAP: Relying on interviews, management representations, self-reported
+  dashboards or vendor questionnaires because they are consistent and readily
+  available.
+
+  NOT WHEN: Evidence reliability. Inquiry remains valuable for building
+  understanding and directing testing - just not for concluding.
+
+------------------------------------------------------------------------------
+17. The verb governs, not the scenario
+------------------------------------------------------------------------------
+  The same situation has different correct answers depending on whether the
+  stem asks for the greatest risk, the best control, the first step, or the
+  best evidence. Answer the question actually asked.
+
+  WHY: Distractors are built from correct answers to the neighbouring
+  question. An option can be entirely true, and about this scenario, and still
+  be wrong because it answers a different verb.
+
+  TRAP: Recognizing the scenario, retrieving what you know about it, and
+  selecting the most familiar true statement rather than the one responsive to
+  the stem.
+
+  NOT WHEN: Universal. This is the single most common way to lose marks on
+  material you actually know.
+
+------------------------------------------------------------------------------
+18. Measure the outcome, not the activity
+------------------------------------------------------------------------------
+  Effectiveness is demonstrated by what changed, not by what was performed.
+  Completion rates, volumes produced and records opened describe effort; a
+  measure only counts if it moves when the thing it claims to measure moves.
+
+  WHY: Activity metrics are easy to collect and easy to satisfy without
+  achieving anything, so they drift toward being gamed. Outcome measures
+  resist that because the underlying reality has to change.
+
+  TRAP: Accepting completion percentages, ticket counts, findings raised, or
+  documents published as evidence a programme works.
+
+  NOT WHEN: Judging effectiveness. Activity measures remain useful
+  operationally for capacity and workload management.
+
+------------------------------------------------------------------------------
+19. Diagnose before you prescribe
+------------------------------------------------------------------------------
+  When something unexpected appears - an exception, a mass of alerts,
+  widespread workarounds - establish what it means before responding to it.
+
+  WHY: The obvious response usually treats a symptom, and acting immediately
+  forecloses the finding. One exception may be isolated or systemic, and 4,000
+  hits usually means the rule is wrong rather than the control.
+
+  TRAP: Escalating, blocking, extending the sample or reporting the raw count
+  before establishing what the observation actually indicates.
+
+  NOT WHEN: Analysis and response design. It does not license delay during an
+  active incident, where containment precedes diagnosis.
+
+------------------------------------------------------------------------------
+20. Cost of correction rises with time
+------------------------------------------------------------------------------
+  A defect, a control gap or a bad requirement costs least at the point it is
+  introduced and most in production. Involvement early is worth more than
+  thoroughness late.
+
+  WHY: Everything built on top of an error has to be reworked with it. By
+  production the cost includes business impact, emergency change and data
+  correction.
+
+  TRAP: Deferring control design, audit involvement or privacy assessment
+  until the review stage, where the finding is real but the remedy is
+  expensive or refused.
+
+  NOT WHEN: Design and delivery lifecycles. Early involvement must stay
+  advisory, or the auditor loses independence at the later review.
+
+------------------------------------------------------------------------------
+21. Concentration is the exposure
+------------------------------------------------------------------------------
+  Where one person, one key, one supplier, one site or one component carries
+  the whole capability, its loss is the organization's loss. Look for what
+  everything silently depends on.
+
+  WHY: Redundancy is usually partial. Duplicated servers share a switch; two
+  data centres share a grid; a resilient team has one person who understands
+  the legacy system.
+
+  TRAP: Managing the symptom - paying the key person more, monitoring the
+  supplier harder - instead of removing the dependency through cross-training,
+  segmentation or a second source.
+
+  NOT WHEN: Availability and continuity. Concentration is sometimes a
+  deliberate and correct trade for consistency, as with centralized IT.
+
+------------------------------------------------------------------------------
+22. A decision nobody owns has not been made
+------------------------------------------------------------------------------
+  Exceptions, risk acceptances, go-live calls and sign-offs must be
+  documented, made by someone with authority to make them, and time-bounded
+  where relevant.
+
+  WHY: Undocumented decisions cannot be reviewed, revisited or defended, and
+  temporary accommodations quietly become permanent unmanaged risk.
+
+  TRAP: Accepting informal approval, a plan to fix it later, or the absence of
+  objection as though a decision had been taken.
+
+  NOT WHEN: Governance of deviations and approvals. Not an argument for
+  documenting every routine action.
+
+==============================================================================

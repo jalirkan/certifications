@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CISA Study System</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230e1419'/><path d='M9 17l4.5 4.5L23 12' stroke='%234dd0c7' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+</head>
+<body>
+
+<aside class="rail">
+  <div class="brand">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7"/><path d="M9 17l4.5 4.5L23 12"/></svg>
+    <div>
+      <strong id="brand-cert">CISA</strong>
+      <span id="brand-sub">study system</span>
+    </div>
+  </div>
+
+  <nav id="nav">
+    <a href="#/" data-view="dashboard"><i data-ico="grid"></i>Dashboard</a>
+    <a href="#/drill" data-view="drill"><i data-ico="target"></i>Drill</a>
+    <a href="#/exam" data-view="exam"><i data-ico="clock"></i>Mock exam</a>
+    <a href="#/games" data-view="games"><i data-ico="zap"></i>Short form</a>
+    <a href="#/rules" data-view="rules"><i data-ico="compass"></i>Decision rules</a>
+    <a href="#/bank" data-view="bank"><i data-ico="layers"></i>Question bank</a>
+  </nav>
+
+  <div class="rail-foot">
+    <label for="profile-select">Studying as</label>
+    <div class="profile-row">
+      <select id="profile-select"></select>
+      <button id="profile-add" class="icon-btn" title="Add a profile">+</button>
+    </div>
+    <p class="rail-note">Results are kept separate per person. The question bank is shared.</p>
+  </div>
+</aside>
+
+<main id="main">
+  <div class="loading"><span class="spinner"></span>Loading question bank…</div>
+</main>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

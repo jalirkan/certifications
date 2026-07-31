@@ -1,0 +1,737 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "A",
+    "batch": "d4a-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D4 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4a-001",
+      "topic": "IT Components",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing an organization's server estate finds that no documented standard build exists for new servers. The GREATEST risk is that:",
+      "options": {
+        "A": "hardware procurement costs will be higher than necessary.",
+        "B": "servers will be deployed with inconsistent configurations that cannot be tested against any baseline.",
+        "C": "hardware warranty coverage will lapse without being noticed.",
+        "D": "capacity planning forecasts will be inaccurate."
+      },
+      "answer": "B",
+      "why_correct": "Without a defined baseline there is no definition of correct, so every server is configured to whoever built it. Nothing can be tested for compliance, hardening is inconsistent, and the auditor has no standard against which to evaluate the population.",
+      "why_wrong": {
+        "A": "Procurement cost is a commercial efficiency matter unrelated to control over the configuration.",
+        "C": "Warranty tracking belongs to asset management and would not be resolved by a build standard.",
+        "D": "Forecast accuracy depends on utilization trending, not on build consistency."
+      }
+    },
+    {
+      "id": "cisa-d4a-002",
+      "topic": "IT Components",
+      "difficulty": "easy",
+      "stem": "Which of the following BEST describes the role of middleware in an information system architecture?",
+      "options": {
+        "A": "It stores the organization's transactional data in structured form.",
+        "B": "It presents the user interface layer to end users.",
+        "C": "It makes access control decisions for the application.",
+        "D": "It enables otherwise incompatible applications and platforms to exchange data and invoke each other's services."
+      },
+      "answer": "D",
+      "why_correct": "Middleware sits between applications and handles the translation, messaging and connection management that lets systems built on different platforms work together. It is the plumbing that makes integration possible.",
+      "why_wrong": {
+        "A": "Storing structured data is the role of the database management system.",
+        "B": "The presentation layer is part of the application, not middleware.",
+        "C": "Access control decisions are made by the application or by a dedicated identity service."
+      }
+    },
+    {
+      "id": "cisa-d4a-003",
+      "topic": "IT Components",
+      "difficulty": "medium",
+      "stem": "A business-critical application runs on an operating system version for which the vendor has ended support. The GREATEST concern for an IS auditor is that:",
+      "options": {
+        "A": "vulnerabilities discovered after end of support will not be patched by the vendor, and the exposure will grow indefinitely.",
+        "B": "the service desk will be unable to answer user questions about the platform.",
+        "C": "the application vendor may increase licensing costs for the older platform.",
+        "D": "staff with experience of the platform may leave the organization."
+      },
+      "answer": "A",
+      "why_correct": "End of support means the security exposure is permanent and cumulative. Every new vulnerability found from that point forward stays open, and the only remedies are compensating controls such as isolation or an accelerated migration.",
+      "why_wrong": {
+        "B": "Support knowledge is an operational inconvenience that can be managed with documentation and training.",
+        "C": "Licensing cost is a commercial issue, and older platforms are not typically repriced upward.",
+        "D": "Skills attrition is a real resourcing risk but is secondary to an unpatchable production platform."
+      }
+    },
+    {
+      "id": "cisa-d4a-004",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST enables effective vulnerability and patch management?",
+      "options": {
+        "A": "A configuration management database that is refreshed annually.",
+        "B": "An automated tool that deploys patches on a defined schedule.",
+        "C": "A complete and current asset inventory, reconciled periodically against automated network discovery.",
+        "D": "A documented patch management policy approved by IT management."
+      },
+      "answer": "C",
+      "why_correct": "You cannot patch what you do not know you own. Reconciling the recorded inventory against what is actually discoverable on the network is what surfaces the unmanaged devices, and those are precisely the ones that go unpatched.",
+      "why_wrong": {
+        "A": "An annual refresh is stale almost immediately in an environment where assets change weekly.",
+        "B": "Deployment tooling only reaches the assets it knows about, which brings you straight back to inventory completeness.",
+        "D": "A policy states the requirement. It neither identifies the assets nor confirms they were patched."
+      }
+    },
+    {
+      "id": "cisa-d4a-005",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that decommissioned servers were collected by a recycling contractor with no record of data sanitization. The GREATEST risk is that:",
+      "options": {
+        "A": "residual value of the assets was not recovered for the organization.",
+        "B": "the fixed asset register overstates the assets the organization holds.",
+        "C": "confidential data remaining on the storage media could be recovered by a third party.",
+        "D": "the contract with the recycling vendor has been breached."
+      },
+      "answer": "C",
+      "why_correct": "Decommissioned equipment routinely leaves the building with recoverable data still on it. Without evidence of sanitization or certified destruction the organization cannot demonstrate the data was protected, and disposal is one of the most common sources of avoidable breaches.",
+      "why_wrong": {
+        "A": "Lost residual value is a financial inefficiency, not a data protection failure.",
+        "B": "An inaccurate asset register is a records accuracy issue that matters far less than data exposure.",
+        "D": "A contractual breach may follow, but the underlying harm is the exposure of the data itself."
+      }
+    },
+    {
+      "id": "cisa-d4a-006",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "Software license compliance is BEST assured by:",
+      "options": {
+        "A": "periodic reconciliation of software discovered on endpoints against purchased entitlements, with differences resolved.",
+        "B": "requiring users to obtain approval before installing any software.",
+        "C": "an annual attestation from each department head confirming compliance.",
+        "D": "purchasing licenses in bulk so that headroom always exists."
+      },
+      "answer": "A",
+      "why_correct": "Compliance is a comparison of two populations: what is deployed and what was bought. Only a reconciliation of discovered installations against entitlements measures that gap, and resolving the differences is what closes it.",
+      "why_wrong": {
+        "B": "Preventive approval reduces unauthorized installation but does not tell you the current position, and it will not catch what is already deployed.",
+        "C": "An attestation is management representation about a fact nobody has measured.",
+        "D": "Over-purchasing wastes money and still leaves you unable to demonstrate compliance for any specific product."
+      }
+    },
+    {
+      "id": "cisa-d4a-007",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing batch job scheduling should be MOST concerned to find that:",
+      "options": {
+        "A": "jobs are scheduled to run overnight outside business hours.",
+        "B": "the scheduler automatically retries a failed job twice before raising an alert.",
+        "C": "job dependencies are defined and documented within the scheduling tool.",
+        "D": "operations staff can modify production job parameters without change approval or independent review."
+      },
+      "answer": "D",
+      "why_correct": "Job parameters determine what production data gets processed and how. Allowing unreviewed changes means processing logic can be altered outside change management, with no record of who changed what or why, and no way to reconcile output back to authorized instructions.",
+      "why_wrong": {
+        "A": "Overnight scheduling is normal practice, chosen to avoid contention with interactive users.",
+        "B": "Bounded automatic retry is sensible design for transient failures, provided it eventually alerts.",
+        "C": "Documented dependencies in the tool are exactly what an auditor would want to see."
+      }
+    },
+    {
+      "id": "cisa-d4a-008",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "medium",
+      "stem": "Which control BEST ensures that a failed overnight batch job is detected and addressed before the business day begins?",
+      "options": {
+        "A": "A daily job completion report reviewed at the end of the following business day.",
+        "B": "Automated alerting on job failure routed to on-call operations staff, with a documented escalation path.",
+        "C": "A monthly review of the job scheduler log by the IT operations manager.",
+        "D": "A procedure requiring operators to watch the scheduling console during the batch window."
+      },
+      "answer": "B",
+      "why_correct": "The requirement has a deadline attached, so detection must be immediate and must reach someone able to act during the night. Automated alerting with escalation is the only option that satisfies both.",
+      "why_wrong": {
+        "A": "A review the following evening is a full business day too late for the stated objective.",
+        "C": "A monthly review detects patterns long after the affected business days have passed.",
+        "D": "Continuous manual observation is unreliable, and depends on an operator noticing rather than being told."
+      }
+    },
+    {
+      "id": "cisa-d4a-009",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "hard",
+      "asks": "control",
+      "stem": "An organization replaces a manual reconciliation with an automated process. The IS auditor should place PRIMARY focus on:",
+      "options": {
+        "A": "whether the controls embedded in the automated process achieve the same control objectives that the manual process was designed to meet.",
+        "B": "whether affected staff received training on the new process.",
+        "C": "whether the automation delivered the headcount savings set out in the business case.",
+        "D": "whether the automation vendor is financially stable."
+      },
+      "answer": "A",
+      "why_correct": "Automation changes how a control operates, not what it is meant to achieve. The auditor's question is whether the control objective is still met, since automation commonly drops the judgment step where a human previously investigated exceptions.",
+      "why_wrong": {
+        "B": "Training supports adoption but does not establish whether the control objective is still satisfied.",
+        "C": "Benefit realization is a legitimate audit topic but is a value question, not a control question.",
+        "D": "Vendor viability matters for continuity and belongs to vendor management rather than to this control assessment."
+      }
+    },
+    {
+      "id": "cisa-d4a-010",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "Which control BEST ensures the completeness and accuracy of data transferred between two systems over an automated interface?",
+      "options": {
+        "A": "Encrypting the data file while it is in transit between the systems.",
+        "B": "Restricting interface execution to a dedicated service account.",
+        "C": "Automated control totals and record counts reconciled by the receiving system, with exceptions reported and cleared.",
+        "D": "Scheduling the interface to run outside core business hours."
+      },
+      "answer": "C",
+      "why_correct": "Completeness and accuracy are proven by comparing what was sent against what was received. Control totals and record counts do exactly that, and requiring exceptions to be cleared is what turns detection into correction.",
+      "why_wrong": {
+        "A": "Encryption protects confidentiality in transit. Data can be perfectly encrypted and still be incomplete.",
+        "B": "A dedicated service account is an access control that limits who can run the interface, not whether its output is right.",
+        "D": "Off-hours scheduling reduces contention and has no bearing on data integrity."
+      }
+    },
+    {
+      "id": "cisa-d4a-011",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that failures of the interface between the order system and the general ledger are written to a log that nobody reviews. The GREATEST risk is that:",
+      "options": {
+        "A": "the log file will consume increasing amounts of disk space.",
+        "B": "transactions may be silently lost or duplicated, so the ledger ceases to reflect actual business activity.",
+        "C": "the interface may run more slowly as the log grows.",
+        "D": "the vendor support agreement may be invalidated."
+      },
+      "answer": "B",
+      "why_correct": "An unmonitored failure is an undetected one. Records that never arrive, or arrive twice, flow straight into the financial statements, and the error persists until something else happens to surface it.",
+      "why_wrong": {
+        "A": "Disk consumption is a routine operational matter that is trivially managed.",
+        "C": "Performance degradation from log growth is minor and unrelated to the integrity exposure.",
+        "D": "Support agreement terms are a commercial concern that does not describe the harm here."
+      }
+    },
+    {
+      "id": "cisa-d4a-012",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "When reviewing a newly implemented system interface, the IS auditor's BEST source of assurance about data integrity is:",
+      "options": {
+        "A": "the interface design specification agreed during the project.",
+        "B": "written confirmation from the development team that interface testing passed.",
+        "C": "the absence of user complaints since go-live.",
+        "D": "evidence of reconciliation between source and target data for a period after go-live, with differences investigated and resolved."
+      },
+      "answer": "D",
+      "why_correct": "Evidence of the interface working correctly on real production data over time is direct and covers a period rather than a moment. It is the closest thing to testing operating effectiveness of the interface itself.",
+      "why_wrong": {
+        "A": "A design specification describes intent. It is design evidence and says nothing about what the interface actually does.",
+        "B": "Developer confirmation is a representation from a party without independence, covering a test environment rather than production.",
+        "C": "Absence of complaints proves only that nobody noticed. Silent interface errors are precisely the ones users cannot see."
+      }
+    },
+    {
+      "id": "cisa-d4a-013",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "An IS auditor discovers that the finance team maintains a spreadsheet that calculates a material financial statement disclosure. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "The spreadsheet is stored on a departmental shared drive rather than a managed system.",
+        "B": "The spreadsheet does not appear in the software license inventory.",
+        "C": "Staff spend significant time maintaining the spreadsheet each period.",
+        "D": "Formulas and inputs can be changed without version control, independent review or testing, so an error could reach the financial statements undetected."
+      },
+      "answer": "D",
+      "why_correct": "A spreadsheet feeding a material disclosure is performing the function of a production system while sitting entirely outside change control, access control and testing. An undetected formula error flows straight into reported numbers.",
+      "why_wrong": {
+        "A": "Storage location matters for availability and access, but the control failure is the absence of change and review discipline.",
+        "B": "Spreadsheet software is licensed as part of the office suite; the inventory is not the issue.",
+        "C": "Manual effort is an efficiency observation, not a risk to the integrity of reported figures."
+      }
+    },
+    {
+      "id": "cisa-d4a-014",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "Which of the following is the MOST appropriate initial response to the discovery of widespread shadow IT across the business?",
+      "options": {
+        "A": "Immediately block network access to all applications that were not formally approved.",
+        "B": "Identify what is in use and why, assess the risk of each instance, and bring the material ones under governance.",
+        "C": "Reissue the policy reminding staff that unapproved software is prohibited.",
+        "D": "Refer the individuals responsible to human resources for disciplinary action."
+      },
+      "answer": "B",
+      "why_correct": "Shadow IT is usually a symptom: the sanctioned tooling did not meet a real business need. Understanding the demand before acting lets the organization govern what matters, formalize what is useful and retire what is not.",
+      "why_wrong": {
+        "A": "Indiscriminate blocking disrupts legitimate work, drives the behavior further underground, and can break processes nobody knew depended on the tool.",
+        "C": "Restating a policy that was already being ignored addresses neither the risk nor the underlying need.",
+        "D": "A punitive response destroys the visibility the organization needs and guarantees the next instance stays hidden."
+      }
+    },
+    {
+      "id": "cisa-d4a-015",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "The GREATEST risk associated with end-user computing applications is that they:",
+      "options": {
+        "A": "duplicate functionality already available in enterprise systems.",
+        "B": "consume storage capacity on shared network drives.",
+        "C": "support business decisions and reporting without the change control, testing, access control and backup applied to production systems.",
+        "D": "are built by staff who have had no formal software development training."
+      },
+      "answer": "C",
+      "why_correct": "The risk is the mismatch between how much the organization relies on these applications and how little control surrounds them. They carry production consequences with none of the production disciplines.",
+      "why_wrong": {
+        "A": "Duplication is inefficient and may indicate an unmet need, but it does not by itself threaten reliability.",
+        "B": "Storage consumption is trivial next to the integrity and continuity exposure.",
+        "D": "Lack of training is a contributing cause of errors, but the risk that matters is the absence of controls that would catch those errors."
+      }
+    },
+    {
+      "id": "cisa-d4a-016",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST supports proactive capacity management?",
+      "options": {
+        "A": "Trending resource utilization against defined thresholds and forecasting it against planned business growth.",
+        "B": "Adding capacity whenever a system reaches full utilization.",
+        "C": "Reviewing incident tickets for user complaints about system performance.",
+        "D": "Procuring hardware with substantial excess capacity at the outset."
+      },
+      "answer": "A",
+      "why_correct": "Proactive means acting before the constraint bites. Trending combined with a forecast of business demand identifies when a threshold will be crossed, leaving time to procure and deploy in an orderly way.",
+      "why_wrong": {
+        "B": "Acting at full utilization is by definition reactive: the degradation has already occurred.",
+        "C": "User complaints are a lagging indicator that arrives after service has suffered.",
+        "D": "Over-provisioning wastes capital, ages without being used, and still fails if growth outpaces the original guess."
+      }
+    },
+    {
+      "id": "cisa-d4a-017",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor notes that a critical system routinely reaches 95% processor utilization during month-end processing. The auditor should be MOST concerned that:",
+      "options": {
+        "A": "electricity and cooling costs for the facility will increase.",
+        "B": "no headroom remains, so a modest increase in volume or an unplanned demand could cause the month-end process to fail or overrun.",
+        "C": "the hardware maintenance agreement may be affected by sustained high load.",
+        "D": "users may notice slower response times during the period."
+      },
+      "answer": "B",
+      "why_correct": "Running a time-critical process at the edge of capacity means there is no margin for growth, for a retry, or for anything unexpected. The failure mode is missing a period-end deadline, which has reporting and business consequences.",
+      "why_wrong": {
+        "A": "Marginal utility cost is negligible relative to the risk of a failed financial close.",
+        "C": "Maintenance agreements are not voided by running equipment at its rated capacity.",
+        "D": "Slower response is a symptom users tolerate; the real exposure is the process not completing at all."
+      }
+    },
+    {
+      "id": "cisa-d4a-018",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "Which metric is MOST useful for assessing whether an organization is meeting its availability commitments?",
+      "options": {
+        "A": "Mean time between failures for the underlying hardware.",
+        "B": "The total number of incidents logged during the period.",
+        "C": "Average server processor utilization across the estate.",
+        "D": "Measured end-to-end service availability compared against the target agreed with the business."
+      },
+      "answer": "D",
+      "why_correct": "A commitment can only be assessed against the thing that was committed. Measuring the service as the business consumes it, against the agreed target, is the only comparison that answers the question.",
+      "why_wrong": {
+        "A": "Mean time between failures describes component reliability. Redundant components fail without the service becoming unavailable.",
+        "B": "Incident counts say nothing about duration or business impact; many trivial incidents may matter less than one long outage.",
+        "C": "Utilization is a capacity indicator, not an availability measure."
+      }
+    },
+    {
+      "id": "cisa-d4a-019",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "easy",
+      "stem": "An organization has no formal capacity management process. The MOST likely consequence is that:",
+      "options": {
+        "A": "capacity is added reactively, after performance has already degraded or an outage has occurred.",
+        "B": "hardware is consistently over-provisioned relative to demand.",
+        "C": "suppliers cannot be held to the service levels in their contracts.",
+        "D": "monitoring tools already licensed by the organization go unused."
+      },
+      "answer": "A",
+      "why_correct": "Without forecasting, the trigger to act becomes the symptom. Capacity gets added after users feel the problem, which means degraded service, emergency procurement and unplanned change.",
+      "why_wrong": {
+        "B": "Absent a process, under-provisioning discovered too late is the more common outcome; over-provisioning is a deliberate strategy.",
+        "C": "Supplier accountability depends on the contract and its measurement, not on internal capacity planning.",
+        "D": "Unused tooling might result but is a minor side effect rather than the principal consequence."
+      }
+    },
+    {
+      "id": "cisa-d4a-020",
+      "topic": "Problem and Incident Management",
+      "difficulty": "easy",
+      "stem": "Which of the following BEST distinguishes problem management from incident management?",
+      "options": {
+        "A": "Problem management is carried out by more senior technical staff.",
+        "B": "Incident management applies only to security events, while problem management covers all failures.",
+        "C": "Incident management restores service as quickly as possible, while problem management identifies and removes the underlying cause.",
+        "D": "Problem management is performed outside business hours to avoid disruption."
+      },
+      "answer": "C",
+      "why_correct": "The two disciplines have different objectives. Incident management optimizes for speed of restoration, accepting a workaround; problem management optimizes for permanent elimination, which takes longer and is a separate activity.",
+      "why_wrong": {
+        "A": "Seniority of the staff involved is an organizational choice, not the distinguishing purpose.",
+        "B": "Incident management covers any unplanned interruption or degradation, not only security events.",
+        "D": "Timing is a scheduling detail unrelated to the difference in objective."
+      }
+    },
+    {
+      "id": "cisa-d4a-021",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the same application outage has recurred eleven times in six months, each occasion closed as an incident once service was restored. The GREATEST concern is that:",
+      "options": {
+        "A": "users have become dissatisfied with the reliability of the service.",
+        "B": "incident response times are longer than the service level target.",
+        "C": "no problem management process is identifying and removing the root cause, so the outages will continue to recur.",
+        "D": "the incident records do not contain sufficient technical detail."
+      },
+      "answer": "C",
+      "why_correct": "Eleven identical incidents closed on restoration is the signature of incident management operating without problem management behind it. The organization is repeatedly paying the cost of the outage and never paying the cost of the fix.",
+      "why_wrong": {
+        "A": "User dissatisfaction is a consequence of the unresolved cause rather than the control failure itself.",
+        "B": "Response times may be perfectly within target; restoring quickly eleven times is exactly the problem.",
+        "D": "Weak documentation hampers analysis but is secondary to the absence of any analysis process."
+      }
+    },
+    {
+      "id": "cisa-d4a-022",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST measures the effectiveness of problem management?",
+      "options": {
+        "A": "A sustained reduction in the volume of recurring incidents attributable to known errors.",
+        "B": "The number of problem records opened during the period.",
+        "C": "The average elapsed time taken to close a problem record.",
+        "D": "The proportion of incidents that have been assigned a root cause code."
+      },
+      "answer": "A",
+      "why_correct": "The purpose of problem management is to stop incidents happening again. A falling count of repeat incidents tied to known errors is direct evidence that causes are being removed rather than merely catalogued.",
+      "why_wrong": {
+        "B": "Opening records measures activity. A team can open many problem records and resolve none of them.",
+        "C": "Closure speed can be improved by closing records without fixing anything, so it is easily gamed.",
+        "D": "Assigning a cause code is classification, not remediation. The incidents keep coming with a tidier label."
+      }
+    },
+    {
+      "id": "cisa-d4a-023",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "An organization assigns incident priority solely on the basis of how many users are affected. An IS auditor should MOST appropriately point out that:",
+      "options": {
+        "A": "priority should be assigned exclusively by the service desk manager.",
+        "B": "all incidents should be treated with equal urgency to avoid bias.",
+        "C": "the number of affected users is too difficult to determine reliably.",
+        "D": "priority should also reflect business impact, because an incident affecting few users of a critical process can outrank one affecting many users of a minor one."
+      },
+      "answer": "D",
+      "why_correct": "Priority should combine urgency with impact. A payment run blocked for three treasury staff can be far more damaging than a slow intranet for a thousand people, and a user-count-only scheme systematically misranks exactly those cases.",
+      "why_wrong": {
+        "A": "Centralizing the decision does not fix the criteria being used to make it.",
+        "B": "Treating everything as equally urgent means the most damaging incidents wait behind trivial ones.",
+        "C": "User counts are usually straightforward to establish; the flaw is that the count alone is the wrong basis."
+      }
+    },
+    {
+      "id": "cisa-d4a-024",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing change management should be MOST concerned to find that:",
+      "options": {
+        "A": "a defined process exists for emergency changes outside the normal cycle.",
+        "B": "developers are able to migrate their own code into the production environment without independent review or approval.",
+        "C": "changes are reviewed and approved by a change advisory board that convenes weekly.",
+        "D": "certain low-risk repetitive changes are classified as standard and pre-approved."
+      },
+      "answer": "B",
+      "why_correct": "This breaks segregation of duties at the most sensitive point. A developer who can write code and move it to production can introduce unauthorized or untested functionality with nothing standing between the change and live data.",
+      "why_wrong": {
+        "A": "Emergency change procedures are necessary and expected; the control is retrospective review, not prohibition.",
+        "C": "A regularly convening change advisory board is normal governance.",
+        "D": "Pre-approving genuinely low-risk repetitive changes is an accepted efficiency, provided the classification is defined and reviewed."
+      }
+    },
+    {
+      "id": "cisa-d4a-025",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "medium",
+      "stem": "Emergency changes are an unavoidable part of operations. The BEST control over them is:",
+      "options": {
+        "A": "a defined emergency procedure requiring retrospective review and approval within a short specified period, together with periodic analysis of emergency change volumes.",
+        "B": "prohibiting emergency changes altogether so that every change follows the standard cycle.",
+        "C": "requiring the chief information officer to approve each emergency change before it is made.",
+        "D": "recording emergency changes in the change log for the record."
+      },
+      "answer": "A",
+      "why_correct": "Emergency changes trade prior approval for speed, so the control has to move after the event. Mandatory retrospective review restores the approval, and trending the volume reveals whether the emergency route is being abused to bypass normal governance.",
+      "why_wrong": {
+        "B": "A prohibition that conflicts with operational reality gets ignored, producing undocumented changes instead of controlled ones.",
+        "C": "Requiring prior executive approval defeats the purpose of an emergency route and creates a bottleneck during an outage.",
+        "D": "Logging alone captures what happened without anyone assessing whether it should have."
+      }
+    },
+    {
+      "id": "cisa-d4a-026",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "hard",
+      "stem": "Which of the following provides the BEST assurance that only authorized changes were applied to production?",
+      "options": {
+        "A": "A listing of all change requests approved by the change advisory board during the period.",
+        "B": "Interviews with the release manager about how changes are controlled.",
+        "C": "Reconciliation of changes actually detected in the production environment back to approved change records, with unmatched changes investigated.",
+        "D": "A review of the change management policy and supporting procedures."
+      },
+      "answer": "C",
+      "why_correct": "The population has to be the changes that actually occurred, not the changes that were requested. Working from production back to the approvals is the only direction that can detect a change nobody ever raised a request for.",
+      "why_wrong": {
+        "A": "Starting from approved requests tests that approved changes were made. It cannot reveal unauthorized changes, because those never entered that population.",
+        "B": "Interviews describe the intended process and are the weakest form of evidence.",
+        "D": "Policy review assesses design. It says nothing about what happened in the environment."
+      }
+    },
+    {
+      "id": "cisa-d4a-027",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "medium",
+      "stem": "An organization applies security patches to production servers within 30 days of release but has no process to confirm that deployment actually succeeded. The GREATEST risk is that:",
+      "options": {
+        "A": "the 30-day window is too long for critical vulnerabilities.",
+        "B": "servers believed to be patched may remain vulnerable, and management's risk reporting will be wrong.",
+        "C": "patch deployment may cause unplanned outages in production.",
+        "D": "the licensed capacity of the patch management tool may be exceeded."
+      },
+      "answer": "B",
+      "why_correct": "Patch deployment routinely fails partially: agents lose contact, servers are offline, patches roll back after reboot. Without verification the organization holds a false picture of its exposure, which is more dangerous than knowing it is unpatched.",
+      "why_wrong": {
+        "A": "Thirty days may or may not be appropriate depending on severity, but the stem is about verification rather than timing.",
+        "C": "Patch-induced instability is a genuine operational risk, addressed through testing and staged rollout, not by verification of deployment.",
+        "D": "Licensing capacity is a commercial matter with no security consequence."
+      }
+    },
+    {
+      "id": "cisa-d4a-028",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing operational logging would be MOST concerned to find that:",
+      "options": {
+        "A": "logs are retained online for 90 days and archived thereafter.",
+        "B": "first-line log review has been contracted to a managed service provider.",
+        "C": "logs are stored in a compressed format to conserve storage.",
+        "D": "system administrators are able to delete or edit the logs that record their own activity."
+      },
+      "answer": "D",
+      "why_correct": "A log that the subject of the log can alter has no evidential value. The people with the most privilege, and therefore the most capacity to cause harm, are exactly the ones whose activity records must be beyond their reach.",
+      "why_wrong": {
+        "A": "Ninety days online with archival beyond that is a reasonable retention design.",
+        "B": "Outsourced monitoring is common and acceptable where oversight and escalation are defined.",
+        "C": "Compression is a storage decision that does not affect log integrity."
+      }
+    },
+    {
+      "id": "cisa-d4a-029",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "The ability to correlate events accurately across multiple systems depends PRIMARILY on:",
+      "options": {
+        "A": "using a single logging product across the entire estate.",
+        "B": "applying the same retention period to every log source.",
+        "C": "normalizing all logs into an identical record format.",
+        "D": "synchronizing every system clock to a common reliable time source."
+      },
+      "answer": "D",
+      "why_correct": "Correlation is fundamentally about sequence. If clocks disagree, events cannot be reliably ordered, causal chains cannot be reconstructed, and the resulting timeline may be misleading in an investigation or in court.",
+      "why_wrong": {
+        "A": "A single product is convenient but unnecessary; heterogeneous sources correlate fine when their timestamps agree.",
+        "B": "Retention determines how far back you can look, not whether events can be aligned.",
+        "C": "Normalization eases analysis and is usually handled by the collection platform, but without common time it produces a tidy yet wrong sequence."
+      }
+    },
+    {
+      "id": "cisa-d4a-030",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "stem": "An organization logs extensively but reviews nothing. From a control perspective, this MOST accurately means that:",
+      "options": {
+        "A": "storage costs are being incurred without commensurate benefit.",
+        "B": "the logs may support an investigation after the fact but provide no detective control, because nothing is being detected.",
+        "C": "the logs would be inadmissible if legal proceedings arose.",
+        "D": "the organization is in breach of its own log retention policy."
+      },
+      "answer": "B",
+      "why_correct": "Detection requires someone or something to look. Unreviewed logs preserve evidence for later reconstruction but do not shorten the time to discover a problem, which is what a detective control is for.",
+      "why_wrong": {
+        "A": "Wasted storage spend is real but trivial next to the absence of detection.",
+        "C": "Admissibility depends on integrity and chain of custody, not on whether anyone reviewed the log.",
+        "D": "Retention and review are separate requirements; retaining without reviewing breaches no retention policy."
+      }
+    },
+    {
+      "id": "cisa-d4a-031",
+      "topic": "IT Service Level Management",
+      "difficulty": "medium",
+      "stem": "Which of the following is MOST important when establishing service level agreements with an internal IT function?",
+      "options": {
+        "A": "Setting targets that the IT function is confident it can consistently achieve.",
+        "B": "Benchmarking the targets against published industry averages.",
+        "C": "Defining measurable targets derived from business requirements, together with agreed measurement methods and reporting.",
+        "D": "Including financial penalties that apply when targets are missed."
+      },
+      "answer": "C",
+      "why_correct": "A service level agreement is only meaningful if it reflects what the business actually needs and if both sides agree how performance will be measured. Ambiguous measurement is what turns SLA reporting into a dispute.",
+      "why_wrong": {
+        "A": "Targets set by what IT finds comfortable guarantee green reporting while the business remains unsupported.",
+        "B": "Industry averages reflect other organizations' requirements and risk appetites, not this organization's needs.",
+        "D": "Internal penalties move money between cost centers without improving service, and are rarely enforceable in practice."
+      }
+    },
+    {
+      "id": "cisa-d4a-032",
+      "topic": "IT Service Level Management",
+      "difficulty": "hard",
+      "stem": "IT reports 99.9% availability for a business application, while the business reports frequent outages. The MOST likely explanation is that:",
+      "options": {
+        "A": "the availability measure excludes planned maintenance windows or measures component uptime rather than the end-to-end service as users experience it.",
+        "B": "the business is overstating the disruption it has experienced.",
+        "C": "the availability monitoring tool is producing inaccurate readings.",
+        "D": "users are encountering problems with their own network connectivity."
+      },
+      "answer": "A",
+      "why_correct": "This gap almost always comes from measurement definition. Servers can be up while the service is unusable, and excluding planned downtime means the users' lost hours never appear in the number. Both sides are reporting honestly against different definitions.",
+      "why_wrong": {
+        "B": "Assuming the business is wrong ignores the far more common definitional explanation and is not a conclusion evidence would support.",
+        "C": "Tool malfunction is possible but much rarer than a measurement scope that was agreed and then forgotten.",
+        "D": "Local connectivity would affect individuals sporadically, not produce a systematic divergence in reported service availability."
+      }
+    },
+    {
+      "id": "cisa-d4a-033",
+      "topic": "IT Service Level Management",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST demonstrates that a third-party service provider is meeting its contracted service levels?",
+      "options": {
+        "A": "The absence of escalations or complaints from business users during the period.",
+        "B": "Independently measured performance data reconciled against the contracted metrics, with credits or remedies applied where targets were missed.",
+        "C": "The provider's monthly self-reported performance dashboard.",
+        "D": "The organization's decision to renew the contract for a further term."
+      },
+      "answer": "B",
+      "why_correct": "Independent measurement removes reliance on the party being measured, and evidence that remedies were actually applied shows the contract is being enforced rather than merely monitored.",
+      "why_wrong": {
+        "A": "No complaints may mean the service was fine, or that users stopped bothering to report problems.",
+        "C": "A self-reported dashboard is management representation by an interested party, and the provider controls both the data and its definitions.",
+        "D": "Renewal reflects commercial factors such as switching cost and may occur despite poor performance."
+      }
+    },
+    {
+      "id": "cisa-d4a-034",
+      "topic": "IT Service Level Management",
+      "difficulty": "hard",
+      "stem": "An underpinning contract with a hardware supplier commits to a 24-hour response time, while the internal service level agreement promises the business a 4-hour resolution for the same systems. The IS auditor should MOST appropriately conclude that:",
+      "options": {
+        "A": "the underpinning contract provides adequate support for the internal commitment.",
+        "B": "the internal service level agreement should be communicated more widely within the business.",
+        "C": "the hardware supplier should be replaced at the earliest opportunity.",
+        "D": "the internal commitment cannot be reliably met, because it depends on a supplier that is not contracted to support it."
+      },
+      "answer": "D",
+      "why_correct": "Internal commitments can only be as strong as the contracts underpinning them. Promising four-hour resolution on a dependency that may not respond for twenty-four hours means the commitment fails whenever that dependency is involved.",
+      "why_wrong": {
+        "A": "A 24-hour response cannot support a 4-hour resolution; the arithmetic does not work.",
+        "B": "Publicizing an unachievable commitment more widely makes the exposure worse, not better.",
+        "C": "Replacement is one possible remedy, but the finding is the misalignment; renegotiating the contract or adjusting the internal target may be more appropriate."
+      }
+    },
+    {
+      "id": "cisa-d4a-035",
+      "topic": "Database Management",
+      "difficulty": "medium",
+      "stem": "Which of the following presents the GREATEST risk in a production database environment?",
+      "options": {
+        "A": "Application developers hold standing database administrator privileges on production databases.",
+        "B": "The database is backed up in full each night with transaction log backups during the day.",
+        "C": "Referential integrity constraints are enforced by the database rather than by application code.",
+        "D": "Database performance statistics are collected and reviewed on an hourly basis."
+      },
+      "answer": "A",
+      "why_correct": "Standing administrator rights on production let developers read and alter live data directly, bypassing both application controls and change management. It is a segregation of duties failure combined with a confidentiality and integrity exposure.",
+      "why_wrong": {
+        "B": "Full nightly backups supplemented by log backups is sound practice supporting point-in-time recovery.",
+        "C": "Enforcing referential integrity in the database is stronger than relying on application code, since it applies to every access path.",
+        "D": "Frequent performance monitoring is good operational practice."
+      }
+    },
+    {
+      "id": "cisa-d4a-036",
+      "topic": "Database Management",
+      "difficulty": "easy",
+      "stem": "Referential integrity constraints in a relational database PRIMARILY ensure that:",
+      "options": {
+        "A": "data held in the database is encrypted while at rest.",
+        "B": "database transactions complete within a defined response time.",
+        "C": "relationships between tables remain valid, so records cannot reference a parent that does not exist.",
+        "D": "users are able to see only the rows they are authorized to access."
+      },
+      "answer": "C",
+      "why_correct": "Referential integrity enforces the foreign key relationship, preventing orphaned child records and blocking deletion of parent records that are still referenced. It is an integrity control built into the data model itself.",
+      "why_wrong": {
+        "A": "Encryption at rest is a separate confidentiality mechanism unrelated to relational constraints.",
+        "B": "Response time is a performance characteristic governed by indexing, tuning and capacity.",
+        "D": "Row-level visibility is an access control matter handled by permissions or views."
+      }
+    },
+    {
+      "id": "cisa-d4a-037",
+      "topic": "Database Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing database activity monitoring would be MOST concerned to find that:",
+      "options": {
+        "A": "monitoring captures failed authentication attempts against the database.",
+        "B": "alert thresholds have been tuned to reduce the volume of low-value notifications.",
+        "C": "privileged user activity, including data changes made directly outside the application, is not captured.",
+        "D": "monitoring data is retained for one year before being archived."
+      },
+      "answer": "C",
+      "why_correct": "Direct changes by privileged users are the highest-risk activity in a database and the hardest to detect elsewhere, because they leave no trace in application audit trails. Not capturing them leaves the most dangerous path unmonitored.",
+      "why_wrong": {
+        "A": "Capturing failed authentication is a standard and desirable part of database monitoring.",
+        "B": "Tuning to suppress noise improves the chance that meaningful alerts get attention.",
+        "D": "A one-year retention period is reasonable and supports investigation of issues discovered later."
+      }
+    },
+    {
+      "id": "cisa-d4a-038",
+      "topic": "Database Management",
+      "difficulty": "medium",
+      "stem": "Direct updates to production data outside the application should BEST be handled by:",
+      "options": {
+        "A": "prohibiting them by default and, where genuinely unavoidable, requiring an approved change record with independent review of the statement beforehand and evidence of the result afterward.",
+        "B": "permitting them for database administrators as a routine part of their duties.",
+        "C": "permitting them provided that the statement executed is written to a log.",
+        "D": "permitting them wherever modifying the application would take longer than the business can wait."
+      },
+      "answer": "A",
+      "why_correct": "Direct data changes bypass every validation the application performs, and a mistyped condition can affect far more rows than intended. Treating them as exceptional, reviewing the statement before execution and evidencing the outcome gives control without making legitimate fixes impossible.",
+      "why_wrong": {
+        "B": "Routine direct updates place unvalidated changes to live data entirely within one person's discretion.",
+        "C": "Logging is detective and after the fact. It records the damage rather than preventing it.",
+        "D": "Convenience is not a control rationale, and this reasoning would make the exception the normal route."
+      }
+    }
+  ]
+}

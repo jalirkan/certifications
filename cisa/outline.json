@@ -1,0 +1,157 @@
+{
+  "cert": "CISA",
+  "cert_name": "Certified Information Systems Auditor",
+  "source": "https://www.isaca.org/credentialing/cisa/cisa-exam-content-outline",
+  "verified_on": "2026-07-26",
+  "note": "Domain names, section names and topic lists transcribed from ISACA's published CISA Exam Content Outline. Weights confirmed on the same page. This file is a structural reference for tagging questions; it contains no ISACA question content.",
+  "exam_format": {
+    "questions": 150,
+    "minutes": 240,
+    "score_scale": [200, 800],
+    "passing_score": 450,
+    "format": "multiple choice, four options, one correct",
+    "verified_on": "2026-07-26"
+  },
+  "domains": {
+    "1": {
+      "name": "Information Systems Auditing Process",
+      "weight": 18,
+      "sections": {
+        "A": {
+          "name": "Planning",
+          "topics": [
+            "IS Audit Standards, Guidelines, and Codes of Ethics",
+            "Types of Audits, Assessments, and Reviews",
+            "Risk-Based Audit Planning",
+            "Types of Controls and Considerations"
+          ]
+        },
+        "B": {
+          "name": "Execution",
+          "topics": [
+            "Audit Project Management",
+            "Audit Testing and Sampling Methodology",
+            "Audit Evidence Collection Techniques",
+            "Audit Data Analytics",
+            "Reporting and Communication Techniques",
+            "Quality Assurance and Improvement of Audit Process"
+          ]
+        }
+      }
+    },
+    "2": {
+      "name": "Governance and Management of IT",
+      "weight": 18,
+      "sections": {
+        "A": {
+          "name": "IT Governance",
+          "topics": [
+            "Laws, Regulations, and Industry Standards",
+            "Organizational Structure, IT Governance, and IT Strategy",
+            "IT Policies, Standards, Procedures and Practices",
+            "Enterprise Architecture and Considerations",
+            "Enterprise Risk Management",
+            "Privacy Program and Principles",
+            "Data Governance and Classification"
+          ]
+        },
+        "B": {
+          "name": "IT Management",
+          "topics": [
+            "IT Resource Management",
+            "IT Vendor Management",
+            "IT Performance Monitoring and Reporting",
+            "Quality Assurance and Quality Management of IT"
+          ]
+        }
+      }
+    },
+    "3": {
+      "name": "Information Systems Acquisition, Development and Implementation",
+      "weight": 12,
+      "sections": {
+        "A": {
+          "name": "Information Systems Acquisition and Development",
+          "topics": [
+            "Project Governance and Management",
+            "Business Case and Feasibility Analysis",
+            "System Development Methodologies",
+            "Control Identification and Design"
+          ]
+        },
+        "B": {
+          "name": "Information Systems Implementation",
+          "topics": [
+            "System Readiness and Implementation Testing",
+            "Implementation Configuration and Release Management",
+            "System Migration, Infrastructure Deployment, and Data Conversion",
+            "Post-implementation Review"
+          ]
+        }
+      }
+    },
+    "4": {
+      "name": "Information Systems Operations and Business Resilience",
+      "weight": 26,
+      "sections": {
+        "A": {
+          "name": "Information Systems Operations",
+          "topics": [
+            "IT Components",
+            "IT Asset Management",
+            "Job Scheduling and Production Process Automation",
+            "System Interfaces",
+            "Shadow IT and End-User Computing",
+            "Systems Availability and Capacity Management",
+            "Problem and Incident Management",
+            "IT Change, Configuration, and Patch Management",
+            "Operational Log Management",
+            "IT Service Level Management",
+            "Database Management"
+          ]
+        },
+        "B": {
+          "name": "Business Resilience",
+          "topics": [
+            "Business Impact Analysis",
+            "System and Operational Resilience",
+            "Data Backup, Storage, and Restoration",
+            "Business Continuity Plan",
+            "Disaster Recovery Plans"
+          ]
+        }
+      }
+    },
+    "5": {
+      "name": "Protection of Information Assets",
+      "weight": 26,
+      "sections": {
+        "A": {
+          "name": "Information Asset Security and Control",
+          "topics": [
+            "Information Asset Security Frameworks, Standards, and Guidelines",
+            "Physical and Environmental Controls",
+            "Identity and Access Management",
+            "Network and End-Point Security",
+            "Data Loss Prevention",
+            "Data Encryption",
+            "Public Key Infrastructure",
+            "Cloud and Virtualized Environments",
+            "Mobile, Wireless, and Internet-of-Things Devices"
+          ]
+        },
+        "B": {
+          "name": "Security Event Management",
+          "topics": [
+            "Security Awareness Training and Programs",
+            "Information System Attack Methods and Techniques",
+            "Security Testing Tools and Techniques",
+            "Security Monitoring Tools and Techniques",
+            "Security Incident Response Management",
+            "Evidence Collection and Forensics"
+          ]
+        }
+      }
+    }
+  }
+}

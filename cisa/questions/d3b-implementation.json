@@ -1,0 +1,584 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "3",
+    "section": "B",
+    "batch": "d3b-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D3 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d3b-001",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "easy",
+      "stem": "The PRIMARY purpose of user acceptance testing is to:",
+      "options": {
+        "A": "confirm that the delivered code is free of defects.",
+        "B": "verify that the system performs adequately under peak load.",
+        "C": "confirm that the system meets business requirements and is fit for purpose from the users' perspective.",
+        "D": "validate that the supporting infrastructure has been configured correctly."
+      },
+      "answer": "C",
+      "why_correct": "Acceptance testing is the business deciding whether what was built does what it needed. It is the last point at which the organization can decline to accept a system that technically works but does not serve the process.",
+      "why_wrong": {
+        "A": "Defect detection is the objective of system and integration testing performed by the delivery team.",
+        "B": "Behavior under load is established through performance and stress testing.",
+        "D": "Infrastructure configuration is confirmed through technical and environment testing."
+      }
+    },
+    {
+      "id": "cisa-d3b-002",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that user acceptance testing was carried out by the development team on the users' behalf. The GREATEST concern is that:",
+      "options": {
+        "A": "acceptance was not established by those who own the requirements, so the system may satisfy the developers' interpretation rather than the business need.",
+        "B": "the development team may lack formal testing qualifications.",
+        "C": "the testing phase took longer to complete than had been planned.",
+        "D": "the test scripts used were not retained in the project records."
+      },
+      "answer": "A",
+      "why_correct": "Developers test against their understanding of the requirement, which is precisely the understanding that acceptance testing exists to challenge. Any misinterpretation embedded during design is simply confirmed rather than caught.",
+      "why_wrong": {
+        "B": "Developers frequently test competently; the problem is independence and perspective rather than skill.",
+        "C": "Schedule variance is a project management matter unrelated to the validity of acceptance.",
+        "D": "Missing scripts is a documentation weakness that matters far less than who performed the acceptance."
+      }
+    },
+    {
+      "id": "cisa-d3b-003",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "easy",
+      "asks": "definition",
+      "stem": "Regression testing is performed PRIMARILY to:",
+      "options": {
+        "A": "establish how the system behaves at peak transaction volumes.",
+        "B": "verify that newly delivered functionality works as specified.",
+        "C": "confirm that users are able to operate the system correctly.",
+        "D": "confirm that changes have not adversely affected functionality that previously worked correctly."
+      },
+      "answer": "D",
+      "why_correct": "Regression testing guards against collateral damage. Changes routinely break things nobody thought were related, and re-running established tests is what catches those breakages before users find them.",
+      "why_wrong": {
+        "A": "Behavior at volume is the subject of performance and stress testing.",
+        "B": "Verifying new functionality is the purpose of functional testing against the specification.",
+        "C": "User capability is developed through training and confirmed during acceptance testing."
+      }
+    },
+    {
+      "id": "cisa-d3b-004",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "Using live production data within a test environment presents the GREATEST risk of:",
+      "options": {
+        "A": "producing test results that do not reflect real system behavior.",
+        "B": "exposing confidential production data in an environment with weaker access controls and monitoring.",
+        "C": "consuming excessive storage capacity in the test environment.",
+        "D": "slowing the execution of automated test suites."
+      },
+      "answer": "B",
+      "why_correct": "Test environments typically have broader access, including developers, testers and sometimes third parties, with lighter logging and fewer restrictions. Real customer or employee data placed there is exposed to a far wider audience than in production.",
+      "why_wrong": {
+        "A": "Production data usually improves test realism, which is why the practice is tempting in the first place.",
+        "C": "Storage consumption is an infrastructure cost that is easily planned for.",
+        "D": "Execution speed is a technical consideration with no confidentiality dimension."
+      }
+    },
+    {
+      "id": "cisa-d3b-005",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing testing evidence would be MOST concerned to find that:",
+      "options": {
+        "A": "certain tests were executed more than once during the test cycle.",
+        "B": "test results were not retained, so there is no evidence of what was tested or how failures were resolved.",
+        "C": "part of the testing was performed by an external third party.",
+        "D": "testing identified a substantial number of defects."
+      },
+      "answer": "B",
+      "why_correct": "Without retained results the auditor cannot establish coverage, cannot confirm that failures were fixed and retested, and cannot conclude on whether the go-live decision was properly supported. The testing may have been excellent, but none of it is demonstrable.",
+      "why_wrong": {
+        "A": "Repeated execution is normal after defects are corrected and is a sign of proper retesting.",
+        "C": "Independent third-party testing often strengthens objectivity and coverage.",
+        "D": "Finding many defects means testing is working; the concern would be finding none."
+      }
+    },
+    {
+      "id": "cisa-d3b-006",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "easy",
+      "stem": "Which testing approach BEST validates that separate systems work correctly together following a change?",
+      "options": {
+        "A": "Unit testing of individual code modules.",
+        "B": "Regression testing of previously working functionality.",
+        "C": "Stress testing beyond expected capacity limits.",
+        "D": "Integration testing across the connected systems."
+      },
+      "answer": "D",
+      "why_correct": "Integration testing targets the interfaces and data exchanges between systems, which is where components that each work perfectly in isolation commonly fail to agree on format, timing or sequence.",
+      "why_wrong": {
+        "A": "Unit testing examines individual modules in isolation, deliberately excluding their interactions.",
+        "B": "Regression testing confirms existing functionality still works, which may be within a single system.",
+        "C": "Stress testing explores behavior beyond normal capacity rather than correctness of interaction."
+      }
+    },
+    {
+      "id": "cisa-d3b-007",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "Go-live readiness criteria should BEST be:",
+      "options": {
+        "A": "defined and agreed before testing begins, so the deployment decision is taken against objective conditions rather than schedule pressure.",
+        "B": "determined by the project manager at the point the decision is required.",
+        "C": "based principally on whether the planned implementation date has been reached.",
+        "D": "specified by the vendor supplying the system."
+      },
+      "answer": "A",
+      "why_correct": "Criteria agreed in advance, before anyone is invested in a particular date, are the only ones that survive contact with schedule pressure. Set afterward, they are inevitably shaped to match whatever state the project has reached.",
+      "why_wrong": {
+        "B": "A single individual deciding at the moment of maximum pressure is exactly the situation objective criteria are meant to prevent.",
+        "C": "Deploying because the date arrived ignores whether the system is actually ready.",
+        "D": "The vendor has a commercial interest in go-live and cannot set the organization's acceptance conditions."
+      }
+    },
+    {
+      "id": "cisa-d3b-008",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "hard",
+      "stem": "An organization proceeds to go-live with 40 known open defects. The IS auditor should MOST appropriately verify that:",
+      "options": {
+        "A": "responsibility for the defects has been attributed to the vendor.",
+        "B": "the project team intends to resolve the defects at some future point.",
+        "C": "each open defect was formally assessed for business and control impact and accepted by an authorized business owner, with workarounds in place where needed.",
+        "D": "the number of open defects compares favorably with industry benchmarks."
+      },
+      "answer": "C",
+      "why_correct": "Going live with known defects can be a perfectly rational decision. What makes it acceptable is that someone with authority understood each one, judged the impact tolerable, and arranged workarounds where the business needed them.",
+      "why_wrong": {
+        "A": "Attributing fault is a commercial matter that does nothing about the operational exposure.",
+        "B": "An intention to fix things eventually is not a risk decision and commits nobody to anything.",
+        "D": "Benchmarks say nothing about whether these specific defects are tolerable in this specific business."
+      }
+    },
+    {
+      "id": "cisa-d3b-009",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "The PRIMARY purpose of configuration management is to:",
+      "options": {
+        "A": "reduce the cost of hardware and software across the estate.",
+        "B": "accelerate the speed at which changes can be deployed.",
+        "C": "monitor the ongoing performance of production systems.",
+        "D": "maintain an accurate record of the components in the environment and the relationships between them, so that changes can be assessed and reproduced."
+      },
+      "answer": "D",
+      "why_correct": "Configuration management answers what exists and what depends on what. That knowledge is what makes impact assessment, incident diagnosis and environment rebuilding possible rather than guesswork.",
+      "why_wrong": {
+        "A": "Cost reduction may follow from better visibility but is not the objective.",
+        "B": "Deployment speed is the concern of release management and automation.",
+        "C": "Performance monitoring is an operational activity distinct from configuration records."
+      }
+    },
+    {
+      "id": "cisa-d3b-010",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the configuration management database differs materially from the actual environment. The GREATEST concern is that:",
+      "options": {
+        "A": "the database consumes more storage than is necessary.",
+        "B": "change impact assessment, incident diagnosis and recovery planning all rely on information that is wrong.",
+        "C": "software licensing positions may be reported inaccurately.",
+        "D": "management reports take longer to compile than expected."
+      },
+      "answer": "B",
+      "why_correct": "An inaccurate configuration record is worse than none, because people trust it. Changes get approved on the basis of dependencies that do not exist, and recovery plans are built around a picture of an environment that has moved on.",
+      "why_wrong": {
+        "A": "Storage cost is negligible and unrelated to the reliance placed on the data.",
+        "C": "Licensing inaccuracy is a real commercial consequence but far less serious than misinformed change and recovery decisions.",
+        "D": "Reporting effort is an efficiency matter rather than a risk."
+      }
+    },
+    {
+      "id": "cisa-d3b-011",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "Release management is BEST distinguished from change management in that release management:",
+      "options": {
+        "A": "assesses and authorizes each individual change request.",
+        "B": "evaluates the risk that each proposed change presents.",
+        "C": "packages, schedules and deploys groups of approved changes into the live environment in a coordinated way.",
+        "D": "records the details of changes after they have been implemented."
+      },
+      "answer": "C",
+      "why_correct": "Change management decides whether a change should proceed; release management handles getting a coordinated bundle of approved changes safely into production, including build, scheduling, deployment and rollback.",
+      "why_wrong": {
+        "A": "Authorizing individual changes is the function of change management.",
+        "B": "Risk assessment of proposed changes belongs to the change process.",
+        "D": "After-the-fact recording is record keeping and does not describe either discipline properly."
+      }
+    },
+    {
+      "id": "cisa-d3b-012",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "The MOST important control over the promotion of code into production is that:",
+      "options": {
+        "A": "promotion is performed by a party independent of the developer, from a controlled source, against an approved change record.",
+        "B": "promotion is scheduled to take place outside normal business hours.",
+        "C": "the developer confirms that testing has been satisfactorily completed.",
+        "D": "the deployment is described in the release notes issued to users."
+      },
+      "answer": "A",
+      "why_correct": "The three elements together close the loop: independence prevents a developer moving their own code, a controlled source ensures what is deployed is what was tested, and the approved change record establishes authorization.",
+      "why_wrong": {
+        "B": "Timing limits business disruption but places no control over what gets deployed or by whom.",
+        "C": "Self-certification by the developer is exactly the reliance that independent promotion is designed to remove.",
+        "D": "Release notes communicate what changed; they neither authorize nor control the deployment."
+      }
+    },
+    {
+      "id": "cisa-d3b-013",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "easy",
+      "stem": "A rollback plan is MOST important because:",
+      "options": {
+        "A": "it provides a tested route back to a known good state if the deployment fails or causes unacceptable problems.",
+        "B": "it is a standing requirement of most change advisory boards.",
+        "C": "it documents the sequence of steps involved in the deployment.",
+        "D": "it reduces the amount of testing required before deployment."
+      },
+      "answer": "A",
+      "why_correct": "Deployments fail in ways testing did not predict. A rollback plan converts that from a crisis into a decision, and the word that matters is tested: an untried rollback discovered to be broken mid-incident is worse than none.",
+      "why_wrong": {
+        "B": "Board requirements may mandate the plan but do not explain its value.",
+        "C": "Deployment steps are documented in the implementation plan, which is a separate artifact.",
+        "D": "A rollback capability is no substitute for testing and does not reduce the need for it."
+      }
+    },
+    {
+      "id": "cisa-d3b-014",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing environment management would be MOST concerned to find that:",
+      "options": {
+        "A": "development, test and production are maintained as separate environments.",
+        "B": "test data is refreshed from a sanitized source at regular intervals.",
+        "C": "developers hold write access to the production environment.",
+        "D": "the test environment is provisioned at smaller scale than production."
+      },
+      "answer": "C",
+      "why_correct": "Developer write access to production defeats the separation the whole environment structure exists to create. Code and data can be altered outside change control, and the person best able to make an undetectable change is the one holding the access.",
+      "why_wrong": {
+        "A": "Separate environments are the expected and desirable arrangement.",
+        "B": "Regular refresh from a sanitized source is good practice, keeping tests realistic without exposing live data.",
+        "D": "Smaller test environments are common for cost reasons; it constrains performance testing but is not a control failure."
+      }
+    },
+    {
+      "id": "cisa-d3b-015",
+      "topic": "Implementation Configuration and Release Management",
+      "difficulty": "medium",
+      "stem": "Version control over source code PRIMARILY provides:",
+      "options": {
+        "A": "protection against malicious code being introduced by external attackers.",
+        "B": "the ability to identify exactly what was deployed, who changed it and when, and to reconstruct any earlier state.",
+        "C": "faster compilation and build times for the development team.",
+        "D": "automated execution of the project's regression test suite."
+      },
+      "answer": "B",
+      "why_correct": "Version control gives the definitive answer to what is running in production and how it got there. That traceability underpins change management, incident investigation and the ability to return to a known good version.",
+      "why_wrong": {
+        "A": "Version control records changes but does not judge intent, and an attacker with credentials can commit code.",
+        "C": "Build performance depends on the build tooling and infrastructure.",
+        "D": "Test automation is provided by the continuous integration pipeline, which uses version control as an input."
+      }
+    },
+    {
+      "id": "cisa-d3b-016",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "The MOST important control over data conversion is:",
+      "options": {
+        "A": "scheduling the conversion over a weekend to minimize business disruption.",
+        "B": "using the conversion tooling supplied by the system vendor.",
+        "C": "archiving the legacy system before the conversion is performed.",
+        "D": "reconciliation of record counts and control totals between the legacy and new systems, with every difference investigated and resolved before sign-off."
+      },
+      "answer": "D",
+      "why_correct": "Conversion must be proven complete and accurate, and reconciliation is the only technique that demonstrates both. Investigating every difference is what prevents small unexplained variances from concealing systematic loss.",
+      "why_wrong": {
+        "A": "Weekend timing reduces disruption but says nothing about whether the data arrived intact.",
+        "B": "Vendor tooling may be well built and still be configured wrongly or fed incomplete input.",
+        "C": "Archiving preserves a fallback, which is valuable, but does not establish that the conversion succeeded."
+      }
+    },
+    {
+      "id": "cisa-d3b-017",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that data conversion exceptions were resolved by manually amending records in the new system without documentation. The GREATEST concern is that:",
+      "options": {
+        "A": "the manual amendments consumed significant staff effort.",
+        "B": "the integrity of the converted data cannot be demonstrated, and unauthorized or erroneous changes cannot be distinguished from legitimate corrections.",
+        "C": "the conversion tooling was evidently inadequate for the task.",
+        "D": "the legacy system may have been decommissioned prematurely."
+      },
+      "answer": "B",
+      "why_correct": "Undocumented manual intervention breaks the chain from source to converted data. Nobody can later demonstrate that the opening balances are right, and any error or manipulation introduced at this point is indistinguishable from a genuine fix.",
+      "why_wrong": {
+        "A": "Effort expended is a cost consideration, not an integrity failure.",
+        "C": "Tool adequacy explains why exceptions arose but not why resolving them without records is dangerous.",
+        "D": "Premature decommissioning is a separate risk that the stem does not describe."
+      }
+    },
+    {
+      "id": "cisa-d3b-018",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "easy",
+      "stem": "A parallel changeover approach BEST provides:",
+      "options": {
+        "A": "the ability to compare the outputs of the old and new systems before relying on the new one, at the cost of operating both.",
+        "B": "the fastest possible transition from the legacy system.",
+        "C": "the lowest total cost among the available changeover strategies.",
+        "D": "the smallest operational burden on business staff during transition."
+      },
+      "answer": "A",
+      "why_correct": "Running both systems on the same inputs allows every difference in output to be examined and explained. It is the most thorough validation available and the most expensive, since the business carries double the processing effort.",
+      "why_wrong": {
+        "B": "Parallel running is the slowest approach, extending the transition across at least one full business cycle.",
+        "C": "It is the costliest strategy, requiring both systems and the staff to operate them.",
+        "D": "Staff carry the heaviest burden under parallel running, performing work twice and investigating differences."
+      }
+    },
+    {
+      "id": "cisa-d3b-019",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "A direct or 'big bang' cutover carries the GREATEST risk because:",
+      "options": {
+        "A": "it takes considerably longer to complete than other approaches.",
+        "B": "it requires substantially more staff than a phased approach.",
+        "C": "there is no fallback once the legacy system is switched off, so a serious failure affects the entire business at once.",
+        "D": "it demands a greater volume of testing before implementation."
+      },
+      "answer": "C",
+      "why_correct": "Direct cutover concentrates all the risk into one moment with no safety net. If the new system fails materially, the old one is gone and there is nothing to fall back to while the problem is resolved.",
+      "why_wrong": {
+        "A": "Direct cutover is the quickest transition, which is much of its appeal.",
+        "B": "It generally requires fewer staff than parallel running, which needs people for both systems.",
+        "D": "More testing is a sensible response to the risk rather than the reason the risk exists."
+      }
+    },
+    {
+      "id": "cisa-d3b-020",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "A phased changeover is MOST appropriate when:",
+      "options": {
+        "A": "the organization wants to complete the transition in the shortest possible time.",
+        "B": "the system being replaced is small and functionally simple.",
+        "C": "the available budget is severely constrained.",
+        "D": "the system can be sensibly divided by module, location or business unit, so risk is contained and lessons can be applied to later phases."
+      },
+      "answer": "D",
+      "why_correct": "Phasing works when there is a natural seam to cut along. Each phase limits the blast radius of failure and produces lessons that improve the next, which is why it suits large or geographically distributed implementations.",
+      "why_wrong": {
+        "A": "Phasing extends the overall transition period considerably.",
+        "B": "Small simple systems rarely divide sensibly and are usually better suited to direct cutover.",
+        "C": "Phased implementations often cost more, since interim interfaces between old and new must be built and maintained."
+      }
+    },
+    {
+      "id": "cisa-d3b-021",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "hard",
+      "stem": "Before decommissioning a legacy system following migration, the organization should MOST importantly:",
+      "options": {
+        "A": "terminate the vendor maintenance and support contract.",
+        "B": "reassign the staff who supported the legacy platform.",
+        "C": "recover the hardware for redeployment elsewhere.",
+        "D": "confirm that all data required for legal, regulatory and business purposes has been migrated or archived in a form that remains accessible and readable."
+      },
+      "answer": "D",
+      "why_correct": "Migrations typically move only the data the new system needs, leaving history behind. Once the legacy platform is gone, records required for tax, litigation or regulatory response may be unrecoverable, and the obligation to produce them does not disappear with the system.",
+      "why_wrong": {
+        "A": "Contract termination is an administrative step that should follow, not precede, confirmation that nothing is still needed.",
+        "B": "Staff reassignment is a resourcing decision, though retaining knowledge until decommissioning is complete is wise.",
+        "C": "Hardware recovery is an asset management activity of minor consequence by comparison."
+      }
+    },
+    {
+      "id": "cisa-d3b-022",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "Cleansing data before migration is important PRIMARILY because:",
+      "options": {
+        "A": "it reduces the total volume of data that must be converted.",
+        "B": "it shortens the elapsed time required for the conversion run.",
+        "C": "migrating poor quality data reproduces existing errors in the new system and undermines confidence in it from the outset.",
+        "D": "the organization's data governance policy requires it."
+      },
+      "answer": "C",
+      "why_correct": "A migration is a rare opportunity to fix accumulated data problems. Skipping it means duplicates, obsolete records and inconsistent formats arrive on day one, and users blame the new system for faults it inherited.",
+      "why_wrong": {
+        "A": "Volume reduction is a welcome side effect rather than the reason for cleansing.",
+        "B": "Conversion runtime is a technical consideration of little consequence.",
+        "D": "Policy compliance may require it but does not explain why it matters."
+      }
+    },
+    {
+      "id": "cisa-d3b-023",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "medium",
+      "stem": "An IS auditor should be MOST concerned if a completed data migration was signed off:",
+      "options": {
+        "A": "by the project manager alone, without the business data owner confirming the converted data is complete and accurate.",
+        "B": "following two full conversion rehearsals in a test environment.",
+        "C": "with a documented list of known minor variances attached.",
+        "D": "after reconciliation of record counts and control totals had been performed."
+      },
+      "answer": "A",
+      "why_correct": "The project manager has an interest in the migration being declared finished and generally lacks the business knowledge to judge whether the data is right. Only the data owner can confirm the converted records reflect reality.",
+      "why_wrong": {
+        "B": "Conversion rehearsals substantially reduce risk and are good practice.",
+        "C": "Documented and accepted variances demonstrate that differences were identified and consciously agreed.",
+        "D": "Reconciliation before sign-off is precisely the control an auditor would expect to see."
+      }
+    },
+    {
+      "id": "cisa-d3b-024",
+      "topic": "Post-implementation Review",
+      "difficulty": "medium",
+      "stem": "A post-implementation review is BEST performed:",
+      "options": {
+        "A": "immediately at go-live, while the implementation is fresh.",
+        "B": "once the system has operated long enough for performance and benefits to be assessed, but soon enough that lessons remain relevant and the team is still available.",
+        "C": "at the organization's next scheduled annual audit.",
+        "D": "only in cases where the project failed to meet its objectives."
+      },
+      "answer": "B",
+      "why_correct": "The timing is a balance. Too early and no benefits have materialized; too late and the people involved have moved on and the lessons no longer apply to anything. A few months of live operation is typically the window.",
+      "why_wrong": {
+        "A": "At go-live there is nothing to assess, since the system has not yet been used in anger.",
+        "C": "Deferring to the annual cycle loses both the corporate memory and the opportunity to act on findings.",
+        "D": "Successful projects carry the most transferable lessons and reviewing only failures makes the review a punishment."
+      }
+    },
+    {
+      "id": "cisa-d3b-025",
+      "topic": "Post-implementation Review",
+      "difficulty": "easy",
+      "stem": "The PRIMARY objective of a post-implementation review is to:",
+      "options": {
+        "A": "establish who was responsible for the problems encountered during delivery.",
+        "B": "confirm that the project was completed within its approved budget.",
+        "C": "determine whether the system met its objectives and delivered the expected benefits, and to capture lessons for future projects.",
+        "D": "test the adequacy of the controls built into the delivered system."
+      },
+      "answer": "C",
+      "why_correct": "The review closes the loop on the investment decision and feeds the organization's learning. Both halves matter: did we get what we paid for, and what should we do differently next time.",
+      "why_wrong": {
+        "A": "Attributing blame destroys the candor the review depends on and produces nothing useful.",
+        "B": "Budget performance is one input among several, not the objective.",
+        "D": "Control testing may form part of the review but is a narrower question than whether the investment succeeded."
+      }
+    },
+    {
+      "id": "cisa-d3b-026",
+      "topic": "Post-implementation Review",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that post-implementation reviews are conducted but their findings are never carried into subsequent projects. The GREATEST concern is that:",
+      "options": {
+        "A": "the reviews consume effort that could be spent on delivery.",
+        "B": "the findings recorded in the reviews may be inaccurate.",
+        "C": "project managers may become reluctant to participate in future reviews.",
+        "D": "the organization repeats the same mistakes, because the one mechanism designed to prevent that is not connected to anything."
+      },
+      "answer": "D",
+      "why_correct": "A review that changes nothing is a ritual. The organization pays the cost of learning and receives none of the benefit, and the same findings reappear project after project.",
+      "why_wrong": {
+        "A": "Effort is only wasted because the output is unused, which is the deeper problem.",
+        "B": "Accuracy is not indicated by the stem, and accurate findings that are ignored are equally useless.",
+        "C": "Reluctance to participate would be a consequence of reviews visibly achieving nothing."
+      }
+    },
+    {
+      "id": "cisa-d3b-027",
+      "topic": "Post-implementation Review",
+      "difficulty": "medium",
+      "stem": "Which of the following is the BEST evidence that a system delivered the benefits expected of it?",
+      "options": {
+        "A": "The project was completed within the approved schedule.",
+        "B": "Measured business outcomes compared against the baseline and targets set out in the business case.",
+        "C": "Positive feedback gathered from users of the new system.",
+        "D": "The absence of significant incidents in the period since go-live."
+      },
+      "answer": "B",
+      "why_correct": "Benefits were claimed in specific terms in the business case, so evidence has to be a comparison against those claims. Anything else measures delivery or sentiment rather than the value obtained.",
+      "why_wrong": {
+        "A": "On-time delivery describes how the project ran, not what the organization gained.",
+        "C": "User satisfaction is worth knowing but people can be pleased with a system that delivered no measurable benefit.",
+        "D": "Operational stability is a necessary condition for benefits rather than evidence of them."
+      }
+    },
+    {
+      "id": "cisa-d3b-028",
+      "topic": "Post-implementation Review",
+      "difficulty": "hard",
+      "stem": "An IS auditor conducting a post-implementation review should be MOST concerned to find that:",
+      "options": {
+        "A": "the benefits claimed in the business case cannot be measured, because no baseline was captured before implementation.",
+        "B": "certain benefits were realized later than the business case had projected.",
+        "C": "the project exceeded the budget originally approved for it.",
+        "D": "users have submitted enhancement requests since the system went live."
+      },
+      "answer": "A",
+      "why_correct": "Without a baseline the central question of the review is unanswerable, permanently. The organization cannot know whether the investment worked, and the same gap will recur on the next project unless baselining becomes a funding condition.",
+      "why_wrong": {
+        "B": "Delayed benefits are common and can still be verified and reported.",
+        "C": "Budget overrun is a delivery issue that does not prevent the benefits assessment.",
+        "D": "Enhancement requests indicate active engagement with a system users find worth improving."
+      }
+    },
+    {
+      "id": "cisa-d3b-029",
+      "topic": "Post-implementation Review",
+      "difficulty": "medium",
+      "stem": "Independence considerations mean that a post-implementation review is BEST performed by:",
+      "options": {
+        "A": "the project manager who delivered the implementation.",
+        "B": "the team that developed and configured the system.",
+        "C": "the vendor that supplied the software.",
+        "D": "a party independent of the delivery, such as internal audit or a review team not involved in building the system."
+      },
+      "answer": "D",
+      "why_correct": "Everyone who delivered the project has an interest in it being judged a success. An independent reviewer can ask whether the benefits were real without being asked to condemn their own work.",
+      "why_wrong": {
+        "A": "The project manager is evaluating their own delivery, which is a clear self-review threat.",
+        "B": "The build team faces the same conflict and is unlikely to identify shortcomings in its own product.",
+        "C": "The vendor has a direct commercial interest in a favorable conclusion and in future sales."
+      }
+    },
+    {
+      "id": "cisa-d3b-030",
+      "topic": "Post-implementation Review",
+      "difficulty": "medium",
+      "stem": "Lessons learned from a post-implementation review are MOST valuable when they are:",
+      "options": {
+        "A": "circulated by email to the members of the project team.",
+        "B": "filed within the project archive for future reference.",
+        "C": "translated into changes to the organization's standards, processes or estimating practices, so future projects inherit the improvement automatically.",
+        "D": "presented to the project steering committee at its final meeting."
+      },
+      "answer": "C",
+      "why_correct": "Lessons that live only in a document depend on someone thinking to read it. Embedding them in the standards, checklists and estimating models that every project uses makes the improvement automatic rather than optional.",
+      "why_wrong": {
+        "A": "Circulating to the team that already learned the lesson reaches the wrong audience entirely.",
+        "B": "Archived documents are consulted rarely and usually by people already looking for the answer.",
+        "D": "A closing presentation informs a committee that is about to disband."
+      }
+    }
+  ]
+}

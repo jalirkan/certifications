@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+
+# Study progress is personal data, not source. Keep the folder, ignore the log.
+# Remove this line if you'd rather version your progress history.
+*/results/attempts.jsonl

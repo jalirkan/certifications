@@ -1,0 +1,736 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "2",
+    "section": "A",
+    "batch": "d2a-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D2 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d2a-001",
+      "topic": "Laws, Regulations, and Industry Standards",
+      "difficulty": "medium",
+      "stem": "An organization operates in several countries with differing data protection laws. When establishing a single global control framework, management should BEST:",
+      "options": {
+        "A": "apply the requirements of the country in which the head office is located.",
+        "B": "identify the requirements across all applicable jurisdictions and build to the most stringent, adding local variations where a specific law demands something different.",
+        "C": "apply the least restrictive set of requirements in order to minimize operating cost.",
+        "D": "apply the requirements of the jurisdiction containing the largest number of customers."
+      },
+      "answer": "B",
+      "why_correct": "Building to the highest common requirement satisfies every jurisdiction at once and gives a single operating model. Local variation is then reserved for genuine conflicts, such as data residency rules that cannot be met by a global default.",
+      "why_wrong": {
+        "A": "Head office law rarely governs processing carried out elsewhere, and regulators apply their own rules to activity in their territory.",
+        "C": "Designing to the weakest standard guarantees non-compliance everywhere else and invites enforcement.",
+        "D": "Customer volume has no bearing on which legal obligations attach to the organization."
+      }
+    },
+    {
+      "id": "cisa-d2a-002",
+      "topic": "Laws, Regulations, and Industry Standards",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "With respect to laws and regulations affecting the organization, the IS auditor's PRIMARY responsibility is to:",
+      "options": {
+        "A": "provide legal advice to management on how requirements should be interpreted.",
+        "B": "certify the organization's compliance position to the relevant regulator.",
+        "C": "determine authoritatively which laws and regulations apply to the organization.",
+        "D": "evaluate whether management has identified the applicable requirements and established controls to meet them."
+      },
+      "answer": "D",
+      "why_correct": "Compliance is management's responsibility; the auditor evaluates whether management discharged it. That means assessing the process for identifying obligations and testing whether the resulting controls work.",
+      "why_wrong": {
+        "A": "Legal interpretation belongs to qualified counsel, and offering it would place the auditor in a management role.",
+        "B": "Certifying compliance to a regulator is a management assertion, not an internal audit function.",
+        "C": "Determining applicability is management's decision, informed by legal advice. The auditor assesses whether that determination was made competently."
+      }
+    },
+    {
+      "id": "cisa-d2a-003",
+      "topic": "Laws, Regulations, and Industry Standards",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that management has not identified which regulations apply to a newly launched line of business. The GREATEST risk is that:",
+      "options": {
+        "A": "requirements will go unmet because nobody established what they were, exposing the organization to enforcement action and unplanned remediation.",
+        "B": "the compliance function will be inadequately staffed for the additional workload.",
+        "C": "external legal advisory fees will rise in future periods.",
+        "D": "the launch of the new business line will be delayed."
+      },
+      "answer": "A",
+      "why_correct": "Obligations attach whether or not the organization has noticed them. Retrofitting compliance into a live business is expensive and disruptive, and the intervening period of non-compliance cannot be undone.",
+      "why_wrong": {
+        "B": "Resourcing follows once the obligations are known, and is a downstream consequence.",
+        "C": "Advisory cost is a budget matter far smaller than penalties or forced remediation.",
+        "D": "Delay would arguably be the safer outcome; the risk described is a business already operating without knowing its obligations."
+      }
+    },
+    {
+      "id": "cisa-d2a-004",
+      "topic": "Laws, Regulations, and Industry Standards",
+      "difficulty": "medium",
+      "stem": "Compliance with an industry standard such as a payment card security standard MOST significantly differs from compliance with statute in that:",
+      "options": {
+        "A": "industry standards carry criminal rather than civil penalties.",
+        "B": "industry standards are entirely optional in all circumstances.",
+        "C": "the obligation generally arises from contract rather than from law, although the consequences of failure can still be severe.",
+        "D": "industry standards never require validation by an independent party."
+      },
+      "answer": "C",
+      "why_correct": "The obligation is contractual, imposed by the parties an organization does business with. The practical consequences are real nonetheless: fines levied through the contract chain, increased transaction costs, or loss of the ability to operate.",
+      "why_wrong": {
+        "A": "Criminal sanction is a feature of statutory regimes, not of contractual standards.",
+        "B": "They are optional only in the sense that the organization could choose not to accept card payments at all.",
+        "D": "Many such standards require independent assessment, with the depth of validation scaling to transaction volume."
+      }
+    },
+    {
+      "id": "cisa-d2a-005",
+      "topic": "Laws, Regulations, and Industry Standards",
+      "difficulty": "easy",
+      "stem": "When a new regulation affecting the organization comes into force, an IS auditor would expect management to FIRST:",
+      "options": {
+        "A": "procure a compliance management software tool.",
+        "B": "deliver awareness training on the new requirement to all employees.",
+        "C": "perform a gap analysis comparing the new requirement against existing controls to establish what must change.",
+        "D": "notify the regulator of the organization's intention to comply."
+      },
+      "answer": "C",
+      "why_correct": "Existing controls usually satisfy part of any new requirement. Establishing the gap tells management what actually needs to be built, and prevents both duplicated effort and unnoticed shortfalls.",
+      "why_wrong": {
+        "A": "Buying tooling before knowing the requirement risks purchasing a solution to an undefined problem.",
+        "B": "Training everyone is premature and often unnecessary; the requirement may affect only a few processes.",
+        "D": "Regulators generally expect compliance rather than declarations of intent."
+      }
+    },
+    {
+      "id": "cisa-d2a-006",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "medium",
+      "stem": "The PRIMARY objective of IT governance is to:",
+      "options": {
+        "A": "ensure that IT sustains and extends the organization's strategy and objectives, with risk and resources managed appropriately.",
+        "B": "ensure that IT operations run without unplanned interruption.",
+        "C": "minimize the organization's total expenditure on information technology.",
+        "D": "ensure the IT function complies with the policies it has issued."
+      },
+      "answer": "A",
+      "why_correct": "Governance is about direction and oversight in service of business objectives. It asks whether IT is delivering value, whether risk is within appetite, and whether resources are being used well.",
+      "why_wrong": {
+        "B": "Operational stability is a management outcome, achieved through the processes that governance directs and monitors.",
+        "C": "Cost minimization is not the goal; under-investment can damage the organization as much as overspending.",
+        "D": "Internal policy compliance is a narrow slice of management control, well below the governance objective."
+      }
+    },
+    {
+      "id": "cisa-d2a-007",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing IT governance arrangements would be MOST concerned to find that:",
+      "options": {
+        "A": "the IT steering committee convenes on a quarterly basis.",
+        "B": "the chief information officer reports to the chief financial officer.",
+        "C": "IT performance is formally reported to the board once a year.",
+        "D": "IT investment decisions are taken within the IT function, without business participation or reference to organizational strategy."
+      },
+      "answer": "D",
+      "why_correct": "This is governance failing at its core purpose. Investment decisions made inside IT optimize for technical considerations, and the organization ends up funding capability it does not need while genuine business priorities go unaddressed.",
+      "why_wrong": {
+        "A": "Quarterly steering committee meetings are a common and workable cadence.",
+        "B": "The reporting line is a structural choice with trade-offs, but it does not by itself indicate a governance failure.",
+        "C": "Annual board reporting may be light and worth strengthening, but it is far less serious than excluding the business from investment decisions."
+      }
+    },
+    {
+      "id": "cisa-d2a-008",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "easy",
+      "stem": "The PRIMARY role of an IT steering committee is to:",
+      "options": {
+        "A": "manage the day-to-day operation of the IT infrastructure.",
+        "B": "prioritize IT investments and monitor major initiatives so that IT effort aligns with business priorities.",
+        "C": "review and approve individual change requests before implementation.",
+        "D": "conduct performance appraisals for members of the IT function."
+      },
+      "answer": "B",
+      "why_correct": "The steering committee is the forum where business and IT leadership jointly decide what gets funded and confirm that major initiatives remain aligned and on track. It sits above delivery, not within it.",
+      "why_wrong": {
+        "A": "Daily operations are the responsibility of IT management, not a periodic committee.",
+        "C": "Individual changes are handled by change management processes at a working level.",
+        "D": "Staff appraisals are line management responsibilities within the IT function."
+      }
+    },
+    {
+      "id": "cisa-d2a-009",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "medium",
+      "stem": "An IT strategy developed without reference to the organization's business strategy is MOST likely to result in:",
+      "options": {
+        "A": "investment in capabilities the business does not require, while capabilities it does require go unfunded.",
+        "B": "higher rates of staff turnover within the IT function.",
+        "C": "increased attention from the organization's regulators.",
+        "D": "longer procurement cycles for technology purchases."
+      },
+      "answer": "A",
+      "why_correct": "Without a business anchor, IT priorities are set by technical interest, vendor influence or the previous plan. Money is spent, effort is expended, and the capabilities the business actually needs remain missing.",
+      "why_wrong": {
+        "B": "Turnover is driven by management, compensation and working conditions rather than by strategic alignment.",
+        "C": "Regulators are concerned with compliance outcomes and rarely examine strategy alignment directly.",
+        "D": "Procurement duration is governed by the purchasing process, not by strategic derivation."
+      }
+    },
+    {
+      "id": "cisa-d2a-010",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "hard",
+      "stem": "In a highly centralized IT organizational structure, the GREATEST risk is that:",
+      "options": {
+        "A": "technical standards will be applied inconsistently across business units.",
+        "B": "duplicate and overlapping systems will proliferate across the organization.",
+        "C": "IT becomes remote from local business needs and slow to respond to them.",
+        "D": "economies of scale in purchasing and infrastructure will not be realized."
+      },
+      "answer": "C",
+      "why_correct": "Centralization delivers consistency and scale, and pays for it in responsiveness. When central IT cannot serve local needs quickly enough, business units resort to shadow IT, which reintroduces the very fragmentation centralization was meant to prevent.",
+      "why_wrong": {
+        "A": "Inconsistent standards are characteristic of decentralized structures; centralization is how organizations fix that.",
+        "B": "System duplication arises when units procure independently, which centralization specifically prevents.",
+        "D": "Economies of scale are among the principal benefits of centralizing, not a risk of it."
+      }
+    },
+    {
+      "id": "cisa-d2a-011",
+      "topic": "Organizational Structure, IT Governance, and IT Strategy",
+      "difficulty": "medium",
+      "stem": "Applying a balanced scorecard to IT is MOST useful because it:",
+      "options": {
+        "A": "reduces the operating cost of the IT function.",
+        "B": "measures IT performance across several perspectives, including business contribution and future orientation, rather than cost and availability alone.",
+        "C": "removes the need for separate service level agreements with the business.",
+        "D": "provides a detailed technical view of infrastructure health."
+      },
+      "answer": "B",
+      "why_correct": "Single-dimension measurement distorts behavior. A scorecard forces attention onto business contribution, user orientation, operational excellence and future readiness together, so improving one at the expense of another becomes visible.",
+      "why_wrong": {
+        "A": "A scorecard is a measurement framework and does not itself reduce cost.",
+        "C": "Service level agreements govern specific service commitments and remain necessary alongside a scorecard.",
+        "D": "Technical health monitoring operates at a far lower level than a governance scorecard."
+      }
+    },
+    {
+      "id": "cisa-d2a-012",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "easy",
+      "stem": "An IS auditor finds that the information security policy was last reviewed six years ago. The GREATEST concern is that:",
+      "options": {
+        "A": "the document formatting no longer matches current corporate templates.",
+        "B": "staff are unlikely to recall the contents of a document issued so long ago.",
+        "C": "the approval signature on the document is no longer valid.",
+        "D": "the policy may no longer address the technologies, threats and regulatory obligations the organization now faces."
+      },
+      "answer": "D",
+      "why_correct": "Six years covers a substantial shift in cloud adoption, remote working, attack techniques and privacy law. A policy that predates all of it leaves current activity ungoverned while appearing to provide coverage.",
+      "why_wrong": {
+        "A": "Formatting is cosmetic and carries no control consequence.",
+        "B": "Recall is addressed through awareness activity and is a secondary concern to the policy being wrong.",
+        "C": "Approvals do not expire; the substance becoming obsolete is what matters."
+      }
+    },
+    {
+      "id": "cisa-d2a-013",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "medium",
+      "stem": "Policies are MOST effective when they:",
+      "options": {
+        "A": "are comprehensive and specify requirements in exhaustive detail.",
+        "B": "have been drafted by the organization's legal department.",
+        "C": "are reviewed by internal audit before being issued.",
+        "D": "are approved at a senior level, communicated to those they apply to, and supported by mechanisms that make compliance verifiable."
+      },
+      "answer": "D",
+      "why_correct": "A policy needs authority to carry weight, reach to be known, and measurability to be enforced. Missing any one of the three produces a document that exists without governing anything.",
+      "why_wrong": {
+        "A": "Excessive detail belongs in standards and procedures, and makes the policy brittle and quickly obsolete.",
+        "B": "Legal review is valuable for specific policies but legal authorship does not make a policy effective.",
+        "C": "Audit review before issue would compromise the auditor's later independence in assessing compliance with it."
+      }
+    },
+    {
+      "id": "cisa-d2a-014",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds a policy requiring an action that no existing process or system makes possible. The auditor should MOST appropriately conclude that:",
+      "options": {
+        "A": "the policy needs to be enforced more rigorously by management.",
+        "B": "the policy is unenforceable as written, which undermines the credibility of the wider policy framework.",
+        "C": "staff who have not complied should be subject to disciplinary action.",
+        "D": "the policy is adequate, because it establishes management's intent."
+      },
+      "answer": "B",
+      "why_correct": "A requirement nobody can meet teaches staff that policies are aspirational. That lesson generalizes to the policies that do matter, so the damage extends well beyond the single unenforceable clause.",
+      "why_wrong": {
+        "A": "Enforcing an impossible requirement is not achievable and would simply produce falsified compliance.",
+        "C": "Disciplining people for failing to do something the environment does not permit is unjust and counterproductive.",
+        "D": "Stating intent without any means of fulfilment leaves the risk entirely untreated."
+      }
+    },
+    {
+      "id": "cisa-d2a-015",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "medium",
+      "stem": "Exceptions to policy should BEST be:",
+      "options": {
+        "A": "prohibited entirely, so that the policy applies without variation.",
+        "B": "granted informally by line management as operational circumstances require.",
+        "C": "formally requested, risk assessed, approved by an appropriate authority, time limited and periodically reviewed.",
+        "D": "documented after the fact once the exception has already been taken."
+      },
+      "answer": "C",
+      "why_correct": "A managed exception process keeps deviations visible and bounded. Time limits force periodic reconsideration, which prevents temporary exceptions from quietly becoming permanent unmanaged risk.",
+      "why_wrong": {
+        "A": "Absolute prohibition collides with operational reality and pushes deviations underground where nobody can see them.",
+        "B": "Informal approval leaves no record, no risk assessment and no accountability for the decision.",
+        "D": "Retrospective documentation removes any opportunity to assess or decline the risk before it is taken."
+      }
+    },
+    {
+      "id": "cisa-d2a-016",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "hard",
+      "stem": "Testing shows high awareness of a policy but low adherence to it. The MOST likely explanation for the auditor to investigate FIRST is that:",
+      "options": {
+        "A": "the policy conflicts with operational reality, so staff work around it in order to complete their work.",
+        "B": "staff are deliberately disregarding management instructions.",
+        "C": "the policy document is too brief to convey the requirement.",
+        "D": "awareness training was delivered in an unsuitable format."
+      },
+      "answer": "A",
+      "why_correct": "When people know a rule and still do not follow it, the usual cause is that following it prevents them from doing their job. That points at redesigning the process or the policy rather than at repeating the training.",
+      "why_wrong": {
+        "B": "Assuming deliberate non-compliance is rarely borne out and leads to enforcement responses that do not address the cause.",
+        "C": "Brevity is not the issue where awareness is already demonstrably high.",
+        "D": "Training format affects awareness, which the testing shows is not the problem."
+      }
+    },
+    {
+      "id": "cisa-d2a-017",
+      "topic": "Enterprise Architecture and Considerations",
+      "difficulty": "medium",
+      "stem": "The PRIMARY purpose of enterprise architecture is to:",
+      "options": {
+        "A": "maintain a complete inventory of the technology currently deployed.",
+        "B": "provide a structured view of how business processes, information, applications and technology fit together, so that change can be planned coherently.",
+        "C": "select the technology vendors the organization will work with.",
+        "D": "define the physical and logical topology of the corporate network."
+      },
+      "answer": "B",
+      "why_correct": "Architecture links business intent to technology decisions. It shows what depends on what, which is what allows change to be planned deliberately rather than discovered through failure.",
+      "why_wrong": {
+        "A": "An inventory records what exists without expressing relationships, direction or intent.",
+        "C": "Vendor selection is a procurement activity informed by architecture rather than its purpose.",
+        "D": "Network topology is one narrow layer within the technology domain."
+      }
+    },
+    {
+      "id": "cisa-d2a-018",
+      "topic": "Enterprise Architecture and Considerations",
+      "difficulty": "medium",
+      "stem": "An organization has no enterprise architecture function. The MOST likely consequence is:",
+      "options": {
+        "A": "higher per-seat software licensing costs across the estate.",
+        "B": "slower response times from the service desk.",
+        "C": "reduced job satisfaction among technical staff.",
+        "D": "fragmented and overlapping systems acquired independently, creating integration difficulty and duplicated data."
+      },
+      "answer": "D",
+      "why_correct": "Without a coordinating view, each business area solves its own problem well and the organization ends up with several systems holding different versions of the same data, joined by interfaces nobody designed as a whole.",
+      "why_wrong": {
+        "A": "Licensing cost may rise as a side effect of duplication, but it is a symptom rather than the principal consequence.",
+        "B": "Service desk performance depends on staffing, tooling and process design.",
+        "C": "Staff satisfaction is influenced by many factors unrelated to architectural governance."
+      }
+    },
+    {
+      "id": "cisa-d2a-019",
+      "topic": "Enterprise Architecture and Considerations",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing architecture governance would be MOST concerned to find that:",
+      "options": {
+        "A": "major solution designs proceed to build without any architectural review against agreed standards.",
+        "B": "architecture standards are formally reviewed and updated once a year.",
+        "C": "documented exceptions to architecture standards are permitted where approved.",
+        "D": "the enterprise architecture function reports to the chief information officer."
+      },
+      "answer": "A",
+      "why_correct": "Architecture governance exists to influence decisions while they can still be changed. If designs reach build without review, the function is documenting outcomes rather than shaping them, and remediation becomes expensive or impossible.",
+      "why_wrong": {
+        "B": "Annual review of standards is a reasonable maintenance cycle.",
+        "C": "A controlled exception process is a sign of pragmatic governance rather than a weakness.",
+        "D": "Reporting to the CIO is the conventional arrangement for an architecture function."
+      }
+    },
+    {
+      "id": "cisa-d2a-020",
+      "topic": "Enterprise Architecture and Considerations",
+      "difficulty": "easy",
+      "stem": "Technical debt is BEST described as:",
+      "options": {
+        "A": "the outstanding balance the organization owes to its technology vendors.",
+        "B": "the accounting depreciation of IT assets over their useful lives.",
+        "C": "the accumulated future cost of design and implementation shortcuts taken in order to deliver quickly.",
+        "D": "technology expenditure incurred outside the approved budget."
+      },
+      "answer": "C",
+      "why_correct": "The metaphor is deliberate: shortcuts borrow time now and are repaid later with interest, in the form of slower change, higher defect rates and eventual rework.",
+      "why_wrong": {
+        "A": "Amounts payable to vendors are ordinary trade liabilities.",
+        "B": "Depreciation is an accounting treatment of asset cost over time.",
+        "D": "Unbudgeted spend is a financial control issue with no connection to design quality."
+      }
+    },
+    {
+      "id": "cisa-d2a-021",
+      "topic": "Enterprise Architecture and Considerations",
+      "difficulty": "hard",
+      "stem": "When an organization undertakes a major architectural change, the IS auditor should be MOST concerned that:",
+      "options": {
+        "A": "affected staff will require retraining on the new environment.",
+        "B": "the selected vendor may withdraw the product from the market.",
+        "C": "the interim state during migration may leave controls inconsistent or weakened for an extended period.",
+        "D": "the programme may exceed the budget approved for it."
+      },
+      "answer": "C",
+      "why_correct": "Migrations create a prolonged hybrid state that nobody designed: two systems, duplicated data, temporary interfaces and elevated access granted to make it all work. That transitional period frequently carries more risk than either the old or the new architecture.",
+      "why_wrong": {
+        "A": "Training requirements are a normal, plannable element of any significant change.",
+        "B": "Product withdrawal is a vendor management risk addressed through contract and roadmap review.",
+        "D": "Budget overrun is a project governance concern rather than a control weakness."
+      }
+    },
+    {
+      "id": "cisa-d2a-022",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "medium",
+      "stem": "The PRIMARY purpose of an enterprise risk management program is to:",
+      "options": {
+        "A": "provide a consistent organization-wide view of risk, so that decisions to accept, mitigate, transfer or avoid are made on comparable information.",
+        "B": "eliminate risk from the organization's activities.",
+        "C": "satisfy the expectations of regulators and external auditors.",
+        "D": "establish accountability for losses after they have occurred."
+      },
+      "answer": "A",
+      "why_correct": "The value of an enterprise view is comparability. Risks assessed on a common basis can be ranked against each other and against appetite, which is what makes resource allocation rational.",
+      "why_wrong": {
+        "B": "Risk cannot be eliminated, and an organization that took none would forgo the opportunities that justify its existence.",
+        "C": "Regulatory expectation may prompt the program but is not its purpose.",
+        "D": "Attributing losses is a post-event activity; risk management is forward looking."
+      }
+    },
+    {
+      "id": "cisa-d2a-023",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "easy",
+      "stem": "Risk appetite is BEST described as:",
+      "options": {
+        "A": "the amount of risk remaining after controls have been applied.",
+        "B": "the largest loss the organization could theoretically sustain.",
+        "C": "the aggregate of all risks recorded in the risk register.",
+        "D": "the amount and type of risk the organization is willing to accept in pursuit of its objectives."
+      },
+      "answer": "D",
+      "why_correct": "Appetite is a deliberate choice made by the board about how much risk to take on the way to its goals. It provides the benchmark against which specific exposures are judged acceptable or not.",
+      "why_wrong": {
+        "A": "Risk remaining after controls is residual risk, which is measured against appetite rather than defining it.",
+        "B": "Maximum sustainable loss relates to capacity, which is a constraint on appetite rather than appetite itself.",
+        "C": "The register records identified exposures; appetite is the standard used to evaluate them."
+      }
+    },
+    {
+      "id": "cisa-d2a-024",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the IT risk register has not been updated for two years, during which the environment changed substantially. The GREATEST concern is that:",
+      "options": {
+        "A": "the register no longer complies with the organization's documentation standard.",
+        "B": "risk decisions are being made against a picture that no longer reflects reality, so treatment effort is likely misdirected.",
+        "C": "the risk management function appears to be inadequately resourced.",
+        "D": "the register cannot be relied upon as audit evidence."
+      },
+      "answer": "B",
+      "why_correct": "A stale register actively misleads. Resources go to risks that have already been treated or have ceased to matter, while exposures introduced by cloud migration, new suppliers or new regulation are absent from the conversation entirely.",
+      "why_wrong": {
+        "A": "Documentation standards are a formality next to misdirected risk treatment.",
+        "C": "Resourcing may well be a contributing cause, but the harm is the decisions being made on bad information.",
+        "D": "Evidential value is an audit convenience; the organization bears the real consequence."
+      }
+    },
+    {
+      "id": "cisa-d2a-025",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "easy",
+      "stem": "Which of the following is the BEST example of risk transfer?",
+      "options": {
+        "A": "Purchasing an insurance policy covering losses from business interruption.",
+        "B": "Implementing additional access controls over a sensitive application.",
+        "C": "Discontinuing the business activity that gives rise to the risk.",
+        "D": "Formally documenting management's decision to tolerate the exposure."
+      },
+      "answer": "A",
+      "why_correct": "Transfer moves the financial consequence to another party while the underlying event remains possible. Insurance is the clearest case, and contractual indemnities work the same way.",
+      "why_wrong": {
+        "B": "Adding controls reduces likelihood or impact, which is mitigation.",
+        "C": "Ceasing the activity removes the exposure altogether, which is avoidance.",
+        "D": "Documenting a decision to tolerate the exposure is acceptance."
+      }
+    },
+    {
+      "id": "cisa-d2a-026",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "easy",
+      "stem": "Residual risk is BEST described as:",
+      "options": {
+        "A": "risk that the organization has not yet identified.",
+        "B": "risk introduced by the adoption of emerging technologies.",
+        "C": "the risk that remains after controls have been applied.",
+        "D": "risk that has been contractually transferred to a third party."
+      },
+      "answer": "C",
+      "why_correct": "Residual risk is what is left once mitigation has done its work. Comparing it against appetite is how management decides whether further treatment is warranted or the position can be accepted.",
+      "why_wrong": {
+        "A": "Unidentified risk is a gap in the risk assessment process, not a defined risk category.",
+        "B": "Emerging technology risk is a source of risk rather than a stage in the treatment cycle.",
+        "D": "Transferred risk has been moved to another party, and note that some residual exposure usually remains even so."
+      }
+    },
+    {
+      "id": "cisa-d2a-027",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "medium",
+      "stem": "When management accepts a risk that exceeds the organization's stated appetite, the IS auditor should MOST appropriately:",
+      "options": {
+        "A": "implement compensating controls to bring the exposure within appetite.",
+        "B": "ensure the acceptance is documented, approved at a level with authority to accept it, and reported to the governing body.",
+        "C": "overrule the decision on the basis that it breaches the approved appetite.",
+        "D": "report the matter directly to the organization's regulator."
+      },
+      "answer": "B",
+      "why_correct": "Accepting risk is management's prerogative, but an acceptance beyond appetite must be taken by someone with the authority to make it and must be visible to the body that set the appetite in the first place.",
+      "why_wrong": {
+        "A": "Implementing controls is a management activity, and performing it would destroy the auditor's independence.",
+        "C": "The auditor has no authority to overturn management decisions and does not carry the accountability that goes with them.",
+        "D": "External escalation bypasses the organization's own governance and is reserved for exceptional circumstances."
+      }
+    },
+    {
+      "id": "cisa-d2a-028",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "easy",
+      "stem": "The principle of data minimization MOST accurately requires that an organization:",
+      "options": {
+        "A": "store personal data using the most space-efficient file format available.",
+        "B": "restrict the number of staff permitted to access personal data.",
+        "C": "delete all personal data at the end of each calendar year.",
+        "D": "collect and retain only the personal data that is necessary for the specified purpose."
+      },
+      "answer": "D",
+      "why_correct": "Minimization limits both collection and retention to what the stated purpose actually requires. Data never collected cannot be breached, misused or become subject to a discovery obligation.",
+      "why_wrong": {
+        "A": "Storage efficiency is a technical concern with no privacy dimension.",
+        "B": "Limiting access is an access control measure supporting confidentiality, which is a different principle.",
+        "C": "Retention is driven by purpose and legal requirement, not by an arbitrary annual cycle."
+      }
+    },
+    {
+      "id": "cisa-d2a-029",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "medium",
+      "stem": "Privacy by design MOST accurately means that:",
+      "options": {
+        "A": "privacy notices are written in clear and accessible language.",
+        "B": "a privacy officer reviews each system shortly before it goes live.",
+        "C": "personal data is encrypted while at rest and in transit.",
+        "D": "privacy requirements are built into the design of processes and systems from the outset rather than added afterward."
+      },
+      "answer": "D",
+      "why_correct": "Designing for privacy at the start is both cheaper and more effective. Retrofitting protection onto a system already collecting more data than it needs usually produces partial coverage at high cost.",
+      "why_wrong": {
+        "A": "Clear notices support transparency, which is a separate principle.",
+        "B": "A pre-launch review is a late gate; by then the data model and collection points are already fixed.",
+        "C": "Encryption is one control that may be selected during design, not the design principle itself."
+      }
+    },
+    {
+      "id": "cisa-d2a-030",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that customer personal data collected for order fulfilment is being used for marketing analytics with no further basis established. The GREATEST concern is that:",
+      "options": {
+        "A": "data storage and processing costs have increased.",
+        "B": "the data is being processed beyond the purpose for which it was collected, likely without a lawful basis or notice to the individuals concerned.",
+        "C": "the analytics results may be statistically unreliable.",
+        "D": "marketing staff have not been trained in analytical techniques."
+      },
+      "answer": "B",
+      "why_correct": "Purpose limitation is a foundational privacy principle. Repurposing data collected for one reason generally requires a fresh lawful basis and transparency to the individual, and its absence is a direct compliance failure.",
+      "why_wrong": {
+        "A": "Cost is an operational matter of no privacy significance.",
+        "C": "Analytical quality affects the value of the output, not the lawfulness of the processing.",
+        "D": "Staff capability is a competence issue unrelated to whether the processing is permitted."
+      }
+    },
+    {
+      "id": "cisa-d2a-031",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "medium",
+      "stem": "A privacy impact assessment is MOST appropriately performed:",
+      "options": {
+        "A": "after the system has gone live and actual data flows can be observed.",
+        "B": "annually across every system that processes personal data.",
+        "C": "before initiating processing likely to present significant risk to individuals, so that the design can still be adjusted.",
+        "D": "only when a supervisory authority specifically requests one."
+      },
+      "answer": "C",
+      "why_correct": "The assessment is intended to shape the design. Performing it before the processing begins is what allows risks to be engineered out while changes are still cheap.",
+      "why_wrong": {
+        "A": "Post-implementation assessment identifies problems at the point where they are most expensive to fix and after individuals have already been exposed.",
+        "B": "Blanket annual assessment consumes effort on low-risk processing and misses new initiatives between cycles.",
+        "D": "Waiting for a regulator to ask means the assessment arrives after the risk has already materialized."
+      }
+    },
+    {
+      "id": "cisa-d2a-032",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "hard",
+      "stem": "An organization must respond to individuals exercising their data rights. An IS auditor would be MOST concerned to find that:",
+      "options": {
+        "A": "the organization cannot reliably locate every instance of an individual's data across its systems, so requests cannot be satisfied completely.",
+        "B": "requests are handled centrally by the privacy team rather than by the originating business unit.",
+        "C": "responses are issued close to, but within, the statutory deadline.",
+        "D": "the request handling process is documented in a procedure."
+      },
+      "answer": "A",
+      "why_correct": "Rights such as access, correction and erasure depend on knowing where the data is. Copies in backups, data warehouses, spreadsheets and third-party systems mean an organization can respond in good faith and still be incomplete, which is a substantive failure.",
+      "why_wrong": {
+        "B": "Central handling generally improves consistency and is a reasonable operating model.",
+        "C": "Responding within the deadline satisfies the obligation, however close to the limit.",
+        "D": "A documented process is what an auditor would want to see."
+      }
+    },
+    {
+      "id": "cisa-d2a-033",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "medium",
+      "stem": "The distinction between a data controller and a data processor is MOST important because:",
+      "options": {
+        "A": "processors are typically larger organizations than controllers.",
+        "B": "the controller determines the purposes and means of processing and carries primary accountability, which shapes each party's obligations and the contract between them.",
+        "C": "processors are not required to implement security controls over the data they handle.",
+        "D": "controllers are not permitted to engage third parties to process data on their behalf."
+      },
+      "answer": "B",
+      "why_correct": "The roles determine who decides, who is accountable, and what must appear in the contract between them. Misclassifying the relationship leads to obligations sitting with the wrong party and contracts that do not cover what they should.",
+      "why_wrong": {
+        "A": "Organizational size has no bearing on the role, which is determined by who decides the purposes and means.",
+        "C": "Processors carry their own security obligations, both directly and through their contract with the controller.",
+        "D": "Engaging processors is entirely normal; the controller remains accountable and must contract appropriately."
+      }
+    },
+    {
+      "id": "cisa-d2a-034",
+      "topic": "Data Governance and Classification",
+      "difficulty": "medium",
+      "stem": "Responsibility for classifying a data asset should BEST rest with:",
+      "options": {
+        "A": "the IT function that operates the systems where the data is stored.",
+        "B": "the information security function that defines the classification scheme.",
+        "C": "the internal audit function, as an independent party.",
+        "D": "the business data owner, who understands the data's sensitivity and value to the organization."
+      },
+      "answer": "D",
+      "why_correct": "Classification is a judgment about business consequence: what happens if this data is disclosed, altered or lost. Only the owner has the context to make that call, and owning the decision is what makes them accountable for it.",
+      "why_wrong": {
+        "A": "IT stores and protects data according to its classification but has no basis for judging its business sensitivity.",
+        "B": "Security defines the scheme and the controls each level requires, then applies what the owner has decided.",
+        "C": "Audit evaluates whether classification is performed appropriately and would lose independence by performing it."
+      }
+    },
+    {
+      "id": "cisa-d2a-035",
+      "topic": "Data Governance and Classification",
+      "difficulty": "hard",
+      "stem": "An organization operates a five-level classification scheme, yet almost all data carries the lowest label. The MOST likely explanation for the auditor to investigate is that:",
+      "options": {
+        "A": "the scheme is too complex to apply in practice, so users default to the easiest option and sensitive data goes under-protected.",
+        "B": "the organization genuinely holds very little sensitive information.",
+        "C": "the classification tooling is failing to apply labels correctly.",
+        "D": "users have not been granted permission to select the higher classification levels."
+      },
+      "answer": "A",
+      "why_correct": "Classification schemes fail through friction. When users cannot readily tell two adjacent levels apart, they pick the option that imposes the fewest restrictions, and the scheme delivers a comforting label rather than actual protection.",
+      "why_wrong": {
+        "B": "Almost every organization holds personal data, commercial terms or financial information warranting more than the lowest level.",
+        "C": "Tool malfunction would typically produce erratic results rather than a consistent bias toward one level.",
+        "D": "Permission restrictions on higher labels would be an unusual configuration and are easily ruled out."
+      }
+    },
+    {
+      "id": "cisa-d2a-036",
+      "topic": "Data Governance and Classification",
+      "difficulty": "easy",
+      "stem": "Data classification is important PRIMARILY because it:",
+      "options": {
+        "A": "reduces the total volume of data the organization stores.",
+        "B": "simplifies the design of the underlying databases.",
+        "C": "allows protective controls to be applied proportionately, so effort matches the sensitivity and value of the data.",
+        "D": "demonstrates diligence to external auditors and assessors."
+      },
+      "answer": "C",
+      "why_correct": "Protecting everything to the highest standard is unaffordable and protecting everything to the lowest is negligent. Classification is what lets an organization spend its control effort where the consequences justify it.",
+      "why_wrong": {
+        "A": "Volume is governed by retention and disposal rather than by classification.",
+        "B": "Database design responds to functional and performance requirements.",
+        "D": "External confidence may follow, but it is a by-product rather than the purpose."
+      }
+    },
+    {
+      "id": "cisa-d2a-037",
+      "topic": "Data Governance and Classification",
+      "difficulty": "medium",
+      "stem": "The role of a data steward is BEST described as:",
+      "options": {
+        "A": "owning the data asset and accepting risk decisions on the organization's behalf.",
+        "B": "providing and maintaining the technical infrastructure on which the data resides.",
+        "C": "carrying out day-to-day data quality, definition and access administration activities on behalf of the data owner.",
+        "D": "independently auditing the quality of data across the organization."
+      },
+      "answer": "C",
+      "why_correct": "Stewards do the operational work of governance: maintaining definitions, monitoring quality, administering access requests. Accountability stays with the owner while execution sits with the steward.",
+      "why_wrong": {
+        "A": "Ownership and risk acceptance rest with the data owner, typically a business executive.",
+        "B": "Infrastructure provision is the custodian role, usually performed by IT.",
+        "D": "Independent evaluation of data quality would be an audit or assurance activity."
+      }
+    },
+    {
+      "id": "cisa-d2a-038",
+      "topic": "Data Governance and Classification",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing data retention practices would be MOST concerned to find that:",
+      "options": {
+        "A": "data is retained indefinitely by default with no disposal process, increasing both breach exposure and the burden of legal discovery.",
+        "B": "retention periods vary between different categories of record.",
+        "C": "certain categories of record are retained for as long as ten years.",
+        "D": "the retention schedule has been reviewed and approved by the legal function."
+      },
+      "answer": "A",
+      "why_correct": "Indefinite retention accumulates liability. Every additional year of data enlarges what a breach would expose, extends privacy obligations and increases what must be searched and produced in litigation, all with no offsetting business benefit.",
+      "why_wrong": {
+        "B": "Different retention periods by category is exactly what a properly constructed schedule looks like.",
+        "C": "Ten years is entirely normal where tax, contractual or regulatory requirements demand it.",
+        "D": "Legal approval of the schedule is good practice and should be expected."
+      }
+    }
+  ]
+}

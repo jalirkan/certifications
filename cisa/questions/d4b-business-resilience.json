@@ -1,0 +1,432 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "B",
+    "batch": "d4b-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D4 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4b-001",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "stem": "The PRIMARY purpose of a business impact analysis is to:",
+      "options": {
+        "A": "identify the threats most likely to affect the organization and their probability.",
+        "B": "select an appropriate alternate processing site.",
+        "C": "determine the criticality of business processes and derive recovery objectives from the impact of losing them over time.",
+        "D": "estimate the total cost of the business continuity program."
+      },
+      "answer": "C",
+      "why_correct": "A business impact analysis is deliberately threat-agnostic. It asks what the consequences are as an outage lengthens, which is what establishes criticality and produces defensible recovery time and recovery point objectives.",
+      "why_wrong": {
+        "A": "Identifying and rating threats is the risk assessment. The impact analysis asks what happens if a process stops, regardless of what stopped it.",
+        "B": "Site selection is a recovery strategy decision that comes later, informed by the objectives the analysis produced.",
+        "D": "Program cost is an output of the strategy chosen, not the purpose of the analysis."
+      }
+    },
+    {
+      "id": "cisa-d4b-002",
+      "topic": "Business Impact Analysis",
+      "difficulty": "easy",
+      "stem": "Recovery time objective and recovery point objective are BEST described respectively as:",
+      "options": {
+        "A": "the maximum tolerable time to restore a process, and the maximum tolerable amount of data loss measured backward from the point of disruption.",
+        "B": "the time taken to detect an incident, and the time taken to declare a disaster.",
+        "C": "the expected duration of an outage, and the expected cost per hour of that outage.",
+        "D": "the frequency of backups, and the frequency of recovery testing."
+      },
+      "answer": "A",
+      "why_correct": "The recovery time objective looks forward from the disruption and bounds how long the business can be without the process. The recovery point objective looks backward and bounds how much recent work can be lost.",
+      "why_wrong": {
+        "B": "Detection and declaration timings are incident response measures and are distinct from both objectives.",
+        "C": "Expected duration and hourly cost are inputs to the analysis, not definitions of the two objectives.",
+        "D": "Backup frequency is a consequence of the recovery point objective rather than the objective itself, and testing frequency is unrelated."
+      }
+    },
+    {
+      "id": "cisa-d4b-003",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "asks": "control",
+      "stem": "The recovery priority assigned to an application should be determined PRIMARILY by:",
+      "options": {
+        "A": "the cost of the recovery solution required to support it.",
+        "B": "the technical complexity of restoring the application.",
+        "C": "the stated preference of the application owner.",
+        "D": "the criticality of the business processes it supports, as established by the business impact analysis."
+      },
+      "answer": "D",
+      "why_correct": "Recovery priority exists to serve the business, so it must follow from process criticality. The impact analysis provides the evidence base that makes the ranking defensible rather than political.",
+      "why_wrong": {
+        "A": "Cost constrains which strategy is affordable but should not determine what matters most to the business.",
+        "B": "Technical difficulty affects how the recovery is executed, not how important it is that it happens.",
+        "C": "Every owner considers their own application critical, which is exactly why an evidence-based analysis is needed."
+      }
+    },
+    {
+      "id": "cisa-d4b-004",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the business impact analysis was performed entirely by the IT department with no participation from business units. The GREATEST concern is that:",
+      "options": {
+        "A": "IT staff did not have sufficient time available to complete the work properly.",
+        "B": "recovery priorities will reflect technical assumptions rather than actual business impact, and are therefore likely to be wrong.",
+        "C": "the analysis will take longer to complete than originally planned.",
+        "D": "the resulting document will not be formally approved by management."
+      },
+      "answer": "B",
+      "why_correct": "Only the business can quantify what an outage costs it in revenue, regulatory exposure and reputation. IT-derived priorities usually track system complexity or visibility instead, so the recovery sequence ends up optimizing the wrong things.",
+      "why_wrong": {
+        "A": "Available effort is a resourcing question that does not determine whether the conclusions are correct.",
+        "C": "Duration of the exercise is a project management concern rather than a risk to the outcome.",
+        "D": "Approval may still be obtained; a formally approved analysis built on wrong assumptions is arguably worse."
+      }
+    },
+    {
+      "id": "cisa-d4b-005",
+      "topic": "System and Operational Resilience",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST describes the objective of resilience, as distinct from disaster recovery?",
+      "options": {
+        "A": "Restoring a failed service within the agreed recovery time objective.",
+        "B": "Designing systems so that component failures are absorbed without the service becoming unavailable to users.",
+        "C": "Maintaining an alternate processing site that can be invoked when the primary site is lost.",
+        "D": "Holding current backup copies of critical data at an offsite location."
+      },
+      "answer": "B",
+      "why_correct": "Resilience aims to prevent the disruption from reaching the user at all, through redundancy, failover and graceful degradation. Disaster recovery begins where resilience ends, once the service has actually been lost.",
+      "why_wrong": {
+        "A": "Restoration within an objective is the definition of recovery, which is the discipline resilience is being contrasted with.",
+        "C": "An alternate site is a recovery strategy invoked after a loss has occurred.",
+        "D": "Offsite backups support recovery and provide no continuity of service by themselves."
+      }
+    },
+    {
+      "id": "cisa-d4b-006",
+      "topic": "System and Operational Resilience",
+      "difficulty": "hard",
+      "stem": "An organization runs two data centers in an active-active configuration. Which of the following is MOST important for the IS auditor to verify?",
+      "options": {
+        "A": "Both sites are equipped with hardware from the same manufacturer.",
+        "B": "The two sites are located in separate buildings.",
+        "C": "Operations staff are trained to work at either site.",
+        "D": "Either site alone has sufficient capacity to carry the entire production load, and this has been demonstrated by test."
+      },
+      "answer": "D",
+      "why_correct": "Active-active fails in a specific and common way: both sites run at roughly half load in normal operation, so nobody notices that neither can absorb the whole workload alone. Losing one site then degrades or collapses the service the design was meant to protect.",
+      "why_wrong": {
+        "A": "Identical hardware simplifies operations but also creates common-mode failure exposure; it is not the critical verification.",
+        "B": "Separate buildings is a minimum, and inadequate on its own if both sit within the same flood plain or power grid.",
+        "C": "Cross-site staff capability supports operations but does not address the capacity question that determines whether failover works."
+      }
+    },
+    {
+      "id": "cisa-d4b-007",
+      "topic": "System and Operational Resilience",
+      "difficulty": "easy",
+      "stem": "Deploying servers in a cluster PRIMARILY addresses:",
+      "options": {
+        "A": "availability, by allowing surviving nodes to take over the workload when a node fails.",
+        "B": "confidentiality of the data processed by the application.",
+        "C": "integrity of transactions committed to the database.",
+        "D": "compliance with regulatory requirements on data residency."
+      },
+      "answer": "A",
+      "why_correct": "Clustering eliminates the server as a single point of failure. When one node is lost the others continue serving, so the failure becomes a capacity event rather than an outage.",
+      "why_wrong": {
+        "B": "Confidentiality is provided by access control and encryption, which are unaffected by how many nodes exist.",
+        "C": "Transaction integrity is enforced by the database engine and application logic, not by clustering.",
+        "D": "Data residency is determined by where data is stored and processed geographically, which is a separate design decision."
+      }
+    },
+    {
+      "id": "cisa-d4b-008",
+      "topic": "System and Operational Resilience",
+      "difficulty": "medium",
+      "stem": "A single point of failure analysis is MOST useful for:",
+      "options": {
+        "A": "calculating the annualized loss expectancy for a given threat.",
+        "B": "prioritizing the deployment of security patches across the estate.",
+        "C": "identifying components whose failure would interrupt a critical service despite redundancy elsewhere in the design.",
+        "D": "determining how long different categories of records must be retained."
+      },
+      "answer": "C",
+      "why_correct": "Redundancy is often partial. Duplicated servers can still share one network switch, one power feed or one authentication service, and this analysis is what exposes the component the whole design silently depends on.",
+      "why_wrong": {
+        "A": "Annualized loss expectancy is a quantitative risk calculation combining asset value, exposure and frequency.",
+        "B": "Patch prioritization is driven by vulnerability severity, exploitability and asset criticality.",
+        "D": "Retention periods follow from legal, regulatory and business requirements."
+      }
+    },
+    {
+      "id": "cisa-d4b-009",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "Which of the following provides the BEST assurance that backups will support recovery when they are needed?",
+      "options": {
+        "A": "Backup jobs report successful completion each night.",
+        "B": "Backup media are rotated to an offsite location every week.",
+        "C": "The backup schedule has been aligned with the agreed recovery point objective.",
+        "D": "Test restores of production data are performed periodically and the restored data is verified as usable."
+      },
+      "answer": "D",
+      "why_correct": "The only proof that a backup works is a restore. Backups fail silently in ways job status cannot reveal: corrupt media, incomplete data sets, missing encryption keys, unreadable formats. Verifying the restored data closes that gap.",
+      "why_wrong": {
+        "A": "A success message means the job ran, not that what it wrote can be read back and used.",
+        "B": "Offsite rotation protects against site loss but says nothing about whether the media are recoverable.",
+        "C": "Schedule alignment is design evidence showing the intent to meet the objective, not proof of capability."
+      }
+    },
+    {
+      "id": "cisa-d4b-010",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "An organization takes a full backup weekly and incremental backups on the intervening days. Compared with a differential approach, the incremental approach MOST accurately:",
+      "options": {
+        "A": "consumes substantially more backup storage capacity.",
+        "B": "makes each backup faster to take but restoration slower, because every incremental taken since the last full backup must be applied in sequence.",
+        "C": "makes restoration faster because only the most recent backup set is required.",
+        "D": "removes the need to take periodic full backups at all."
+      },
+      "answer": "B",
+      "why_correct": "An incremental captures only what changed since the previous backup of any type, so it is small and quick. Recovery pays for that by needing the full backup plus every incremental in order, and any one of them failing breaks the chain.",
+      "why_wrong": {
+        "A": "Incrementals use less storage than differentials, which grow steadily as the week progresses.",
+        "C": "Restoring from a single recent set is the differential advantage, requiring the full backup plus only the latest differential.",
+        "D": "Both schemes depend on a periodic full backup as the base of the chain."
+      }
+    },
+    {
+      "id": "cisa-d4b-011",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "easy",
+      "stem": "An IS auditor finds that backup media are held in a fireproof safe located in the same building as the production servers. The GREATEST risk is that:",
+      "options": {
+        "A": "the media will degrade over time in the storage conditions provided.",
+        "B": "retrieving media from the safe will delay recovery operations.",
+        "C": "an event affecting the building, such as fire or flood, could destroy the production systems and the only backup copies together.",
+        "D": "a member of staff could remove media from the safe without authorization."
+      },
+      "answer": "C",
+      "why_correct": "Backups exist to survive whatever destroyed the primary copy. Keeping them in the same building means one event can take both, and a fireproof safe protects the media only within limits of temperature and duration that a serious fire can exceed.",
+      "why_wrong": {
+        "A": "Media degradation is a real but slow concern managed through rotation and periodic verification.",
+        "B": "Onsite storage actually shortens retrieval time; the problem is co-location, not access speed.",
+        "D": "Theft is a confidentiality concern addressed by encryption and access control, and is secondary to losing every copy at once."
+      }
+    },
+    {
+      "id": "cisa-d4b-012",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "easy",
+      "stem": "The recovery point objective PRIMARILY determines:",
+      "options": {
+        "A": "how frequently backups must be taken or data replicated.",
+        "B": "how quickly systems must be brought back into service.",
+        "C": "how long backup copies must be retained before disposal.",
+        "D": "where backup media must be physically stored."
+      },
+      "answer": "A",
+      "why_correct": "The recovery point objective caps acceptable data loss, and the interval between backup or replication cycles is exactly the amount of data at risk. A one-hour objective cannot be met by a nightly backup.",
+      "why_wrong": {
+        "B": "Speed of restoration is governed by the recovery time objective.",
+        "C": "Retention is driven by legal, regulatory and business requirements rather than by tolerable data loss.",
+        "D": "Storage location follows from site risk and recovery strategy considerations."
+      }
+    },
+    {
+      "id": "cisa-d4b-013",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "hard",
+      "stem": "An organization moves its backups to a cloud provider. Which of the following is MOST important for the IS auditor to verify?",
+      "options": {
+        "A": "The provider encrypts backup data while it is at rest.",
+        "B": "Backup storage costs are lower than under the previous arrangement.",
+        "C": "Data can actually be restored within the recovery time objective given the available bandwidth, and this has been demonstrated by test.",
+        "D": "The provider holds a recognized information security certification."
+      },
+      "answer": "C",
+      "why_correct": "Cloud backup usually makes writing data easy and reading it back slow. Restoring many terabytes over a shared connection can take days, which quietly breaks a recovery time objective that everyone still believes is being met.",
+      "why_wrong": {
+        "A": "Encryption at rest is important for confidentiality but does not affect whether recovery can be achieved in time.",
+        "B": "Cost comparison is a commercial question outside the recovery capability being assessed.",
+        "D": "A certification indicates the provider's general control posture and says nothing about this organization's restore throughput."
+      }
+    },
+    {
+      "id": "cisa-d4b-014",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST demonstrates that a business continuity plan is viable?",
+      "options": {
+        "A": "The plan has been exercised in a realistic test involving the business units that would invoke it, and the results were used to correct the plan.",
+        "B": "The plan has been reviewed and approved by executive management.",
+        "C": "Copies of the plan are held offsite and in cloud storage so it remains accessible.",
+        "D": "The plan was drafted by an experienced business continuity consultant."
+      },
+      "answer": "A",
+      "why_correct": "Testing with the people who would actually execute the plan is what exposes the assumptions that do not survive contact with reality. Feeding the findings back is what converts a test into an improved plan rather than a completed obligation.",
+      "why_wrong": {
+        "B": "Approval establishes authority and management commitment. It is design evidence and reveals nothing about whether the plan works.",
+        "C": "Accessible copies are necessary but only ensure people can read a plan that may still be unworkable.",
+        "D": "Consultant authorship may produce a well-structured document that reflects generic practice rather than this organization's dependencies."
+      }
+    },
+    {
+      "id": "cisa-d4b-015",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "When an organization is developing a business continuity plan, which of the following should come FIRST?",
+      "options": {
+        "A": "Selecting the recovery strategies that the plan will rely on.",
+        "B": "Securing executive sponsorship and performing a business impact analysis to establish what must be recovered and how quickly.",
+        "C": "Contracting for alternate site capacity to support recovery.",
+        "D": "Drafting the plan documentation and distributing it to responders."
+      },
+      "answer": "B",
+      "why_correct": "Everything downstream depends on knowing what matters and how much time there is. Executive sponsorship supplies the authority and funding, and the impact analysis supplies the requirements the strategy must satisfy.",
+      "why_wrong": {
+        "A": "Strategy selection without recovery objectives is guesswork, and typically produces either overspending or an inadequate solution.",
+        "C": "Committing to site capacity before knowing the requirement risks contracting for the wrong capability entirely.",
+        "D": "Documentation is the final expression of decisions that have not yet been made."
+      }
+    },
+    {
+      "id": "cisa-d4b-016",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "Which type of continuity test provides the GREATEST assurance, while carrying the greatest operational risk?",
+      "options": {
+        "A": "A checklist review in which plan holders confirm their sections are current.",
+        "B": "A tabletop walkthrough in which participants talk through a scenario.",
+        "C": "A parallel test in which recovery systems are run alongside production.",
+        "D": "A full interruption test in which production is stopped and the business runs from the recovery capability."
+      },
+      "answer": "D",
+      "why_correct": "Only a full interruption test proves the organization can genuinely operate without the primary environment, because nothing is held back as a safety net. That realism is exactly why it can cause a real outage if the recovery capability falls short.",
+      "why_wrong": {
+        "A": "A checklist review verifies documents are current and tests nothing about execution.",
+        "B": "A tabletop exercise surfaces gaps in understanding and coordination without touching any system.",
+        "C": "A parallel test validates the recovery environment while production continues, so it is informative and comparatively safe."
+      }
+    },
+    {
+      "id": "cisa-d4b-017",
+      "topic": "Business Continuity Plan",
+      "difficulty": "easy",
+      "stem": "An IS auditor finds that the contact list in the business continuity plan has not been updated for three years. The GREATEST concern is that:",
+      "options": {
+        "A": "the document breaches the organization's records management standard.",
+        "B": "during an actual invocation key people may be unreachable, and the plan will stall at the point of activation.",
+        "C": "the plan gives an unprofessional impression to external assessors.",
+        "D": "the auditor cannot confirm which roles are assigned to which individuals."
+      },
+      "answer": "B",
+      "why_correct": "Activation is entirely dependent on reaching people. After three years of leavers, role changes and new phone numbers, a plan that is otherwise sound fails at its very first step, when the pressure is highest.",
+      "why_wrong": {
+        "A": "A documentation standard breach is a compliance observation with no operational consequence by comparison.",
+        "C": "External impressions are irrelevant to whether the organization can recover.",
+        "D": "Auditor inconvenience is not the risk; the risk falls on the organization during a real event."
+      }
+    },
+    {
+      "id": "cisa-d4b-018",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "easy",
+      "stem": "Which recovery site arrangement can be brought into productive operation MOST quickly?",
+      "options": {
+        "A": "A hot site, fully equipped and running with current data replicated to it.",
+        "B": "A warm site with hardware and connectivity installed but no current data loaded.",
+        "C": "A cold site providing floor space, power and connectivity only.",
+        "D": "A reciprocal agreement with another organization to host processing."
+      },
+      "answer": "A",
+      "why_correct": "A hot site has the equipment, the configuration and current data already in place, so recovery is a matter of switching over rather than building. It is the fastest and correspondingly the most expensive option.",
+      "why_wrong": {
+        "B": "A warm site still requires data restoration and final configuration, typically taking a day or more.",
+        "C": "A cold site requires hardware to be procured, installed and configured before any recovery can begin.",
+        "D": "A reciprocal arrangement depends on the partner's readiness and available capacity at the moment of need."
+      }
+    },
+    {
+      "id": "cisa-d4b-019",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "The GREATEST limitation of a reciprocal agreement as a recovery strategy is that:",
+      "options": {
+        "A": "the arrangement is more expensive than a commercial recovery service.",
+        "B": "both organizations must operate identical hardware and software.",
+        "C": "the partner's capacity, configuration and priorities may have drifted, and the agreement is often unenforceable at the moment it is needed.",
+        "D": "the agreement has to be formally renewed each year."
+      },
+      "answer": "C",
+      "why_correct": "Reciprocal agreements decay quietly. Both environments change independently, neither party has a contractual obligation that survives its own crisis, and a regional event affecting both leaves each looking after itself.",
+      "why_wrong": {
+        "A": "Low cost is the main attraction of reciprocal agreements, not a limitation.",
+        "B": "Compatibility is a practical requirement to manage, but the deeper problem is that readiness cannot be relied upon.",
+        "D": "Periodic renewal is administrative and would in fact be an improvement, since it would force a review."
+      }
+    },
+    {
+      "id": "cisa-d4b-020",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a disaster recovery plan should be MOST concerned to find that:",
+      "options": {
+        "A": "the plan is scheduled to be tested once each year.",
+        "B": "the plan designates named alternates for each key recovery role.",
+        "C": "the plan explicitly references the recovery objectives from the business impact analysis.",
+        "D": "the recovery procedures were last tested two years ago, and the production environment has been substantially rebuilt since."
+      },
+      "answer": "D",
+      "why_correct": "A recovery plan is only valid for the environment it was tested against. After a substantial rebuild the documented procedures describe systems that no longer exist, so the organization holds a plan it has every reason to believe in and no reason to trust.",
+      "why_wrong": {
+        "A": "Annual testing is a common and generally acceptable baseline frequency.",
+        "B": "Named alternates are good practice, since key individuals may be unavailable during a disaster.",
+        "C": "Traceability from the plan back to business-derived objectives is exactly what an auditor wants to see."
+      }
+    },
+    {
+      "id": "cisa-d4b-021",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "hard",
+      "stem": "During a disaster recovery test, infrastructure was recovered successfully at the alternate site, but the test did not include restoring data from backup media. The IS auditor should MOST appropriately conclude that:",
+      "options": {
+        "A": "the test was successful, since the infrastructure recovery met its objective.",
+        "B": "the test adequately validated the organization's recovery capability.",
+        "C": "the recovery time objective was satisfied for the systems in scope.",
+        "D": "the test left a critical dependency unvalidated, because recovered infrastructure without recoverable data does not restore any business process."
+      },
+      "answer": "D",
+      "why_correct": "The business needs its data, not its servers. Excluding the restore step omits the part of recovery most likely to fail and most consequential when it does, so the test result overstates readiness.",
+      "why_wrong": {
+        "A": "Declaring success on a partial test is precisely the false assurance the auditor should challenge.",
+        "B": "Validating half the dependency chain does not validate the capability.",
+        "C": "The recovery time objective applies to restoring the business service, which was never actually achieved."
+      }
+    },
+    {
+      "id": "cisa-d4b-022",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "Which of the following is the MOST important consideration when selecting the location of an alternate processing site?",
+      "options": {
+        "A": "Proximity to the primary site so that staff travel time is minimized.",
+        "B": "Availability of floor space at the lowest cost per square meter.",
+        "C": "Sufficient distance from the primary site that a single regional event cannot affect both, while remaining reachable by recovery personnel.",
+        "D": "Use of the same internet service provider as the primary site to simplify network configuration."
+      },
+      "answer": "C",
+      "why_correct": "The site exists to survive whatever took out the primary, so shared exposure to floods, storms, grid failures or civil disruption defeats its purpose. That has to be balanced against staff genuinely being able to get there and operate it.",
+      "why_wrong": {
+        "A": "Close proximity is convenient day to day and is the specific weakness that regional events exploit.",
+        "B": "Cost is a constraint on the decision but not the criterion that determines whether the site can fulfil its function.",
+        "D": "A shared provider introduces a common point of failure across both sites, which is the opposite of what is wanted."
+      }
+    }
+  ]
+}

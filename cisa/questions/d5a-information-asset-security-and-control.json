@@ -1,0 +1,661 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "A",
+    "batch": "d5a-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D5 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5a-001",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "An organization has implemented an information security management system aligned to a recognized international standard. Which of the following would give an IS auditor the BEST evidence that the management system is operating effectively?",
+      "options": {
+        "A": "An information security policy approved and signed by the board of directors.",
+        "B": "A certificate of registration issued by an accredited certification body.",
+        "C": "Records showing that risk treatment decisions are periodically reviewed and updated as the risk profile changes.",
+        "D": "A gap analysis performed by the consultancy that implemented the management system."
+      },
+      "answer": "C",
+      "why_correct": "Operating effectiveness is about whether the control actually functions over a period of time. Evidence that risk treatment decisions are revisited and revised as risks change shows the management cycle is being run, not merely documented.",
+      "why_wrong": {
+        "A": "An approved policy is design evidence. It establishes intent and authority but says nothing about whether the system operates day to day.",
+        "B": "A certificate reflects a third party's conclusion at a point in time, and its scope may not cover the area under audit. It is indirect evidence and does not replace the auditor's own testing.",
+        "D": "A gap analysis is a point-in-time assessment of design, and the firm that implemented the system lacks independence when assessing its own work."
+      }
+    },
+    {
+      "id": "cisa-d5a-002",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "An organization adopts a widely used control framework in its entirety without tailoring it to its own environment. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "Controls addressing risks specific to the organization may be omitted, while effort is spent on controls that are not relevant to it.",
+        "B": "External audit fees are likely to increase because of the additional documentation.",
+        "C": "Staff will require training on unfamiliar framework terminology.",
+        "D": "The framework may be superseded by a newer version during implementation."
+      },
+      "answer": "A",
+      "why_correct": "A framework is a starting catalog, not a risk assessment. Applying it untailored means the control set is driven by the framework author's assumptions rather than the organization's actual risk profile, so real exposures go uncovered while resources are consumed on irrelevant controls.",
+      "why_wrong": {
+        "B": "Cost is a budget consideration rather than a control risk, and a standardized framework often reduces audit effort rather than increasing it.",
+        "C": "Terminology training is a routine and manageable part of any framework adoption.",
+        "D": "Version changes are handled through the normal periodic review cycle and do not undermine the organization's risk coverage."
+      }
+    },
+    {
+      "id": "cisa-d5a-003",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "easy",
+      "stem": "An IS auditor notes that the information security policy requires confidential data to be encrypted, but no document specifies which algorithms and minimum key lengths are acceptable. Which type of document is MOST likely missing?",
+      "options": {
+        "A": "A guideline.",
+        "B": "A standard.",
+        "C": "A procedure.",
+        "D": "A charter."
+      },
+      "answer": "B",
+      "why_correct": "Standards translate the broad intent of a policy into specific mandatory requirements, such as approved algorithms and minimum key lengths. Without one, each implementation team decides for itself and the policy cannot be tested consistently.",
+      "why_wrong": {
+        "A": "Guidelines are advisory. They suggest good practice but cannot make an algorithm choice mandatory or auditable.",
+        "C": "A procedure explains step by step how to carry out a task. It would describe how to enable encryption, not which cryptographic parameters are permitted.",
+        "D": "A charter establishes the authority, scope and reporting lines of a function. It contains no technical requirements."
+      }
+    },
+    {
+      "id": "cisa-d5a-004",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "asks": "control",
+      "stem": "When an organization is establishing its information security program, an IS auditor would expect the selection of security controls to be driven PRIMARILY by:",
+      "options": {
+        "A": "the full control catalog published with the chosen framework.",
+        "B": "the findings of the most recent penetration test.",
+        "C": "benchmarking against industry peers of a similar size.",
+        "D": "the results of a risk assessment linked to business objectives and the value of the assets involved."
+      },
+      "answer": "D",
+      "why_correct": "Controls exist to reduce risk to an acceptable level relative to what the business is trying to achieve. A risk assessment tied to business objectives and asset value is what makes control selection defensible and proportionate.",
+      "why_wrong": {
+        "A": "The catalog is an input to control selection, not the driver. Using it as the driver produces an untailored program.",
+        "B": "A penetration test reveals a narrow slice of technical weaknesses at a point in time and would produce a program skewed toward whatever the testers happened to find.",
+        "C": "Peer benchmarking is useful context but reflects other organizations' risk appetites, threat profiles and regulatory obligations, not this organization's."
+      }
+    },
+    {
+      "id": "cisa-d5a-005",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "easy",
+      "stem": "An IS auditor observes employees holding the badge-controlled door open for colleagues at the entrance to a data center. Which control would BEST address this weakness?",
+      "options": {
+        "A": "Closed-circuit television coverage of the entrance.",
+        "B": "An interlocking door system that permits only one person to pass per authenticated badge read.",
+        "C": "Signage at the entrance reminding staff not to allow others to follow them in.",
+        "D": "Weekly review of badge access logs by the facilities manager."
+      },
+      "answer": "B",
+      "why_correct": "An interlocking door physically enforces one authenticated person per entry, so the behavior becomes impossible rather than merely discouraged. It is a preventive control aimed directly at the weakness observed.",
+      "why_wrong": {
+        "A": "Cameras are detective. They may record the event but do nothing to stop it, and footage is only useful if someone reviews it.",
+        "C": "Signage relies on voluntary compliance and social pressure, which is exactly what is failing here.",
+        "D": "Log review is detective and after the fact. Critically, the person who entered without badging in generates no log entry at all, so the review cannot even detect the problem."
+      }
+    },
+    {
+      "id": "cisa-d5a-006",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "Which of the following observations about a data center fire suppression system should be of GREATEST concern to an IS auditor?",
+      "options": {
+        "A": "The system discharges an inert gas agent rather than water.",
+        "B": "Smoke detectors are installed beneath the raised floor and above the suspended ceiling.",
+        "C": "The system has not been inspected or tested since it was installed four years ago.",
+        "D": "Manual pull stations are positioned next to the exit doors."
+      },
+      "answer": "C",
+      "why_correct": "An untested control has unknown effectiveness. A suppression system that has never been inspected may fail to discharge, discharge into the wrong zone, or have lost agent pressure, and none of that would be known until a real fire occurs.",
+      "why_wrong": {
+        "A": "Inert gas agents are the expected choice for a data center precisely because they suppress fire without the equipment damage water would cause.",
+        "B": "Detectors in the plenum spaces above the ceiling and below the floor are good practice, since that is where cabling fires commonly start.",
+        "D": "Placing manual pull stations at exits is standard life-safety design, allowing staff to trigger an alarm on the way out."
+      }
+    },
+    {
+      "id": "cisa-d5a-007",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "Persistently low relative humidity in a data center presents the GREATEST risk of:",
+      "options": {
+        "A": "electrostatic discharge damaging electronic components.",
+        "B": "condensation forming on equipment surfaces.",
+        "C": "accelerated corrosion of electrical contacts.",
+        "D": "microbial growth within air handling units."
+      },
+      "answer": "A",
+      "why_correct": "Dry air allows static charge to build up on people and materials. When it discharges into a circuit board it can destroy components outright or cause latent damage that shows up later as intermittent faults.",
+      "why_wrong": {
+        "B": "Condensation is a high-humidity problem. It occurs when moist air meets a surface below its dew point.",
+        "C": "Corrosion is accelerated by high humidity, particularly in combination with airborne contaminants.",
+        "D": "Microbial growth requires moisture and is associated with excessive humidity, not dry conditions."
+      }
+    },
+    {
+      "id": "cisa-d5a-008",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "A data center is protected by an uninterruptible power supply sized for 15 minutes at full load and a diesel generator with a 72-hour fuel supply. Which of the following is MOST important for an IS auditor to verify?",
+      "options": {
+        "A": "The UPS batteries remain within the manufacturer's warranty period.",
+        "B": "Fuel is sourced from more than one supplier.",
+        "C": "The generator is housed in a locked, access-controlled enclosure.",
+        "D": "The generator is tested regularly under full load and assumes the load well within the UPS runtime."
+      },
+      "answer": "D",
+      "why_correct": "The whole design depends on the generator starting and carrying the real load before the batteries run out. Only a regular full-load test demonstrates that, and generators that pass unloaded test runs frequently fail under actual load.",
+      "why_wrong": {
+        "A": "Warranty status is a commercial matter. Batteries can be in warranty and still be degraded, which is why load testing rather than paperwork is the meaningful check.",
+        "B": "Supplier diversity matters for outages lasting beyond the onboard fuel supply, which is a secondary concern to whether the generator works at all.",
+        "C": "Physical security of the generator is a legitimate control, but it does not address the availability risk that this configuration is designed to manage."
+      }
+    },
+    {
+      "id": "cisa-d5a-009",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that all service desk staff are able to reset the password of any account, including domain administrator accounts. The auditor's GREATEST concern should be that:",
+      "options": {
+        "A": "service desk staff may become overloaded with reset requests.",
+        "B": "password reset activity is not notified to the account owner.",
+        "C": "a service desk employee could take control of a privileged account and obtain unauthorized administrative access to the environment.",
+        "D": "users may experience delays when the service desk is busy."
+      },
+      "answer": "C",
+      "why_correct": "The ability to reset a credential is equivalent to the ability to use the account. Granting that over domain administrator accounts hands a low-privilege role effective control of the environment, defeating least privilege and segregation of duties in a single step.",
+      "why_wrong": {
+        "A": "Workload is an operational efficiency matter with no bearing on the security exposure.",
+        "B": "Owner notification is a useful detective control, but it addresses the symptom rather than the excessive privilege that creates the risk.",
+        "D": "Service levels are a performance concern, not a control weakness."
+      }
+    },
+    {
+      "id": "cisa-d5a-010",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "Which of the following provides the BEST evidence that a periodic user access review was effective?",
+      "options": {
+        "A": "System records showing that access flagged for removal by reviewers was actually revoked within the required timeframe.",
+        "B": "Signed attestations from each business manager confirming the review was completed.",
+        "C": "A policy requiring access reviews to be performed each quarter.",
+        "D": "The user listings that were distributed to reviewers at the start of the review."
+      },
+      "answer": "A",
+      "why_correct": "A review only reduces risk when the decisions it produces are acted on. Evidence that flagged access was actually removed closes the loop and demonstrates the control worked end to end.",
+      "why_wrong": {
+        "B": "An attestation confirms the review was performed, not that anything changed as a result. Access flagged for removal that is still active is a common finding even where attestations are complete.",
+        "C": "A policy establishes the requirement. It is design evidence and says nothing about whether the review happened or achieved anything.",
+        "D": "The starting population shows what was reviewed, not what the reviewers decided or whether their decisions were implemented."
+      }
+    },
+    {
+      "id": "cisa-d5a-011",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor identifies active network accounts belonging to employees who left the organization more than 90 days earlier. Which underlying cause should the auditor investigate FIRST?",
+      "options": {
+        "A": "Whether the password policy forces periodic password changes.",
+        "B": "Whether any of the accounts held administrative privileges.",
+        "C": "Whether user access reviews are performed at least annually.",
+        "D": "Whether a reliable trigger exists from the HR termination process to IT account deprovisioning."
+      },
+      "answer": "D",
+      "why_correct": "Orphan accounts are almost always a symptom of a broken handoff between HR and IT. Identifying whether that trigger exists and works determines whether this is an isolated lapse or a systemic failure that will keep producing findings.",
+      "why_wrong": {
+        "A": "Password expiry may eventually disable a dormant account as a side effect, but it is a compensating accident rather than the control that should have removed access.",
+        "B": "Privilege level affects how serious the exposure is and is worth establishing, but it describes the impact rather than the cause of the failure.",
+        "C": "Access reviews are a detective backstop. That they did not catch these accounts is a secondary finding to the preventive process that should have removed access on the termination date."
+      }
+    },
+    {
+      "id": "cisa-d5a-012",
+      "topic": "Identity and Access Management",
+      "difficulty": "easy",
+      "stem": "Which of the following BEST represents multifactor authentication?",
+      "options": {
+        "A": "A password combined with answers to preregistered security questions.",
+        "B": "A password combined with a one-time code generated by a hardware token.",
+        "C": "A fingerprint scan combined with an iris scan.",
+        "D": "A 16-character passphrase combined with a numeric PIN."
+      },
+      "answer": "B",
+      "why_correct": "This combines something the user knows with something the user has. Because the two factors are of different types, compromising one does not compromise the other.",
+      "why_wrong": {
+        "A": "Security question answers are still knowledge. Both elements are the same factor, and the answers are often discoverable from public sources.",
+        "C": "Two biometrics are both inherence factors. This is multimodal biometric authentication, not multifactor.",
+        "D": "A passphrase and a PIN are both knowledge factors. Length adds strength but not a second factor."
+      }
+    },
+    {
+      "id": "cisa-d5a-013",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "An organization is deploying single sign-on across its major applications. Which risk should an IS auditor highlight as the GREATEST?",
+      "options": {
+        "A": "Legacy applications may not support the required authentication protocol.",
+        "B": "The number of authentication servers to be maintained will increase.",
+        "C": "Compromise of one set of credentials could give an attacker access to every connected application.",
+        "D": "Users will have fewer distinct passwords to remember."
+      },
+      "answer": "C",
+      "why_correct": "Single sign-on concentrates authentication into one credential, so the consequence of a single compromise scales across the entire connected estate. This is why strong authentication on the SSO credential itself is essential.",
+      "why_wrong": {
+        "A": "Legacy compatibility is a genuine implementation obstacle, but it is a project delivery issue rather than the principal security risk.",
+        "B": "Single sign-on generally consolidates rather than multiplies authentication infrastructure.",
+        "D": "Fewer passwords to remember is an intended benefit, since it reduces password reuse and written-down credentials."
+      }
+    },
+    {
+      "id": "cisa-d5a-014",
+      "topic": "Network and End-Point Security",
+      "difficulty": "medium",
+      "stem": "While reviewing a firewall rule base, an IS auditor notes that the final rule permits all traffic from any source to any destination. This is of concern PRIMARILY because:",
+      "options": {
+        "A": "traffic not explicitly denied by an earlier rule will be permitted, defeating the principle of deny by default.",
+        "B": "the firewall must evaluate every preceding rule before reaching it, degrading throughput.",
+        "C": "logging matches against this rule will consume significant storage.",
+        "D": "rules should always be ordered from most specific to least specific."
+      },
+      "answer": "A",
+      "why_correct": "A firewall should end with an implicit or explicit deny so that anything not expressly authorized is blocked. A permissive final rule inverts that posture, so the firewall only stops what someone remembered to prohibit.",
+      "why_wrong": {
+        "B": "Rule processing overhead is a performance consideration and is not why this is a control weakness.",
+        "C": "Log volume is an operational consequence. The exposure exists whether or not the rule is logged.",
+        "D": "Ordering specific rules before general ones is good practice, but the problem here is the permissive action, not the placement."
+      }
+    },
+    {
+      "id": "cisa-d5a-015",
+      "topic": "Network and End-Point Security",
+      "difficulty": "easy",
+      "stem": "An organization wants to block malicious traffic before it reaches its internal application servers. Which of the following is MOST appropriate?",
+      "options": {
+        "A": "A network intrusion detection sensor connected to a switch mirror port.",
+        "B": "Correlation rules in the SIEM that alert the security operations team.",
+        "C": "File integrity monitoring agents installed on the application servers.",
+        "D": "An intrusion prevention system deployed inline and configured to drop matching traffic."
+      },
+      "answer": "D",
+      "why_correct": "Only a device positioned in the traffic path can stop a packet from arriving. An inline IPS inspects and drops matching traffic before it reaches the target, which is what the requirement calls for.",
+      "why_wrong": {
+        "A": "A sensor on a mirror port receives a copy of traffic after the fact. It can alert but cannot block, because the original packet has already been delivered.",
+        "B": "SIEM correlation is detective and depends on human response after the traffic has arrived.",
+        "C": "File integrity monitoring detects unauthorized change after a compromise has already occurred on the host."
+      }
+    },
+    {
+      "id": "cisa-d5a-016",
+      "topic": "Network and End-Point Security",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviews a network in which finance servers reside in the same broadcast domain as general user workstations. The auditor should be MOST concerned that:",
+      "options": {
+        "A": "broadcast traffic may degrade network performance for all attached devices.",
+        "B": "a compromised workstation can reach the finance servers directly, without passing through any filtering or monitoring control point.",
+        "C": "the available address space may be exhausted as the organization grows.",
+        "D": "VLAN tags are not applied to finance-related traffic."
+      },
+      "answer": "B",
+      "why_correct": "Without segmentation there is no enforcement point between an untrusted endpoint and a high-value system. A single phished workstation gives an attacker unmediated network access to finance servers and leaves no chokepoint at which the movement could be filtered or observed.",
+      "why_wrong": {
+        "A": "Broadcast overhead is a performance characteristic of flat networks, not the control failure that matters here.",
+        "C": "Address exhaustion is a capacity planning issue with no security consequence.",
+        "D": "Absent VLAN tagging is a description of the same condition rather than the risk it creates. The auditor's concern is the exposure, not the configuration detail."
+      }
+    },
+    {
+      "id": "cisa-d5a-017",
+      "topic": "Network and End-Point Security",
+      "difficulty": "hard",
+      "stem": "Which of the following would give an IS auditor the BEST assurance that endpoint protection software is deployed across the entire estate?",
+      "options": {
+        "A": "The vendor console confirms the organization holds sufficient licenses for all of its endpoints.",
+        "B": "A sample of ten laptops was inspected and each had current signature files.",
+        "C": "A reconciliation of the endpoint agent inventory to the authoritative asset inventory, with every exception investigated and resolved.",
+        "D": "The endpoint security policy requires the agent to be installed on all devices."
+      },
+      "answer": "C",
+      "why_correct": "The risk is completeness: the dangerous device is the one the console does not know about. Reconciling agents against an independent asset inventory is the only approach that surfaces unmanaged endpoints, and following up exceptions demonstrates the gaps were closed.",
+      "why_wrong": {
+        "A": "Licenses purchased are not agents installed. An organization can be fully licensed and still have machines with no agent running.",
+        "B": "A sample of ten drawn from the managed population tells you about devices already under management and cannot detect endpoints missing from that population entirely.",
+        "D": "A policy requirement is design evidence. It states what should happen, not what did."
+      }
+    },
+    {
+      "id": "cisa-d5a-018",
+      "topic": "Network and End-Point Security",
+      "difficulty": "medium",
+      "stem": "Remote users connect through a VPN client that permits split tunneling. The GREATEST risk is that:",
+      "options": {
+        "A": "internet-bound traffic bypasses corporate network security controls, and a compromised endpoint can bridge into the internal network.",
+        "B": "VPN concentrator bandwidth will be consumed by non-business traffic.",
+        "C": "users will be able to reach personal webmail during working hours.",
+        "D": "latency for internal applications will increase noticeably."
+      },
+      "answer": "A",
+      "why_correct": "With split tunneling the endpoint is simultaneously attached to the untrusted internet and the corporate network, and its internet traffic never passes the organization's web filtering or inspection stack. A device compromised over that unprotected path has a live tunnel into the internal environment.",
+      "why_wrong": {
+        "B": "Split tunneling reduces load on the concentrator rather than increasing it, since only corporate traffic traverses the tunnel.",
+        "C": "Personal browsing is an acceptable use matter, not the security exposure that concerns the auditor.",
+        "D": "Split tunneling generally improves rather than degrades performance by shortening the path for internet traffic."
+      }
+    },
+    {
+      "id": "cisa-d5a-019",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "An organization intends to deploy a data loss prevention solution. Which of the following should be done FIRST?",
+      "options": {
+        "A": "Select a product that covers endpoint, network and cloud channels.",
+        "B": "Configure rules to block sensitive content in outbound email.",
+        "C": "Tune detection thresholds to reduce the volume of false positives.",
+        "D": "Identify and classify the information assets requiring protection and define what constitutes sensitive data."
+      },
+      "answer": "D",
+      "why_correct": "A DLP tool can only enforce a definition of sensitive data that someone has already made. Without classification there is nothing for the rules to match on, and the deployment devolves into guesswork that produces both false positives and undetected loss.",
+      "why_wrong": {
+        "A": "Product selection should follow from the requirements that classification establishes, otherwise the tool determines the scope of the program.",
+        "B": "Blocking rules are meaningless until the organization has defined what should be blocked.",
+        "C": "Tuning is a later refinement activity that presupposes rules already exist."
+      }
+    },
+    {
+      "id": "cisa-d5a-020",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that a data loss prevention solution has run in monitor-only mode for 18 months and that more than 40,000 alerts remain unreviewed. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "The volume of stored alerts is consuming significant storage capacity.",
+        "B": "The organization receives neither preventive nor detective benefit, so data loss could occur and remain unnoticed.",
+        "C": "The licensing cost of the solution cannot be justified to management.",
+        "D": "Detection rules have not been tuned since the solution was deployed."
+      },
+      "answer": "B",
+      "why_correct": "A control in monitor mode does not prevent anything, and alerts nobody reads do not detect anything. Management believes a control exists, so the risk is likely accepted on a false basis, which is worse than having no tool at all.",
+      "why_wrong": {
+        "A": "Storage is a trivial operational cost next to undetected loss of sensitive data.",
+        "C": "Wasted license spend is a value-for-money observation, not the primary control failure.",
+        "D": "Untuned rules help explain why the alerts were never reviewed, but the concern is the resulting absence of any working control."
+      }
+    },
+    {
+      "id": "cisa-d5a-021",
+      "topic": "Data Loss Prevention",
+      "difficulty": "hard",
+      "stem": "Which of the following is MOST likely to limit the effectiveness of a network-based data loss prevention solution?",
+      "options": {
+        "A": "A steady increase in the volume of outbound email attachments.",
+        "B": "Frequent updates to the detection policy set.",
+        "C": "Outbound traffic that is encrypted end to end and is not decrypted for inspection.",
+        "D": "Routing all outbound mail through a single centralized email gateway."
+      },
+      "answer": "C",
+      "why_correct": "Network DLP works by inspecting content in transit. If the traffic is encrypted and the organization does not terminate and inspect it, the tool sees only ciphertext and every rule fails silently, which is why interception points matter as much as the rules themselves.",
+      "why_wrong": {
+        "A": "Greater attachment volume raises processing load but does not stop inspection from working.",
+        "B": "Regularly updated policies are a sign of a maintained deployment and generally improve accuracy.",
+        "D": "A single centralized gateway helps network DLP by creating one chokepoint where all outbound mail can be inspected."
+      }
+    },
+    {
+      "id": "cisa-d5a-022",
+      "topic": "Data Encryption",
+      "difficulty": "easy",
+      "stem": "An organization must encrypt a large volume of data at rest with minimal impact on system performance. Which of the following is MOST appropriate?",
+      "options": {
+        "A": "Symmetric encryption using a block cipher such as AES.",
+        "B": "Asymmetric encryption using RSA.",
+        "C": "A cryptographic hash function such as SHA-256.",
+        "D": "Digital signatures applied to each stored record."
+      },
+      "answer": "A",
+      "why_correct": "Symmetric algorithms are orders of magnitude faster than asymmetric ones and are the standard choice for bulk data. Asymmetric cryptography is typically reserved for exchanging the symmetric key.",
+      "why_wrong": {
+        "B": "RSA is computationally expensive and constrained in the amount of data it can encrypt per operation, making it impractical for bulk storage encryption.",
+        "C": "Hashing is one way. It supports integrity checking but provides no confidentiality and the data cannot be recovered.",
+        "D": "Signatures provide integrity and nonrepudiation. They do not conceal the content, which is what encryption at rest is meant to do."
+      }
+    },
+    {
+      "id": "cisa-d5a-023",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing database encryption finds that the encryption keys are held in a configuration file on the same server as the encrypted database and are readable by the application service account. Which of the following is the auditor's MOST appropriate conclusion?",
+      "options": {
+        "A": "The key length should be increased to compensate for the storage location.",
+        "B": "The encryption algorithm should be replaced with a stronger one.",
+        "C": "The arrangement is acceptable because the server sits inside the corporate network.",
+        "D": "The encryption offers limited protection, because anyone who compromises the server obtains both the ciphertext and the keys needed to decrypt it."
+      },
+      "answer": "D",
+      "why_correct": "Encryption transfers the protection problem to the key. Storing the key alongside the data it protects means a single compromise yields both, so the control adds little beyond protection against theft of the bare storage media.",
+      "why_wrong": {
+        "A": "Key length addresses brute force attacks. It is irrelevant when the attacker can simply read the key.",
+        "B": "The algorithm is not the weakness. A stronger cipher protected by an exposed key is no better protected.",
+        "C": "Network location is not a substitute for key protection, and it assumes the perimeter will never be breached and that insiders present no risk."
+      }
+    },
+    {
+      "id": "cisa-d5a-024",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST provides assurance that a file was not altered during transmission?",
+      "options": {
+        "A": "Encrypting the file with the recipient's public key before sending it.",
+        "B": "Placing the file in a password-protected compressed archive.",
+        "C": "Comparing a cryptographic hash of the received file against the hash computed by the sender and communicated through a separate trusted channel.",
+        "D": "Transmitting the file over a dedicated leased line between the two parties."
+      },
+      "answer": "C",
+      "why_correct": "A cryptographic hash is a fingerprint of the content: any modification produces a different value. Communicating the expected hash out of band prevents an attacker who altered the file from simply supplying a matching hash.",
+      "why_wrong": {
+        "A": "Public key encryption protects confidentiality. Ciphertext can still be corrupted or substituted in transit without the recipient being able to prove it.",
+        "B": "Archive passwords control access to the contents. They provide no cryptographic evidence that the content is unchanged.",
+        "D": "A private circuit narrows who can intervene but yields no evidence about the integrity of what was delivered."
+      }
+    },
+    {
+      "id": "cisa-d5a-025",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "A trading partner denies having submitted an electronic purchase order. Which control BEST addresses this situation?",
+      "options": {
+        "A": "A message authentication code produced using a symmetric key shared by both parties.",
+        "B": "A digital signature created with the partner's private key and verifiable using its public key.",
+        "C": "Retention of web server logs recording the source IP address of the submission.",
+        "D": "Submission through a portal requiring a user ID and password."
+      },
+      "answer": "B",
+      "why_correct": "Only the partner holds its private key, so a valid signature can only have been produced by that key. This is what supports nonrepudiation: the sender cannot credibly deny origination.",
+      "why_wrong": {
+        "A": "Because both parties hold the same symmetric key, either could have generated the code. The partner can argue the recipient fabricated the message.",
+        "C": "An IP address identifies a network endpoint, not a person or organization, and can be spoofed or shared. It is weak evidence of origin.",
+        "D": "Shared reusable credentials can be disclosed, guessed or stolen, and they do not cryptographically bind a specific message to a specific sender."
+      }
+    },
+    {
+      "id": "cisa-d5a-026",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "easy",
+      "stem": "In a public key infrastructure, the PRIMARY role of the certificate authority is to:",
+      "options": {
+        "A": "bind a public key to a verified identity by issuing a digital certificate.",
+        "B": "generate and distribute symmetric session keys to communicating parties.",
+        "C": "hold escrow copies of every subscriber's private key.",
+        "D": "encrypt and decrypt the messages exchanged between subscribers."
+      },
+      "answer": "A",
+      "why_correct": "The certificate authority is the trusted third party that vouches for identity. By signing a certificate it asserts that a particular public key belongs to a particular verified entity, which is what allows strangers to trust each other's keys.",
+      "why_wrong": {
+        "B": "Session keys are negotiated between the communicating parties themselves, typically during a protocol handshake. The CA is not involved.",
+        "C": "Private keys should normally remain with their owner and never be disclosed to the CA. Escrow, where it exists at all, is a separate and deliberately limited arrangement.",
+        "D": "The CA does not sit in the data path. Encryption and decryption are performed by the endpoints."
+      }
+    },
+    {
+      "id": "cisa-d5a-027",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "An application accepts client certificates for authentication but performs no revocation checking. The GREATEST risk is that:",
+      "options": {
+        "A": "certificates that have passed their stated expiry date will be accepted.",
+        "B": "the certificate chain cannot be validated back to a trusted root.",
+        "C": "issuance of certificates for new users will be delayed.",
+        "D": "certificates associated with compromised keys or terminated users will continue to be accepted as valid."
+      },
+      "answer": "D",
+      "why_correct": "Revocation is the only mechanism for invalidating a certificate before its natural expiry. Without checking it, a stolen key or a departed employee's certificate remains usable for the remainder of its validity period, potentially years.",
+      "why_wrong": {
+        "A": "Expiry is checked as part of ordinary certificate validation and does not depend on revocation checking.",
+        "B": "Chain validation is a separate step that functions independently of whether revocation status is consulted.",
+        "C": "Issuance timelines are an operational matter for the registration process and are unaffected by how relying parties validate certificates."
+      }
+    },
+    {
+      "id": "cisa-d5a-028",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "Which of the following findings concerning an organization's internal root certificate authority should be of GREATEST concern to an IS auditor?",
+      "options": {
+        "A": "End-entity certificates are issued with a two-year validity period.",
+        "B": "Subordinate certificate authorities issue the certificates used by web servers.",
+        "C": "The root certificate authority is kept powered on and connected to the corporate network so that it can issue certificates directly.",
+        "D": "The root certificate has a validity period of 20 years."
+      },
+      "answer": "C",
+      "why_correct": "The root key is the anchor of trust for the entire hierarchy. Standard practice keeps the root offline and uses subordinate CAs for day to day issuance, because compromise of an online root means every certificate ever issued must be replaced.",
+      "why_wrong": {
+        "A": "A two-year end-entity validity period is within normal ranges and is a risk appetite decision rather than a control failure.",
+        "B": "Delegating issuance to subordinate CAs is exactly the recommended design, since it keeps the root out of routine operations.",
+        "D": "Long root validity is conventional, because replacing a root requires redistributing trust to every relying party."
+      }
+    },
+    {
+      "id": "cisa-d5a-029",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "An organization migrates a business application to a software as a service provider. Which responsibility ALWAYS remains with the organization, regardless of the cloud service model chosen?",
+      "options": {
+        "A": "Applying security patches to the underlying operating system.",
+        "B": "Accountability for the confidentiality and appropriate use of its data, including deciding who is authorized to access it.",
+        "C": "Physical and environmental security of the hosting facility.",
+        "D": "Hardening and configuration of the hypervisor."
+      },
+      "answer": "B",
+      "why_correct": "Operational tasks can be outsourced, but accountability for the data cannot. The customer remains the data owner and answers to regulators and customers for how the data is protected and who may access it.",
+      "why_wrong": {
+        "A": "Operating system patching sits with the provider under SaaS and PaaS models.",
+        "C": "Physical security of the facility is the provider's responsibility in every cloud model.",
+        "D": "The hypervisor layer is managed by the provider and is not exposed to the customer."
+      }
+    },
+    {
+      "id": "cisa-d5a-030",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "An IS auditor is unable to perform testing at a cloud service provider's premises. Which of the following is the BEST alternative source of assurance?",
+      "options": {
+        "A": "An independent service auditor's report covering the relevant control objectives and period, read together with the complementary user entity controls it identifies.",
+        "B": "A security questionnaire completed by the provider's sales engineering team.",
+        "C": "The list of certifications published on the provider's website.",
+        "D": "Marketing material describing the provider's security architecture."
+      },
+      "answer": "A",
+      "why_correct": "An independent report on operating effectiveness over a defined period is the closest substitute for the auditor's own testing. Reading the complementary user entity controls is essential, because those are the controls the report assumes the customer performs.",
+      "why_wrong": {
+        "B": "A self-completed questionnaire is unverified management representation, and one completed by a sales function carries an obvious incentive problem.",
+        "C": "A certification list confirms scope at a point in time but conveys nothing about how the controls operated during the audit period.",
+        "D": "Marketing material is promotional and is not audit evidence in any form."
+      }
+    },
+    {
+      "id": "cisa-d5a-031",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "Which risk is MOST specific to a virtualized server environment?",
+      "options": {
+        "A": "Unauthorized physical access to the server room.",
+        "B": "Use of weak passwords on administrative accounts.",
+        "C": "Application patches that are not applied within the agreed window.",
+        "D": "Compromise of the hypervisor, which would expose every guest virtual machine running on that host."
+      },
+      "answer": "D",
+      "why_correct": "The hypervisor is a layer that exists only in virtualized environments and sits beneath every guest. Compromising it collapses the isolation between virtual machines that the whole architecture depends on, in a single step.",
+      "why_wrong": {
+        "A": "Physical access risk applies equally to physical and virtual infrastructure.",
+        "B": "Weak administrative passwords are a general access control weakness present in any environment.",
+        "C": "Patching delays affect physical servers just as much as virtual ones."
+      }
+    },
+    {
+      "id": "cisa-d5a-032",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "Employees access corporate email from personally owned smartphones. Which control BEST protects corporate data if a device is lost?",
+      "options": {
+        "A": "Requiring a passcode to unlock the device.",
+        "B": "Installing anti-malware software on the device.",
+        "C": "Holding corporate data in a managed container that can be selectively wiped remotely.",
+        "D": "Requiring employees to report a lost device within 24 hours."
+      },
+      "answer": "C",
+      "why_correct": "Containerization separates corporate data from personal data, so the organization can remove its own information immediately without needing to erase the employee's personal content. That practical acceptability is what makes the control likely to be used rather than resisted.",
+      "why_wrong": {
+        "A": "A passcode delays access but does not remove the data, and it can be bypassed on some devices or defeated by a weak code.",
+        "B": "Anti-malware addresses malicious software. It offers nothing when the threat is physical possession of the device.",
+        "D": "Reporting triggers a response but is itself only a procedural step, and 24 hours is ample time for data to be extracted."
+      }
+    },
+    {
+      "id": "cisa-d5a-033",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "While reviewing a corporate wireless network, an IS auditor should be MOST concerned to find that:",
+      "options": {
+        "A": "the network uses a pre-shared key that has not been changed in three years and is known to former employees.",
+        "B": "the service set identifier is broadcast.",
+        "C": "guest wireless traffic is placed on a separate VLAN with no route to internal systems.",
+        "D": "access points are configured and monitored from a central controller."
+      },
+      "answer": "A",
+      "why_correct": "A static shared credential known to people who have left provides no accountability and cannot be revoked for an individual. Anyone within radio range who has the key obtains network access, and nothing in the logs identifies who.",
+      "why_wrong": {
+        "B": "Suppressing the SSID provides negligible security, since the network name is trivially recoverable from client traffic. Broadcasting it is normal.",
+        "C": "Isolating guest traffic on its own VLAN is exactly what an auditor would want to see.",
+        "D": "Central management improves configuration consistency and monitoring, which strengthens rather than weakens the environment."
+      }
+    },
+    {
+      "id": "cisa-d5a-034",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "Which characteristic of Internet of Things devices presents the GREATEST challenge to an organization's vulnerability management program?",
+      "options": {
+        "A": "They generate high volumes of telemetry data.",
+        "B": "Many have limited or no capability to be patched and ship with hardcoded or default credentials.",
+        "C": "They commonly connect over wireless rather than wired networks.",
+        "D": "They are inexpensive relative to traditional IT assets."
+      },
+      "answer": "B",
+      "why_correct": "Vulnerability management assumes that identified weaknesses can be remediated. When a device cannot be patched and its credentials cannot be changed, the standard remediation path does not exist and the organization must fall back on compensating controls such as network isolation.",
+      "why_wrong": {
+        "A": "Data volume is a capacity and analytics consideration rather than a remediation obstacle.",
+        "C": "Wireless connectivity introduces its own risks but does not prevent vulnerabilities from being fixed.",
+        "D": "Low unit cost may encourage uncontrolled proliferation, but the cost itself is not what defeats vulnerability management."
+      }
+    }
+  ]
+}

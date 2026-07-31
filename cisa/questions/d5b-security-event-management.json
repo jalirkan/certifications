@@ -1,0 +1,355 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "B",
+    "batch": "d5b-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D5 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5b-001",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST measures the effectiveness of a security awareness program?",
+      "options": {
+        "A": "The percentage of employees who completed the annual training module.",
+        "B": "The number of awareness topics published during the year.",
+        "C": "A sustained decline in click rates on simulated phishing exercises, accompanied by an increase in employee reporting of suspicious messages.",
+        "D": "Employee satisfaction scores collected after each training session."
+      },
+      "answer": "C",
+      "why_correct": "Awareness programs exist to change behavior, so effectiveness must be measured by behavior. Falling click rates paired with rising reporting show both that employees recognize attacks and that they act on that recognition.",
+      "why_wrong": {
+        "A": "Completion measures participation. An employee can click through a module and change nothing about how they handle a suspicious email.",
+        "B": "Volume of content published measures activity by the security team, not any outcome among the audience.",
+        "D": "Satisfaction scores measure how the training was received. Well-liked training can still fail to change behavior."
+      }
+    },
+    {
+      "id": "cisa-d5b-002",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "medium",
+      "stem": "An IS auditor notes that every employee receives identical annual security awareness training regardless of role. Which recommendation is MOST appropriate?",
+      "options": {
+        "A": "Tailor content to role and risk exposure, with additional targeted training for high-risk roles such as finance staff and privileged administrators.",
+        "B": "Increase the frequency of the existing training from annual to semiannual for all staff.",
+        "C": "Replace the training with an annual signed acknowledgement of the security policy.",
+        "D": "Engage an external vendor to deliver the same content."
+      },
+      "answer": "A",
+      "why_correct": "Different roles face materially different threats. Finance staff are targeted for payment fraud and privileged administrators for credential theft, and generic content leaves both without the specific recognition skills their role demands.",
+      "why_wrong": {
+        "B": "Delivering ineffective content twice as often multiplies the time cost without addressing the relevance problem.",
+        "C": "An acknowledgement records that someone read a document. It builds no capability at all and is a clear step backward.",
+        "D": "Changing the delivery vendor leaves the underlying weakness, which is the content rather than who presents it."
+      }
+    },
+    {
+      "id": "cisa-d5b-003",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "medium",
+      "stem": "Security awareness training is MOST likely to produce lasting change in employee behavior when:",
+      "options": {
+        "A": "it is delivered as part of the onboarding process for new hires.",
+        "B": "completion is mandatory and is tracked centrally for compliance reporting.",
+        "C": "the material covers technical detail about current attack tooling.",
+        "D": "senior management visibly supports it and the messages are reinforced continuously through several channels."
+      },
+      "answer": "D",
+      "why_correct": "Awareness is a culture problem more than a curriculum problem. Visible executive sponsorship signals that security is expected rather than optional, and continuous reinforcement counteracts the rapid decay that follows any single training event.",
+      "why_wrong": {
+        "A": "Onboarding is a valuable starting point, but a single session at the least memorable moment of employment fades quickly.",
+        "B": "Tracking completion supports compliance reporting. It measures attendance rather than driving behavior.",
+        "C": "Deep technical detail is largely irrelevant to non-technical staff and can obscure the simple recognition and reporting behaviors that actually matter."
+      }
+    },
+    {
+      "id": "cisa-d5b-004",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "An attacker telephoned the service desk, claimed to be a senior executive and pressured the agent into resetting a password. Which control would BEST prevent a recurrence?",
+      "options": {
+        "A": "Increasing password complexity and minimum length requirements.",
+        "B": "A mandatory identity verification procedure for every reset request, including callback to a number held on record, with no exceptions for seniority.",
+        "C": "Annual security awareness training for all employees.",
+        "D": "Logging all password reset activity for later review."
+      },
+      "answer": "B",
+      "why_correct": "The attack exploited authority and urgency to make an agent deviate from procedure. A mandatory verification step that explicitly removes discretion for senior requesters takes away the pressure lever, and callback to a number already on record defeats caller identity spoofing.",
+      "why_wrong": {
+        "A": "Complexity requirements protect against guessing and cracking. They are irrelevant when the attacker persuades someone to reset the password outright.",
+        "C": "General awareness training helps but is diffuse. The specific failure was an absent procedural control at a known high-risk transaction point.",
+        "D": "Logging is detective. It supports investigation after the account is already compromised."
+      }
+    },
+    {
+      "id": "cisa-d5b-005",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "easy",
+      "stem": "Which control BEST prevents SQL injection attacks against a web application?",
+      "options": {
+        "A": "A network firewall restricting inbound traffic to ports 80 and 443.",
+        "B": "Encryption of the database contents at rest.",
+        "C": "Input validation combined with parameterized queries in the application code.",
+        "D": "Complex passwords for database administrator accounts."
+      },
+      "answer": "C",
+      "why_correct": "SQL injection succeeds when user-supplied input is treated as executable query text. Parameterized queries separate code from data so that input can never alter the query structure, and validation rejects malformed input before it reaches the database.",
+      "why_wrong": {
+        "A": "Injection travels inside legitimate traffic on the very ports the application must expose, so a port-based firewall passes it straight through.",
+        "B": "Encryption at rest protects against theft of the underlying files. The application decrypts data for authorized queries, including injected ones.",
+        "D": "The attack uses the application's own database connection. The administrator password is never involved."
+      }
+    },
+    {
+      "id": "cisa-d5b-006",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST limits the impact of a ransomware attack on an organization's ability to recover its operations?",
+      "options": {
+        "A": "Backups that are regularly restore-tested and held offline or in immutable storage that cannot be altered from the production environment.",
+        "B": "Anti-malware software deployed on every endpoint and server.",
+        "C": "Email filtering that removes malicious attachments and links.",
+        "D": "A cyber insurance policy covering extortion and business interruption."
+      },
+      "answer": "A",
+      "why_correct": "The question asks about ability to recover, not likelihood of infection. Ransomware operators specifically seek out and encrypt reachable backups, so backups that cannot be reached or altered from production, and that have been proven restorable, are what preserve the recovery option.",
+      "why_wrong": {
+        "B": "Anti-malware is preventive and can be evaded by new variants. Once encryption has occurred it contributes nothing to recovery.",
+        "C": "Email filtering reduces the chance of delivery through one common channel but does nothing for recovery once an infection succeeds.",
+        "D": "Insurance transfers financial loss. It does not restore data or bring operations back online."
+      }
+    },
+    {
+      "id": "cisa-d5b-007",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "Management wants to know whether a chain of individually minor weaknesses could be combined to reach the customer database. Which of the following is MOST appropriate?",
+      "options": {
+        "A": "An authenticated vulnerability scan of the hosts in the environment.",
+        "B": "A review of system configurations against the hardening baseline.",
+        "C": "A static code review of the customer-facing application.",
+        "D": "A penetration test performed under an agreed scope and rules of engagement."
+      },
+      "answer": "D",
+      "why_correct": "The question is about exploitability in combination, which only a penetration test answers. A tester chains findings the way an attacker would and demonstrates whether the path to the target actually exists.",
+      "why_wrong": {
+        "A": "A scan enumerates known weaknesses individually and rates them in isolation. It cannot show whether three low-rated findings together produce a route to the database.",
+        "B": "A baseline review compares configuration to a standard. It identifies deviations without demonstrating what an attacker could do with them.",
+        "C": "Code review examines one application's source and would miss weaknesses in infrastructure, identity and network layers that a chained attack would traverse."
+      }
+    },
+    {
+      "id": "cisa-d5b-008",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "Before a penetration test of production systems begins, which of the following is MOST important for an IS auditor to verify?",
+      "options": {
+        "A": "The testers hold recognized professional certifications.",
+        "B": "Written authorization from management defining scope, timing, permitted techniques and escalation contacts.",
+        "C": "The specific tools the testers intend to use.",
+        "D": "That the engagement fee was approved within the agreed budget."
+      },
+      "answer": "B",
+      "why_correct": "Without documented authorization the testing is indistinguishable from an actual attack and may be unlawful. The authorization also bounds the blast radius on production systems and establishes who to contact if testing causes an outage or uncovers a live compromise.",
+      "why_wrong": {
+        "A": "Credentials speak to competence and are worth confirming, but they do not make the testing authorized or safe.",
+        "C": "Tooling is an execution detail. It matters far less than whether permission and boundaries exist.",
+        "D": "Budget approval is a procurement control unrelated to the risk the testing creates."
+      }
+    },
+    {
+      "id": "cisa-d5b-009",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A vulnerability scan of the production estate returns 800 findings rated critical. What should the organization do FIRST?",
+      "options": {
+        "A": "Apply vendor patches for all 800 findings before the next scan cycle.",
+        "B": "Repeat the scan using a second product to confirm the results.",
+        "C": "Validate the findings and rank them by exploitability and by the business impact of the assets affected.",
+        "D": "Report the number of critical findings to the audit committee."
+      },
+      "answer": "C",
+      "why_correct": "Scanner severity ratings are generic and take no account of compensating controls, exposure or asset criticality, and some findings will be false positives. Validating and then prioritizing by real risk directs limited remediation capacity where it reduces the most exposure.",
+      "why_wrong": {
+        "A": "Patching indiscriminately consumes enormous effort on findings that may be false positives or unreachable, and mass unplanned change to production carries its own availability risk.",
+        "B": "A second scanner adds a second unvalidated list. It multiplies the triage problem rather than solving it.",
+        "D": "Reporting a raw count without validation or context conveys alarm rather than information, and reporting follows analysis."
+      }
+    },
+    {
+      "id": "cisa-d5b-010",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "While reviewing a security information and event management deployment, an IS auditor should be MOST concerned to find that:",
+      "options": {
+        "A": "several critical systems, including the domain controllers, are not forwarding logs to the platform.",
+        "B": "log data is retained within the platform for 12 months.",
+        "C": "correlation rules are reviewed and updated on a quarterly cycle.",
+        "D": "first-line alert triage is performed by a managed security service provider."
+      },
+      "answer": "A",
+      "why_correct": "Monitoring can only detect what it receives. Missing domain controller logs blinds the organization to authentication abuse, privilege escalation and account manipulation, which are central to almost every serious intrusion.",
+      "why_wrong": {
+        "B": "Twelve-month retention is a reasonable period that supports investigation of incidents discovered well after the fact.",
+        "C": "Quarterly rule review indicates the deployment is actively maintained rather than left static.",
+        "D": "Outsourced triage is a common and acceptable model, provided oversight and escalation paths are defined."
+      }
+    },
+    {
+      "id": "cisa-d5b-011",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "Which of the following BEST supports the reliability of system logs when they are relied upon as audit evidence?",
+      "options": {
+        "A": "Logs are reviewed each week by the administrator of the system that produced them.",
+        "B": "Logs are included in the nightly backup routine.",
+        "C": "Logs are retained for seven years in line with the records retention schedule.",
+        "D": "Logs are forwarded to a centralized, access-restricted log server that administrators of the source systems cannot modify."
+      },
+      "answer": "D",
+      "why_correct": "Evidence is only reliable if the people whose activity it records cannot alter it. Forwarding to a separate server outside the source administrators' control creates the segregation of duties that makes the logs trustworthy.",
+      "why_wrong": {
+        "A": "Having administrators review their own activity records is a segregation of duties weakness rather than a support for reliability.",
+        "B": "Backup preserves availability. A faithful copy of a log that could have been edited is still an edited log.",
+        "C": "Long retention keeps evidence available but says nothing about whether it is authentic."
+      }
+    },
+    {
+      "id": "cisa-d5b-012",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A security operations team receives roughly 5,000 alerts each day and acknowledges that it reviews only a fraction of them. The GREATEST risk is that:",
+      "options": {
+        "A": "analyst turnover will increase because of the sustained workload.",
+        "B": "a genuine incident will go unnoticed among the volume of low-value alerts.",
+        "C": "the cost of log storage will exceed the allocated budget.",
+        "D": "the licensed events-per-second limit of the platform will be exceeded."
+      },
+      "answer": "B",
+      "why_correct": "An alert nobody looks at provides no detection. Untuned volume at this scale means the organization is likely to learn of a real compromise from an outside party rather than from its own monitoring, despite having invested in the capability.",
+      "why_wrong": {
+        "A": "Analyst burnout is a real consequence of alert fatigue, but it is downstream of the detection failure that matters here.",
+        "C": "Storage cost is a budget issue, not a control failure.",
+        "D": "Licensing limits are a commercial constraint and would be addressed through procurement."
+      }
+    },
+    {
+      "id": "cisa-d5b-013",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "An incident response team confirms that malware is actively spreading across the internal network. The team's FIRST priority should be to:",
+      "options": {
+        "A": "identify the individual whose actions allowed the malware to enter.",
+        "B": "restore the affected systems from the most recent clean backup.",
+        "C": "contain the incident to stop it from spreading further.",
+        "D": "notify regulators and affected customers of the breach."
+      },
+      "answer": "C",
+      "why_correct": "While the malware is still propagating, every minute increases the scope of damage. Containment stops the loss from growing and stabilizes the environment so that eradication and recovery can proceed against a fixed rather than expanding problem.",
+      "why_wrong": {
+        "A": "Attribution belongs to the later investigation and lessons-learned phases. Pursuing it during active spread wastes the window in which containment matters most.",
+        "B": "Restoring while the threat is still live simply reinfects the restored systems and destroys evidence in the process.",
+        "D": "Notification obligations are real and can be time-bound, but they depend on an assessment of scope that is not yet possible, and pursuing them first allows the compromise to continue expanding."
+      }
+    },
+    {
+      "id": "cisa-d5b-014",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "Which of the following provides the BEST assurance that an incident response plan will work when it is needed?",
+      "options": {
+        "A": "The plan is exercised through scenario-based tests involving the people who would actually respond, with the results used to update it.",
+        "B": "The plan has been formally approved by the chief information security officer.",
+        "C": "The plan has been distributed to all employees and published on the intranet.",
+        "D": "The plan was developed in accordance with a recognized industry standard."
+      },
+      "answer": "A",
+      "why_correct": "Exercising the plan with the real responders is the only way to expose the gaps that matter: stale contact details, unclear decision authority, dependencies nobody documented. Feeding the results back into the plan is what turns the test into improvement.",
+      "why_wrong": {
+        "B": "Approval confers authority and shows management support. It is design evidence and does not demonstrate the plan works.",
+        "C": "Distribution ensures awareness. A widely read plan that has never been rehearsed still fails at the first unanticipated obstacle.",
+        "D": "Alignment to a standard indicates the plan covers the expected elements but says nothing about whether this organization can execute it."
+      }
+    },
+    {
+      "id": "cisa-d5b-015",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that the criteria for declaring a major security incident are undocumented and are left to the judgment of the on-call engineer. The GREATEST concern is that:",
+      "options": {
+        "A": "on-call engineers may be carrying an unreasonable workload.",
+        "B": "the incident ticketing system does not include a severity field.",
+        "C": "incident volumes cannot be trended reliably for management reporting.",
+        "D": "serious incidents may not be escalated consistently or quickly enough to meet containment and breach notification obligations."
+      },
+      "answer": "D",
+      "why_correct": "Without defined criteria, escalation depends on who happens to be on call. A serious incident can sit unescalated while regulatory notification clocks run and the compromise spreads, and the organization cannot demonstrate that it responded appropriately.",
+      "why_wrong": {
+        "A": "Workload is a resourcing matter that does not follow from the absence of declaration criteria.",
+        "B": "A missing severity field is a tooling gap. The underlying problem is that no agreed definition exists to record in any field.",
+        "C": "Weak trend reporting is a real but secondary consequence, affecting management information rather than response effectiveness."
+      }
+    },
+    {
+      "id": "cisa-d5b-016",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "medium",
+      "stem": "A compromised server must be preserved because legal action is possible. The responder should FIRST:",
+      "options": {
+        "A": "restart the server to terminate any malicious processes that are running.",
+        "B": "capture volatile data such as memory contents and active network connections, then acquire a forensic image of the storage using a write blocker.",
+        "C": "run an anti-malware scan to identify and quarantine the malicious files.",
+        "D": "copy the relevant application and system log files to a network file share."
+      },
+      "answer": "B",
+      "why_correct": "The order of volatility governs collection: memory, running processes and network connections disappear the moment the system is disturbed. Capturing volatile data first and then imaging through a write blocker preserves the most fragile evidence and proves the original media was not modified.",
+      "why_wrong": {
+        "A": "Rebooting destroys all volatile evidence and may trigger anti-forensic routines. It is the single most damaging action available here.",
+        "C": "Anti-malware scanning writes to the disk, alters timestamps and may quarantine or delete the very artifacts an investigator needs.",
+        "D": "Copying selected files loses filesystem metadata, unallocated space and deleted artifacts, and produces no hash-verified image that would withstand challenge."
+      }
+    },
+    {
+      "id": "cisa-d5b-017",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "medium",
+      "stem": "Which of the following is MOST important if digital evidence is to be relied upon in legal proceedings?",
+      "options": {
+        "A": "The evidence is stored on encrypted media.",
+        "B": "The evidence is collected within 24 hours of the incident being detected.",
+        "C": "A documented chain of custody records continuous control of the evidence, including every handler, transfer and timestamp.",
+        "D": "The evidence is reviewed and approved by the chief information security officer."
+      },
+      "answer": "C",
+      "why_correct": "Admissibility turns on being able to show the evidence is what it is claimed to be and was not tampered with. An unbroken documented chain of custody is what establishes that, and a single unexplained gap is usually enough to have the evidence excluded.",
+      "why_wrong": {
+        "A": "Encryption protects confidentiality of the evidence in storage but proves nothing about its handling or integrity over time.",
+        "B": "Prompt collection preserves more evidence and is good practice, but timeliness alone does not make evidence admissible.",
+        "D": "Internal management review adds no legal weight and may raise questions about independence."
+      }
+    },
+    {
+      "id": "cisa-d5b-018",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "medium",
+      "stem": "An examiner creates a bit-for-bit image of a suspect drive. Which of the following BEST demonstrates that the image is a faithful copy and has not been altered during analysis?",
+      "options": {
+        "A": "Cryptographic hash values computed over the source drive and the image match, and the image hash is recomputed after analysis and still matches.",
+        "B": "The total file count and byte size of the source and the image are identical.",
+        "C": "The image was acquired by an examiner holding a recognized forensic certification.",
+        "D": "The image is retained in a locked evidence safe with restricted access."
+      },
+      "answer": "A",
+      "why_correct": "Matching hashes at acquisition prove the copy is identical to the source, and recomputing the hash afterward proves the analysis did not modify it. This is verifiable evidence that any independent party can reproduce.",
+      "why_wrong": {
+        "B": "File counts and sizes can match while contents differ, and they ignore deleted files, slack space and unallocated areas that a bit-for-bit image is specifically meant to capture.",
+        "C": "Examiner credentials support the credibility of the process but provide no verifiable proof about this particular image.",
+        "D": "Physical security supports the chain of custody. It does not demonstrate that the image faithfully reproduces the source."
+      }
+    }
+  ]
+}

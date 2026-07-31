@@ -1,0 +1,661 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "1",
+    "section": "B",
+    "batch": "d1b-001",
+    "created": "2026-07-26",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Topic values must match the D1 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d1b-001",
+      "topic": "Audit Project Management",
+      "difficulty": "medium",
+      "stem": "The scope of an audit engagement is BEST determined by:",
+      "options": {
+        "A": "the amount of time and resource available to the engagement team.",
+        "B": "the objectives of the engagement, informed by the risk assessment and agreed with the appropriate stakeholders.",
+        "C": "the areas the auditee is most comfortable having examined.",
+        "D": "the scope applied when the same area was audited previously."
+      },
+      "answer": "B",
+      "why_correct": "Scope follows objective. Deciding what the engagement is trying to conclude, on the basis of assessed risk, is what determines which processes, systems and periods must be examined to support that conclusion.",
+      "why_wrong": {
+        "A": "Letting available resource set the scope inverts the logic and produces conclusions the evidence cannot support.",
+        "C": "Auditee comfort is a negotiation input, not a basis for scoping, and would systematically exclude the sensitive areas.",
+        "D": "Repeating last year's scope ignores changes in systems, processes and risk since then."
+      }
+    },
+    {
+      "id": "cisa-d1b-002",
+      "topic": "Audit Project Management",
+      "difficulty": "medium",
+      "stem": "Midway through fieldwork, the auditee asks the IS auditor to also review an unrelated system. The auditor should MOST appropriately:",
+      "options": {
+        "A": "agree to the request, since accommodating the auditee builds a constructive relationship.",
+        "B": "decline the request without further discussion.",
+        "C": "carry out the additional review informally, without amending the engagement record.",
+        "D": "evaluate the request against the engagement objectives and available resources, and formally agree any scope change with audit management and the engagement sponsor."
+      },
+      "answer": "D",
+      "why_correct": "Scope changes affect resourcing, timing and what the report can conclude. Assessing the request and formalizing any change keeps the engagement governable and prevents unfunded work displacing the risk-based priorities.",
+      "why_wrong": {
+        "A": "Absorbing extra work without assessment dilutes the planned engagement and puts its objectives at risk.",
+        "B": "A flat refusal ignores that the request may reflect a genuine emerging risk worth reflecting in the plan.",
+        "C": "Undocumented work sits outside quality review and supervision, and its conclusions cannot be relied upon."
+      }
+    },
+    {
+      "id": "cisa-d1b-003",
+      "topic": "Audit Project Management",
+      "difficulty": "medium",
+      "stem": "An audit engagement is significantly over budget with fieldwork still incomplete. The auditor should FIRST:",
+      "options": {
+        "A": "inform audit management promptly so that resourcing, scope or timing can be reconsidered.",
+        "B": "reduce planned sample sizes so that the work can be completed within the original budget.",
+        "C": "issue the report on the basis of the work completed so far, without noting the limitation.",
+        "D": "absorb the overrun by working additional hours that are not recorded against the engagement."
+      },
+      "answer": "A",
+      "why_correct": "A budget problem is a management decision, not a technical one. Raising it early preserves the options: extend the budget, narrow scope deliberately, or accept a later report date. Concealing it removes all of them.",
+      "why_wrong": {
+        "B": "Cutting samples to fit a budget weakens the evidence supporting the conclusion, and the conclusion is then unsupported without anyone knowing.",
+        "C": "Reporting on incomplete work without disclosing it misleads the reader about how much assurance the report carries.",
+        "D": "Unrecorded time hides the true cost, corrupts future planning estimates, and does not resolve the underlying problem."
+      }
+    },
+    {
+      "id": "cisa-d1b-004",
+      "topic": "Audit Project Management",
+      "difficulty": "medium",
+      "stem": "Audit working papers should PRIMARILY:",
+      "options": {
+        "A": "evidence the hours charged by each team member to the engagement.",
+        "B": "serve as a training resource for auditors new to the area.",
+        "C": "record the work performed, the evidence obtained and the reasoning applied, sufficiently for an experienced auditor with no previous connection to re-perform the work and reach the same conclusion.",
+        "D": "demonstrate to the auditee that the review was conducted thoroughly."
+      },
+      "answer": "C",
+      "why_correct": "Working papers are the bridge between evidence and conclusion. The re-performance test is the standard measure of sufficiency, and it is what allows supervisory review, quality assessment and later challenge to be meaningful.",
+      "why_wrong": {
+        "A": "Time recording is an administrative function served by separate systems.",
+        "B": "Working papers may incidentally help newer staff learn, but that is a by-product rather than their purpose.",
+        "D": "Working papers are prepared for the audit function and its reviewers, not as a demonstration to the auditee."
+      }
+    },
+    {
+      "id": "cisa-d1b-005",
+      "topic": "Audit Project Management",
+      "difficulty": "easy",
+      "stem": "The PRIMARY purpose of an engagement opening meeting is to:",
+      "options": {
+        "A": "obtain the auditee's agreement to the findings that will be raised.",
+        "B": "gather the majority of the evidence needed for testing.",
+        "C": "confirm the objectives, scope, timing, key contacts and reporting process with the auditee.",
+        "D": "explain in detail the professional standards under which the audit is conducted."
+      },
+      "answer": "C",
+      "why_correct": "The opening meeting establishes shared expectations. Agreeing scope, timetable, points of contact and how findings will be communicated prevents most of the friction that otherwise surfaces at reporting.",
+      "why_wrong": {
+        "A": "Findings do not exist at the start of the engagement; agreement on facts comes at the closing stage.",
+        "B": "Evidence gathering is fieldwork, which follows planning and the opening meeting.",
+        "D": "A brief reference to the applicable standards is appropriate, but explaining them is not the meeting's purpose."
+      }
+    },
+    {
+      "id": "cisa-d1b-006",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "medium",
+      "stem": "An IS auditor wants to conclude on whether a control operated throughout the audit period. The MOST appropriate approach is to:",
+      "options": {
+        "A": "select the sample from the full population of control occurrences spanning the whole period.",
+        "B": "test the most recent month in detail and extrapolate the result across the period.",
+        "C": "test the items that the control owner identifies as representative.",
+        "D": "test only the transactions with the highest monetary value."
+      },
+      "answer": "A",
+      "why_correct": "A conclusion about the period requires a sample drawn from the period. Controls degrade, staff change and workloads spike, so restricting selection to part of the period leaves the rest untested and the conclusion unsupported.",
+      "why_wrong": {
+        "B": "One recent month may be unrepresentative, and it is also the month most likely to have been tidied up in anticipation of the audit.",
+        "C": "Items chosen by the person being audited are not a valid sample and introduce obvious selection bias.",
+        "D": "Value-based selection suits substantive testing of balances; control operation is about consistency across all occurrences."
+      }
+    },
+    {
+      "id": "cisa-d1b-007",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "Statistical sampling differs from judgmental sampling PRIMARILY in that statistical sampling:",
+      "options": {
+        "A": "always requires a substantially larger sample size.",
+        "B": "is valid only in the context of financial statement audits.",
+        "C": "eliminates sampling risk entirely.",
+        "D": "allows the auditor to quantify sampling risk and project results to the population with a measurable level of confidence."
+      },
+      "answer": "D",
+      "why_correct": "The defining feature is measurability. Random selection and probability theory let the auditor state a confidence level and precision, which turns a sample result into a defensible statement about the whole population.",
+      "why_wrong": {
+        "A": "Sample size depends on expected error, tolerable error and desired confidence, and statistical samples are often smaller.",
+        "B": "Statistical sampling applies to any population, including access rights, change records and configuration items.",
+        "C": "Sampling risk cannot be eliminated by any method short of testing everything; statistical sampling measures it rather than removing it."
+      }
+    },
+    {
+      "id": "cisa-d1b-008",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "medium",
+      "stem": "An IS auditor testing a control identifies one exception in a sample of 25 items. The auditor should FIRST:",
+      "options": {
+        "A": "conclude that the control did not operate effectively during the period.",
+        "B": "investigate the nature and cause of the exception to determine whether it is isolated or symptomatic of a wider breakdown.",
+        "C": "automatically extend the sample to 50 items.",
+        "D": "report the exception without performing further work."
+      },
+      "answer": "B",
+      "why_correct": "One exception can mean very different things: a one-off keying error, or a systematic failure whenever a particular condition arises. Understanding the cause determines whether to extend testing, revise the approach, or conclude the control failed.",
+      "why_wrong": {
+        "A": "Concluding immediately skips the analysis that determines what the exception actually signifies.",
+        "C": "Extending the sample may well follow, but doing so before understanding the cause risks measuring the wrong thing.",
+        "D": "Reporting an uninvestigated exception leaves the reader unable to judge its significance, and may overstate or understate the issue."
+      }
+    },
+    {
+      "id": "cisa-d1b-009",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "medium",
+      "stem": "Attribute sampling is MOST appropriate when the auditor wants to:",
+      "options": {
+        "A": "estimate the rate at which a prescribed control was not followed within a population.",
+        "B": "estimate the monetary value of misstatement in an account balance.",
+        "C": "select the transactions with the highest individual values for examination.",
+        "D": "examine a population containing fewer than ten items."
+      },
+      "answer": "A",
+      "why_correct": "Attribute sampling answers a yes-or-no question about each item: was the control applied or not. That makes it the natural fit for compliance testing, where the output is a deviation rate.",
+      "why_wrong": {
+        "B": "Estimating monetary misstatement calls for variables sampling or monetary unit sampling.",
+        "C": "Selecting the largest items is a targeted or judgmental approach, not attribute sampling.",
+        "D": "A population that small should generally be examined in full rather than sampled."
+      }
+    },
+    {
+      "id": "cisa-d1b-010",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "hard",
+      "stem": "Stop-or-go sampling is MOST useful when the auditor:",
+      "options": {
+        "A": "expects a high rate of errors within the population.",
+        "B": "intends to examine every item in the population.",
+        "C": "expects few errors and wants to minimize sample size, allowing testing to stop early once results support the expected conclusion.",
+        "D": "is performing substantive testing of account balances."
+      },
+      "answer": "C",
+      "why_correct": "Stop-or-go tests in stages, evaluating after each. When the population is genuinely clean the auditor can conclude early and avoid unnecessary work, which is where the efficiency comes from.",
+      "why_wrong": {
+        "A": "If errors are expected to be frequent, the technique offers no saving because testing will continue to full sample size anyway.",
+        "B": "Examining the whole population is a census, which removes sampling entirely.",
+        "D": "Stop-or-go is a compliance testing technique concerned with deviation rates, not with monetary accuracy."
+      }
+    },
+    {
+      "id": "cisa-d1b-011",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "hard",
+      "stem": "An IS auditor selects a sample of user accounts from a listing produced by the system administrator whose access provisioning is being audited. The GREATEST concern is that:",
+      "options": {
+        "A": "the sample size selected may be too small to support a conclusion.",
+        "B": "the completeness and accuracy of the population has not been independently established, so the sample may not represent the true population.",
+        "C": "the listing may be formatted in a way that is difficult to analyze.",
+        "D": "the administrator may object to having their work examined."
+      },
+      "answer": "B",
+      "why_correct": "Sampling conclusions are only as good as the population sampled from. A listing produced by the person under review could omit exactly the accounts that would reveal a problem, and no sample size can compensate for a population that is missing records.",
+      "why_wrong": {
+        "A": "Sample size is a valid consideration but is irrelevant if the underlying population is incomplete.",
+        "C": "Formatting is a practical inconvenience with no effect on the validity of the conclusion.",
+        "D": "Auditee sentiment does not bear on the reliability of the evidence."
+      }
+    },
+    {
+      "id": "cisa-d1b-012",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "medium",
+      "stem": "Which of the following provides the STRONGEST basis for concluding on a fully automated control that operates many times each day?",
+      "options": {
+        "A": "Observing the control operate correctly on one occasion.",
+        "B": "Inquiry of the control owner about how the control functions.",
+        "C": "A walkthrough tracing a single transaction end to end.",
+        "D": "Testing the automated logic itself together with the IT general controls that ensure it cannot be altered without authorization."
+      },
+      "answer": "D",
+      "why_correct": "Automated logic behaves identically every time, so establishing that it is correct and that it could not have been changed during the period supports a conclusion about every occurrence. The general controls are what extend the conclusion across time.",
+      "why_wrong": {
+        "A": "A single observation confirms the control worked once, at a moment when the auditor was watching.",
+        "B": "Inquiry establishes understanding and is the weakest evidence, since it reports intent rather than behavior.",
+        "C": "A walkthrough confirms the auditor's understanding of the process flow but is not sufficient evidence of operating effectiveness."
+      }
+    },
+    {
+      "id": "cisa-d1b-013",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "easy",
+      "stem": "Which of the following is generally the MOST reliable form of audit evidence?",
+      "options": {
+        "A": "A verbal explanation given by the process owner during an interview.",
+        "B": "A written representation provided by management.",
+        "C": "An internally generated report supplied by the auditee.",
+        "D": "Evidence the auditor obtains directly, whether from an independent external source or through personal observation and re-performance."
+      },
+      "answer": "D",
+      "why_correct": "Reliability increases with the auditor's proximity to the evidence and with the independence of its source. Evidence the auditor generates or obtains directly is not filtered through a party with an interest in the outcome.",
+      "why_wrong": {
+        "A": "Verbal explanations are the least reliable form. They are unrecorded, unverified and reflect the speaker's understanding or intent.",
+        "B": "Management representations are appropriate to corroborate other evidence but cannot substitute for it.",
+        "C": "Auditee-supplied reports may be accurate, but their completeness and accuracy must themselves be established first."
+      }
+    },
+    {
+      "id": "cisa-d1b-014",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "medium",
+      "stem": "An IS auditor independently recalculates a sample of automated interest postings. This technique BEST provides:",
+      "options": {
+        "A": "weak evidence, because it merely duplicates processing the system has already performed.",
+        "B": "strong evidence, because the auditor directly establishes whether the processing produced the correct outcome.",
+        "C": "evidence about the design of the control but not about its operation.",
+        "D": "evidence that would not be acceptable to support an external report."
+      },
+      "answer": "B",
+      "why_correct": "Re-performance is among the most persuasive techniques available, because the auditor produces the expected result independently and compares it. Nothing is taken on trust from the system or from management.",
+      "why_wrong": {
+        "A": "Deliberate duplication is precisely the point: an independent calculation is what makes the comparison meaningful.",
+        "C": "Re-performance tests whether the control actually worked on real data, which is operating effectiveness rather than design.",
+        "D": "Re-performance is well established and widely relied upon in both internal and external audit."
+      }
+    },
+    {
+      "id": "cisa-d1b-015",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "medium",
+      "stem": "An IS auditor obtains a system-generated report from the auditee to use as audit evidence. Before relying on it, the auditor should FIRST:",
+      "options": {
+        "A": "confirm that the report was produced recently enough to be current.",
+        "B": "confirm that the auditee's manager reviewed and approved the report.",
+        "C": "establish the completeness and accuracy of the report, for example by testing its underlying logic or reconciling it to an independent source.",
+        "D": "confirm that the report follows the same format used in previous years."
+      },
+      "answer": "C",
+      "why_correct": "A report is only as good as the query behind it. Filters and parameters can silently exclude the very records that matter, so the auditor must establish that the report says what it appears to say before drawing any conclusion from it.",
+      "why_wrong": {
+        "A": "A recent but incomplete report is still unreliable; currency is necessary but nowhere near sufficient.",
+        "B": "Managerial approval attests to nothing about whether the extraction logic was correct.",
+        "D": "Format consistency is cosmetic and may simply mean the same flawed report has been used for years."
+      }
+    },
+    {
+      "id": "cisa-d1b-016",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "medium",
+      "stem": "In an IS audit, interviews are MOST useful for:",
+      "options": {
+        "A": "developing an understanding of the process and identifying where testing should be directed, rather than as evidence that a control operated.",
+        "B": "reaching a conclusion on whether a control operated effectively.",
+        "C": "removing the need to examine process documentation.",
+        "D": "confirming the accuracy of reported financial balances."
+      },
+      "answer": "A",
+      "why_correct": "Interviews are excellent for orientation: how the process really runs, where the workarounds are, who does what. They generate hypotheses to test, and the testing is what produces the evidence.",
+      "why_wrong": {
+        "B": "Concluding on operating effectiveness from inquiry alone rests entirely on the assertion of the person responsible for the control.",
+        "C": "Documentation and inquiry are complementary; what people describe and what procedures say frequently differ, and that difference is informative.",
+        "D": "Confirming balances requires substantive procedures against underlying records."
+      }
+    },
+    {
+      "id": "cisa-d1b-017",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "medium",
+      "stem": "Observation as an evidence-gathering technique has the MOST significant limitation that:",
+      "options": {
+        "A": "it cannot be adequately documented within audit working papers.",
+        "B": "behavior may change because the observer is present, and it provides evidence only about the moment observed.",
+        "C": "professional standards do not permit it as a source of audit evidence.",
+        "D": "it can only be applied to physical and environmental controls."
+      },
+      "answer": "B",
+      "why_correct": "Observation suffers from both the observer effect and a narrow window. People perform the control properly while being watched, and the auditor learns nothing about the other 364 days of the year.",
+      "why_wrong": {
+        "A": "Observation is routinely documented through detailed notes, photographs and records of what was seen and when.",
+        "C": "Observation is an accepted and commonly used technique, particularly for processes that leave no documentary trail.",
+        "D": "Observation applies to many process controls, such as watching a reconciliation or a segregation of duties in practice."
+      }
+    },
+    {
+      "id": "cisa-d1b-018",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "medium",
+      "stem": "When using computer-assisted audit techniques against a production system, the IS auditor should be MOST careful to:",
+      "options": {
+        "A": "run the tools during peak processing hours so that the data captured is representative.",
+        "B": "have the auditee execute the tools on the auditor's behalf to avoid access issues.",
+        "C": "use production credentials belonging to an existing system administrator.",
+        "D": "ensure the technique cannot alter production data, and that the access used is read-only and properly authorized."
+      },
+      "answer": "D",
+      "why_correct": "Audit must not become the cause of an incident. Read-only, authorized access protects the integrity and availability of the production environment and keeps the auditor's independence and reputation intact.",
+      "why_wrong": {
+        "A": "Running resource-intensive extracts at peak times risks degrading or interrupting the very service being audited.",
+        "B": "Having the auditee run the tools destroys the independence of the evidence, since the auditor cannot attest to what was actually executed.",
+        "C": "Borrowing an administrator's credentials breaks accountability, makes the activity untraceable to the auditor and typically grants far more privilege than required."
+      }
+    },
+    {
+      "id": "cisa-d1b-019",
+      "topic": "Audit Data Analytics",
+      "difficulty": "medium",
+      "asks": "definition",
+      "stem": "The PRIMARY advantage of audit data analytics over traditional sampling is that:",
+      "options": {
+        "A": "the entire population can be examined, so exceptions are identified directly rather than estimated.",
+        "B": "the need for professional judgment in the engagement is eliminated.",
+        "C": "the auditor no longer needs a detailed understanding of the business process.",
+        "D": "all instances of fraud within the population are guaranteed to be detected."
+      },
+      "answer": "A",
+      "why_correct": "Testing the full population removes sampling risk from the equation. Rather than inferring a deviation rate, the auditor can point at the specific transactions that meet the exception criteria.",
+      "why_wrong": {
+        "B": "Judgment becomes more important, not less: designing the rules and interpreting the results is where the difficulty moves to.",
+        "C": "Process understanding is essential, because without it the auditor cannot tell a genuine exception from a normal business scenario.",
+        "D": "Analytics only finds patterns it was told to look for, and well-concealed fraud is specifically designed to look ordinary."
+      }
+    },
+    {
+      "id": "cisa-d1b-020",
+      "topic": "Audit Data Analytics",
+      "difficulty": "medium",
+      "stem": "An IS auditor plans to analyze a full year of purchase transactions extracted from the ERP system. The FIRST consideration should be:",
+      "options": {
+        "A": "which visualization tool will best present the results to management.",
+        "B": "whether the analysis can be completed within the engagement budget.",
+        "C": "validating that the extracted data set is complete and accurate relative to the source system.",
+        "D": "whether the auditee agrees with the analytical approach being taken."
+      },
+      "answer": "C",
+      "why_correct": "Every conclusion drawn downstream inherits the quality of the extract. Reconciling record counts and control totals back to the source is what prevents a technically impressive analysis of the wrong data.",
+      "why_wrong": {
+        "A": "Presentation matters at reporting, long after the analysis has been shown to rest on sound data.",
+        "B": "Budget is a planning constraint that does not affect whether the results will be valid.",
+        "D": "The auditee's agreement with methodology is neither required nor a substitute for validating the data."
+      }
+    },
+    {
+      "id": "cisa-d1b-021",
+      "topic": "Audit Data Analytics",
+      "difficulty": "hard",
+      "stem": "An analytics routine flags 4,000 transactions as matching an exception rule. The IS auditor should MOST appropriately:",
+      "options": {
+        "A": "report all 4,000 exceptions to management for investigation.",
+        "B": "conclude that the related control has failed.",
+        "C": "refine the rule and examine a subset to establish which results are genuine exceptions, since broad rules commonly capture legitimate business scenarios.",
+        "D": "discard the analysis on the basis that the result is implausible."
+      },
+      "answer": "C",
+      "why_correct": "A very large hit rate usually indicates the rule is capturing normal business behavior the auditor did not anticipate. Refining the logic and testing a subset separates real exceptions from noise before anything is reported.",
+      "why_wrong": {
+        "A": "Passing 4,000 unvalidated items to management destroys credibility and shifts the auditor's analytical work onto the auditee.",
+        "B": "Concluding failure before validating the rule risks reporting a finding that evaporates on the first challenge.",
+        "D": "Discarding the work loses the genuine exceptions that are sitting inside the result set."
+      }
+    },
+    {
+      "id": "cisa-d1b-022",
+      "topic": "Audit Data Analytics",
+      "difficulty": "medium",
+      "stem": "Continuous auditing is BEST described as:",
+      "options": {
+        "A": "applying automated tests to transactions on an ongoing basis, shortening the interval between an event occurring and its detection.",
+        "B": "auditing the same functional area in every annual plan.",
+        "C": "ongoing monitoring activity performed by operational management over its own processes.",
+        "D": "an audit engagement that has no defined completion date."
+      },
+      "answer": "A",
+      "why_correct": "Continuous auditing compresses the gap between occurrence and detection by running tests close to real time, which allows issues to be raised while they can still be corrected cheaply.",
+      "why_wrong": {
+        "B": "Repeated annual coverage is simply frequent periodic auditing, with the same detection lag as before.",
+        "C": "Ongoing management activity over its own processes is continuous monitoring, which is a management control rather than an audit activity.",
+        "D": "An open-ended engagement describes poor project management, not a methodology."
+      }
+    },
+    {
+      "id": "cisa-d1b-023",
+      "topic": "Audit Data Analytics",
+      "difficulty": "medium",
+      "stem": "The GREATEST risk when an IS auditor develops complex analytics scripts is that:",
+      "options": {
+        "A": "the scripts may take a long time to execute against large data sets.",
+        "B": "the auditee may not understand the output produced.",
+        "C": "other auditors may reuse the scripts in different engagements.",
+        "D": "an undetected error in the script logic produces conclusions that are confidently wrong, so the scripts themselves require review and testing."
+      },
+      "answer": "D",
+      "why_correct": "Analytics carries an authority that manual work does not, and a logic error yields a precise, plausible and entirely wrong answer. Audit code needs the same review and testing discipline the auditor would demand of any production system.",
+      "why_wrong": {
+        "A": "Execution time is an efficiency consideration that can be managed through scheduling and optimization.",
+        "B": "Comprehension is addressed by how results are explained and presented at reporting.",
+        "C": "Reuse is generally a benefit, provided the script has been validated and remains appropriate to the new context."
+      }
+    },
+    {
+      "id": "cisa-d1b-024",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "medium",
+      "stem": "An audit finding is BEST structured to include:",
+      "options": {
+        "A": "the condition observed and the recommended action only.",
+        "B": "the criteria, the condition, the cause, the effect and the recommendation.",
+        "C": "the condition observed and the individual responsible for it.",
+        "D": "the recommendation together with the date by which it must be implemented."
+      },
+      "answer": "B",
+      "why_correct": "These five elements answer the questions a reader needs settled: what should be, what is, why the gap arose, why it matters, and what to do. Omitting cause in particular produces recommendations that treat symptoms.",
+      "why_wrong": {
+        "A": "Condition and recommendation alone leave the reader unable to judge significance or address the underlying reason.",
+        "C": "Naming individuals personalizes a finding that is usually about process, and it hardens resistance to remediation.",
+        "D": "Target dates belong in the action plan, which is management's response rather than part of the finding itself."
+      }
+    },
+    {
+      "id": "cisa-d1b-025",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "medium",
+      "stem": "Discussing draft findings with the auditee before the report is issued PRIMARILY:",
+      "options": {
+        "A": "confirms factual accuracy and surfaces context the auditor may have missed, improving the reliability of the report.",
+        "B": "obtains the auditee's permission for the report to be published.",
+        "C": "allows findings the auditee disputes to be removed from the report.",
+        "D": "transfers responsibility for the accuracy of the findings to the auditee."
+      },
+      "answer": "A",
+      "why_correct": "The auditee usually knows things the auditor does not. Clearing facts before issue catches genuine misunderstandings early, and a report that survives that conversation is far harder to dismiss later.",
+      "why_wrong": {
+        "B": "Publication rests on the audit mandate. The auditee has no veto over the report.",
+        "C": "Findings are removed only when the evidence no longer supports them, never because they are unwelcome.",
+        "D": "The auditor retains responsibility for the findings and the conclusions drawn from them."
+      }
+    },
+    {
+      "id": "cisa-d1b-026",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "hard",
+      "stem": "Management disagrees with a significant audit finding and declines to take any action. The IS auditor should MOST appropriately:",
+      "options": {
+        "A": "remove the finding from the report to preserve the working relationship.",
+        "B": "escalate the matter directly to the relevant external regulator.",
+        "C": "report the finding together with management's response and its acceptance of the risk, escalating to the audit committee or equivalent where the residual risk exceeds the organization's tolerance.",
+        "D": "restate the finding in softer language so that it is more likely to be accepted."
+      },
+      "answer": "C",
+      "why_correct": "Management is entitled to accept risk; that is its decision to make. The auditor's obligation is to ensure the decision is visible at the level with authority to overrule it, and reporting both positions preserves the record.",
+      "why_wrong": {
+        "A": "Withdrawing a supported finding to avoid conflict is a failure of the auditor's core responsibility.",
+        "B": "Going to a regulator bypasses the organization's own governance and is reserved for narrow circumstances, typically after internal escalation has been exhausted.",
+        "D": "Diluting the language misrepresents the severity and leaves the governing body unable to assess the exposure properly."
+      }
+    },
+    {
+      "id": "cisa-d1b-027",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "medium",
+      "stem": "Recommendations in an audit report should PRIMARILY:",
+      "options": {
+        "A": "prescribe the precise technical solution management is to implement.",
+        "B": "address the cause of the finding, so that acting on them prevents recurrence rather than only correcting the instances identified.",
+        "C": "identify the individuals whose actions led to the weakness.",
+        "D": "quantify the financial loss the organization has already suffered."
+      },
+      "answer": "B",
+      "why_correct": "Recommendations aimed at the cause change the outcome permanently. Fixing only the exceptions found leaves the mechanism intact, and the same finding reappears at the next audit.",
+      "why_wrong": {
+        "A": "Prescribing a specific technical solution oversteps the auditor's role, may be impractical, and creates a self-review problem when the result is later audited.",
+        "C": "Attributing blame to individuals obscures process weaknesses and makes cooperation harder.",
+        "D": "Quantification supports the effect statement where it can be established, but it is not the purpose of the recommendation."
+      }
+    },
+    {
+      "id": "cisa-d1b-028",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "medium",
+      "stem": "Follow-up on previously reported findings is important PRIMARILY because:",
+      "options": {
+        "A": "it demonstrates the productivity of the audit function to stakeholders.",
+        "B": "it allows findings to be marked as closed within the issue tracking system.",
+        "C": "professional standards prescribe a fixed interval at which follow-up must occur.",
+        "D": "reporting a weakness achieves nothing unless the risk was actually reduced, and follow-up is how the auditor establishes whether it was."
+      },
+      "answer": "D",
+      "why_correct": "The value of audit is realized at remediation, not at reporting. Follow-up verifies that the agreed action was implemented and actually addressed the risk, rather than being recorded as done.",
+      "why_wrong": {
+        "A": "Demonstrating productivity is a by-product and a poor reason to perform the work.",
+        "B": "Closing records is administrative housekeeping; the substance is whether the risk changed.",
+        "C": "Standards require follow-up but do not reduce its purpose to compliance with an interval."
+      }
+    },
+    {
+      "id": "cisa-d1b-029",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "medium",
+      "stem": "An IS auditor should MOST appropriately present report findings in a manner that is:",
+      "options": {
+        "A": "as technically detailed as possible, so that nothing observed is omitted.",
+        "B": "deliberately non-specific, so as to minimize disagreement with the auditee.",
+        "C": "ordered chronologically according to when each test was performed.",
+        "D": "clear, objective and prioritized by risk, so the reader can tell what matters most and why."
+      },
+      "answer": "D",
+      "why_correct": "Reports are read by people who must decide where to spend limited remediation effort. Clarity, objectivity and risk ordering are what make the report usable rather than merely complete.",
+      "why_wrong": {
+        "A": "Exhaustive technical detail buries the significant issues and loses the non-technical readers who authorize the remediation budget.",
+        "B": "Vagueness avoids argument by making the report useless, and it is not objective reporting.",
+        "C": "Test chronology reflects how the audit was run, which is irrelevant to the reader's decisions."
+      }
+    },
+    {
+      "id": "cisa-d1b-030",
+      "topic": "Quality Assurance and Improvement of Audit Process",
+      "difficulty": "medium",
+      "stem": "A quality assurance and improvement program for the audit function BEST provides:",
+      "options": {
+        "A": "assurance that no significant findings were missed during any engagement.",
+        "B": "ongoing and periodic assessment of whether the audit function conforms to its standards and operates effectively, including external assessment at defined intervals.",
+        "C": "a mechanism for measuring the productivity of individual auditors.",
+        "D": "confirmation that the annual audit plan was delivered on schedule."
+      },
+      "answer": "B",
+      "why_correct": "The program combines internal monitoring of day-to-day work with periodic independent external assessment. That mix is what allows the function to state credibly that it conforms to its standards.",
+      "why_wrong": {
+        "A": "No program can guarantee complete detection; audit provides reasonable rather than absolute assurance.",
+        "C": "Individual performance management is a separate human resources process.",
+        "D": "Plan delivery is one useful metric, but timeliness says nothing about the quality of the work performed."
+      }
+    },
+    {
+      "id": "cisa-d1b-031",
+      "topic": "Quality Assurance and Improvement of Audit Process",
+      "difficulty": "medium",
+      "stem": "Supervisory review of audit working papers PRIMARILY serves to:",
+      "options": {
+        "A": "verify the hours each team member charged to the engagement.",
+        "B": "generate input for individual performance appraisals.",
+        "C": "confirm that the work performed supports the conclusions reached and that the engagement objectives were met.",
+        "D": "ensure documentation has been filed in a consistent structure."
+      },
+      "answer": "C",
+      "why_correct": "Review is the internal control over the audit process itself. It tests whether the evidence actually supports what the report is going to say, and catches gaps while they can still be filled.",
+      "why_wrong": {
+        "A": "Time verification is administrative and unrelated to the validity of conclusions.",
+        "B": "Appraisal input may emerge from review, but that is incidental to its purpose.",
+        "D": "Consistent filing aids retrieval and is a housekeeping benefit rather than the objective."
+      }
+    },
+    {
+      "id": "cisa-d1b-032",
+      "topic": "Quality Assurance and Improvement of Audit Process",
+      "difficulty": "easy",
+      "stem": "An external quality assessment of the internal audit function should MOST appropriately be performed by:",
+      "options": {
+        "A": "a qualified and independent assessor or assessment team from outside the organization.",
+        "B": "the organization's external financial statement auditor in every case.",
+        "C": "the chief audit executive, supported by senior members of the audit team.",
+        "D": "the chair of the audit committee."
+      },
+      "answer": "A",
+      "why_correct": "The assessment must be genuinely external to the organization and performed by someone competent in professional audit practice, since its whole purpose is to bring a perspective the function cannot generate internally.",
+      "why_wrong": {
+        "B": "The financial statement auditor is one possible provider but is not required, and may face independence constraints of its own.",
+        "C": "Self-assessment by the head of the function is exactly what an external assessment exists to supplement.",
+        "D": "The audit committee chair oversees the function and typically lacks the specialist competence to assess conformance with audit standards."
+      }
+    },
+    {
+      "id": "cisa-d1b-033",
+      "topic": "Quality Assurance and Improvement of Audit Process",
+      "difficulty": "hard",
+      "stem": "Which metric BEST indicates that the internal audit function is adding value?",
+      "options": {
+        "A": "The number of audit engagements completed against the approved plan.",
+        "B": "The proportion of significant findings that were remediated, supported by evidence of reduced risk in the areas audited.",
+        "C": "The average number of findings raised per engagement.",
+        "D": "The average number of days taken to issue a report after fieldwork ends."
+      },
+      "answer": "B",
+      "why_correct": "Value is realized when risk actually falls. Tracking remediation and verifying the resulting risk reduction measures outcome rather than activity, which is the distinction that matters to the board.",
+      "why_wrong": {
+        "A": "Completing the plan measures throughput. A function can complete every engagement and change nothing.",
+        "C": "Findings per engagement rewards volume and encourages reporting trivial issues to inflate the count.",
+        "D": "Report turnaround is a useful efficiency measure but says nothing about whether the report mattered."
+      }
+    },
+    {
+      "id": "cisa-d1b-034",
+      "topic": "Quality Assurance and Improvement of Audit Process",
+      "difficulty": "medium",
+      "stem": "Performing root cause analysis across recurring findings from multiple engagements is MOST valuable because it:",
+      "options": {
+        "A": "reduces the total number of findings that need to be reported.",
+        "B": "shortens the duration of individual audit engagements.",
+        "C": "improves the satisfaction scores auditees give the audit function.",
+        "D": "identifies systemic weaknesses that engagement-level recommendations would otherwise keep addressing one instance at a time."
+      },
+      "answer": "D",
+      "why_correct": "The same finding appearing across unrelated areas usually points at something structural: a gap in training, an unworkable process, or an accountability that was never assigned. Only a cross-engagement view makes that pattern visible.",
+      "why_wrong": {
+        "A": "Fewer findings may follow eventually, but suppressing the count is not the objective.",
+        "B": "Engagement duration is affected by scope and resourcing rather than by thematic analysis.",
+        "C": "Auditee satisfaction may improve as repeat findings fall, but it is a side effect rather than the value."
+      }
+    }
+  ]
+}
