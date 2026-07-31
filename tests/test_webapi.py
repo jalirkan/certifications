@@ -14,18 +14,20 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sys
 import tempfile
 import threading
 import unittest
 import urllib.error
 import urllib.request
+from datetime import datetime, timedelta, timezone
 from http.server import ThreadingHTTPServer
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import serve  # noqa: E402
-from drillkit import loader  # noqa: E402
+from drillkit import loader, store  # noqa: E402
 from drillkit.webapi import Api, ApiError, public_question  # noqa: E402
 
 SECRET_FIELDS = ("answer", "why_correct", "why_wrong", "asks")
@@ -308,6 +310,95 @@ class TestReports(ApiTestBase):
         self.assertIn("Risk assessment", self.api.card()["text"])
 
 
+class TestTrend(ApiTestBase):
+    """Accuracy over time, for the front end's time series.
+
+    The interesting property is not that it draws a line - it is that the line
+    cannot be drawn without its interval, so a day built on three attempts
+    cannot render as a confident number.
+    """
+
+    def _log(self, days_ago: int, domain: str, correct: bool, n: int = 1):
+        ts = (datetime.now(timezone.utc).astimezone()
+              - timedelta(days=days_ago)).isoformat(timespec="seconds")
+        for i in range(n):
+            store.append(self.api.results_path, store.Attempt(
+                ts=ts, session="trend-test", question_id="Q-%d-%d" % (days_ago, i),
+                cert="CISA", domain=domain, section="A", topic="t",
+                chosen="A", answer="A" if correct else "B", correct=correct,
+                seconds=1.0, mode="drill"))
+
+    def test_empty_log_is_safe(self):
+        t = self.api.trend()
+        self.assertEqual(t["points"], [])
+        self.assertEqual(t["total_attempts"], 0)
+        self.assertEqual(len(t["domains"]), 5)
+
+    def test_cumulative_accuracy_tracks_the_log(self):
+        self._log(2, "1", True, n=3)
+        self._log(1, "1", False, n=1)
+        points = self.api.trend()["points"]
+        self.assertEqual(points[-1]["cum_attempts"], 4)
+        self.assertEqual(points[-1]["cum_correct"], 3)
+        self.assertAlmostEqual(points[-1]["cum_accuracy"], 0.75)
+
+    def test_every_accuracy_carries_an_interval_and_a_denominator(self):
+        self._log(1, "2", True, n=2)
+        for point in self.api.trend()["points"]:
+            for prefix in ("cum", "roll"):
+                if point["%s_accuracy" % prefix] is None:
+                    continue
+                lo = point["%s_low" % prefix]
+                hi = point["%s_high" % prefix]
+                self.assertIsNotNone(lo)
+                self.assertIsNotNone(hi)
+                self.assertLessEqual(lo, point["%s_accuracy" % prefix])
+                self.assertGreaterEqual(hi, point["%s_accuracy" % prefix])
+                self.assertGreater(point["%s_attempts" % prefix], 0)
+            for bucket in point["domains"].values():
+                if bucket["accuracy"] is not None:
+                    self.assertIsNotNone(bucket["low"])
+                    self.assertIsNotNone(bucket["high"])
+
+    def test_two_of_two_is_not_reported_as_certainty(self):
+        self._log(0, "3", True, n=2)
+        last = self.api.trend()["points"][-1]
+        self.assertEqual(last["cum_accuracy"], 1.0)
+        self.assertLess(last["cum_low"], 0.5,
+                        "2/2 must read as unknown, not as a confident 100%")
+
+    def test_windowing_bounds_points_without_losing_history(self):
+        self._log(40, "1", True, n=5)
+        self._log(0, "1", False, n=1)
+        narrow = self.api.trend(days=2)
+        self.assertLessEqual(len(narrow["points"]), 2)
+        self.assertEqual(narrow["points"][-1]["cum_attempts"], 6,
+                         "cumulative spans the whole log, not just the window")
+
+    def test_rolling_window_forgets_older_days(self):
+        self._log(30, "1", True, n=4)
+        self._log(0, "1", False, n=2)
+        last = self.api.trend(window=3)["points"][-1]
+        self.assertEqual(last["roll_attempts"], 2)
+        self.assertEqual(last["roll_accuracy"], 0.0)
+        self.assertEqual(last["cum_attempts"], 6)
+
+    def test_domains_are_tracked_separately(self):
+        self._log(1, "1", True, n=2)
+        self._log(1, "5", False, n=2)
+        last = self.api.trend()["points"][-1]
+        self.assertEqual(last["domains"]["1"]["accuracy"], 1.0)
+        self.assertEqual(last["domains"]["5"]["accuracy"], 0.0)
+        self.assertIsNone(last["domains"]["4"]["accuracy"],
+                          "an untouched domain claims nothing")
+
+    def test_trend_carries_no_question_content(self):
+        self._log(1, "1", True, n=2)
+        blob = json.dumps(self.api.trend())
+        for field in SECRET_FIELDS:
+            self.assertNotIn('"%s"' % field, blob)
+
+
 class TestHttpLayer(unittest.TestCase):
     """Drive the real server over HTTP, not just the Api object."""
 
@@ -361,11 +452,30 @@ class TestHttpLayer(unittest.TestCase):
         self.assertIn("why_correct", res)
 
     def test_static_files_are_served(self):
-        for path in ("/", "/style.css", "/app.js"):
+        """The index and every asset it references must load.
+
+        Deliberately filename-agnostic. The front end is a build artefact with
+        content-hashed asset names, so asserting on specific filenames would
+        make this test fail on every rebuild while proving nothing extra. Pulling
+        the references out of the served HTML checks the stronger property: the
+        page the browser is actually given is fully servable.
+        """
+        index_url = "http://127.0.0.1:%d/" % self.port
+        with urllib.request.urlopen(index_url, timeout=10) as res:
+            self.assertEqual(res.status, 200)
+            html = res.read().decode("utf-8", "replace")
+        self.assertGreater(len(html), 100)
+
+        refs = re.findall(r'(?:src|href)="(\./[^"]+|/[^"/][^"]*)"', html)
+        assets = [r for r in refs if not r.startswith("data:")]
+        self.assertTrue(assets, "index.html referenced no local assets")
+
+        for ref in assets:
+            path = ref[1:] if ref.startswith(".") else ref
             url = "http://127.0.0.1:%d%s" % (self.port, path)
             with urllib.request.urlopen(url, timeout=10) as res:
-                self.assertEqual(res.status, 200)
-                self.assertGreater(len(res.read()), 100)
+                self.assertEqual(res.status, 200, "asset did not load: %s" % path)
+                self.assertGreater(len(res.read()), 100, "asset was empty: %s" % path)
 
     def test_path_traversal_is_refused(self):
         for path in ("/../drill.py", "/..%2fdrill.py", "/web/../../drill.py"):

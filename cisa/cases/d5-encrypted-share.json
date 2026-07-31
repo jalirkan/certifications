@@ -1,0 +1,324 @@
+{
+  "id": "d5-encrypted-share",
+  "title": "The Encrypted Share",
+  "domain": "5",
+  "section": "B",
+  "topics": [
+    "Security Incident Response Management",
+    "Evidence Collection and Forensics",
+    "Data Backup, Storage, and Restoration"
+  ],
+  "principles": [
+    "contain-first",
+    "auditor-role",
+    "evidence-quality",
+    "untested-unknown"
+  ],
+  "minutes": 12,
+  "origin": "Original scenario written for this study system. No third-party content reproduced.",
+  "opening": "You are three days into a scoped review of logical access controls at a mid-sized manufacturing client. You have read-only access to a jump host, granted for the engagement, and you are sampling permissions on departmental file shares.\n\nOpening one of the sampled shares, you notice that roughly forty files have been renamed with an extension you do not recognise. Sitting in the same folder is a text file named README_RECOVER.txt, modified eleven minutes ago.\n\nNobody else appears to have noticed.",
+  "taints": {
+    "suppressed": "end-failed",
+    "independence-lost": "end-compromised"
+  },
+  "nodes": {
+    "start": {
+      "situation": "You are logged into the jump host with read-only rights. The share is still mounted. Your engagement manager is offsite today. The client's IT security lead sits two floors up.",
+      "prompt": "What do you do first?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Open README_RECOVER.txt so you can describe accurately what you are looking at.",
+          "quality": "poor",
+          "next": "opened-the-file",
+          "consequence": "You open the file. It is a ransom note with a payment address and a countdown. Your session has now interacted with attacker-placed content.",
+          "why": "Understandable instinct, and wrong on two counts. You are interacting with attacker-controlled content on a possibly-live system, which can alter timestamps and may execute something you did not expect. More fundamentally, identifying malware is not the auditor's job at this moment — escalating is."
+        },
+        {
+          "key": "B",
+          "text": "Stop touching the system, and notify the client's IT security lead and your engagement manager immediately.",
+          "quality": "best",
+          "next": "security-arrives",
+          "consequence": "You leave the session untouched, walk upstairs, and the security lead is on the floor within four minutes. Your engagement manager acknowledges by phone.",
+          "why": "Two things are right here. Ceasing interaction preserves the state for whoever does respond, and escalating immediately means containment starts while the incident is still small. Note what you did *not* do: you did not investigate, and you did not contain. Neither is your role."
+        },
+        {
+          "key": "C",
+          "text": "Capture screenshots for your working papers and continue the sampling so the day is not lost.",
+          "quality": "poor",
+          "next": "thirty-minutes-later",
+          "consequence": "You document what you see and carry on. Around forty minutes later, a user in a different department calls the service desk because their files will not open.",
+          "why": "Documentation is right; the delay is not. While something is actively spreading, every minute enlarges the loss. Fieldwork efficiency is never the reason to sit on this."
+        },
+        {
+          "key": "D",
+          "text": "Disconnect the jump host from the network yourself to stop the spread.",
+          "quality": "defensible",
+          "next": "you-pulled-the-plug",
+          "consequence": "You disconnect. The share drops. You then call the security lead, who arrives asking pointed questions about what exactly you disconnected and when.",
+          "why": "The instinct is correct — containment does come first — but the rule is scoped, and the scope is who you are. You are not the incident responder. You may have destroyed volatile evidence, you acted without authority on a client system, and the responders now have to reconstruct what you did before they can trust anything they see."
+        }
+      ]
+    },
+    "opened-the-file": {
+      "situation": "You have read the ransom note. Your workstation session is now part of the incident timeline. Nobody at the client knows yet.",
+      "prompt": "What now?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Notify the security lead and your engagement manager, and disclose exactly what you opened and when.",
+          "quality": "best",
+          "next": "security-arrives",
+          "consequence": "The security lead arrives quickly. Your disclosure goes straight into their incident timeline, and they treat your session as in-scope for the investigation.",
+          "why": "You cannot undo the interaction, but you can stop it mattering. Volunteering exactly what you touched, unprompted, is what lets the responders separate your footprints from the attacker's."
+        },
+        {
+          "key": "B",
+          "text": "Notify the security lead, but leave out the detail that you opened the note — it changes nothing.",
+          "quality": "poor",
+          "next": "security-arrives-partial",
+          "consequence": "Security begins responding. Two days later a forensic examiner asks why an audit account accessed the note at 10:47.",
+          "why": "It changes a great deal. An undisclosed interaction in an evidence timeline is indistinguishable from a concealed one, and the person hiding it is the auditor. This is the kind of thing that ends an engagement and a reputation."
+        },
+        {
+          "key": "C",
+          "text": "Search the other shares to work out how far it has spread, so your report to security is complete.",
+          "quality": "poor",
+          "next": "thirty-minutes-later",
+          "consequence": "You spend twenty minutes browsing shares. You find two more affected. Meanwhile nobody with authority to act has been told.",
+          "why": "Scoping the incident is the responders' job and it is a poor use of the only minutes that matter. A complete report delivered late is worth less than a partial one delivered now."
+        }
+      ]
+    },
+    "you-pulled-the-plug": {
+      "situation": "The jump host is disconnected. The security lead is standing next to you and wants to know precisely what you did.",
+      "prompt": "How do you handle it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Give a written account immediately: what you saw, what you disconnected, the exact time, and that you took no other action.",
+          "quality": "best",
+          "next": "security-arrives",
+          "consequence": "The security lead is visibly relieved to have a timestamped account. They take over the response and ask you to stay available.",
+          "why": "The mistake is already made; what remains is whether the responders can trust the evidence. A precise, written, timestamped account is the only thing that restores that."
+        },
+        {
+          "key": "B",
+          "text": "Explain that you were following incident response best practice by containing it.",
+          "quality": "poor",
+          "next": "security-arrives-partial",
+          "consequence": "The conversation becomes about your authority rather than about the incident. It takes several minutes that the client does not have.",
+          "why": "Defending the decision spends the client's time on you. It is also the wrong rule: containment is the responder's first move, not the auditor's, and citing a principle out of its scope is exactly the trap the principle's scope note warns about."
+        },
+        {
+          "key": "C",
+          "text": "Offer to reconnect the host so they can see the original state.",
+          "quality": "poor",
+          "next": "security-arrives-partial",
+          "consequence": "Security declines sharply. Reconnecting a possibly-compromised host to the network is the last thing they want.",
+          "why": "This compounds the error by proposing a second unauthorised action, and it misunderstands what was lost. Reconnecting does not restore volatile state; it just re-exposes the network."
+        }
+      ]
+    },
+    "thirty-minutes-later": {
+      "situation": "Word has reached the service desk on its own. The security lead is now aware, the response has started late, and three departments are affected instead of one.",
+      "prompt": "The security lead asks when you first noticed something. What do you say?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tell them exactly when you saw it and what you did in the interval, in writing.",
+          "quality": "best",
+          "next": "security-arrives-partial",
+          "consequence": "The delay is now on the record, along with your reasons. The response proceeds, and your engagement manager is informed the same day.",
+          "why": "The delay was the error. Concealing it would be a much larger one, and the timeline is going to surface it regardless."
+        },
+        {
+          "key": "B",
+          "text": "Say you noticed it just now, to avoid a difficult conversation about the delay.",
+          "quality": "poor",
+          "next": "end-concealment",
+          "consequence": "The response proceeds. Your working papers, timestamped forty minutes earlier, remain in the engagement file.",
+          "why": "Your own evidence contradicts you, and someone will read it. A judgement error becomes an integrity failure, which is not recoverable in this profession."
+        }
+      ]
+    },
+    "security-arrives": {
+      "situation": "The security lead has isolated the affected segment and is working the incident. They know you found it and how. They turn to you: \"You know these systems better than half my team right now. Can you help?\"",
+      "prompt": "What is your position?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Help with containment — you have three days of familiarity with the environment and time matters.",
+          "quality": "poor",
+          "next": "the-omission-request",
+          "consequence": "You spend the afternoon working alongside their team, mapping share permissions and identifying affected accounts.",
+          "why": "You have just become a participant in the thing you will later have to audit. Management decides and acts; the auditor evaluates. Helping feels generous and costs you the ability to give an independent opinion on the response — which is exactly what the client will need later.",
+          "taint": "independence-lost"
+        },
+        {
+          "key": "B",
+          "text": "Give them everything you observed, in writing, with times, then step out of the response.",
+          "quality": "best",
+          "next": "the-omission-request",
+          "consequence": "You hand over a one-page account within the hour and return to your own workspace. The security lead's team runs the response.",
+          "why": "Maximum useful contribution, zero loss of independence. Your observations are evidence; your participation would be a conflict. Knowing the difference under time pressure is the whole skill."
+        },
+        {
+          "key": "C",
+          "text": "Offer to observe and document the response as an independent party, with the client's written agreement.",
+          "quality": "defensible",
+          "next": "the-omission-request",
+          "consequence": "The client agrees. You take contemporaneous notes without directing anything, and confirm the arrangement by email.",
+          "why": "Genuinely valuable and legitimate — an independent record of a response is worth a great deal afterwards. It is a notch below stepping back only because the line between observing and participating is easy to cross under pressure, and needs the written agreement to hold."
+        },
+        {
+          "key": "D",
+          "text": "Take coordination of the response — you have studied incident response and their team is stretched.",
+          "quality": "poor",
+          "next": "the-omission-request",
+          "consequence": "You begin directing the response. The client's team defers to you. By evening you are the de facto incident commander.",
+          "why": "Studying incident response is not the same as being accountable for one, and the accountability here belongs to the client. You have taken on management's role, the associated liability, and destroyed your independence in one move.",
+          "taint": "independence-lost"
+        }
+      ]
+    },
+    "security-arrives-partial": {
+      "situation": "The response is underway. Your relationship with the client's IT function is more strained than it would otherwise have been, but the work is proceeding.",
+      "prompt": "The IT manager approaches you at the end of the day.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Continue with your scoped fieldwork and keep contemporaneous notes on the incident.",
+          "quality": "best",
+          "next": "the-omission-request",
+          "consequence": "You return to the access-control testing you were engaged to do, keeping a separate record of what you observe about the incident.",
+          "why": "Your engagement still exists and still has objectives. Keeping a parallel record preserves the option to report properly without turning you into part of the response."
+        },
+        {
+          "key": "B",
+          "text": "Stand down for the day; the client has bigger problems than an access review.",
+          "quality": "defensible",
+          "next": "the-omission-request",
+          "consequence": "You pause fieldwork and inform your engagement manager. The client appreciates the space.",
+          "why": "Considerate and often correct, but it is a decision for your engagement manager rather than for you alone, and it leaves the observation window unused."
+        }
+      ]
+    },
+    "the-omission-request": {
+      "situation": "The IT manager catches you as you pack up. \"About this week — the ransomware thing is being handled, and honestly it's outside your scope. Your report is on access controls. I'd rather it didn't turn into an incident report. Can we keep it out?\"",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree. It is genuinely outside the agreed scope of the engagement.",
+          "quality": "poor",
+          "next": "backup-evidence",
+          "consequence": "You agree not to raise it. The manager is visibly relieved and the conversation ends warmly.",
+          "why": "Scope defines what you go looking for, not what you may report once you have found it. A matter this significant is reportable regardless, and agreeing to suppress it at the request of the party it reflects on is the failure this profession exists to prevent.",
+          "taint": "suppressed"
+        },
+        {
+          "key": "B",
+          "text": "Explain that a matter of this significance is reportable regardless of scope, and that you will raise it with your engagement manager tonight.",
+          "quality": "best",
+          "next": "backup-evidence",
+          "consequence": "The conversation is uncomfortable. You call your engagement manager that evening, who agrees it must be communicated and begins considering the route.",
+          "why": "Firm, immediate, and routed correctly. You are not negotiating the finding with the person it concerns, and you are escalating to someone with the authority to decide how it gets communicated."
+        },
+        {
+          "key": "C",
+          "text": "Agree to keep it out of the report, but record it fully in your working papers.",
+          "quality": "poor",
+          "next": "backup-evidence",
+          "consequence": "You document it thoroughly in the engagement file. The report goes out without it.",
+          "why": "Working papers are not a report and nobody who needs to act on this will ever read them. This feels like a compromise and functions as a suppression with a paper trail proving you knew.",
+          "taint": "suppressed"
+        },
+        {
+          "key": "D",
+          "text": "Offer to raise it as a separate communication to the audit committee rather than inside the scoped report.",
+          "quality": "defensible",
+          "next": "backup-evidence",
+          "consequence": "The manager is unhappy but accepts. You confirm the approach with your engagement manager the same evening.",
+          "why": "The substance is preserved and reaches the right level, and the reporting route is a reasonable judgement. It is a notch below B only because it was offered as a concession in the moment rather than escalated first."
+        }
+      ]
+    },
+    "backup-evidence": {
+      "situation": "Two days later. IT reports the incident closed: affected shares restored from backup, no ransom paid, no data lost. The IT manager offers you a screenshot of the restore utility showing \"Restore completed successfully — 41,208 files\".",
+      "prompt": "You are considering whether the recovery claim holds up.",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept the screenshot. The restore completed and the file count is specific.",
+          "quality": "poor",
+          "next": "end-thin",
+          "consequence": "You record the recovery as verified and move on.",
+          "why": "A completion message is evidence that a job ran, not that the data is correct or that the backup predated the compromise. If the backup was taken after encryption began, you have just certified the restoration of encrypted files."
+        },
+        {
+          "key": "B",
+          "text": "Ask how they established that the backup predated the compromise, and for evidence that restored data was verified as usable.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "IT produces the backup catalogue and the first-encryption timestamp from the forensic timeline. A sample of restored files opens correctly. One share turns out to have been restored from a copy taken ninety minutes after encryption started, and is redone.",
+          "why": "Two questions, both necessary. Timing establishes that the source was clean; verification establishes that the result is usable. The first question is the one people forget, and here it caught a real problem."
+        },
+        {
+          "key": "C",
+          "text": "Request the complete backup job logs for the past twelve months.",
+          "quality": "defensible",
+          "next": "end-acceptable",
+          "consequence": "You receive several thousand log lines. Buried in them is the information you needed, and it takes most of a day to find.",
+          "why": "You will probably get there, and the instinct to seek primary records is sound. But an unfocused request costs the client effort and costs you time, and it does not test the specific thing that matters: whether this restore used a clean source."
+        },
+        {
+          "key": "D",
+          "text": "Note that recovery is outside your access-control scope and take the closure at face value.",
+          "quality": "poor",
+          "next": "end-thin",
+          "consequence": "You accept the closure without testing it and complete your fieldwork.",
+          "why": "Scope again, used again to avoid a hard question. You are already reporting on the incident; a claim you are reporting is a claim you should be able to support."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Reported properly, evidence stands up",
+      "verdict": "strong",
+      "narrative": "The incident is communicated to the audit committee with a supported timeline. Your evidence on the recovery holds, and the share restored from a compromised backup is corrected before anyone relies on it. Your access-control fieldwork is completed separately and your independence is intact throughout.",
+      "why": "You escalated instead of investigating, contributed observations instead of participating, refused to negotiate the finding with the party it concerned, and tested the recovery claim rather than accepting a completion message. Each of those is a single decision, and together they are the difference between an auditor and a helpful bystander."
+    },
+    "end-acceptable": {
+      "title": "Right conclusions, expensive route",
+      "verdict": "acceptable",
+      "narrative": "The incident is reported and the recovery claim is eventually supported, but getting there consumed a day of your time and a day of the client's. The conclusion is sound and the evidence holds.",
+      "why": "No judgement failures, but the evidence-gathering was unfocused. Asking the narrow question first — was the backup source clean — reaches the same place in ten minutes."
+    },
+    "end-thin": {
+      "title": "Reported, but the recovery claim is unsupported",
+      "verdict": "weak",
+      "narrative": "The incident reaches the audit committee, which is the important part. Your statement that recovery was successful rests on a screenshot of a completion message. Six weeks later a department reports that a set of files restored in the incident are unreadable.",
+      "why": "You got the hard governance decision right and then accepted design evidence for an operating claim. Completion is not correctness. This is the most common way a good audit conclusion turns out to be wrong."
+    },
+    "end-compromised": {
+      "title": "Independence lost",
+      "verdict": "weak",
+      "narrative": "The incident is handled and reported. You participated materially in the response, which means the firm cannot provide assurance over the incident or over the controls that failed. A different team is engaged to do that work, at the client's cost.",
+      "why": "Everything you did was helpful and most of it was competent. None of it was your role. The client did not need another pair of hands; they needed the one person in the building who could later tell them the truth about what happened."
+    },
+    "end-failed": {
+      "title": "The matter was suppressed",
+      "verdict": "failed",
+      "narrative": "The report is issued on access controls with no mention of a ransomware incident discovered during fieldwork. The matter surfaces four months later through a different route, along with your working papers showing you knew.",
+      "why": "Scope is not a shield. Once you know, the question is only how the matter gets communicated, never whether. Agreeing to omission at the request of the party it reflects on is the specific failure the independence rules exist to prevent."
+    },
+    "end-concealment": {
+      "title": "Timeline misstated",
+      "verdict": "failed",
+      "narrative": "Your account of when you first observed the incident does not match your own timestamped working papers. The discrepancy is found during the post-incident review.",
+      "why": "The original error was a delay, which is a judgement failure and survivable. Misstating the timeline converts it into an integrity failure, which is not."
+    }
+  }
+}

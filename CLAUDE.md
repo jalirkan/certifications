@@ -36,8 +36,9 @@ lose data.
 | Decision rules | 22 documented, 223 of 292 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 63 questions mapped, **2 known gaps** |
 | Study guides | D5 complete; **D1–D4 missing** |
-| Tests | **187, all passing** — `python run_tests.py` |
-| Front ends | CLI (`drill.py`) and a local web app (`serve.py` + `web/`) |
+| Tests | **195, all passing** — `python run_tests.py` |
+| Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
+| Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
 ```
@@ -45,7 +46,8 @@ certifications/
   drill.py            CLI: drill / exam / game / principles / costumes / stats / items / validate / list
   serve.py            local web app, stdlib http.server, binds 127.0.0.1 only
   run_tests.py        runs every suite
-  web/                current front end — vanilla JS, being replaced (see FRONTEND-BRIEF.md)
+  frontend/           web front end source — Vite + React + TS. `npm run build` emits to web/
+  web/                BUILD OUTPUT. Do not hand-edit; it is overwritten by every build
   drillkit/
     loader.py           question bank loading, validation, profiles, pairs, principles
     scheduler.py        spaced-repetition-lite selection
@@ -64,6 +66,7 @@ certifications/
     principles.json         22 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
     questions/              292 questions, one file per domain-section
+    cases/                  branching audit cases + SCHEMA.md (3 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs — PERSONAL DATA, see rule 13
   cpa/                reserved sibling, activated after CISA
@@ -152,9 +155,10 @@ data, which is worse than leaving it alone.
 
 ## 5. What is next
 
-1. **Front end rebuild** — Vite + React + TypeScript with a real charting library, talking to the
-   existing tested Python API. **Full spec in `FRONTEND-BRIEF.md`.** That is a separate, narrower
-   execution brief; read it for that task specifically.
+1. ~~**Front end rebuild**~~ — **done 2026-07-31.** Vite + React + TypeScript + Recharts in
+   `frontend/`, building to `web/`. `FRONTEND-BRIEF.md` remains as the spec it was built against.
+   Working on it: `cd frontend && npm run build`, then `python serve.py` as before. `npm run dev`
+   proxies `/api` to port 8765 for a hot-reload loop against the real engine.
 2. **Study guides for Domains 1–4** at the depth of the D5 one. Highest-value content work and it
    needs no build tooling.
 3. **Close the two confusable-pair gaps** — nothing in the bank tests **verification vs validation**

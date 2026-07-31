@@ -1,0 +1,203 @@
+{
+  "id": "d4-the-successful-test",
+  "title": "The Successful Test",
+  "domain": "4",
+  "section": "B",
+  "topics": [
+    "Disaster Recovery Plans",
+    "Business Impact Analysis",
+    "Data Backup, Storage, and Restoration"
+  ],
+  "principles": [
+    "untested-unknown",
+    "design-vs-operating",
+    "business-impact",
+    "read-the-verb"
+  ],
+  "minutes": 10,
+  "origin": "Original scenario written for this study system. No third-party content reproduced.",
+  "opening": "You are reviewing business resilience at a regional insurer. The annual disaster recovery test took place four months ago.\n\nThe test report is two pages, signed by the CIO. Its conclusion reads: \"Test completed successfully. All in-scope systems recovered at the alternate site within the defined recovery time objective. No material issues identified.\"\n\nThe claims register shows a recovery time objective of 8 hours for the policy administration system.",
+  "taints": {
+    "accepted-scope-defence": "end-unproven"
+  },
+  "nodes": {
+    "start": {
+      "situation": "You have the test report, the DR plan, and access to whoever you want to talk to.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept the report. It is signed at CIO level and states the objective was met.",
+          "quality": "poor",
+          "next": "end-unproven",
+          "consequence": "You record the DR capability as tested and effective, and move to your next area.",
+          "why": "A signed conclusion is a management assertion about a test, not evidence of what the test did. Seniority of signature is not a quality of evidence — it tells you who is accountable, not whether the claim holds."
+        },
+        {
+          "key": "B",
+          "text": "Establish what was actually in scope for the test and compare it to what the recovery plan says must be recovered.",
+          "quality": "best",
+          "next": "the-scope",
+          "consequence": "You request the test plan and the scope statement. The DR manager provides both without hesitation.",
+          "why": "The gap between what a test covered and what recovery requires is where almost all false assurance lives. Ask it first, because if the scope is narrow, nothing else about the test matters much."
+        },
+        {
+          "key": "C",
+          "text": "Review the disaster recovery plan document for completeness against good practice.",
+          "quality": "poor",
+          "next": "the-scope",
+          "consequence": "The plan is thorough — roles, contact trees, runbooks, alternate site details, all current.",
+          "why": "You have assessed the design of the plan and learned nothing about whether the organisation can execute it. A well-written plan that has never worked is a well-written plan."
+        },
+        {
+          "key": "D",
+          "text": "Ask to observe the next annual test.",
+          "quality": "defensible",
+          "next": "the-scope",
+          "consequence": "The DR manager agrees. The next test is eight months away, well past your reporting date.",
+          "why": "Direct observation is excellent evidence and worth arranging for future engagements. It does not help you conclude on the period you are auditing, so it cannot be the primary approach."
+        }
+      ]
+    },
+
+    "the-scope": {
+      "situation": "The test scope covered failover of infrastructure to the alternate site: servers, network, and the application tier for four systems including policy administration.\n\nOne line in the test plan reads: \"Data restoration simulated.\"",
+      "prompt": "What do you make of that line?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask what \"simulated\" means in practice and why restoration was not performed.",
+          "quality": "best",
+          "next": "the-fourteen-hours",
+          "consequence": "The DR manager is candid: \"We didn't have the window. A full restore of policy admin runs about fourteen hours and we had the site for six.\"",
+          "why": "One word in a test plan, and it is carrying the entire finding. Asking why a step was omitted usually gets you the real constraint, and the real constraint is usually the finding."
+        },
+        {
+          "key": "B",
+          "text": "Note it as a minor scope limitation and continue reviewing the rest of the test evidence.",
+          "quality": "poor",
+          "next": "the-fourteen-hours",
+          "consequence": "You record the limitation and review the failover evidence, which is thorough and well documented.",
+          "why": "Data restoration is not a minor part of recovery; it is the part the business actually needs. Recovered infrastructure with no data restores nothing. Calling it minor is how a partial test gets reported as a successful one."
+        },
+        {
+          "key": "C",
+          "text": "Accept it — simulation is a normal and accepted testing technique.",
+          "quality": "poor",
+          "next": "end-unproven",
+          "consequence": "You treat the simulation as equivalent to a test and conclude the recovery capability is demonstrated.",
+          "why": "Simulation is legitimate for things that genuinely cannot be exercised. It is not equivalent to performing the step, and here the step being skipped is precisely the one most likely to fail."
+        }
+      ]
+    },
+
+    "the-fourteen-hours": {
+      "situation": "A full restore of the policy administration system takes approximately fourteen hours. The documented recovery time objective for that system is eight hours.",
+      "prompt": "What does that tell you?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The test did not fail — but the capability does. Restoration alone exceeds the objective before failover time is counted.",
+          "quality": "best",
+          "next": "who-set-the-rto",
+          "consequence": "You put the arithmetic in writing and ask the DR manager to confirm it. He does, and says it has never been framed that way to him before.",
+          "why": "The distinction is the whole case. The test genuinely succeeded against its own scope; the recovery objective genuinely cannot be met. Both are true, and only the first one has ever been reported."
+        },
+        {
+          "key": "B",
+          "text": "Recommend that the next test include a full data restoration.",
+          "quality": "defensible",
+          "next": "who-set-the-rto",
+          "consequence": "The DR manager agrees it would be better practice and notes the window constraint remains.",
+          "why": "A reasonable recommendation that misses the immediate point. You do not need another test to know the answer — the fourteen-hour figure already tells you the objective cannot be met. Testing it would only confirm what arithmetic has established."
+        },
+        {
+          "key": "C",
+          "text": "Record the restore duration as an observation for the report.",
+          "quality": "poor",
+          "next": "who-set-the-rto",
+          "consequence": "It goes into your notes as a data point among others.",
+          "why": "This is a finding, not an observation. Treating it as colour rather than conclusion is how the most important number in the engagement ends up in an appendix."
+        }
+      ]
+    },
+
+    "who-set-the-rto": {
+      "situation": "You ask where the 8-hour objective came from. The answer: IT set it during the DR programme three years ago, based on what they believed was achievable at the time. The business impact analysis on file was produced by the same IT programme team.",
+      "prompt": "Does that change anything?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Yes — an objective set by IT rather than derived from business impact may not reflect what the business can actually tolerate.",
+          "quality": "best",
+          "next": "the-scope-defence",
+          "consequence": "You ask the claims director what an eight-hour outage of policy administration would actually cost. She says renewals stop, and beyond about four hours the regulator has to be notified.",
+          "why": "The objective is supposed to come from the consequence of the outage, not from what the technical team thought it could deliver. Here the real tolerance is tighter than the documented one, which means the gap is worse than fourteen against eight."
+        },
+        {
+          "key": "B",
+          "text": "No — a documented objective is a documented objective, and the gap against it is the finding.",
+          "quality": "defensible",
+          "next": "the-scope-defence",
+          "consequence": "You proceed with the fourteen-versus-eight finding.",
+          "why": "The finding stands and is worth raising. You have missed that the benchmark itself may be wrong, which is the difference between reporting a shortfall and reporting an unmeasured exposure."
+        },
+        {
+          "key": "C",
+          "text": "Note it, but recovery objectives are a management decision and not the auditor's to question.",
+          "quality": "poor",
+          "next": "the-scope-defence",
+          "consequence": "You leave the objective unchallenged.",
+          "why": "Management sets the objective; the auditor evaluates whether it was set on a defensible basis. An objective derived from technical convenience rather than business impact is precisely the kind of thing an auditor is there to notice."
+        }
+      ]
+    },
+
+    "the-scope-defence": {
+      "situation": "At the clearance meeting the CIO makes a reasonable point: \"The test was successful against its defined scope. That's what the report says and it's accurate. You're proposing to report a failure of a test that passed.\"",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree that the test met its scope, and revise the finding to a recommendation that future scopes be broadened.",
+          "quality": "poor",
+          "taint": "accepted-scope-defence",
+          "next": "end-unproven",
+          "consequence": "The finding becomes a forward-looking recommendation. The report does not say the recovery objective cannot currently be met.",
+          "why": "He is right that the test passed and it does not matter. The reportable fact is not that the test failed — it is that the capability is unproven and, on the organisation's own numbers, unachievable. Converting that into a suggestion about future test design removes the only thing worth saying."
+        },
+        {
+          "key": "B",
+          "text": "Agree the test passed, and report separately that the recovery objective cannot be met on the organisation's own figures, and that the step most likely to fail has never been exercised.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The CIO does not enjoy it but does not dispute the arithmetic. The finding goes to the audit committee with the fourteen-hour figure and the regulatory notification threshold alongside it.",
+          "why": "Both statements are true and you concede the one that is his. Conceding it costs nothing and makes the finding harder to argue with, because you are no longer disputing the test — you are reporting a capability gap the test was never designed to detect."
+        },
+        {
+          "key": "C",
+          "text": "Report that the test report is misleading because it implies a capability that was not demonstrated.",
+          "quality": "defensible",
+          "next": "end-strong",
+          "consequence": "The conversation becomes adversarial. The substance survives into the report, with more friction than it needed.",
+          "why": "The substance is right and the framing makes it about the honesty of his report rather than about the exposure. You will usually get further attacking the gap than the document, and here you did not need the fight to win the point."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "A passed test and an unmet objective",
+      "verdict": "strong",
+      "narrative": "The report states that the annual test met its defined scope, and separately that full data restoration has never been exercised, that restoration alone is estimated at fourteen hours against an eight-hour objective, and that the objective itself was set by IT rather than derived from business impact — where the claims function puts the real tolerance nearer four hours. The board commissions a recovery capability review.",
+      "why": "Three findings, each of which required refusing a comfortable answer: that a signed report is not evidence, that one word in a test plan was the whole story, and that a benchmark set by the party being measured is not a benchmark. None of them required disputing anything anyone said."
+    },
+    "end-unproven": {
+      "title": "Capability remains untested and unreported",
+      "verdict": "weak",
+      "narrative": "The engagement concludes that disaster recovery arrangements are tested annually and that the most recent test was successful. The recovery capability for the policy administration system has still never been exercised end to end. It is not exercised the following year either.",
+      "why": "Everything in the report is literally accurate, and it leaves the reader believing something false. A test that omits the step most likely to fail has not tested the capability — and the whole reason to audit resilience is that nobody finds out until the day it matters."
+    }
+  }
+}

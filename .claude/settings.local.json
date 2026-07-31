@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python run_tests.py)",
+      "Bash(python -c ' *)",
+      "Bash(npm install *)",
+      "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\({deps:p.dependencies,dev:p.devDependencies},null,2\\)\\)\")",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(cd \"C:/Users/jalir/Projects/certifications/frontend\" && npm run build 2>&1 | tail -12 && cd .. && echo \"=== python tests ===\" && python run_tests.py 2>&1 | tail -6)",
+      "Bash(python -m unittest tests.test_webapi -v)",
+      "Bash(git check-ignore *)",
+      "Bash(git add *)",
+      "Bash(rm -rf cisa/results/profiles/tmpcheck)",
+      "Bash(rmdir cisa/results/profiles)",
+      "Bash(where pwsh *)",
+      "PowerShell(cd C:\\\\Users\\\\jalir\\\\Projects\\\\certifications; npm --prefix frontend run build 2>&1 | Select-Object -Last 6; \"exit=$LASTEXITCODE\"; \"--- web/ ---\"; Get-ChildItem web | Select-Object -ExpandProperty Name)"
+    ]
+  }
+}

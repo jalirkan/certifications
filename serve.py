@@ -137,6 +137,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.items(int((query.get("min") or [5])[0])))
             if route == "/api/card":
                 return self._json(api.card())
+            if route == "/api/trend":
+                return self._json(api.trend(
+                    int((query.get("days") or [90])[0]),
+                    int((query.get("window") or [7])[0])))
             if route == "/api/games/stats":
                 return self._json(api.game_stats())
             if route == "/api/exams":

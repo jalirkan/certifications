@@ -1,0 +1,257 @@
+{
+  "id": "d1-one-exception",
+  "title": "One Exception in Twenty-Five",
+  "domain": "1",
+  "section": "B",
+  "topics": [
+    "Audit Testing and Sampling Methodology",
+    "Audit Evidence Collection Techniques",
+    "Reporting and Communication Techniques"
+  ],
+  "principles": [
+    "understand-before-acting",
+    "independent-population",
+    "evidence-quality",
+    "root-cause",
+    "design-vs-operating"
+  ],
+  "minutes": 12,
+  "origin": "Original scenario written for this study system. No third-party content reproduced.",
+  "opening": "You are testing change management at a logistics client. The control: every production change requires documented approval before implementation.\n\nYou selected 25 changes from the year and traced each to its approval. Twenty-four are clean.\n\nOne is not. Change CHG-4471 reached production on a Tuesday at 02:14 with no approval record of any kind.",
+  "taints": {
+    "manufactured-evidence": "end-unsupported"
+  },
+  "nodes": {
+    "start": {
+      "situation": "One exception in a sample of 25. Your fieldwork budget has two days left.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conclude the control is not operating effectively and draft the finding.",
+          "quality": "poor",
+          "next": "premature-finding",
+          "consequence": "You write it up as a control failure and move to your next test area.",
+          "why": "One exception can mean a keying error, a one-off, or a systematic breakdown whenever a particular condition arises. Concluding before you know which skips the step that determines what the finding actually is — and how big."
+        },
+        {
+          "key": "B",
+          "text": "Investigate the nature and cause of the exception before concluding anything.",
+          "quality": "best",
+          "next": "the-emergency-route",
+          "consequence": "You pull the change record and the surrounding tickets. CHG-4471 was raised during a warehouse system outage at 01:50 and implemented 24 minutes later.",
+          "why": "Always the first move. What you find here determines whether you extend the sample, change the population, or close the point — and those are three very different days of work."
+        },
+        {
+          "key": "C",
+          "text": "Extend the sample to 50 changes to see whether the exception rate holds.",
+          "quality": "defensible",
+          "next": "the-emergency-route",
+          "consequence": "You select 25 more. Two of them are also unapproved, and all three turn out to share a pattern you have not yet noticed.",
+          "why": "You will probably reach the truth, and extending the sample is often the right response. But doing it before understanding the first exception means you may be measuring the wrong thing — if the exceptions share a condition, a random extension is a slow way to find that out."
+        },
+        {
+          "key": "D",
+          "text": "Ask the change manager to explain what happened with CHG-4471.",
+          "quality": "defensible",
+          "next": "the-emergency-route",
+          "consequence": "The change manager explains it was an emergency fix during a major outage, and points you to the emergency change procedure.",
+          "why": "Efficient and often how you actually find out. The care needed is that this is inquiry, and inquiry from the party being tested is the weakest evidence there is — useful for direction, not for conclusion. Corroborate everything they tell you."
+        }
+      ]
+    },
+    "premature-finding": {
+      "situation": "Your draft finding says approval is not consistently obtained. At the clearance meeting the change manager produces the emergency change procedure — a documented route allowing implementation first, with retrospective approval required within five working days.",
+      "prompt": "Your finding as drafted is now wrong. What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Withdraw the draft, investigate the emergency route properly, and re-form the finding.",
+          "quality": "best",
+          "next": "the-emergency-route",
+          "consequence": "You withdraw it. The change manager's confidence in the engagement takes a knock, but the work is now on the right question.",
+          "why": "Correct, and it costs you credibility you did not need to spend. This is what the investigation step at the start was for."
+        },
+        {
+          "key": "B",
+          "text": "Amend the finding to say the emergency procedure was not followed, and move on.",
+          "quality": "poor",
+          "next": "the-export",
+          "consequence": "You reword it. You have still not established whether retrospective approval happened for this change or any other.",
+          "why": "You have swapped one unsupported assertion for another. Whether the emergency procedure was followed is a question you have not yet asked, let alone answered."
+        }
+      ]
+    },
+    "the-emergency-route": {
+      "situation": "There is a documented emergency change procedure. It permits implementation first, and requires retrospective approval within five working days, with the emergency changes reviewed quarterly for pattern and volume.\n\nCHG-4471 has no retrospective approval recorded.",
+      "prompt": "How do you establish whether this is isolated?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the change manager for a list of all emergency changes in the period, and test them.",
+          "quality": "defensible",
+          "next": "the-export",
+          "consequence": "You receive an export from the change tool: 31 emergency changes for the year.",
+          "why": "The right question, asked of the wrong source. Testing every emergency change is exactly what should happen next — but a population supplied by the party under review has to be checked before you sample from it."
+        },
+        {
+          "key": "B",
+          "text": "Obtain the emergency change population and reconcile it to an independent source before testing anything from it.",
+          "quality": "best",
+          "next": "the-reconciliation",
+          "consequence": "You take the export of 31, then request production deployment logs from the platform team, who sit outside change management.",
+          "why": "The dangerous item is the one missing from the list. Reconciling the recorded population against something the auditee does not control is what turns a sample into evidence."
+        },
+        {
+          "key": "C",
+          "text": "Test only CHG-4471 thoroughly, since it is the exception you actually found.",
+          "quality": "poor",
+          "next": "the-export",
+          "consequence": "You establish in detail that CHG-4471 had no retrospective approval. You know nothing about the other emergency changes.",
+          "why": "Depth on a single item cannot tell you about a population. You would end up reporting a one-off, which may be a serious understatement."
+        }
+      ]
+    },
+    "the-export": {
+      "situation": "You have the change tool's export of 31 emergency changes and you have begun testing them for retrospective approval.",
+      "prompt": "Before you conclude on this population, is there anything you should check?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reconcile the export against production deployment logs from outside change management.",
+          "quality": "best",
+          "next": "the-reconciliation",
+          "consequence": "You request the deployment logs. They take a day to arrive and they do not match.",
+          "why": "Late but right. Completeness of the population is the question that determines whether anything else you did means anything."
+        },
+        {
+          "key": "B",
+          "text": "Proceed — the export came from the system of record for changes.",
+          "quality": "poor",
+          "next": "the-memo",
+          "consequence": "You test all 31. Nine have no retrospective approval. You draft a finding based on 9 of 31.",
+          "why": "The change tool is the system of record for changes that went through the change tool. That is not the same as all changes that reached production, and the difference is exactly where the risk lives."
+        }
+      ]
+    },
+    "the-reconciliation": {
+      "situation": "The platform team's deployment logs show 45 production deployments outside the normal release windows. The change tool records 31. Fourteen deployments have no change record at all.\n\nOf the 31 in the tool, nine lack retrospective approval.",
+      "prompt": "The finding has changed shape. What is it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Emergency changes frequently lack retrospective approval — 9 of 31.",
+          "quality": "poor",
+          "next": "the-memo",
+          "consequence": "You draft the finding around the approval gap in the recorded population.",
+          "why": "True, and it buries the bigger problem. Fourteen production deployments with no change record at all is a more serious finding than nine with incomplete paperwork, because those fourteen were never visible to any control."
+        },
+        {
+          "key": "B",
+          "text": "Changes are reaching production outside the change process entirely, and within the recorded population retrospective approval is frequently absent.",
+          "quality": "best",
+          "next": "the-memo",
+          "consequence": "You draft both, with the completeness gap first. The IT director asks for a meeting.",
+          "why": "Both findings, ranked correctly. The completeness gap leads because a control that never sees the change cannot fail — it simply was not there."
+        },
+        {
+          "key": "C",
+          "text": "The change tool's reporting is unreliable and should be fixed.",
+          "quality": "poor",
+          "next": "the-memo",
+          "consequence": "You frame it as a reporting defect. The IT director agrees readily and commits to a tooling review.",
+          "why": "This makes a control failure sound like a data quality issue, and it is the framing management will most happily accept. The tool is reporting accurately on what it was told about. The problem is what it was never told about."
+        }
+      ]
+    },
+    "the-memo": {
+      "situation": "The IT director says the retrospective approvals for the missing nine were given verbally at the daily operations stand-up, and were simply never recorded. He offers to sign a memo confirming that each was approved, and to have the operations manager countersign it.",
+      "prompt": "Do you take the memo?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept the memo. Two managers attesting to the approvals is reasonable evidence.",
+          "quality": "poor",
+          "taint": "manufactured-evidence",
+          "next": "the-recommendation",
+          "consequence": "The memo is signed and filed in your working papers as support for the nine changes.",
+          "why": "A document created today, by the people responsible for the gap, describing what they say happened months ago, is a management representation — the weakest form of evidence and here it is being used as the only form. If verbal approval leaves no trace, the control does not produce evidence, and a control that produces no evidence cannot be tested."
+        },
+        {
+          "key": "B",
+          "text": "Decline it as primary evidence. A memo written now is not evidence that approval occurred then.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "You decline politely and explain why. The director is unhappy but does not push. The nine remain unsupported.",
+          "why": "The point is not that he is lying — he may well be telling the truth. The point is that the control was supposed to leave a record and did not, so its operation cannot be demonstrated. That is the finding."
+        },
+        {
+          "key": "C",
+          "text": "Accept it as corroboration alongside the stand-up minutes, if those exist and are contemporaneous.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "You ask for the stand-up minutes. Three of the nine appear in contemporaneous notes; the other six do not.",
+          "why": "Exactly the right use of a representation — corroborating other evidence rather than standing alone. It also does real work here, resolving three of the nine and sharpening the finding on the remaining six."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "You are drafting the recommendation. The findings are that production deployments bypass the change process entirely, and that retrospective approval for emergency changes is inconsistently recorded.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That staff receive refresher training on the change management procedure.",
+          "quality": "poor",
+          "next": "end-symptom",
+          "consequence": "Management accepts immediately and schedules training for the following quarter.",
+          "why": "Instantly accepted because it costs management nothing and changes nothing. People were not deploying outside the process because they had forgotten it existed. Training addresses ignorance; this is a process that permits the bypass."
+        },
+        {
+          "key": "B",
+          "text": "That deployments be technically prevented or detected unless linked to a change record, and that retrospective approval be enforced by the tool before the emergency change can be closed.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "Management pushes back on cost and timeline, then agrees to a phased implementation with detective reconciliation first and prevention later.",
+          "why": "It addresses the mechanism rather than the instances, and the pushback is a sign it would actually bite. Note the phasing management proposed is reasonable — detection now, prevention later, is a real answer rather than a deferral."
+        },
+        {
+          "key": "C",
+          "text": "That the emergency change procedure be removed, since it is not being followed.",
+          "quality": "poor",
+          "next": "end-symptom",
+          "consequence": "Management points out that emergency changes will still happen, with or without a procedure.",
+          "why": "Removing the control because it is not operating leaves the risk with nothing at all pointed at it. Emergencies are real; the procedure exists because they are."
+        },
+        {
+          "key": "D",
+          "text": "That the population be re-tested at next year's audit to confirm improvement.",
+          "quality": "poor",
+          "next": "end-symptom",
+          "consequence": "Management agrees readily. Nothing changes in the interim.",
+          "why": "Re-testing is follow-up, not a recommendation. It commits the auditor to more work and management to none."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The finding you could not have found from the sample",
+      "verdict": "strong",
+      "narrative": "The report leads with fourteen production deployments that were never visible to the change process, supported by an independent reconciliation. The approval gap follows as a secondary finding. Management commits to detective reconciliation within a quarter and preventive controls within the year.",
+      "why": "One exception in twenty-five became a completeness finding an order of magnitude larger, and it did so because you investigated before concluding and reconciled the population before sampling it. Neither step was in the audit programme. Both are the reason the finding is real."
+    },
+    "end-symptom": {
+      "title": "Reported, remediated on paper",
+      "verdict": "weak",
+      "narrative": "The finding is raised and management agrees to the recommendation without resistance. Next year's audit finds a comparable number of unrecorded deployments.",
+      "why": "A recommendation accepted without friction is usually one that does not require anything to change. You addressed the instances; the mechanism that produced them is untouched, so it produced more."
+    },
+    "end-unsupported": {
+      "title": "The evidence does not hold",
+      "verdict": "weak",
+      "narrative": "The report concludes that emergency approvals occurred, supported by a memo signed after the fieldwork by the managers responsible for the gap. During external review the following year the support is challenged and cannot be sustained.",
+      "why": "You accepted a document created after the fact, by interested parties, describing events that left no other trace, as evidence that those events occurred. The whole point of a control that must be recorded is that the record is the evidence. No record, no operation demonstrated."
+    }
+  }
+}

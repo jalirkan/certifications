@@ -1,5 +1,15 @@
 # Front end rebuild — brief for a coding agent
 
+> **Status: built 2026-07-31.** Source in `frontend/`, output in `web/`. Kept as the specification
+> the rebuild was measured against, and as the reference for anyone changing it next.
+>
+> One deviation, approved before it was made: §7 asks for an accuracy-over-time chart, but no
+> endpoint exposed timestamped attempts, so a read-only `GET /api/trend` was added to
+> `drillkit/webapi.py` and `serve.py` (documented in §4 below) with 8 new tests. Nothing existing
+> was changed; the suite went 187 → 195. One existing test, `test_static_files_are_served`, was
+> rewritten because it asserted on `app.js` and `style.css` — filenames of the very front end this
+> brief replaces. It now discovers assets from the served HTML, so it survives future rebuilds.
+
 You are rebuilding the browser front end of an offline CISA exam-prep system. The Python engine,
 data and HTTP API already exist, are tested (187 tests passing), and **must not be modified**. Your
 job is the front end only.
@@ -162,6 +172,21 @@ missed[]  { ...full question, answer, chosen, why_correct, why_wrong{}, principl
 
 ### `GET /api/items?min=5` and `GET /api/card`
 Item analysis (question quality) and the generated decision-rules study sheet (`{ text }`).
+
+### `GET /api/trend?days=90&window=7`
+Added for the time series in §7. Read-only; rolls the attempt log up per day.
+```
+days, window, total_attempts,
+domains[] { id, name, weight },
+points[]  { date, attempts, correct,
+            cum_accuracy, cum_low, cum_high, cum_attempts, cum_correct,
+            roll_accuracy, roll_low, roll_high, roll_attempts, roll_correct,
+            domains { <domain id>: { accuracy, low, high, attempts, correct } } }
+```
+`cum_*` spans the whole log; `roll_*` is a trailing `window`-day view. `days` only bounds how far
+back points are emitted, so a short window never understates cumulative history. Every accuracy is
+`null` when its denominator is zero and always ships with its Wilson bounds and its count — a day
+built on three attempts must not be renderable as a confident number.
 
 ---
 

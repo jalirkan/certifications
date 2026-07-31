@@ -21,6 +21,7 @@ from typing import List
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from drillkit import (  # noqa: E402
+    cases as cases_mod,
     exam as exam_mod,
     examsession,
     games,
@@ -360,12 +361,28 @@ def cmd_validate(args) -> int:
         errors.extend(rerrors)
         warnings.extend(rwarnings)
 
+    try:
+        case_list = cases_mod.load_cases(args.cert)
+    except cases_mod.CaseError as exc:
+        case_list = []
+        errors.append(str(exc))
+    if case_list:
+        cerrors, cwarnings = cases_mod.validate_all(
+            case_list, outline, {p["id"] for p in rules})
+        errors.extend(cerrors)
+        warnings.extend(cwarnings)
+
     print("Checked %d question(s) across %d file(s)."
           % (len(questions), len({q.source_file for q in questions})))
     if pairs:
         mapped = {qid for p in pairs for qid in (p.get("question_ids") or [])}
         print("Checked %d confusable pair(s) covering %d question(s)."
               % (len(pairs), len(mapped)))
+    if case_list:
+        print("Checked %d branching case(s): %d decision nodes, %d endings."
+              % (len(case_list),
+                 sum(len(c.nodes) for c in case_list),
+                 sum(len(c.endings) for c in case_list)))
     if rules:
         index = loader.principle_index(rules)
         covered = sum(1 for q in questions if q.id in index)

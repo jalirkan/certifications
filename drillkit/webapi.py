@@ -15,7 +15,7 @@ from __future__ import annotations
 import random
 import time
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
 from . import (
@@ -246,6 +246,110 @@ class Api:
                        "elapsed": e.elapsed_seconds, "duration": e.duration_seconds}
                       for e in exams[:6]],
         }
+
+    # ------------------------------------------------------------------
+    def trend(self, days: int = 90, window: int = 7) -> Dict[str, Any]:
+        """Accuracy over time, per domain, from the timestamped attempt log.
+
+        Two series per point, because they answer different questions and a
+        single line would quietly conflate them:
+
+        * ``cum_*`` is accuracy over everything answered up to that day. Its
+          Wilson band starts wide and narrows as evidence accrues, which is the
+          honest picture of "what do I actually know about myself yet".
+        * ``roll_*`` is a trailing ``window``-day view, which moves when recent
+          work differs from the record but is noisy on light study days.
+
+        Cumulative figures span the whole log; ``days`` only bounds how far back
+        points are emitted, so capping the window never understates history.
+        Every accuracy here ships with its interval and its denominator - a day
+        with three attempts must not be able to render as a confident number.
+        """
+        days = max(1, min(int(days), 3650))
+        window = max(1, min(int(window), 365))
+
+        rows = self.rows()
+        by_day: Dict[str, List[Dict[str, Any]]] = {}
+        for row in rows:
+            ts = store.parse_ts(row.get("ts", ""))
+            if ts is None:
+                continue
+            by_day.setdefault(ts.astimezone().date().isoformat(), []).append(row)
+        if not by_day:
+            return {"days": days, "window": window, "points": [],
+                    "domains": self._trend_domains(), "total_attempts": 0}
+
+        first = datetime.fromisoformat(min(by_day)).date()
+        last = datetime.fromisoformat(max(by_day)).date()
+        today = datetime.now(timezone.utc).astimezone().date()
+        if today > last:
+            last = today
+        start = max(first, last - timedelta(days=days - 1))
+
+        domain_ids = [d["id"] for d in self._trend_domains()]
+        cum = {"attempts": 0, "correct": 0}
+        cum_dom = {d: {"attempts": 0, "correct": 0} for d in domain_ids}
+        daily: Dict[str, Dict[str, int]] = {}
+        points: List[Dict[str, Any]] = []
+
+        day = first
+        while day <= last:
+            key = day.isoformat()
+            todays = by_day.get(key, [])
+            hits = sum(1 for r in todays if r.get("correct"))
+            daily[key] = {"attempts": len(todays), "correct": hits}
+            cum["attempts"] += len(todays)
+            cum["correct"] += hits
+            for r in todays:
+                bucket = cum_dom.get(str(r.get("domain", "")))
+                if bucket is not None:
+                    bucket["attempts"] += 1
+                    bucket["correct"] += 1 if r.get("correct") else 0
+
+            if day >= start:
+                roll = {"attempts": 0, "correct": 0}
+                for back in range(window):
+                    seen = daily.get((day - timedelta(days=back)).isoformat())
+                    if seen:
+                        roll["attempts"] += seen["attempts"]
+                        roll["correct"] += seen["correct"]
+                points.append({
+                    "date": key,
+                    "attempts": len(todays),
+                    "correct": hits,
+                    **self._trend_stat("cum", cum["correct"], cum["attempts"]),
+                    **self._trend_stat("roll", roll["correct"], roll["attempts"]),
+                    "domains": {
+                        d: self._trend_stat("cum", cum_dom[d]["correct"],
+                                            cum_dom[d]["attempts"], counts=True)
+                        for d in domain_ids
+                    },
+                })
+            day += timedelta(days=1)
+
+        return {"days": days, "window": window, "points": points,
+                "domains": self._trend_domains(), "total_attempts": cum["attempts"]}
+
+    def _trend_domains(self) -> List[Dict[str, Any]]:
+        outline = self.outline.raw.get("domains", {})
+        return [{"id": did, "name": outline[did].get("name", ""),
+                 "weight": outline[did].get("weight")} for did in sorted(outline)]
+
+    @staticmethod
+    def _trend_stat(prefix: str, correct: int, attempts: int,
+                    counts: bool = False) -> Dict[str, Any]:
+        """A proportion is never returned without its denominator and interval."""
+        lo, hi = itemanalysis.wilson_interval(correct, attempts)
+        out = {
+            "%s_accuracy" % prefix: (correct / attempts) if attempts else None,
+            "%s_low" % prefix: lo if attempts else None,
+            "%s_high" % prefix: hi if attempts else None,
+            "%s_attempts" % prefix: attempts,
+            "%s_correct" % prefix: correct,
+        }
+        if counts:  # nested per-domain form uses bare keys
+            return {k.split("_", 1)[1]: v for k, v in out.items()}
+        return out
 
     # ------------------------------------------------------------------
     def _filtered(self, params: Dict[str, Any]) -> List[Question]:
