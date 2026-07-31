@@ -72,6 +72,27 @@ class TestClassifier(unittest.TestCase):
         self.assertEqual(games.classify_stem(
             "An IS auditor should be MOST concerned to find that:"), "risk")
 
+    def test_primary_concern_reads_as_risk_not_definition(self):
+        """PRIMARY normally signals a definition stem, so these two phrasings
+        have to be caught by the risk family before the definition family sees
+        them. They ask what is dangerous, not what something is."""
+        self.assertEqual(games.classify_stem(
+            "Which should the IS auditor identify as the PRIMARY concern?"), "risk")
+        self.assertEqual(games.classify_stem(
+            "The PRIMARY risk of this arrangement is that:"), "risk")
+        # the definition sense of PRIMARY must still classify as before
+        self.assertEqual(games.classify_stem(
+            "The PRIMARY purpose of a control self-assessment is to:"), "definition")
+
+    def test_strongest_is_recognized_without_swallowing_strongest_basis(self):
+        """House style permits STRONGEST and the classifier did not handle it.
+        The evidence family already claims 'STRONGEST basis', and that reading
+        has to keep winning."""
+        self.assertEqual(games.classify_stem(
+            "Which asset should receive the STRONGEST authentication controls?"), "control")
+        self.assertEqual(games.classify_stem(
+            "Which provides the STRONGEST basis for concluding on the control?"), "evidence")
+
     def test_evidence_beats_definition_and_control(self):
         self.assertEqual(games.classify_stem(
             "Which provides the BEST evidence that the review was effective?"), "evidence")

@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "B",
+    "batch": "d5b-002",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Second D5 section B batch. Every section B topic stood at three questions before this. Topic values must match the D5 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5b-019",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "hard",
+      "stem": "Over four quarters of phishing simulations, the proportion of staff clicking the link has fallen from 18% to 4%, while the proportion reporting the message to the security team has stayed at about 6%. Which conclusion should concern the IS auditor MOST?",
+      "options": {
+        "A": "The simulations have become easier to recognize, so the click rate improvement may not reflect real capability.",
+        "B": "Staff have learned to avoid the bait but not to raise the alarm, so a genuine campaign would run for a long time before anyone told the security team about it.",
+        "C": "A 4% click rate remains too high for an organization handling sensitive data.",
+        "D": "Reporting has not improved, which suggests the reporting mechanism is difficult to use."
+      },
+      "answer": "B",
+      "why_correct": "Not clicking protects the individual. Reporting protects the organization, because it is what converts one person's suspicion into detection and a blocked campaign for everyone else. A flat reporting rate means the security team learns about a live phishing campaign only when it has already succeeded somewhere, and the headline metric everyone is celebrating conceals exactly that.",
+      "why_wrong": {
+        "A": "Worth testing, and it questions whether the improvement is real. The larger issue is that even a real improvement in clicking leaves detection dependent on reporting, which has not moved.",
+        "C": "Judging 4% against an absolute standard is not very meaningful without a benchmark, and it is the trend and the missing behavior that carry the finding.",
+        "D": "A plausible contributing cause and one worth investigating. It is a possible explanation for the observation rather than the risk the observation reveals."
+      }
+    },
+    {
+      "id": "cisa-d5b-020",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "medium",
+      "stem": "An organization delivers the same annual security awareness module to all employees. Which of the following would MOST improve the programme's effectiveness?",
+      "options": {
+        "A": "Differentiating content by role, so that finance staff cover payment fraud, developers cover secure coding, and privileged administrators cover their specific exposure.",
+        "B": "Delivering the module twice a year rather than once.",
+        "C": "Increasing the assessment pass mark and requiring staff to repeat the module until they achieve it.",
+        "D": "Publishing completion rates by department to encourage competition."
+      },
+      "answer": "A",
+      "why_correct": "Risk is not distributed evenly across roles, and a module general enough for everyone is necessarily too shallow to change behavior in the roles that matter most. Someone who authorizes payments faces a different threat from someone who commits code, and targeting the content at what each group will actually encounter is what makes the training relevant enough to be retained.",
+      "why_wrong": {
+        "B": "More frequent reinforcement genuinely helps retention. Twice the volume of content that is not relevant to the recipient is still content that is not relevant to the recipient.",
+        "D": "Completion statistics measure attendance. Publishing them creates pressure to click through faster rather than to learn.",
+        "C": "A higher pass mark measures whether people can pass a test about the material, which is a weak proxy for behavior under pressure and mostly produces repeated attempts at the same questions."
+      }
+    },
+    {
+      "id": "cisa-d5b-021",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "A finance clerk receives an email that appears to come from the chief financial officer, referencing a live acquisition and instructing an urgent payment to a new supplier account. No malware or malicious link is present. Which control would BEST prevent loss?",
+      "options": {
+        "A": "An email gateway configured to flag messages originating outside the organization.",
+        "B": "Multifactor authentication on the finance team's email accounts.",
+        "C": "Data loss prevention rules applied to outbound email from finance.",
+        "D": "A mandatory out-of-band verification step for any change to payment details, using contact details already held rather than any supplied in the request."
+      },
+      "answer": "D",
+      "why_correct": "This attack contains no technical payload; it exploits authority, urgency and a process that lets a payment instruction be trusted on the strength of the message it arrived in. The control has to sit in the payment process itself, and verification through a separately held channel breaks the attack because the attacker controls only the channel they sent the message on.",
+      "why_wrong": {
+        "A": "External sender banners help and are widely ignored through sheer familiarity. They also fail entirely where the attacker has compromised a genuine internal or supplier mailbox.",
+        "B": "Multifactor authentication protects the finance team's own accounts from takeover. It does nothing about a message that was sent from somewhere else and merely looks internal.",
+        "C": "Outbound content inspection addresses data leaving the organization. The loss here is a payment, and no confidential data is being exfiltrated."
+      }
+    },
+    {
+      "id": "cisa-d5b-022",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "hard",
+      "stem": "An attacker tries a small number of very common passwords against a large number of valid user accounts, rather than many passwords against one account. Which control would BEST detect this activity?",
+      "options": {
+        "A": "Account lockout after five consecutive failed attempts on an account.",
+        "B": "Enforcement of a password blocklist covering commonly used and breached passwords.",
+        "C": "A minimum password length of sixteen characters for all accounts.",
+        "D": "Correlation of authentication failures by source address across the whole user population."
+      },
+      "answer": "D",
+      "why_correct": "Password spraying is shaped to stay under per-account thresholds, so it only becomes visible when you stop looking account by account. One source producing a low rate of failures against very many distinct accounts is an unmistakable signal in aggregate and invisible in any single account's history.",
+      "why_wrong": {
+        "A": "Lockout is the control the technique is designed around. Two or three attempts per account, paced over hours, never accumulates enough consecutive failures anywhere to trigger it.",
+        "B": "A blocklist is a strong preventive control here, since it removes the passwords the technique relies on. The stem asks what detects the activity, and a blocklist generates no signal.",
+        "C": "Length requirements make guessing harder and are preventive. They also do nothing to reveal that an attempt is under way."
+      }
+    },
+    {
+      "id": "cisa-d5b-023",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "Management presents the results of an unauthenticated external vulnerability scan, which reported very few findings, as evidence that the environment is secure. What is the IS auditor's MOST appropriate response?",
+      "options": {
+        "A": "Note that an unauthenticated scan from outside sees only internet-exposed services and cannot assess patch levels, configuration or internal exposure, so the conclusion drawn far exceeds what the test could support.",
+        "B": "Accept the results, since an external scan reflects the perspective of a real attacker.",
+        "C": "Request that the scan be repeated by an independent third party.",
+        "D": "Recommend that scanning frequency be increased to monthly."
+      },
+      "answer": "A",
+      "why_correct": "The finding here is about the gap between the evidence and the assertion. An unauthenticated external scan is a narrow test: it enumerates what is reachable from outside and cannot see missing patches on internal systems, weak configurations, excessive privilege or anything an authenticated session would reveal. Few findings from a narrow test is a statement about the test's reach, not about the security of the environment.",
+      "why_wrong": {
+        "C": "Independence does not widen the scope. The same test run by someone else returns the same narrow evidence.",
+        "D": "More frequent narrow tests produce more frequent narrow evidence. Frequency is not the limitation.",
+        "B": "It reflects one attacker's starting position, and most compromises proceed from a foothold inside. Accepting the conclusion accepts the scope limitation without noting it."
+      }
+    },
+    {
+      "id": "cisa-d5b-024",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "hard",
+      "stem": "A penetration test was performed against a pre-production environment because testing against production was considered too risky. The report concluded that no exploitable weaknesses were found. Which of the following is the MOST significant limitation on relying on that conclusion?",
+      "options": {
+        "A": "Penetration tests are point-in-time and the environment will change.",
+        "B": "The testers may not have had sufficient time allocated to the engagement.",
+        "C": "Pre-production environments commonly differ from production in configuration, patch level, data, integrations and network exposure, so the conclusion may not describe the system that is actually at risk.",
+        "D": "The test did not include social engineering of the support staff."
+      },
+      "answer": "C",
+      "why_correct": "A test result transfers only as far as the environment tested resembles the one you care about. Pre-production environments routinely differ in the ways that matter for security — different hardening, older or newer patches, relaxed network controls, absent integrations, and test rather than live data. A clean result there is evidence about that environment, and the strength of the inference to production depends entirely on how faithfully it is a replica.",
+      "why_wrong": {
+        "A": "True of every penetration test and a general caveat rather than the specific problem with this one.",
+        "B": "Time-boxing is a real constraint on any engagement, and nothing in the scenario suggests it was inadequate.",
+        "D": "Scope exclusions are worth noting, and social engineering is a separate discipline that is often deliberately out of scope. It does not undermine the technical conclusion the way an unrepresentative environment does."
+      }
+    },
+    {
+      "id": "cisa-d5b-025",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "hard",
+      "stem": "During an incident investigation it emerges that a critical server stopped forwarding logs to the security monitoring platform eleven weeks earlier, and nobody noticed. Which control would MOST likely have detected this?",
+      "options": {
+        "A": "Automated monitoring of log source health, alerting when an expected source stops reporting within a defined interval.",
+        "B": "Periodic review of the monitoring platform's correlation rules and use cases.",
+        "C": "Increasing the retention period for collected logs.",
+        "D": "Quarterly reconciliation of the monitoring platform's licence consumption against budget."
+      },
+      "answer": "A",
+      "why_correct": "Monitoring systems are built to alert on what arrives, so silence looks identical to nothing happening. The control has to invert that assumption: maintain the list of sources expected to report and alert when one falls quiet. This is the same completeness question that runs through the whole discipline — the dangerous item is the one missing from the population, and here it is an entire server's worth of evidence.",
+      "why_wrong": {
+        "C": "Longer retention preserves logs that were collected. It cannot recover eleven weeks that were never ingested.",
+        "D": "Licence reconciliation might catch a large drop in volume by accident, quarterly and after the fact, and it is a commercial control rather than a monitoring one.",
+        "B": "Rule review improves what the platform does with the data it receives. It does not reveal that data stopped arriving."
+      }
+    },
+    {
+      "id": "cisa-d5b-026",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "To reduce alert volume, a security operations team suppressed several detection rules that were generating large numbers of false positives. The suppressions were applied directly in the platform and have no expiry or review date. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "The team's alert handling metrics will appear to improve without any underlying change.",
+        "B": "Suppressions accumulate silently, so detection coverage degrades over time in ways nobody has decided to accept and nobody revisits.",
+        "C": "Suppressed rules will not be updated when the vendor issues new detection content.",
+        "D": "Analysts may become less familiar with the suppressed attack techniques."
+      },
+      "answer": "B",
+      "why_correct": "A suppression is a decision to stop detecting something, and made this way it is invisible, permanent and unowned. Individually each may have been reasonable; collectively they become an undocumented reduction in coverage that no one has approved, no one reviews, and no one can enumerate when asked what the platform is and is not watching for. Suppressions need an owner, a rationale and an expiry, exactly like a policy exception.",
+      "why_wrong": {
+        "A": "Metrics improving for the wrong reason is a genuine and secondary problem. It matters because of the coverage loss underneath it.",
+        "C": "Detection content management is an operational issue that follows from the suppression rather than being the principal risk.",
+        "D": "Analyst familiarity is a training consideration, not the control weakness."
+      }
+    },
+    {
+      "id": "cisa-d5b-027",
+      "topic": "Security Incident Response Management",
+      "difficulty": "hard",
+      "stem": "On finding malware on a workstation, an administrator immediately reimaged the machine and returned it to the user the same morning. Service was restored quickly. Which of the following should the IS auditor identify as the PRIMARY concern?",
+      "options": {
+        "A": "The user experienced downtime that could have been avoided by supplying a replacement device.",
+        "B": "Reimaging may not remove malware that has persisted in firmware or in other systems.",
+        "C": "Evidence of how the compromise occurred and what it reached was destroyed, so the organization cannot establish scope, root cause, or whether other systems are affected.",
+        "D": "The incident was not reported to senior management within the timeframe set out in the response plan."
+      },
+      "answer": "C",
+      "why_correct": "Restoring one machine is not the objective; establishing what happened to the organization is. Memory, running processes, network connections and the disk contents were the only record of how the attacker got in, how long they had been there and what else they touched, and reimaging destroyed all of it. The organization now has a clean workstation and no way to know whether the incident is over.",
+      "why_wrong": {
+        "A": "User downtime is an operational consideration and, in this scenario, was minimal. It is not what was lost.",
+        "B": "Persistence surviving a reimage is a real technical possibility. It is a narrower concern than having no basis on which to investigate at all.",
+        "D": "Reporting timeliness may well be a separate finding, and the scenario does not establish it. It also matters far less than the loss of the ability to investigate."
+      }
+    },
+    {
+      "id": "cisa-d5b-028",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "An organization has a documented incident response plan, trained responders and a defined escalation path. It does not define the criteria for declaring an incident or name who holds the authority to declare one. Which consequence is MOST likely?",
+      "options": {
+        "A": "Responders will lack the technical procedures needed to contain an incident effectively.",
+        "B": "Events will be handled as routine support tickets while people wait for someone to decide it is serious, so the response begins late and the plan is invoked only once damage is evident.",
+        "C": "External notification obligations will be missed because no legal contact is identified.",
+        "D": "Post-incident reviews will not be conducted because no one owns the process."
+      },
+      "answer": "B",
+      "why_correct": "Everything in the plan is triggered by declaration, so an undefined trigger with no named authority leaves the whole apparatus idle. In practice the event stays in the ordinary queue, gets handled at ordinary urgency, and is escalated only when the impact becomes undeniable — which is exactly the delay the plan exists to prevent. Naming who can declare, and on what criteria, is what makes the rest of the document operational.",
+      "why_wrong": {
+        "A": "The scenario states responders are trained and the plan is documented. The gap is in starting the process, not in executing it.",
+        "C": "Missing notification contacts would be a real deficiency and it is not what the stem describes.",
+        "D": "Post-incident review ownership is a distinct gap, and it concerns what happens after a response that has not yet been triggered."
+      }
+    },
+    {
+      "id": "cisa-d5b-029",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "medium",
+      "stem": "A server is suspected of having been compromised and the matter may lead to legal proceedings. Which sequence BEST reflects the order in which evidence should be collected?",
+      "options": {
+        "A": "Take a full disk image, then capture memory, then record network connections.",
+        "B": "Shut the system down cleanly to preserve the disk, then image it, then interview the administrators.",
+        "C": "Collect archived backups first, since they establish the system's known-good state, then image the live disk.",
+        "D": "Capture volatile data first — memory and running processes, then network state — before imaging the disk and collecting archived media."
+      },
+      "answer": "D",
+      "why_correct": "The order of volatility governs collection: whatever disappears soonest is captured first. Memory contents, running processes and live network connections vanish the moment the system is powered off or, in some cases, within seconds, while disk contents and archived media persist. Capturing in any other order means deliberately choosing to lose the most fragile evidence, which frequently includes the only record of what was actually executing.",
+      "why_wrong": {
+        "A": "This inverts the priority. Imaging the disk takes substantial time, during which volatile evidence continues to decay or is lost outright.",
+        "B": "A clean shutdown destroys memory and may trigger anti-forensic routines. It also does not preserve the disk any better than a live image taken with a write blocker.",
+        "C": "Backups describe an earlier state and are not volatile, so they can be collected at any point. Prioritizing them sacrifices the evidence that will not wait."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-030",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "hard",
+      "stem": "An internal team acquired disk images during an investigation. The images were hashed at acquisition and the hashes still match. Storage was in a shared team area and no record was kept of who accessed the images or when. Which of the following presents the GREATEST exposure if the matter proceeds to litigation?",
+      "options": {
+        "A": "The hashes may have been generated with an algorithm no longer considered collision-resistant.",
+        "B": "The investigators were internal staff rather than certified forensic examiners.",
+        "C": "There is no continuous documented chain of custody, so the organization cannot demonstrate who had access to the evidence between acquisition and production.",
+        "D": "The images were not stored in an encrypted container."
+      },
+      "answer": "C",
+      "why_correct": "Matching hashes demonstrate that the data has not changed. Chain of custody answers a different question: who held the evidence, when, and for what purpose, from acquisition through to production. Without that record, opposing counsel can challenge handling without needing to show anything was altered, and an unexplained gap has been enough to have evidence excluded entirely.",
+      "why_wrong": {
+        "A": "Algorithm strength is worth checking and is a technical argument about integrity, which the matching hashes otherwise support. It is a narrower attack than the absence of any custody record.",
+        "B": "Competence of the examiners may be challenged and can often be addressed by demonstrating sound method and qualifications. It is a weaker ground than an unaccounted-for gap in handling.",
+        "D": "Encryption at rest protects confidentiality of the evidence. It is good practice and does not establish who had access to it."
+      }
+    }
+  ]
+}

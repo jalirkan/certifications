@@ -57,6 +57,10 @@ _ASK_RULES: List[Tuple[str, List[str]]] = [
     ("risk", [
         r"GREATEST risk", r"GREATEST concern", r"MOST concerned", r"GREATEST limitation",
         r"GREATEST challenge", r"GREATEST control risk", r"presents the GREATEST",
+        # PRIMARY normally signals a definition stem, so these two live here
+        # rather than in that family: "PRIMARY concern" and "PRIMARY risk" ask
+        # what is most dangerous, not what something is.
+        r"PRIMARY concern", r"PRIMARY risk",
         r"MOST significant limitation", r"MOST likely to limit", r"MOST likely to be impaired",
         r"MOST likely to (?:result|undermine|reduce)", r"would MOST undermine",
         r"MOST likely consequence", r"MOST likely explanation", r"GREATEST",
@@ -82,6 +86,10 @@ _ASK_RULES: List[Tuple[str, List[str]]] = [
         r"BEST supports?", r"BEST handled", r"recommendation is MOST", r"BEST be", r"should BEST",
         r"MOST effective", r"BEST determined", r"MOST directly driven", r"BEST structured",
         r"BEST assessed", r"BEST performed", r"MOST useful", r"BEST", r"MOST",
+        # House style permits STRONGEST (see README) and it was unhandled. It
+        # sits last in this family so the evidence pattern "STRONGEST basis"
+        # still wins, which is the reading that stem actually wants.
+        r"STRONGEST",
     ]),
 ]
 

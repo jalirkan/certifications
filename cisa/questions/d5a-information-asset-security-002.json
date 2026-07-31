@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "A",
+    "batch": "d5a-002",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Second D5 section A batch. Targets the topics sitting at three questions, where a 150-question mock was already re-serving items. Topic values must match the D5 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5a-038",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "An organization has deployed data loss prevention across email, endpoints and web traffic using the vendor's default policy templates. No data classification scheme exists. Which of the following should be the IS auditor's GREATEST concern?",
+      "options": {
+        "A": "The default templates may not recognize every file format in use across the business.",
+        "B": "The rules encode the vendor's assumptions about what is sensitive rather than the organization's, so the tool will both miss material data and generate unactionable alerts.",
+        "C": "Endpoint agents consume resources and may degrade performance on older hardware.",
+        "D": "Monitoring of employee communications has not been reviewed by legal and privacy counsel."
+      },
+      "answer": "B",
+      "why_correct": "Data loss prevention acts on a definition of what is sensitive. Absent classification, that definition belongs to the vendor, so the tool is protecting a generic notion of sensitive data rather than this organization's. Both failure directions matter: material information leaves undetected, and the volume of irrelevant alerts trains the response team to ignore the console.",
+      "why_wrong": {
+        "A": "Format coverage is a genuine gap and a narrower one. It matters only once you have established what you are trying to detect in the first place.",
+        "C": "Endpoint performance is an operational consideration for the deployment, not a reason the control fails to meet its objective.",
+        "D": "Legal and privacy review of monitoring is important and may well be its own finding, but it concerns the legitimacy of the surveillance rather than whether the control detects data loss."
+      }
+    },
+    {
+      "id": "cisa-d5a-039",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "A data loss prevention tool has run in monitoring mode for six months and has generated more than forty thousand alerts. None has been formally triaged, and no owner has been assigned to the queue. What should the IS auditor recommend FIRST?",
+      "options": {
+        "A": "Move the tool from monitoring mode into blocking mode so that policy violations are prevented rather than recorded.",
+        "B": "Increase the sensitivity thresholds so that fewer alerts are generated.",
+        "C": "Assign ownership of the alert queue and define a triage and response procedure, then tune the policies against what triage actually finds.",
+        "D": "Extend the monitoring period to gather more data before drawing conclusions."
+      },
+      "answer": "C",
+      "why_correct": "A detective control that produces output nobody examines is not operating, whatever the console shows. Ownership and a response procedure are what convert alerts into a control, and they also generate the evidence needed to tune sensibly, because you cannot tell a false positive from a real one until somebody has looked.",
+      "why_wrong": {
+        "A": "Blocking on untuned rules that nobody has validated will stop legitimate business traffic, and the resulting pressure usually gets the whole tool switched off. Prevention is the right destination and the wrong first step.",
+        "B": "Raising thresholds reduces the noise and the detections together. Without triage you have no basis for deciding which alerts were worth having.",
+        "D": "Six months and forty thousand alerts is not a shortage of data. More of the same evidence will not answer a question about ownership."
+      }
+    },
+    {
+      "id": "cisa-d5a-040",
+      "topic": "Data Loss Prevention",
+      "difficulty": "hard",
+      "stem": "Management states that data loss prevention gives assurance that confidential information cannot leave the organization. Which of the following represents the MOST significant limitation of that assertion?",
+      "options": {
+        "A": "Data loss prevention licences are usually priced per endpoint, so cost constrains coverage.",
+        "B": "The tool inspects content only at the moment of transmission and not at rest.",
+        "C": "Users can appeal blocked transmissions, and appeals are frequently granted.",
+        "D": "Channels the tool cannot see — encrypted traffic that is not decrypted for inspection, personal devices outside management, photographs of a screen — carry data past it entirely."
+      },
+      "answer": "D",
+      "why_correct": "The claim is about what cannot happen, and it is only as strong as the tool's coverage of the paths data can take. Uninspected encrypted sessions, unmanaged personal devices and analogue routes such as photographing a screen are outside the control's reach, so the correct conclusion is that data loss prevention reduces and detects loss over the channels it covers rather than preventing it absolutely.",
+      "why_wrong": {
+        "A": "Licence cost may constrain a deployment in practice, but it is a budget constraint rather than a limitation inherent in what the control can do.",
+        "B": "Most data loss prevention suites include discovery of data at rest as well as transmission inspection, so this misstates the technology.",
+        "C": "An appeal process is a normal part of a workable deployment and generates a reviewable record. It weakens enforcement at the margin, not the fundamental coverage claim."
+      }
+    },
+    {
+      "id": "cisa-d5a-041",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "In reviewing an internal public key infrastructure, which of the following would provide the BEST assurance over the integrity of the certificates issued?",
+      "options": {
+        "A": "The root certification authority is kept offline, its private key is held in a hardware security module, and issuance is delegated to subordinate authorities under a documented certificate policy.",
+        "B": "Certificates are issued with a maximum validity period of one year.",
+        "C": "All issued certificates use a current signing algorithm and a key length that meets the organization's cryptographic standard.",
+        "D": "The certification authority is hosted in a data centre with restricted physical access and continuous video surveillance."
+      },
+      "answer": "A",
+      "why_correct": "Everything the infrastructure asserts rests on the root's private key. Keeping the root offline removes the network path to it, a hardware security module resists extraction even by an administrator with physical access, and delegating routine issuance to subordinates means a compromised subordinate can be revoked without rebuilding trust from the ground up. The certificate policy is what makes issuance decisions testable.",
+      "why_wrong": {
+        "B": "Shorter validity limits the window of exposure for any one certificate. It does nothing about compromise of the key that signs them all.",
+        "C": "Algorithm and key length matter, and they protect the cryptography rather than the issuance process. Strong algorithms signed by a stolen key produce perfectly valid, entirely untrustworthy certificates.",
+        "D": "Physical control is necessary and not sufficient. It does not address remote compromise, and it does not protect the key from a privileged insider who is authorized to be in the room."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-042",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "hard",
+      "stem": "An organization revokes a certificate immediately after the associated private key is found to have been exposed. Users nevertheless continue to connect successfully to the affected service for several days. Which of the following is the MOST likely explanation?",
+      "options": {
+        "A": "The revocation was recorded against the subordinate authority rather than the root.",
+        "B": "Certificate revocation lists are cached, and the clients treat a failed revocation check as success rather than refusing the connection.",
+        "C": "The certificate had not yet reached its expiry date.",
+        "D": "The private key remains mathematically valid regardless of the revocation entry."
+      },
+      "answer": "B",
+      "why_correct": "Revocation only protects anybody if relying parties check it and act on the result. Clients commonly cache revocation lists for a period, and many soft-fail by design — when the revocation service is slow or unreachable they proceed rather than break the connection. The certificate is revoked in the registry and still accepted in practice, which is exactly the gap between publishing a revocation and enforcing one.",
+      "why_wrong": {
+        "A": "Revoking at the wrong level would be a procedural error, but the scenario says the certificate itself was revoked. This does not explain acceptance by clients that check properly.",
+        "C": "Revocation exists precisely to invalidate a certificate before its expiry date. That it has not expired is the reason revocation was needed, not the reason it was ineffective.",
+        "D": "True and irrelevant to the mechanism. The point of revocation is that relying parties stop trusting the binding; the key's mathematical properties were never what conferred trust."
+      }
+    },
+    {
+      "id": "cisa-d5a-043",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "Which of the following weaknesses in a public key infrastructure would present the GREATEST risk?",
+      "options": {
+        "A": "Certificates are issued with a two-year validity period rather than one.",
+        "B": "The registration authority accepts self-asserted identity information without independent verification before certificates are issued.",
+        "C": "The certificate revocation list is published every twenty-four hours rather than continuously.",
+        "D": "Subscribers are permitted to generate their own key pairs rather than having them generated centrally."
+      },
+      "answer": "B",
+      "why_correct": "A certificate binds a public key to an identity, and the whole structure is worth exactly as much as that binding. If the registration authority does not verify who it is issuing to, the infrastructure will faithfully and cryptographically vouch for an impostor. No amount of key strength, validity management or revocation discipline repairs an identity assertion that was never checked.",
+      "why_wrong": {
+        "A": "A longer validity period widens the exposure window and is a tuning question, not a failure of the trust model.",
+        "C": "Daily revocation publication leaves a window in which a revoked certificate is still accepted. It is a real weakness and a bounded one, and it presupposes that certificates were issued to the right parties.",
+        "D": "Subscriber-generated key pairs are generally preferred, since the private key never exists anywhere but with its owner. Central generation is what raises questions about key escrow and non-repudiation."
+      }
+    },
+    {
+      "id": "cisa-d5a-044",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "An organization runs production workloads on virtual machines in an infrastructure-as-a-service platform. Management states that the provider is responsible for security patching. Which of the following BEST describes the position an IS auditor should take?",
+      "options": {
+        "A": "Management is correct; patching is part of the infrastructure service being purchased.",
+        "B": "Management is correct provided the contract includes a service level for patch timeliness.",
+        "C": "Under infrastructure as a service the provider patches the hypervisor and the physical estate, while the guest operating system, middleware and applications remain the customer's responsibility.",
+        "D": "Responsibility depends on whether the virtual machines were built from provider-supplied images."
+      },
+      "answer": "C",
+      "why_correct": "The shared responsibility model divides at the layer being consumed. In infrastructure as a service the customer rents compute and storage, so everything from the guest operating system upward is theirs to patch, configure and monitor. Believing otherwise produces exactly the finding auditors encounter most often in cloud estates: unpatched guests running for years because each party assumed the other was responsible.",
+      "why_wrong": {
+        "A": "This is the misconception the question is built on. It is accurate for software as a service and wrong for infrastructure as a service.",
+        "B": "A service level cannot transfer an obligation the provider never accepted. The contract would need to place guest patching within scope, which is not what infrastructure as a service normally provides.",
+        "D": "A provider-supplied image is patched as at the date it was published and drifts from that moment. The image's origin does not move ongoing responsibility."
+      }
+    },
+    {
+      "id": "cisa-d5a-045",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "During a review of a virtualized environment, an IS auditor finds several hundred virtual machine snapshots retained indefinitely, many taken from systems that process personal data. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "Snapshots hold full copies of production data, outside the access controls, retention schedule and monitoring that apply to the live systems.",
+        "B": "Snapshot storage consumes capacity that has not been included in the capacity plan.",
+        "C": "Restoring from an old snapshot could reintroduce vulnerabilities that have since been patched.",
+        "D": "Snapshot proliferation degrades the performance of the underlying storage."
+      },
+      "answer": "A",
+      "why_correct": "A snapshot is a complete copy of the data, and it typically sits outside everything protecting the original: the access model is the virtualization platform's rather than the application's, retention schedules and deletion obligations are not applied to it, and access to it is rarely logged or reviewed. Protection has to follow the data wherever it goes, and snapshots are the classic place it does not.",
+      "why_wrong": {
+        "B": "Uncontrolled storage growth is a real operational cost and does not compare with unmanaged copies of personal data.",
+        "C": "Reintroducing an unpatched state is a genuine risk of restoring old images, and it depends on someone choosing to restore. The exposure of the retained copies is present continuously.",
+        "D": "Performance degradation from long snapshot chains is an operational concern rather than a data protection one."
+      }
+    },
+    {
+      "id": "cisa-d5a-046",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "hard",
+      "stem": "Which of the following should receive the STRONGEST authentication and monitoring controls in a public cloud deployment?",
+      "options": {
+        "A": "The administrative accounts on the production database instances.",
+        "B": "The service accounts used by applications to call platform interfaces.",
+        "C": "The accounts used by developers to deploy code through the delivery pipeline.",
+        "D": "The cloud management plane accounts that can create, reconfigure and destroy any resource in the tenancy."
+      },
+      "answer": "D",
+      "why_correct": "The management plane is the layer above every workload. An account with control of it can create resources, alter network boundaries, disable logging, snapshot storage and delete the entire estate — including the evidence of having done so. Compromise there does not have to defeat any individual system's controls, because it can simply reconfigure them, which is why it warrants the strongest authentication and the most independent monitoring in the environment.",
+      "why_wrong": {
+        "A": "Database administrative access is highly privileged over one system's data. The management plane can reach that system and every other one.",
+        "B": "Application service accounts need vaulting, rotation and least privilege, and they are normally scoped to particular services rather than to the tenancy.",
+        "C": "Pipeline credentials are a serious target and a real path into production. They still operate within boundaries the management plane defines and can remove."
+      }
+    },
+    {
+      "id": "cisa-d5a-047",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "An organization is introducing a bring-your-own-device programme. Which approach BEST balances protection of corporate data against the personal ownership of the device?",
+      "options": {
+        "A": "Require full-device encryption and enrol each device for full remote wipe.",
+        "B": "Permit access only through a virtual desktop, with no data stored on the device at all.",
+        "C": "Containerize corporate applications and data so that policy, encryption and selective wipe apply to the container rather than to the whole device.",
+        "D": "Require employees to sign an acceptable use agreement accepting responsibility for corporate data on their devices."
+      },
+      "answer": "C",
+      "why_correct": "Containerization separates the two interests rather than trading one against the other. Corporate data sits inside a managed boundary that can be encrypted, policy-controlled and wiped on termination, while the employee's photographs, messages and applications are untouched and unmonitored. That separation is also what makes the control enforceable, because employees are far more willing to enrol when personal data is demonstrably out of scope.",
+      "why_wrong": {
+        "A": "Full-device wipe capability over personally owned property is the arrangement most likely to be resisted, disabled or litigated, and an accidental wipe of a personal device is a serious matter.",
+        "B": "A virtual desktop is a strong architecture and a poor balance for this requirement. It depends on connectivity, suits a narrow set of tasks, and is a heavy answer to a mobile access problem.",
+        "D": "An agreement allocates responsibility after something goes wrong. It is an administrative control with no technical enforcement, and it does not protect the data."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-048",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "hard",
+      "stem": "A manufacturer has installed several hundred networked sensors on its production line. The devices ship with hard-coded credentials, receive no firmware updates from the vendor, and cannot support an endpoint agent. Which of the following is the BEST compensating control?",
+      "options": {
+        "A": "Place the devices on a dedicated, strictly filtered network segment that permits only the specific flows they require, and monitor that segment.",
+        "B": "Document acceptance of the risk, approved by the business owner, and review it annually.",
+        "C": "Change the default credentials on every device and record them in the privileged access vault.",
+        "D": "Require the vendor to provide a security attestation covering the device firmware."
+      },
+      "answer": "A",
+      "why_correct": "The devices themselves cannot be secured — the credentials are fixed, there is no patch path and no agent can be installed. When a control cannot be implemented on the asset, the compensating control has to address the same risk from outside it, and restricting what the devices can reach and what can reach them limits the blast radius of a compromise that must be assumed possible. Monitoring the segment provides the detection the endpoints cannot.",
+      "why_wrong": {
+        "B": "Risk acceptance is a decision, not a control. It changes who is answerable and leaves the exposure exactly where it was, and it is not an alternative when a workable mitigation exists.",
+        "C": "The stem says the credentials are hard-coded, so they cannot be changed. Vaulting a credential that is also embedded in the firmware and known to anyone with the same model achieves nothing.",
+        "D": "An attestation is documentation about a device that still cannot be patched. It may support procurement decisions; it does not reduce the risk of the units already installed."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-049",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "A corporate wireless network uses WPA2 with a pre-shared key that is distributed to staff and has not been changed in three years. Which of the following BEST addresses the resulting risk?",
+      "options": {
+        "A": "Rotate the pre-shared key quarterly and distribute the new value through a secure channel.",
+        "B": "Migrate to WPA2 or WPA3 Enterprise with 802.1X, so that each user authenticates individually against the directory.",
+        "C": "Stop broadcasting the network name and enable MAC address filtering.",
+        "D": "Require a virtual private network connection for any access to internal systems over wireless."
+      },
+      "answer": "B",
+      "why_correct": "A shared key gives no individual accountability and cannot be withdrawn from one person: every leaver, contractor and guest who ever had it retains access until the key changes for everybody. Enterprise authentication with 802.1X binds wireless access to an individual directory account, so revocation happens through the ordinary joiners-movers-leavers process and access can be attributed to a person.",
+      "why_wrong": {
+        "A": "Rotation shortens the exposure window and preserves the underlying problem. Every rotation is also a mass redistribution exercise, which is where keys leak.",
+        "C": "Hiding the network name and filtering by MAC address are trivially defeated by observing traffic, and neither addresses the shared credential.",
+        "D": "A virtual private network protects the traffic and leaves an unauthorized party attached to the corporate wireless network, able to reach anything else on it."
+      }
+    }
+  ]
+}
