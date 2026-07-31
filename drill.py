@@ -22,6 +22,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from drillkit import (  # noqa: E402
     cases as cases_mod,
+    caserunner,
+    casesession,
     exam as exam_mod,
     examsession,
     games,
@@ -338,6 +340,81 @@ def cmd_stats(args) -> int:
         print("%d question(s) not yet seen - they are queued ahead of review items." % len(untouched))
     print(RULE)
     return 0
+
+
+def cmd_case(args) -> int:
+    """Play a branching case in the terminal.
+
+    Every other feature works from both the CLI and the web app; a case runner
+    that only existed in the browser would break that symmetry, and the terminal
+    is where the format gets stress-tested fastest.
+    """
+    results_path = loader.results_path(args.cert, args.profile)
+    try:
+        case_list = cases_mod.load_cases(args.cert)
+    except cases_mod.CaseError as exc:
+        print("Cannot load cases: %s" % exc)
+        return 1
+
+    if args.stats:
+        caserunner.summarise(
+            casesession.load_results(casesession.cases_log_path(results_path)))
+        return 0
+
+    if not case_list:
+        print("No cases found in %s" % cases_mod.cases_dir(args.cert))
+        return 1
+
+    if args.resume:
+        try:
+            state = casesession.load(results_path, args.resume)
+        except casesession.CaseSessionError as exc:
+            print(str(exc))
+            return 1
+        if state.finished:
+            print("That case is already finished. Its debrief:")
+        case = next((c for c in case_list if c.id == state.case_id), None)
+        if case is None:
+            print("The case '%s' no longer exists." % state.case_id)
+            return 1
+        runner = caserunner.CaseRunner(case, args.cert, results_path)
+        if state.finished:
+            runner._debrief(state)
+            return 0
+        return runner.run(state)
+
+    index = casesession.case_index(case_list, results_path)
+    if args.list or not args.case_id:
+        print(RULE)
+        print("BRANCHING CASES")
+        print(RULE)
+        for entry in index:
+            played = ("%d run(s)" % entry["attempts"]) if entry["attempts"] else "not played"
+            openish = ("  [open session %s, %d decisions in]"
+                       % (entry["open_session"], entry["open_decisions"])) if entry["open_session"] else ""
+            print()
+            print("  %-24s  D%s  %d nodes, %d endings  ~%d min"
+                  % (entry["id"], entry["domain"], entry["nodes"],
+                     entry["endings"], entry["minutes"]))
+            print("    %s" % entry["title"])
+            print("    %s%s" % (played, openish))
+        print()
+        if args.list:
+            return 0
+        print("Play one with:  python drill.py case <id>")
+        return 0
+
+    case = next((c for c in case_list if c.id == args.case_id), None)
+    if case is None:
+        print("No case with id '%s'. Try 'python drill.py case --list'." % args.case_id)
+        return 1
+
+    errors, _ = cases_mod.validate_case(case)
+    if errors:
+        print("That case has %d validation error(s). Run 'validate' first." % len(errors))
+        return 1
+
+    return caserunner.CaseRunner(case, args.cert, results_path).run()
 
 
 def cmd_validate(args) -> int:
@@ -809,6 +886,15 @@ def build_parser() -> argparse.ArgumentParser:
     c.add_argument("--principle", help="rule id (default: your weakest)")
     c.add_argument("--seed", type=int, help="fixed shuffle seed")
     c.set_defaults(func=cmd_costumes)
+
+    ca = sub.add_parser("case",
+                        help="branching audit case: sequential judgment, graded options")
+    ca.add_argument("case_id", nargs="?",
+                    help="which case to play (default: pick from a list)")
+    ca.add_argument("--list", action="store_true", help="list available cases")
+    ca.add_argument("--resume", metavar="ID", help="continue a saved case session")
+    ca.add_argument("--stats", action="store_true", help="your case history")
+    ca.set_defaults(func=cmd_case)
 
     return p
 

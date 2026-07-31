@@ -205,6 +205,7 @@ export function Dashboard() {
           Target weak rules
         </button>
         <Link className="btn" to="/exam">Mock exam</Link>
+        <Link className="btn" to="/cases">Branching case</Link>
         <Link className="btn" to="/games">Short form</Link>
       </div>
 

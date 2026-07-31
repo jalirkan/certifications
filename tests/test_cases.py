@@ -231,6 +231,24 @@ class TestValidation(unittest.TestCase):
         case.nodes["start"]["options"][1]["taint"] = "fatal"
         self.assertTrue(any("unknown ending 'end-missing'" in e for e in self._errors(case)))
 
+    def test_an_inert_taint_warns(self):
+        """A taint whose option already leads to the taint's ending cannot
+        change anything, so `overridden` is permanently false and the debrief
+        silently loses its most useful sentence. Found in real content."""
+        case = minimal(taints={"fatal": "end-weak"})
+        case.nodes["start"]["options"][1]["taint"] = "fatal"   # already next=end-weak
+        self.assertTrue(any("is inert" in w for w in self._warnings(case)))
+
+    def test_a_taint_that_can_override_does_not_warn(self):
+        case = minimal(taints={"fatal": "end-weak"})
+        case.nodes["start"]["options"][0]["taint"] = "fatal"   # next=second, so it fires
+        self.assertFalse(any("is inert" in w for w in self._warnings(case)))
+
+    def test_no_shipped_taint_is_inert(self):
+        for case in C.load_cases("cisa"):
+            inert = [w for w in C.validate_case(case)[1] if "is inert" in w]
+            self.assertEqual(inert, [], "%s has a taint that cannot fire" % case.id)
+
     def test_a_declared_but_unused_taint_warns(self):
         case = minimal(taints={"fatal": "end-weak"})
         self.assertTrue(any("no option applies it" in w for w in self._warnings(case)))

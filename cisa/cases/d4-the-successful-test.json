@@ -17,9 +17,7 @@
   "minutes": 10,
   "origin": "Original scenario written for this study system. No third-party content reproduced.",
   "opening": "You are reviewing business resilience at a regional insurer. The annual disaster recovery test took place four months ago.\n\nThe test report is two pages, signed by the CIO. Its conclusion reads: \"Test completed successfully. All in-scope systems recovered at the alternate site within the defined recovery time objective. No material issues identified.\"\n\nThe claims register shows a recovery time objective of 8 hours for the policy administration system.",
-  "taints": {
-    "accepted-scope-defence": "end-unproven"
-  },
+  "taints": {},
   "nodes": {
     "start": {
       "situation": "You have the test report, the DR plan, and access to whoever you want to talk to.",
@@ -59,7 +57,6 @@
         }
       ]
     },
-
     "the-scope": {
       "situation": "The test scope covered failover of infrastructure to the alternate site: servers, network, and the application tier for four systems including policy administration.\n\nOne line in the test plan reads: \"Data restoration simulated.\"",
       "prompt": "What do you make of that line?",
@@ -90,7 +87,6 @@
         }
       ]
     },
-
     "the-fourteen-hours": {
       "situation": "A full restore of the policy administration system takes approximately fourteen hours. The documented recovery time objective for that system is eight hours.",
       "prompt": "What does that tell you?",
@@ -121,7 +117,6 @@
         }
       ]
     },
-
     "who-set-the-rto": {
       "situation": "You ask where the 8-hour objective came from. The answer: IT set it during the DR programme three years ago, based on what they believed was achievable at the time. The business impact analysis on file was produced by the same IT programme team.",
       "prompt": "Does that change anything?",
@@ -152,7 +147,6 @@
         }
       ]
     },
-
     "the-scope-defence": {
       "situation": "At the clearance meeting the CIO makes a reasonable point: \"The test was successful against its defined scope. That's what the report says and it's accurate. You're proposing to report a failure of a test that passed.\"",
       "prompt": "How do you respond?",
@@ -161,7 +155,6 @@
           "key": "A",
           "text": "Agree that the test met its scope, and revise the finding to a recommendation that future scopes be broadened.",
           "quality": "poor",
-          "taint": "accepted-scope-defence",
           "next": "end-unproven",
           "consequence": "The finding becomes a forward-looking recommendation. The report does not say the recovery objective cannot currently be met.",
           "why": "He is right that the test passed and it does not matter. The reportable fact is not that the test failed — it is that the capability is unproven and, on the organisation's own numbers, unachievable. Converting that into a suggestion about future test design removes the only thing worth saying."
@@ -178,20 +171,25 @@
           "key": "C",
           "text": "Report that the test report is misleading because it implies a capability that was not demonstrated.",
           "quality": "defensible",
-          "next": "end-strong",
+          "next": "end-acceptable",
           "consequence": "The conversation becomes adversarial. The substance survives into the report, with more friction than it needed.",
           "why": "The substance is right and the framing makes it about the honesty of his report rather than about the exposure. You will usually get further attacking the gap than the document, and here you did not need the fight to win the point."
         }
       ]
     }
   },
-
   "endings": {
     "end-strong": {
       "title": "A passed test and an unmet objective",
       "verdict": "strong",
       "narrative": "The report states that the annual test met its defined scope, and separately that full data restoration has never been exercised, that restoration alone is estimated at fourteen hours against an eight-hour objective, and that the objective itself was set by IT rather than derived from business impact — where the claims function puts the real tolerance nearer four hours. The board commissions a recovery capability review.",
       "why": "Three findings, each of which required refusing a comfortable answer: that a signed report is not evidence, that one word in a test plan was the whole story, and that a benchmark set by the party being measured is not a benchmark. None of them required disputing anything anyone said."
+    },
+    "end-acceptable": {
+      "title": "The gap is reported, the argument is not won",
+      "verdict": "acceptable",
+      "narrative": "The report records that data restoration has never been exercised and that restoration alone is estimated at fourteen hours against an eight-hour objective. The framing puts the test report's accuracy in question rather than the capability gap, and the clearance meeting becomes an argument about wording. The finding survives; the recommendation is softened to a review of future test scopes.",
+      "why": "The substance was right and the framing cost you the outcome. Conceding that the test passed is free — it is true, and it moves the conversation to the thing that is actually reportable. Disputing the document instead invites a defence of the document, which is the one argument the CIO can win."
     },
     "end-unproven": {
       "title": "Capability remains untested and unreported",

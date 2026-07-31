@@ -14,7 +14,18 @@
       "Bash(rm -rf cisa/results/profiles/tmpcheck)",
       "Bash(rmdir cisa/results/profiles)",
       "Bash(where pwsh *)",
-      "PowerShell(cd C:\\\\Users\\\\jalir\\\\Projects\\\\certifications; npm --prefix frontend run build 2>&1 | Select-Object -Last 6; \"exit=$LASTEXITCODE\"; \"--- web/ ---\"; Get-ChildItem web | Select-Object -ExpandProperty Name)"
+      "PowerShell(cd C:\\\\Users\\\\jalir\\\\Projects\\\\certifications; npm --prefix frontend run build 2>&1 | Select-Object -Last 6; \"exit=$LASTEXITCODE\"; \"--- web/ ---\"; Get-ChildItem web | Select-Object -ExpandProperty Name)",
+      "Bash(python drill.py case --list --profile clitest)",
+      "Bash(python drill.py --profile clitest case --list)",
+      "Bash(python drill.py --profile clitest case d4-the-successful-test)",
+      "Bash(python drill.py --profile clitest2 case d4-the-successful-test)",
+      "Bash(python drill.py --profile clitest2 principles)",
+      "Bash(python -c \"import sys; print\\(sys.stdout.encoding\\)\")",
+      "Bash(python drill.py validate)",
+      "Bash(python -m unittest tests.test_casesession)",
+      "Bash(curl -s -H \"X-Profile: casedemo\" http://127.0.0.1:8765/api/cases)",
+      "Bash(python drill.py --profile casedemo case --stats)",
+      "Bash(python drill.py --profile finalcheck case d5-encrypted-share)"
     ]
   }
 }

@@ -229,6 +229,15 @@ def validate_case(case: Case, outline: Optional[Outline] = None,
                 if taint not in declared_taints:
                     errors.append("%s option %s: undeclared taint '%s'"
                                   % (where, key, taint))
+                elif opt.get("next") == (case.taints or {}).get(taint):
+                    # The taint cannot change anything: the option already leads
+                    # where the taint would send it. A plain edge says this, and
+                    # a taint here makes `overridden` permanently false — which
+                    # silently costs the debrief its most useful sentence.
+                    warnings.append(
+                        "%s option %s: taint '%s' is inert — 'next' already points at "
+                        "'%s', so the taint can never override anything"
+                        % (where, key, taint, opt.get("next")))
 
     for unused in sorted(declared_taints - used_taints):
         warnings.append("%s: taint '%s' is declared but no option applies it"

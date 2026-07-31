@@ -36,14 +36,15 @@ lose data.
 | Decision rules | 22 documented, 223 of 292 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 63 questions mapped, **2 known gaps** |
 | Study guides | D5 complete; **D1–D4 missing** |
-| Tests | **195, all passing** — `python run_tests.py` |
+| Branching cases | 3 written (~35 needed); playable in the browser and the CLI |
+| Tests | **259, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
 ```
 certifications/
-  drill.py            CLI: drill / exam / game / principles / costumes / stats / items / validate / list
+  drill.py            CLI: drill / exam / case / game / principles / costumes / stats / items / validate / list
   serve.py            local web app, stdlib http.server, binds 127.0.0.1 only
   run_tests.py        runs every suite
   frontend/           web front end source — Vite + React + TS. `npm run build` emits to web/
@@ -57,6 +58,9 @@ certifications/
     exam.py             blueprint sampling, exam state, scoring
     examsession.py      timed exam runner and report
     games.py            Cold Read and Autopsy, question-type classifier
+    cases.py            branching-case data, validation, path analysis
+    casesession.py      case session state, choosing, the debrief
+    caserunner.py       terminal runner for cases
     itemanalysis.py     difficulty, discrimination, distractor quality
     principles.py       decision-rule diagnosis and study card
     webapi.py           JSON API over all of the above

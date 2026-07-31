@@ -326,6 +326,148 @@ export interface ExamResult {
   missed: MissedQuestion[]
 }
 
+// -------------------------------------------------------------------- cases
+
+/**
+ * Branching cases.
+ *
+ * The mid-run types below carry no `quality` and no `why` — the server does not
+ * send them before the debrief, and there is no type here that would let a
+ * component render which option is best. Same discipline as `Question`.
+ */
+
+export interface CaseHeader {
+  id: string
+  title: string
+  domain: string
+  section: string
+  topics: string[]
+  principles: string[]
+  minutes: number
+}
+
+export interface CaseListEntry extends CaseHeader {
+  nodes: number
+  endings: number
+  longest: number
+  attempts: number
+  verdicts: string[]
+  last_played: string | null
+  open_session: string | null
+  open_decisions: number
+}
+
+/** Key and text only. Deliberately nothing else. */
+export interface CaseOption {
+  key: string
+  text: string
+}
+
+export interface CaseNode {
+  id: string
+  situation: string
+  prompt: string
+  options: CaseOption[]
+  position: number
+  longest: number
+}
+
+/** What the learner already saw. Consequences are neutral by design. */
+export interface CaseTrailEntry {
+  node: string
+  situation: string
+  prompt: string
+  chosen: string
+  text: string
+  consequence: string
+}
+
+export interface CaseState {
+  session: string
+  case: CaseHeader
+  opening: string
+  node: CaseNode | null
+  trail: CaseTrailEntry[]
+  finished: boolean
+  decisions?: number
+}
+
+export interface CaseChoice {
+  session: string
+  consequence: string
+  chosen: string
+  decisions: number
+  finished: boolean
+  next: CaseNode | null
+}
+
+export type Quality = 'best' | 'defensible' | 'poor'
+export type Verdict = 'strong' | 'acceptable' | 'weak' | 'failed'
+
+/** Debrief only. This is the first payload that carries quality and why. */
+export interface DebriefOption {
+  key: string
+  text: string
+  quality: Quality
+  why: string
+  consequence: string
+  chosen: boolean
+  taint: string | null
+  leads_to: string
+  diverges: boolean
+}
+
+export interface DebriefStep {
+  index: number
+  node: string
+  situation: string
+  prompt: string
+  chosen: string
+  quality: Quality
+  best: string
+  seconds: number
+  options: DebriefOption[]
+}
+
+export interface CaseEnding {
+  id: string
+  title: string
+  verdict: Verdict | ''
+  narrative: string
+  why: string
+}
+
+/** Present only when a taint changed the outcome. */
+export interface OverrideDetail {
+  taint: string
+  decision: number
+  of: number
+  decisions_before_end: number
+  node: string
+  prompt: string
+  chosen: string
+  text: string
+  why: string
+}
+
+export interface CaseDebrief {
+  session: string
+  case: CaseHeader
+  decisions: number
+  counts: Record<Quality, number>
+  taints: string[]
+  ending: CaseEnding
+  overridden: boolean
+  override: OverrideDetail | null
+  graph_ending: { id: string; title: string; verdict: string } | null
+  walk: DebriefStep[]
+  /** ending id -> label, for naming where an untaken branch would have gone. */
+  endings_index: Record<string, { title: string; verdict: string }>
+  principles: string[]
+  seconds: number
+  finished_at: string
+}
+
 // -------------------------------------------------------------------- items
 
 export interface SuspectItem {

@@ -10,12 +10,14 @@ const ICONS = {
   games: 'M13 2L4 14h6l-1 8 9-12h-6l1-8z',
   rules: 'M12 3a9 9 0 100 18 9 9 0 000-18zM15.5 8.5l-2 5-5 2 2-5 5-2z',
   bank: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5',
+  cases: 'M6 3v6a3 3 0 003 3h6a3 3 0 013 3v6M6 3H4m2 0h2M18 21h-2m2 0h2M6 12h12',
 } as const
 
 const LINKS: { to: string; key: keyof typeof ICONS; label: string }[] = [
   { to: '/', key: 'dashboard', label: 'Dashboard' },
   { to: '/drill', key: 'drill', label: 'Drill' },
   { to: '/exam', key: 'exam', label: 'Mock exam' },
+  { to: '/cases', key: 'cases', label: 'Cases' },
   { to: '/games', key: 'games', label: 'Short form' },
   { to: '/rules', key: 'rules', label: 'Decision rules' },
   { to: '/bank', key: 'bank', label: 'Question bank' },

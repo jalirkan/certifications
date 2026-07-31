@@ -19,6 +19,8 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
 from . import (
+    cases as cases_mod,
+    casesession,
     exam as exam_mod,
     games,
     itemanalysis,
@@ -675,6 +677,94 @@ class Api:
                 for q in result.missed if q.id in known
             ],
         }
+
+    # ------------------------------------------------------------------
+    # branching cases
+    #
+    # `quality` and `why` never appear in any payload below except the debrief,
+    # which is only reachable once the run has finished. Same rule as answer
+    # keys, same reason: if the browser can see which option is best, the
+    # format is pointless. casesession.public_node() is the only thing that
+    # builds a mid-run node, and it is an allow-list.
+    # ------------------------------------------------------------------
+    @property
+    def cases(self) -> List[cases_mod.Case]:
+        if "cases" not in self._cache:
+            self._cache["cases"] = cases_mod.load_cases(self.cert)
+        return self._cache["cases"]
+
+    def case_by_id(self, case_id: str) -> cases_mod.Case:
+        for case in self.cases:
+            if case.id == case_id:
+                return case
+        raise ApiError("Unknown case '%s'." % case_id, 404)
+
+    def _case_session(self, session_id: str):
+        try:
+            return casesession.load(self.results_path, session_id)
+        except casesession.CaseSessionError as exc:
+            raise ApiError(str(exc), 404)
+
+    def case_list(self) -> Dict[str, Any]:
+        return {"cases": casesession.case_index(self.cases, self.results_path)}
+
+    def case_start(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        case = self.case_by_id(str(params.get("case_id", "")))
+        state = casesession.start(case, self.cert)
+        casesession.save(state, self.results_path)
+        return {
+            "session": state.session_id,
+            "case": casesession._case_header(case),
+            "opening": case.opening,
+            "node": casesession.public_node(case, state.current, 1,
+                                            cases_mod.longest_path(case)),
+            "trail": [],
+            "finished": False,
+        }
+
+    def case_get(self, session_id: str) -> Dict[str, Any]:
+        """Resume. A case is 10-15 minutes; a closed tab must not lose it."""
+        state = self._case_session(session_id)
+        case = self.case_by_id(state.case_id)
+        return {
+            "session": state.session_id,
+            "case": casesession._case_header(case),
+            "opening": case.opening,
+            "node": None if state.finished else casesession.public_node(
+                case, state.current, state.decisions + 1,
+                cases_mod.longest_path(case)),
+            "trail": casesession.public_trail(case, state),
+            "finished": state.finished,
+            "decisions": state.decisions,
+        }
+
+    def case_choose(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        state = self._case_session(str(params.get("session", "")))
+        case = self.case_by_id(state.case_id)
+        try:
+            payload = casesession.choose(
+                case, state,
+                str(params.get("node", "")),
+                str(params.get("key", "")),
+                float(params.get("seconds", 0) or 0),
+            )
+        except casesession.CaseSessionError as exc:
+            raise ApiError(str(exc))
+
+        casesession.save(state, self.results_path)
+        if state.finished:
+            # Logged to cases.jsonl only. A case is not an MCQ and must never
+            # reach item analysis or the scheduler.
+            casesession.record(case, state, self.results_path)
+        return payload
+
+    def case_debrief(self, session_id: str) -> Dict[str, Any]:
+        state = self._case_session(session_id)
+        case = self.case_by_id(state.case_id)
+        try:
+            return casesession.debrief(case, state)
+        except casesession.CaseSessionError as exc:
+            raise ApiError(str(exc))
 
     # ------------------------------------------------------------------
     def items(self, min_attempts: int = 5) -> Dict[str, Any]:

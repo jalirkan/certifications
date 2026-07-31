@@ -8,9 +8,10 @@
  */
 
 import type {
-  AutopsyResult, Bootstrap, ColdReadResult, DrillStart, DrillStartParams,
-  ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
-  Letter, Overview, Reveal, Trend,
+  AutopsyResult, Bootstrap, CaseChoice, CaseDebrief, CaseListEntry, CaseState,
+  ColdReadResult, DrillStart, DrillStartParams, ExamResult, ExamState,
+  ExamSummary, GameName, GameStart, GameStats, Items, Letter, Overview, Reveal,
+  Trend,
 } from './types'
 
 /** Set by the profile provider; read on every request. */
@@ -115,6 +116,16 @@ export const api = {
     post<ExamUpdateAck>('/api/exam/update', { id, action: 'tick', elapsed }),
   examSubmit: (id: string, elapsed: number) =>
     post<ExamResult>('/api/exam/submit', { id, elapsed }),
+
+  caseList: () => get<{ cases: CaseListEntry[] }>('/api/cases'),
+  caseStart: (case_id: string) => post<CaseState>('/api/case/start', { case_id }),
+  caseGet: (session: string) =>
+    get<CaseState>(`/api/case/${encodeURIComponent(session)}`),
+  caseChoose: (session: string, node: string, key: string, seconds: number) =>
+    post<CaseChoice>('/api/case/choose', { session, node, key, seconds }),
+  /** Only resolves once the run has finished — the server enforces that. */
+  caseDebrief: (session: string) =>
+    get<CaseDebrief>(`/api/case/${encodeURIComponent(session)}/debrief`),
 }
 
 export interface ExamUpdateAck {

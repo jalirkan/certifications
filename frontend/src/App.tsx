@@ -15,6 +15,7 @@ import { ExamHome, ExamRunner, ExamResultScreen } from './screens/Exam'
 import { GamesHome, ColdRead, Autopsy } from './screens/Games'
 import { Rules, StudyCard } from './screens/Rules'
 import { Bank } from './screens/Bank'
+import { CasesHome, CaseRunner, CaseDebriefScreen } from './screens/Cases'
 
 export default function App() {
   return (
@@ -30,6 +31,9 @@ export default function App() {
             <Route path="/exam" element={<ExamHome />} />
             <Route path="/exam/run/:id" element={<ExamRunner />} />
             <Route path="/exam/result/:id" element={<ExamResultScreen />} />
+            <Route path="/cases" element={<CasesHome />} />
+            <Route path="/cases/run/:session" element={<CaseRunner />} />
+            <Route path="/cases/debrief/:session" element={<CaseDebriefScreen />} />
             <Route path="/games" element={<GamesHome />} />
             <Route path="/games/coldread" element={<ColdRead />} />
             <Route path="/games/autopsy" element={<Autopsy />} />

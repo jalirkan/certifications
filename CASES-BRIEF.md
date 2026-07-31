@@ -1,5 +1,19 @@
 # Branching cases — handoff brief
 
+> **Status: engine, API and both interfaces built 2026-07-31.** All three cases play end to end in
+> the browser and the terminal. Suite went 233 → 259.
+>
+> - `drillkit/casesession.py` — session state, choosing, the debrief. `drillkit/caserunner.py` —
+>   terminal runner. `drillkit/cases.py` was not modified.
+> - API as sketched in §5, with one addition: the debrief carries an `endings_index` so the client
+>   can label where an option you did *not* take would have led. "Would have ended: capability
+>   remains untested (weak)" teaches more than "that option was poor".
+> - CLI built: `python drill.py case [id] [--list] [--resume ID] [--stats]`.
+> - §4.1 is enforced by an allow-list (`public_option`) rather than a filter, so a field added to
+>   the schema later cannot leak by default. Tested against all three cases.
+>
+> Two things worth knowing, neither of them blocking — see the closing notes in §8.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first, then this, then
 `cisa/cases/SCHEMA.md`.
 
@@ -140,3 +154,31 @@ Roughly 35 more cases are needed for the feature to carry real weight, and those
 Cowork rather than here — writing them is content work, not engineering. Two other things queued
 behind this: confidence capture with calibration curves, and an FSRS scheduler fitted to the
 learner's own review history. Neither blocks this work.
+
+---
+
+## 8. Notes from building it
+
+Two content observations. Both are for you to decide on — I did not change `cisa/cases/*.json`.
+
+**1. `d4-the-successful-test`'s taint can never fire.** `accepted-scope-defence` is declared as
+pointing at `end-unproven`, and the only option carrying it (`the-scope-defence` A) already has
+`"next": "end-unproven"`. So `resolve_ending()` returns the ending the graph had already reached,
+`overridden` is always false, and the "your outcome was fixed earlier" sentence — the most valuable
+thing the debrief produces — never appears for this case. The validator does not warn, because an
+option *does* apply the taint; it just cannot change anything.
+
+The other two cases route their tainted options back into the graph (`d5` to `the-omission-request`
+and `backup-evidence`, `d1` to `the-recommendation`), so the override fires properly there. If you
+want d4 to teach the same lesson, point option A at a node that continues rather than at the ending.
+
+**2. `d4` reaches `end-strong` with zero best choices.** Playing D/B/B/B/C gives 0 best, 4
+defensible, 1 poor — and a strong ending. That is the graph converging, which §"Make recovery
+possible" in the schema asks for, and the profile does carry the nuance the ending hides. Worth
+knowing that for this case the ending alone does not discriminate much; the counts do all the work.
+It is also the clearest argument for rule §4.5 — a single percentage here would have been actively
+misleading in both directions.
+
+**One CLI bug found and fixed while playing:** `case --stats` crashed on the row for an overridden
+run, because the marker used `←`, which Windows cannot encode when stdout is redirected to a file
+or a pipe (cp1252). Now ASCII, with a test asserting both new modules stay cp1252-safe.

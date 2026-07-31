@@ -29,6 +29,7 @@ WEB_DIR = os.path.join(ROOT, "web")
 sys.path.insert(0, ROOT)
 
 from drillkit import loader  # noqa: E402
+from drillkit.cases import CaseError  # noqa: E402
 from drillkit.exam import ExamError  # noqa: E402
 from drillkit.loader import QuestionError  # noqa: E402
 from drillkit.webapi import Api, ApiError  # noqa: E402
@@ -145,6 +146,13 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.game_stats())
             if route == "/api/exams":
                 return self._json(api.exam_list())
+            if route == "/api/cases":
+                return self._json(api.case_list())
+            if route.startswith("/api/case/"):
+                rest = route[len("/api/case/"):]
+                if rest.endswith("/debrief"):
+                    return self._json(api.case_debrief(rest[:-len("/debrief")]))
+                return self._json(api.case_get(rest))
             if route.startswith("/api/exam/"):
                 rest = route[len("/api/exam/"):]
                 if rest.endswith("/result"):
@@ -156,6 +164,8 @@ class Handler(BaseHTTPRequestHandler):
         except ExamError as exc:
             return self._error(str(exc), 404)
         except QuestionError as exc:
+            return self._error(str(exc), 500)
+        except CaseError as exc:
             return self._error(str(exc), 500)
 
     def do_POST(self):  # noqa: N802
@@ -177,12 +187,18 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.exam_update(body))
             if route == "/api/exam/submit":
                 return self._json(api.exam_submit(body))
+            if route == "/api/case/start":
+                return self._json(api.case_start(body))
+            if route == "/api/case/choose":
+                return self._json(api.case_choose(body))
             return self._error("Not found", 404)
         except ApiError as exc:
             return self._error(str(exc), exc.status)
         except ExamError as exc:
             return self._error(str(exc), 404)
         except QuestionError as exc:
+            return self._error(str(exc), 500)
+        except CaseError as exc:
             return self._error(str(exc), 500)
 
 
