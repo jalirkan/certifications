@@ -109,6 +109,7 @@
       "id": "cisa-d3b-006",
       "topic": "System Readiness and Implementation Testing",
       "difficulty": "easy",
+      "no_principle": true,
       "stem": "Which testing approach BEST validates that separate systems work correctly together following a change?",
       "options": {
         "A": "Unit testing of individual code modules.",
@@ -337,6 +338,7 @@
       "id": "cisa-d3b-018",
       "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
       "difficulty": "easy",
+      "no_principle": true,
       "stem": "A parallel changeover approach BEST provides:",
       "options": {
         "A": "the ability to compare the outputs of the old and new systems before relying on the new one, at the cost of operating both.",
@@ -578,6 +580,64 @@
         "A": "Circulating to the team that already learned the lesson reaches the wrong audience entirely.",
         "B": "Archived documents are consulted rarely and usually by people already looking for the answer.",
         "D": "A closing presentation informs a committee that is about to disband."
+      }
+    },
+    {
+      "id": "cisa-d3b-031",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "easy",
+      "no_principle": true,
+      "stem": "Verification and validation are BEST distinguished in that verification asks:",
+      "options": {
+        "A": "whether the system was delivered within the approved budget and schedule.",
+        "B": "whether the system was built correctly against its specification, while validation asks whether the right system was built for the business need.",
+        "C": "whether the system performs adequately under peak transaction volumes.",
+        "D": "whether the system's controls were designed by a party independent of the developers."
+      },
+      "answer": "B",
+      "why_correct": "Verification compares the product against the specification: did we build the thing right. Validation compares it against the actual need: did we build the right thing. A system can pass every verification test and still be the wrong system.",
+      "why_wrong": {
+        "A": "Budget and schedule are project performance measures and say nothing about whether the product is correct or appropriate.",
+        "C": "Behaviour under load is established by performance and stress testing, which sits inside verification against a stated requirement.",
+        "D": "Independence of the reviewer is a control over how testing is performed, not a distinction between these two activities."
+      }
+    },
+    {
+      "id": "cisa-d3b-032",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "A new system passes every test in the approved specification, but users refuse to accept it because it does not support how the process actually runs. This MOST clearly illustrates:",
+      "options": {
+        "A": "a verification failure, since the tests did not detect the defects.",
+        "B": "inadequate regression testing of previously working functionality.",
+        "C": "successful verification and failed validation, because the specification itself did not capture the business need.",
+        "D": "insufficient user training on the delivered system."
+      },
+      "answer": "C",
+      "why_correct": "Both statements are true at once: the build matches the specification, and the specification was wrong. That is precisely the gap validation exists to catch, and it is invisible to any amount of testing against the spec.",
+      "why_wrong": {
+        "A": "Verification succeeded — every specified test passed. Blaming the tests points remediation at the wrong stage entirely.",
+        "B": "Regression testing protects existing functionality from change and has no bearing on whether the requirement was right.",
+        "D": "Training addresses a capability gap. Users here understand the system perfectly well; it does not do what they need."
+      }
+    },
+    {
+      "id": "cisa-d3b-033",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a failed implementation finds a complete, well-executed test pack traceable to every documented requirement. Acceptance was still refused. The auditor should MOST appropriately direct attention to:",
+      "options": {
+        "A": "the requirements-gathering process, since the tests demonstrate the build matched what was specified.",
+        "B": "the competence of the testing team, since the defects reached acceptance undetected.",
+        "C": "the change control process applied during construction.",
+        "D": "the adequacy of the project's contingency budget."
+      },
+      "answer": "A",
+      "why_correct": "Traceable, passing tests are evidence that verification worked. If the product is still unacceptable, the defect is upstream in what was asked for — which means requirements elicitation and business involvement, not the test function.",
+      "why_wrong": {
+        "B": "The testers found everything they were asked to look for. Faulting them misreads passing tests as failing ones.",
+        "C": "Change control governs modifications to an agreed baseline; it cannot detect that the baseline itself was wrong.",
+        "D": "Contingency affects the response to overruns, not whether the delivered product met the need."
       }
     }
   ]

@@ -439,7 +439,10 @@ class TestHttpLayer(unittest.TestCase):
     def test_bootstrap_over_http(self):
         status, data = self.call("/api/bootstrap")
         self.assertEqual(status, 200)
-        self.assertEqual(data["questions"], 292)
+        # Compare against the bank rather than a literal: hardcoding the count
+        # means every new question batch breaks a test that is not about counts.
+        self.assertEqual(data["questions"], len(loader.load_questions("cisa")))
+        self.assertGreater(data["questions"], 250)
 
     def test_drill_round_trip_over_http(self):
         status, data = self.call("/api/drill/start", {"mode": "random", "n": 2})

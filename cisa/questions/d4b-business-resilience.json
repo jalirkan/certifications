@@ -337,6 +337,7 @@
       "id": "cisa-d4b-018",
       "topic": "Disaster Recovery Plans",
       "difficulty": "easy",
+      "no_principle": true,
       "stem": "Which recovery site arrangement can be brought into productive operation MOST quickly?",
       "options": {
         "A": "A hot site, fully equipped and running with current data replicated to it.",

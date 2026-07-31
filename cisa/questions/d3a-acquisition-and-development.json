@@ -146,6 +146,7 @@
       "id": "cisa-d3a-008",
       "topic": "Project Governance and Management",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "Function point analysis is MOST useful for:",
       "options": {
         "A": "measuring the internal complexity of source code after it has been written.",
@@ -355,6 +356,7 @@
       "id": "cisa-d3a-019",
       "topic": "System Development Methodologies",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "Prototyping is MOST appropriate when:",
       "options": {
         "A": "requirements are unclear and users need something concrete to react to before they can articulate what they need.",
@@ -412,6 +414,7 @@
       "id": "cisa-d3a-022",
       "topic": "System Development Methodologies",
       "difficulty": "easy",
+      "no_principle": true,
       "stem": "Reverse engineering of an existing application is MOST commonly undertaken in order to:",
       "options": {
         "A": "recover an understanding of a system whose documentation and original developers are no longer available.",

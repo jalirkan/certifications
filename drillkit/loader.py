@@ -47,6 +47,10 @@ class Question:
     why_wrong: Dict[str, str]
     difficulty: str = "medium"
     asks: str = ""
+    # Reviewed and confirmed to have no governing decision rule. Distinct from
+    # simply being unmapped: this is an explicit "I looked, it is fine" marker,
+    # so `validate` stops reporting it and the remaining orphans stay visible.
+    no_principle: bool = False
     cert: str = ""
     source_file: str = ""
 
@@ -247,6 +251,7 @@ def _build_question(item: Any, meta: Dict[str, Any], path: str, idx: int, cert: 
         why_wrong={str(k).upper(): str(v) for k, v in (why_wrong or {}).items()},
         difficulty=str(pick("difficulty", "medium")),
         asks=str(item.get("asks", "") or "").strip().lower(),
+        no_principle=bool(item.get("no_principle", False)),
         cert=str(pick("cert", cert.upper())),
         source_file=os.path.basename(path),
     )

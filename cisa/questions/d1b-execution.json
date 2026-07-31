@@ -166,6 +166,7 @@
       "id": "cisa-d1b-009",
       "topic": "Audit Testing and Sampling Methodology",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "Attribute sampling is MOST appropriate when the auditor wants to:",
       "options": {
         "A": "estimate the rate at which a prescribed control was not followed within a population.",
@@ -185,6 +186,7 @@
       "id": "cisa-d1b-010",
       "topic": "Audit Testing and Sampling Methodology",
       "difficulty": "hard",
+      "no_principle": true,
       "stem": "Stop-or-go sampling is MOST useful when the auditor:",
       "options": {
         "A": "expects a high rate of errors within the population.",

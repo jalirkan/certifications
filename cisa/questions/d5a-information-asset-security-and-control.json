@@ -128,6 +128,7 @@
       "id": "cisa-d5a-007",
       "topic": "Physical and Environmental Controls",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "Persistently low relative humidity in a data center presents the GREATEST risk of:",
       "options": {
         "A": "electrostatic discharge damaging electronic components.",
@@ -413,6 +414,7 @@
       "id": "cisa-d5a-022",
       "topic": "Data Encryption",
       "difficulty": "easy",
+      "no_principle": true,
       "stem": "An organization must encrypt a large volume of data at rest with minimal impact on system performance. Which of the following is MOST appropriate?",
       "options": {
         "A": "Symmetric encryption using a block cipher such as AES.",
@@ -470,6 +472,7 @@
       "id": "cisa-d5a-025",
       "topic": "Data Encryption",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "A trading partner denies having submitted an electronic purchase order. Which control BEST addresses this situation?",
       "options": {
         "A": "A message authentication code produced using a symmetric key shared by both parties.",
@@ -655,6 +658,66 @@
         "A": "Data volume is a capacity and analytics consideration rather than a remediation obstacle.",
         "C": "Wireless connectivity introduces its own risks but does not prevent vulnerabilities from being fixed.",
         "D": "Low unit cost may encourage uncontrolled proliferation, but the cost itself is not what defeats vulnerability management."
+      }
+    },
+    {
+      "id": "cisa-d5a-035",
+      "topic": "Identity and Access Management",
+      "difficulty": "easy",
+      "no_principle": true,
+      "stem": "In a biometric access control system, the false acceptance rate MOST accurately measures:",
+      "options": {
+        "A": "the proportion of enrolment attempts that fail to capture a usable template.",
+        "B": "the rate at which authorized individuals are incorrectly refused access.",
+        "C": "the rate at which unauthorized individuals are incorrectly granted access.",
+        "D": "the average time taken to process an authentication attempt."
+      },
+      "answer": "C",
+      "why_correct": "False acceptance is the security failure: the system admits someone it should have refused. It is the rate that matters when the question is about protecting the asset.",
+      "why_wrong": {
+        "A": "Enrolment failure is the failure to enrol rate, a usability and coverage measure taken before the system is in use.",
+        "B": "Refusing an authorized person is the false rejection rate — the usability failure, and the opposite error.",
+        "D": "Processing time is a throughput characteristic with no bearing on accuracy."
+      }
+    },
+    {
+      "id": "cisa-d5a-036",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "no_principle": true,
+      "stem": "Authorized staff are frequently refused entry by a biometric reader, and the facilities team proposes lowering the sensitivity threshold to reduce the complaints. The GREATEST concern with this is that:",
+      "options": {
+        "A": "the change will reduce the false rejection rate at the cost of raising the false acceptance rate, admitting unauthorized people.",
+        "B": "enrolment templates will need to be recaptured for every user.",
+        "C": "authentication will take measurably longer to process.",
+        "D": "the reader's maintenance warranty may be affected by a configuration change."
+      },
+      "answer": "A",
+      "why_correct": "The two error rates move in opposite directions on a single threshold. Tuning away the usability complaint necessarily buys it with security, and the people making the change are responding to the error they can hear about.",
+      "why_wrong": {
+        "B": "Threshold adjustment changes the matching decision, not the stored templates.",
+        "C": "Sensitivity affects the accept/reject boundary rather than processing speed.",
+        "D": "Warranty terms are a commercial matter, and vastly less serious than weakening the control."
+      }
+    },
+    {
+      "id": "cisa-d5a-037",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "no_principle": true,
+      "stem": "When comparing the overall accuracy of two biometric devices, the BEST single measure to use is:",
+      "options": {
+        "A": "the crossover error rate, where false acceptance and false rejection are equal — the lower the better.",
+        "B": "the false acceptance rate alone, since security is the primary objective.",
+        "C": "the false rejection rate alone, since user acceptance determines whether the control is used.",
+        "D": "the enrolment time per user."
+      },
+      "answer": "A",
+      "why_correct": "Either error rate on its own can be tuned to look excellent by sacrificing the other, so neither compares devices meaningfully. The crossover point is where they meet, which makes it the fair single number — and a lower crossover means a genuinely more discriminating device.",
+      "why_wrong": {
+        "B": "A device can show a superb false acceptance rate simply by being set to refuse almost everyone.",
+        "C": "Equally gameable in the other direction, and optimising it alone weakens the security the control exists to provide.",
+        "D": "Enrolment time is a deployment cost, not a measure of matching accuracy."
       }
     }
   ]

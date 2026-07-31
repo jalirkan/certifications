@@ -464,7 +464,8 @@ def cmd_validate(args) -> int:
         index = loader.principle_index(rules)
         covered = sum(1 for q in questions if q.id in index)
         judgment_gaps = [q.id for q in questions
-                         if q.id not in index and games.ask_type(q) != "definition"]
+                         if q.id not in index and not q.no_principle
+                         and games.ask_type(q) != "definition"]
         print("Checked %d decision rule(s) covering %d of %d question(s)."
               % (len(rules), covered, len(questions)))
         if judgment_gaps:

@@ -12,262 +12,470 @@
       "id": "rto-rpo",
       "label": "RTO vs RPO",
       "domain": "4",
-      "terms": ["Recovery Time Objective", "Recovery Point Objective"],
+      "terms": [
+        "Recovery Time Objective",
+        "Recovery Point Objective"
+      ],
       "discriminator": "RTO looks FORWARD from the disruption: how long until service is restored. RPO looks BACKWARD: how much recent data you can afford to lose.",
       "trap": "A stem gives a backup frequency and asks which objective it satisfies. Backup interval is the data at risk, so it is RPO. Restoration speed is RTO.",
-      "question_ids": ["cisa-d4b-002", "cisa-d4b-012"]
+      "question_ids": [
+        "cisa-d4b-002",
+        "cisa-d4b-012"
+      ]
     },
     {
       "id": "incident-problem",
       "label": "Incident vs problem management",
       "domain": "4",
-      "terms": ["Incident management", "Problem management"],
+      "terms": [
+        "Incident management",
+        "Problem management"
+      ],
       "discriminator": "Incident management RESTORES SERVICE as fast as possible, accepting a workaround. Problem management ELIMINATES THE CAUSE so it stops recurring.",
       "trap": "The same outage recurs many times, each closed quickly on restoration. Fast incident response looks like success; the finding is that no problem management exists.",
-      "question_ids": ["cisa-d4a-020", "cisa-d4a-021", "cisa-d4a-022"]
+      "question_ids": [
+        "cisa-d4a-020",
+        "cisa-d4a-021",
+        "cisa-d4a-022"
+      ]
     },
     {
       "id": "mac-vs-signature",
       "label": "Shared-key MAC vs digital signature",
       "domain": "5",
-      "terms": ["MAC / HMAC (shared symmetric key)", "Digital signature (sender's private key)"],
+      "terms": [
+        "MAC / HMAC (shared symmetric key)",
+        "Digital signature (sender's private key)"
+      ],
       "discriminator": "A shared key means EITHER party could have produced the value, so there is NO nonrepudiation. Only a private key binds the message to one signer.",
       "trap": "A party denies sending something. A MAC is offered as an option and looks cryptographically respectable, but it cannot settle a dispute between the two key holders.",
-      "question_ids": ["cisa-d5a-025"]
+      "question_ids": [
+        "cisa-d5a-025"
+      ]
     },
     {
       "id": "key-direction",
       "label": "Which key, and for what",
       "domain": "5",
-      "terms": ["Recipient's public key", "Sender's private key"],
+      "terms": [
+        "Recipient's public key",
+        "Sender's private key"
+      ],
       "discriminator": "Encrypt with the RECIPIENT'S PUBLIC key for confidentiality (only they can open it). Sign with the SENDER'S PRIVATE key for authentication, integrity and nonrepudiation.",
       "trap": "The stem asks for one property and the distractors offer the operation that delivers the other.",
-      "question_ids": ["cisa-d5a-024", "cisa-d5a-025", "cisa-d5a-026"]
+      "question_ids": [
+        "cisa-d5a-024",
+        "cisa-d5a-025",
+        "cisa-d5a-026"
+      ]
     },
     {
       "id": "ids-ips",
       "label": "IDS vs IPS",
       "domain": "5",
-      "terms": ["Intrusion detection system", "Intrusion prevention system"],
+      "terms": [
+        "Intrusion detection system",
+        "Intrusion prevention system"
+      ],
       "discriminator": "Placement decides capability. A sensor on a mirror or SPAN port receives a COPY after delivery and can only alert. Only an INLINE device can drop traffic.",
       "trap": "The stem says 'stop traffic before it reaches the server'. An IDS option describes good monitoring, which is irrelevant to the stated requirement.",
-      "question_ids": ["cisa-d5a-015"]
+      "question_ids": [
+        "cisa-d5a-015"
+      ]
     },
     {
       "id": "incremental-differential",
       "label": "Incremental vs differential backup",
       "domain": "4",
-      "terms": ["Incremental backup", "Differential backup"],
+      "terms": [
+        "Incremental backup",
+        "Differential backup"
+      ],
       "discriminator": "Incremental: changes since the LAST BACKUP OF ANY TYPE. Small and fast to take, SLOW to restore (full plus every incremental in order). Differential: changes since the last FULL. Grows daily, FAST to restore (full plus one).",
       "trap": "The trade-off is inverted between backup time and restore time, so an answer that is right about one is wrong about the other.",
-      "question_ids": ["cisa-d4b-010"]
+      "question_ids": [
+        "cisa-d4b-010"
+      ]
     },
     {
       "id": "risk-types",
       "label": "Inherent / control / detection / residual risk",
       "domain": "1",
-      "terms": ["Inherent risk", "Control risk", "Detection risk", "Residual risk"],
+      "terms": [
+        "Inherent risk",
+        "Control risk",
+        "Detection risk",
+        "Residual risk"
+      ],
       "discriminator": "Inherent: before any controls. Control: controls fail to catch it. Detection: the AUDITOR'S procedures fail to find it. Residual: what is left after controls operate. Detection risk is the only one the auditor controls, by doing more work.",
       "trap": "High control risk requires MORE substantive testing, not less. The intuitive-sounding answer is backwards.",
-      "question_ids": ["cisa-d1a-014", "cisa-d1a-015", "cisa-d1a-016", "cisa-d2a-026"]
+      "question_ids": [
+        "cisa-d1a-014",
+        "cisa-d1a-015",
+        "cisa-d1a-016",
+        "cisa-d2a-026"
+      ]
     },
     {
       "id": "compliance-substantive",
       "label": "Compliance vs substantive testing",
       "domain": "1",
-      "terms": ["Compliance testing", "Substantive testing"],
+      "terms": [
+        "Compliance testing",
+        "Substantive testing"
+      ],
       "discriminator": "Compliance asks whether the CONTROL operated. Substantive asks whether the DATA is right, regardless of what the controls did.",
       "trap": "Distractors offer real-sounding distinctions (who performs it, whether sampling is used) that are not the actual difference.",
-      "question_ids": ["cisa-d1a-009"]
+      "question_ids": [
+        "cisa-d1a-009"
+      ]
     },
     {
       "id": "design-operating",
       "label": "Design vs operating effectiveness deficiency",
       "domain": "1",
-      "terms": ["Design deficiency", "Operating effectiveness deficiency"],
+      "terms": [
+        "Design deficiency",
+        "Operating effectiveness deficiency"
+      ],
       "discriminator": "Design: would NOT achieve the objective even if performed perfectly. Operating: sound design, but not performed consistently. Different remedies follow.",
       "trap": "Policies, approvals and certificates are DESIGN evidence. Evidence that a control ran over a period is OPERATING evidence. Stems ask for one and offer the other.",
-      "question_ids": ["cisa-d1a-023", "cisa-d1a-026"]
+      "question_ids": [
+        "cisa-d1a-023",
+        "cisa-d1a-026"
+      ]
     },
     {
       "id": "document-hierarchy",
       "label": "Policy / standard / procedure / guideline",
       "domain": "2",
-      "terms": ["Policy", "Standard", "Procedure", "Guideline", "Baseline"],
+      "terms": [
+        "Policy",
+        "Standard",
+        "Procedure",
+        "Guideline",
+        "Baseline"
+      ],
       "discriminator": "Policy: mandatory intent, broad. Standard: mandatory SPECIFICS (which algorithm, what key length). Procedure: step-by-step how-to. Guideline: advisory. Baseline: minimum configuration for a class of system.",
       "trap": "A policy that mandates something with no standard beneath it is untestable. The missing document is almost always the standard.",
-      "question_ids": ["cisa-d5a-003", "cisa-d2a-013", "cisa-d2a-014"]
+      "question_ids": [
+        "cisa-d5a-003",
+        "cisa-d2a-013",
+        "cisa-d2a-014"
+      ]
     },
     {
       "id": "data-roles",
       "label": "Data owner / custodian / steward",
       "domain": "2",
-      "terms": ["Data owner", "Data custodian", "Data steward"],
+      "terms": [
+        "Data owner",
+        "Data custodian",
+        "Data steward"
+      ],
       "discriminator": "Owner: business, DECIDES classification and accepts risk. Custodian: usually IT, STORES and protects it. Steward: does the day-to-day quality, definition and access administration on the owner's behalf.",
       "trap": "Classification decisions are offered to IT or to security. Both hold the data; neither owns the judgment about its sensitivity.",
-      "question_ids": ["cisa-d2a-034", "cisa-d2a-037"]
+      "question_ids": [
+        "cisa-d2a-034",
+        "cisa-d2a-037"
+      ]
     },
     {
       "id": "bia-vs-risk-assessment",
       "label": "BIA vs risk assessment",
       "domain": "4",
-      "terms": ["Business impact analysis", "Risk assessment"],
+      "terms": [
+        "Business impact analysis",
+        "Risk assessment"
+      ],
       "discriminator": "A BIA is THREAT-AGNOSTIC: what happens as an outage lengthens, regardless of cause. A risk assessment identifies and rates the threats themselves.",
       "trap": "Distractors describe threat identification, which sounds like the obvious first step but belongs to the risk assessment.",
-      "question_ids": ["cisa-d4b-001", "cisa-d4b-004"]
+      "question_ids": [
+        "cisa-d4b-001",
+        "cisa-d4b-004"
+      ]
     },
     {
       "id": "expiry-vs-revocation",
       "label": "Certificate expiry vs revocation",
       "domain": "5",
-      "terms": ["Expiry checking", "Revocation checking (CRL / OCSP)"],
+      "terms": [
+        "Expiry checking",
+        "Revocation checking (CRL / OCSP)"
+      ],
       "discriminator": "Ordinary validation already catches EXPIRED certificates. Only revocation checking catches a certificate that is still within its validity period but belongs to a COMPROMISED KEY or a departed user.",
       "trap": "'Expired certificates will be accepted' is offered as the risk of not checking revocation. It is not; expiry is checked anyway.",
-      "question_ids": ["cisa-d5a-027"]
+      "question_ids": [
+        "cisa-d5a-027"
+      ]
     },
     {
       "id": "appetite-tolerance-capacity",
       "label": "Risk appetite / tolerance / capacity",
       "domain": "2",
-      "terms": ["Risk appetite", "Risk tolerance", "Risk capacity"],
+      "terms": [
+        "Risk appetite",
+        "Risk tolerance",
+        "Risk capacity"
+      ],
       "discriminator": "Appetite: how much risk the organization is WILLING to take pursuing its objectives. Tolerance: acceptable variation around that. Capacity: how much it could ABSORB before failing.",
       "trap": "Residual risk and maximum possible loss are offered as definitions of appetite. Appetite is a chosen position, not a measured quantity.",
-      "question_ids": ["cisa-d2a-023", "cisa-d2a-026", "cisa-d2a-027"]
+      "question_ids": [
+        "cisa-d2a-023",
+        "cisa-d2a-026",
+        "cisa-d2a-027"
+      ]
     },
     {
       "id": "scan-vs-pentest",
       "label": "Vulnerability scan vs penetration test",
       "domain": "5",
-      "terms": ["Vulnerability scan", "Penetration test"],
+      "terms": [
+        "Vulnerability scan",
+        "Penetration test"
+      ],
       "discriminator": "A scan ENUMERATES known weaknesses individually and rates them in isolation. A pen test CHAINS them to demonstrate whether a real path to a target exists.",
       "trap": "The stem asks whether several minor weaknesses could be COMBINED. Only the pen test answers a question about combination.",
-      "question_ids": ["cisa-d5b-007", "cisa-d5b-008", "cisa-d5b-009"]
+      "question_ids": [
+        "cisa-d5b-007",
+        "cisa-d5b-008",
+        "cisa-d5b-009"
+      ]
     },
     {
       "id": "control-types",
       "label": "Preventive / detective / corrective / compensating",
       "domain": "1",
-      "terms": ["Preventive", "Detective", "Corrective", "Compensating", "Directive"],
+      "terms": [
+        "Preventive",
+        "Detective",
+        "Corrective",
+        "Compensating",
+        "Directive"
+      ],
       "discriminator": "Preventive stops it happening. Detective finds it after. Corrective restores afterward. Compensating substitutes for a control that cannot be implemented. Directive instructs behavior.",
       "trap": "When a stem asks what BEST ADDRESSES a weakness, preventive usually wins. When it asks about recovery or evidence, that ranking inverts.",
-      "question_ids": ["cisa-d1a-020", "cisa-d1a-021", "cisa-d1a-022", "cisa-d5a-005"]
+      "question_ids": [
+        "cisa-d1a-020",
+        "cisa-d1a-021",
+        "cisa-d1a-022",
+        "cisa-d5a-005"
+      ]
     },
     {
       "id": "changeover-strategies",
       "label": "Parallel / phased / direct changeover",
       "domain": "3",
-      "terms": ["Parallel", "Phased", "Direct (big bang)"],
+      "terms": [
+        "Parallel",
+        "Phased",
+        "Direct (big bang)"
+      ],
       "discriminator": "Parallel: run both, compare outputs. Safest, most expensive, heaviest staff burden. Phased: by module or location, contains risk, needs interim interfaces. Direct: fastest, cheapest, NO FALLBACK.",
       "trap": "'Parallel is cheapest' and 'direct takes longest' are both inversions of the truth, and both appear as distractors.",
-      "question_ids": ["cisa-d3b-018", "cisa-d3b-019", "cisa-d3b-020"]
+      "question_ids": [
+        "cisa-d3b-018",
+        "cisa-d3b-019",
+        "cisa-d3b-020"
+      ]
     },
     {
       "id": "recovery-sites",
       "label": "Hot / warm / cold / reciprocal site",
       "domain": "4",
-      "terms": ["Hot site", "Warm site", "Cold site", "Reciprocal agreement"],
+      "terms": [
+        "Hot site",
+        "Warm site",
+        "Cold site",
+        "Reciprocal agreement"
+      ],
       "discriminator": "Hot: equipped, configured, current data — fastest and dearest. Warm: hardware and connectivity, no current data. Cold: space and power only. Reciprocal: depends entirely on a partner's readiness at the moment of need.",
       "trap": "Reciprocal agreements look cheap and cooperative. The weakness is that both parties drift, and a regional event affects both.",
-      "question_ids": ["cisa-d4b-018", "cisa-d4b-019", "cisa-d4b-022"]
+      "question_ids": [
+        "cisa-d4b-018",
+        "cisa-d4b-019",
+        "cisa-d4b-022"
+      ]
     },
     {
       "id": "cloud-responsibility",
       "label": "IaaS / PaaS / SaaS responsibility split",
       "domain": "5",
-      "terms": ["IaaS", "PaaS", "SaaS", "Shared responsibility"],
+      "terms": [
+        "IaaS",
+        "PaaS",
+        "SaaS",
+        "Shared responsibility"
+      ],
       "discriminator": "The split of TASKS moves with the service model. ACCOUNTABILITY for the data never moves — the customer remains data owner in every model.",
       "trap": "Options list operational tasks (patching, physical security, hypervisor config) that all belong to the provider. The one that stays is accountability for the data and who may access it.",
-      "question_ids": ["cisa-d5a-029", "cisa-d5a-030", "cisa-d5a-031"]
+      "question_ids": [
+        "cisa-d5a-029",
+        "cisa-d5a-030",
+        "cisa-d5a-031"
+      ]
     },
     {
       "id": "auth-factors",
       "label": "Authentication factors",
       "domain": "5",
-      "terms": ["Knowledge (know)", "Possession (have)", "Inherence (are)"],
+      "terms": [
+        "Knowledge (know)",
+        "Possession (have)",
+        "Inherence (are)"
+      ],
       "discriminator": "Multifactor requires factors of DIFFERENT TYPES. Password plus security questions is one factor twice. Two biometrics is multimodal, not multifactor.",
       "trap": "Every distractor is a plausible-looking combination that is actually single-factor.",
-      "question_ids": ["cisa-d5a-012", "cisa-d5a-013"]
+      "question_ids": [
+        "cisa-d5a-012",
+        "cisa-d5a-013"
+      ]
     },
     {
       "id": "change-release-config",
       "label": "Change / release / configuration management",
       "domain": "3",
-      "terms": ["Change management", "Release management", "Configuration management"],
+      "terms": [
+        "Change management",
+        "Release management",
+        "Configuration management"
+      ],
       "discriminator": "Change: should this change be made, and who approved it. Release: packaging, scheduling and deploying an approved bundle. Configuration: the record of what exists and what depends on what.",
       "trap": "All three are legitimate-sounding answers to any question about controlling production, so read which activity the stem actually describes.",
-      "question_ids": ["cisa-d3b-009", "cisa-d3b-011", "cisa-d3b-012", "cisa-d4a-024", "cisa-d4a-026"]
+      "question_ids": [
+        "cisa-d3b-009",
+        "cisa-d3b-011",
+        "cisa-d3b-012",
+        "cisa-d4a-024",
+        "cisa-d4a-026"
+      ]
     },
     {
       "id": "qa-vs-qc",
       "label": "Quality assurance vs quality control",
       "domain": "2",
-      "terms": ["Quality assurance", "Quality control"],
+      "terms": [
+        "Quality assurance",
+        "Quality control"
+      ],
       "discriminator": "QA works on the PROCESS to prevent defects. QC inspects the DELIVERABLE to detect them. Preventive versus detective, one level up.",
       "trap": "Timing-based distinctions ('QA happens at the end') are offered and are wrong; QA runs throughout.",
-      "question_ids": ["cisa-d2b-018", "cisa-d2b-019"]
+      "question_ids": [
+        "cisa-d2b-018",
+        "cisa-d2b-019"
+      ]
     },
     {
       "id": "kpi-vs-kri",
       "label": "KPI vs KRI",
       "domain": "2",
-      "terms": ["Key performance indicator", "Key risk indicator"],
+      "terms": [
+        "Key performance indicator",
+        "Key risk indicator"
+      ],
       "discriminator": "A KPI measures how well an objective IS BEING achieved — it looks back at outcomes. A KRI is FORWARD-LOOKING signal that exposure is building before the loss occurs.",
       "trap": "Organizations report KPIs and neglect KRIs, so the exam asks which one gives early warning.",
-      "question_ids": ["cisa-d2b-013", "cisa-d2b-014"]
+      "question_ids": [
+        "cisa-d2b-013",
+        "cisa-d2b-014"
+      ]
     },
     {
       "id": "controller-processor",
       "label": "Data controller vs processor",
       "domain": "2",
-      "terms": ["Controller", "Processor"],
+      "terms": [
+        "Controller",
+        "Processor"
+      ],
       "discriminator": "The CONTROLLER determines the purposes and means of processing and carries primary accountability. The processor acts on the controller's instructions and carries its own security obligations.",
       "trap": "Size or technical sophistication is offered as the distinction. Neither is relevant — it is about who decides.",
-      "question_ids": ["cisa-d2a-033"]
+      "question_ids": [
+        "cisa-d2a-033"
+      ]
     },
     {
       "id": "resilience-vs-recovery",
       "label": "Resilience vs disaster recovery",
       "domain": "4",
-      "terms": ["Resilience", "Disaster recovery"],
+      "terms": [
+        "Resilience",
+        "Disaster recovery"
+      ],
       "discriminator": "Resilience ABSORBS component failure so the service never becomes unavailable. Disaster recovery begins where resilience ended, once the service has actually been lost.",
       "trap": "Recovery-flavoured answers (alternate site, offsite backups, restoring within RTO) are offered as definitions of resilience.",
-      "question_ids": ["cisa-d4b-005", "cisa-d4b-006", "cisa-d4b-008"]
+      "question_ids": [
+        "cisa-d4b-005",
+        "cisa-d4b-006",
+        "cisa-d4b-008"
+      ]
     },
     {
       "id": "continuity-test-types",
       "label": "Continuity test types",
       "domain": "4",
-      "terms": ["Checklist", "Tabletop / walkthrough", "Parallel", "Full interruption"],
+      "terms": [
+        "Checklist",
+        "Tabletop / walkthrough",
+        "Parallel",
+        "Full interruption"
+      ],
       "discriminator": "Assurance and operational risk rise together: checklist, tabletop, parallel, full interruption. Only full interruption proves the organization can run without the primary environment, which is why it can cause a real outage.",
       "trap": "The stem asks for greatest assurance AND greatest risk together. They are the same answer, which feels wrong.",
-      "question_ids": ["cisa-d4b-016", "cisa-d4b-014"]
+      "question_ids": [
+        "cisa-d4b-016",
+        "cisa-d4b-014"
+      ]
     },
     {
       "id": "verification-vs-validation",
       "label": "Verification vs validation",
       "domain": "3",
-      "terms": ["Verification", "Validation"],
+      "terms": [
+        "Verification",
+        "Validation"
+      ],
       "discriminator": "Verification: are we building it RIGHT (against the specification). Validation: are we building the RIGHT THING (against the business need).",
       "trap": "A system can pass every verification test and still fail validation, because the specification itself was wrong.",
-      "question_ids": []
+      "question_ids": [
+        "cisa-d3b-031",
+        "cisa-d3b-032",
+        "cisa-d3b-033"
+      ]
     },
     {
       "id": "far-frr-cer",
       "label": "FAR / FRR / CER in biometrics",
       "domain": "5",
-      "terms": ["False acceptance rate", "False rejection rate", "Crossover error rate"],
+      "terms": [
+        "False acceptance rate",
+        "False rejection rate",
+        "Crossover error rate"
+      ],
       "discriminator": "FAR admits the wrong person — the SECURITY failure. FRR blocks the right person — the USABILITY failure. CER is where they meet, and lower CER means a better device.",
       "trap": "Tuning to reduce one raises the other. A stem about security risk wants FAR; one about user complaints wants FRR.",
-      "question_ids": []
+      "question_ids": [
+        "cisa-d5a-035",
+        "cisa-d5a-036",
+        "cisa-d5a-037"
+      ]
     },
     {
       "id": "sampling-types",
       "label": "Attribute vs variable vs stop-or-go sampling",
       "domain": "1",
-      "terms": ["Attribute sampling", "Variable / monetary unit sampling", "Stop-or-go"],
+      "terms": [
+        "Attribute sampling",
+        "Variable / monetary unit sampling",
+        "Stop-or-go"
+      ],
       "discriminator": "Attribute: rate of DEVIATION from a control (yes/no per item), used in compliance testing. Variable: monetary VALUE of misstatement, used substantively. Stop-or-go: staged testing that can end early when few errors are expected.",
       "trap": "Statistical sampling lets you QUANTIFY sampling risk; it does not eliminate it. That distractor appears often.",
-      "question_ids": ["cisa-d1b-007", "cisa-d1b-009", "cisa-d1b-010"]
+      "question_ids": [
+        "cisa-d1b-007",
+        "cisa-d1b-009",
+        "cisa-d1b-010"
+      ]
     }
   ]
 }

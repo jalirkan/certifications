@@ -424,6 +424,8 @@
         "cisa-d3a-012",
         "cisa-d3b-027",
         "cisa-d3b-028",
+        "cisa-d3b-032",
+        "cisa-d3b-033",
         "cisa-d4a-018",
         "cisa-d4a-022",
         "cisa-d4a-031",
@@ -505,6 +507,21 @@
         "cisa-d3b-017",
         "cisa-d4a-001",
         "cisa-d5a-003"
+      ]
+    },
+    {
+      "id": "protection-follows-data",
+      "name": "Protection follows the data, not the system",
+      "statement": "Data keeps its classification and its protection requirements everywhere it goes: copies into test environments, backups, exports, third parties, and the media carrying it out of the building. Ask where else this data exists.",
+      "why": "Controls are built around the production system because that is where the data was designed to live. It does not stay there. Every copy inherits the sensitivity without inheriting the controls, and the copy is where the loss usually happens.",
+      "misapplication": "Treating the primary system's controls as the protection and copies as an operational detail — test refreshes, backup media, decommissioned drives, analytics extracts. Also assuming the purpose limit agreed at collection stops applying once the data is inside the organisation.",
+      "scope": "About protection travelling with the data. Not an argument against test environments, backups or analytics — those are necessary. The point is that each copy needs the control too, not that the copy should not exist.",
+      "question_ids": [
+        "cisa-d2a-030",
+        "cisa-d2a-038",
+        "cisa-d3b-004",
+        "cisa-d4a-005",
+        "cisa-d5a-032"
       ]
     }
   ]

@@ -71,6 +71,7 @@
       "id": "cisa-d2a-004",
       "topic": "Laws, Regulations, and Industry Standards",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "Compliance with an industry standard such as a payment card security standard MOST significantly differs from compliance with statute in that:",
       "options": {
         "A": "industry standards carry criminal rather than civil penalties.",
@@ -337,6 +338,7 @@
       "id": "cisa-d2a-018",
       "topic": "Enterprise Architecture and Considerations",
       "difficulty": "medium",
+      "no_principle": true,
       "stem": "An organization has no enterprise architecture function. The MOST likely consequence is:",
       "options": {
         "A": "higher per-seat software licensing costs across the estate.",
