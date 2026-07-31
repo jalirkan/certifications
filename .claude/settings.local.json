@@ -26,7 +26,8 @@
       "PowerShell(Get-ChildItem *)",
       "PowerShell(Get-CimInstance Win32_Process*)",
       "Bash(python -c ' *)",
-      "Bash(python run_tests.py)"
+      "Bash(python run_tests.py)",
+      "Bash(git add *)"
     ],
     "deny": [
       "Bash(rm * cisa/results/attempts.jsonl*)",
