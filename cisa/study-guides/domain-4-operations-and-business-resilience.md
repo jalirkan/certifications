@@ -458,8 +458,9 @@ Before the topics, internalize these. On a judgment stem, they resolve the answe
 
 ## The eight confusions this domain turns on
 
-Domain 4 carries more documented confusable pairs than any other. Each of these is a pair of terms
-the exam expects you to separate under time pressure; the drill tool has questions mapped to every one.
+Domain 4 and Domain 5 carry the most documented confusable pairs of any domain — which tracks with
+them being the two heaviest. Each of these is a pair of terms the exam expects you to separate under
+time pressure; the drill tool has questions mapped to every one.
 
 | Pair | The discriminator in one line |
 |---|---|

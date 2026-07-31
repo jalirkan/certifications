@@ -163,14 +163,21 @@ data, which is worse than leaving it alone.
    `frontend/`, building to `web/`. `FRONTEND-BRIEF.md` remains as the spec it was built against.
    Working on it: `cd frontend && npm run build`, then `python serve.py` as before. `npm run dev`
    proxies `/api` to port 8765 for a hot-reload loop against the real engine.
-2. **Study guides for Domains 1–4** at the depth of the D5 one. Highest-value content work and it
-   needs no build tooling.
-3. **Close the two confusable-pair gaps** — nothing in the bank tests **verification vs validation**
-   or **FAR / FRR / CER**. `validate` warns about both.
-4. **Look at the 16 judgment-worded questions that map to no decision rule.** `validate` lists them.
-   They are usually stems that promise judgment and test recall, making them the weakest CISA-style
-   items in the bank and the first candidates for rewriting.
-5. **Deepen the bank** where `items` flags thin coverage or badly-behaved questions.
+2. ~~**Study guides for Domains 1–4**~~ — **done 2026-07-30.** All five domains now have a guide at
+   the same depth: tracker table, domain reflexes, every outline topic, and a closing table of that
+   domain's confusable pairs. ~1,800 lines total in `cisa/study-guides/`.
+3. ~~**Close the two confusable-pair gaps**~~ — **done.** Six new questions cover verification vs
+   validation and FAR / FRR / CER. `validate` is clean, no warnings.
+4. ~~**Look at the 16 judgment-worded questions that map to no decision rule**~~ — **done.** Three
+   were testing a rule the taxonomy lacked, now principle 23 `protection-follows-data`. The other 13
+   are genuinely recall and carry an explicit `no_principle: true` flag.
+5. **Deepen the bank, and do it where the blueprint bites.** Not "more questions" generally — a
+   150-question mock draws 39 from Domain 5's 55-question pool, so the second mock exam is already
+   re-serving remembered questions. D4 and D5 need roughly +60 and +65 to reach the headroom D3
+   already has. `items` flags badly-behaved questions on top of that.
+6. **Build the synthetic learner harness** — `SIMULATION-BRIEF.md`. Plant a known weakness in a
+   generated study history and score whether the diagnostics find it, with a negative control and a
+   sample-size sweep. This is what lets the project make claims about itself.
 6. **Stand up `cpa/`** after CISA. Verify the current AICPA blueprints first — the exam changed
    under CPA Evolution, and CPA includes task-based simulations that this multiple-choice engine
    does not model.
