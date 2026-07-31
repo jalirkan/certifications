@@ -8,3 +8,7 @@ Thumbs.db
 # Study progress is personal data, not source. Keep the folder, ignore the log.
 # Remove this line if you'd rather version your progress history.
 */results/attempts.jsonl
+
+# Same rule for per-profile histories. Without this, a throwaway --profile used
+# for testing lands in a commit, and so would a second learner's real history.
+*/results/profiles/
