@@ -15,7 +15,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { useApp } from '../app/AppProvider'
-import type { ExamResult, ExamState, Letter } from '../api/types'
+import type { Confidence, ExamResult, ExamState, Letter } from '../api/types'
+import { ConfidencePicker, CONFIDENCE_META } from '../ui/ConfidencePicker'
 import { hms, LETTERS, pct, plural, stamp } from '../lib/format'
 import { useAsync, useKeys } from '../lib/hooks'
 import {
@@ -127,6 +128,7 @@ export function ExamRunner() {
   const [state, setState] = useState<ExamState | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Record<string, Letter>>({})
+  const [confidence, setConfidence] = useState<Record<string, Confidence>>({})
   const [flagged, setFlagged] = useState<Set<string>>(new Set())
   const [index, setIndex] = useState(0)
   const [left, setLeft] = useState(0)
@@ -137,6 +139,7 @@ export function ExamRunner() {
   const sittingStart = useRef(Date.now())
   const questionStart = useRef(Date.now())
   const submitted = useRef(false)
+  const answersRef = useRef<Record<string, Letter>>({})
 
   const elapsed = useCallback(
     () => baseElapsed.current + (Date.now() - sittingStart.current) / 1000,
@@ -153,7 +156,9 @@ export function ExamRunner() {
           return
         }
         setState(data)
+        answersRef.current = { ...data.answers }
         setAnswers({ ...data.answers })
+        setConfidence({ ...(data.confidence ?? {}) })
         setFlagged(new Set(data.flagged))
         setIndex(data.position || 0)
         baseElapsed.current = data.elapsed
@@ -215,24 +220,60 @@ export function ExamRunner() {
 
   const question = state?.questions[index] ?? null
 
+  /**
+   * Selecting a letter records the answer immediately (an exam must never lose
+   * one), then waits for a confidence rating before advancing. There is no
+   * feedback during an exam, so the rating cannot be contaminated here — but it
+   * still has to be taken now, because it cannot be recovered afterwards.
+   */
   const choose = useCallback(
     async (letter: Letter | '') => {
       if (!state || !question) return
+      // Mirrored into a ref: the confidence keystroke can land in the same tick
+      // as the letter, before React re-renders, and reading stale state there
+      // would drop the rating on a fast answer.
+      answersRef.current = { ...answersRef.current }
+      if (letter) answersRef.current[question.id] = letter
+      else delete answersRef.current[question.id]
       setAnswers((prev) => {
         const next = { ...prev }
         if (letter) next[question.id] = letter
         else delete next[question.id]
         return next
       })
+      if (!letter) {
+        setConfidence((prev) => {
+          const next = { ...prev }
+          delete next[question.id]
+          return next
+        })
+      }
       const spent = (Date.now() - questionStart.current) / 1000
       questionStart.current = Date.now()
       try {
-        await api.examAnswer(state.id, question.id, letter, spent)
+        await api.examAnswer(state.id, question.id, letter, spent,
+                             letter ? (confidence[question.id] ?? '') : '')
       } catch (err) {
         toast(err instanceof Error ? err.message : String(err), true)
       }
-      if (letter && index < state.questions.length - 1) {
-        window.setTimeout(() => setIndex((i) => Math.min(i + 1, state.questions.length - 1)), 130)
+    },
+    [state, question, confidence, toast],
+  )
+
+  const rate = useCallback(
+    async (level: Exclude<Confidence, ''>) => {
+      if (!state || !question) return
+      const letter = answersRef.current[question.id]
+      if (!letter) return
+      setConfidence((prev) => ({ ...prev, [question.id]: level }))
+      try {
+        await api.examAnswer(state.id, question.id, letter, 0, level)
+      } catch (err) {
+        toast(err instanceof Error ? err.message : String(err), true)
+      }
+      if (index < state.questions.length - 1) {
+        window.setTimeout(
+          () => setIndex((i) => Math.min(i + 1, state.questions.length - 1)), 130)
       }
     },
     [state, question, index, toast],
@@ -263,11 +304,15 @@ export function ExamRunner() {
   useKeys((ev) => {
     if (!state) return
     const byLetter = LETTERS.indexOf(ev.key.toUpperCase() as Letter)
-    const byNumber = '1234'.indexOf(ev.key)
-    const idx = byLetter >= 0 ? byLetter : byNumber
-    if (idx >= 0) {
+    if (byLetter >= 0) {
       ev.preventDefault()
-      void choose(LETTERS[idx])
+      void choose(LETTERS[byLetter])
+      return
+    }
+    const level = CONFIDENCE_META.find((c) => c.key === ev.key)
+    if (level && question && answersRef.current[question.id]) {
+      ev.preventDefault()
+      void rate(level.level)
       return
     }
     if (ev.key === 'ArrowRight' || ev.key === 'Enter') {
@@ -342,6 +387,14 @@ export function ExamRunner() {
             onChoose={(l) => void choose(l)}
           />
 
+          {answers[question.id] ? (
+            <ConfidencePicker
+              value={confidence[question.id] ?? ''}
+              onPick={(level) => void rate(level)}
+              compact
+            />
+          ) : null}
+
           <div className="runner-foot">
             <button className="btn" onClick={() => go(index - 1)} disabled={index === 0}>
               ← Previous
@@ -357,7 +410,8 @@ export function ExamRunner() {
               Clear answer
             </button>
             <span className="kbd-hint">
-              <kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>F</kbd> flag · <kbd>←</kbd><kbd>→</kbd> move
+              <kbd>A</kbd>–<kbd>D</kbd> answer · <kbd>1</kbd>–<kbd>3</kbd> how sure ·{' '}
+              <kbd>F</kbd> flag · <kbd>←</kbd><kbd>→</kbd> move
             </span>
           </div>
         </div>

@@ -13,6 +13,32 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional
 
 
+CONFIDENCE = ("guess", "unsure", "confident")
+
+# Keyed 1/2/3 in both front ends. Three levels, not a slider: people cannot
+# produce calibrated numbers without training, and a coarse scale answered
+# honestly beats a fine one answered carelessly.
+CONFIDENCE_KEYS = {"1": "guess", "2": "unsure", "3": "confident"}
+
+CONFIDENCE_LABEL = {
+    "guess": "no better than picking",
+    "unsure": "leaning one way, could not defend it",
+    "confident": "would defend this in a review",
+}
+
+
+def normalise_confidence(value: object) -> str:
+    """Accept a level, a 1/2/3 key, or nothing at all.
+
+    Returns "" for anything unrecognised rather than raising: an unreadable
+    confidence must never cost the learner the answer itself.
+    """
+    text = str(value or "").strip().lower()
+    if text in CONFIDENCE:
+        return text
+    return CONFIDENCE_KEYS.get(text, "")
+
+
 @dataclass
 class Attempt:
     ts: str
@@ -27,6 +53,10 @@ class Attempt:
     correct: bool
     seconds: float
     mode: str
+    # Added after the log already had history in it. Empty string means "not
+    # recorded", which is what every row written before this feature reads as.
+    # Never backfill it: an invented confidence is worse than a missing one.
+    confidence: str = ""
 
 
 def now_iso() -> str:

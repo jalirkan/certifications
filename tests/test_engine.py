@@ -232,7 +232,7 @@ class TestSession(unittest.TestCase):
 
     def test_a_full_session_scores_and_logs_every_answer(self):
         questions = [q("q1", answer="B"), q("q2", answer="C")]
-        sess, text, rows = self._run(["B", "A"], questions)
+        sess, text, rows = self._run(["B2", "A1"], questions)
         self.assertEqual((sess.asked, sess.right), (2, 1))
         self.assertEqual(len(rows), 2)
         self.assertIn("CORRECT", text)
@@ -240,24 +240,24 @@ class TestSession(unittest.TestCase):
         self.assertEqual([r["correct"] for r in rows], [True, False])
 
     def test_invalid_input_is_rejected_without_being_logged(self):
-        sess, text, rows = self._run(["X", "", "B"], [q("q1", answer="B")])
+        sess, text, rows = self._run(["X", "", "B3"], [q("q1", answer="B")])
         self.assertEqual(len(rows), 1)
         self.assertEqual(sess.right, 1)
         self.assertIn("Enter A, B, C, D", text)
 
     def test_quitting_early_preserves_answers_already_given(self):
         questions = [q("q1", answer="B"), q("q2", answer="B"), q("q3", answer="B")]
-        sess, text, rows = self._run(["B", "q"], questions)
+        sess, text, rows = self._run(["B2", "q"], questions)
         self.assertEqual(sess.asked, 1)
         self.assertEqual(len(rows), 1)
         self.assertIn("Stopped early", text)
 
     def test_lowercase_answers_are_accepted(self):
-        sess, _, rows = self._run(["b"], [q("q1", answer="B")])
+        sess, _, rows = self._run(["b2"], [q("q1", answer="B")])
         self.assertEqual(sess.right, 1)
 
     def test_feedback_explains_the_correct_answer_and_every_distractor(self):
-        _, text, _ = self._run(["A"], [q("q1", answer="B")])
+        _, text, _ = self._run(["A3"], [q("q1", answer="B")])
         self.assertIn("Why B is right", text)
         for letter in "ACD":
             self.assertIn("Why %s is wrong" % letter, text)

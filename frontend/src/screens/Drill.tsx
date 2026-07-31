@@ -11,8 +11,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
 import { useApp } from '../app/AppProvider'
 import type {
-  DrillMode, DrillStart, DrillStartParams, Letter, Reveal,
+  Confidence, DrillMode, DrillStart, DrillStartParams, Letter, Reveal,
 } from '../api/types'
+import { ConfidencePicker, CONFIDENCE_META } from '../ui/ConfidencePicker'
 import { LETTERS, pct } from '../lib/format'
 import { useKeys } from '../lib/hooks'
 import { Callout, Card, Field, Loading, Seg } from '../ui/primitives'
@@ -155,11 +156,13 @@ export function DrillRunner() {
   const [progress, setProgress] = useState<Progress>({ index: 0, answered: 0, right: 0 })
   const [reveal, setReveal] = useState<Reveal | null>(null)
   const [chosen, setChosen] = useState<Letter | null>(null)
+  const [rated, setRated] = useState<Confidence>('')
   const [pending, setPending] = useState(false)
   const [done, setDone] = useState(false)
 
   const questionStart = useRef(Date.now())
   const sessionStart = useRef(Date.now())
+  const chosenRef = useRef<Letter | null>(null)
   const nextRef = useRef<HTMLButtonElement | null>(null)
   const startedRef = useRef(false)
 
@@ -179,11 +182,28 @@ export function DrillRunner() {
 
   const question = set?.questions[progress.index] ?? null
 
-  const answer = useCallback(
-    async (letter: Letter) => {
+  /**
+   * Two keystrokes, one action. Picking a letter only *selects* it; the answer
+   * is not submitted until confidence is given, so the rating is always
+   * recorded before the learner can see whether they were right. Rating after
+   * the reveal would be hindsight and worth nothing.
+   */
+  const select = useCallback(
+    (letter: Letter) => {
+      if (!set || !question || reveal || pending) return
+      // Mirrored into a ref as well as state: the confidence keystroke can
+      // arrive in the same tick as the letter, before React has re-rendered,
+      // and reading stale state there would silently drop the rating.
+      chosenRef.current = letter
+      setChosen(letter)
+    },
+    [set, question, reveal, pending],
+  )
+
+  const submit = useCallback(
+    async (letter: Letter, confidence: Exclude<Confidence, ''>) => {
       if (!set || !question || reveal || pending) return
       setPending(true)
-      setChosen(letter)
       try {
         const res = await api.drillAnswer({
           question_id: question.id,
@@ -191,8 +211,10 @@ export function DrillRunner() {
           session: set.session,
           mode: set.mode,
           seconds: (Date.now() - questionStart.current) / 1000,
+          confidence,
         })
         setReveal(res)
+        setRated(confidence)
         setProgress((p) => ({
           ...p,
           answered: p.answered + 1,
@@ -200,7 +222,6 @@ export function DrillRunner() {
         }))
       } catch (err) {
         toast(err instanceof Error ? err.message : String(err), true)
-        setChosen(null)
       } finally {
         setPending(false)
       }
@@ -216,6 +237,8 @@ export function DrillRunner() {
     }
     setReveal(null)
     setChosen(null)
+    chosenRef.current = null
+    setRated('')
     setProgress((p) => ({ ...p, index: p.index + 1 }))
     questionStart.current = Date.now()
   }, [set, progress.index])
@@ -233,12 +256,19 @@ export function DrillRunner() {
         return
       }
       if (!reveal) {
+        // A-D selects. 1-3 then rates and submits. Digits are confidence here,
+        // not option numbers: the answer key is always a letter in this bank,
+        // and overloading 1-4 would make the second keystroke ambiguous.
         const byLetter = LETTERS.indexOf(ev.key.toUpperCase() as Letter)
-        const byNumber = '1234'.indexOf(ev.key)
-        const idx = byLetter >= 0 ? byLetter : byNumber
-        if (idx >= 0) {
+        if (byLetter >= 0) {
           ev.preventDefault()
-          void answer(LETTERS[idx])
+          select(LETTERS[byLetter])
+          return
+        }
+        const level = CONFIDENCE_META.find((c) => c.key === ev.key)
+        if (level && chosenRef.current) {
+          ev.preventDefault()
+          void submit(chosenRef.current, level.level)
         }
       } else if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault()
@@ -325,12 +355,30 @@ export function DrillRunner() {
             question={question}
             reveal={reveal}
             chosen={chosen}
-            onChoose={answer}
+            onChoose={select}
             pending={pending}
           />
 
+          {!reveal && chosen ? (
+            <ConfidencePicker
+              value={rated}
+              onPick={(level) => void submit(chosen, level)}
+              disabled={pending}
+            />
+          ) : null}
+
           {reveal ? (
             <>
+              {rated ? (
+                <div className="rated-note">
+                  You rated this <b>{rated}</b> before seeing the answer
+                  {reveal.correct
+                    ? rated === 'confident' ? ' — and you were right.' : ' — and got it right.'
+                    : rated === 'confident'
+                      ? ' — and were wrong. This is the quadrant that costs marks.'
+                      : ' — and were wrong, which you half expected.'}
+                </div>
+              ) : null}
               {reveal.principle ? <RuleNote principle={reveal.principle} /> : null}
               <div className="runner-foot">
                 <button className="btn primary" ref={nextRef} onClick={next}>
@@ -342,8 +390,10 @@ export function DrillRunner() {
           ) : (
             <div className="runner-foot">
               <span className="kbd-hint">
-                <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd> to answer ·{' '}
-                <kbd>Esc</kbd> to exit
+                {chosen
+                  ? <><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> to rate and submit</>
+                  : <><kbd>A</kbd>–<kbd>D</kbd> to choose, then <kbd>1</kbd>–<kbd>3</kbd></>}
+                {' · '}<kbd>Esc</kbd> to exit
               </span>
             </div>
           )}

@@ -30,21 +30,21 @@ lose data.
 
 | | |
 |---|---|
-| Question bank | **292 original questions**, all 5 domains, all 50 outline topics covered |
-| Per domain | 60 each for D1–D4, 52 for D5 |
+| Question bank | **298 original questions**, all 5 domains, all 50 outline topics covered |
+| Per domain | 60 for D1/D2/D4, 63 for D3, 55 for D5 |
 | Answer keys | spread A 25% / B 24% / C 26% / D 25% — no positional pattern to exploit |
-| Decision rules | 22 documented, 223 of 292 questions mapped, every rule spans ≥2 domains |
-| Confusable pairs | 29 documented, 63 questions mapped, **2 known gaps** |
+| Decision rules | 23 documented, 228 of 298 questions mapped, every rule spans ≥2 domains |
+| Confusable pairs | 29 documented, 69 questions mapped, **2 known gaps** |
 | Study guides | D5 complete; **D1–D4 missing** |
 | Branching cases | 3 written (~35 needed); playable in the browser and the CLI |
-| Tests | **259, all passing** — `python run_tests.py` |
+| Tests | **297, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
 ```
 certifications/
-  drill.py            CLI: drill / exam / case / game / principles / costumes / stats / items / validate / list
+  drill.py            CLI: drill / exam / case / game / calibration / principles / costumes / stats / items / validate / list
   serve.py            local web app, stdlib http.server, binds 127.0.0.1 only
   run_tests.py        runs every suite
   frontend/           web front end source — Vite + React + TS. `npm run build` emits to web/
@@ -63,16 +63,17 @@ certifications/
     caserunner.py       terminal runner for cases
     itemanalysis.py     difficulty, discrimination, distractor quality
     principles.py       decision-rule diagnosis and study card
+    calibration.py      confidence vs accuracy, the dangerous quadrant, coverage projection
     webapi.py           JSON API over all of the above
   tests/              6 suites
   cisa/
     outline.json            ISACA exam content outline — the source of truth for topic tags
     principles.json         22 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
-    questions/              292 questions, one file per domain-section
+    questions/              298 questions, one file per domain-section
     cases/                  branching audit cases + SCHEMA.md (3 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
-    results/                answer logs — PERSONAL DATA, see rule 13
+    results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
   cpa/                reserved sibling, activated after CISA
 ```
 

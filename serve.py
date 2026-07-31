@@ -146,6 +146,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.game_stats())
             if route == "/api/exams":
                 return self._json(api.exam_list())
+            if route == "/api/calibration":
+                return self._json(api.calibration())
+            if route == "/api/settings":
+                return self._json(api.settings())
             if route == "/api/cases":
                 return self._json(api.case_list())
             if route.startswith("/api/case/"):
@@ -167,6 +171,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._error(str(exc), 500)
         except CaseError as exc:
             return self._error(str(exc), 500)
+        except (json.JSONDecodeError, TypeError, ValueError) as exc:
+            # A truncated or corrupt state file must produce a readable error,
+            # not a dropped connection the browser reports as "failed to fetch".
+            return self._error("Stored state could not be read: %s" % exc, 500)
 
     def do_POST(self):  # noqa: N802
         route = urlparse(self.path).path
@@ -187,6 +195,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.exam_update(body))
             if route == "/api/exam/submit":
                 return self._json(api.exam_submit(body))
+            if route == "/api/settings":
+                return self._json(api.save_settings(body))
             if route == "/api/case/start":
                 return self._json(api.case_start(body))
             if route == "/api/case/choose":
@@ -200,6 +210,10 @@ class Handler(BaseHTTPRequestHandler):
             return self._error(str(exc), 500)
         except CaseError as exc:
             return self._error(str(exc), 500)
+        except (json.JSONDecodeError, TypeError, ValueError) as exc:
+            # A truncated or corrupt state file must produce a readable error,
+            # not a dropped connection the browser reports as "failed to fetch".
+            return self._error("Stored state could not be read: %s" % exc, 500)
 
 
 def find_port(preferred: int, host: str = "127.0.0.1") -> int:

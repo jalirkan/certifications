@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 import random
 import time
 import uuid
@@ -186,6 +187,10 @@ class ExamState:
     blueprint: Dict[str, int] = field(default_factory=dict)
     shortfall: Dict[str, int] = field(default_factory=dict)
     seconds_per_question: Dict[str, float] = field(default_factory=dict)
+    # question id -> guess | unsure | confident. Captured with the answer, so a
+    # question answered then changed keeps the confidence of the final answer.
+    # Exams written before this feature simply have an empty dict.
+    confidence: Dict[str, str] = field(default_factory=dict)
 
     @property
     def total(self) -> int:
@@ -215,11 +220,39 @@ def exam_path(cert_results_path: str, exam_id: str) -> str:
 def save(state: ExamState, cert_results_path: str) -> str:
     path = exam_path(cert_results_path, state.exam_id)
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(asdict(state), fh, indent=2)
-    os.replace(tmp, path)  # atomic, so an interrupted save cannot corrupt state
+    # Unique temp name per call. A shared "<file>.tmp" looks atomic but is not:
+    # the server is threaded, and one user action can produce two writes in
+    # flight at once (answering and rating a question). Two writers sharing one
+    # temp file interleave their bytes and the replace publishes the wreckage.
+    tmp = "%s.%d.%d.tmp" % (path, os.getpid(), threading.get_ident())
+    try:
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(asdict(state), fh, indent=2)
+        _replace_with_retry(tmp, path)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+        raise
     return path
+
+
+def _replace_with_retry(tmp: str, path: str, attempts: int = 40) -> None:
+    """Atomic publish, with a short retry for Windows file locking.
+
+    os.replace is atomic on both platforms, but on Windows it raises
+    PermissionError if anything else has the destination open - including a
+    concurrent reader. That is transient, so a brief retry turns a lost save
+    into a slightly delayed one. Losing exam state is the thing this file
+    exists to prevent.
+    """
+    for attempt in range(attempts):
+        try:
+            os.replace(tmp, path)
+            return
+        except PermissionError:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(0.01)
 
 
 def load(cert_results_path: str, exam_id: str) -> ExamState:

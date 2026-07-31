@@ -13,7 +13,7 @@ from typing import Dict, List, Optional, Sequence, TextIO
 from . import exam as exam_mod
 from .exam import Clock, ExamResult, ExamState, format_hms, format_ms
 from .loader import OPTION_KEYS, Outline, Question
-from .store import Attempt, append, now_iso
+from .store import Attempt, append, normalise_confidence, now_iso
 
 WIDTH = 78
 RULE = "=" * WIDTH
@@ -112,7 +112,8 @@ class ExamRunner:
             self._question_entered = self._now()
 
             try:
-                raw = self.reader("Command (A-D, n/p, g N, f, r, s, e, x, ?): ")
+                raw = self.reader(
+                    "Command (A-D[1-3], n/p, g N, f, r, s, e, x, ?): ")
             except EOFError:
                 raw = "x"
             if raw is None:
@@ -179,9 +180,20 @@ class ExamRunner:
         s = self.state
         value = raw.upper()
 
-        if value in OPTION_KEYS:
+        # "B" answers; "B2" answers and rates confidence in one entry. No
+        # feedback is given during an exam anyway, so confidence here cannot be
+        # contaminated by knowing the result - but it still has to be recorded
+        # with the answer, because it cannot be recovered afterwards.
+        if value[:1] in OPTION_KEYS and (len(value) == 1 or
+                                         normalise_confidence(value[1:])):
             self._commit_time_on_question()
-            s.answers[self.current.id] = value
+            qid = self.current.id
+            s.answers[qid] = value[:1]
+            confidence = normalise_confidence(value[1:]) if len(value) > 1 else ""
+            if confidence:
+                s.confidence[qid] = confidence
+            else:
+                s.confidence.pop(qid, None)
             self._advance(1)
             self._persist()
             return None
@@ -326,6 +338,7 @@ class ExamRunner:
                 correct=chosen == q.answer,
                 seconds=self.state.seconds_per_question.get(q.id, 0.0),
                 mode="exam",
+                confidence=self.state.confidence.get(q.id, ""),
             ))
 
 

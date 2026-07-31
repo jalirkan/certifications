@@ -13,12 +13,14 @@ a timed exam.
 from __future__ import annotations
 
 import random
+import threading
 import time
 import uuid
 from datetime import datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
 from . import (
+    calibration as calibration_mod,
     cases as cases_mod,
     casesession,
     exam as exam_mod,
@@ -37,6 +39,22 @@ class ApiError(Exception):
     def __init__(self, message: str, status: int = 400):
         super().__init__(message)
         self.status = status
+
+
+# One lock per exam id, so two requests touching the same sitting cannot
+# interleave their read-modify-write. Keyed rather than global because a lock
+# shared across exams would serialise unrelated work for no benefit.
+_EXAM_LOCKS: Dict[str, threading.Lock] = {}
+_EXAM_LOCKS_GUARD = threading.Lock()
+
+
+def _exam_lock(exam_id: str) -> threading.Lock:
+    with _EXAM_LOCKS_GUARD:
+        lock = _EXAM_LOCKS.get(exam_id)
+        if lock is None:
+            lock = threading.Lock()
+            _EXAM_LOCKS[exam_id] = lock
+        return lock
 
 
 # --------------------------------------------------------------------------
@@ -432,6 +450,9 @@ class Api:
             correct=chosen == q.answer,
             seconds=round(float(params.get("seconds", 0) or 0), 1),
             mode=str(params.get("mode", "smart"))[:20],
+            # Sent with the answer, so it is recorded before the learner sees
+            # whether they were right. Confidence taken afterwards is hindsight.
+            confidence=store.normalise_confidence(params.get("confidence")),
         ))
         return reveal(q, chosen, self.principle_for(q.id))
 
@@ -577,6 +598,7 @@ class Api:
             "remaining": state.remaining_seconds,
             "position": state.position,
             "answers": state.answers,
+            "confidence": state.confidence,
             "flagged": state.flagged,
             "blueprint": state.blueprint,
             "shortfall": state.shortfall,
@@ -585,6 +607,18 @@ class Api:
         }
 
     def exam_update(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Read-modify-write, serialised per exam.
+
+        One user action can produce two requests almost at once - answering a
+        question and rating confidence on it - and the server is threaded. Two
+        handlers loading the same state independently would let the second
+        overwrite the first's change. Writing the file atomically is not enough
+        on its own; the whole read-modify-write has to be the unit.
+        """
+        with _exam_lock(str(params.get("id", ""))):
+            return self._exam_update_locked(params)
+
+    def _exam_update_locked(self, params: Dict[str, Any]) -> Dict[str, Any]:
         state = exam_mod.load(self.results_path, str(params.get("id", "")))
         if state.submitted:
             raise ApiError("That exam has already been submitted.")
@@ -598,8 +632,12 @@ class Api:
             chosen = str(params.get("chosen", "")).upper()
             if chosen in loader.OPTION_KEYS:
                 state.answers[qid] = chosen
+                confidence = store.normalise_confidence(params.get("confidence"))
+                if confidence:
+                    state.confidence[qid] = confidence
             elif chosen == "":
                 state.answers.pop(qid, None)
+                state.confidence.pop(qid, None)
             spent = float(params.get("seconds", 0) or 0)
             if spent > 0:
                 prior = state.seconds_per_question.get(qid, 0.0)
@@ -643,7 +681,8 @@ class Api:
                     cert=self.cert.upper(), domain=q.domain, section=q.section,
                     topic=q.topic, chosen=chosen, answer=q.answer,
                     correct=chosen == q.answer,
-                    seconds=state.seconds_per_question.get(q.id, 0.0), mode="exam"))
+                    seconds=state.seconds_per_question.get(q.id, 0.0), mode="exam",
+                    confidence=state.confidence.get(q.id, "")))
         return self.exam_result(state.exam_id)
 
     def exam_result(self, exam_id: str) -> Dict[str, Any]:
@@ -677,6 +716,37 @@ class Api:
                 for q in result.missed if q.id in known
             ],
         }
+
+    # ------------------------------------------------------------------
+    # calibration
+    # ------------------------------------------------------------------
+    def settings(self) -> Dict[str, Any]:
+        data = loader.load_settings(self.cert, self.profile)
+        return {"target_date": str(data.get("target_date", "") or "")}
+
+    def save_settings(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        current = loader.load_settings(self.cert, self.profile)
+        if "target_date" in params:
+            raw = str(params.get("target_date", "") or "").strip()
+            if raw and calibration_mod.parse_target(raw) is None:
+                raise ApiError("Target date must be YYYY-MM-DD.")
+            if raw:
+                current["target_date"] = raw
+            else:
+                current.pop("target_date", None)
+        loader.save_settings(self.cert, current, self.profile)
+        return self.settings()
+
+    def calibration(self) -> Dict[str, Any]:
+        """Whether the learner knew, not just whether they were right.
+
+        Deliberately returns the curve, the gap and the lists rather than any
+        single figure. There is no "calibration score" here and there should
+        not be one.
+        """
+        target = calibration_mod.parse_target(
+            loader.load_settings(self.cert, self.profile).get("target_date"))
+        return calibration_mod.report(self.rows(), self.questions, self.rules, target)
 
     # ------------------------------------------------------------------
     # branching cases

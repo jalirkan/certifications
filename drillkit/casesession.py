@@ -29,11 +29,13 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 import uuid
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
+from . import exam as exam_mod
 from .cases import Case, PathStep, score_path
 
 
@@ -106,10 +108,17 @@ def session_path(cert_results_path: str, session_id: str) -> str:
 def save(state: CaseSession, cert_results_path: str) -> str:
     path = session_path(cert_results_path, state.session_id)
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    tmp = path + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as fh:
-        json.dump(asdict(state), fh, indent=2)
-    os.replace(tmp, path)  # atomic, so an interrupted save cannot corrupt state
+    # Unique temp name per call - see the note in exam.save(). A shared
+    # "<file>.tmp" is not safe under a threaded server.
+    tmp = "%s.%d.%d.tmp" % (path, os.getpid(), threading.get_ident())
+    try:
+        with open(tmp, "w", encoding="utf-8") as fh:
+            json.dump(asdict(state), fh, indent=2)
+        exam_mod._replace_with_retry(tmp, path)
+    except BaseException:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+        raise
     return path
 
 

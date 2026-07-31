@@ -8,10 +8,10 @@
  */
 
 import type {
-  AutopsyResult, Bootstrap, CaseChoice, CaseDebrief, CaseListEntry, CaseState,
-  ColdReadResult, DrillStart, DrillStartParams, ExamResult, ExamState,
-  ExamSummary, GameName, GameStart, GameStats, Items, Letter, Overview, Reveal,
-  Trend,
+  AutopsyResult, Bootstrap, Calibration, CaseChoice, CaseDebrief, CaseListEntry,
+  CaseState, ColdReadResult, Confidence, DrillStart, DrillStartParams,
+  ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
+  Letter, Overview, Reveal, Trend,
 } from './types'
 
 /** Set by the profile provider; read on every request. */
@@ -79,6 +79,8 @@ export const api = {
     session: string
     mode: string
     seconds: number
+    /** Sent with the answer so it is recorded before the reveal. */
+    confidence: Confidence
   }) => post<Reveal>('/api/drill/answer', body),
 
   gameStart: (game: GameName, n: number) =>
@@ -104,9 +106,12 @@ export const api = {
   examGet: (id: string) => get<ExamState>(`/api/exam/${encodeURIComponent(id)}`),
   examResult: (id: string) =>
     get<ExamResult>(`/api/exam/${encodeURIComponent(id)}/result`),
-  examAnswer: (id: string, question_id: string, chosen: Letter | '', seconds: number) =>
+  examAnswer: (
+    id: string, question_id: string, chosen: Letter | '', seconds: number,
+    confidence: Confidence = '',
+  ) =>
     post<ExamUpdateAck>('/api/exam/update', {
-      id, action: 'answer', question_id, chosen, seconds,
+      id, action: 'answer', question_id, chosen, seconds, confidence,
     }),
   examFlag: (id: string, question_id: string) =>
     post<ExamUpdateAck>('/api/exam/update', { id, action: 'flag', question_id }),
@@ -116,6 +121,11 @@ export const api = {
     post<ExamUpdateAck>('/api/exam/update', { id, action: 'tick', elapsed }),
   examSubmit: (id: string, elapsed: number) =>
     post<ExamResult>('/api/exam/submit', { id, elapsed }),
+
+  calibration: () => get<Calibration>('/api/calibration'),
+  settings: () => get<{ target_date: string }>('/api/settings'),
+  saveSettings: (target_date: string) =>
+    post<{ target_date: string }>('/api/settings', { target_date }),
 
   caseList: () => get<{ cases: CaseListEntry[] }>('/api/cases'),
   caseStart: (case_id: string) => post<CaseState>('/api/case/start', { case_id }),

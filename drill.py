@@ -21,6 +21,7 @@ from typing import List
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from drillkit import (  # noqa: E402
+    calibration,
     cases as cases_mod,
     caserunner,
     casesession,
@@ -40,6 +41,7 @@ from drillkit.loader import Question, QuestionError  # noqa: E402
 
 WIDTH = 78
 RULE = "=" * WIDTH
+THIN = "-" * WIDTH
 WRAP_NOTE = ("These are kept out of your drill and exam accuracy on purpose. A\n"
              "five-second answer is not the same evidence as a worked scenario.")
 
@@ -340,6 +342,160 @@ def cmd_stats(args) -> int:
         print("%d question(s) not yet seen - they are queued ahead of review items." % len(untouched))
     print(RULE)
     return 0
+
+
+def cmd_calibration(args) -> int:
+    """Did you know that you knew?
+
+    Reports the curve, the gap and the lists. There is deliberately no single
+    "calibration score" - collapsing this to one number is the same mistake
+    ruled out for cases and for the scaled exam estimate.
+    """
+    outline, questions = _load(args)
+    rules = loader.load_principles(args.cert)
+    results_path = loader.results_path(args.cert, args.profile)
+
+    if args.target is not None:
+        settings = loader.load_settings(args.cert, args.profile)
+        raw = args.target.strip()
+        if raw and calibration.parse_target(raw) is None:
+            print("Target date must be YYYY-MM-DD.")
+            return 1
+        if raw:
+            settings["target_date"] = raw
+        else:
+            settings.pop("target_date", None)
+        loader.save_settings(args.cert, settings, args.profile)
+        print("Target date %s." % ("set to %s" % raw if raw else "cleared"))
+        if not args.show:
+            return 0
+
+    target = calibration.parse_target(
+        loader.load_settings(args.cert, args.profile).get("target_date"))
+    rows = store.load(results_path)
+    data = calibration.report(rows, questions, rules, target)
+
+    print(RULE)
+    print("CALIBRATION")
+    print(RULE)
+    if not data["labelled"]:
+        print()
+        print("No answers carry a confidence rating yet.")
+        print("Confidence is captured with the answer - try:  python drill.py drill -n 10")
+        if data["unlabelled"]:
+            print("(%d earlier answer(s) predate the feature and stay unlabelled.)"
+                  % data["unlabelled"])
+        return 0
+
+    print("%d of %d answers rated%s" % (
+        data["labelled"], data["attempts"],
+        "; %d predate the feature" % data["unlabelled"] if data["unlabelled"] else ""))
+    print()
+    print("  %-11s %-9s %-10s %s" % ("confidence", "answers", "accuracy", "95% interval"))
+    print("  " + THIN[:64])
+    for cell in data["curve"]:
+        if not cell["attempts"]:
+            print("  %-11s %-9s %-10s %s" % (cell["level"], "0", "-", "no data"))
+            continue
+        marker = "" if cell["enough"] else "   (too few to call)"
+        print("  %-11s %-9d %-10s %d-%d%%%s" % (
+            cell["level"], cell["attempts"],
+            "%.0f%%" % (cell["accuracy"] * 100),
+            round(cell["low"] * 100), round(cell["high"] * 100), marker))
+
+    gap = data["gap"]
+    print()
+    if gap["gap"] is None:
+        print("  Overconfidence gap: not enough rated answers yet.")
+    else:
+        print("  Overconfidence gap: %+.0f points  (confident %.0f%% vs %.0f%% when not confident)"
+              % (gap["gap"] * 100, gap["confident_accuracy"] * 100,
+                 gap["other_accuracy"] * 100))
+        print("    95%% interval on the gap: %+.0f to %+.0f points, over %d confident "
+              "and %d other answers%s"
+              % (round(gap["gap_low"] * 100), round(gap["gap_high"] * 100),
+                 gap["confident_attempts"], gap["other_attempts"],
+                 "" if gap["enough"] else "  (too few to call)"))
+        # The interval, not the point estimate, is what says whether there is
+        # anything here. A +6 with a band from -7 to +19 is no relationship.
+        if gap["spans_zero"]:
+            print("    That range includes zero, so this is not yet evidence that your")
+            print("    confidence tracks whether you are right. Keep answering.")
+        else:
+            print("    The range excludes zero: your confidence is carrying real signal.")
+
+    if data["dangerous"]:
+        print()
+        print(THIN)
+        print("CONFIDENT AND WRONG  (%d) - nothing else in the tool surfaces these"
+              % len(data["dangerous"]))
+        print(THIN)
+        for item in data["dangerous"][:args.limit]:
+            print("  %-16s %s" % (item["question_id"], item["topic"]))
+            if item["rule"]:
+                print("      rule: %s" % item["rule"])
+
+    if data["lucky"]:
+        print()
+        print(THIN)
+        print("CORRECT BUT NOT KNOWN  (%d) - guessed or unsure, and right"
+              % len(data["lucky"]))
+        print(THIN)
+        for item in data["lucky"][:args.limit]:
+            print("  %-16s %-9s %s"
+                  % (item["question_id"], item["confidence"], item["topic"]))
+
+    ranked = [b for b in data["by_rule"] if b["dangerous"]][:args.limit]
+    if ranked:
+        print()
+        print(THIN)
+        print("WHERE THE OVERCONFIDENCE LIVES - by decision rule")
+        print(THIN)
+        for bucket in ranked:
+            note = "" if bucket["enough"] else "  (thin)"
+            acc = ("%.0f%%" % (bucket["confident_accuracy"] * 100)
+                   if bucket["confident_accuracy"] is not None else "-")
+            print("  %-38s %d confident-wrong, %s of %d confident%s"
+                  % (bucket["label"][:38], bucket["dangerous"], acc,
+                     bucket["confident_attempts"], note))
+
+    _print_projection(data["projection"])
+    return 0
+
+
+def _print_projection(p) -> None:
+    print()
+    print(THIN)
+    print("COVERAGE PROJECTION")
+    print(THIN)
+    print("  %d of %d questions seen %d+ times" % (p["covered"], p["questions"],
+                                                   p["coverage_target"]))
+    if not p["enough"]:
+        print("  %d answer(s) in the last %d days - too few to project a pace from."
+              % (p["recent_attempts"], p["window_days"]))
+        print("  Needs about %d before the arithmetic says anything."
+              % p["min_pace_attempts"])
+        if p["target"]:
+            print("  Target %s (%d days away)." % (p["target"], p["days_to_target"]))
+        return
+    print("  Pace: %.1f answers/day over the last %d days (%d answers on %d active day%s)"
+          % (p["pace_per_day"], p["window_days"], p["recent_attempts"],
+             p["active_days"], "" if p["active_days"] == 1 else "s"))
+    print("  At that pace, every question reaches %d attempts in %d days - around %s"
+          % (p["coverage_target"], round(p["days_needed"]), p["projected_date"]))
+    if p["target"]:
+        if p["margin_days"] is None:
+            print("  Target %s." % p["target"])
+        elif p["margin_days"] >= 0:
+            print("  Target %s - about %d days to spare." % (p["target"], p["margin_days"]))
+        else:
+            print("  Target %s - roughly %d days short at this pace."
+                  % (p["target"], abs(p["margin_days"])))
+    else:
+        print("  No target date set.  python drill.py calibration --target YYYY-MM-DD")
+    print()
+    print("  Coverage arithmetic only. This is not a retention forecast and does not")
+    print("  claim you will remember what you covered.")
 
 
 def cmd_case(args) -> int:
@@ -896,6 +1052,16 @@ def build_parser() -> argparse.ArgumentParser:
     ca.add_argument("--resume", metavar="ID", help="continue a saved case session")
     ca.add_argument("--stats", action="store_true", help="your case history")
     ca.set_defaults(func=cmd_case)
+
+    cb = sub.add_parser("calibration",
+                        help="did you know that you knew? confidence vs accuracy")
+    cb.add_argument("--target", metavar="YYYY-MM-DD",
+                    help="set your target exam date (empty string clears it)")
+    cb.add_argument("--show", action="store_true",
+                    help="print the report as well when setting a target")
+    cb.add_argument("--limit", type=int, default=12,
+                    help="rows per list (default 12)")
+    cb.set_defaults(func=cmd_calibration)
 
     return p
 

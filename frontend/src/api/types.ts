@@ -289,6 +289,8 @@ export interface ExamState {
   remaining: number
   position: number
   answers: Record<string, Letter>
+  /** Per-question confidence, kept until the exam is submitted. */
+  confidence?: Record<string, Confidence>
   flagged: string[]
   blueprint: Record<string, number>
   shortfall: Record<string, number>
@@ -324,6 +326,107 @@ export interface ExamResult {
   slowest: { id: string; topic: string; seconds: number }[]
   guessed_right: { id: string; topic: string }[]
   missed: MissedQuestion[]
+}
+
+// -------------------------------------------------------------- calibration
+
+/** "" means not recorded — every answer logged before capture existed. */
+export type Confidence = '' | 'guess' | 'unsure' | 'confident'
+
+export const CONFIDENCE_LEVELS: Exclude<Confidence, ''>[] = [
+  'guess', 'unsure', 'confident',
+]
+
+export interface CalibrationCell {
+  level: Exclude<Confidence, ''>
+  attempts: number
+  correct: number
+  accuracy: number | null
+  low: number | null
+  high: number | null
+  /** False when the sample is too small for the rate to mean anything. */
+  enough: boolean
+}
+
+export interface CalibrationGap {
+  gap: number | null
+  confident_accuracy: number | null
+  confident_attempts: number
+  confident_low: number | null
+  confident_high: number | null
+  other_accuracy: number | null
+  other_attempts: number
+  overall_accuracy: number | null
+  overall_attempts: number
+  /** Interval on the difference itself. The confident cell's own interval is
+   *  not the uncertainty of a gap between two rates. */
+  gap_low: number | null
+  gap_high: number | null
+  /** True when the interval includes zero: no relationship established. */
+  spans_zero: boolean | null
+  enough: boolean
+}
+
+export interface CalibrationItem {
+  question_id: string
+  ts: string
+  topic: string
+  domain: string
+  chosen: string
+  answer: string
+  confidence: Confidence
+  mode: string
+  seconds: number
+  rule: string
+  stem: string
+}
+
+export interface CalibrationBucket {
+  key: string
+  label: string
+  attempts: number
+  dangerous: number
+  lucky: number
+  confident_attempts: number
+  confident_accuracy: number | null
+  confident_low: number | null
+  confident_high: number | null
+  enough: boolean
+  cells: CalibrationCell[]
+}
+
+export interface Projection {
+  questions: number
+  coverage_target: number
+  covered: number
+  attempts_remaining: number
+  window_days: number
+  recent_attempts: number
+  active_days: number
+  pace_per_day: number
+  enough: boolean
+  min_pace_attempts: number
+  days_needed: number | null
+  projected_date: string | null
+  target: string | null
+  days_to_target: number | null
+  margin_days: number | null
+  on_track: boolean | null
+  today: string
+}
+
+export interface Calibration {
+  attempts: number
+  labelled: number
+  unlabelled: number
+  min_level: number
+  curve: CalibrationCell[]
+  gap: CalibrationGap
+  dangerous: CalibrationItem[]
+  lucky: CalibrationItem[]
+  by_rule: CalibrationBucket[]
+  by_topic: CalibrationBucket[]
+  projection: Projection
 }
 
 // -------------------------------------------------------------------- cases

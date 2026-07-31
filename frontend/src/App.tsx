@@ -16,6 +16,7 @@ import { GamesHome, ColdRead, Autopsy } from './screens/Games'
 import { Rules, StudyCard } from './screens/Rules'
 import { Bank } from './screens/Bank'
 import { CasesHome, CaseRunner, CaseDebriefScreen } from './screens/Cases'
+import { CalibrationScreen } from './screens/Calibration'
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
             <Route path="/games" element={<GamesHome />} />
             <Route path="/games/coldread" element={<ColdRead />} />
             <Route path="/games/autopsy" element={<Autopsy />} />
+            <Route path="/calibration" element={<CalibrationScreen />} />
             <Route path="/rules" element={<Rules />} />
             <Route path="/rules/card" element={<StudyCard />} />
             <Route path="/bank" element={<Bank />} />

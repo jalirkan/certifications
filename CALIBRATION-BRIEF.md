@@ -73,9 +73,26 @@ the feature and it should be reachable in one click from the dashboard.
 **Lucky guesses.** Answered `guess` or `unsure` and correct. Not failures — but not learned either,
 and currently indistinguishable from mastery.
 
-**Overconfidence gap.** One number: accuracy when confident, minus overall accuracy. Near zero means
-confidence is not discriminating. Report it with its interval and gate it on a minimum sample, and
-do not dress it up as a score.
+**Overconfidence gap.** Accuracy when confident, minus accuracy **when not confident**. Report the
+interval **on the difference**, gate it on a minimum sample in both cells, and do not dress it up as
+a score.
+
+> **Corrected 2026-07-31, after the feature was built.** This section originally said "minus
+> **overall** accuracy," with the confident cell's interval attached. Both halves were wrong and the
+> implementation followed the brief faithfully, so the error is mine.
+>
+> Overall accuracy *contains* the confident answers, so the comparison dilutes the effect by roughly
+> the confident share of the log. On a 240-answer sample the same data read **+6 points** against the
+> total and **+13** against the complement — the specified figure understated it by more than half.
+>
+> And the interval of one of two rates is not the uncertainty of the difference between them. Without
+> an interval on the gap itself there is no way to see that +6 on those numbers is indistinguishable
+> from no relationship. The field is `spans_zero`, and when it is true the surfaces say *"not yet
+> evidence that your confidence tracks whether you are right"* rather than reporting a small effect.
+>
+> The general lesson, worth carrying into the next brief: **when a brief specifies a statistic, it
+> has to specify the contrast and the uncertainty too.** "One number" was the tell that I had not
+> thought it through.
 
 Break all of the above down **by decision rule** as well as by topic, using
 `drillkit/principles.py`. "You are overconfident specifically on evidence-quality questions" is a

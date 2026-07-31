@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional, TextIO
 
 from .loader import OPTION_KEYS, Question
-from .store import Attempt, append, now_iso
+from .store import Attempt, append, normalise_confidence, now_iso
 
 WIDTH = 78
 RULE = "=" * WIDTH
@@ -72,7 +72,7 @@ class Session:
             self.say("  %s. %s" % (key, body))
         self.say()
 
-        chosen = self._prompt()
+        chosen, confidence = self._prompt()
         elapsed = self._elapsed
 
         correct = chosen == q.answer
@@ -82,14 +82,23 @@ class Session:
             self.missed.append(q)
 
         self._feedback(q, chosen, correct)
-        self._log(q, chosen, correct, elapsed)
+        self._log(q, chosen, correct, elapsed, confidence)
         return correct
 
-    def _prompt(self) -> str:
+    def _prompt(self) -> tuple:
+        """Answer and confidence, together and before any feedback.
+
+        Confidence taken *after* seeing the result would be hindsight, so both
+        are collected in one entry. `B2` answers and rates in a single line;
+        a bare `B` falls through to a second prompt. Line-based input means
+        Enter is unavoidable here without raw terminal mode, which would break
+        the injected reader the tests rely on and stop working over a pipe.
+        """
         start = time.time()
         while True:
             try:
-                raw = self.reader("Your answer [A/B/C/D, or q to stop]: ")
+                raw = self.reader(
+                    "Your answer + confidence [e.g. B2 | 1 guess 2 unsure 3 confident, q to stop]: ")
             except EOFError:
                 raise QuitDrill()
             if raw is None:
@@ -97,10 +106,38 @@ class Session:
             value = raw.strip().upper()
             if value in ("Q", "QUIT", "EXIT"):
                 raise QuitDrill()
-            if value in OPTION_KEYS:
-                self._elapsed = round(time.time() - start, 1)
+
+            letter, rest = (value[:1], value[1:].strip()) if value else ("", "")
+            if letter not in OPTION_KEYS:
+                self.say("  Enter A, B, C, D - optionally with 1/2/3 - or q to stop.")
+                continue
+
+            confidence = normalise_confidence(rest) if rest else ""
+            if rest and not confidence:
+                self.say("  Confidence is 1 (guess), 2 (unsure) or 3 (confident).")
+                continue
+            if not confidence:
+                confidence = self._prompt_confidence()
+            self._elapsed = round(time.time() - start, 1)
+            return letter, confidence
+
+    def _prompt_confidence(self) -> str:
+        """Mandatory second step when it was not given inline.
+
+        Mandatory on purpose: an optional control gets skipped exactly when the
+        learner is tired, which is when the data is most interesting.
+        """
+        while True:
+            try:
+                raw = self.reader("  How sure? [1 guess / 2 unsure / 3 confident]: ")
+            except EOFError:
+                raise QuitDrill()
+            if raw is None:
+                raise QuitDrill()
+            value = normalise_confidence(raw.strip())
+            if value:
                 return value
-            self.say("  Enter A, B, C, D - or q to stop.")
+            self.say("  Enter 1, 2 or 3.")
 
     def _feedback(self, q: Question, chosen: str, correct: bool) -> None:
         self.say()
@@ -122,7 +159,8 @@ class Session:
             self.say(wrap("RULE: %s" % note))
         self.say(THIN)
 
-    def _log(self, q: Question, chosen: str, correct: bool, seconds: float) -> None:
+    def _log(self, q: Question, chosen: str, correct: bool, seconds: float,
+             confidence: str = "") -> None:
         append(self.results_file, Attempt(
             ts=now_iso(),
             session=self.session_id,
@@ -136,6 +174,7 @@ class Session:
             correct=correct,
             seconds=seconds,
             mode=self.mode,
+            confidence=confidence,
         ))
 
     # ------------------------------------------------------------------

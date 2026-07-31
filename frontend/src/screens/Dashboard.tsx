@@ -207,6 +207,8 @@ export function Dashboard() {
         <Link className="btn" to="/exam">Mock exam</Link>
         <Link className="btn" to="/cases">Branching case</Link>
         <Link className="btn" to="/games">Short form</Link>
+        {/* The dangerous quadrant has to be one click from here. */}
+        <Link className="btn" to="/calibration">Confident and wrong</Link>
       </div>
 
       {o.exams.length ? (

@@ -138,6 +138,39 @@ def results_path(cert: str, profile: Optional[str] = None) -> str:
     return os.path.join(results_dir(cert, profile), "attempts.jsonl")
 
 
+def settings_path(cert: str, profile: Optional[str] = None) -> str:
+    """Per-profile preferences, beside that profile's results.
+
+    Separate from the answer log because it is mutable state rather than
+    history: the log is append-only and never rewritten, this file is replaced
+    whenever a setting changes.
+    """
+    return os.path.join(results_dir(cert, profile), "settings.json")
+
+
+def load_settings(cert: str, profile: Optional[str] = None) -> Dict[str, Any]:
+    path = settings_path(cert, profile)
+    if not os.path.exists(path):
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (ValueError, OSError):
+        return {}  # a corrupt settings file must not stop you studying
+    return data if isinstance(data, dict) else {}
+
+
+def save_settings(cert: str, settings: Dict[str, Any],
+                  profile: Optional[str] = None) -> str:
+    path = settings_path(cert, profile)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(settings, fh, indent=2)
+    os.replace(tmp, path)  # atomic, so an interrupted write cannot corrupt it
+    return path
+
+
 def list_profiles(cert: str) -> List[str]:
     """Profiles that have been used at least once, plus the shared default."""
     found = []

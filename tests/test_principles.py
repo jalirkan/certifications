@@ -230,7 +230,7 @@ class TestInDrillDisplay(unittest.TestCase):
         out = io.StringIO()
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, "attempts.jsonl")
-            supplied = iter(["B"])
+            supplied = iter(["B2"])
 
             def reader(_p=""):
                 try:
@@ -248,7 +248,7 @@ class TestInDrillDisplay(unittest.TestCase):
         out = io.StringIO()
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, "attempts.jsonl")
-            supplied = iter(["B"])
+            supplied = iter(["B2"])
 
             def reader(_p=""):
                 try:
@@ -257,7 +257,11 @@ class TestInDrillDisplay(unittest.TestCase):
                     raise EOFError()
 
             session_mod.run([q("a")], "cisa", "smart", path, out=out, reader=reader)
-            self.assertNotIn("RULE:", out.getvalue())
+            text = out.getvalue()
+            # Assert the question was actually answered, or "no RULE line" would
+            # pass for the wrong reason - an aborted session prints one either.
+            self.assertIn("Why B is right", text)
+            self.assertNotIn("RULE:", text)
 
 
 class TestDiagnosisFindsPlantedWeakness(unittest.TestCase):
