@@ -1,7 +1,7 @@
 # Certification study system
 
-Offline study tooling for **CISA** now, **CPA** later. Pure Python standard library — nothing to
-install, no network access at runtime.
+Offline study tooling for **CISA** now, **CPA** later. Nothing to install to *use* it, and **no
+network access at runtime** — no API key, no account, no model. It runs on a plane.
 
 ## Two ways to use it
 
@@ -11,8 +11,25 @@ python drill.py      # command line — same engine, same data
 ```
 
 Both front ends read and write the same files, so you can drill in the browser and check `stats` in
-the terminal. The web app is stdlib-only too: Python's own `http.server`, vanilla JavaScript, no
-build step, no `node_modules`, no CDN. It binds to localhost only.
+the terminal.
+
+**The engine, the CLI and the server are Python standard library only** — `drillkit/`, `drill.py`
+and `serve.py` have no required third-party dependency, so the tool works on any Python 3.7+ with
+nothing installed. (There is exactly one optional import, PyYAML, reached only if you deliberately
+store a question batch as `.yaml`; everything ships as JSON.) The server binds to `127.0.0.1` only.
+
+**The browser front end is a built React app** (Vite, TypeScript, Recharts) living in `frontend/`.
+Its compiled output is committed to `web/`, so `python serve.py` works without Node — you only need
+Node if you want to *change* the interface:
+
+```bash
+cd frontend && npm install && npm run build     # rebuild web/ after editing frontend/src
+npm run dev                                     # hot reload, proxies /api to port 8765
+```
+
+That split is deliberate. Engines, data models and CLIs are long-lived and stay lean; interfaces get
+rewritten anyway, so they use real tools. It was a stdlib-only vanilla-JS front end until
+2026-07-31, and the earlier version is tagged `stdlib-only` if you ever want it back.
 
 ### Study profiles
 
@@ -30,9 +47,10 @@ modelling one learner, and mixing two people produces a picture of neither.
 ```
 certifications/
   drill.py                  the CLI you actually run
+  serve.py                  local web server, 127.0.0.1 only
   run_tests.py              runs every test suite
-  drillkit/                 the engine (certification-agnostic)
-    loader.py                 question bank loading and validation
+  drillkit/                 the engine (certification-agnostic, stdlib only)
+    loader.py                 question bank loading, validation, profile settings
     scheduler.py              spaced-repetition-lite selection
     session.py                interactive drill loop
     stats.py                  accuracy roll-ups
@@ -40,15 +58,28 @@ certifications/
     exam.py                   mock exam sampling, state and scoring
     examsession.py            timed exam runner and report
     itemanalysis.py           difficulty, discrimination, distractor quality
-  tests/                    90 unit tests
+    principles.py             the decision-rule diagnostic
+    calibration.py            confidence vs accuracy
+    games.py                  short-form games, logged separately
+    cases.py                  branching case format, loading and graph validation
+    casesession.py            case state, choices, debrief
+    caserunner.py             terminal runner for cases
+    webapi.py                 JSON API over the same engine
+  frontend/                 React + TypeScript source for the browser app
+  web/                      its built output, committed so serve.py needs no Node
+  tests/                    301 unit tests
   cisa/
     outline.json            ISACA exam content outline, all 5 domains (structural reference)
-    study-guides/           topic checklists with notes and a status column
+    study-guides/           one guide per domain, with a status column you mark up
     questions/              question banks as JSON data, one file per domain-section
+    cases/                  branching audit cases, plus SCHEMA.md
+    principles.json         the decision-rule taxonomy
+    confusable-pairs.json   documented confusions and the questions that turn on each
     results/
       attempts.jsonl          your answer log, append-only
-      exams/                  saved mock exams, resumable
-  cpa/                      empty sibling, same shape, for after CISA
+      games.jsonl             short-form results, deliberately a separate file
+      profiles/<name>/        per-learner histories over the shared bank
+  cpa/                      reserved sibling, same shape, for after CISA
 ```
 
 The engine knows nothing about CISA specifically. Anything with an `outline.json`, a `questions/`
@@ -58,10 +89,13 @@ folder and a `results/` folder works — which is how CPA slots in later without
 
 ## Requirements
 
-Python 3.7 or newer. Check with `python --version`. Nothing else.
+Python 3.7 or newer. Check with `python --version`. Nothing else to study.
 
 If `python` is not recognized on Windows, try `py` instead, or install Python from python.org and
 tick "Add python.exe to PATH".
+
+Node is needed **only to rebuild the browser interface** after editing `frontend/src`. The compiled
+app is committed, so studying never requires it.
 
 ---
 
@@ -163,7 +197,7 @@ python serve.py --port 9000     # if that port is busy
 python serve.py --no-browser    # do not open a window
 ```
 
-Six screens, all reading the same data as the CLI:
+Eight screens, all reading the same data as the CLI:
 
 - **Dashboard** — accuracy by domain with **confidence intervals drawn as whiskers**, so a wide bar
   visibly says "not enough evidence" instead of implying a precise percentage. Weakest rules and
@@ -174,8 +208,11 @@ Six screens, all reading the same data as the CLI:
 - **Mock exam** — timer, flag-for-review, and a **question palette** showing answered / flagged /
   current at a glance so you can navigate a 150-question paper the way you would the real one.
   Resumable across browser restarts; the clock stops when you save.
+- **Cases** — branching audit scenarios, one decision at a time, with the debrief withheld to the end.
 - **Short form** — Cold Read and Autopsy, with the options genuinely withheld until you commit.
 - **Decision rules** — the diagnostic, plus the generated study card.
+- **Calibration** — whether you knew that you knew. The curve, the confident-and-wrong list, and
+  the gap with an interval on it.
 - **Question bank** — item analysis and the confusable-pair reference.
 
 **Answer keys never reach the browser before you commit.** A question arrives as stem and options
@@ -188,7 +225,7 @@ timed exam gets you nothing, and there is a test asserting it.
 
 ```bash
 python drill.py principles                 # which reasoning habits cost you marks
-python drill.py principles --list          # the 22 rules and their coverage
+python drill.py principles --list          # the 23 rules and their coverage
 python drill.py principles --card          # study card, generated from the taxonomy
 python drill.py costumes                   # one rule, one question per domain
 python drill.py costumes --principle prevent-first
@@ -197,7 +234,7 @@ python drill.py drill --mode principle -n 15   # target your weakest rules
 
 CISA has an implicit value hierarchy that generates answers across every domain — risk assessment
 before control selection, prevent beats detect, accountability cannot be outsourced, design evidence
-is not operating evidence, contain before recover. Twenty-two of these rules are documented in
+is not operating evidence, contain before recover. Twenty-three of these rules are documented in
 `cisa/principles.json`, each mapped to the bank questions it decides.
 
 **Why this is a different question from `stats`.** A topic report says *study encryption*. A rule
@@ -280,6 +317,86 @@ if game numbers climb while mock scores stay flat, believe the mock scores.
 
 ---
 
+## Branching cases
+
+```bash
+python drill.py case                       # pick from the list
+python drill.py case d1-one-exception      # play a specific case
+python drill.py case --list                # what exists, and what you have attempted
+python drill.py case --resume <id>         # continue a case in progress
+python drill.py case --stats               # how your paths have gone
+```
+
+A case drops you into an engagement. You make five to eight decisions, the situation moves in
+response, and **you find out how it went at the end** — not at each step.
+
+It exists because a multiple-choice question cannot express two things the exam actually tests:
+**sequential judgment**, where your first decision changes what you face next, and **graded
+correctness**, where an option is defensible-but-worse rather than simply wrong. Options are scored
+`best` / `defensible` / `poor`, and while you are playing you get only a neutral narration of what
+happened. No verdict, no score counter, no reassurance — sitting with an uncertain choice is the
+thing being trained.
+
+Some options are **taints**: they fix the outcome regardless of what you do afterwards. Agreeing to
+omit a finding is not recovered by answering the next three questions well. When one fires, the
+debrief names the decision that decided it, which is the single most useful sentence the format
+produces.
+
+The debrief shows the path you walked, what the best option was at each node and why, where the
+branches you did not take would have led, and the ending with its verdict. **Never a percentage** —
+collapsing a path to one number throws away the part that teaches.
+
+Three cases ship today: audit execution (D1), business resilience (D4), incident response (D5).
+Format is documented in `cisa/cases/SCHEMA.md`. Case results go to `cases.jsonl`, not to
+`attempts.jsonl` — a case is not a four-option question and letting it reach item analysis or the
+scheduler would corrupt both.
+
+---
+
+## Calibration — did you know that you knew
+
+```bash
+python drill.py calibration                # the curve, the quadrants, the gap
+python drill.py calibration --target 2027-01-15   # set a study horizon
+```
+
+Every drill, costume and exam answer asks for a confidence level as you answer it — `1` guess,
+`2` unsure, `3` confident. Two keystrokes, and it captures something the rest of the tool cannot
+reconstruct afterwards.
+
+The reason is this table:
+
+| | Correct | Wrong |
+|---|---|---|
+| **Confident** | genuinely known | **the quadrant that sinks people** |
+| **Guess / unsure** | lucky — counted as learned, but it is not | known unknown, least dangerous |
+
+Being confident and wrong reads as a win, and nothing else in the tool will ever bring that question
+back to you as a problem. `calibration` lists every one of them, most recent first, with the topic
+and the governing decision rule.
+
+The reverse case is quieter: a guessed-correct answer currently earns the same spaced-repetition
+credit as a reasoned one, so the scheduler pushes it further away exactly when it should not. Those
+are listed too.
+
+**The overconfidence gap** is accuracy when confident minus accuracy when *not* confident, reported
+with a 95% interval **on the difference**. If that interval includes zero, the tool says so plainly —
+"not yet evidence that your confidence tracks whether you are right" — rather than showing you a
+small number that reads like a finding. It is not called a score and there is no single number
+summarising your calibration, because collapsing this to one figure throws away the actionable part.
+
+Everything breaks down **by decision rule as well as by topic**. "You are overconfident specifically
+on evidence-quality questions" is far more useful than a global figure.
+
+Answers logged before this feature existed load as unrated and are counted separately. They are
+never backfilled — an invented confidence is worse than a missing one.
+
+**Note the deliberate omission.** Confidence does not yet influence the scheduler, even though using
+it to stop a guessed-correct answer earning a 35-day interval is the obvious next application.
+Capture first, prove the signal, then touch a working scheduler.
+
+---
+
 ## Reading your stats
 
 ```bash
@@ -342,7 +459,7 @@ the question is genuinely ambiguous and worth rewriting — tell me and I will f
 ```bash
 python drill.py list --domain 5    # question count per outline topic, gaps visible
 python drill.py validate           # check the bank for problems
-python run_tests.py                # all 90 tests
+python run_tests.py                # all 301 tests
 python run_tests.py -v exam        # verbose, one suite
 ```
 
@@ -405,7 +522,7 @@ ships in so that the tool never needs an install step.
 - Write from the auditor's seat: what should the *auditor* be most concerned about, or recommend.
 - Distractors should be things that are true but not responsive, or right for a different question.
 - Explain every wrong answer. The distractor explanations carry more learning value than the stem.
-- Vary the answer key. The bank currently sits at A 25% / B 24% / C 26% / D 25% across 292 questions,
+- Vary the answer key. The bank currently sits at A 25% / B 24% / C 26% / D 25% across 298 questions,
   so there is no positional pattern to exploit.
 - **Never reproduce ISACA, QAE or any other copyrighted questions.** Everything here is original.
 
@@ -418,14 +535,17 @@ ships in so that the tool never needs an install step.
 ```json
 {"ts": "2026-07-26T22:49:18-04:00", "session": "1904fd39", "question_id": "cisa-d5a-009",
  "cert": "CISA", "domain": "5", "section": "A", "topic": "Identity and Access Management",
- "chosen": "A", "answer": "C", "correct": false, "seconds": 41.2, "mode": "smart"}
+ "chosen": "A", "answer": "C", "correct": false, "seconds": 41.2, "mode": "smart",
+ "confidence": "confident"}
 ```
 
 Greppable and easy to analyze directly if you want to do your own cuts in pandas. `mode` is `smart`,
-`due`, `weakest`, `random` or `exam`. Deleting the file resets all progress; a corrupted line is
+`due`, `weakest`, `random` or `exam`. `confidence` is `guess`, `unsure`, `confident`, or empty for
+rows written before that feature existed. Deleting the file resets all progress; a corrupted line is
 skipped rather than breaking the whole log.
 
-Saved mock exams live in `cisa/results/exams/<id>.json` and can be deleted individually.
+Saved mock exams live in `cisa/results/exams/<id>.json` and can be deleted individually. Short-form
+games go to `games.jsonl` and cases to `cases.jsonl`, both deliberately separate from this file.
 
 ---
 
@@ -433,38 +553,56 @@ Saved mock exams live in `cisa/results/exams/<id>.json` and can be deleted indiv
 
 | | |
 |---|---|
-| Question bank | **292 original questions**, all 5 domains, all 50 outline topics covered |
-| Domain 1 — Auditing Process (18%) | 60 questions, 10 topics |
-| Domain 2 — Governance & Management (18%) | 60 questions, 11 topics |
-| Domain 3 — Acquisition & Development (12%) | 60 questions, 8 topics |
-| Domain 4 — Operations & Resilience (26%) | 60 questions, 16 topics |
-| Domain 5 — Protection of Info Assets (26%) | 52 questions, 15 topics, plus full study guide |
+| Question bank | **298 original questions**, all 5 domains, all 60 outline topics covered |
+| Domain 1 — Auditing Process (18%) | 60 questions, 10 topics, study guide |
+| Domain 2 — Governance & Management (18%) | 60 questions, 11 topics, study guide |
+| Domain 3 — Acquisition & Development (12%) | 63 questions, 8 topics, study guide |
+| Domain 4 — Operations & Resilience (26%) | 60 questions, 16 topics, study guide |
+| Domain 5 — Protection of Info Assets (26%) | 55 questions, 15 topics, study guide |
 | Mock exams | full 150q / 240min, blueprint-weighted, resumable |
+| Branching cases | 3, with graded options, taints and a path debrief |
+| Calibration | confidence captured per answer; curve, quadrants, gap with an interval |
 | Item analysis | difficulty, discrimination, distractor quality |
 | Games | Cold Read and Autopsy, logged separately from real stats |
-| Confusable pairs | 29 documented, 63 questions mapped, 2 known bank gaps |
-| Decision rules | 22 documented, 223 of 292 questions mapped, all multi-domain |
-| Web app | stdlib `http.server` + vanilla JS, no build step, localhost only |
+| Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
+| Decision rules | 23 documented, 228 of 298 questions mapped, all multi-domain |
+| Web app | React + TypeScript + Recharts, built output committed; server is stdlib, localhost only |
 | Profiles | separate histories over a shared bank |
-| Tests | 187, all passing |
+| Tests | **301**, all passing; `validate` clean with no warnings |
 
-The bank supports a full 150-question mock with no repetition, and roughly two non-overlapping
-mocks before questions start recurring.
+### Where the bank is thin, and why it matters
+
+A 150-question mock draws to the blueprint, so the heavy domains burn through their pools fastest:
+
+| Domain | Weight | Drawn per mock | Pool | Mocks before questions repeat |
+|---|---|---|---|---|
+| 1 | 18% | 27 | 60 | 2.2 |
+| 2 | 18% | 27 | 60 | 2.2 |
+| 3 | 12% | 18 | 63 | 3.5 |
+| 4 | 26% | 39 | 60 | **1.5** |
+| 5 | 26% | 39 | 55 | **1.4** |
+
+Domain 3 is the lightest domain and has the deepest pool; Domains 4 and 5 are 52% of the exam
+between them and the shallowest. **The second mock exam is already re-serving Domain 5 questions you
+may remember**, and a remembered question measures recall of that question rather than of the
+material. Roughly +60 in D4 and +65 in D5 brings both to the headroom D3 already has.
 
 ## Next up
 
-1. Work through Domain 5 using the study guide, marking the status column as you go.
-2. Sit a full mock to establish a baseline, then use the weighted gap analysis to direct study.
-3. Study guides for Domains 1–4, matching the depth of the Domain 5 one.
-4. Deepen the bank where `items` shows thin coverage or flags weak questions.
-5. Close the two confusable-pair gaps — nothing in the bank currently tests **verification vs
-   validation** or **FAR / FRR / CER**. `validate` warns about both.
-5a. Look at the 16 judgment-worded questions that map to no decision rule. `validate` lists them.
-   They are usually stems that promise judgment and test recall, which makes them the weakest
-   CISA-style items in the bank and the first candidates for rewriting.
-6. Pair Split and Sequence games, once there is evidence the first two are earning their keep.
-7. Stand up `cpa/` once CISA is passed — verify the current AICPA blueprints first, since the exam
-   structure changed under CPA Evolution.
+1. **Deepen D4 and D5** per the table above. This is the last thing standing between the tool and
+   being sufficient on its own.
+2. **Build the synthetic learner harness** — `SIMULATION-BRIEF.md`. Generate study histories with
+   known weaknesses planted in them and score whether the diagnostics find them, with a negative
+   control and a sample-size sweep. It is what lets this repository make claims about itself
+   instead of asserting them.
+3. **Let confidence inform the scheduler**, once the harness can show the signal is real. A
+   guessed-correct answer should not earn a 35-day interval.
+4. **More branching cases.** Three proves the format; it is not yet a library.
+5. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
+   of a thousand reviews to fit against, and defaults would just be Leitner with extra arithmetic.
+6. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
+   exam structure changed under CPA Evolution, and CPA includes task-based simulations this
+   multiple-choice engine does not model.
 
 ### Checking whether the games actually help
 
