@@ -9,7 +9,8 @@
 
 import type {
   AutopsyResult, Bootstrap, Calibration, CaseChoice, CaseDebrief, CaseListEntry,
-  CaseState, ColdReadResult, Confidence, DrillAvailability, DrillStart,
+  CaseState, ColdReadResult, Confidence, Detection, DrillAvailability,
+  DrillStart,
   DrillStartParams,
   ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
   Letter, Overview, Reveal, Trend,
@@ -128,6 +129,8 @@ export const api = {
     post<ExamResult>('/api/exam/submit', { id, elapsed }),
 
   calibration: () => get<Calibration>('/api/calibration'),
+  /** Read from a persisted sweep; never recomputes (a full run is ~15 min). */
+  detection: () => get<Detection>('/api/detection'),
   settings: () => get<{ target_date: string }>('/api/settings'),
   saveSettings: (target_date: string) =>
     post<{ target_date: string }>('/api/settings', { target_date }),

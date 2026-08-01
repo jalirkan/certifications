@@ -12,6 +12,7 @@ a timed exam.
 
 from __future__ import annotations
 
+import os
 import random
 import threading
 import time
@@ -30,6 +31,7 @@ from . import (
     loader,
     principles as principles_mod,
     scheduler,
+    simulation,
     stats as stats_mod,
     store,
 )
@@ -778,6 +780,32 @@ class Api:
         target = calibration_mod.parse_target(
             loader.load_settings(self.cert, self.profile).get("target_date"))
         return calibration_mod.report(self.rows(), self.questions, self.rules, target)
+
+    # ------------------------------------------------------------------
+    def detection(self) -> Dict[str, Any]:
+        """The detection report card, read from a completed sweep.
+
+        Deliberately never recomputes. A full sweep is roughly twelve minutes
+        of CPU, so a screen that ran one on load would be unusable; and parsing
+        the numbers back out of DETECTION.md would break the first time the
+        prose changed. `drill.py simulate --write` produces both.
+
+        Returns an explicit empty state rather than an error when no sweep has
+        been run, because "nobody has measured this yet" is a real and honest
+        answer for a screen whose whole subject is evidence.
+        """
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        data = simulation.load_results(
+            os.path.join(root, simulation.RESULTS_FILE))
+        if data is None:
+            return {
+                "available": False,
+                "command": "python drill.py simulate --seeds 200 --write",
+                "reason": ("No sweep has been run yet, or the results file was "
+                           "removed. Nothing here is inferred from anything "
+                           "else - if it has not been measured, it is not shown."),
+            }
+        return {"available": True, **data}
 
     # ------------------------------------------------------------------
     # branching cases

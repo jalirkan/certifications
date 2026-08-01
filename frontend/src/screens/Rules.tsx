@@ -63,6 +63,9 @@ export function Rules() {
 
       <div className="btn-row" style={{ marginBottom: 20 }}>
         <Link className="btn" to="/rules/card">Study card</Link>
+        {/* This axis makes a claim. Link to the evidence for it, including
+            the half of that claim which did not survive testing. */}
+        <Link className="btn" to="/detection">Does this axis work?</Link>
         <button className="btn primary" onClick={() => drillRule()} disabled={!tested.length}>
           Drill the weakest rule
         </button>

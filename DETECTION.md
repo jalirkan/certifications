@@ -8,7 +8,7 @@ This file exists because the study system makes claims about itself, and claims 
 
 A check is called **trustworthy** only where detection is at least 80% at the bottom of its interval *and* false positives are at most 20% at the top of theirs.
 
-Method: 200 seeds per cell, sample sizes 100, 300, 1000, 3000, drawn against the real bank of 346 questions and 23 decision rules. Histories are generated through the real scheduler and written as real `store.Attempt` rows.
+Method: 200 seeds per cell, sample sizes 100, 300, 1000, 3000, drawn against the real bank of 386 questions and 23 decision rules. Histories are generated through the real scheduler and written as real `store.Attempt` rows.
 
 ---
 
@@ -24,19 +24,19 @@ Method: 200 seeds per cell, sample sizes 100, 300, 1000, 3000, drawn against the
 | 4 | A question that measures nothing is flagged | `itemanalysis.needs_rewrite()` | **never, in this sweep** |
 | 5 | A miskeyed question is flagged | `itemanalysis.needs_rewrite()` | **never, in this sweep** |
 | 6 | Persistent misses come back sooner | `scheduler.select()` | 1000 answers |
-| 7 | Confident-and-wrong answers are surfaced | `calibration.dangerous()` | 300 answers |
+| 7 | Confident-and-wrong answers are surfaced | `calibration.dangerous()` | 1000 answers |
 
 ---
 
 ## What this says
 
-**What holds up.** *Weak decision rule is surfaced* from about **300 answers**; *Weak topic is surfaced* from about **1000 answers**; *Persistent misses come back sooner* from about **1000 answers**; *Confident-and-wrong answers are surfaced* from about **300 answers**.
+**What holds up.** *Weak decision rule is surfaced* from about **300 answers**; *Weak topic is surfaced* from about **1000 answers**; *Persistent misses come back sooner* from about **1000 answers**; *Confident-and-wrong answers are surfaced* from about **1000 answers**.
 
-**Rule axis finds what the topic axis hides (check 3) does not hold.** It detects only 0% of planted cases at 3000 answers. Detection *falls* as history grows - 0% at 3000 answers against 39% at 100, which is the signature of a claim that is wrong rather than one that is merely under-powered.
+**Rule axis finds what the topic axis hides (check 3) does not hold.** It detects only 0% of planted cases at 3000 answers. Detection *falls* as history grows - 0% at 3000 answers against 38% at 100, which is the signature of a claim that is wrong rather than one that is merely under-powered.
 
-**A question that measures nothing is flagged (check 4) does not hold.** At 3000 answers it also fires on **88%** of learners with nothing planted, so a hit carries little information.
+**A question that measures nothing is flagged (check 4) does not hold.** At 3000 answers it also fires on **64%** of learners with nothing planted, so a hit carries little information.
 
-**A miskeyed question is flagged (check 5) does not hold.** At 3000 answers it also fires on **37%** of learners with nothing planted, so a hit carries little information.
+**A miskeyed question is flagged (check 5) does not hold.** At 3000 answers it also fires on **26%** of learners with nothing planted, so a hit carries little information.
 
 **On the asymmetry claim specifically.** The rule axis finds a planted rule weakness 100% of the time at 3000 answers. The topic axis *also* finds it: the weakest topic is one of the rule's own topics in 100% of runs. The claim that a rule-level weakness hides from a topic report does not reproduce against this bank. The reason is visible in the data rather than mysterious - rules are not spread evenly over topics here, and the median rule has some topic where most of the questions are governed by it, so a rule weakness drags that topic down far enough to rank it worst. The rule axis is still the more useful readout, because it names one transferable cause instead of one affected subject, but that is a different and weaker claim than the one currently written down.
 
@@ -55,10 +55,10 @@ Detected when the planted rule lands in the weakest 3.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 80% | 73–85% | 14% | 10–19% | — |
-| 300 | 96% | 93–98% | 6% | 4–11% | yes |
-| 1000 | 100% | 98–100% | 5% | 3–9% | yes |
-| 3000 | 100% | 98–100% | 5% | 3–9% | yes |
+| 100 | 74% | 67–79% | 12% | 8–17% | — |
+| 300 | 98% | 96–99% | 10% | 6–14% | yes |
+| 1000 | 100% | 98–100% | 8% | 5–13% | yes |
+| 3000 | 100% | 98–100% | 12% | 9–18% | yes |
 
 ### 2. Weak topic is surfaced
 
@@ -69,10 +69,10 @@ Detected when the planted topic ranks weakest of all topics.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 20% | 15–26% | 1% | 0–4% | — |
-| 300 | 60% | 53–66% | 2% | 1–4% | — |
-| 1000 | 99% | 96–100% | 2% | 1–6% | yes |
-| 3000 | 100% | 98–100% | 1% | 0–4% | yes |
+| 100 | 22% | 16–28% | 2% | 1–5% | — |
+| 300 | 63% | 56–69% | 1% | 0–4% | — |
+| 1000 | 100% | 97–100% | 0% | 0–3% | yes |
+| 3000 | 100% | 98–100% | 0% | 0–2% | yes |
 
 ### 3. Rule axis finds what the topic axis hides
 
@@ -83,10 +83,10 @@ The claim the principle axis exists for. Both halves must hold.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 39% | 33–46% | 10% | 7–15% | — |
-| 300 | 20% | 15–26% | 6% | 3–10% | — |
-| 1000 | 0% | 0–2% | 3% | 1–6% | — |
-| 3000 | 0% | 0–2% | 4% | 2–7% | — |
+| 100 | 38% | 32–45% | 8% | 5–13% | — |
+| 300 | 18% | 13–24% | 6% | 4–11% | — |
+| 1000 | 2% | 1–6% | 6% | 4–11% | — |
+| 3000 | 0% | 0–2% | 11% | 7–16% | — |
 
 ### 3a. - rule half: the rule axis finds it
 
@@ -97,10 +97,10 @@ Component of check 3.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 80% | 73–85% | 14% | 10–19% | — |
-| 300 | 96% | 93–98% | 6% | 4–11% | yes |
-| 1000 | 100% | 98–100% | 5% | 3–9% | yes |
-| 3000 | 100% | 98–100% | 5% | 3–9% | yes |
+| 100 | 74% | 67–79% | 12% | 8–17% | — |
+| 300 | 98% | 96–99% | 10% | 6–14% | yes |
+| 1000 | 100% | 98–100% | 8% | 5–13% | yes |
+| 3000 | 100% | 98–100% | 12% | 9–18% | yes |
 
 ### 3b. - topic half: the topic axis misses it
 
@@ -111,10 +111,10 @@ Component of check 3.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 56% | 49–62% | 78% | 71–83% | — |
-| 300 | 22% | 17–28% | 84% | 78–88% | — |
-| 1000 | 0% | 0–2% | 78% | 72–84% | — |
-| 3000 | 0% | 0–2% | 79% | 73–84% | — |
+| 100 | 58% | 51–65% | 76% | 70–82% | — |
+| 300 | 19% | 14–25% | 74% | 67–79% | — |
+| 1000 | 2% | 1–6% | 79% | 73–84% | — |
+| 3000 | 0% | 0–2% | 76% | 70–82% | — |
 
 ### 4. A question that measures nothing is flagged
 
@@ -123,10 +123,10 @@ Component of check 3.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 1% | 0–4% | 0% | 0–2% | — |
-| 300 | 4% | 2–8% | 0% | 0–2% | — |
-| 1000 | 18% | 13–23% | 2% | 1–6% | — |
-| 3000 | 55% | 48–61% | 88% | 82–91% | — |
+| 100 | 0% | 0–2% | 0% | 0–2% | — |
+| 300 | 4% | 2–7% | 0% | 0–2% | — |
+| 1000 | 10% | 7–16% | 1% | 0–4% | — |
+| 3000 | 56% | 49–63% | 64% | 57–70% | — |
 
 ### 5. A miskeyed question is flagged
 
@@ -135,10 +135,10 @@ Component of check 3.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 2% | 1–5% | 0% | 0–2% | — |
-| 300 | 19% | 14–25% | 0% | 0–2% | — |
-| 1000 | 82% | 76–87% | 1% | 0–4% | — |
-| 3000 | 98% | 96–99% | 37% | 31–44% | — |
+| 100 | 4% | 2–7% | 0% | 0–2% | — |
+| 300 | 18% | 13–24% | 0% | 0–3% | — |
+| 1000 | 70% | 64–76% | 1% | 0–4% | — |
+| 3000 | 100% | 97–100% | 26% | 21–33% | — |
 
 ### 6. Persistent misses come back sooner
 
@@ -149,9 +149,9 @@ Detected when all three reach the top decile by times served.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 2% | 1–5% | 0% | 0–2% | — |
-| 300 | 22% | 17–29% | 0% | 0–3% | — |
-| 1000 | 98% | 95–99% | 0% | 0–3% | yes |
+| 100 | 0% | 0–2% | 0% | 0–2% | — |
+| 300 | 13% | 9–18% | 0% | 0–3% | — |
+| 1000 | 92% | 87–95% | 0% | 0–2% | yes |
 | 3000 | 100% | 98–100% | 0% | 0–2% | yes |
 
 ### 7. Confident-and-wrong answers are surfaced
@@ -161,10 +161,10 @@ Detected when all three reach the top decile by times served.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
-| 100 | 46% | 39–53% | 0% | 0–2% | — |
-| 300 | 88% | 83–92% | 0% | 0–2% | yes |
-| 1000 | 91% | 86–94% | 0% | 0–2% | yes |
-| 3000 | 96% | 93–98% | 0% | 0–2% | yes |
+| 100 | 39% | 33–46% | 0% | 0–2% | — |
+| 300 | 81% | 75–86% | 0% | 0–2% | — |
+| 1000 | 88% | 82–91% | 0% | 0–2% | yes |
+| 3000 | 96% | 92–98% | 0% | 0–2% | yes |
 
 ---
 
@@ -175,7 +175,7 @@ Detected when all three reach the top decile by times served.
 | Answers | Mean |
 |---|---|
 | 100 | 14% |
-| 300 | 25% |
-| 1000 | 38% |
-| 3000 | 41% |
+| 300 | 23% |
+| 1000 | 35% |
+| 3000 | 42% |
 

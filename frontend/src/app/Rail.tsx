@@ -12,6 +12,7 @@ const ICONS = {
   bank: 'M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5M3 17l9 5 9-5',
   cases: 'M6 3v6a3 3 0 003 3h6a3 3 0 013 3v6M6 3H4m2 0h2M18 21h-2m2 0h2M6 12h12',
   calibration: 'M3 20h18M6 20V10m6 10V5m6 15v-7',
+  detection: 'M12 3a9 9 0 100 18 9 9 0 000-18zm0 4v5m0 3v.01',
 } as const
 
 const LINKS: { to: string; key: keyof typeof ICONS; label: string }[] = [
@@ -22,6 +23,7 @@ const LINKS: { to: string; key: keyof typeof ICONS; label: string }[] = [
   { to: '/games', key: 'games', label: 'Short form' },
   { to: '/rules', key: 'rules', label: 'Decision rules' },
   { to: '/calibration', key: 'calibration', label: 'Calibration' },
+  { to: '/detection', key: 'detection', label: 'Detection' },
   { to: '/bank', key: 'bank', label: 'Question bank' },
 ]
 

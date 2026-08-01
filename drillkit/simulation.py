@@ -42,6 +42,7 @@ real selection code rather than a model of it.
 
 from __future__ import annotations
 
+import json
 import os
 import random
 from dataclasses import asdict, dataclass, field
@@ -64,6 +65,9 @@ from .loader import Question
 # the record would distinguish it afterwards.
 SYNTHETIC_SESSION_PREFIX = "sim"
 SYNTHETIC_PROFILE = "__synthetic__"
+
+# Where a completed sweep is persisted, beside DETECTION.md at the repo root.
+RESULTS_FILE = "detection.json"
 
 QUESTIONS_PER_SESSION = 20
 DEFAULT_SAMPLE_SIZES = (100, 300, 1000, 3000)
@@ -312,6 +316,13 @@ def is_synthetic(rows: Sequence[Dict[str, Any]]) -> bool:
 
 TOP_N = 3                  # "surfaced it" means: in the weakest this many
 SERVE_PERCENTILE = 0.90    # check 6: how high a planted question must rank
+
+# The bar a check must clear to be called trustworthy, judged at the pessimistic
+# end of both intervals. Named rather than inlined because the report and the
+# app both state them, and a threshold quoted in prose that disagrees with the
+# one in the code would be worse than no threshold at all.
+TRUST_DETECTION = 0.80        # detection, at the bottom of its interval
+TRUST_FALSE_POSITIVE = 0.20   # false positives, at the top of theirs
 
 
 @dataclass
@@ -643,7 +654,8 @@ class CellResult:
             return False
         # Judged on the conservative end of detection and the pessimistic end
         # of false positives, so a thin run cannot look trustworthy by luck.
-        return d.interval[0] >= 0.80 and f.interval[1] <= 0.20
+        return (d.interval[0] >= TRUST_DETECTION
+                and f.interval[1] <= TRUST_FALSE_POSITIVE)
 
     def as_dict(self) -> Dict[str, Any]:
         return {"check": self.check_id, "attempts": self.attempts,
@@ -709,6 +721,87 @@ def run_sweep(bank: Bank,
     return results
 
 
+def results_payload(results: Sequence[CellResult], bank: Bank, seeds: int,
+                    sizes: Sequence[int],
+                    measures: Optional[Dict[str, List[float]]] = None,
+                    generated: Optional[str] = None) -> Dict[str, Any]:
+    """The sweep as structured data, for anything that is not markdown.
+
+    Written beside DETECTION.md so the app can show the same numbers without
+    re-running anything. A full sweep is roughly twelve minutes; a screen that
+    recomputed on load would be unusable, and one that parsed the markdown back
+    out would break the first time the prose changed.
+
+    The check metadata travels with the numbers deliberately. A detection rate
+    is meaningless without knowing what was planted to produce it, and a reader
+    who has the JSON but not this module should still be able to tell.
+    """
+    measures = measures or {}
+    ids = [c.id for c in CHECKS if any(r.check_id == c.id for r in results)]
+    return {
+        "generated": generated or datetime.now(timezone.utc)
+                                          .astimezone().isoformat(timespec="seconds"),
+        "seeds": seeds,
+        "sizes": list(sizes),
+        "bank": {"questions": len(bank.questions), "rules": len(bank.rules)},
+        "thresholds": {
+            "detection_floor": TRUST_DETECTION,
+            "false_positive_ceiling": TRUST_FALSE_POSITIVE,
+        },
+        "checks": [
+            {
+                "id": check.id,
+                "title": check.title,
+                "planted": check.planted,
+                "diagnostic": check.diagnostic,
+                "note": check.note,
+                "component": check.id.rstrip("ab") != check.id,
+                "trustworthy_from": trustworthy_from(results, check.id),
+                "cells": [
+                    cell.as_dict()
+                    for cell in sorted((r for r in results if r.check_id == check.id),
+                                       key=lambda r: r.attempts)
+                ],
+            }
+            for check in CHECKS if check.id in ids
+        ],
+        "measures": [
+            {
+                "name": name,
+                "label": label,
+                "points": [
+                    {"attempts": size,
+                     "mean": sum(values) / len(values),
+                     "runs": len(values)}
+                    for size, values in (
+                        (s, measures.get("%s@%d" % (name, s), [])) for s in sizes)
+                    if values
+                ],
+            }
+            for name, (_family, label, _fn) in MEASURES.items()
+        ],
+        "findings": _findings(results, sizes),
+    }
+
+
+def write_results(payload: Dict[str, Any], path: str) -> str:
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, indent=2)
+    return path
+
+
+def load_results(path: str) -> Optional[Dict[str, Any]]:
+    """Read a persisted sweep. None when none has been run."""
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            data = json.load(fh)
+    except (ValueError, OSError):
+        return None
+    return data if isinstance(data, dict) else None
+
+
 def render_report(results: Sequence[CellResult], bank: Bank, seeds: int,
                   sizes: Sequence[int],
                   measures: Optional[Dict[str, List[float]]] = None,
@@ -741,9 +834,10 @@ def render_report(results: Sequence[CellResult], bank: Bank, seeds: int,
       "not have. Both rates carry 95%% Wilson intervals, because %d runs is a "
       "sample like any other." % seeds)
     w("")
-    w("A check is called **trustworthy** only where detection is at least 80% "
-      "at the bottom of its interval *and* false positives are at most 20% at "
-      "the top of theirs.")
+    w("A check is called **trustworthy** only where detection is at least %d%% "
+      "at the bottom of its interval *and* false positives are at most %d%% at "
+      "the top of theirs." % (round(TRUST_DETECTION * 100),
+                              round(TRUST_FALSE_POSITIVE * 100)))
     w("")
     w("Method: %d seeds per cell, sample sizes %s, drawn against the real "
       "bank of %d questions and %d decision rules. Histories are generated "

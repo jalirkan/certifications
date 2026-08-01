@@ -359,6 +359,73 @@ export interface ExamResult {
   missed: MissedQuestion[]
 }
 
+// ---------------------------------------------------------------- detection
+
+/**
+ * The detection report card: whether the diagnostics in this tool actually
+ * work, measured by planting known weaknesses in synthetic learners.
+ *
+ * `detection` without `false_positive` beside it is meaningless — a check that
+ * fires on everybody detects everything and tells you nothing. The types keep
+ * them together so no component can render one without the other.
+ */
+export interface DetectionRate {
+  hits: number
+  runs: number
+  rate: number | null
+  low: number | null
+  high: number | null
+}
+
+export interface DetectionCell {
+  check: string
+  attempts: number
+  detection: DetectionRate
+  false_positive: DetectionRate
+  trustworthy: boolean
+}
+
+export interface DetectionCheck {
+  id: string
+  title: string
+  /** What was planted in the synthetic learner to produce this. */
+  planted: string
+  diagnostic: string
+  note: string
+  /** True for the 3a/3b halves reported under their parent. */
+  component: boolean
+  /** Null means it never cleared the bar at any swept sample size. */
+  trustworthy_from: number | null
+  cells: DetectionCell[]
+}
+
+export interface DetectionMeasure {
+  name: string
+  label: string
+  points: { attempts: number; mean: number; runs: number }[]
+}
+
+export interface DetectionReport {
+  available: true
+  generated: string
+  seeds: number
+  sizes: number[]
+  bank: { questions: number; rules: number }
+  thresholds: { detection_floor: number; false_positive_ceiling: number }
+  checks: DetectionCheck[]
+  measures: DetectionMeasure[]
+  findings: string[]
+}
+
+/** No sweep has been run. An honest answer, not an error. */
+export interface DetectionMissing {
+  available: false
+  command: string
+  reason: string
+}
+
+export type Detection = DetectionReport | DetectionMissing
+
 // -------------------------------------------------------------- calibration
 
 /** "" means not recorded — every answer logged before capture existed. */

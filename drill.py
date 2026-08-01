@@ -445,14 +445,22 @@ def cmd_simulate(args) -> int:
                  ("%d answers" % n) if n else "never, in this sweep"))
 
     if args.write:
+        root = os.path.dirname(os.path.abspath(__file__))
         report = simulation.render_report(results, bank, args.seeds, sizes,
                                           measures)
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            args.out)
+        path = os.path.join(root, args.out)
         with open(path, "w", encoding="utf-8") as fh:
             fh.write(report)
+
+        # The same sweep as structured data, so the app can show these numbers
+        # without re-running anything. A full sweep is ~12 minutes.
+        payload = simulation.results_payload(results, bank, args.seeds, sizes,
+                                             measures)
+        json_path = simulation.write_results(
+            payload, os.path.join(root, simulation.RESULTS_FILE))
         print()
         print("Report written to %s" % path)
+        print("Results written to %s" % json_path)
     else:
         print()
         print("Add --write to regenerate %s" % args.out)

@@ -439,6 +439,50 @@ details.pair p { font-size: 13.5px; color: var(--text-dim); margin: 9px 0 6px; }
 details.pair .trap { font-size: 13px; color: var(--text-mute); margin: 0; }
 details.pair .trap b { color: var(--warn); }
 
+/* ------------------------------------------------------------- detection */
+
+/* A failing check is the interesting one, so it is marked rather than hidden.
+   The border is the only decoration on this screen. */
+.detect-card + .detect-card { margin-top: 14px; }
+.detect-card.failing { border-left: 3px solid var(--bad); }
+
+.detect-card-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; }
+.detect-card-head h3 { margin: 0 0 3px; font-size: 15.5px; }
+.detect-card-head .s { font-size: 12px; color: var(--text-mute); }
+.detect-card-head .grow { flex: 1; min-width: 0; }
+.detect-card-head .right { text-align: right; flex: 0 0 auto; }
+
+.detect-planted {
+  font-size: 13.5px; color: var(--text-dim); margin: 0 0 10px;
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 9px 12px;
+}
+.detect-planted .kicker {
+  font-size: 10.5px; text-transform: uppercase; letter-spacing: .09em;
+  color: var(--text-mute); margin-right: 8px;
+}
+
+.detect-table { font-size: 13px; margin-bottom: 14px; }
+.detect-row {
+  display: grid; grid-template-columns: 70px 74px 84px 104px 84px 1fr;
+  gap: 8px; padding: 6px 0; align-items: center;
+}
+.detect-row + .detect-row { border-top: 1px solid var(--line-soft); }
+.detect-head {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--text-mute); border-bottom: 1px solid var(--line);
+}
+.bad-text { color: var(--bad); }
+
+.finding { font-size: 14px; line-height: 1.65; margin: 0 0 13px; color: var(--text-dim); }
+.finding:last-child { margin-bottom: 0; }
+.finding b { color: var(--text); }
+
+@media (max-width: 780px) {
+  .detect-row { grid-template-columns: 56px 1fr 1fr; }
+  .detect-row span:nth-child(3), .detect-row span:nth-child(5) { display: none; }
+}
+
 /* ------------------------------------------------------------ confidence */
 
 /* Sits between the options and the reveal, because it must be answered before

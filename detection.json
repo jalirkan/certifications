@@ -1,0 +1,839 @@
+{
+  "generated": "2026-07-31T23:53:07-04:00",
+  "seeds": 200,
+  "sizes": [
+    100,
+    300,
+    1000,
+    3000
+  ],
+  "bank": {
+    "questions": 386,
+    "rules": 23
+  },
+  "thresholds": {
+    "detection_floor": 0.8,
+    "false_positive_ceiling": 0.2
+  },
+  "checks": [
+    {
+      "id": "1",
+      "title": "Weak decision rule is surfaced",
+      "planted": "A learner 30% accurate on every question governed by one rule",
+      "diagnostic": "principles.weakest()",
+      "note": "Detected when the planted rule lands in the weakest 3.",
+      "component": false,
+      "trustworthy_from": 300,
+      "cells": [
+        {
+          "check": "1",
+          "attempts": 100,
+          "detection": {
+            "hits": 147,
+            "runs": 200,
+            "rate": 0.735,
+            "low": 0.6698229773344888,
+            "high": 0.7913193998839003
+          },
+          "false_positive": {
+            "hits": 24,
+            "runs": 200,
+            "rate": 0.12,
+            "low": 0.08197935023887545,
+            "high": 0.17234361425904846
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "1",
+          "attempts": 300,
+          "detection": {
+            "hits": 197,
+            "runs": 200,
+            "rate": 0.985,
+            "low": 0.9568335194437211,
+            "high": 0.9948858548155076
+          },
+          "false_positive": {
+            "hits": 19,
+            "runs": 200,
+            "rate": 0.095,
+            "low": 0.06166261364986359,
+            "high": 0.14360265114397636
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "1",
+          "attempts": 1000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 16,
+            "runs": 200,
+            "rate": 0.08,
+            "low": 0.04984015517626642,
+            "high": 0.12599048979512317
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "1",
+          "attempts": 3000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 25,
+            "runs": 200,
+            "rate": 0.125,
+            "low": 0.0861191515921568,
+            "high": 0.1780153528465839
+          },
+          "trustworthy": true
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Weak topic is surfaced",
+      "planted": "A learner 30% accurate on every question in one topic",
+      "diagnostic": "stats.by_topic()",
+      "note": "Detected when the planted topic ranks weakest of all topics.",
+      "component": false,
+      "trustworthy_from": 1000,
+      "cells": [
+        {
+          "check": "2",
+          "attempts": 100,
+          "detection": {
+            "hits": 43,
+            "runs": 200,
+            "rate": 0.215,
+            "low": 0.16371792563672208,
+            "high": 0.2770242977367209
+          },
+          "false_positive": {
+            "hits": 4,
+            "runs": 200,
+            "rate": 0.02,
+            "low": 0.007804300176394188,
+            "high": 0.050287865505193874
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "2",
+          "attempts": 300,
+          "detection": {
+            "hits": 126,
+            "runs": 200,
+            "rate": 0.63,
+            "low": 0.5612250134987606,
+            "high": 0.6938750249624759
+          },
+          "false_positive": {
+            "hits": 2,
+            "runs": 200,
+            "rate": 0.01,
+            "low": 0.0027466006037749346,
+            "high": 0.03572248519617954
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "2",
+          "attempts": 1000,
+          "detection": {
+            "hits": 199,
+            "runs": 200,
+            "rate": 0.995,
+            "low": 0.9722256001302286,
+            "high": 0.999116854010634
+          },
+          "false_positive": {
+            "hits": 1,
+            "runs": 200,
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "2",
+          "attempts": 3000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": true
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Rule axis finds what the topic axis hides",
+      "planted": "A rule-level weakness spread thinly across many topics",
+      "diagnostic": "principles vs stats",
+      "note": "The claim the principle axis exists for. Both halves must hold.",
+      "component": false,
+      "trustworthy_from": null,
+      "cells": [
+        {
+          "check": "3",
+          "attempts": 100,
+          "detection": {
+            "hits": 77,
+            "runs": 200,
+            "rate": 0.385,
+            "low": 0.3203319691791383,
+            "high": 0.4540026121820756
+          },
+          "false_positive": {
+            "hits": 16,
+            "runs": 200,
+            "rate": 0.08,
+            "low": 0.04984015517626642,
+            "high": 0.12599048979512317
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3",
+          "attempts": 300,
+          "detection": {
+            "hits": 36,
+            "runs": 200,
+            "rate": 0.18,
+            "low": 0.13294550662534108,
+            "high": 0.2391159371623843
+          },
+          "false_positive": {
+            "hits": 13,
+            "runs": 200,
+            "rate": 0.065,
+            "low": 0.03837598764975976,
+            "high": 0.10802003749917945
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3",
+          "attempts": 1000,
+          "detection": {
+            "hits": 5,
+            "runs": 200,
+            "rate": 0.025,
+            "low": 0.010724561470787711,
+            "high": 0.05717914415161715
+          },
+          "false_positive": {
+            "hits": 13,
+            "runs": 200,
+            "rate": 0.065,
+            "low": 0.03837598764975976,
+            "high": 0.10802003749917945
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3",
+          "attempts": 3000,
+          "detection": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "false_positive": {
+            "hits": 22,
+            "runs": 200,
+            "rate": 0.11,
+            "low": 0.07377190160716048,
+            "high": 0.16092798300912986
+          },
+          "trustworthy": false
+        }
+      ]
+    },
+    {
+      "id": "3a",
+      "title": "- rule half: the rule axis finds it",
+      "planted": "Same learner as check 3",
+      "diagnostic": "principles.weakest()",
+      "note": "Component of check 3.",
+      "component": true,
+      "trustworthy_from": 300,
+      "cells": [
+        {
+          "check": "3a",
+          "attempts": 100,
+          "detection": {
+            "hits": 147,
+            "runs": 200,
+            "rate": 0.735,
+            "low": 0.6698229773344888,
+            "high": 0.7913193998839003
+          },
+          "false_positive": {
+            "hits": 24,
+            "runs": 200,
+            "rate": 0.12,
+            "low": 0.08197935023887545,
+            "high": 0.17234361425904846
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3a",
+          "attempts": 300,
+          "detection": {
+            "hits": 197,
+            "runs": 200,
+            "rate": 0.985,
+            "low": 0.9568335194437211,
+            "high": 0.9948858548155076
+          },
+          "false_positive": {
+            "hits": 19,
+            "runs": 200,
+            "rate": 0.095,
+            "low": 0.06166261364986359,
+            "high": 0.14360265114397636
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "3a",
+          "attempts": 1000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 16,
+            "runs": 200,
+            "rate": 0.08,
+            "low": 0.04984015517626642,
+            "high": 0.12599048979512317
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "3a",
+          "attempts": 3000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 25,
+            "runs": 200,
+            "rate": 0.125,
+            "low": 0.0861191515921568,
+            "high": 0.1780153528465839
+          },
+          "trustworthy": true
+        }
+      ]
+    },
+    {
+      "id": "3b",
+      "title": "- topic half: the topic axis misses it",
+      "planted": "Same learner as check 3",
+      "diagnostic": "stats.by_topic()",
+      "note": "Component of check 3.",
+      "component": true,
+      "trustworthy_from": null,
+      "cells": [
+        {
+          "check": "3b",
+          "attempts": 100,
+          "detection": {
+            "hits": 116,
+            "runs": 200,
+            "rate": 0.58,
+            "low": 0.5107194625547862,
+            "high": 0.6462651764982825
+          },
+          "false_positive": {
+            "hits": 153,
+            "runs": 200,
+            "rate": 0.765,
+            "low": 0.7015850701327535,
+            "high": 0.8184265467305365
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3b",
+          "attempts": 300,
+          "detection": {
+            "hits": 38,
+            "runs": 200,
+            "rate": 0.19,
+            "low": 0.14167093792456506,
+            "high": 0.250013585744794
+          },
+          "false_positive": {
+            "hits": 147,
+            "runs": 200,
+            "rate": 0.735,
+            "low": 0.6698229773344888,
+            "high": 0.7913193998839003
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3b",
+          "attempts": 1000,
+          "detection": {
+            "hits": 5,
+            "runs": 200,
+            "rate": 0.025,
+            "low": 0.010724561470787711,
+            "high": 0.05717914415161715
+          },
+          "false_positive": {
+            "hits": 158,
+            "runs": 200,
+            "rate": 0.79,
+            "low": 0.7283526118460081,
+            "high": 0.8407167047213658
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "3b",
+          "attempts": 3000,
+          "detection": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "false_positive": {
+            "hits": 153,
+            "runs": 200,
+            "rate": 0.765,
+            "low": 0.7015850701327535,
+            "high": 0.8184265467305365
+          },
+          "trustworthy": false
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "A question that measures nothing is flagged",
+      "planted": "One question answered at chance regardless of ability",
+      "diagnostic": "itemanalysis.needs_rewrite()",
+      "note": "",
+      "component": false,
+      "trustworthy_from": null,
+      "cells": [
+        {
+          "check": "4",
+          "attempts": 100,
+          "detection": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "4",
+          "attempts": 300,
+          "detection": {
+            "hits": 7,
+            "runs": 200,
+            "rate": 0.035,
+            "low": 0.017055324637357105,
+            "high": 0.07047146086668134
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "4",
+          "attempts": 1000,
+          "detection": {
+            "hits": 21,
+            "runs": 200,
+            "rate": 0.105,
+            "low": 0.0697069624619373,
+            "high": 0.15518138221353622
+          },
+          "false_positive": {
+            "hits": 2,
+            "runs": 200,
+            "rate": 0.01,
+            "low": 0.0027466006037749346,
+            "high": 0.03572248519617954
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "4",
+          "attempts": 3000,
+          "detection": {
+            "hits": 112,
+            "runs": 200,
+            "rate": 0.56,
+            "low": 0.4907154834956251,
+            "high": 0.6270229957941764
+          },
+          "false_positive": {
+            "hits": 128,
+            "runs": 200,
+            "rate": 0.64,
+            "low": 0.5714139956562682,
+            "high": 0.7033091226866021
+          },
+          "trustworthy": false
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "title": "A miskeyed question is flagged",
+      "planted": "One question whose wrong answers converge on a single distractor",
+      "diagnostic": "itemanalysis.needs_rewrite()",
+      "note": "",
+      "component": false,
+      "trustworthy_from": null,
+      "cells": [
+        {
+          "check": "5",
+          "attempts": 100,
+          "detection": {
+            "hits": 7,
+            "runs": 200,
+            "rate": 0.035,
+            "low": 0.017055324637357105,
+            "high": 0.07047146086668134
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "5",
+          "attempts": 300,
+          "detection": {
+            "hits": 36,
+            "runs": 200,
+            "rate": 0.18,
+            "low": 0.13294550662534108,
+            "high": 0.2391159371623843
+          },
+          "false_positive": {
+            "hits": 1,
+            "runs": 200,
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "5",
+          "attempts": 1000,
+          "detection": {
+            "hits": 141,
+            "runs": 200,
+            "rate": 0.705,
+            "low": 0.6384115802925058,
+            "high": 0.7638615572809827
+          },
+          "false_positive": {
+            "hits": 2,
+            "runs": 200,
+            "rate": 0.01,
+            "low": 0.0027466006037749346,
+            "high": 0.03572248519617954
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "5",
+          "attempts": 3000,
+          "detection": {
+            "hits": 199,
+            "runs": 200,
+            "rate": 0.995,
+            "low": 0.9722256001302286,
+            "high": 0.999116854010634
+          },
+          "false_positive": {
+            "hits": 53,
+            "runs": 200,
+            "rate": 0.265,
+            "low": 0.20868060011609973,
+            "high": 0.33017702266551113
+          },
+          "trustworthy": false
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Persistent misses come back sooner",
+      "planted": "Three questions the learner reliably gets wrong",
+      "diagnostic": "scheduler.select()",
+      "note": "Detected when all three reach the top decile by times served.",
+      "component": false,
+      "trustworthy_from": 1000,
+      "cells": [
+        {
+          "check": "6",
+          "attempts": 100,
+          "detection": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "6",
+          "attempts": 300,
+          "detection": {
+            "hits": 26,
+            "runs": 200,
+            "rate": 0.13,
+            "low": 0.09028141365225628,
+            "high": 0.18366463072730121
+          },
+          "false_positive": {
+            "hits": 1,
+            "runs": 200,
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "6",
+          "attempts": 1000,
+          "detection": {
+            "hits": 184,
+            "runs": 200,
+            "rate": 0.92,
+            "low": 0.8740095102048769,
+            "high": 0.9501598448237337
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "6",
+          "attempts": 3000,
+          "detection": {
+            "hits": 200,
+            "runs": 200,
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": true
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Confident-and-wrong answers are surfaced",
+      "planted": "Four questions answered confidently and incorrectly",
+      "diagnostic": "calibration.dangerous()",
+      "note": "",
+      "component": false,
+      "trustworthy_from": 1000,
+      "cells": [
+        {
+          "check": "7",
+          "attempts": 100,
+          "detection": {
+            "hits": 78,
+            "runs": 200,
+            "rate": 0.39,
+            "low": 0.325082297194914,
+            "high": 0.45906382410711677
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "7",
+          "attempts": 300,
+          "detection": {
+            "hits": 162,
+            "runs": 200,
+            "rate": 0.81,
+            "low": 0.7499864142552062,
+            "high": 0.8583290620754351
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "7",
+          "attempts": 1000,
+          "detection": {
+            "hits": 175,
+            "runs": 200,
+            "rate": 0.875,
+            "low": 0.8219846471534161,
+            "high": 0.9138808484078432
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": true
+        },
+        {
+          "check": "7",
+          "attempts": 3000,
+          "detection": {
+            "hits": 192,
+            "runs": 200,
+            "rate": 0.96,
+            "low": 0.9230670617058012,
+            "high": 0.9795946128493436
+          },
+          "false_positive": {
+            "hits": 0,
+            "runs": 200,
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
+          },
+          "trustworthy": true
+        }
+      ]
+    }
+  ],
+  "measures": [
+    {
+      "name": "rule_coverage",
+      "label": "Share of a planted rule's questions reached by studying the three weakest topics",
+      "points": [
+        {
+          "attempts": 100,
+          "mean": 0.13590803207385352,
+          "runs": 200
+        },
+        {
+          "attempts": 300,
+          "mean": 0.23167243062324197,
+          "runs": 200
+        },
+        {
+          "attempts": 1000,
+          "mean": 0.35166827229847003,
+          "runs": 200
+        },
+        {
+          "attempts": 3000,
+          "mean": 0.41847853260949114,
+          "runs": 200
+        }
+      ]
+    }
+  ],
+  "findings": [
+    "**What holds up.** *Weak decision rule is surfaced* from about **300 answers**; *Weak topic is surfaced* from about **1000 answers**; *Persistent misses come back sooner* from about **1000 answers**; *Confident-and-wrong answers are surfaced* from about **1000 answers**.",
+    "**Rule axis finds what the topic axis hides (check 3) does not hold.** It detects only 0% of planted cases at 3000 answers. Detection *falls* as history grows - 0% at 3000 answers against 38% at 100, which is the signature of a claim that is wrong rather than one that is merely under-powered.",
+    "**A question that measures nothing is flagged (check 4) does not hold.** At 3000 answers it also fires on **64%** of learners with nothing planted, so a hit carries little information.",
+    "**A miskeyed question is flagged (check 5) does not hold.** At 3000 answers it also fires on **26%** of learners with nothing planted, so a hit carries little information.",
+    "**On the asymmetry claim specifically.** The rule axis finds a planted rule weakness 100% of the time at 3000 answers. The topic axis *also* finds it: the weakest topic is one of the rule's own topics in 100% of runs. The claim that a rule-level weakness hides from a topic report does not reproduce against this bank. The reason is visible in the data rather than mysterious - rules are not spread evenly over topics here, and the median rule has some topic where most of the questions are governed by it, so a rule weakness drags that topic down far enough to rank it worst. The rule axis is still the more useful readout, because it names one transferable cause instead of one affected subject, but that is a different and weaker claim than the one currently written down.",
+    "**A caution about what is *not* modelled.** These learners do not improve: a missed question is missed at the same rate next time. Real learners read the explanation and get better, which sharpens the repeat-driven checks and blurs the ability ones. Questions are also treated as independent, which they are not. Treat the sample sizes above as the right order of magnitude, not as precise thresholds."
+  ]
+}

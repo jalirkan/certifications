@@ -148,6 +148,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._json(api.exam_list())
             if route == "/api/calibration":
                 return self._json(api.calibration())
+            if route == "/api/detection":
+                return self._json(api.detection())
             if route == "/api/settings":
                 return self._json(api.settings())
             if route == "/api/cases":
