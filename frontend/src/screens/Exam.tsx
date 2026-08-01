@@ -23,6 +23,8 @@ import {
   BarRow, Callout, Card, Empty, ErrorNote, Loading, Section,
 } from '../ui/primitives'
 import { OptionList, QuestionMeta, RuleNote } from '../ui/QuestionView'
+import { Waterfall } from '../charts/Waterfall'
+import { Rushed, TimeVsCorrect } from '../charts/TimeVsCorrect'
 import { intervalOf } from '../lib/format'
 
 export function ExamHome() {
@@ -464,9 +466,6 @@ export function ExamResultScreen() {
   }
 
   const r = result.data
-  const weak = r.by_domain
-    .filter((d) => d.asked >= 5 && d.accuracy < 0.65)
-    .sort((a, b) => b.cost - a.cost)
 
   return (
     <div className="wrap">
@@ -511,28 +510,33 @@ export function ExamResultScreen() {
         ))}
       </Card>
 
-      {weak.length ? (
+      <Section hint="a decomposition of this sitting, not a second score">
+        Where the lost marks actually went
+      </Section>
+      <Card>
+        <Waterfall steps={r.waterfall.steps} available={r.waterfall.available}
+                   earned={r.waterfall.earned} />
+      </Card>
+
+      <Section hint="split at your own median for this sitting">
+        Pace against correctness
+      </Section>
+      <Card>
+        <TimeVsCorrect timing={r.timing} verdict={r.timing.verdict} />
+      </Card>
+
+      {r.timing.rushed.length ? (
         <>
-          <Section>Where the lost marks actually are</Section>
+          <Section hint="answered faster than your median, and missed">
+            Fast and wrong
+          </Section>
           <Card>
             <p className="sub">
-              Accuracy gap multiplied by exam weight. A 60% in a 26% domain costs more than a
-              50% in a 12% one.
+              The quadrant no other view shows. Read them back and ask which you
+              misread and which you genuinely did not know — those want different
+              work, and they look identical on the score.
             </p>
-            {weak.map((d) => (
-              <div className="list-row" key={d.domain}>
-                <div className="grow">
-                  <div className="t">D{d.domain} {d.name}</div>
-                  <div className="s">
-                    {pct(d.accuracy)} accuracy · {d.weight}% of the exam
-                  </div>
-                </div>
-                <div className="right">
-                  <div className="t" style={{ color: 'var(--bad)' }}>−{d.cost.toFixed(1)}%</div>
-                  <div className="s">of the exam</div>
-                </div>
-              </div>
-            ))}
+            <Rushed rows={r.timing.rushed} />
           </Card>
         </>
       ) : null}

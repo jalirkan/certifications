@@ -70,6 +70,33 @@ def wilson_interval(correct: int, n: int, z: float = 1.96) -> Tuple[float, float
     return (max(0.0, centre - margin), min(1.0, centre + margin))
 
 
+def difference_of_proportions(a_ok: int, a_n: int, b_ok: int, b_n: int,
+                              z: float = 1.96) -> Dict[str, Optional[float]]:
+    """Rate in group A minus rate in group B, with an interval on the gap.
+
+    A difference between two rates has its own standard error, and the interval
+    of either rate alone is not it. Without this, a six-point gap that is
+    indistinguishable from no relationship at all reads as a finding -
+    `spans_zero` says so directly, which is usually the honest headline.
+
+    The normal approximation is crude in the tails, so callers still gate on a
+    minimum count in both cells rather than trusting the interval alone.
+
+    Shared by `calibration.overconfidence_gap` (confident vs not) and
+    `postmortem.timing` (fast vs slow). One implementation on purpose: two
+    copies of this arithmetic would drift, and the second copy would be the
+    one nobody re-derived.
+    """
+    if not a_n or not b_n:
+        return {"gap": None, "low": None, "high": None, "spans_zero": None}
+    a = a_ok / a_n
+    b = b_ok / b_n
+    se = math.sqrt(a * (1 - a) / a_n + b * (1 - b) / b_n)
+    gap = a - b
+    return {"gap": gap, "low": gap - z * se, "high": gap + z * se,
+            "spans_zero": (gap - z * se) <= 0 <= (gap + z * se)}
+
+
 def median(values: Sequence[float]) -> Optional[float]:
     if not values:
         return None

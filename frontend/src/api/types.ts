@@ -354,9 +354,73 @@ export interface ExamResult {
   duration: number
   pass_mark: number
   by_domain: ExamDomainResult[]
+  waterfall: Waterfall
+  timing: Timing
   slowest: { id: string; topic: string; seconds: number }[]
   guessed_right: { id: string; topic: string }[]
   missed: MissedQuestion[]
+}
+
+/** One domain's drop in the waterfall: blueprint weight times the miss rate. */
+export interface WaterfallStep {
+  domain: string
+  name: string
+  weight: number
+  asked: number
+  correct: number
+  accuracy: number | null
+  cost: number
+  cost_low: number | null
+  cost_high: number | null
+  /** False when too few were asked for the ranking against neighbours to hold. */
+  enough: boolean
+  /** Running balance before and after this domain's drop. */
+  from: number
+  to: number
+}
+
+export interface Waterfall {
+  available: number
+  earned: number
+  lost: number
+  steps: WaterfallStep[]
+}
+
+export interface TimingPoint {
+  id: string
+  topic: string
+  domain: string
+  seconds: number
+  correct: boolean
+  answered: boolean
+  /** Below the median for this sitting - never a fixed number of seconds. */
+  fast: boolean
+}
+
+export interface TimingCell {
+  n: number
+  correct: number
+  accuracy: number | null
+  low: number | null
+  high: number | null
+  median_seconds: number | null
+}
+
+export interface Timing {
+  median: number | null
+  enough: boolean
+  min_per_half: number
+  points: TimingPoint[]
+  fast: TimingCell
+  slow: TimingCell
+  /** Difference of two rates, with its own interval. Not either cell's. */
+  gap: { gap: number | null; low: number | null; high: number | null
+         spans_zero: boolean | null }
+  rushed: { id: string; topic: string; domain: string; seconds: number }[]
+  /** Built server-side: the one sentence about pace, or null. Never a cause. */
+  verdict: string | null
+  unanswered: number
+  untimed: number
 }
 
 // ---------------------------------------------------------------- detection

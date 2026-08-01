@@ -30,6 +30,7 @@ from . import (
     itemanalysis,
     loader,
     nextsession as nextsession_mod,
+    postmortem,
     principles as principles_mod,
     scheduler,
     simulation,
@@ -662,6 +663,12 @@ class Api:
             raise ApiError("That question is not part of this exam.")
 
         action = params.get("action", "answer")
+        # A missing question_id used to fall through to `state.answers[None]`,
+        # which saved cleanly, scored as nothing, and reported "ok". Found by
+        # sending the wrong parameter name and getting a 150-question exam back
+        # with zero answers and no error anywhere.
+        if action in ("answer", "flag") and not qid:
+            raise ApiError("That action needs a question_id.")
         if action == "answer":
             chosen = str(params.get("chosen", "")).upper()
             if chosen in loader.OPTION_KEYS:
@@ -723,6 +730,23 @@ class Api:
         state = exam_mod.load(self.results_path, exam_id)
         result = exam_mod.score(state, self.questions, self.outline)
         known = self.by_id()
+
+        by_domain = [{"domain": d.domain, "name": d.name, "weight": d.weight,
+                      "asked": d.asked, "correct": d.correct,
+                      "accuracy": d.accuracy,
+                      "cost": (d.weight or 0) * (1 - d.accuracy)}
+                     for d in result.by_domain]
+
+        # One entry per question for the timing view. Built here rather than in
+        # exam.py because it is a reading of the sitting, not part of scoring it.
+        asked = [known[qid] for qid in state.question_ids if qid in known]
+        timing_rows = [{
+            "id": q.id, "topic": q.topic, "domain": q.domain,
+            "seconds": state.seconds_per_question.get(q.id, 0.0),
+            "answered": state.answers.get(q.id) is not None,
+            "correct": state.answers.get(q.id) == q.answer,
+        } for q in asked]
+
         return {
             "id": result.exam_id,
             "total": result.total,
@@ -734,11 +758,9 @@ class Api:
             "elapsed": result.elapsed_seconds,
             "duration": result.duration_seconds,
             "pass_mark": exam_mod.SCALE_PASS,
-            "by_domain": [{"domain": d.domain, "name": d.name, "weight": d.weight,
-                           "asked": d.asked, "correct": d.correct,
-                           "accuracy": d.accuracy,
-                           "cost": (d.weight or 0) * (1 - d.accuracy)}
-                          for d in result.by_domain],
+            "by_domain": by_domain,
+            "waterfall": postmortem.waterfall(by_domain),
+            "timing": postmortem.timing(timing_rows),
             "slowest": [{"id": q.id, "topic": q.topic, "seconds": s}
                         for q, s in result.slowest if s > 0][:6],
             "guessed_right": [{"id": q.id, "topic": q.topic}

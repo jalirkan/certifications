@@ -35,12 +35,11 @@ of the data and is deliberately a later phase.
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
-from .itemanalysis import wilson_interval
+from .itemanalysis import difference_of_proportions, wilson_interval
 from .loader import Question
 from .store import CONFIDENCE, parse_ts
 
@@ -151,21 +150,18 @@ def overconfidence_gap(rows: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     other_rate = (other_ok / other_n) if other_n else None
     overall = (overall_ok / overall_n) if overall_n else None
 
-    gap = (conf - other_rate) if (conf is not None and other_rate is not None) else None
-    low = high = None
-    if gap is not None and conf_n and other_n:
-        # Standard error of a difference of two independent proportions. The
-        # normal approximation is crude in the tails, which is why `enough`
-        # still gates on a minimum count in both cells.
-        se = math.sqrt(conf * (1 - conf) / conf_n
-                       + other_rate * (1 - other_rate) / other_n)
-        low, high = gap - 1.96 * se, gap + 1.96 * se
+    # Standard error of a difference of two independent proportions, shared
+    # with the exam post-mortem so the two cannot drift apart. `enough` still
+    # gates on a minimum count in both cells: the approximation is crude in
+    # the tails and the interval alone will not say so.
+    diff = difference_of_proportions(conf_ok, conf_n, other_ok, other_n)
+    gap, low, high = diff["gap"], diff["low"], diff["high"]
 
     return {
         "gap": gap,
         "gap_low": low,
         "gap_high": high,
-        "spans_zero": None if low is None else (low <= 0 <= high),
+        "spans_zero": diff["spans_zero"],
         "confident_accuracy": conf,
         "confident_attempts": conf_n,
         "confident_low": wilson_interval(conf_ok, conf_n)[0] if conf_n else None,
