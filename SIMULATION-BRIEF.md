@@ -82,7 +82,14 @@ Each check is a yes/no question with a known answer. Suggested starting set:
 | 4 | A question with no discrimination | Does `itemanalysis.needs_rewrite()` flag it? | item analysis |
 | 5 | A miskeyed question (strong learners do worse) | Flagged? | item analysis |
 | 6 | Persistent misses on specific questions | Do they come back sooner than known ones? | scheduler |
-| 7 | Overconfident learner | Does the gap show? Are planted confident-wrongs listed? | calibration, when it lands |
+| 7 | Overconfident learner | Does the gap show? Are planted confident-wrongs listed? | calibration |
+| 8 | A question whose authored label is wrong | Is the authored-versus-empirical disagreement flagged? | difficulty labels, if that work has landed |
+
+Check 8 is a late addition. `DIFFICULTY-BRIEF.md` adds a comparison between each question's
+authored `easy`/`medium`/`hard` label and its measured p-value, to find labels that do not match how
+the question behaves. That is a diagnostic like any other and it makes a claim, so it belongs here:
+generate a learner for whom a question labelled `easy` is reliably missed, and check the
+disagreement surfaces. If that work has not shipped yet, skip the check rather than waiting.
 
 Check 3 is the one that matters most. It is the justification for the entire principle axis, and it
 is currently supported by one test at one sample size with one seed.
