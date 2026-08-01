@@ -625,3 +625,45 @@ details.pair .trap b { color: var(--warn); }
   html, body, #root { background: #fff; color: #000; }
   pre.card-text { background: #fff; color: #000; border-color: #999; max-height: none; }
 }
+
+/* ------------------------------------------------------------ case graph */
+
+.case-graph { overflow-x: auto; }
+.cg-canvas { position: relative; min-width: 320px; margin: 0 auto; }
+.cg-node { pointer-events: none; }
+
+/* Keyboard reachability is not optional here - the rest of the app is
+   keyboard-first and a diagram that can only be hovered would be the one
+   surface that is not. The targets are HTML buttons over the drawing rather
+   than the SVG shapes, because SVG focus is a browser-by-browser lottery;
+   see the note in CaseGraph.tsx. Transparent, so the SVG below is the visual. */
+.cg-hit { position: absolute; inset: 0; }
+.cg-hit-btn {
+  position: absolute; padding: 0; border: 0; border-radius: 7px;
+  background: transparent; cursor: pointer;
+  overflow: hidden; text-indent: -9999px; white-space: nowrap;
+  color: transparent;
+}
+.cg-hit-btn:focus-visible {
+  outline: 2px solid var(--text); outline-offset: 2px; text-indent: -9999px;
+}
+
+.cg-legend {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-dim); margin-top: 12px;
+  padding-top: 12px; border-top: 1px solid var(--line-soft);
+}
+.cg-legend .k { display: inline-flex; align-items: center; gap: 6px; }
+.cg-legend i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+
+.cg-detail {
+  margin-top: 14px; padding-top: 14px;
+  border-top: 1px solid var(--line-soft);
+  animation: fade .18s ease both;
+}
+.cg-detail-head {
+  display: flex; align-items: center; gap: 9px; margin-bottom: 10px;
+  font-size: 14.5px; flex-wrap: wrap;
+}
+.cg-detail .list-row .t { font-size: 13.5px; }
+.cg-detail .list-row .s { font-size: 12px; }

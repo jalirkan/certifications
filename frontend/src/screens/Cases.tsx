@@ -23,6 +23,7 @@ import type {
 import { plural, stamp } from '../lib/format'
 import { useAsync, useKeys } from '../lib/hooks'
 import { Callout, Card, ErrorNote, Loading, Section } from '../ui/primitives'
+import { CaseGraph } from '../charts/CaseGraph'
 
 const VERDICT_TONE: Record<string, string> = {
   strong: 'good',
@@ -440,8 +441,17 @@ export function CaseDebriefScreen() {
         </p>
       </Card>
 
+      {/* The map first: one thread through a graph reads very differently
+          once the graph it came from is visible. */}
+      <Section hint="your thread, and the ones you did not walk">
+        The whole case
+      </Section>
+      <Card>
+        <CaseGraph graph={d.graph} />
+      </Card>
+
       <Section hint="every option, including the ones you did not take">
-        The path, and the branches off it
+        Decision by decision
       </Section>
       {d.walk.map((step) => (
         <Card key={step.index} className="walk-step">

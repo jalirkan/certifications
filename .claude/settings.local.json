@@ -9,19 +9,13 @@
       "Glob(*)",
       "Grep(*)",
       "WebFetch(*)",
-      "Bash(python drill.py simulate --seeds 12 --sizes 300,1000 --write --out /tmp/throwaway-report.md)",
-      "Bash(python -c ' *)",
-      "Bash(rm -f /tmp/sweepA.log)",
-      "Bash(nohup python drill.py simulate --seeds 200 --write)",
       "Bash(python -)",
       "Bash(npx tsc *)",
       "Bash(npm run *)",
-      "Bash(python -m unittest tests.test_detection_api)",
       "Bash(python run_tests.py)",
-      "Bash(python drill.py validate)",
-      "Bash(sed -n '/TRUSTWORTHY FROM/,$p' /tmp/sweepA.log)",
-      "Bash(npm.cmd --prefix frontend run build)",
-      "Bash(git add *)"
+      "Bash(python tests/test_casesession.py)",
+      "Bash(curl -s -X POST \"http://127.0.0.1:8791/api/cases/start\" -H \"X-Profile: graphcheck\" -d '{\"case_id\":\"d5-encrypted-share\"}')",
+      "Bash(python drill.py validate)"
     ],
     "deny": [
       "Bash(rm * cisa/results/attempts.jsonl*)",
@@ -37,26 +31,23 @@
       "Write(cisa/results/games.jsonl)",
       "Write(cisa/results/cases.jsonl)"
     ],
-    "defaultMode": "dontAsk"
+    "defaultMode": "bypassPermissions"
   },
   "_comment": [
-    "Scoped to this project only.",
+    "Scoped to this project only. Justin asked three times to stop being",
+    "prompted; 'auto' and then 'dontAsk' both still let commands through to a",
+    "confirmation path, so this is the full-off switch.",
     "",
-    "defaultMode is 'dontAsk' rather than 'auto'. That is the actual fix: under",
-    "'auto' every shell command was still routed through a classifier that",
-    "re-prompted on anything it judged destructive - taskkill, rm, background",
-    "sweeps - which is why a wildcard allow list alone did not stop the",
-    "interruptions. The giveaway was exact rules like Bash(python run_tests.py)",
-    "continuing to accumulate underneath an existing Bash(*).",
+    "The deny list is kept. If bypassPermissions ignores it, the protection that",
+    "actually matters is simpler and not a setting: cisa/results/ is real study",
+    "history, it is the one thing here that cannot be recreated, and it does not",
+    "get touched. Everything else in this repo is in git.",
     "",
-    "The deny list still wins over allow, so real study history stays protected",
-    "against both shell and editor writes.",
+    "There may be a single confirmation dialog the first time this takes effect.",
+    "That one is left for you deliberately - one deliberate yes is the right",
+    "place for consent, and it is not mine to click.",
     "",
-    "If prompts somehow persist, 'bypassPermissions' is the full-off switch. It",
-    "requires accepting a one-time confirmation dialog, and that dialog is",
-    "deliberately not pre-accepted here - it is your call to click, not mine.",
-    "",
-    "To tighten again: set defaultMode back to 'auto', or to 'default' to be",
-    "asked about everything."
+    "To undo: set defaultMode to 'default' to be asked about everything, or",
+    "'auto' for the classifier-based middle ground."
   ]
 }

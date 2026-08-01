@@ -36,7 +36,7 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Sequence
 
 from . import exam as exam_mod
-from .cases import Case, PathStep, score_path
+from .cases import START, Case, PathStep, score_path
 
 
 class CaseSessionError(Exception):
@@ -252,7 +252,6 @@ def public_trail(case: Case, state: CaseSession) -> List[Dict[str, Any]]:
 # --------------------------------------------------------------------------
 
 def start(case: Case, cert: str) -> CaseSession:
-    from .cases import START
     if START not in case.nodes:
         raise CaseSessionError("case '%s' has no start node" % case.id)
     return CaseSession(
@@ -430,6 +429,8 @@ def debrief(case: Case, state: CaseSession) -> Dict[str, Any]:
             "verdict": graph_ending.get("verdict", ""),
         } if profile["overridden"] else None,
         "walk": walk,
+        # The whole graph, for drawing. Debrief only - see public_graph().
+        "graph": public_graph(case, state),
         # So the client can label where an option you did not take would have
         # led. "Option C would have ended the case here, weakly" is a much
         # sharper lesson than "option C was poor".
@@ -440,6 +441,78 @@ def debrief(case: Case, state: CaseSession) -> Dict[str, Any]:
         "principles": list(case.principles),
         "seconds": state.seconds,
         "finished_at": state.finished_at,
+    }
+
+
+def public_graph(case: Case, state: CaseSession) -> Dict[str, Any]:
+    """The whole decision graph, for drawing after the run.
+
+    **Debrief only.** This reveals which option reaches `end-strong`, which is
+    the answer key in another shape - serving it mid-run would defeat the format
+    as surely as sending the key with a question. It is built here, beside the
+    debrief, rather than anywhere a running session can reach.
+
+    The walked path is marked server-side because only the session knows it,
+    which saves the client cross-referencing two structures to colour one
+    picture. Layout is left to the client: this describes the case, not a
+    drawing of it.
+    """
+    walked_order = {step["node_id"]: i + 1 for i, step in enumerate(state.steps)}
+    chosen_at = {step["node_id"]: step["chosen"] for step in state.steps}
+
+    nodes = [
+        {
+            "id": nid,
+            "prompt": node.get("prompt", ""),
+            "situation": node.get("situation", ""),
+            "walked": nid in walked_order,
+            "position": walked_order.get(nid, 0),
+        }
+        for nid, node in case.nodes.items()
+    ]
+
+    edges = []
+    for nid, node in case.nodes.items():
+        for opt in node.get("options", []):
+            key = str(opt.get("key", "")).upper()
+            edges.append({
+                "from": nid,
+                "to": opt.get("next", ""),
+                "key": key,
+                "text": opt.get("text", ""),
+                "quality": opt.get("quality", ""),
+                "taint": opt.get("taint"),
+                "chosen": chosen_at.get(nid) == key,
+            })
+
+    endings = [
+        {
+            "id": eid,
+            "title": ending.get("title", ""),
+            "verdict": ending.get("verdict", ""),
+            "reached": eid == state.ending,
+            # Where the graph was heading before a taint redirected it.
+            "graph_reached": eid == state.graph_ending and eid != state.ending,
+        }
+        for eid, ending in case.endings.items()
+    ]
+
+    # The edge that fixed the outcome: drawn from the tainted decision straight
+    # to the ending it forced, past whatever the graph would have reached. It is
+    # not one of the case's own edges - it is what the taint did to the path.
+    override = None
+    if state.finished and state.ending != state.graph_ending:
+        detail = _override_detail(case, state)
+        if detail:
+            override = {"from": detail["node"], "to": state.ending,
+                        "taint": detail["taint"], "decision": detail["decision"]}
+
+    return {
+        "start": START,
+        "nodes": nodes,
+        "edges": edges,
+        "endings": endings,
+        "override": override,
     }
 
 

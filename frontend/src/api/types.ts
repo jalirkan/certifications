@@ -651,7 +651,59 @@ export interface OverrideDetail {
   why: string
 }
 
+/**
+ * The whole decision graph, for drawing after the run.
+ *
+ * Debrief-only by construction: it reveals which option reaches `end-strong`,
+ * which is the answer key in another shape. There is no type in this file that
+ * would let a running session hold one.
+ */
+export interface CaseGraphNode {
+  id: string
+  prompt: string
+  situation: string
+  walked: boolean
+  /** 1-based order in the walked path; 0 when never visited. */
+  position: number
+}
+
+export interface CaseGraphEdge {
+  from: string
+  to: string
+  key: string
+  text: string
+  quality: Quality
+  taint: string | null
+  chosen: boolean
+}
+
+export interface CaseGraphEnding {
+  id: string
+  title: string
+  verdict: Verdict | ''
+  reached: boolean
+  /** Where the graph was heading before a taint redirected it. */
+  graph_reached: boolean
+}
+
+/** Present only when a taint forced an ending the graph was not heading to. */
+export interface CaseGraphOverride {
+  from: string
+  to: string
+  taint: string
+  decision: number
+}
+
+export interface CaseGraph {
+  start: string
+  nodes: CaseGraphNode[]
+  edges: CaseGraphEdge[]
+  endings: CaseGraphEnding[]
+  override: CaseGraphOverride | null
+}
+
 export interface CaseDebrief {
+  graph: CaseGraph
   session: string
   case: CaseHeader
   decisions: number

@@ -238,6 +238,127 @@ class TestDebriefTeaches(CaseTestBase):
                              % (case_id, verdict))
 
 
+class TestTheGraphIsDebriefOnly(CaseTestBase):
+    """The drawing of the case is the answer key in another shape.
+
+    A picture showing which branch reaches `end-strong` gives the case away
+    more completely than any single field would, so it is built beside the
+    debrief and must not appear anywhere a running session can reach.
+    """
+
+    def test_no_payload_before_the_debrief_carries_a_graph(self):
+        for case_id, keys in (("d1-one-exception", ["B", "A"]),
+                              ("d4-the-successful-test", ["B", "A"]),
+                              ("d5-encrypted-share", ["B", "B"])):
+            data = self.api.case_start({"case_id": case_id})
+            session_id = data["session"]
+            payloads = [data, self.api.case_list()]
+            for key in keys:
+                live = self.api.case_get(session_id)
+                payloads.append(live)
+                if live["finished"]:
+                    break
+                payloads.append(self.api.case_choose({
+                    "session": session_id, "node": live["node"]["id"], "key": key,
+                }))
+
+            for payload in payloads:
+                self.assertNotIn(
+                    '"graph"', json.dumps(payload),
+                    "%s served the graph before the debrief" % case_id)
+
+    def test_the_debrief_carries_it(self):
+        state, case = self.play("d5-encrypted-share", ["B", "B", "B", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+        self.assertEqual(graph["start"], cases_mod.START)
+        self.assertTrue(graph["nodes"] and graph["edges"] and graph["endings"])
+
+    def test_the_graph_is_the_whole_case_not_the_walk(self):
+        """Drawing only the walked path would teach nothing new."""
+        state, case = self.play("d5-encrypted-share", ["B", "B", "B", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+
+        self.assertEqual(len(graph["nodes"]), len(case.nodes))
+        self.assertEqual(len(graph["endings"]), len(case.endings))
+        walked = [n for n in graph["nodes"] if n["walked"]]
+        self.assertLess(len(walked), len(graph["nodes"]),
+                        "a case with no unwalked node cannot show a road not taken")
+
+    def test_the_walked_path_is_numbered_in_order(self):
+        state, case = self.play("d5-encrypted-share", ["B", "B", "B", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+
+        walked = sorted((n for n in graph["nodes"] if n["walked"]),
+                        key=lambda n: n["position"])
+        self.assertEqual([n["position"] for n in walked],
+                         list(range(1, len(walked) + 1)))
+        self.assertEqual(walked[0]["id"], cases_mod.START)
+        self.assertEqual([n["id"] for n in walked],
+                         [s["node_id"] for s in state.steps])
+
+    def test_every_edge_lands_somewhere_drawable(self):
+        """A dangling edge would be a line to nowhere on the canvas."""
+        for case in self.cases.values():
+            state = casesession.start(case, "cisa")
+            graph = casesession.public_graph(case, state)
+            targets = {n["id"] for n in graph["nodes"]}
+            targets |= {e["id"] for e in graph["endings"]}
+            for edge in graph["edges"]:
+                self.assertIn(edge["from"], targets, case.id)
+                self.assertIn(edge["to"], targets, case.id)
+
+    def test_exactly_one_edge_is_chosen_per_walked_node(self):
+        state, case = self.play("d4-the-successful-test", ["B", "A", "A", "A", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+
+        chosen = [e for e in graph["edges"] if e["chosen"]]
+        self.assertEqual(len(chosen), len(state.steps))
+        self.assertEqual([e["from"] for e in chosen],
+                         [s["node_id"] for s in state.steps])
+
+    def test_a_taint_draws_an_override_edge_the_case_does_not_own(self):
+        """The whole point of the picture: your path went there, the taint
+        dragged the outcome here."""
+        # Sound work after decision 2, but conceding independence there fixed
+        # the outcome: the path walks on to end-strong and lands compromised.
+        state, case = self.play("d5-encrypted-share", ["B", "A", "B", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+        override = graph["override"]
+
+        self.assertIsNotNone(override, "fixture must be a tainted run")
+        self.assertEqual(override["taint"], "independence-lost")
+        self.assertEqual(override["decision"], 2)
+        self.assertEqual(override["to"], state.ending)
+        self.assertNotEqual(state.ending, state.graph_ending)
+        self.assertNotIn((override["from"], override["to"]),
+                         {(e["from"], e["to"]) for e in graph["edges"]},
+                         "the override is what the taint did, not a case edge")
+
+        reached = [e for e in graph["endings"] if e["reached"]]
+        heading = [e for e in graph["endings"] if e["graph_reached"]]
+        self.assertEqual([e["id"] for e in reached], [state.ending])
+        self.assertEqual([e["id"] for e in heading], [state.graph_ending])
+
+    def test_a_clean_run_has_no_override_and_one_marked_ending(self):
+        state, case = self.play("d5-encrypted-share", ["B", "B", "B", "B"])
+        graph = casesession.debrief(case, state)["graph"]
+
+        self.assertIsNone(graph["override"])
+        self.assertEqual([e["id"] for e in graph["endings"] if e["reached"]],
+                         [state.ending])
+        self.assertEqual([e["id"] for e in graph["endings"] if e["graph_reached"]], [],
+                         "nothing was redirected, so nothing is left dangling")
+
+    def test_an_unfinished_run_claims_no_outcome(self):
+        case = self.cases["d1-one-exception"]
+        state = casesession.start(case, "cisa")
+        casesession.choose(case, state, state.current, "B")
+        graph = casesession.public_graph(case, state)
+
+        self.assertIsNone(graph["override"])
+        self.assertEqual([e for e in graph["endings"] if e["reached"]], [])
+
+
 class TestSessionRules(CaseTestBase):
     def test_a_session_survives_a_restart(self):
         data = self.api.case_start({"case_id": "d5-encrypted-share"})
