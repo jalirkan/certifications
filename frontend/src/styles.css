@@ -223,14 +223,34 @@ button.chip { cursor: pointer; }
 
 /* ---------------------------------------------------------------- bars */
 
-.bar-row { display: grid; grid-template-columns: 1fr 170px 84px; gap: 12px; align-items: center; padding: 7px 0; }
+/* Flex wrap rather than fixed grid columns, and that is load-bearing. As a
+   grid the label got 1fr against two fixed columns, so it was whatever was
+   left over — inside the half-width dashboard cards that reached 0px, and the
+   bar spilled 73px past the card edge. Media queries cannot see that, because
+   one viewport gives a 424px card on the exam screen and a 226px card on the
+   dashboard. Wrapping responds to the space actually present: one line while
+   the three pieces fit, bar and figure dropped to a second line when they do
+   not. The widths below reproduce the old grid exactly on a wide row. */
+.bar-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; padding: 7px 0; }
 .bar-row + .bar-row { border-top: 1px solid var(--line-soft); }
-.bar-label { font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bar-label small { color: var(--text-mute); font-size: 11.5px; margin-left: 6px; }
-.bar-num { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--text-dim); }
+/* Wraps rather than truncating. On one nowrap line the sub was not shortened
+   but hidden outright — "18% of exam · 27 asked" sat wholly past the clip
+   edge. The 260px basis doubles as the wrap threshold: under about 538px of
+   row the label would be squeezed below 260px and stack four or five lines
+   deep beside the bar, so it takes the whole row and the bar drops beneath. */
+.bar-label { flex: 1 1 260px; min-width: 0; font-size: 13.5px; overflow: hidden; overflow-wrap: anywhere; }
+.bar-label small { color: var(--text-mute); font-size: 11.5px; margin-left: 6px; white-space: nowrap; }
+/* 266px = the old 170px track + 12px gap + 84px figure, so a wide row is
+   pixel-identical to the grid it replaces. Shrinks but never grows: the label
+   takes the slack on a wide row, exactly as 1fr used to. */
+.bar-meter { flex: 0 1 266px; min-width: 0; display: flex; align-items: center; gap: 12px; }
+/* Fixed basis, not content width: a figure sized to its text would put a
+   ragged right edge on the bars when "11/11" sits above "7/7". */
+.bar-num { flex: 0 0 84px; text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--text-dim); }
 .bar-num .unknown { color: var(--text-mute); font-size: 12px; }
 
-.track { position: relative; height: 8px; background: var(--raised); border-radius: 4px; }
+/* Takes whatever the meter has left after the figure. */
+.track { flex: 1 1 auto; min-width: 0; position: relative; height: 8px; background: var(--raised); border-radius: 4px; }
 .track .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; background: var(--accent); }
 .track .fill.low  { background: var(--bad); }
 .track .fill.mid  { background: var(--warn); }
@@ -616,7 +636,6 @@ details.pair .trap b { color: var(--warn); }
   .main { height: auto; }
   .wrap { padding: 20px 16px 60px; }
   .runner-top { padding: 12px 16px; }
-  .bar-row { grid-template-columns: 1fr 90px 70px; }
 }
 
 @media print {

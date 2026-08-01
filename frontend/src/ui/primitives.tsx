@@ -101,30 +101,35 @@ export function BarRow({
         {label}
         {sub ? <small>{sub}</small> : null}
       </div>
-      <div
-        className="track"
-        role="img"
-        aria-label={
-          attempts
-            ? `${pct(accuracy)}, 95% confidence ${rangeText(low, high)}, ${attempts} answered`
-            : 'no data'
-        }
-      >
-        <div className={`fill ${band(accuracy)}`.trim()} style={{ width: `${width.toFixed(1)}%` }} />
-        {showCi ? (
-          <div
-            className="ci"
-            style={{
-              left: `${(low * 100).toFixed(1)}%`,
-              width: `${((high - low) * 100).toFixed(1)}%`,
-            }}
-          />
-        ) : null}
-      </div>
-      <div className="bar-num">
-        {right ?? (
-          confident ? claim(stat, min) : <span className="unknown">{claim(stat, min)}</span>
-        )}
+      {/* Bar and figure are one unit: when the row is too narrow to hold all
+          three parts they have to wrap together, or the figure ends up
+          stranded on a line of its own under the bar. */}
+      <div className="bar-meter">
+        <div
+          className="track"
+          role="img"
+          aria-label={
+            attempts
+              ? `${pct(accuracy)}, 95% confidence ${rangeText(low, high)}, ${attempts} answered`
+              : 'no data'
+          }
+        >
+          <div className={`fill ${band(accuracy)}`.trim()} style={{ width: `${width.toFixed(1)}%` }} />
+          {showCi ? (
+            <div
+              className="ci"
+              style={{
+                left: `${(low * 100).toFixed(1)}%`,
+                width: `${((high - low) * 100).toFixed(1)}%`,
+              }}
+            />
+          ) : null}
+        </div>
+        <div className="bar-num">
+          {right ?? (
+            confident ? claim(stat, min) : <span className="unknown">{claim(stat, min)}</span>
+          )}
+        </div>
       </div>
     </div>
   )
