@@ -1,5 +1,19 @@
 # Difficulty selection — handoff brief
 
+> **Status: built 2026-07-31.** `drillkit/difficulty.py` (175 lines) and
+> `tests/test_difficulty.py` (34 tests). Every item in §6 is on disk.
+>
+> - `--difficulty` on `python drill.py drill`, and the matching control in the web Drill screen;
+>   14 references in `drillkit/webapi.py` carry it through the API.
+> - Strict filtering applied before the scheduler orders what survives, with `availability()`
+>   reporting the count and the reason *before* the session starts.
+> - Ramp mode built the reorder-only way argued for in §4 — `scheduler.select` picks, the ramp
+>   sorts — with `ramp_spread()` disclosing the days when the draw is all one band.
+> - `difficulty.CAVEAT` is mirrored on every surface, so the labels always read as author-assigned.
+>
+> **The `expert` band this brief left empty is no longer empty.** See `EXPERT-BAND-BRIEF.md`:
+> easy 52 / medium 243 / hard 51 / expert 40 = 386.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first.
 
 Small feature with one honest problem inside it. Independent of `NARRATION-BRIEF.md`; either can ship first.

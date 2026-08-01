@@ -1,5 +1,16 @@
 # Case narration — handoff brief
 
+> **Status: not started, as of 2026-08-01.** Nothing in §7 exists.
+>
+> Verified on disk: no `speechSynthesis`, `SpeechSynthesisUtterance` or voice handling anywhere in
+> `frontend/src`. The only matches for "narrat" are the case *text* — `ending.narrative` in
+> `api/types.ts`, `Cases.tsx` and the `.ending-narrative` style — which is the content this feature
+> would read aloud, not the feature. The README carries no CLI-asymmetry note either.
+>
+> The brief itself is unchanged and still current; §1's feasibility finding has not been retested.
+> This is the last unbuilt piece of the certifications roadmap other than `FRONTEND-II-BRIEF.md`
+> pieces C, D and E.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first, then `cisa/cases/SCHEMA.md`.
 
 Independent of `DIFFICULTY-BRIEF.md`; either can ship first.

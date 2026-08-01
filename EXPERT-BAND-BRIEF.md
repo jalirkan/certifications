@@ -1,5 +1,19 @@
 # Expert-band questions — authoring brief
 
+> **Status: built 2026-07-31.** All 40 questions written, and the per-domain split in §3 was hit
+> exactly: D1 7, D2 7, D3 5, D4 11, D5 10. Bank went 346 → 386.
+>
+> - Seven new files — `cisa/questions/{d1a,d1b,d2a,d2b,d3,d4,d5}-expert.json`.
+> - Bands now read easy 52 / medium 243 / hard 51 / **expert 40**. `validate` is clean.
+> - §3's floor is cleared: 40 supports a 20-question expert session bank-wide, and D4 and D5
+>   each support a domain-filtered one.
+> - No existing question was relabelled — the §3 prohibition held, and `hard` is still 51.
+>
+> **The body below is now stale in one place and is left as written.** The opening note and §1 say
+> the band is empty and that the interface says so. Both were true when the brief was handed over;
+> neither is true now. The counts in §1 (346 across three bands) describe the pre-batch bank and are
+> the baseline this work was measured against, so they are worth keeping rather than overwriting.
+
 **For a Cowork session.** This is content work: no build, no install, no test loop.
 Read `CLAUDE.md` first — §3 rules 1–5 and the house-style note at the end govern everything here.
 

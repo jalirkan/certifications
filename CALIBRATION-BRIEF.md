@@ -1,5 +1,21 @@
 # Confidence capture and calibration — handoff brief
 
+> **Status: built 2026-07-31.** `drillkit/calibration.py`, `frontend/src/screens/Calibration.tsx`,
+> and `tests/test_calibration.py` (39 tests). Every item in §6 is on disk.
+>
+> - Capture is wired through both front ends — `store.normalise_confidence()` accepts the older
+>   rows unchanged, so `attempts.jsonl` written before the feature still loads and still reports.
+> - The reports are served by 15 references in `drillkit/webapi.py` and by
+>   `python drill.py calibration`.
+> - Target date is settable per profile: `python drill.py calibration --target YYYY-MM-DD` writes
+>   `target_date` into the profile's settings, and the coverage projection reads it.
+>
+> **The deadline in the opening paragraph was real and was met** — capture shipped before the
+> answers accumulated. What has *not* happened is Justin setting a target date, so the coverage
+> projection has nothing to project against. That is a missing fact, not a missing feature.
+> The workstation `CLAUDE.md` describes `target_date` as something "nothing ever writes"; the
+> `--target` flag above writes it, so that note is wrong and this one is the correction.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first.
 
 Small feature, and the only one on the roadmap with a **deadline**. Everything else can be built

@@ -1,5 +1,41 @@
 # Front end, second pass — handoff brief
 
+> **Status: three of five pieces shipped 2026-08-01, two not begun.**
+> Piece by piece, verified on disk:
+>
+> - **B — case graph: built** (`6fc4d61`). `frontend/src/charts/CaseGraph.tsx`, 354 lines, no graph
+>   library, imported by `Cases.tsx`. Served by `casesession.public_graph()` and gated the way §3
+>   required — `tests/test_casesession.py::test_no_payload_before_the_debrief_carries_a_graph`
+>   asserts the string `"graph"` is absent from every pre-debrief payload.
+> - **A — detection screen: built** (`9e758af`). `frontend/src/screens/Detection.tsx`, 348 lines,
+>   routed at `/detection`, in the rail, reading the persisted `detection.json` via
+>   `webapi.detection()` rather than recomputing a sweep. The cross-link §4 asked for exists:
+>   `Rules.tsx` links out under "Does this axis work?".
+> - **E — next session: built** (`ed1a398`). The bullet here previously read "being built right
+>   now, uncommitted", written against a tree that moved three times during the check; it landed
+>   shortly after. `drillkit/nextsession.py` enforces the §5 rule, and enforces it by raising:
+>   `require_evidence()` rejects any recommendation whose reason cites no count, rather than
+>   filtering it out, so a slogan cannot reach a screen quietly. Wired through
+>   `webapi.next_session()`, a `serve.py` route, `drill.py next --minutes`,
+>   `tests/test_nextsession.py` (25 tests) and `frontend/src/screens/Next.tsx` with its rail entry
+>   and route.
+>
+>   Two things §5 did not anticipate, both found by running it rather than reading it. Ranking on
+>   the lower confidence bound — correct for a browsable list, and what the topic rollup does —
+>   spends a time budget on whatever is noisiest: a topic seen 13 times at 13–58% outranked the
+>   planted weakness measured over 89 answers at 23–42%. Items are now grouped before they are
+>   ranked. And the recommendations were decorative until `DrillSetup` learned to read the query
+>   string; a test now feeds every emitted action into `drill_start` so those names cannot drift.
+> - **C — exam post-mortem: not started.** `cost` still renders as the sorted list of rows §6 wanted
+>   replaced (`Exam.tsx:469`, `:531`); no waterfall. `seconds_per_question` is stored by
+>   `exam.py`/`examsession.py` and still reaches no front-end file.
+> - **D — command palette: not started.** No ⌘K handler. The `palette` matches in `Exam.tsx` and
+>   `styles.css` are the exam *question* palette, an unrelated pre-existing component.
+>
+> §8 held on what shipped: no gamification, no prediction, and `python run_tests.py` is green at
+> 412 tests. §10's "ship B on its own and look at it before starting A" was followed — separate
+> commits, B first.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first, then this.
 
 Five pieces, independent, in the order they should ship. **B first.** Nothing here is a rewrite —
