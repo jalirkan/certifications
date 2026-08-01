@@ -1,0 +1,166 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "B",
+    "batch": "d4b-002",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Second D4 section B batch. Topic values must match the D4 section B topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4b-023",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "stem": "Recovery time objectives for all major systems were established by the IT department based on what its infrastructure could achieve. The objectives are documented, approved by the CIO, and consistently met in testing. What is the MOST appropriate conclusion for the IS auditor to reach?",
+      "options": {
+        "A": "The arrangement is satisfactory, since the objectives are documented, approved and demonstrably achievable.",
+        "B": "The objectives describe what IT can deliver rather than what the business can tolerate, so nobody has established whether meeting them actually prevents unacceptable harm.",
+        "C": "The objectives should be tightened, because targets that are consistently met are not demanding enough.",
+        "D": "The approval should have come from the chief executive rather than the CIO."
+      },
+      "answer": "B",
+      "why_correct": "A recovery objective is a statement about tolerable business harm, so it has to come from the business impact analysis and be owned by the business. Derived from infrastructure capability it is merely a description of the current architecture, and the organization has no idea whether that capability is adequate — the gap could be enormous and every test would still pass.",
+      "why_wrong": {
+        "A": "Each of those attributes is genuine and none of them addresses whether the target is the right one. A well-governed wrong number is still the wrong number.",
+        "C": "Consistently met targets may simply be appropriate. Difficulty is not the measure; tolerability of the outage is.",
+        "D": "The approver's seniority is not the issue. The issue is that the objective was derived from the wrong input, and a more senior approval of the same number changes nothing."
+      }
+    },
+    {
+      "id": "cisa-d4b-024",
+      "topic": "Business Impact Analysis",
+      "difficulty": "hard",
+      "stem": "A business impact analysis has been completed for each business process individually. Which of the following is the MOST likely weakness?",
+      "options": {
+        "A": "Recovery objectives may be inconsistent between processes of similar criticality.",
+        "B": "The analysis may not have been refreshed since the last organizational change.",
+        "C": "Dependencies between processes and their shared supporting systems may be missed, so a process rated critical can depend on a system recovered late.",
+        "D": "Impact may have been assessed qualitatively rather than in financial terms."
+      },
+      "answer": "C",
+      "why_correct": "Assessing processes one at a time captures each in isolation and misses the connective tissue between them. A tier-one process depending on a tier-three system has an objective it cannot meet, and nothing in a per-process analysis reveals that, because neither assessment ever looks at the other. It is normally discovered during a recovery test, or during a real disaster.",
+      "why_wrong": {
+        "A": "Inconsistent ratings are a real quality issue and one that reviewing the set together would surface. It matters less than an objective that is structurally unachievable.",
+        "B": "Staleness affects any analysis and is not specific to assessing processes individually.",
+        "D": "Qualitative impact assessment is normal and often unavoidable, and it does not create the structural blind spot described."
+      }
+    },
+    {
+      "id": "cisa-d4b-025",
+      "topic": "System and Operational Resilience",
+      "difficulty": "medium",
+      "stem": "A critical service runs on clustered servers in two data centres, with automatic failover that has been successfully tested twice a year. Which of the following would represent the GREATEST residual concern?",
+      "options": {
+        "A": "Failover has been tested but failback to the primary site has not, so returning to normal operation is an untested procedure performed under pressure.",
+        "B": "The cluster has not been tested at peak transaction volume.",
+        "C": "Failover testing is conducted during planned maintenance windows.",
+        "D": "Documentation of the failover procedure has not been updated since the last test."
+      },
+      "answer": "A",
+      "why_correct": "Failover is only half of the round trip, and failback is where organizations discover that replication ran in one direction, that the primary's data is now stale, or that reversing the process requires an outage nobody planned for. Having proved the first half twice a year while never exercising the second leaves the organization able to leave home and unable to return.",
+      "why_wrong": {
+        "B": "Testing below peak volume is a genuine limitation on what the test demonstrated, and it concerns performance under a condition rather than an entirely unexercised procedure.",
+        "C": "Testing in a maintenance window is normal and sensible. It constrains realism at the margin.",
+        "D": "Stale documentation is a real weakness, and the procedure has at least been performed successfully and recently."
+      }
+    },
+    {
+      "id": "cisa-d4b-026",
+      "topic": "System and Operational Resilience",
+      "difficulty": "hard",
+      "stem": "An organization has eliminated single points of failure in its network by contracting two independent telecommunications providers for its head office. Which of the following would MOST undermine that arrangement?",
+      "options": {
+        "A": "Both providers deliver service over the same physical duct into the building and ultimately over the same regional carrier infrastructure.",
+        "B": "The second provider's circuit is used only for failover and carries no traffic in normal operation.",
+        "C": "The two contracts have different service level agreements and remedies.",
+        "D": "The failover between providers is manual rather than automatic."
+      },
+      "answer": "A",
+      "why_correct": "Commercial diversity is not physical diversity. Two contracts that resolve to one duct, one building entry point or one upstream carrier fail together, and the organization has paid twice for a resilience it does not have. This is the classic case where the single point of failure survives every procurement control because nobody traced the service to the physical path.",
+      "why_wrong": {
+        "B": "An idle standby circuit risks going unnoticed if it degrades, which argues for regular testing rather than defeating the design.",
+        "D": "Manual failover lengthens the outage and is a recovery time concern rather than a loss of redundancy.",
+        "C": "Differing service levels complicate management and mean the fallback may be weaker. Both circuits still exist."
+      }
+    },
+    {
+      "id": "cisa-d4b-027",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "Which of the following provides the BEST evidence that an organization can recover its data?",
+      "options": {
+        "A": "Backup job completion reports showing no failures over the past twelve months.",
+        "B": "A backup schedule that satisfies the recovery point objective for every in-scope system.",
+        "C": "Confirmation that backup media are transferred to an offsite facility daily.",
+        "D": "Records of periodic restoration tests in which data was recovered and its completeness and usability verified by the business."
+      },
+      "answer": "D",
+      "why_correct": "The organization's requirement is to restore, not to back up, and only a restoration test evidences that. Verification by the business is what closes it — a technically successful restore of corrupt, incomplete or unusable data satisfies IT's measure and fails the actual need. Everything else in this list evidences that the backup process ran.",
+      "why_wrong": {
+        "A": "Job completion means the software believed it finished. Media faults, encryption key problems, missed files and unreadable archives all coexist comfortably with a clean completion report.",
+        "B": "A schedule aligned to the recovery point objective is good design evidence. It says nothing about whether the design operates.",
+        "C": "Offsite transfer addresses survivability of the media and not recoverability of the data on it."
+      }
+    },
+    {
+      "id": "cisa-d4b-028",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "A business continuity plan is comprehensive, current, and published on the corporate intranet where all staff can access it. Which of the following is the GREATEST weakness?",
+      "options": {
+        "A": "Staff may not read a plan they are not required to acknowledge.",
+        "B": "The intranet is likely to be unavailable in precisely the scenarios that require the plan, so the document cannot be reached when it is needed.",
+        "C": "Publishing the plan broadly may expose sensitive information about recovery arrangements.",
+        "D": "An intranet document may be edited without version control."
+      },
+      "answer": "B",
+      "why_correct": "A continuity plan has to survive the event it addresses. Storing the only copy on infrastructure that is within the scope of likely disruptions means the plan is available exactly when it is not needed, and gone when it is. Offline and offsite copies, including hard copy for the roles that must act first, are what make it usable.",
+      "why_wrong": {
+        "A": "Awareness is a real problem and is addressed by training and exercises. It assumes the document can be reached at all.",
+        "C": "Distribution control deserves thought, and over-restriction is the far more common failure in continuity planning.",
+        "D": "Version control is a document management concern, and the stem states the plan is current."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4b-029",
+      "topic": "Business Continuity Plan",
+      "difficulty": "hard",
+      "stem": "A continuity plan relies on manual workarounds for the first twenty-four hours of an outage. Which of the following would BEST assure an IS auditor that this element of the plan is viable?",
+      "options": {
+        "A": "The workarounds are documented in detail within the plan and were reviewed at the last annual update.",
+        "B": "The workarounds were designed by the process owners rather than by the continuity team.",
+        "C": "The business units have formally accepted the workarounds as adequate for the period concerned.",
+        "D": "The staff who would perform them have practised the workarounds, and the forms, reference data and delegated authorities they depend on are confirmed to be available offline."
+      },
+      "answer": "D",
+      "why_correct": "Manual workarounds are the real continuity for the first hours, and they fail on the practical details: the printed form nobody stocks any more, the pricing table that only exists in the system that is down, the approval limit nobody outside the application can exercise. Practice by the actual staff is what surfaces those, and confirming the offline dependencies is what makes the practice reproducible in a real event.",
+      "why_wrong": {
+        "A": "Documentation and review establish that the workaround is described and plausible on paper. Neither tests it.",
+        "C": "Business acceptance confirms the outage duration is tolerable. It is a statement about the requirement rather than about the capability.",
+        "B": "Process owner authorship makes a good workaround more likely and is still design evidence."
+      }
+    },
+    {
+      "id": "cisa-d4b-030",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "An organization wishes to obtain strong evidence that its recovery capability works, without risking an outage to live services. Which test type is MOST appropriate?",
+      "options": {
+        "A": "A structured walkthrough with the recovery team.",
+        "B": "A tabletop simulation against a realistic scenario.",
+        "C": "A parallel test, in which recovery systems are brought up and process alongside production so results can be compared.",
+        "D": "A full interruption test, since only this demonstrates genuine capability."
+      },
+      "answer": "C",
+      "why_correct": "A parallel test actually stands the recovery environment up and runs real processing through it, then compares the output against production — so it evidences capability rather than intention — while production continues serving the business throughout. It is the answer whenever a stem asks for strong assurance with the constraint that live service must not be interrupted.",
+      "why_wrong": {
+        "A": "A walkthrough tests understanding of the plan and touches no systems, so it cannot demonstrate that recovery works.",
+        "B": "A tabletop exercises decision-making under a scenario. It is valuable for coordination and produces no technical evidence.",
+        "D": "Full interruption is the strongest assurance available and it accepts exactly the risk the stem rules out. Read the constraint in the question, not just the ranking of test types."
+      }
+    }
+  ]
+}

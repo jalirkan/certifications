@@ -1,0 +1,318 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "A",
+    "batch": "d4a-002",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Second D4 section A batch. Six topics stood at three questions. Topic values must match the D4 section A topic list in ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4a-039",
+      "topic": "IT Components",
+      "difficulty": "medium",
+      "stem": "Several members of the operations team hold access to systems utilities capable of reading and altering production data directly. Which of the following would BEST address the resulting risk?",
+      "options": {
+        "A": "Restrict the access to a named few, log every use, and have the log reviewed by someone outside the operations team.",
+        "B": "Require a change request to be raised before any utility is used.",
+        "C": "Remove the utilities from production servers and install them only when needed.",
+        "D": "Require operations staff to sign an annual acknowledgement of the acceptable use policy."
+      },
+      "answer": "A",
+      "why_correct": "These utilities exist precisely because they can bypass application controls, so the objective is not to eliminate the access but to make its use visible and attributable. Restricting it to named individuals establishes who could have acted, logging establishes what was done, and independent review is what turns the log into a control rather than a record nobody reads.",
+      "why_wrong": {
+        "B": "A change request is appropriate for planned work and does not cover the emergency diagnostic use these tools exist for. It also relies on the same team to raise it.",
+        "C": "Install-on-demand sounds tighter and simply moves the privilege to whoever can perform installations, while removing the tools at the moment they are most needed.",
+        "D": "An acknowledgement documents that someone was told the rule. It provides no detection and no attribution."
+      }
+    },
+    {
+      "id": "cisa-d4a-040",
+      "topic": "IT Components",
+      "difficulty": "hard",
+      "stem": "In a virtualized data centre, which of the following represents the GREATEST concern?",
+      "options": {
+        "A": "Guest virtual machines are not evenly distributed across the physical hosts.",
+        "B": "Hypervisor administration rights are held by the same team that administers the guest operating systems, with no separate approval or monitoring.",
+        "C": "Virtual machines are provisioned from templates that are refreshed quarterly.",
+        "D": "The virtualization platform is licensed per socket rather than per virtual machine."
+      },
+      "answer": "B",
+      "why_correct": "The hypervisor sits beneath every guest, so control of it confers control of all of them — the ability to clone a running system, mount its storage, or snapshot memory without touching any control inside the guest. Combining that with guest administration means a single role can act on a system and remove the evidence, and no in-guest logging or access control constrains it.",
+      "why_wrong": {
+        "A": "Uneven distribution is a capacity and resilience consideration that is managed operationally and does not confer unconstrained access.",
+        "C": "Quarterly template refresh is reasonable practice. Templates do drift and go stale, and that is a patching question rather than a concentration of privilege.",
+        "D": "Licensing model is a commercial matter with no control implication."
+      }
+    },
+    {
+      "id": "cisa-d4a-041",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "Management reports that 98% of servers are patched to current levels. Which procedure would BEST allow an IS auditor to assess whether that figure is reliable?",
+      "options": {
+        "A": "Reconcile the asset inventory against an independent source such as network discovery, then determine how many live servers the patching figure actually covers.",
+        "B": "Select a sample from the patch management console and confirm the patch level on each server.",
+        "C": "Review the patch management policy and confirm it defines timescales by severity.",
+        "D": "Compare the reported percentage against the equivalent figure from the previous quarter."
+      },
+      "answer": "A",
+      "why_correct": "The percentage is calculated over the systems the tool knows about, so its reliability depends entirely on the completeness of that population. Reconciling to a source the patching process does not maintain reveals the servers that are absent from the denominator — and an unmanaged server missing from the inventory is both uncounted and unpatched, which is the worst combination available.",
+      "why_wrong": {
+        "C": "Policy review addresses design. It tells you what should happen rather than whether the reported figure describes reality.",
+        "D": "Comparing to a prior period tests consistency. Two figures computed over the same incomplete population will agree with each other and both be wrong.",
+        "B": "Sampling from the console tests accuracy within the known population and cannot reveal anything about systems that population omits. It confirms the numerator and leaves the denominator unexamined."
+      }
+    },
+    {
+      "id": "cisa-d4a-042",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "An organization uses a third party to destroy decommissioned storage media and retains the certificates of destruction it receives. Which additional step would MOST strengthen assurance that the media were actually destroyed?",
+      "options": {
+        "A": "Requiring the vendor to hold a recognized certification for secure destruction.",
+        "B": "Requiring the vendor to carry insurance covering data breach liability.",
+        "C": "Storing the certificates for the retention period defined in the records schedule.",
+        "D": "Reconciling the serial numbers listed on each certificate against the specific assets recorded as sent for destruction."
+      },
+      "answer": "D",
+      "why_correct": "A certificate is the vendor's assertion, and on its own it demonstrates that the vendor issued a document rather than that your particular drives were destroyed. Reconciling item by item against what you dispatched closes the loop: an asset recorded as sent but absent from any certificate is a drive nobody can account for, which is precisely the exposure the process exists to prevent.",
+      "why_wrong": {
+        "A": "Certification supports vendor selection and speaks to general capability rather than to the disposition of specific assets.",
+        "C": "Retention of the certificates preserves evidence you have not yet verified. Filing it for longer does not make it stronger.",
+        "B": "Insurance transfers financial consequence after a loss. It does not increase the likelihood that the media were destroyed."
+      }
+    },
+    {
+      "id": "cisa-d4a-043",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "medium",
+      "stem": "An IS auditor finds that application developers can modify the definitions of scheduled production jobs. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "Job failures may increase because developers are less familiar with the scheduling tool.",
+        "B": "Scheduling changes may not be reflected in the operations runbook.",
+        "C": "A developer can alter what runs in production without the change passing through approval or testing, and the alteration appears as routine scheduling activity.",
+        "D": "Job run times may lengthen and overrun the batch window."
+      },
+      "answer": "C",
+      "why_correct": "A job definition determines what executes against production data, so the ability to edit it is the ability to change production. Routing that through the scheduler rather than through change management removes approval, testing and the record that a change occurred, and it does so through a channel that looks like ordinary operational maintenance to anyone reviewing it.",
+      "why_wrong": {
+        "A": "Unfamiliarity is a quality concern that shows up as errors people notice and investigate.",
+        "B": "Documentation drift is a real operational weakness and a lesser one than unapproved changes reaching production.",
+        "D": "Batch window overruns are a capacity and scheduling problem, visible and recoverable."
+      }
+    },
+    {
+      "id": "cisa-d4a-044",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "hard",
+      "stem": "A review of the overnight batch shows that failed jobs are consistently restarted by the operator on shift, and the run completes successfully. Restart notes record the time and the operator's name. Which of the following should the IS auditor be MOST concerned about?",
+      "options": {
+        "A": "Restarts are performed by operators rather than by the application support team.",
+        "B": "Nothing establishes why the jobs failed, so a recurring underlying fault is being absorbed by manual intervention rather than corrected, and any data effect of the failure goes unassessed.",
+        "C": "Restart notes are free text rather than structured fields.",
+        "D": "The restarts extend the batch window and may delay the morning service opening."
+      },
+      "answer": "B",
+      "why_correct": "The restart restores the schedule and answers none of the questions that matter: what caused the failure, whether it will recur, and whether the partial run left the data in a consistent state. A process that reliably makes the symptom disappear is also a process that guarantees the cause is never investigated, and the successful completion statistics will look excellent throughout.",
+      "why_wrong": {
+        "A": "Operators restarting jobs is normal practice within a documented procedure and is not itself a weakness.",
+        "C": "Free-text notes are harder to analyse in aggregate. The problem is what is not recorded at all, not how it is formatted.",
+        "D": "Window pressure is a genuine operational consequence and secondary to running unexplained failures indefinitely."
+      }
+    },
+    {
+      "id": "cisa-d4a-045",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "Records rejected by a system interface are written to an error log. The receiving system's control totals balance to the records it accepted. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "Rejected transactions are lost without anyone noticing, because the receiving system's totals reconcile perfectly to what it received rather than to what was sent.",
+        "B": "The error log may grow large enough to affect performance.",
+        "C": "The error log may not retain enough detail to reprocess the records.",
+        "D": "Rejections may indicate a data quality problem in the sending system."
+      },
+      "answer": "A",
+      "why_correct": "Balancing to what arrived is a reconciliation that cannot fail, because it compares a system to itself. The transactions that never made it are invisible in exactly the check management is relying on, so the interface can silently drop records indefinitely while every control total agrees. Completeness has to be measured end to end, against what the sending system dispatched.",
+      "why_wrong": {
+        "C": "Insufficient detail to reprocess would matter once someone was trying to reprocess. Nobody is, which is the actual problem.",
+        "D": "Rejections often do point at upstream data quality, and that is a cause worth pursuing after establishing that the losses are being detected at all.",
+        "B": "Log growth is an operational housekeeping matter."
+      }
+    },
+    {
+      "id": "cisa-d4a-046",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "Which control provides the BEST assurance that a nightly file transfer between two systems is complete and accurate?",
+      "options": {
+        "A": "The transfer is encrypted in transit and authenticated at both ends.",
+        "B": "The receiving system validates each record against its own reference data and rejects records that fail.",
+        "C": "Record counts and control totals are calculated at the sending system and independently recalculated and compared at the receiving system, with differences investigated.",
+        "D": "The transfer is scheduled through the enterprise job scheduler with failure alerting enabled."
+      },
+      "answer": "C",
+      "why_correct": "Completeness and accuracy are assertions about the relationship between two populations, so the control has to compare them. Totals computed independently at each end and reconciled will detect records lost in transmission, duplicated by a retry, or altered in transit, and an unexplained difference is a positive signal rather than an absence of one.",
+      "why_wrong": {
+        "A": "Encryption and authentication protect confidentiality and origin. A perfectly secured transfer can still be truncated or duplicated.",
+        "B": "Validation against reference data addresses the quality of individual records that arrived. It says nothing about records that never arrived.",
+        "D": "Scheduler alerting tells you the job did not run. It does not tell you a job that ran carried everything it should have."
+      }
+    },
+    {
+      "id": "cisa-d4a-047",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "An IS auditor discovers that several business units rely on spreadsheets and departmental databases that support regulatory reporting. What should the auditor recommend FIRST?",
+      "options": {
+        "A": "Prohibit the use of end-user computing tools for any regulatory reporting process.",
+        "B": "Require that all such tools be migrated into supported enterprise applications.",
+        "C": "Apply version control and access restrictions to every spreadsheet identified.",
+        "D": "Establish an inventory of these tools and risk-rank them by what their output is used for, then apply controls proportionate to that ranking."
+      },
+      "answer": "D",
+      "why_correct": "You cannot control what has not been identified, and the population here is unknown by definition. Ranking by the use of the output rather than by size or sophistication is what directs limited effort at the artifacts whose failure would matter, and it is the step every other option quietly assumes has already happened.",
+      "why_wrong": {
+        "A": "A prohibition that the business cannot comply with drives the practice out of sight, and the auditor loses even the visibility they had.",
+        "B": "Migration may well be right for the highest-risk items and it is expensive, slow, and impossible to scope before you know what exists.",
+        "C": "Applying controls uniformly to everything spends the same effort on a trivial tracking sheet as on the model feeding a regulatory return."
+      }
+    },
+    {
+      "id": "cisa-d4a-048",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "hard",
+      "stem": "An audit finds that a business unit has subscribed directly to a cloud service, bypassing procurement and architecture review. Which finding would be MOST valuable to management?",
+      "options": {
+        "A": "The subscription breached the procurement policy and should be terminated.",
+        "B": "The service has not been assessed for security, data residency or contractual protections.",
+        "C": "The business need went unmet through the official route for long enough that a workaround was preferable, and unless that is addressed the same pattern will recur elsewhere.",
+        "D": "The expenditure was not included in the IT budget and distorts cost reporting."
+      },
+      "answer": "C",
+      "why_correct": "Reporting the breach describes the instance; reporting why the sanctioned route was not used describes the condition that will produce the next five. Shadow IT is nearly always a symptom of a delivery process that is too slow or too rigid for the demand it faces, and a finding that stops at the violation leaves management fixing occurrences one at a time forever.",
+      "why_wrong": {
+        "A": "Terminating the subscription addresses this instance and may well strand a business process that now depends on it. It is a remedy, not a finding.",
+        "B": "This is a real and serious gap that must be raised, and it describes the exposure created by the instance rather than the cause producing instances.",
+        "D": "Budget distortion is a financial reporting consequence and the least significant of the four."
+      }
+    },
+    {
+      "id": "cisa-d4a-049",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "stem": "System administrators can modify the audit logs on the servers they administer. Which of the following BEST addresses this?",
+      "options": {
+        "A": "Forwarding log entries in near real time to a separate platform administered by a different team, where the copy cannot be altered by the source system's administrators.",
+        "B": "Requiring administrators to acknowledge a policy prohibiting log modification.",
+        "C": "Increasing the retention period for logs held on each server.",
+        "D": "Restricting the number of staff holding administrator rights on each server."
+      },
+      "answer": "A",
+      "why_correct": "Accountability requires that the record of what someone did be outside their control. Forwarding to an independently administered destination means the authoritative copy exists somewhere the subject of the records cannot reach, so an administrator can still alter the local log and cannot alter the evidence. Near real time matters because it narrows the window in which entries can be removed before they are copied.",
+      "why_wrong": {
+        "C": "Longer retention preserves more of a record that remains editable by its subject.",
+        "D": "Fewer administrators reduces exposure and leaves every remaining one able to edit their own log.",
+        "B": "A policy prohibition relies on the honesty of the person it constrains and provides no detection."
+      }
+    },
+    {
+      "id": "cisa-d4a-050",
+      "topic": "Operational Log Management",
+      "difficulty": "hard",
+      "stem": "An investigation into a multi-system incident is unable to establish the order in which events occurred. Which of the following is the MOST likely cause?",
+      "options": {
+        "A": "Log retention periods differ between the systems involved.",
+        "B": "The systems record events at different levels of verbosity.",
+        "C": "The logs are held in different formats and had to be normalized before analysis.",
+        "D": "System clocks are not synchronized to a common time source, so timestamps from different systems cannot be placed on one timeline."
+      },
+      "answer": "D",
+      "why_correct": "Reconstructing a sequence across systems depends entirely on their timestamps being comparable. Without a common time source, clocks drift independently by seconds or minutes, and an event that appears to precede another may in fact follow it. Time synchronization is a small, cheap and easily overlooked control whose absence is discovered at the worst possible moment.",
+      "why_wrong": {
+        "A": "Differing retention could mean some evidence is missing entirely, which is a coverage problem rather than an ordering one.",
+        "B": "Verbosity affects how much detail each event carries, not whether events can be ordered relative to one another.",
+        "C": "Format differences make analysis laborious and are routinely handled by normalization during ingestion."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-051",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "Management reports 99.95% availability for a customer-facing service, while the business continues to report frequent outages. Which of the following is the MOST likely explanation?",
+      "options": {
+        "A": "The business is including scheduled maintenance windows in its own count.",
+        "B": "Availability is measured at the component level rather than as successful completion of a user transaction end to end, so the service can be unusable while every monitored component responds.",
+        "C": "The measurement period used by IT is longer than the one the business has in mind.",
+        "D": "The business lacks visibility of the monitoring dashboards."
+      },
+      "answer": "B",
+      "why_correct": "A server responding to a health check is not the same as a customer completing a purchase. When availability is computed from component responses, a broken dependency, a failing integration or a badly degraded response time leaves every monitored element green while the actual service does not work. The measure has to reflect what the user experiences or it will diverge from reality in exactly this way.",
+      "why_wrong": {
+        "A": "Excluded maintenance windows do produce disagreement, and they are planned and communicated, which is not what the business is describing.",
+        "C": "A longer averaging period smooths the figure and does not manufacture a gap this large between measured and experienced service.",
+        "D": "Dashboard access is a communication issue. Showing the business a number it does not believe will not reconcile the two views."
+      }
+    },
+    {
+      "id": "cisa-d4a-052",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "An organization consistently meets its incident resolution targets, and the same category of incident recurs several times each month. Which of the following BEST describes the weakness?",
+      "options": {
+        "A": "Incident prioritization criteria are inadequate for the volume being handled.",
+        "B": "Resolution targets have been set too loosely to be meaningful.",
+        "C": "The service desk is under-resourced for the incident volume it receives.",
+        "D": "Incidents are being closed on restoration of service without any problem record being raised, so the underlying cause is never investigated or removed."
+      },
+      "answer": "D",
+      "why_correct": "Incident management restores service and is measured on speed; problem management removes causes and is measured on recurrence. An organization that is excellent at the first and absent on the second will report outstanding metrics indefinitely while the business absorbs the same failure every month. The recurrence is the evidence, and the missing problem process is the cause.",
+      "why_wrong": {
+        "A": "Prioritization determines what is handled first. It does not explain why the same fault keeps returning.",
+        "B": "Loose targets would explain why they are met and not why incidents recur.",
+        "C": "Under-resourcing usually shows as missed targets, which is the opposite of what is described."
+      }
+    },
+    {
+      "id": "cisa-d4a-053",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "hard",
+      "stem": "An IS auditor wants to identify changes that reached production without passing through the change management process. Which procedure would be MOST effective?",
+      "options": {
+        "A": "Select a sample of change records and confirm each was approved before implementation.",
+        "B": "Compare the running configuration of production systems against approved baselines and investigate every difference not traceable to an approved change.",
+        "C": "Review the change management policy and confirm that emergency changes require retrospective approval.",
+        "D": "Interview the change manager about the volume and handling of emergency changes."
+      },
+      "answer": "B",
+      "why_correct": "Testing change records can only tell you about changes that were recorded, and unauthorized changes are by definition absent from that population. Comparing actual configuration against the approved baseline starts from what is really running rather than from what was documented, which is the only direction that can surface a change nobody declared.",
+      "why_wrong": {
+        "A": "Sampling the change log tests the process for changes that entered it. It is the right test for a different question and structurally blind to this one.",
+        "C": "Policy review establishes what should happen and cannot detect anything that bypassed it.",
+        "D": "Inquiry with the process owner is useful for understanding and is the weakest form of evidence, particularly for identifying activity that avoided that person's process."
+      }
+    },
+    {
+      "id": "cisa-d4a-054",
+      "topic": "Database Management",
+      "difficulty": "medium",
+      "stem": "In a small IT function the database administrator also administers the database audit trail. Segregating the roles is not practical. Which compensating control is MOST appropriate?",
+      "options": {
+        "A": "Requiring the database administrator to document all privileged activity in a logbook.",
+        "B": "Rotating the database administrator role between team members every six months.",
+        "C": "Forwarding database activity records to a destination the administrator cannot access, and having them reviewed periodically by someone outside the database team.",
+        "D": "Requiring a second person to be present whenever privileged database commands are executed."
+      },
+      "answer": "C",
+      "why_correct": "Where the privilege cannot be removed, the compensating control has to make its use visible to someone who does not hold it. Sending the activity record beyond the administrator's reach preserves the evidence, and independent review is what converts that evidence into accountability. Notice the control does not attempt to prevent the access, which is the mistake the alternatives make.",
+      "why_wrong": {
+        "A": "A self-maintained logbook depends on the person it is meant to hold accountable, and it can be edited as easily as the audit trail.",
+        "B": "Rotation limits how long any individual holds the privilege and provides no record of what was done during their tenure.",
+        "D": "Dual presence is workable for rare, planned activity and impractical for routine administration, so it degrades into a formality."
+      }
+    }
+  ]
+}

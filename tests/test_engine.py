@@ -109,6 +109,51 @@ class TestScheduler(unittest.TestCase):
         self.assertEqual(first, second)
 
 
+class TestKeyBalance(unittest.TestCase):
+    """Two consecutive hand-written batches came out 1/5/5/1 and 1/8/5/2 before
+    anyone counted. An author's favourite letter is invisible from inside the
+    batch, so the check has to be mechanical."""
+
+    @staticmethod
+    def batch(keys, source="batch.json"):
+        items = []
+        for i, key in enumerate(keys):
+            item = q("q%d" % i)
+            item.answer = key
+            item.why_wrong = {k: "because" for k in "ABCD" if k != key}
+            item.source_file = source
+            items.append(item)
+        return items
+
+    def test_a_skewed_batch_is_flagged(self):
+        _, warnings = loader.validate(self.batch("BBBBBBBBACCCDA"))
+        self.assertTrue(any("keys are skewed" in w and "B is correct for 8" in w
+                            for w in warnings), warnings)
+
+    def test_an_even_batch_is_not_flagged(self):
+        _, warnings = loader.validate(self.batch("ABCDABCDABCD"))
+        self.assertFalse(any("keys are skewed" in w for w in warnings), warnings)
+
+    def test_a_batch_below_the_minimum_size_says_nothing(self):
+        """Four questions from one file will always look skewed. Reporting that
+        would train the reader to ignore the warning."""
+        _, warnings = loader.validate(self.batch("AAAA"))
+        self.assertFalse(any("keys are skewed" in w for w in warnings), warnings)
+
+    def test_skew_is_measured_per_file_not_across_the_bank(self):
+        """Two files skewed in opposite directions average out to a healthy
+        bank, and a learner drilling one topic still sees a pattern."""
+        rows = self.batch("AAAAAAAABCD", "one.json") + self.batch("BBBBBBBBACD", "two.json")
+        _, warnings = loader.validate(rows)
+        flagged = [w for w in warnings if "keys are skewed" in w]
+        self.assertEqual(len(flagged), 2, warnings)
+
+    def test_the_shipped_bank_is_balanced_in_every_file(self):
+        questions = loader.load_questions("cisa")
+        _, warnings = loader.validate(questions)
+        self.assertEqual([w for w in warnings if "keys are skewed" in w], [])
+
+
 class TestValidation(unittest.TestCase):
     def test_a_clean_question_passes(self):
         errors, _ = loader.validate([q("ok")])

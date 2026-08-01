@@ -375,7 +375,40 @@ def validate(questions: List[Question], outline: Optional[Outline] = None
         if not q.stem.strip().endswith(("?", ":")):
             warnings.append("%s: stem is neither a question nor a completion stem" % at)
 
+    warnings.extend(_key_balance_warnings(questions))
     return errors, warnings
+
+
+# A batch is written in one sitting by one author, and authors have a favourite
+# letter without noticing. Two consecutive batches here came out 1/5/5/1 and
+# 1/8/5/2 before anyone looked. Checked per file rather than bank-wide, because
+# the bank average stays respectable while individual files skew badly - and a
+# learner drills a topic, which draws from one file.
+KEY_BALANCE_MIN_QUESTIONS = 8
+KEY_BALANCE_MAX_SHARE = 0.45
+
+
+def _key_balance_warnings(questions: List[Question]) -> List[str]:
+    by_file: Dict[str, List[Question]] = {}
+    for q in questions:
+        by_file.setdefault(q.source_file or "(unknown)", []).append(q)
+
+    out = []
+    for path, items in sorted(by_file.items()):
+        if len(items) < KEY_BALANCE_MIN_QUESTIONS:
+            continue
+        counts = {k: 0 for k in "ABCD"}
+        for q in items:
+            if q.answer in counts:
+                counts[q.answer] += 1
+        worst, n = max(counts.items(), key=lambda kv: kv[1])
+        share = n / len(items)
+        if share > KEY_BALANCE_MAX_SHARE:
+            out.append(
+                "%s: answer keys are skewed - %s is correct for %d of %d questions "
+                "(%.0f%%). Spread them so there is no positional pattern to exploit."
+                % (path, worst, n, len(items), share * 100))
+    return out
 
 
 def load_pairs(cert: str) -> List[Dict[str, Any]]:
