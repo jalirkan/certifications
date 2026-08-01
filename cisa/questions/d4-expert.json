@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "batch": "d4-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band, both sections. Section is set per question. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4a-x01",
+      "section": "A",
+      "topic": "Problem and Incident Management",
+      "difficulty": "expert",
+      "stem": "A trading platform has been unavailable for eleven minutes during market hours. Engineers have identified a workaround that restores service in about two minutes but does not explain the failure, and a diagnostic capture that would preserve the cause takes roughly forty minutes with the platform still down. What should the on-call manager do FIRST?",
+      "options": {
+        "A": "Take the diagnostic capture, because restoring service without understanding the cause guarantees the outage will recur.",
+        "B": "Escalate to the problem management process so that the decision is taken by the accountable owner.",
+        "C": "Apply the workaround to restore service, then raise a problem record so the cause is pursued once trading is running.",
+        "D": "Apply the workaround and close the incident once service is confirmed stable."
+      },
+      "answer": "C",
+      "why_correct": "Addressing the cause rather than the instance is the right instinct for recommendations and for problem management, and it does not govern a live outage. While a trading platform is down, restoring service is the objective and a workaround that achieves it in two minutes is correct even though it cures nothing. The cause is pursued afterwards, through a problem record, which is what stops the workaround becoming the permanent answer.",
+      "why_wrong": {
+        "A": "This applies the root-cause rule past its boundary. Holding a trading platform down for a further forty minutes to preserve diagnostics converts a moderate incident into a severe one, and the business impact of that choice belongs to someone other than the engineer who wants the data.",
+        "B": "Problem management pursues causes over days and weeks. Routing a live outage into it delays restoration and misunderstands what the process is for.",
+        "D": "The workaround is right and closing there is not. An incident closed on restoration with no problem record is how the same failure recurs indefinitely with excellent response metrics."
+      }
+    },
+    {
+      "id": "cisa-d4a-x02",
+      "section": "A",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "expert",
+      "stem": "Testing of emergency changes finds that all fourteen in the period were implemented before any approval was recorded. The organization's emergency change procedure permits implementation first. Eleven changes received retrospective approval within the five working days the procedure requires; three have no approval recorded at all, and the quarterly review of emergency volume has never been performed. What is the MOST appropriate finding?",
+      "options": {
+        "A": "All fourteen changes bypassed approval and the emergency procedure should be withdrawn.",
+        "B": "The three unapproved changes are the finding, and the procedure is otherwise operating as designed.",
+        "C": "The emergency route is being overused at fourteen changes in a period, which indicates the standard change process is inadequate.",
+        "D": "Three changes lack retrospective approval and the required periodic review has never run, so the control that makes the emergency route acceptable is not operating."
+      },
+      "answer": "D",
+      "why_correct": "Authorization ordinarily precedes action, and emergency procedures legitimately invert that — which is why they carry two compensating requirements: approval after the fact inside a defined window, and periodic review of volume and pattern. Eleven changes met the first. Three did not, and the second has never happened at all, so nothing is watching whether the emergency route is being used appropriately. Both halves belong in the finding.",
+      "why_wrong": {
+        "A": "Implementing before approval is what the procedure permits, so treating all fourteen as bypasses misreads the control. Withdrawing the route would leave the organization unable to respond to genuine emergencies.",
+        "B": "This catches the individual failures and misses the systemic one. Without the periodic review, nobody would ever detect a pattern of misuse, which is a more durable weakness than three missing signatures.",
+        "C": "Fourteen may or may not be excessive — nothing in the stem establishes a baseline. This is a conclusion the missing periodic review was supposed to support and currently cannot."
+      }
+    },
+    {
+      "id": "cisa-d4a-x03",
+      "section": "A",
+      "topic": "Operational Log Management",
+      "difficulty": "expert",
+      "stem": "Privileged access to a legacy financial reporting system is granted only through a formal request process, changes to that access occur perhaps twice a year, and the access log is reviewed quarterly by a manager outside the IT team, with evidence of investigation retained. An IS auditor is considering whether the review cadence is adequate. What is the MOST appropriate conclusion?",
+      "options": {
+        "A": "The cadence is appropriate, because the review frequency is proportionate to how quickly the population it monitors can change.",
+        "B": "The cadence is inadequate; privileged access review should be performed monthly regardless of the rate of change.",
+        "C": "The cadence is inadequate, because a quarterly review could leave an inappropriate grant in place for up to three months.",
+        "D": "The cadence cannot be assessed without knowing the financial materiality of the system."
+      },
+      "answer": "A",
+      "why_correct": "A control that acts too late has not acted — and lateness is measured against how fast the risk moves, not against a calendar preference. With access changing twice a year through a formal process, a quarterly independent review will catch an inappropriate grant well within the period in which it could matter. Demanding more frequency here would spend effort without reducing exposure.",
+      "why_wrong": {
+        "B": "A fixed frequency applied regardless of the rate of change is a rule of thumb standing in for an assessment. It would produce eleven reviews a year finding nothing on a population that changes twice.",
+        "C": "The three-month exposure is real and has to be weighed against how a grant arises. Access here changes only through a formal request process, so an inappropriate grant is unlikely to appear unnoticed in the first place.",
+        "D": "Materiality would matter if the question were whether to review at all, or how deeply. The stem asks about cadence, and cadence follows the rate of change."
+      }
+    },
+    {
+      "id": "cisa-d4a-x04",
+      "section": "A",
+      "topic": "Database Management",
+      "difficulty": "expert",
+      "stem": "A three-person IT team supports a mid-sized manufacturer. The sole database administrator necessarily holds rights that would allow undetected changes to production data. Recruiting a second administrator is not affordable. Which recommendation is MOST appropriate?",
+      "options": {
+        "A": "Require the database administrator to obtain written approval from the finance director before executing any privileged command.",
+        "B": "Stream database activity to a destination the administrator cannot alter, and have a manager outside IT review privileged actions against approved change and incident records.",
+        "C": "Rotate the database administrator duties among the three team members on a quarterly cycle.",
+        "D": "Remove the administrator's standing privileges and grant them temporarily through a break-glass process for each task."
+      },
+      "answer": "B",
+      "why_correct": "Segregation is the goal and it is genuinely impractical in a three-person team, which is exactly the circumstance where a compensating control is the right answer rather than a concession. The compensating control has to address the same risk from outside: put the record of what was done beyond the reach of the person who did it, and have someone independent compare it against what was authorized. Note that it does not attempt to remove the access, which is what makes it workable.",
+      "why_wrong": {
+        "A": "Pre-approval by a director for every privileged command is unworkable at the volume real administration requires, and it will be abandoned or rubber-stamped within weeks. It also asks someone with no database knowledge to authorize commands they cannot evaluate.",
+        "C": "Rotation spreads the exposure across three people instead of one and produces no record of what any of them did. It also puts production data in the hands of two people less qualified to touch it.",
+        "D": "Break-glass provisioning is valuable for rarely used emergency access. Applied to the routine work of the only administrator it becomes a formality performed several times a day, and the person approving the elevation is the same small team."
+      }
+    },
+    {
+      "id": "cisa-d4a-x05",
+      "section": "A",
+      "topic": "IT Service Level Management",
+      "difficulty": "expert",
+      "stem": "A managed service provider reports 99.9% availability against its contracted service level. The contract defines availability as successful response from the application servers, measured by the provider's own monitoring. Users report frequent periods in which transactions fail because a downstream payment gateway is unreachable. Which of the following BEST describes the issue?",
+      "options": {
+        "A": "The provider's monitoring is inadequately tuned and is failing to alert on genuine outages.",
+        "B": "The provider is reporting its own performance without independent validation, which is the primary weakness.",
+        "C": "The service level measures a component the provider controls rather than the transaction the business depends on, so the provider can report truthfully while the service is unusable.",
+        "D": "The availability target of 99.9% is too low for a payment-processing service."
+      },
+      "answer": "C",
+      "why_correct": "This is a definition problem rather than a measurement problem. The provider is almost certainly reporting accurately against what the contract says to measure, and what the contract says to measure is not what the business experiences. A service level that stops at the boundary of the provider's own estate will always look healthy while the end-to-end journey fails, and no amount of better monitoring of the wrong thing fixes it.",
+      "why_wrong": {
+        "A": "Tuning would matter if the provider's tooling were missing outages within its own scope. Nothing suggests that — the application servers really were responding.",
+        "B": "Self-reported performance without independent validation is a genuine and common weakness, and it would be worth raising. Here the number is not disputed; the definition behind it is.",
+        "D": "Whether 99.9% is the right target is a separate commercial question. Raising the target on a measure that ignores the failing component would change nothing the users experience."
+      }
+    },
+    {
+      "id": "cisa-d4a-x06",
+      "section": "A",
+      "topic": "IT Components",
+      "difficulty": "expert",
+      "stem": "A group with eleven operating subsidiaries is consolidating from eleven separately administered directory services into one, hosted centrally. An IS auditor notes that this creates a single point of failure and a single high-value target for the whole group. Which of the following is the MOST appropriate position?",
+      "options": {
+        "A": "The consolidation should not proceed, because concentrating identity for eleven subsidiaries into one service is an unacceptable exposure.",
+        "B": "The consolidation should proceed only if each subsidiary retains a local directory able to operate independently.",
+        "C": "The concentration is a governance decision for the group and outside the scope of an IS audit opinion.",
+        "D": "Concentration is a deliberate trade for consistent control, and the auditor's concern should be whether the resilience and privileged access controls around the consolidated service match the exposure it now carries."
+      },
+      "answer": "D",
+      "why_correct": "Concentration is usually the exposure and it is sometimes the point. Eleven independently administered directories means eleven access review processes, eleven joiner-leaver gaps and eleven standards, which is a worse control position than one service done properly. The auditor's job is not to resist the consolidation but to check that the protection around it has been raised to match what it now holds.",
+      "why_wrong": {
+        "A": "This applies the concentration rule without weighing what it buys. Blocking consolidation preserves eleven weakly governed directories, which is the position the change is intended to fix.",
+        "B": "Retaining eleven independent local directories reproduces the fragmentation the consolidation exists to remove. Resilience for a consolidated service is normally achieved through redundancy within it, not by keeping the old estate alive.",
+        "C": "Group IT architecture is squarely within the scope of an IS audit function, and declining to opine on the control implications of a major change abdicates the role."
+      }
+    },
+    {
+      "id": "cisa-d4b-x01",
+      "section": "B",
+      "topic": "Business Impact Analysis",
+      "difficulty": "expert",
+      "stem": "During a regional outage the recovery team must choose which of two systems to restore first. The business impact analysis rates the warehouse management system as tier 1 and the customer portal as tier 2. The portal is far more visible to customers and the communications team is under pressure. Which basis for the decision is MOST appropriate?",
+      "options": {
+        "A": "Restore the warehouse management system first, in line with the tiering the business itself set through the impact analysis.",
+        "B": "Restore the customer portal first, because visible service restoration limits reputational damage during an outage.",
+        "C": "Restore whichever system the recovery team can bring up fastest, to reduce total downtime across both.",
+        "D": "Convene the crisis management team to re-rank the two systems in light of the current circumstances."
+      },
+      "answer": "A",
+      "why_correct": "Business impact sets priority, and the impact analysis is where the business already made that judgement — deliberately, with time to think, and away from the pressure of a live event. The moment of the outage is the worst possible time to relitigate it, because visibility and volume of complaint are not the same as consequence. Following the tiering is what the analysis was for.",
+      "why_wrong": {
+        "B": "Reputational damage is real and it is one input the impact analysis already weighed. Overriding a considered tiering because the phones are ringing is how the genuinely critical process ends up second.",
+        "C": "Fastest-first minimizes an aggregate that nobody cares about. It optimizes for the recovery team's convenience rather than for the harm the organization is actually absorbing.",
+        "D": "Re-ranking mid-incident consumes the scarcest resource available — decision-making time — to redo work that was done properly in advance. If the tiering is wrong, that is a finding for after the event."
+      }
+    },
+    {
+      "id": "cisa-d4b-x02",
+      "section": "B",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "expert",
+      "stem": "An annual disaster recovery test is reported as fully successful. Reviewing the test plan, an IS auditor finds that the scope covered the four systems the recovery team considered most critical, that the test ran on a Sunday with the full team present and the failover pre-staged on the Friday, and that all recovery time objectives were met. What should concern the auditor MOST?",
+      "options": {
+        "A": "Recovery time objectives measured from a pre-staged position do not evidence the capability that would exist in a real event, and a scope chosen by the recovery team is not the scope the recovery plan requires.",
+        "B": "Testing on a Sunday means the results do not reflect production load.",
+        "C": "The recovery team's presence in full is unrealistic, since a real disaster may occur when staff are unavailable.",
+        "D": "An annual test is too infrequent for systems of this criticality."
+      },
+      "answer": "A",
+      "why_correct": "Two things make the result mean less than it appears, and they compound. Pre-staging on Friday removes the work that consumes most of the recovery window, so the objectives were measured against a head start that will not exist. And letting the recovery team define which systems are critical replaces the business's own tiering with IT's, which is how a system the business depends on ends up outside every test.",
+      "why_wrong": {
+        "B": "Weekend testing does limit realism on load, and it is standard practice for good reasons. It is a lesser limitation than measuring from a pre-staged position.",
+        "C": "Full attendance is optimistic and it is also how you learn whether the procedure works at all. Staff availability is better addressed through documented procedures and named deputies than by deliberately under-resourcing a test.",
+        "D": "Annual testing may well be too infrequent, and it is the ordinary baseline. Testing more often would simply repeat a test with these defects more frequently."
+      }
+    },
+    {
+      "id": "cisa-d4b-x03",
+      "section": "B",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "expert",
+      "stem": "A system has a recovery point objective of fifteen minutes and a recovery time objective of eight hours. The current arrangement takes a full backup nightly and replicates the transaction log to a second site every five minutes; a full restore from the nightly backup takes about six hours. Which of the following is the MOST significant gap?",
+      "options": {
+        "A": "No gap: log replication every five minutes satisfies the recovery point objective and a six-hour restore satisfies the recovery time objective.",
+        "B": "The replicated transaction logs have never been used in a restoration test, so the ability to recover to a point within fifteen minutes is asserted rather than demonstrated.",
+        "C": "The nightly full backup should be taken more frequently to support a fifteen-minute recovery point objective.",
+        "D": "A six-hour restore leaves insufficient margin within an eight-hour recovery time objective."
+      },
+      "answer": "B",
+      "why_correct": "On paper the design meets both objectives, and the fifteen-minute recovery point depends entirely on the log replication being usable — replaying logs onto a restored database is the step most likely to fail, and nothing here has ever exercised it. A backup regime that has never been restored is a design, not a capability, and the untested part is precisely the part carrying the tighter objective.",
+      "why_wrong": {
+        "A": "The arithmetic is right and that is the trap. Both objectives are satisfied by the design as described, which says nothing about whether the design works.",
+        "C": "More frequent full backups would be expensive and unnecessary. The recovery point objective is met by log replication, which is what that mechanism is for.",
+        "D": "Two hours of margin within an eight-hour objective is reasonable rather than comfortable, and it is a planning observation. It matters far less than not knowing whether the recovery works at all."
+      }
+    },
+    {
+      "id": "cisa-d4b-x04",
+      "section": "B",
+      "topic": "Business Continuity Plan",
+      "difficulty": "expert",
+      "stem": "A severe weather event closes an organization's main office for three days. Staff work from home, systems remain available, and the business operates with some disruption. The business continuity plan was never formally invoked, and afterwards management states this shows the organization is resilient. What should the IS auditor MOST appropriately conclude?",
+      "options": {
+        "A": "The organization handled the event well, and no finding arises because business operations continued.",
+        "B": "The plan should have been invoked in all circumstances involving a site closure, and failing to invoke it is the finding.",
+        "C": "Not invoking the plan is a finding only if the outage exceeded the recovery time objective for an affected process.",
+        "D": "The event was absorbed by existing remote-working capability rather than by the plan, so it evidences nothing about the plan — and the auditor should establish whether anyone consciously decided not to invoke it, or whether nobody considered the question."
+      },
+      "answer": "D",
+      "why_correct": "The organization coped, and it coped for a reason unrelated to its continuity arrangements: everyone could already work from home. That is worth having and it is not evidence that the plan works, which is the claim management is making. The more useful question is whether the decision not to invoke was taken by someone with the authority to take it, because an undeclared incident that happens to end well and one that nobody was watching look identical afterwards.",
+      "why_wrong": {
+        "A": "Continuing to operate is the outcome and not the control. Accepting it as assurance means the plan will next be relied on having never been exercised in anything.",
+        "B": "Mandatory invocation for every site closure would be disproportionate and would devalue invocation. The plan exists for events the ordinary arrangements cannot absorb.",
+        "C": "Breaching a recovery time objective would certainly make it a finding, and framing it that way misses the governance point. The absence of a conscious decision is the weakness whether or not an objective was breached."
+      }
+    },
+    {
+      "id": "cisa-d4b-x05",
+      "section": "B",
+      "topic": "System and Operational Resilience",
+      "difficulty": "expert",
+      "stem": "An organization runs its customer-facing estate across three availability zones with automated failover, and has eliminated component-level single points of failure. All three zones belong to one cloud provider, under one contract, reached through one identity and management plane. Which of the following is the MOST significant residual exposure?",
+      "options": {
+        "A": "Automated failover between zones may not have been tested under production load.",
+        "B": "Three availability zones may be insufficient for the organization's availability target.",
+        "C": "Zone redundancy addresses infrastructure failure and leaves provider-level events — an account compromise, a contractual termination, a control-plane outage — able to remove all three zones at once.",
+        "D": "The organization has no contractual right to audit the provider's data centres."
+      },
+      "answer": "C",
+      "why_correct": "Redundancy was removed at the component layer and reappeared one level up. Everything that fails at the provider or account level — credentials for the management plane, a billing or contractual dispute, a regional control-plane failure — takes all three zones simultaneously, because they were never independent in the way the design assumes. This is the same physical-versus-commercial diversity error as two telecom contracts down one duct, at cloud scale.",
+      "why_wrong": {
+        "A": "Untested failover is a real weakness and it concerns whether the zone-level design works. The exposure here survives even if the failover works perfectly.",
+        "B": "Zone count is a tuning parameter within the provider. Adding a fourth zone in the same account and contract does not change the shared dependency.",
+        "D": "A right to audit is a useful contractual lever, and its absence is a governance gap rather than an availability exposure."
+      }
+    }
+  ]
+}

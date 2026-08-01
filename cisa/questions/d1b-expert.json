@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "1",
+    "section": "B",
+    "batch": "d1b-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d1b-x01",
+      "topic": "Audit Evidence Collection Techniques",
+      "difficulty": "expert",
+      "stem": "An IS auditor needs a population of privileged access grants for the year. The only complete source is an extract from the identity management system, produced by the team whose access is being tested. The auditor has already reconciled the extract's record count and totals to authentication logs held by a separate infrastructure team, and the two agree. What is the MOST appropriate next step?",
+      "options": {
+        "A": "Sample from the extract and proceed with testing.",
+        "B": "Reject the extract and request the population from a source outside the identity management team.",
+        "C": "Test the entire population rather than sampling, since the extract's provenance is questionable.",
+        "D": "Ask the identity management team to confirm in writing that the extract is complete before sampling from it."
+      },
+      "answer": "A",
+      "why_correct": "The rule against sampling from a population the auditee controls exists because an incomplete list conceals the items that matter. That risk has already been addressed here: the extract has been reconciled to an independent source and agrees. Once completeness and accuracy have been separately established, auditee-produced data is perfectly usable evidence, and refusing it after doing the work is pointless.",
+      "why_wrong": {
+        "B": "This is the over-application. The independent check has already been performed and passed, so rejecting the extract discards the reconciliation and buys nothing — and in most organizations no other complete source exists.",
+        "C": "Testing the whole population is a response to an unreliable population, and the population is no longer unreliable. It spends the engagement's budget answering a question already answered.",
+        "D": "A written representation from the party being tested is the weakest form of evidence available, and it is strictly worse than the reconciliation the auditor has already performed."
+      }
+    },
+    {
+      "id": "cisa-d1b-x02",
+      "topic": "Audit Testing and Sampling Methodology",
+      "difficulty": "expert",
+      "stem": "Compliance testing of a fully automated three-way match control found no exceptions in a sample of 40 transactions, and the supporting IT general controls over change and access were tested and found effective. Which conclusion about substantive testing is MOST appropriate?",
+      "options": {
+        "A": "No substantive testing is required, since the control operated without exception and the general controls supporting it are effective.",
+        "B": "Substantive testing should be performed at the same extent as if no compliance testing had been carried out, because compliance and substantive testing answer different questions.",
+        "C": "The extent of substantive testing can be reduced, but not eliminated, because control effectiveness lowers the risk of misstatement without demonstrating that the recorded data is correct.",
+        "D": "Compliance testing of an automated control is unnecessary once general controls are effective, so the 40-item sample was wasted effort."
+      },
+      "answer": "C",
+      "why_correct": "Effective controls, with effective general controls beneath them, genuinely justify doing less substantive work — that is the whole reason for testing controls first. They do not justify doing none, because a control operating as designed can still be the wrong control, and errors can enter by routes the control was never built to catch. The relationship is a reduction in extent, not an elimination.",
+      "why_wrong": {
+        "A": "This overstates what control testing buys. Reliance reduces substantive extent; it does not remove the auditor's need to obtain evidence about the recorded amounts themselves.",
+        "B": "This ignores the reliance entirely and wastes the compliance work. If control results never affected substantive extent, there would be no point testing controls.",
+        "D": "An automated control still has to be shown to operate — general controls make it credible that it operated consistently, but something has to establish that it operated at all. A single well-chosen test of an automated control is efficient, not wasted."
+      }
+    },
+    {
+      "id": "cisa-d1b-x03",
+      "topic": "Reporting and Communication Techniques",
+      "difficulty": "expert",
+      "stem": "At the closing meeting, management accepts the facts of a finding but disputes its severity rating, and offers a remediation plan that addresses the condition within an agreed timeframe. The auditor has reviewed the plan and considers it adequate. What is the MOST appropriate course of action for the auditor?",
+      "options": {
+        "A": "Reduce the rating, since management has committed to an adequate remediation plan and the residual risk will therefore be lower.",
+        "B": "Retain the rating, report management's disagreement and the agreed remediation plan alongside it, and let the reader see both positions.",
+        "C": "Remove the finding from the report and track it privately to closure, since it is agreed and being fixed.",
+        "D": "Escalate the disagreement to the audit committee before issuing the report."
+      },
+      "answer": "B",
+      "why_correct": "The rating expresses the risk that existed during the period under review, which a future remediation plan does not change. The report's job is to give the reader an accurate picture and the reader is entitled to both the auditor's assessment and management's response. Recording the disagreement openly is how the auditor stays honest without pretending management agreed.",
+      "why_wrong": {
+        "A": "This lets the severity of a finding be negotiated by the party it concerns. A credible plan is a good outcome and belongs in the response; it does not retrospectively reduce the exposure that was found.",
+        "C": "Removing an agreed finding is the most damaging option here. It hides a real condition from the audit committee and sets a precedent that cooperation buys omission.",
+        "D": "Escalation is the right move for an unresolved and material disagreement, or for a refusal to act. Here the facts are agreed and a plan exists, so escalating ahead of issuing the report is disproportionate."
+      }
+    },
+    {
+      "id": "cisa-d1b-x04",
+      "topic": "Audit Data Analytics",
+      "difficulty": "expert",
+      "stem": "An auditor obtains every journal entry for the year directly from the general ledger system under supervision, and reconciles the extract to the audited financial statements without difference. Analytics over the full population identify 90 entries meeting a risk criterion. Where should the auditor MOST usefully direct effort now?",
+      "options": {
+        "A": "Investigating the 90 identified entries, since the population is closed, independently obtained and already reconciled.",
+        "B": "Extending completeness procedures over the extract, since conclusions drawn from analytics inherit any defect in the data.",
+        "C": "Selecting a statistical sample from the 90 entries, so that the results can be projected across the population.",
+        "D": "Re-running the analytics with a wider risk criterion to increase the number of entries identified."
+      },
+      "answer": "A",
+      "why_correct": "Establishing completeness before analysing is the standing rule, and here it has been done — the extract came directly from the system under supervision and ties to the audited statements without difference. The population is closed and known, so further completeness work has nothing left to find. The value now lies entirely in examining what the analysis surfaced.",
+      "why_wrong": {
+        "C": "Sampling from the 90 discards the main advantage of full-population analytics. There is nothing to project — the 90 are not a sample of a wider unknown, they are the identified items themselves.",
+        "D": "Widening the criterion before looking at any of the current results generates more work without knowing whether the existing criterion was even productive.",
+        "B": "This is the over-application the question tests. The completeness rule is strongest where items may be unrecorded or unmanaged; a reconciled full-population extract is the case where it has been satisfied."
+      }
+    }
+  ]
+}

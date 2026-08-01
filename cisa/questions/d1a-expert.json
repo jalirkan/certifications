@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "1",
+    "section": "A",
+    "batch": "d1a-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band. See EXPERT-BAND-BRIEF.md. Each item turns on a scope boundary in cisa/principles.json - a rule that is correct in general and wrong in the situation described."
+  },
+  "questions": [
+    {
+      "id": "cisa-d1a-x01",
+      "topic": "IS Audit Standards, Guidelines, and Codes of Ethics",
+      "difficulty": "expert",
+      "stem": "A project team designing a new payments platform asks the internal audit function to comment on the control requirements in the draft specification, six months before the system is built. The audit plan already includes a post-implementation review of the platform. What is the MOST appropriate response?",
+      "options": {
+        "A": "Decline, because commenting on control requirements the function will later audit creates a self-review threat.",
+        "B": "Accept, and have the comments approved by the audit committee so that the advice carries the function's authority.",
+        "C": "Accept, and remove the post-implementation review from the audit plan to preserve independence.",
+        "D": "Provide advisory comment on the control requirements, keep the decisions with the project, and record the involvement so it can be considered at the later review."
+      },
+      "answer": "D",
+      "why_correct": "Independence is impaired by deciding, approving or owning a control — not by commenting on one. Advising early is a legitimate and valuable use of the function, and it is far cheaper to raise a control requirement in a specification than after go-live. What protects the later review is that the project retains the decisions, and that the involvement is documented so the reviewer knows what to allow for.",
+      "why_wrong": {
+        "A": "This is the over-application the question tests. Refusing all early involvement forfeits the cheapest opportunity to influence controls, and the standards do not require it — they require that management decides and the auditor evaluates.",
+        "C": "Dropping the review is a serious over-correction: it removes assurance over a new payments platform, which is the higher risk by a wide margin. Independence is managed, not purchased by abandoning coverage.",
+        "B": "Audit committee approval converts advice into a directive from the assurance function, which is exactly what creates the self-review threat. It makes the position worse rather than better."
+      }
+    },
+    {
+      "id": "cisa-d1a-x02",
+      "topic": "Types of Controls and Considerations",
+      "difficulty": "expert",
+      "stem": "Following a suspected fraud, an organization needs to establish who altered a set of master-file records over the preceding eight months. Which type of control would have been MOST valuable in the circumstances now facing the organization?",
+      "options": {
+        "A": "A preventive control restricting master-file amendment rights to a single authorized role.",
+        "B": "A directive control requiring staff to acknowledge the fraud policy annually.",
+        "C": "A detective control producing an immutable, independently held log of every master-file amendment and who made it.",
+        "D": "A corrective control allowing master-file records to be restored to a prior state."
+      },
+      "answer": "C",
+      "why_correct": "The usual ranking — prevention over detection over correction — holds when the question is what best addresses a weakness. Here the event has already happened and the organization's need is reconstruction: establishing who did what, eight months back, to a standard that will survive challenge. Only the detective record answers that, and its independence from the people who held the amendment rights is what makes it worth anything.",
+      "why_wrong": {
+        "A": "Restricting rights would have reduced the chance of the fraud occurring and is the right answer to a differently worded stem. It tells you nothing about what happened, and it would have left the same investigative vacuum.",
+        "B": "An acknowledgement establishes that staff were informed. It has no evidential value about specific amendments.",
+        "D": "Restoration returns the data to a prior state and destroys nothing of value — but it answers 'how do we recover', not 'who did this'. Reverting the records without first preserving them would actively harm the investigation."
+      }
+    },
+    {
+      "id": "cisa-d1a-x03",
+      "topic": "Risk-Based Audit Planning",
+      "difficulty": "expert",
+      "stem": "An IS auditor assesses inherent risk over a new cross-border settlement process as high, and control risk as high because the controls are newly implemented and untested. Audit resources are fixed. Which course of action is MOST consistent with a risk-based approach?",
+      "options": {
+        "A": "Accept a higher detection risk on this process, since inherent and control risk are management's responsibility rather than the auditor's.",
+        "B": "Reduce planned detection risk by increasing sample sizes, using more experienced staff and testing closer to the period end, reallocating effort from lower-risk areas of the plan.",
+        "C": "Report the elevated inherent and control risk to the audit committee and defer testing until management has operated the controls for a full year.",
+        "D": "Rely on management's own control self-assessment for this process, so that resources can be preserved for areas where no self-assessment exists."
+      },
+      "answer": "B",
+      "why_correct": "Detection risk is the only component the auditor controls, and it must move inversely to the other two: where inherent and control risk are high, the auditor has to accept less risk of failing to detect a problem. With fixed resources that means moving effort from lower-risk areas rather than doing less work here, which is what makes the plan risk-based rather than merely risk-labelled.",
+      "why_wrong": {
+        "A": "It is true that inherent and control risk arise from the business, and the conclusion is backwards. Their being high is precisely what obliges the auditor to tighten detection risk.",
+        "C": "Deferring assurance over a high-risk new process until it has run for a year leaves the riskiest thing in the plan unexamined for the longest. Reporting the risk does not substitute for testing it.",
+        "D": "Control self-assessment is management assessing its own controls. It is useful for coverage and ownership and it is not independent assurance, so leaning on it hardest where risk is highest inverts the logic."
+      }
+    }
+  ]
+}

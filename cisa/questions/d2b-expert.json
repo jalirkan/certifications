@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "2",
+    "section": "B",
+    "batch": "d2b-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d2b-x01",
+      "topic": "IT Vendor Management",
+      "difficulty": "expert",
+      "stem": "An organization uses a software-as-a-service payroll platform. An IS auditor notes that the organization performs no vulnerability scanning of the platform, applies no patches to it, and holds no administrative access to its infrastructure. Which conclusion is MOST appropriate?",
+      "options": {
+        "A": "This is a finding: the organization remains accountable for the security of its payroll data and cannot discharge that by relying on a supplier.",
+        "B": "This is expected under software as a service; the organization's obligation is to obtain and evaluate assurance over the provider's controls and to govern the parts that remain its own, such as access administration and configuration.",
+        "C": "This is a finding only if the contract does not include a right to audit.",
+        "D": "This is expected, and no further work is warranted because the provider holds the relevant certifications."
+      },
+      "answer": "B",
+      "why_correct": "Accountability for the data does stay with the organization, and the way it is discharged under software as a service is by governing the supplier rather than by operating the supplier's controls. Patching a platform you do not administer is not available to you, and demanding it is the mirror-image error of assuming the provider handles everything. What remains genuinely yours — user access, configuration, data handling, and evaluating the assurance the provider supplies — is where the audit effort belongs.",
+      "why_wrong": {
+        "A": "This applies the accountability rule past its boundary. Accountability cannot be outsourced; operational tasks demonstrably can, and this is the standard division under the service model in question.",
+        "C": "A right to audit is a useful contractual lever and its absence would be worth raising. It does not turn ordinary shared-responsibility boundaries into a finding.",
+        "D": "Certifications are point-in-time, scoped, and issued against criteria that may not match your needs. Accepting them without evaluating scope, period and exceptions is the opposite failure."
+      }
+    },
+    {
+      "id": "cisa-d2b-x02",
+      "topic": "IT Performance Monitoring and Reporting",
+      "difficulty": "expert",
+      "stem": "An IT service desk manager needs to decide whether to add two analysts for the coming year. Which measure is MOST useful for that decision?",
+      "options": {
+        "A": "Ticket volume and handling time by period, because they describe the work arriving and the capacity needed to meet it.",
+        "B": "User satisfaction scores, because they capture the outcome the service exists to deliver.",
+        "C": "First-contact resolution rate, because it measures whether the function is achieving its purpose.",
+        "D": "The proportion of incidents that generated a problem record, because it indicates whether causes are being addressed."
+      },
+      "answer": "A",
+      "why_correct": "Judging whether a function is effective calls for outcome measures; forecasting how many people it needs calls for activity measures, because headcount is driven by the volume and duration of work arriving. Activity metrics are a poor basis for claiming success and exactly the right basis for capacity and workload planning, and the question asks for the latter.",
+      "why_wrong": {
+        "B": "Satisfaction is the outcome the service exists to deliver and it is the right measure for judging performance. It cannot be converted into a number of analysts.",
+        "D": "Problem record conversion speaks to whether recurring causes are being eliminated. It is a maturity signal, not a capacity input.",
+        "C": "First-contact resolution is a good effectiveness measure and can move for reasons unrelated to staffing, such as knowledge quality or the mix of incidents. It does not tell you how much work is arriving."
+      }
+    },
+    {
+      "id": "cisa-d2b-x03",
+      "topic": "Quality Assurance and Quality Management of IT",
+      "difficulty": "expert",
+      "stem": "A software delivery organization runs formal code inspections before every release, tracks defects to closure, and reports defect counts by release. Defect volumes have been stable for two years, and the same three categories of defect account for most of them each time. What is the MOST significant weakness?",
+      "options": {
+        "A": "Inspections are being conducted by peers rather than by an independent quality function.",
+        "B": "Defect counts are reported by release rather than normalized against the size of each release.",
+        "C": "The organization has no defined target for acceptable defect density.",
+        "D": "Defects are being detected and closed reliably, but the recurrence of the same categories shows nothing is feeding back into the process that produces them, so quality control is operating without quality assurance."
+      },
+      "answer": "D",
+      "why_correct": "Inspecting deliverables and closing defects is quality control, and it is working well here. Quality assurance works on the process so the defects stop arising, and the tell that it is absent is precisely this pattern: stable volumes in the same categories, year after year. The organization is paying to find the same three problems forever instead of once.",
+      "why_wrong": {
+        "A": "Peer inspection is a normal and effective quality control technique, and independence matters more for the quality function's reporting line than for who reads the code.",
+        "B": "Normalizing defect counts by size would make the trend more interpretable and is a reporting improvement. It would not change the finding, which is visible in the category breakdown as it stands.",
+        "C": "A defect density target would give the measure a threshold. Without root cause analysis behind it, hitting or missing a target changes nothing about why the defects keep occurring."
+      }
+    }
+  ]
+}

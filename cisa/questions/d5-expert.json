@@ -1,0 +1,212 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "batch": "d5-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band, both sections. Section is set per question. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5a-x01",
+      "section": "A",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "expert",
+      "stem": "A development team needs realistic customer data in a cloud test environment to reproduce a defect that only appears at production data volumes. The test environment has weaker access controls and no data loss prevention coverage. Which recommendation is MOST appropriate?",
+      "options": {
+        "A": "Prohibit the copy; production personal data should never be present in a non-production environment.",
+        "B": "Permit a masked or synthetic copy that preserves the volume and distribution characteristics needed to reproduce the defect, without carrying identifiable customer data into the weaker environment.",
+        "C": "Permit the copy on condition that it is deleted within thirty days.",
+        "D": "Permit the copy and raise a finding that the test environment's controls should be brought up to production standard."
+      },
+      "answer": "B",
+      "why_correct": "Protection follows the data, and the point of that rule is that every copy needs the control — not that copies should not exist. Test environments are necessary and this defect genuinely requires production-scale data. Masking or synthesizing satisfies both: the team gets the volume and distribution they need to reproduce the fault, and no identifiable customer data ever enters an environment that cannot protect it.",
+      "why_wrong": {
+        "A": "A blanket prohibition treats a necessary activity as illegitimate, and in practice it produces an unapproved copy nobody knows about. The rule is about protection travelling with the data, not about forbidding the copy.",
+        "C": "A deletion deadline limits how long the exposure lasts and does nothing about the exposure while it exists. Thirty days is ample time for a breach of an environment with weak access control and no monitoring.",
+        "D": "Raising the test environment to production standard is expensive, slow, and solves a problem that masking removes entirely. It is also an odd use of money to protect data the team does not actually need."
+      }
+    },
+    {
+      "id": "cisa-d5a-x02",
+      "section": "A",
+      "topic": "Network and End-Point Security",
+      "difficulty": "expert",
+      "stem": "An organization has confirmed that an attacker held access to its network for an unknown period before being evicted. Management needs to establish what was accessed and exfiltrated in order to meet its notification obligations. Which capability would be MOST valuable to the organization now?",
+      "options": {
+        "A": "An inline intrusion prevention system capable of blocking the attacker's tooling.",
+        "B": "Network segmentation limiting lateral movement between the user estate and the server estate.",
+        "C": "Application allowlisting on endpoints, preventing unauthorized executables from running.",
+        "D": "Retained network flow records and endpoint telemetry covering the period, allowing the attacker's movement and data transfers to be reconstructed."
+      },
+      "answer": "D",
+      "why_correct": "Preventive controls outrank detective ones when the question is what addresses a weakness. This stem asks something else: the intrusion is over and the organization has a legal obligation that turns on establishing what happened. Only retained records answer that. Without them the organization cannot scope the breach, and cannot tell a regulator whether personal data left — which is the question it is required to answer.",
+      "why_wrong": {
+        "A": "Blocking the tooling would have reduced the chance of the intrusion succeeding and is a strong answer to a prevention stem. It contributes nothing to reconstructing what already occurred.",
+        "B": "Segmentation would have constrained lateral movement and limited the blast radius. Like prevention generally, it is valuable before the event and silent afterwards.",
+        "C": "Allowlisting is among the more effective endpoint preventive controls and shares the same limitation: it does not create a record of what an attacker who got past it did."
+      }
+    },
+    {
+      "id": "cisa-d5a-x03",
+      "section": "A",
+      "topic": "Identity and Access Management",
+      "difficulty": "expert",
+      "stem": "In a review of privileged access, an IS auditor finds that service desk analysts cannot view or approve access to the finance system, but can reset the password of any account including those of finance approvers, and that resets require only a verbal identity check. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "A service desk analyst can take control of a finance approver's account, so the separation between the service desk and financial approval exists on paper but not in effect.",
+        "B": "Verbal identity verification is weaker than a callback to a number held on file.",
+        "C": "Password resets are not subject to approval by the account owner's line manager.",
+        "D": "Service desk analysts have not been subject to enhanced background screening appropriate to the access they hold."
+      },
+      "answer": "A",
+      "why_correct": "Whoever can reset a credential can use the account, so reset rights over privileged accounts are as sensitive as those accounts themselves. The access model here looks correctly segregated — analysts genuinely cannot approve payments — and the reset capability defeats it completely, without ever appearing in an access review of the finance system. This is why the control has to be assessed by what it enables rather than by what it is called.",
+      "why_wrong": {
+        "B": "Verbal verification is genuinely weak and it is the mechanism by which an outsider might exploit the reset. The concern here is what an authorized analyst can do legitimately, which no amount of caller verification addresses.",
+        "C": "Manager approval for resets would be a useful additional control and it would slow the service desk considerably. It is a mitigation for the problem rather than a description of it.",
+        "D": "Screening proportionate to access is a sound principle and a personnel control. It reduces the likelihood of misuse without changing the fact that the segregation does not hold."
+      }
+    },
+    {
+      "id": "cisa-d5a-x04",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "expert",
+      "stem": "An organization encrypts its backups with keys held in a hardware security module located in the primary data centre. Backups are replicated to a recovery site three hundred kilometres away. The recovery plan has been tested by restoring from the replicated backups, and the test succeeded. Which of the following is the MOST significant weakness?",
+      "options": {
+        "A": "Encryption keys should be rotated more frequently than the backup retention period.",
+        "B": "The recovery test did not verify the integrity of the restored data against the source.",
+        "C": "The keys required to decrypt the replicated backups exist only in the facility whose loss the recovery site is meant to survive.",
+        "D": "Three hundred kilometres may be insufficient separation for a regional event."
+      },
+      "answer": "C",
+      "why_correct": "The test succeeded because the primary site was still standing and the hardware security module was reachable. In the scenario the recovery site exists for — loss of the primary — the backups replicate perfectly and become undecryptable, so the organization holds a complete copy of its data and no means of reading it. Key material has to survive the disaster on the same terms as the data it protects, and nothing in a successful test conducted from an intact primary site would reveal this.",
+      "why_wrong": {
+        "A": "Rotating keys within the retention period would mean maintaining several key generations to restore older backups. It is a key management refinement, and more frequent rotation of keys that are unavailable changes nothing.",
+        "B": "Integrity verification against the source is a genuine gap in the test's rigour, and it concerns whether a successful restore produced correct data. The keys problem means there is no restore at all.",
+        "D": "Three hundred kilometres is substantial separation and adequate for most regional events. It is a siting judgement rather than a defect."
+      }
+    },
+    {
+      "id": "cisa-d5a-x05",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "expert",
+      "stem": "A data centre has an uninterruptible power supply tested monthly under load, a standby generator started and run unloaded every week, and fuel contracts with two suppliers. During a four-hour utility outage the uninterruptible power supply carried the load as designed, the generator started, and the data centre lost power twenty minutes later. Which of the following is the MOST likely explanation?",
+      "options": {
+        "A": "The uninterruptible power supply batteries had degraded and could not bridge to the generator.",
+        "B": "The generator started but had never been proven capable of carrying the full data centre load, which unloaded weekly running cannot demonstrate.",
+        "C": "Neither fuel supplier was able to deliver within the required timeframe.",
+        "D": "The transfer switch between utility, uninterruptible power supply and generator had not been included in the monthly test."
+      },
+      "answer": "B",
+      "why_correct": "Untested means unknown, and the stem is careful about what was actually tested: the uninterruptible power supply monthly *under load*, the generator weekly *unloaded*. A weekly unloaded run proves the engine starts. It says nothing about whether the machine can carry the real electrical and thermal demand of the facility, which is where generators typically fail — and it fails minutes into the load, which matches the twenty minutes described.",
+      "why_wrong": {
+        "A": "The stem states the uninterruptible power supply carried the load as designed and the generator started, so the bridge worked. This contradicts the scenario.",
+        "C": "Fuel delivery becomes the constraint over many hours, not twenty minutes. A generator holds several hours of fuel on site before resupply matters.",
+        "D": "An untested transfer switch is a genuine and commonly overlooked weakness. Here the transfer evidently occurred — the generator took the load — so the failure came after it."
+      }
+    },
+    {
+      "id": "cisa-d5b-x01",
+      "section": "B",
+      "topic": "Security Incident Response Management",
+      "difficulty": "expert",
+      "stem": "An IS auditor is on site conducting a scheduled review when a ransomware incident is declared. The incident manager, who knows the auditor is technically capable, asks the auditor to take charge of isolating affected network segments because the response team is short-handed. What is the MOST appropriate response?",
+      "options": {
+        "A": "Assist with the isolation, since containment is the immediate priority and the organization's interest outweighs procedural concerns.",
+        "B": "Assist, but document the involvement so that it can be disclosed at the next review of incident management.",
+        "C": "Decline the operational role, remain available to observe and to advise the incident manager, and preserve the ability to review the response afterwards.",
+        "D": "Decline and leave the site, since remaining during an active incident risks being drawn into the response."
+      },
+      "answer": "C",
+      "why_correct": "Containment before eradication before recovery is right — for the responder. The auditor is not the responder, and taking an operational role means later reviewing decisions they themselves made, at exactly the engagement where independent scrutiny matters most. Observing is genuinely valuable: it produces first-hand evidence of how the response actually ran, which is the strongest evidence available and impossible to reconstruct afterwards.",
+      "why_wrong": {
+        "A": "The urgency is real and the reasoning does not follow. An organization that is short-handed during a ransomware incident has a resourcing finding, and having the auditor fill the gap conceals it while destroying the independence needed to report it.",
+        "B": "Disclosure is the right treatment for an unavoidable impairment. Here declining is available, so creating the impairment and then documenting it is the worse of two options.",
+        "D": "Leaving forfeits the best evidence the auditor will ever have about incident response, and it is an over-correction. Presence without participation is the position that preserves both independence and usefulness."
+      }
+    },
+    {
+      "id": "cisa-d5b-x02",
+      "section": "B",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "expert",
+      "stem": "Malware is discovered on a workstation belonging to an employee already under investigation for suspected theft of intellectual property, and legal counsel has said proceedings are likely. The machine is powered on and connected to the network. What should be done FIRST?",
+      "options": {
+        "A": "Isolate the machine from the network without powering it down, then capture volatile data under a documented chain of custody before anything else is touched.",
+        "B": "Power the machine down immediately to prevent further exfiltration of intellectual property.",
+        "C": "Run an anti-malware scan to identify and quarantine the malicious code before it spreads.",
+        "D": "Take a forensic disk image and then return the machine to the user to avoid alerting them to the investigation."
+      },
+      "answer": "A",
+      "why_correct": "Two requirements are live and they can both be met in the right order. Network isolation stops further exfiltration without destroying anything, and capturing volatile data first respects the order of volatility — memory, running processes and network connections disappear the moment power is lost. Chain of custody starts immediately because counsel has said proceedings are likely, and evidence handled informally before anyone thought about admissibility is the most common way a case is lost.",
+      "why_wrong": {
+        "B": "Powering down does stop exfiltration and destroys memory, running processes and live connections in the same instant — often the only record of what was running and where it was sending data. Isolation achieves the containment without the loss.",
+        "C": "Scanning writes to disk, alters timestamps and may quarantine or delete the very artifacts the investigation needs. It is the standard way well-meaning responders destroy an evidential position.",
+        "D": "Taking an image is right and the order is wrong: doing it before capturing volatile data loses memory. Returning the machine to a user under investigation also surrenders control of the evidence entirely."
+      }
+    },
+    {
+      "id": "cisa-d5b-x03",
+      "section": "B",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "expert",
+      "stem": "A security operations analyst receives a high-confidence alert that a server is actively communicating with a known command-and-control address. The analyst's MOST appropriate next action is to:",
+      "options": {
+        "A": "gather further evidence to confirm the alert before acting, since acting on a false positive would cause unnecessary disruption.",
+        "B": "raise a problem record so that the underlying vulnerability is addressed.",
+        "C": "isolate the affected server in accordance with the response procedure, and investigate once the communication is stopped.",
+        "D": "review the alerting rule to establish why this activity was not prevented."
+      },
+      "answer": "C",
+      "why_correct": "Diagnosing before prescribing is a sound rule for designing responses and recommending fixes, and it does not govern a live compromise. Active command-and-control traffic is ongoing harm, and every minute spent confirming is a minute the attacker keeps using. Containment comes first; the investigation follows immediately and is easier once the channel is closed.",
+      "why_wrong": {
+        "A": "This applies the diagnose-first rule past its boundary. The alert is high-confidence, the harm is live, and isolation is reversible — the asymmetry between acting on a false positive and delaying on a true one is enormous.",
+        "B": "Problem management addresses recurrence over days and weeks. Raising a record while an attacker is connected does nothing about the attacker.",
+        "D": "Asking why prevention failed is a proper question for the post-incident review. Asked now, it improves next month's posture while this month's compromise continues."
+      }
+    },
+    {
+      "id": "cisa-d5b-x04",
+      "section": "B",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "expert",
+      "stem": "A penetration test is authorized in writing against a defined list of externally facing systems. Mid-test, the tester discovers that one in-scope system holds credentials granting access to an internal finance application that is not on the authorized list. What should the tester do FIRST?",
+      "options": {
+        "A": "Continue into the finance application, since demonstrating the full impact of the finding is the purpose of the test.",
+        "B": "Stop at the boundary, report the discovered credentials and the access they would confer, and seek explicit written authorization before going further.",
+        "C": "Continue into the finance application but take no action beyond confirming that the credentials work.",
+        "D": "Cease the engagement entirely and report that the authorized scope was inadequate."
+      },
+      "answer": "B",
+      "why_correct": "Authorization precedes action, and it is at its strongest for penetration testing, where the difference between an authorized test and a criminal offence is the scope document. The finding is already complete without crossing the line: credentials on an external system that reach a finance application is the finding, and the tester can report both the exposure and the reach without exercising it. Extending scope is the client's decision and needs to be in writing.",
+      "why_wrong": {
+        "A": "Impact demonstration is a legitimate objective and never a substitute for authorization. Acting outside the authorized scope exposes the tester personally and can invalidate the whole engagement.",
+        "C": "Confirming the credentials work is itself unauthorized access to the finance application. Limiting what is done afterwards does not cure crossing the boundary.",
+        "D": "Ceasing entirely is a large over-reaction that abandons the authorized work still to be done. The correct response is to pause at the boundary, not to abandon the engagement."
+      }
+    },
+    {
+      "id": "cisa-d5b-x05",
+      "section": "B",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "expert",
+      "stem": "A security awareness manager must justify next year's budget to the board and needs to show whether the programme is working. Which measure is MOST appropriate for that purpose?",
+      "options": {
+        "A": "The rate at which staff report suspicious messages to the security team, tracked over time against simulated and real campaigns.",
+        "B": "The number of training modules delivered and the total hours of training consumed across the organization.",
+        "C": "The proportion of staff who completed the mandatory annual module within the required period.",
+        "D": "Staff scores on the assessment at the end of each training module."
+      },
+      "answer": "A",
+      "why_correct": "The board is asking whether the programme changed anything, which requires an outcome measure, and reporting rate is the behaviour that actually protects the organization: it converts one person's suspicion into detection for everyone. Tracked against both simulated and real campaigns it shows whether staff act differently, which is the only claim a budget request can honestly make.",
+      "why_wrong": {
+        "B": "Modules delivered and hours consumed are pure activity. They are useful for planning delivery capacity and they measure how much training happened, not whether it worked.",
+        "C": "Completion rate measures attendance within a deadline. It is a compliance statistic that can sit at 100% in an organization whose behaviour has not shifted at all.",
+        "D": "End-of-module scores measure whether people can answer questions about material they have just read. Retention decays quickly and recall under no pressure is a weak proxy for behaviour under pressure."
+      }
+    }
+  ]
+}

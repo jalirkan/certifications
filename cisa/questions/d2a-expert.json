@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "2",
+    "section": "A",
+    "batch": "d2a-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d2a-x01",
+      "topic": "Enterprise Risk Management",
+      "difficulty": "expert",
+      "stem": "An organization has purchased cyber insurance covering the financial consequences of a data breach, and the risk register now shows the breach risk as treated by transfer, with residual risk within appetite. The organization is subject to a statutory breach notification regime carrying regulatory penalties. What is the MOST significant weakness in this treatment?",
+      "options": {
+        "A": "Insurance premiums will rise after any claim, so the treatment is not sustainable over time.",
+        "B": "The policy will contain exclusions, so the financial cover is narrower than the register implies.",
+        "C": "Transfer moves financial consequence only; the statutory obligation and the answerability for it remain with the organization, so the risk is not treated to the extent the register claims.",
+        "D": "Risk transfer should have been approved by the board rather than recorded at management level."
+      },
+      "answer": "C",
+      "why_correct": "Transfer is a legitimate response and it moves money, not accountability. A regulator does not accept an insurance policy in place of a notification obligation, and no insurer discharges the duty or absorbs the reputational consequence. Recording the risk as treated overstates the position, because the part that cannot be insured is the part the regulator will act on.",
+      "why_wrong": {
+        "A": "Rising premiums are a real commercial consequence and a matter of cost rather than of whether the risk has been addressed.",
+        "B": "Exclusions do narrow the cover and are worth examining. They are a defect in the size of the transfer, not in the assumption that transfer can cover this kind of exposure at all.",
+        "D": "Approval level is a governance question worth asking. The register would be equally misleading if the board had signed it, because the flaw is in what transfer can do rather than in who authorized it."
+      }
+    },
+    {
+      "id": "cisa-d2a-x02",
+      "topic": "Privacy Program and Principles",
+      "difficulty": "expert",
+      "stem": "A marketing team holds a database of customer browsing histories. It is encrypted at rest and in transit, access is role-restricted and reviewed quarterly, retention is enforced automatically, and there has never been an incident. The privacy notice given to customers describes only order fulfilment and account administration. What should the IS auditor identify as the PRIMARY concern?",
+      "options": {
+        "A": "Quarterly access review may be too infrequent for data of this sensitivity.",
+        "B": "The retention period may not have been set with reference to a legal requirement.",
+        "C": "Browsing histories should be pseudonymized in addition to being encrypted.",
+        "D": "The processing has no basis in the purposes disclosed to customers, so the data is being used beyond what they were told regardless of how well it is secured."
+      },
+      "answer": "D",
+      "why_correct": "Every control described is a security control, and they are all working. Privacy asks a prior question — whether the organization should be collecting and using this data for this purpose at all — and purpose limitation is breached the moment processing goes beyond what was disclosed. A perfectly secured database used for an undisclosed purpose is a security success and a privacy failure at the same time.",
+      "why_wrong": {
+        "A": "Review frequency is a tuning question about a control that is operating. It would matter if unauthorized access were the concern; the concern is authorized access for an undisclosed purpose.",
+        "C": "Pseudonymization is sound data minimization practice and would reduce the impact of a breach. It does not cure processing that customers were never told about.",
+        "B": "Retention driven by habit rather than legal requirement is a genuine and lesser finding, and it concerns how long the data is kept rather than whether it should be used this way."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d2a-x03",
+      "topic": "Data Governance and Classification",
+      "difficulty": "expert",
+      "stem": "An IS auditor finds that data classifications across the enterprise were assigned by the IT security team. Reviewing a sample, the auditor agrees that every classification examined is appropriate to the sensitivity of the data. What is the MOST appropriate conclusion?",
+      "options": {
+        "A": "No finding arises, because the classifications are correct and correctness is the objective of the control.",
+        "B": "A finding arises: classification is a business owner's decision, and having it made by IT means nobody with authority over the data has accepted the risk or the handling obligations that follow.",
+        "C": "A finding arises because the sample was too small to conclude that all classifications are appropriate.",
+        "D": "No finding arises, provided the business owners are asked to countersign the existing classifications."
+      },
+      "answer": "B",
+      "why_correct": "The control is not 'a correct label exists' but 'the accountable owner has decided what this data is worth and accepted what follows'. IT can advise and cannot accept business risk on the business's behalf. Getting the right answer by the wrong route also means the next classification — for data IT understands less well — has no reason to be right, and there is no owner to consult when it is disputed.",
+      "why_wrong": {
+        "A": "This mistakes the outcome for the control. That the labels happen to be right is fortunate and does not establish that the process will keep producing right answers or that anyone owns them.",
+        "C": "Sample size is a real limitation on the auditor's conclusion about correctness, and the stem's finding does not depend on correctness at all.",
+        "D": "A countersignature after the fact ratifies a decision the owner did not make. It is the weakest possible remediation and leaves the process unchanged for the next classification."
+      }
+    },
+    {
+      "id": "cisa-d2a-x04",
+      "topic": "IT Policies, Standards, Procedures and Practices",
+      "difficulty": "expert",
+      "stem": "An organization's encryption standard requires a specific algorithm and key length. One legacy application cannot meet it. The business has documented the gap, a named executive has accepted the risk, a compensating control is in place, and the acceptance carries an expiry date twelve months out with a scheduled re-approval. The auditor also observes that routine encryption configuration changes on compliant systems are not individually documented. What is the MOST appropriate matter for the auditor to report?",
+      "options": {
+        "A": "The undocumented routine configuration changes only, since the legacy exception is governed exactly as an exception should be.",
+        "B": "Both matters: the exception weakens the standard, and undocumented routine changes prevent verification that the standard is being applied.",
+        "C": "The legacy exception only, since a documented deviation from a mandatory standard remains a deviation.",
+        "D": "Neither matter, since the exception is governed and routine configuration activity is outside the scope of a policy review."
+      },
+      "answer": "A",
+      "why_correct": "An exception process exists precisely so that a system which cannot meet a standard is handled deliberately: named owner, compensating control, expiry, re-approval. All four are present, so this is the control working rather than failing. The rule that a decision needs an explicit owner is about deviations and approvals — it is not an argument for documenting every routine action, and undocumented routine changes remain a real gap in demonstrating the standard is applied.",
+      "why_wrong": {
+        "C": "Treating any deviation as a finding regardless of governance is the over-application this question tests. It would mean no organization could ever run a legacy system compliantly.",
+        "D": "Dismissing both misses the real weakness. Without records of configuration changes on compliant systems, nothing evidences that those systems still meet the standard.",
+        "B": "Reporting the governed exception alongside the genuine gap dilutes the report and teaches management that using the exception process attracts a finding anyway, which is how exception processes fall into disuse."
+      }
+    }
+  ]
+}

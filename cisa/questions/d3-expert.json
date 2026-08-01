@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "3",
+    "batch": "d3-x01",
+    "created": "2026-07-31",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Expert band, both sections. Section is set per question. See EXPERT-BAND-BRIEF.md."
+  },
+  "questions": [
+    {
+      "id": "cisa-d3a-x01",
+      "section": "A",
+      "topic": "Project Governance and Management",
+      "difficulty": "expert",
+      "stem": "An IS auditor has attended a project's design workshops as an adviser and commented on control requirements. At the final stage gate, the project board asks the auditor to sign the gate approval confirming that the control design is adequate. What is the MOST appropriate response?",
+      "options": {
+        "A": "Decline to sign the approval, offer an assessment of the control design for the board to weigh, and let the board take the decision.",
+        "B": "Sign the approval, since the auditor has the deepest knowledge of the control requirements and is best placed to judge adequacy.",
+        "C": "Decline, and withdraw from the remainder of the project because the advisory involvement has already compromised independence.",
+        "D": "Sign the approval, but disclose the advisory involvement in the audit committee's next report."
+      },
+      "answer": "A",
+      "why_correct": "Early involvement is worth having precisely because control problems are cheapest to fix in a specification, and it stays legitimate only while it stays advisory. Signing a gate approval converts the auditor from adviser to decision-maker and guarantees a self-review threat at every later review of the same system. Assessing and reporting to the board preserves the value of the auditor's knowledge without taking the decision.",
+      "why_wrong": {
+        "B": "Depth of knowledge is a reason to be heard, not a reason to decide. Approving the control design makes the auditor the party accountable for it, which is management's role.",
+        "C": "Withdrawing over-corrects and discards the benefit of the involvement. Advisory participation does not impair independence; approving does.",
+        "D": "Disclosure is a proper response to an impairment that could not be avoided. It does not license creating one deliberately when declining was available."
+      }
+    },
+    {
+      "id": "cisa-d3a-x02",
+      "section": "A",
+      "topic": "Business Case and Feasibility Analysis",
+      "difficulty": "expert",
+      "stem": "A programme is 70% through its budget. Reforecasting shows the remaining benefits are now worth less than the remaining cost to complete, though the total benefits still exceed the money already spent. Which recommendation should the IS auditor MOST support?",
+      "options": {
+        "A": "Continue, since abandoning the programme would waste the investment already made.",
+        "B": "Continue, but reduce scope so that the programme completes within its original budget.",
+        "C": "Put the decision to the sponsor on the basis of remaining cost against remaining benefit, since money already spent is not recoverable by either choice and should not enter the comparison.",
+        "D": "Continue to the next stage gate and reassess there, since a decision this significant should not be taken mid-stage."
+      },
+      "answer": "C",
+      "why_correct": "The spend to date is gone under either option, so it carries no information about what to do next. The only live question is whether the remaining investment earns its keep, and on the figures given it does not. The auditor's role is to make sure the decision is framed that way and taken by the sponsor who owns the benefits — not to take it.",
+      "why_wrong": {
+        "A": "This is the sunk cost fallacy stated plainly. Spending more because you have already spent is how programmes reach completion having destroyed value the whole way.",
+        "B": "Cutting scope to hit a budget may be sensible, and it is a different proposal that needs its own case. As stated it fixes the cost line by changing the benefits without anyone reassessing them.",
+        "D": "Waiting for a gate is procedurally tidy and burns more of the remaining budget on a programme that reforecasting already says should stop. Gates exist to force this decision, not to delay it."
+      }
+    },
+    {
+      "id": "cisa-d3b-x01",
+      "section": "B",
+      "topic": "System Readiness and Implementation Testing",
+      "difficulty": "expert",
+      "stem": "A replacement billing system has passed every test case in the requirements traceability matrix, with no defects outstanding. During user acceptance testing the finance team reports that the system cannot produce the aged-debt analysis they rely on for month-end, which was never written into the requirements. Which of the following BEST characterizes the position?",
+      "options": {
+        "A": "The system is ready for implementation, since it meets every documented requirement.",
+        "B": "The requirements traceability matrix is defective and should be reworked before any implementation decision.",
+        "C": "This is a change request to be handled after go-live, since the capability was never in scope.",
+        "D": "The system is verified but not validated: it does what the specification said, and the specification did not capture what the business needs."
+      },
+      "answer": "D",
+      "why_correct": "Verification asks whether the system was built to the specification, and every test passing says it was. Validation asks whether the right thing was built, and the missing analysis says it was not. Distinguishing the two is the point here, because a system can be flawlessly verified and still fail the business — and the defect is in the requirements rather than in the build.",
+      "why_wrong": {
+        "A": "Meeting the specification is exactly what has been demonstrated, and it is not the same as being fit for purpose. Going live on this basis puts finance into month-end without a process they depend on.",
+        "B": "The matrix did its job — it traced the requirements it was given. Reworking it does not address the fact that a requirement was never elicited, and it names the wrong artifact as defective.",
+        "C": "Classifying it as a post-go-live change treats a month-end dependency as an enhancement. Whether it can wait is a business decision that has not been taken, and framing it this way takes it by default."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d3b-x02",
+      "section": "B",
+      "topic": "System Migration, Infrastructure Deployment, and Data Conversion",
+      "difficulty": "expert",
+      "stem": "After a customer data migration, the migration team reconciled record counts and control totals between source and target, investigated every exception, and signed the reconciliation. The business data owner was informed of the result. Which of the following is the MOST significant weakness?",
+      "options": {
+        "A": "Record counts and control totals are insufficient; field-level validation should also have been performed.",
+        "B": "Exceptions should have been resolved before the reconciliation rather than investigated afterwards.",
+        "C": "The reconciliation was signed by the party that performed the migration, so nobody independent of the work has accepted that the converted data is correct.",
+        "D": "The legacy system should have been retained in read-only mode for a defined period after cutover."
+      },
+      "answer": "C",
+      "why_correct": "The procedures described are the right ones and they were carried out by the team whose work they test. Being informed of a result is not the same as accepting it, and the business data owner is the party who can actually tell whether the converted records describe their customers correctly. Sign-off by the migration team is the audit equivalent of marking your own homework at the exact point where an error becomes permanent.",
+      "why_wrong": {
+        "A": "Field-level validation is a worthwhile addition and the stem does not say it was omitted. It is a depth-of-testing point rather than the structural weakness.",
+        "B": "Investigating exceptions after the reconciliation identifies them is the normal and correct sequence. Reversing it is not possible.",
+        "D": "Read-only retention of the legacy system is good practice and protects against later discovery of problems. It does not address who accepted the conversion."
+      }
+    },
+    {
+      "id": "cisa-d3b-x03",
+      "section": "B",
+      "topic": "Post-implementation Review",
+      "difficulty": "expert",
+      "stem": "Four months after go-live, a project manager completes a post-implementation review of their own project. It records that the system was delivered two weeks late and slightly over budget, that all defects are closed, and that users are satisfied. It does not address the benefits set out in the business case. What is the GREATEST concern?",
+      "options": {
+        "A": "The review was conducted four months after go-live, which is too soon to judge a system of this kind.",
+        "B": "Delivery two weeks late and over budget should have been escalated at the time rather than reported afterwards.",
+        "C": "User satisfaction was assessed subjectively rather than through a structured survey instrument.",
+        "D": "The review reports on delivery rather than on value, and it was performed by the party with the greatest interest in a favourable verdict, so the question the business case was written to answer is still unanswered."
+      },
+      "answer": "D",
+      "why_correct": "A post-implementation review exists to establish two things: whether the promised benefits arrived, and what the process should do differently. This one answers neither. Reporting timeliness, budget variance and defect closure describes how the project ran, and the business case set out why it was worth running at all — which nobody has now checked. The self-review compounds it, because the person least able to conclude that the project was not worth doing is the person who delivered it.",
+      "why_wrong": {
+        "A": "Four months is a reasonable interval: long enough for the system to stabilize and be genuinely used, short enough that people still remember the decisions. Too early would be weeks, not months.",
+        "B": "A two-week overrun is a delivery variance of the ordinary kind, and reporting it in the review is exactly where it belongs. Escalation at the time would have been proportionate to something larger.",
+        "C": "A structured instrument would make the satisfaction finding more defensible and it is a refinement of a measure the review already took. The problem is the measure it never took."
+      }
+    }
+  ]
+}

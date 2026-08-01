@@ -23,6 +23,7 @@
       "question_ids": [
         "cisa-d1a-013",
         "cisa-d1a-017",
+        "cisa-d1a-x03",
         "cisa-d1b-001",
         "cisa-d2a-001",
         "cisa-d2a-003",
@@ -39,6 +40,7 @@
         "cisa-d4a-003",
         "cisa-d4a-031",
         "cisa-d4a-047",
+        "cisa-d4a-x06",
         "cisa-d4b-003",
         "cisa-d4b-015",
         "cisa-d5a-002",
@@ -88,11 +90,13 @@
         "cisa-d2a-002",
         "cisa-d2a-033",
         "cisa-d2a-034",
+        "cisa-d2a-x01",
         "cisa-d2b-006",
         "cisa-d2b-007",
         "cisa-d2b-009",
         "cisa-d2b-010",
         "cisa-d2b-012",
+        "cisa-d2b-x01",
         "cisa-d3b-023",
         "cisa-d4b-013",
         "cisa-d5a-029",
@@ -133,6 +137,7 @@
       "scope": "Strongest where the risk is unmanaged or unrecorded items. Not relevant when the population is closed and known.",
       "question_ids": [
         "cisa-d1b-006",
+        "cisa-d1b-x04",
         "cisa-d2a-032",
         "cisa-d3b-010",
         "cisa-d3b-016",
@@ -146,6 +151,7 @@
         "cisa-d4a-042",
         "cisa-d4a-045",
         "cisa-d4a-053",
+        "cisa-d4b-x02",
         "cisa-d5a-017",
         "cisa-d5a-034",
         "cisa-d5b-010",
@@ -162,10 +168,13 @@
       "question_ids": [
         "cisa-d4a-020",
         "cisa-d4a-021",
+        "cisa-d4a-x01",
         "cisa-d5b-006",
         "cisa-d5b-013",
         "cisa-d5b-015",
-        "cisa-d5b-016"
+        "cisa-d5b-016",
+        "cisa-d5b-x02",
+        "cisa-d5b-x03"
       ]
     },
     {
@@ -180,6 +189,7 @@
         "cisa-d1b-013",
         "cisa-d1b-015",
         "cisa-d1b-020",
+        "cisa-d1b-x01",
         "cisa-d2b-015",
         "cisa-d2b-016",
         "cisa-d3a-014",
@@ -201,6 +211,7 @@
         "cisa-d1b-027",
         "cisa-d1b-034",
         "cisa-d2a-016",
+        "cisa-d2b-x03",
         "cisa-d3b-026",
         "cisa-d3b-030",
         "cisa-d4a-021",
@@ -209,6 +220,7 @@
         "cisa-d4a-044",
         "cisa-d4a-048",
         "cisa-d4a-052",
+        "cisa-d4a-x01",
         "cisa-d5a-011"
       ]
     },
@@ -225,6 +237,7 @@
         "cisa-d1b-029",
         "cisa-d2a-036",
         "cisa-d3a-023",
+        "cisa-d3a-x02",
         "cisa-d3b-008",
         "cisa-d3b-020",
         "cisa-d4a-023",
@@ -234,6 +247,7 @@
         "cisa-d4b-015",
         "cisa-d4b-023",
         "cisa-d4b-024",
+        "cisa-d4b-x01",
         "cisa-d5b-009"
       ]
     },
@@ -256,6 +270,8 @@
         "cisa-d3b-012",
         "cisa-d3b-014",
         "cisa-d3b-029",
+        "cisa-d3b-x02",
+        "cisa-d3b-x03",
         "cisa-d4a-013",
         "cisa-d4a-024",
         "cisa-d4a-028",
@@ -264,10 +280,13 @@
         "cisa-d4a-040",
         "cisa-d4a-043",
         "cisa-d4a-054",
+        "cisa-d4a-x04",
         "cisa-d5a-009",
         "cisa-d5a-033",
         "cisa-d5a-049",
-        "cisa-d5b-011"
+        "cisa-d5a-x03",
+        "cisa-d5b-011",
+        "cisa-d5b-x01"
       ]
     },
     {
@@ -282,12 +301,16 @@
         "cisa-d1a-005",
         "cisa-d1a-012",
         "cisa-d1a-018",
+        "cisa-d1a-x01",
         "cisa-d1b-002",
         "cisa-d1b-003",
         "cisa-d1b-026",
+        "cisa-d1b-x03",
         "cisa-d2a-002",
         "cisa-d2a-027",
-        "cisa-d3a-029"
+        "cisa-d3a-029",
+        "cisa-d3a-x01",
+        "cisa-d5b-x01"
       ]
     },
     {
@@ -305,7 +328,9 @@
         "cisa-d4a-007",
         "cisa-d4a-025",
         "cisa-d4a-038",
-        "cisa-d5b-008"
+        "cisa-d4a-x02",
+        "cisa-d5b-008",
+        "cisa-d5b-x04"
       ]
     },
     {
@@ -330,8 +355,12 @@
         "cisa-d4b-025",
         "cisa-d4b-029",
         "cisa-d4b-030",
+        "cisa-d4b-x02",
+        "cisa-d4b-x03",
         "cisa-d5a-006",
         "cisa-d5a-008",
+        "cisa-d5a-x04",
+        "cisa-d5a-x05",
         "cisa-d5b-014"
       ]
     },
@@ -347,6 +376,7 @@
         "cisa-d4a-011",
         "cisa-d4a-030",
         "cisa-d4a-037",
+        "cisa-d4a-x05",
         "cisa-d5a-017",
         "cisa-d5a-020",
         "cisa-d5a-021",
@@ -375,6 +405,7 @@
         "cisa-d4a-017",
         "cisa-d4a-019",
         "cisa-d4a-027",
+        "cisa-d4a-x03",
         "cisa-d5a-005",
         "cisa-d5b-015"
       ]
@@ -387,18 +418,21 @@
       "misapplication": "Relying on interviews, management representations, self-reported dashboards or vendor questionnaires because they are consistent and readily available.",
       "scope": "Evidence reliability. Inquiry remains valuable for building understanding and directing testing - just not for concluding.",
       "question_ids": [
+        "cisa-d1a-x02",
         "cisa-d1b-012",
         "cisa-d1b-013",
         "cisa-d1b-014",
         "cisa-d1b-016",
         "cisa-d1b-017",
         "cisa-d1b-023",
+        "cisa-d1b-x02",
         "cisa-d2b-015",
         "cisa-d2b-016",
         "cisa-d2b-017",
         "cisa-d3a-005",
         "cisa-d3a-014",
         "cisa-d3b-017",
+        "cisa-d3b-x02",
         "cisa-d4a-033",
         "cisa-d4a-042",
         "cisa-d4a-046",
@@ -406,11 +440,13 @@
         "cisa-d5a-024",
         "cisa-d5a-030",
         "cisa-d5a-043",
+        "cisa-d5a-x02",
         "cisa-d5b-017",
         "cisa-d5b-018",
         "cisa-d5b-021",
         "cisa-d5b-024",
-        "cisa-d5b-030"
+        "cisa-d5b-030",
+        "cisa-d5b-x02"
       ]
     },
     {
@@ -422,8 +458,10 @@
       "scope": "Universal. This is the single most common way to lose marks on material you actually know.",
       "question_ids": [
         "cisa-d1a-016",
+        "cisa-d1a-x02",
         "cisa-d2a-010",
         "cisa-d2a-014",
+        "cisa-d2b-x02",
         "cisa-d3a-006",
         "cisa-d3a-020",
         "cisa-d3b-019",
@@ -438,7 +476,8 @@
         "cisa-d5a-018",
         "cisa-d5a-023",
         "cisa-d5a-027",
-        "cisa-d5a-028"
+        "cisa-d5a-028",
+        "cisa-d5a-x02"
       ]
     },
     {
@@ -455,24 +494,29 @@
         "cisa-d2b-014",
         "cisa-d2b-021",
         "cisa-d2b-022",
+        "cisa-d2b-x02",
+        "cisa-d2b-x03",
         "cisa-d3a-010",
         "cisa-d3a-012",
         "cisa-d3b-027",
         "cisa-d3b-028",
         "cisa-d3b-032",
         "cisa-d3b-033",
+        "cisa-d3b-x03",
         "cisa-d4a-018",
         "cisa-d4a-022",
         "cisa-d4a-031",
         "cisa-d4a-049",
         "cisa-d4a-051",
         "cisa-d4a-052",
+        "cisa-d4a-x05",
         "cisa-d4b-027",
         "cisa-d5a-039",
         "cisa-d5a-042",
         "cisa-d5b-001",
         "cisa-d5b-003",
-        "cisa-d5b-019"
+        "cisa-d5b-019",
+        "cisa-d5b-x05"
       ]
     },
     {
@@ -492,7 +536,8 @@
         "cisa-d4a-047",
         "cisa-d5b-007",
         "cisa-d5b-009",
-        "cisa-d5b-027"
+        "cisa-d5b-027",
+        "cisa-d5b-x03"
       ]
     },
     {
@@ -503,10 +548,12 @@
       "misapplication": "Deferring control design, audit involvement or privacy assessment until the review stage, where the finding is real but the remedy is expensive or refused.",
       "scope": "Design and delivery lifecycles. Early involvement must stay advisory, or the auditor loses independence at the later review.",
       "question_ids": [
+        "cisa-d1a-x01",
         "cisa-d2a-031",
         "cisa-d2b-020",
         "cisa-d3a-024",
         "cisa-d3a-029",
+        "cisa-d3a-x01",
         "cisa-d3b-024",
         "cisa-d5a-019"
       ]
@@ -522,14 +569,17 @@
         "cisa-d2b-002",
         "cisa-d2b-003",
         "cisa-d2b-009",
+        "cisa-d4a-x06",
         "cisa-d4b-008",
         "cisa-d4b-011",
         "cisa-d4b-022",
         "cisa-d4b-026",
+        "cisa-d4b-x05",
         "cisa-d5a-013",
         "cisa-d5a-028",
         "cisa-d5a-031",
-        "cisa-d5a-046"
+        "cisa-d5a-046",
+        "cisa-d5a-x04"
       ]
     },
     {
@@ -544,6 +594,8 @@
         "cisa-d2a-015",
         "cisa-d2a-024",
         "cisa-d2a-038",
+        "cisa-d2a-x03",
+        "cisa-d2a-x04",
         "cisa-d3a-002",
         "cisa-d3a-004",
         "cisa-d3a-010",
@@ -552,7 +604,9 @@
         "cisa-d3b-008",
         "cisa-d3b-017",
         "cisa-d4a-001",
+        "cisa-d4a-x02",
         "cisa-d4b-023",
+        "cisa-d4b-x04",
         "cisa-d5a-003",
         "cisa-d5a-039",
         "cisa-d5b-026",
@@ -572,7 +626,8 @@
         "cisa-d3b-004",
         "cisa-d4a-005",
         "cisa-d5a-032",
-        "cisa-d5a-045"
+        "cisa-d5a-045",
+        "cisa-d5a-x01"
       ]
     }
   ]
