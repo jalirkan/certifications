@@ -119,6 +119,48 @@ class TestThePayload(PayloadTestBase):
             self.assertIsNone(simulation.load_results(path))
 
 
+class TestTheValidateEndpoint(unittest.TestCase):
+    """The palette's 'Validate the question bank' command, and the same checks
+    `drill.py validate` runs — so the app can say whether the bank is sound
+    without reading the terminal the server was launched from."""
+
+    def test_the_shipped_bank_is_clean(self):
+        data = Api("cisa").validate()
+        self.assertTrue(data["ok"], data["errors"][:3])
+        self.assertEqual(data["errors"], [])
+
+    def test_it_counts_what_it_checked(self):
+        data = Api("cisa").validate()
+        for key in ("questions", "cases", "pairs", "rules"):
+            self.assertGreater(data[key], 0, key)
+
+    def test_warnings_come_back_as_well_as_errors(self):
+        """They are the bank-quality signals, and they go unnoticed precisely
+        because nothing breaks."""
+        data = Api("cisa").validate()
+        self.assertIsInstance(data["warnings"], list)
+
+    def test_it_reads_and_writes_nothing(self):
+        api = Api("cisa", "validate-probe")
+        api.validate()
+        self.assertFalse(os.path.exists(api.results_path),
+                         "asking whether the bank is valid created a results file")
+
+    def test_a_broken_bank_reports_rather_than_raises(self):
+        api = Api("cisa")
+        good = api.questions
+        broken = [q for q in good]
+        broken.append(broken[0])          # duplicate id
+        api._cache["questions"] = broken
+        try:
+            data = api.validate()
+        finally:
+            api._cache["questions"] = good
+        self.assertFalse(data["ok"])
+        self.assertTrue(any("duplicate" in e.lower() for e in data["errors"]),
+                        data["errors"][:3])
+
+
 class TestTheApi(unittest.TestCase):
     def test_it_serves_whatever_has_been_persisted(self):
         api = Api("cisa")

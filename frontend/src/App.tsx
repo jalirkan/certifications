@@ -19,6 +19,7 @@ import { CasesHome, CaseRunner, CaseDebriefScreen } from './screens/Cases'
 import { CalibrationScreen } from './screens/Calibration'
 import { DetectionScreen } from './screens/Detection'
 import { NextScreen } from './screens/Next'
+import { Palette } from './ui/Palette'
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
       <AppProvider>
         <a className="skip-link" href="#main">Skip to content</a>
         <Rail />
+        <Palette />
         <main className="main" id="main" tabIndex={-1}>
           <Routes>
             <Route path="/" element={<Dashboard />} />

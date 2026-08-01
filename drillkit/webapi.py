@@ -819,6 +819,42 @@ class Api:
             target=calibration_mod.parse_target(
                 loader.load_settings(self.cert, self.profile).get("target_date")))
 
+    def validate(self) -> Dict[str, Any]:
+        """Bank integrity, the same checks `drill.py validate` runs.
+
+        Read-only and touches no results. `serve.py` already runs the question
+        checks at startup and refuses to serve a broken bank, so this exists to
+        make the state visible from the app rather than only in the terminal
+        the server was launched from.
+
+        Warnings are returned as prominently as errors: they are the
+        bank-quality signals - a judgment-worded stem governed by no decision
+        rule, a confusable pair with no questions - and they are the ones that
+        go unnoticed precisely because nothing breaks.
+        """
+        questions = self.questions
+        errors, warnings = loader.validate(questions, self.outline)
+        for check, args in ((loader.validate_pairs, (self.pairs, questions)),
+                            (loader.validate_principles, (self.rules, questions))):
+            more_errors, more_warnings = check(*args)
+            errors += more_errors
+            warnings += more_warnings
+
+        case_errors, case_warnings = cases_mod.validate_all(
+            self.cases, self.outline, {p["id"] for p in self.rules})
+        errors += case_errors
+        warnings += case_warnings
+
+        return {
+            "ok": not errors,
+            "questions": len(questions),
+            "cases": len(self.cases),
+            "pairs": len(self.pairs),
+            "rules": len(self.rules),
+            "errors": errors,
+            "warnings": warnings,
+        }
+
     # ------------------------------------------------------------------
     def detection(self) -> Dict[str, Any]:
         """The detection report card, read from a completed sweep.

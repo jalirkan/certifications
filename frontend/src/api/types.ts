@@ -859,3 +859,16 @@ export interface NextSession {
   withheld: Withheld[]
   generated: string
 }
+
+// --------------------------------------------------------------- validation
+
+export interface Validation {
+  ok: boolean
+  questions: number
+  cases: number
+  pairs: number
+  rules: number
+  errors: string[]
+  /** Bank-quality signals. Nothing breaks, which is why they go unnoticed. */
+  warnings: string[]
+}

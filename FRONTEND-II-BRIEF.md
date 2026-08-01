@@ -1,6 +1,6 @@
 # Front end, second pass — handoff brief
 
-> **Status: three of five pieces shipped 2026-08-01, two not begun.**
+> **Status: all five pieces shipped 2026-08-01.**
 > Piece by piece, verified on disk:
 >
 > - **B — case graph: built** (`6fc4d61`). `frontend/src/charts/CaseGraph.tsx`, 354 lines, no graph
@@ -26,15 +26,33 @@
 >   planted weakness measured over 89 answers at 23–42%. Items are now grouped before they are
 >   ranked. And the recommendations were decorative until `DrillSetup` learned to read the query
 >   string; a test now feeds every emitted action into `drill_start` so those names cannot drift.
-> - **C — exam post-mortem: not started.** `cost` still renders as the sorted list of rows §6 wanted
->   replaced (`Exam.tsx:469`, `:531`); no waterfall. `seconds_per_question` is stored by
->   `exam.py`/`examsession.py` and still reaches no front-end file.
-> - **D — command palette: not started.** No ⌘K handler. The `palette` matches in `Exam.tsx` and
->   `styles.css` are the exam *question* palette, an unrelated pre-existing component.
+> - **C — exam post-mortem: built** (`80db36d`). `drillkit/postmortem.py`,
+>   `frontend/src/charts/Waterfall.tsx` and `TimeVsCorrect.tsx`, `tests/test_postmortem.py`
+>   (25 tests). The sorted list §6 wanted replaced is gone. `seconds_per_question` reaches a
+>   screen for the first time since it was written.
 >
-> §8 held on what shipped: no gamification, no prediction, and `python run_tests.py` is green at
-> 412 tests. §10's "ship B on its own and look at it before starting A" was followed — separate
-> commits, B first.
+>   One thing §6 did not anticipate: the fast-and-wrong reading is confounded. You go fast on
+>   questions that *look* easy, so the cluster is as consistent with misjudging difficulty as with
+>   rushing — and in the demo sitting every fast-and-wrong item was Domain 4, i.e. the split was
+>   measuring the domain. The verdict sentence therefore states the association and names both
+>   explanations rather than picking one, and a test asserts it never claims a cause.
+> - **D — command palette: built** (this commit). `frontend/src/ui/Palette.tsx`, Ctrl-K / ⌘K,
+>   mounted in `App.tsx`. Around fifty commands: every screen, seven drill configurations plus one
+>   per domain and one per decision rule, every case, profile switching, and bank validation.
+>
+>   §7 called this "pure front end, no API", which its own feature list contradicts — "run
+>   validate" has no client-side implementation. A read-only `/api/validate` was added rather than
+>   ship a dead menu item. Drill commands need no API: they use the query-string prefill built
+>   for E.
+>
+>   Not built, deliberately: recents, frecency, fuzzy matching. A palette that reorders itself by
+>   how often you use something is a gamification surface by another name (§8.1), and with fifty
+>   commands subsequence matching mostly produces surprises — "case" would rank "Calibration"
+>   among the cases. Substring plus per-command keywords instead.
+>
+> §8 held throughout: no gamification, no prediction, every rate with its interval, and
+> `python run_tests.py` green at 442 tests. §10's "ship each piece on its own and look at it"
+> was followed — one commit per piece, B first.
 
 For a coding agent with a terminal. Read `CLAUDE.md` first, then this.
 

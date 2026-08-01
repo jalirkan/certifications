@@ -13,7 +13,7 @@ import type {
   DrillStart,
   DrillStartParams,
   ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
-  Letter, NextSession, Overview, Reveal, Trend,
+  Letter, NextSession, Overview, Reveal, Trend, Validation,
 } from './types'
 
 /** Set by the profile provider; read on every request. */
@@ -127,6 +127,9 @@ export const api = {
     post<ExamUpdateAck>('/api/exam/update', { id, action: 'tick', elapsed }),
   examSubmit: (id: string, elapsed: number) =>
     post<ExamResult>('/api/exam/submit', { id, elapsed }),
+
+  /** Bank integrity, same checks as `drill.py validate`. Read-only. */
+  validate: () => get<Validation>('/api/validate'),
 
   nextSession: (minutes: number) =>
     get<NextSession>(`/api/next?minutes=${minutes}`),
