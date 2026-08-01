@@ -11,8 +11,10 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
 import { useApp } from '../app/AppProvider'
 import type {
-  Confidence, DrillMode, DrillStart, DrillStartParams, Letter, Reveal,
+  Confidence, Difficulty, DrillAvailability, DrillMode, DrillStart,
+  DrillStartParams, Letter, Reveal,
 } from '../api/types'
+import { DIFFICULTY_BANDS } from '../api/types'
 import { ConfidencePicker, CONFIDENCE_META } from '../ui/ConfidencePicker'
 import { LETTERS, pct } from '../lib/format'
 import { useKeys } from '../lib/hooks'
@@ -36,6 +38,18 @@ const MODE_BLURB: Record<DrillMode, string> = {
   costumes: 'One decision rule, shown across every domain it appears in.',
 }
 
+// Mirrors difficulty.CAVEAT server-side; shown before the first preview lands.
+const DIFFICULTY_CAVEAT = 'Author-assigned, not yet checked against your results'
+
+const DIFFICULTY_OPTIONS: { value: Difficulty; label: string }[] = [
+  { value: '', label: 'Any' },
+  { value: 'easy', label: 'Easy' },
+  { value: 'medium', label: 'Medium' },
+  { value: 'hard', label: 'Hard' },
+  { value: 'expert', label: 'Expert' },
+  { value: 'ramp', label: 'Ramp' },
+]
+
 export function DrillSetup() {
   const { boot } = useApp()
   const nav = useNavigate()
@@ -44,6 +58,30 @@ export function DrillSetup() {
   const [topic, setTopic] = useState('')
   const [n, setN] = useState(20)
   const [rule, setRule] = useState('')
+  const [difficulty, setDifficulty] = useState<Difficulty>('')
+  const [avail, setAvail] = useState<DrillAvailability | null>(null)
+
+  /*
+   * Availability is fetched as the filters change, so an empty or short pool is
+   * visible before the learner commits. A fifth of topic-plus-difficulty
+   * combinations return nothing at all, which makes this the normal path rather
+   * than an error path. Debounced because the topic box fires on every keystroke.
+   */
+  useEffect(() => {
+    if (!difficulty) {
+      setAvail(null)
+      return
+    }
+    let live = true
+    const timer = window.setTimeout(() => {
+      api.drillPreview({ mode, n, domain, topic: topic.trim(), difficulty })
+        .then((data) => { if (live) setAvail(data) })
+        .catch(() => { if (live) setAvail(null) })
+    }, 200)
+    return () => { live = false; window.clearTimeout(timer) }
+  }, [difficulty, domain, topic, n, mode])
+
+  const blocked = !!avail?.empty
 
   return (
     <div className="wrap narrow">
@@ -89,16 +127,60 @@ export function DrillSetup() {
           </Field>
         </div>
 
+        <Field label="Difficulty">
+          <Seg value={difficulty} options={DIFFICULTY_OPTIONS}
+               onChange={setDifficulty} />
+        </Field>
+        {difficulty ? (
+          <p className="sub" style={{ marginTop: -4 }}>
+            {difficulty === 'ramp'
+              ? 'Keeps whatever the scheduler picked and orders it easiest first.'
+              : 'Strict: only ' + difficulty + ' questions, never topped up from '
+                + 'another band.'}{' '}
+            <span className="dim">{avail?.caveat ?? DIFFICULTY_CAVEAT}</span>
+          </p>
+        ) : null}
+
+        {avail && difficulty && difficulty !== 'ramp' ? (
+          <div style={{ marginBottom: 14 }}>
+            <Callout kind={avail.empty ? 'bad' : avail.short ? 'warn' : 'info'}>
+              <p>{avail.message}</p>
+              {avail.empty ? (
+                <p>
+                  This combination has{' '}
+                  {DIFFICULTY_BANDS.map((b, i) => (
+                    <span key={b}>
+                      {i ? ', ' : ''}
+                      <b>{avail.counts[b] ?? 0}</b> {b}
+                    </span>
+                  ))}
+                  . Pick another band or widen the filters.
+                </p>
+              ) : null}
+              {avail.due_suppressed ? (
+                <p>
+                  {avail.due_suppressed} question{avail.due_suppressed === 1 ? '' : 's'}{' '}
+                  due for review {avail.due_suppressed === 1 ? 'is' : 'are'} not{' '}
+                  {difficulty} and will be held back.
+                </p>
+              ) : null}
+            </Callout>
+          </div>
+        ) : null}
+
         <div className="btn-row">
           <button
             className="btn primary"
+            disabled={blocked}
             onClick={() =>
               nav('/drill/run', {
-                state: { mode, n, domain, topic: topic.trim() } satisfies DrillStartParams,
+                state: {
+                  mode, n, domain, topic: topic.trim(), difficulty,
+                } satisfies DrillStartParams,
               })
             }
           >
-            Start drill
+            {blocked ? 'Nothing to drill' : 'Start drill'}
           </button>
           <span className="dim" style={{ fontSize: 12.5 }}>
             Answer with <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd>, then <kbd>Enter</kbd>
@@ -344,6 +426,19 @@ export function DrillRunner() {
         {set.header ? (
           <div style={{ marginBottom: 18 }}>
             <Callout kind="info"><p><b>{set.header}</b></p></Callout>
+          </div>
+        ) : null}
+
+        {/* The reorder-only ramp cannot invent a spread that the scheduler's
+            selection does not contain. Say so rather than claiming a ramp. */}
+        {progress.index === 0 && set.difficulty === 'ramp' && set.ramp_bands < 2 ? (
+          <div style={{ marginBottom: 18 }}>
+            <Callout>
+              <p>
+                Every question the scheduler picked is the same difficulty, so there
+                is no ramp today. The set is unchanged.
+              </p>
+            </Callout>
           </div>
         ) : null}
 

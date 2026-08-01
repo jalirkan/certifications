@@ -30,21 +30,23 @@ lose data.
 
 | | |
 |---|---|
-| Question bank | **298 original questions**, all 5 domains, all 50 outline topics covered |
-| Per domain | 60 for D1/D2/D4, 63 for D3, 55 for D5 |
-| Answer keys | spread A 25% / B 24% / C 26% / D 25% — no positional pattern to exploit |
-| Decision rules | 23 documented, 228 of 298 questions mapped, every rule spans ≥2 domains |
-| Confusable pairs | 29 documented, 69 questions mapped, **2 known gaps** |
-| Study guides | D5 complete; **D1–D4 missing** |
+| Question bank | **386 original questions**, all 5 domains, all 60 outline topics covered |
+| Per domain | 67 for D1/D2, 68 for D3, 95 for D4, 89 for D5 |
+| Answer keys | spread A 25% / B 24% / C 26% / D 24% — no positional pattern to exploit |
+| Difficulty bands | easy 52 / medium 243 / hard 51 / expert 40; selectable and strict |
+| Detection report card | `DETECTION.md` — the diagnostics scored against planted weaknesses |
+| Decision rules | 23 documented, 308 of 386 questions mapped, every rule spans ≥2 domains |
+| Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
+| Study guides | **all five domains**, same depth |
 | Branching cases | 3 written (~35 needed); playable in the browser and the CLI |
-| Tests | **297, all passing** — `python run_tests.py` |
+| Tests | **364, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
 ```
 certifications/
-  drill.py            CLI: drill / exam / case / game / calibration / principles / costumes / stats / items / validate / list
+  drill.py            CLI: drill / exam / case / game / calibration / simulate / principles / costumes / stats / items / validate / list
   serve.py            local web app, stdlib http.server, binds 127.0.0.1 only
   run_tests.py        runs every suite
   frontend/           web front end source — Vite + React + TS. `npm run build` emits to web/
@@ -64,13 +66,14 @@ certifications/
     itemanalysis.py     difficulty, discrimination, distractor quality
     principles.py       decision-rule diagnosis and study card
     calibration.py      confidence vs accuracy, the dangerous quadrant, coverage projection
+    simulation.py       synthetic learners and the detection report card
     webapi.py           JSON API over all of the above
-  tests/              6 suites
+  tests/              9 suites
   cisa/
     outline.json            ISACA exam content outline — the source of truth for topic tags
-    principles.json         22 decision rules + the questions each decides
+    principles.json         23 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
-    questions/              298 questions, one file per domain-section
+    questions/              386 questions, one file per domain-section
     cases/                  branching audit cases + SCHEMA.md (3 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
@@ -138,12 +141,18 @@ data, which is worse than leaving it alone.
 
 - **Two diagnostic axes.** Topics answer "what should I study"; decision rules answer "which
   reasoning habit is costing me marks across every domain". The second transfers to questions that
-  do not exist yet, which is the actual exam condition. Simulation showed a weakness spread across
-  topics is roughly **4× more visible on the rule axis** — there is a test measuring this.
+  do not exist yet, which is the actual exam condition.
+  **The original justification for this was wrong and `DETECTION.md` disproved it.** The claim was
+  that a rule-level weakness is roughly 4× more visible on the rule axis — near-invisible by topic.
+  Against the real bank the topic axis finds it essentially 100% of the time, because rules are not
+  spread evenly over topics and most rules dominate one. What survives: studying the three weakest
+  topics reaches only **14–41%** of the questions a planted rule governs, so the topic report names
+  one affected subject while the rule report names the cause still costing marks elsewhere. Keep the
+  axis; state the narrower claim. Do not restore the old one.
 - **Rules carry a misapplication and a scope note.** The misapplication is what the diagnostic
   reports back ("you reach for detective controls when the stem asks what prevents"). The scope note
   says when the rule does *not* apply, because treating a scoped rule as universal is its own trap.
-- **Mappings live in one file, not as tags across 292 question files.** Both `principles.json` and
+- **Mappings live in one file, not as tags across 21 question files.** Both `principles.json` and
   `confusable-pairs.json` hold their own question lists. One place to review, cheap to extend.
 - **Topics rank by the lower confidence bound, not the point estimate.** Deliberately conservative:
   it surfaces under-tested topics alongside genuinely weak ones, and drilling either resolves the

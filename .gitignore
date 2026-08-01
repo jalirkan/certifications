@@ -12,3 +12,11 @@ Thumbs.db
 # Same rule for per-profile histories. Without this, a throwaway --profile used
 # for testing lands in a commit, and so would a second learner's real history.
 */results/profiles/
+
+# Every other result log, for the same reason. This list was previously just
+# attempts.jsonl, which left games.jsonl, cases.jsonl and saved exam and case
+# sessions exposed to a stray `git add .`. Personal study data, not source.
+*/results/*.jsonl
+*/results/exams/
+*/results/cases/
+*/results/settings.json

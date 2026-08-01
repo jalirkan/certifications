@@ -1,5 +1,23 @@
 # Synthetic learners and the detection report card — handoff brief
 
+> **Status: built 2026-07-31.** `drillkit/simulation.py`, `python drill.py simulate`,
+> and the generated `DETECTION.md`. Checks 1–7 implemented; **check 8 skipped**, since
+> `DIFFICULTY-BRIEF.md` has not shipped and scoring an absent diagnostic would score nothing.
+>
+> **It found things, and two of them are unflattering.** The asymmetry claim in §4 of
+> `CLAUDE.md` does not reproduce, and `itemanalysis.needs_rewrite()` has a specificity
+> problem that gets worse as history grows. Both are written up in `DETECTION.md` as
+> failures rather than quietly fixed — see rule 4 of §6 below, which is the rule that
+> made this worth building. Neither diagnostic was touched.
+>
+> Two deviations from the brief, both deliberate:
+> - Generation is driven by the **real scheduler** rather than uniform sampling. A learner
+>   sits down, `scheduler.select` picks a set, they answer it, repeat. That makes check 6
+>   a test of the shipped selector instead of a model of it, and it produces the repeat
+>   concentration item analysis needs.
+> - Check 3 is reported as three rows — the conjunction plus each half — because the two
+>   halves fail for opposite reasons and a single row would hide which.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first.
 
 This is the piece that lets the project make claims about itself.

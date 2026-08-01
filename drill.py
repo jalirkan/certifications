@@ -16,6 +16,7 @@ import os
 import random
 import re
 import sys
+import time
 from typing import List
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -24,6 +25,7 @@ from drillkit import (  # noqa: E402
     calibration,
     cases as cases_mod,
     caserunner,
+    difficulty as difficulty_mod,
     casesession,
     exam as exam_mod,
     examsession,
@@ -33,6 +35,7 @@ from drillkit import (  # noqa: E402
     principles as principles_mod,
     scheduler,
     session as session_mod,
+    simulation,
     stats,
     store,
 )
@@ -91,6 +94,32 @@ def cmd_drill(args) -> int:
     rng = random.Random(args.seed) if args.seed is not None else random.Random()
     header = None
 
+    # Difficulty narrows the pool *before* the scheduler runs, so spaced
+    # repetition still orders whatever survives. Whether the filter left enough
+    # to work with is stated now, not discovered three questions in.
+    wanted = difficulty_mod.normalise(getattr(args, "difficulty", ""))
+    avail = difficulty_mod.availability(pool, wanted, args.number, history)
+    if difficulty_mod.is_filter(wanted):
+        print()
+        print("Difficulty: %s  (%s)" % (wanted, difficulty_mod.CAVEAT))
+        print("  %s" % avail.message())
+        if avail.empty:
+            spread = ", ".join("%s %d" % (k, v) for k, v in avail.counts.items())
+            print("  That filter has %s available." % spread)
+            print("  Nothing was served and nothing was logged.")
+            return 1
+        if avail.due_suppressed:
+            print("  %d question(s) due for review are not %s and were excluded."
+                  % (avail.due_suppressed, wanted))
+        print()
+    elif wanted == difficulty_mod.RAMP:
+        print()
+        print("Difficulty: ramp  (%s)" % difficulty_mod.CAVEAT)
+        print("  %s" % avail.message())
+        print()
+
+    pool = difficulty_mod.apply(pool, wanted)
+
     if args.mode == "principle":
         rules = loader.load_principles(args.cert)
         if not rules:
@@ -105,6 +134,13 @@ def cmd_drill(args) -> int:
     else:
         picked = scheduler.select(pool, history, args.number, mode=args.mode, rng=rng)
 
+    # Ramp reorders what the scheduler chose; it never re-selects.
+    picked = difficulty_mod.present(picked, wanted)
+    if wanted == difficulty_mod.RAMP and difficulty_mod.ramp_spread(picked) < 2:
+        print("Note: every question the scheduler picked is '%s', so there is "
+              "no ramp today." % (picked[0].difficulty if picked else "?"))
+        print()
+
     reasons = {q.id: scheduler.explain_selection(q, history) for q in picked} if args.why else {}
 
     session_mod.run(
@@ -116,6 +152,14 @@ def cmd_drill(args) -> int:
         principle_notes=_principle_notes(args.cert, picked),
         header=header,
     )
+
+    # Closing disclosure: a learner must not be able to skip their due queue
+    # without being told they did.
+    if difficulty_mod.is_filter(wanted) and avail.due_suppressed:
+        print()
+        print(_wrap("Reminder: filtering to '%s' held back %d question(s) that "
+                    "were due for review. They are still due; drop the filter "
+                    "to see them." % (wanted, avail.due_suppressed)))
     return 0
 
 
@@ -341,6 +385,77 @@ def cmd_stats(args) -> int:
     if untouched:
         print("%d question(s) not yet seen - they are queued ahead of review items." % len(untouched))
     print(RULE)
+    return 0
+
+
+def cmd_simulate(args) -> int:
+    """Score the diagnostics against learners whose weaknesses we planted.
+
+    The only place in this project where the right answer is known in advance,
+    which is the only way to find out whether a diagnostic works.
+    """
+    bank = simulation.Bank.load(args.cert)
+    sizes = [int(s) for s in args.sizes.split(",") if s.strip()]
+    checks = list(simulation.CHECKS)
+    if args.checks:
+        wanted = {c.strip() for c in args.checks.split(",") if c.strip()}
+        checks = [c for c in checks if c.id in wanted]
+        if not checks:
+            print("No checks match %s. Available: %s"
+                  % (args.checks, ", ".join(c.id for c in simulation.CHECKS)))
+            return 1
+
+    print(RULE)
+    print("DETECTION HARNESS")
+    print(RULE)
+    print("  %d checks x %d sample sizes x %d seeds, against %d real questions"
+          % (len(checks), len(sizes), args.seeds, len(bank.questions)))
+    print("  Every check also runs against a learner with nothing planted.")
+    print()
+
+    measures: dict = {}
+    started = time.time()
+    results = simulation.run_sweep(
+        bank, checks=checks, sizes=sizes, seeds=args.seeds,
+        progress=lambda label: print("  running %s ..." % label, flush=True),
+        measures=measures)
+    print("  done in %.0fs" % (time.time() - started))
+    print()
+
+    print("  %-4s %-38s %-19s %-19s" % ("#", "check", "detected", "false positive"))
+    print("  " + THIN[:84])
+    for cell in results:
+        check = simulation.check_by_id(cell.check_id)
+        d, f = cell.detection, cell.false_positive
+        print("  %-4s %-38s %5s [%3.0f-%3.0f]   %5s [%3.0f-%3.0f]  %s"
+              % (("%s@%d" % (cell.check_id, cell.attempts)),
+                 check.title[:38],
+                 simulation._pct(d.rate), d.interval[0] * 100, d.interval[1] * 100,
+                 simulation._pct(f.rate), f.interval[0] * 100, f.interval[1] * 100,
+                 "TRUSTWORTHY" if cell.trustworthy else ""))
+
+    print()
+    print(THIN)
+    print("TRUSTWORTHY FROM")
+    print(THIN)
+    for check in checks:
+        n = simulation.trustworthy_from(results, check.id)
+        print("  %-4s %-44s %s"
+              % (check.id, check.title[:44],
+                 ("%d answers" % n) if n else "never, in this sweep"))
+
+    if args.write:
+        report = simulation.render_report(results, bank, args.seeds, sizes,
+                                          measures)
+        path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            args.out)
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write(report)
+        print()
+        print("Report written to %s" % path)
+    else:
+        print()
+        print("Add --write to regenerate %s" % args.out)
     return 0
 
 
@@ -971,6 +1086,11 @@ def build_parser() -> argparse.ArgumentParser:
                    choices=["smart", "due", "weakest", "random", "principle"],
                    help="selection strategy (default smart). 'principle' targets "
                         "your weakest decision rules, preferring unseen questions.")
+    d.add_argument("--difficulty", choices=list(difficulty_mod.CHOICES),
+                   help="author-assigned difficulty. easy/medium/hard filter "
+                        "strictly (never topped up from another band); 'ramp' "
+                        "keeps the scheduler's selection and orders it easiest "
+                        "first. Labels are the author's, unchecked against results.")
     d.add_argument("--why", action="store_true", help="show why each question was selected")
     d.add_argument("--seed", type=int, help="fixed shuffle seed, for repeatable runs")
     d.set_defaults(func=cmd_drill)
@@ -1062,6 +1182,22 @@ def build_parser() -> argparse.ArgumentParser:
     cb.add_argument("--limit", type=int, default=12,
                     help="rows per list (default 12)")
     cb.set_defaults(func=cmd_calibration)
+
+    sm = sub.add_parser("simulate",
+                        help="score the diagnostics against planted weaknesses")
+    sm.add_argument("--seeds", type=int, default=simulation.DEFAULT_SEEDS,
+                    help="runs per cell (default %d); a single seed is a coin flip"
+                         % simulation.DEFAULT_SEEDS)
+    sm.add_argument("--sizes", default=",".join(
+                        str(s) for s in simulation.DEFAULT_SAMPLE_SIZES),
+                    help="comma-separated history sizes to sweep")
+    sm.add_argument("--checks",
+                    help="comma-separated check ids (default: all)")
+    sm.add_argument("--write", action="store_true",
+                    help="regenerate the committed report")
+    sm.add_argument("--out", default="DETECTION.md",
+                    help="report path, relative to the repo root")
+    sm.set_defaults(func=cmd_simulate)
 
     return p
 

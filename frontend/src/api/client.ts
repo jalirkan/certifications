@@ -9,7 +9,8 @@
 
 import type {
   AutopsyResult, Bootstrap, Calibration, CaseChoice, CaseDebrief, CaseListEntry,
-  CaseState, ColdReadResult, Confidence, DrillStart, DrillStartParams,
+  CaseState, ColdReadResult, Confidence, DrillAvailability, DrillStart,
+  DrillStartParams,
   ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
   Letter, Overview, Reveal, Trend,
 } from './types'
@@ -73,6 +74,10 @@ export const api = {
 
   drillStart: (params: DrillStartParams) =>
     post<DrillStart>('/api/drill/start', params),
+  /** Availability for the current filters, so a short or empty pool is shown
+   *  before the learner commits rather than discovered mid-session. */
+  drillPreview: (params: DrillStartParams) =>
+    post<DrillAvailability>('/api/drill/preview', params),
   drillAnswer: (body: {
     question_id: string
     chosen: Letter

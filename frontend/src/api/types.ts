@@ -209,6 +209,32 @@ export interface Trend {
 export type DrillMode =
   | 'smart' | 'due' | 'weakest' | 'random' | 'principle' | 'costumes'
 
+/** Author-assigned bands, plus `ramp` which reorders rather than filters. */
+export type Difficulty = '' | 'easy' | 'medium' | 'hard' | 'expert' | 'ramp'
+
+export const DIFFICULTY_BANDS: Exclude<Difficulty, '' | 'ramp'>[] = [
+  'easy', 'medium', 'hard', 'expert',
+]
+
+/**
+ * What a difficulty filter would actually yield, fetched before the session
+ * starts. Short and empty pools are the normal case here, not the edge case:
+ * a fifth of topic-plus-difficulty combinations return nothing at all.
+ */
+export interface DrillAvailability {
+  difficulty: Difficulty
+  requested: number
+  pool_total: number
+  matching: number
+  available: number
+  counts: Record<string, number>
+  due_suppressed: number
+  short: boolean
+  empty: boolean
+  caveat: string
+  message: string
+}
+
 export interface DrillStartParams {
   mode: DrillMode
   n?: number
@@ -216,6 +242,7 @@ export interface DrillStartParams {
   section?: string
   topic?: string
   principle?: string
+  difficulty?: Difficulty
   seed?: number
 }
 
@@ -223,6 +250,10 @@ export interface DrillStart {
   session: string
   mode: DrillMode
   header: string | null
+  difficulty: Difficulty
+  availability: DrillAvailability
+  /** 1 means the selected set was all one band, so there is no ramp today. */
+  ramp_bands: number
   questions: Question[]
 }
 

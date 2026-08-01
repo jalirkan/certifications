@@ -292,9 +292,26 @@ class TestDiagnosisFindsPlantedWeakness(unittest.TestCase):
         self.assertLess(ranked[0].accuracy, 0.5)
         self.assertGreater(ranked[-1].accuracy, 0.7)
 
-    def test_the_weakness_is_invisible_by_topic_because_it_is_spread_across_them(self):
-        """A rule-level weakness spread thinly over many topics hides from a
-        topic report. That asymmetry is the reason this axis exists."""
+    def test_a_perfectly_even_spread_would_hide_from_a_topic_report(self):
+        """The asymmetry is real as a mechanism and does NOT describe this bank.
+
+        Read the construction below before citing this test for anything: each
+        topic is built to hold exactly one weak and one strong question, which
+        guarantees every topic averages near 55% and none stands out. Under
+        that condition a rule-level weakness genuinely is invisible by topic.
+
+        The real bank does not have that property. Rules are not spread evenly
+        over topics, so most rules dominate some topic, and a rule weakness
+        drags that topic to the bottom of the list. `DETECTION.md` plants this
+        exact weakness against the real 386-question bank and finds the topic
+        axis catches it essentially 100% of the time.
+
+        This test was cited in the README as evidence that a topic report is
+        blind to rule-level weakness. It was never that: it demonstrates a
+        mechanism under a construction chosen to produce it. What survives is
+        that studying the weakest topics reaches only 14-41% of the questions
+        the rule governs - which is about coverage, not blindness.
+        """
         rng = random.Random(12)
         items, rules, rows = [], [], []
         for pid in ("alpha", "beta"):

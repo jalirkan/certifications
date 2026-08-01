@@ -22,6 +22,7 @@ from typing import Any, Dict, List, Optional, Sequence
 from . import (
     calibration as calibration_mod,
     cases as cases_mod,
+    difficulty,
     casesession,
     exam as exam_mod,
     games,
@@ -386,6 +387,20 @@ class Api:
             pool = [q for q in pool if q.id in ids]
         return pool
 
+    def drill_preview(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """What a difficulty filter would actually yield, before committing.
+
+        Exists so the browser can show a short or empty result *before* the
+        learner starts, rather than letting them discover it three questions in.
+        A fifth of topic-plus-difficulty combinations return nothing, so this is
+        the normal path, not an edge case.
+        """
+        pool = self._filtered(params)
+        count = max(1, min(int(params.get("n", 10)), 150))
+        wanted = difficulty.normalise(params.get("difficulty"))
+        history = store.history_by_question(self.rows())
+        return difficulty.availability(pool, wanted, count, history).as_dict()
+
     def drill_start(self, params: Dict[str, Any]) -> Dict[str, Any]:
         pool = self._filtered(params)
         if not pool:
@@ -396,6 +411,16 @@ class Api:
         rng = random.Random(params.get("seed"))
         rows = self.rows()
         header = None
+
+        # Strict: the pool is narrowed before the scheduler sees it, and is
+        # never topped up from an adjacent band.
+        wanted = difficulty.normalise(params.get("difficulty"))
+        avail = difficulty.availability(
+            pool, wanted, count, store.history_by_question(rows))
+        if difficulty.is_filter(wanted):
+            if avail.empty:
+                raise ApiError(avail.message())
+            pool = difficulty.apply(pool, wanted)
 
         if mode == "principle":
             picked, targeted = principles_mod.select_by_weak_principles(
@@ -422,6 +447,9 @@ class Api:
         if not picked:
             raise ApiError("Nothing to serve for that selection.")
 
+        # Ramp reorders what the scheduler chose; it never re-selects.
+        picked = difficulty.present(picked, wanted)
+
         session_id = uuid.uuid4().hex[:10]
         self._sessions[session_id] = {"kind": "drill", "mode": mode,
                                       "ids": [q.id for q in picked],
@@ -430,6 +458,9 @@ class Api:
             "session": session_id,
             "mode": mode,
             "header": header,
+            "difficulty": wanted,
+            "availability": avail.as_dict(),
+            "ramp_bands": difficulty.ramp_spread(picked),
             "questions": [public_question(q, i + 1, len(picked))
                           for i, q in enumerate(picked)],
         }

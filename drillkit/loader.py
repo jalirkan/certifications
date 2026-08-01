@@ -21,6 +21,18 @@ OPTION_KEYS: Tuple[str, ...] = ("A", "B", "C", "D")
 # not require importing a game module.
 VALID_ASKS: Tuple[str, ...] = ("first", "risk", "control", "evidence", "definition")
 
+# Authored difficulty, ordered easiest first - the ramp relies on that order.
+# These are one author's judgement and have never been checked against how the
+# questions actually behave, so every surface that filters on them has to say
+# so. What is enforced here is only that the vocabulary does not drift: a
+# silently mangled "Medium" or "moderate" is data corruption, not a preference.
+#
+# `expert` was added after the other three and is deliberately empty until
+# questions are authored into it. An empty band is honest; back-filling it by
+# promoting existing `hard` questions would invent a distinction that nobody
+# made. See EXPERT-BAND-BRIEF.md for what belongs in it.
+DIFFICULTIES: Tuple[str, ...] = ("easy", "medium", "hard", "expert")
+
 # CISA stems are judgment calls, not recall. We warn (never fail) when a stem
 # does not contain one of these, because it usually means the question is
 # testing memorization instead of auditor prioritization.
@@ -352,6 +364,13 @@ def validate(questions: List[Question], outline: Optional[Outline] = None
         if q.asks and q.asks not in VALID_ASKS:
             errors.append("%s: asks '%s' is not one of %s"
                           % (at, q.asks, ", ".join(VALID_ASKS)))
+
+        # An error rather than a warning: selection now depends on this field,
+        # and a label outside the vocabulary would silently drop the question
+        # out of every difficulty filter without anything saying so.
+        if q.difficulty not in DIFFICULTIES:
+            errors.append("%s: difficulty '%s' is not one of %s"
+                          % (at, q.difficulty, ", ".join(DIFFICULTIES)))
 
         if not q.domain:
             errors.append("%s: missing domain tag" % at)

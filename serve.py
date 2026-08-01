@@ -183,6 +183,8 @@ class Handler(BaseHTTPRequestHandler):
             body = self._body()
             if route == "/api/drill/start":
                 return self._json(api.drill_start(body))
+            if route == "/api/drill/preview":
+                return self._json(api.drill_preview(body))
             if route == "/api/drill/answer":
                 return self._json(api.drill_answer(body))
             if route == "/api/game/start":
