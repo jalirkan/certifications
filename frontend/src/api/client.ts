@@ -13,7 +13,7 @@ import type {
   DrillStart,
   DrillStartParams,
   ExamResult, ExamState, ExamSummary, GameName, GameStart, GameStats, Items,
-  Letter, Overview, Reveal, Trend,
+  Letter, NextSession, Overview, Reveal, Trend,
 } from './types'
 
 /** Set by the profile provider; read on every request. */
@@ -127,6 +127,9 @@ export const api = {
     post<ExamUpdateAck>('/api/exam/update', { id, action: 'tick', elapsed }),
   examSubmit: (id: string, elapsed: number) =>
     post<ExamResult>('/api/exam/submit', { id, elapsed }),
+
+  nextSession: (minutes: number) =>
+    get<NextSession>(`/api/next?minutes=${minutes}`),
 
   calibration: () => get<Calibration>('/api/calibration'),
   /** Read from a persisted sweep; never recomputes (a full run is ~15 min). */

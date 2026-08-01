@@ -18,6 +18,7 @@ import { Bank } from './screens/Bank'
 import { CasesHome, CaseRunner, CaseDebriefScreen } from './screens/Cases'
 import { CalibrationScreen } from './screens/Calibration'
 import { DetectionScreen } from './screens/Detection'
+import { NextScreen } from './screens/Next'
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
         <main className="main" id="main" tabIndex={-1}>
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/next" element={<NextScreen />} />
             <Route path="/drill" element={<DrillSetup />} />
             <Route path="/drill/run" element={<DrillRunner />} />
             <Route path="/exam" element={<ExamHome />} />

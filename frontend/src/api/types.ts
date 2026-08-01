@@ -754,3 +754,44 @@ export interface Items {
   suspect: SuspectItem[]
   hardest: HardestItem[]
 }
+
+// ------------------------------------------------------------- next session
+
+export type Basis = 'measured' | 'unresolved'
+
+export interface NextAction {
+  screen?: string
+  mode?: string
+  principle?: string
+  topic?: string
+  case_id?: string
+  session?: string
+  n?: number
+}
+
+export interface Recommendation {
+  kind: string
+  title: string
+  /** Mandatory, and always carries counts. See drillkit/nextsession.py. */
+  evidence: string
+  minutes: number
+  action: NextAction
+  detail: Record<string, unknown>
+  basis: Basis
+  /** 0 repair, 1 measured, 2 unresolved, 3 context. Decides order. */
+  group: number
+}
+
+export interface Withheld {
+  kind: string
+  reason: string
+}
+
+export interface NextSession {
+  minutes: number
+  pace: { seconds: number; measured: boolean; n: number }
+  recommendations: Recommendation[]
+  also: Recommendation[]
+  withheld: Withheld[]
+  generated: string
+}

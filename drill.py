@@ -32,6 +32,7 @@ from drillkit import (  # noqa: E402
     games,
     itemanalysis,
     loader,
+    nextsession,
     principles as principles_mod,
     scheduler,
     session as session_mod,
@@ -464,6 +465,63 @@ def cmd_simulate(args) -> int:
     else:
         print()
         print("Add --write to regenerate %s" % args.out)
+    return 0
+
+
+def cmd_next(args) -> int:
+    """What to do in the next N minutes, with the numbers behind each item.
+
+    Prints what it withheld as well as what it recommends. An empty plan with
+    four stated reasons is a better answer than a confident-sounding one built
+    from six answers, and it tells the learner exactly what to do about it.
+    """
+    outline, questions = _load(args)
+    rules = loader.load_principles(args.cert)
+    results_path = loader.results_path(args.cert, args.profile)
+    rows = store.load(results_path)
+    cases = casesession.case_index(cases_mod.load_cases(args.cert), results_path)
+
+    target = calibration.parse_target(
+        loader.load_settings(args.cert, args.profile).get("target_date"))
+    data = nextsession.build(questions, rows, rules, cases,
+                             minutes=args.minutes, target=target)
+
+    print(RULE)
+    print("NEXT %d MINUTES" % data["minutes"])
+    print(RULE)
+
+    pace = data["pace"]
+    print()
+    if pace["measured"]:
+        print("Timings below use your median of %.0f seconds a question, over %d answers."
+              % (pace["seconds"], pace["n"]))
+    else:
+        print("Timings below assume %.0f seconds a question - you have %d timed answer(s), "
+              "too few to measure your own pace." % (pace["seconds"], pace["n"]))
+
+    if data["recommendations"]:
+        print()
+        for rec in data["recommendations"]:
+            flag = "" if rec["basis"] == "measured" else "   [not yet resolved]"
+            print("  %2d min  %s%s" % (rec["minutes"], rec["title"], flag))
+            print("          %s" % rec["evidence"])
+    else:
+        print()
+        print("  Nothing has enough evidence behind it to recommend yet.")
+
+    if data["also"]:
+        print()
+        print("Also worth doing, but outside the %d minutes:" % data["minutes"])
+        for rec in data["also"]:
+            print("  %2d min  %s - %s" % (rec["minutes"], rec["title"], rec["evidence"]))
+
+    if data["withheld"]:
+        print()
+        print("Not recommended, and why:")
+        for item in data["withheld"]:
+            print("  - %s" % item["reason"])
+
+    print()
     return 0
 
 
@@ -1190,6 +1248,13 @@ def build_parser() -> argparse.ArgumentParser:
     cb.add_argument("--limit", type=int, default=12,
                     help="rows per list (default 12)")
     cb.set_defaults(func=cmd_calibration)
+
+    nx = sub.add_parser("next",
+                        help="what to study next, with the evidence for each item")
+    nx.add_argument("-m", "--minutes", type=int,
+                    default=nextsession.DEFAULT_MINUTES,
+                    help="time budget (default %d)" % nextsession.DEFAULT_MINUTES)
+    nx.set_defaults(func=cmd_next)
 
     sm = sub.add_parser("simulate",
                         help="score the diagnostics against planted weaknesses")

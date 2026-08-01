@@ -29,6 +29,7 @@ from . import (
     games,
     itemanalysis,
     loader,
+    nextsession as nextsession_mod,
     principles as principles_mod,
     scheduler,
     simulation,
@@ -780,6 +781,21 @@ class Api:
         target = calibration_mod.parse_target(
             loader.load_settings(self.cert, self.profile).get("target_date"))
         return calibration_mod.report(self.rows(), self.questions, self.rules, target)
+
+    def next_session(self, minutes: int = nextsession_mod.DEFAULT_MINUTES
+                     ) -> Dict[str, Any]:
+        """What to do next, each item carrying the numbers that put it there.
+
+        Assembles existing diagnostics rather than adding a new one. The screen
+        it feeds is the one most at risk of turning into "recommended for you",
+        so the evidence line is mandatory and enforced in `nextsession.build`.
+        """
+        minutes = max(5, min(int(minutes or nextsession_mod.DEFAULT_MINUTES), 240))
+        cases = casesession.case_index(self.cases, self.results_path)
+        return nextsession_mod.build(
+            self.questions, self.rows(), self.rules, cases, minutes=minutes,
+            target=calibration_mod.parse_target(
+                loader.load_settings(self.cert, self.profile).get("target_date")))
 
     # ------------------------------------------------------------------
     def detection(self) -> Dict[str, Any]:

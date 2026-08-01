@@ -667,3 +667,55 @@ details.pair .trap b { color: var(--warn); }
 }
 .cg-detail .list-row .t { font-size: 13.5px; }
 .cg-detail .list-row .s { font-size: 12px; }
+
+/* ----------------------------------------------------------- next session */
+
+.next-head { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.next-head .pace { margin: 0; font-size: 13px; color: var(--text-dim); flex: 1 1 260px; }
+
+.budget { display: inline-flex; gap: 2px; background: var(--surface-2);
+          border: 1px solid var(--line); border-radius: 9px; padding: 3px; }
+.budget button {
+  border: 0; background: transparent; color: var(--text-dim); cursor: pointer;
+  padding: 6px 12px; border-radius: 6px; font-size: 13px; font-family: inherit;
+}
+.budget button.on { background: var(--surface); color: var(--text); font-weight: 600; }
+.budget button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.rec-group { margin-bottom: 18px; }
+.rec-group-head { margin: 0 0 8px 2px; }
+.rec-group-head h3 { margin: 0; font-size: 12px; letter-spacing: .09em;
+                     text-transform: uppercase; color: var(--text-dim); }
+.rec-group-head p { margin: 3px 0 0; font-size: 12.5px; color: var(--text-mute); }
+
+.rec {
+  display: flex; align-items: center; gap: 14px; text-decoration: none;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 11px; padding: 14px 16px; margin-bottom: 8px; color: inherit;
+  transition: border-color .15s ease, transform .15s ease;
+}
+.rec:hover { border-color: var(--accent); transform: translateX(2px); }
+.rec:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rec-unresolved { border-style: dashed; }
+
+.rec-icon { width: 20px; height: 20px; flex: none; color: var(--accent); }
+.rec-unresolved .rec-icon { color: var(--text-mute); }
+.rec-body { flex: 1 1 auto; min-width: 0; }
+.rec-title { font-size: 14.5px; font-weight: 600; }
+/* The reason the row exists - same weight as the title, never truncated. */
+.rec-evidence { font-size: 13px; color: var(--text-dim); margin-top: 3px; }
+
+.rec-minutes { flex: none; text-align: right; line-height: 1.1; }
+.rec-minutes b { display: block; font-size: 17px; font-variant-numeric: tabular-nums; }
+.rec-minutes span { font-size: 11px; color: var(--text-mute); }
+
+.withheld { margin: 0; padding: 0; list-style: none; }
+.withheld li { display: flex; gap: 10px; align-items: baseline; padding: 7px 0;
+               font-size: 13.5px; color: var(--text-dim); }
+.withheld li + li { border-top: 1px solid var(--line-soft); }
+
+.next-foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.next-foot p { margin: 0; font-size: 12.5px; color: var(--text-mute); flex: 1 1 260px; }
+
+/* Arrived here from a named recommendation - say which one without shouting. */
+.case-card.wanted { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-dim); }

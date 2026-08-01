@@ -50,16 +50,57 @@ const DIFFICULTY_OPTIONS: { value: Difficulty; label: string }[] = [
   { value: 'ramp', label: 'Ramp' },
 ]
 
+/**
+ * Prefill from the query string, so a recommendation on the Next Session
+ * screen arrives here as a configured drill rather than a blank form. Without
+ * this the recommendation is decorative: it names a rule, then drops you on
+ * an empty setup and asks you to find it yourself.
+ *
+ * Only the initial state is seeded. The controls stay authoritative after
+ * that - a link sets the starting point, it does not lock anything.
+ */
+function useQueryDefaults() {
+  const { search } = useLocation()
+  const q = new URLSearchParams(search)
+  const mode = q.get('mode') as DrillMode | null
+  const count = Number(q.get('n'))
+  return {
+    search,
+    mode: mode && MODE_BLURB[mode] ? mode : null,
+    topic: q.get('topic') ?? '',
+    domain: q.get('domain') ?? '',
+    rule: q.get('principle') ?? '',
+    n: Number.isFinite(count) && count > 0 ? Math.min(count, 150) : null,
+  }
+}
+
 export function DrillSetup() {
   const { boot } = useApp()
   const nav = useNavigate()
-  const [mode, setMode] = useState<DrillMode>('smart')
-  const [domain, setDomain] = useState('')
-  const [topic, setTopic] = useState('')
-  const [n, setN] = useState(20)
-  const [rule, setRule] = useState('')
+  const seed = useQueryDefaults()
+  const [mode, setMode] = useState<DrillMode>(seed.mode ?? 'smart')
+  const [domain, setDomain] = useState(seed.domain)
+  const [topic, setTopic] = useState(seed.topic)
+  const [n, setN] = useState(seed.n ?? 20)
+  const [rule, setRule] = useState(seed.rule)
   const [difficulty, setDifficulty] = useState<Difficulty>('')
   const [avail, setAvail] = useState<DrillAvailability | null>(null)
+
+  /*
+   * Re-seed when the query changes, not only on mount. React Router keeps this
+   * component mounted across `/drill?a` -> `/drill?b`, so the initialisers
+   * above never run again: go back from one recommendation and click the next
+   * and you would silently get the first one's settings. Skipped when there is
+   * no query at all, so navigating to a bare /drill does not wipe the form.
+   */
+  useEffect(() => {
+    if (!seed.search) return
+    setMode(seed.mode ?? 'smart')
+    setDomain(seed.domain)
+    setTopic(seed.topic)
+    setN(seed.n ?? 20)
+    setRule(seed.rule)
+  }, [seed.search])
 
   /*
    * Availability is fetched as the filters change, so an empty or short pool is

@@ -14,7 +14,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { api } from '../api/client'
 import { useApp } from '../app/AppProvider'
 import type {
@@ -63,6 +63,20 @@ function Prose({ text, className }: { text: string; className?: string }) {
 export function CasesHome() {
   const { epoch } = useApp()
   const list = useAsync(() => api.caseList(), [epoch])
+  /*
+   * `?case=<id>` highlights and scrolls to one case. The Next Session screen
+   * names a specific case in its recommendation, and landing on an
+   * undifferentiated list would break that promise. It deliberately does not
+   * auto-start: a link should not commit you to a fifteen-minute session.
+   */
+  const wanted = new URLSearchParams(useLocation().search).get('case') ?? ''
+  const highlight = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (wanted && highlight.current) {
+      highlight.current.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    }
+  }, [wanted, list.data])
 
   if (list.loading) return <div className="wrap"><Loading /></div>
   if (list.error || !list.data) {
@@ -94,7 +108,8 @@ export function CasesHome() {
 
       <div style={{ marginTop: 18 }}>
         {list.data.cases.map((c) => (
-          <Card key={c.id} className="case-card">
+          <div key={c.id} ref={c.id === wanted ? highlight : undefined}>
+          <Card className={`case-card${c.id === wanted ? ' wanted' : ''}`}>
             <div className="case-head">
               <div className="grow">
                 <h3>{c.title}</h3>
@@ -136,6 +151,7 @@ export function CasesHome() {
               ) : null}
             </div>
           </Card>
+          </div>
         ))}
       </div>
 
