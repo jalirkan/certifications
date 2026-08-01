@@ -37,62 +37,97 @@ the most interesting part of this work.
 
 ---
 
-## 3. What to build
+## 3. What the bank can actually support
+
+Decided: **strict filtering** — picking `hard` serves hard questions only, never topped up from
+medium. That is the right call because it keeps the session honest about what it is, and it makes
+the thinness of the labels visible instead of hiding it. It also means the interface has to cope
+with small and empty result sets, because they are common:
+
+| Domain | easy | medium | hard | total |
+|---|---|---|---|---|
+| 1 | 9 | 44 | 7 | 60 |
+| 2 | 11 | 40 | 9 | 60 |
+| 3 | 14 | 41 | 8 | 63 |
+| 4 | 10 | 59 | 15 | 84 |
+| 5 | 8 | 59 | 12 | 79 |
+| **all** | **52** | **243** | **51** | **346** |
+
+**Difficulty composes well with domain and badly with topic.** Across the 180 topic-by-difficulty
+combinations, **36 are empty and another 83 hold one or two questions** — so a learner who picks a
+topic *and* a difficulty gets nothing about a fifth of the time, and too little to be worth a session
+about half the time. Design for that as the normal case, not the edge case.
+
+---
+
+## 4. What to build
 
 **Validate the vocabulary.** `easy` / `medium` / `hard`, and anything else is an **error**, not a
 warning. A silently mangled label is data corruption, and the bank is the one thing here that must
 stay clean.
 
-**Selection.** `python drill.py drill --difficulty hard`, plus the web equivalent. It filters the
-pool *before* the scheduler runs, so spaced repetition still orders whatever survives the filter.
+**Selection, strict.** `python drill.py drill --difficulty hard`, and a control in the web Drill
+screen. It filters the pool *before* the scheduler runs, so spaced repetition still orders whatever
+survives. Asking for 20 hard questions in a pool that holds 7 gets you 7 **and a plain statement
+that it was 7, and why** — never a silent short session and never a quiet top-up from medium.
 
-**A ramp.** Something like `--difficulty ramp` that moves easy → medium → hard across a session.
-This is the mode most likely to get used daily, so it deserves more thought than the plain filter.
+**A ramp.** `--difficulty ramp`, and the same option in the tab: start the session on easier
+questions and escalate. Two ways to build it, and the choice matters:
 
-**The part that matters: check the labels against reality.** In `items`, for every question with
-enough attempts, compare the authored label against the empirical p-value and report where they
-disagree — a question labelled `easy` that is missed most of the time, or a `hard` one nobody ever
-gets wrong. That is a bank-quality signal of the same kind as the orphan-principle flag, and it is
-the only route by which these labels ever become trustworthy.
+- **Reorder only.** Let the scheduler select the session exactly as it does today, then sort those
+  questions easy → medium → hard for presentation. The scheduler is untouched, due questions are
+  never skipped, and you still get the gentle start. **Prefer this**, and note the honest limitation:
+  if the selected set happens to be all medium, there is no ramp that day.
+- **Band sampling.** Draw a quota from each difficulty band and let the scheduler order within each.
+  A truer ramp that does change what gets served, and with only 51 hard questions bank-wide it will
+  exhaust them quickly.
 
-Do not auto-correct the labels from it. Report the disagreement and let a human decide.
+Build the first, use it, and switch only if it turns out to be flat in practice. Say which you built
+and why.
+
+**Not in this scope:** comparing authored labels against measured p-values to find labels that are
+wrong. That is real and it is deferred — the harness in `SIMULATION-BRIEF.md` now exists to test
+such a diagnostic properly, and check 8 there already anticipates it. Do not build it here.
 
 ---
 
-## 4. Non-negotiable
+## 5. Non-negotiable
 
-1. **Never present an authored label as though it were measured.** Every surface that filters or
-   reports on difficulty says which basis it used. "Authored difficulty (not yet validated against
-   your results)" is the honest caption until the data exists.
-2. **Empirical difficulty keeps its interval and its minimum-attempts gate.** `CLAUDE.md` §3.6.
-   Two attempts is not a p-value.
+1. **Never present an authored label as though it were measured.** Every surface that filters on
+   difficulty says which basis it used. "Author-assigned, not yet checked against your results" is
+   the honest caption, and it stays until something has actually checked them.
+2. **Strict means strict.** No silent top-up from an adjacent band. If the filter yields fewer
+   questions than were asked for, the learner is told the number and the reason before they start.
 3. **Filtering must not silently defeat the scheduler.** If `--difficulty hard` excludes questions
    that were due today, say so at the end of the session. A learner should not be able to skip their
-   due queue without being told.
-4. **Do not backfill or overwrite authored labels automatically**, and do not infer a label for a
-   question with thin data. An invented label is worse than an unvalidated one, because it looks
-   earned.
+   due queue without being told they did.
+4. **Do not backfill or overwrite authored labels**, and do not infer a label for a question that
+   lacks one. An invented label is worse than an unvalidated one, because it looks earned.
 5. **`drillkit/`, `drill.py`, `serve.py` stay standard-library only.**
 
 ---
 
-## 5. Done
+## 6. Done
 
 - `easy` / `medium` / `hard` enforced by `validate`, with a test for a rejected value
-- `--difficulty` on drill in both front ends, filtering before scheduling
-- A ramp mode that someone would actually use twice
-- `items` reports authored-versus-empirical disagreement, gated on attempts, with intervals
-- Every difficulty surface states its basis
+- `--difficulty` on `drill.py drill`, and a matching control in the web Drill screen
+- Strict filtering, applied before the scheduler orders what survives
+- Short and empty results handled deliberately in both front ends, with the count and the reason
+  shown before the session starts rather than discovered during it
+- A ramp mode, built the reorder-only way unless there is a stated reason not to
 - Skipped-due-questions disclosed when a filter suppresses them
-- `python run_tests.py` green, `python drill.py validate` clean
+- Every difficulty surface states that the labels are author-assigned
+- `python run_tests.py` green, `python drill.py validate` clean, `npm run build` output committed
 
 ---
 
-## 6. How to work
+## 7. How to work
 
-- **Argue with this brief.** The ramp is the least specified part on purpose; you will learn more
+- **The empty case is the feature.** A fifth of topic-plus-difficulty combinations return nothing.
+  Whatever you do there is what this will be judged on, more than the happy path.
+- **Argue with §4 on the ramp.** It is the least specified part on purpose, and you will learn more
   from building it than I can specify from here.
-- If the authored labels turn out to be so unreliable that filtering on them is misleading, that is
-  a finding worth reporting rather than a feature worth shipping quietly.
-- **Ask before**: changing the `difficulty` vocabulary itself, editing labels in the bank, or
-  altering anything in `CLAUDE.md` §3.
+- If the authored labels turn out to be so unreliable that filtering on them misleads, that is a
+  finding worth reporting rather than a feature worth shipping quietly.
+- **Ask before**: changing the `difficulty` vocabulary, editing labels in the bank, touching the
+  scheduler, or altering anything in `CLAUDE.md` §3.
