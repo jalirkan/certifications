@@ -17,7 +17,7 @@ The field to do it with already exists on every question and does nothing.
 
 ## 2. What exists, and the problem with it
 
-`difficulty` is authored on all 346 questions — `easy` 52, `medium` 227, `hard` 43. The loader reads
+`difficulty` is authored on all 346 questions — `easy` 52, `medium` 243, `hard` 51. The loader reads
 it, `webapi` returns it, the front end displays it. **Nothing selects on it.**
 
 Two things are wrong with it as it stands.
