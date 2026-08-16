@@ -1,0 +1,275 @@
+{
+  "id": "d2-four-nines",
+  "title": "Four Nines",
+  "domain": "2",
+  "section": "B",
+  "topics": [
+    "IT Performance Monitoring and Reporting",
+    "IT Service Level Management",
+    "Systems Availability and Capacity Management",
+    "IT Resource Management",
+    "IT Vendor Management"
+  ],
+  "principles": [
+    "outcome-over-activity",
+    "business-impact",
+    "accountability-stays",
+    "evidence-quality",
+    "explicit-and-owned"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing IT performance reporting at an online retailer. Six hundred million a year through one storefront, and the storefront is run by a managed service provider on a contract worth £4.1m annually.\n\nThe monthly service report is the centrepiece. Seven platform services, each with a contracted availability target of 99.9%, each reported separately with a green indicator and a figure to two decimal places.\n\nFourteen consecutive months. Every service, every month, at or above target. The lowest figure in the whole period is 99.91%.\n\nNo service credit has ever been paid.",
+  "taints": {
+    "built-the-metric": "end-instrument"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The report goes to the technology committee every month and to the board quarterly, where availability is presented as a single line: 'platform availability: target met'.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the service manager how availability is measured.",
+          "quality": "defensible",
+          "next": "the-seven-services",
+          "consequence": "He explains it clearly. Each service is polled by a synthetic check every sixty seconds, and the monthly figure is successful polls over total polls. He has never had cause to look behind it and says so.",
+          "why": "A fair opening question put to the person who receives the report rather than the one who produces it, which is worth something: he tells you what the organisation believes, and he is candid about the limits of what he has checked. The care needed is that his answer is a description of the provider's method as it was explained to him. It is a good map of the understanding on this side of the contract, and not evidence about the measurement."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the business's experience of availability has been, independently of the report.",
+          "quality": "best",
+          "next": "the-seven-services",
+          "consequence": "You pull completed orders per fifteen-minute interval for six months and compare each interval with the same interval in the four preceding weeks. Eleven windows stand out, four of them longer than an hour. None appears in any service report.",
+          "why": "Availability is a claim about whether customers could transact, and the organisation already holds a record of whether customers transacted. Starting there gives you an outcome measure to hold the activity measure against, and it is built from data neither party to the contract produced for this purpose — which is exactly why it can settle an argument the service report cannot.\n\nIt also arrives before anyone frames the question for you. Eleven windows is a fact; what the report does with them is the finding."
+        },
+        {
+          "key": "C",
+          "text": "Test the report's arithmetic against the underlying monitoring data.",
+          "quality": "defensible",
+          "next": "the-seven-services",
+          "consequence": "You reconcile three months of figures to the raw poll logs. Every number is computed correctly, every rounding convention is applied consistently, and the totals tie exactly.",
+          "why": "Proper verification work and the result is clean, which is the difficulty with it. Reconciling a metric to its own source establishes that the calculation is faithful to the definition; it cannot say anything about whether the definition measures what the report claims. A well-computed number derived from the wrong observation is the most convincing kind of wrong, and three days of tying it out makes it more convincing, not less."
+        },
+        {
+          "key": "D",
+          "text": "Conclude the availability objective is met and move on to the contract governance terms.",
+          "quality": "poor",
+          "next": "the-complaint",
+          "consequence": "You record the availability objective as met, supported by fourteen months of service reports, and turn to the contract's governance schedule.",
+          "why": "The service report is management's own reporting, produced by the party whose performance it describes, and accepting it as evidence of performance is accepting the thing under review as the evidence for it. Fourteen months without a single miss is also information in its own right: real systems produce ragged numbers, and a metric that never varies is usually measuring something that cannot vary."
+        }
+      ]
+    },
+    "the-complaint": {
+      "situation": "Two weeks later the trading director finds you in the corridor. She knows you have been looking at the platform.\n\n\"Can you tell me why the site falls over most Sunday evenings and the report says 99.97%? Because I have had that argument four times and I always lose it.\"",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take both claims back to the data and establish what each one is measuring.",
+          "quality": "best",
+          "next": "the-seven-services",
+          "consequence": "You pull completed orders per fifteen minutes for six months. Eleven windows stand out, seven of them on a Sunday between 19:00 and 21:00, four longer than an hour. None appears in any service report.",
+          "why": "Two people are describing the same platform and disagreeing, and both are reporting honestly. That is not a dispute to adjudicate; it is a signal that the two accounts are measuring different things, and the way to find out which is to go to a record neither of them produced. She has been losing the argument for a year because she had an impression and he had a number, and the order data is the first thing in the building that is neither."
+        },
+        {
+          "key": "B",
+          "text": "Explain that 99.97% is the contractually measured figure and that the Sunday impression is anecdotal.",
+          "quality": "poor",
+          "next": "the-measurement",
+          "consequence": "She accepts it, visibly, for the fifth time. Two months later trading stops raising platform issues at the operations meeting altogether.",
+          "why": "You have used the measurement's authority to close down the only signal contradicting it. Her account is anecdotal and it is also a first-hand report from the function that watches revenue by the quarter-hour, which makes it evidence of something even if it is not proof of anything. Dismissing it costs more than the argument: it teaches the business that raising a concern against the number is futile, and the number then has nothing left to check it."
+        },
+        {
+          "key": "C",
+          "text": "Ask the contact centre for contact volumes by hour and contact reason, to see whether the pattern holds.",
+          "quality": "defensible",
+          "next": "the-seven-services",
+          "consequence": "Contacts coded 'cannot complete order' run at four to nine times the baseline on Sunday evenings, consistently, going back as far as the coding scheme exists.",
+          "why": "A good independent source and it corroborates her strongly. What it measures is customers who both failed and cared enough to call, which is a small and unrepresentative fraction of the ones who failed — so it establishes the pattern without sizing it. Useful as the second piece of evidence and thin as the first, because the number it produces understates by an unknown multiple."
+        }
+      ]
+    },
+    "the-seven-services": {
+      "situation": "The contract schedule lists seven services, each with its own availability target of 99.9%, each measured and reported separately: web tier, API gateway, catalogue, basket, payments interface, order management, identity.\n\nA customer placing an order traverses all seven.\n\nEvery service has met its target every month for fourteen months.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Work out what seven independent 99.9% services compose to for a journey that needs all of them.",
+          "quality": "best",
+          "next": "the-measurement",
+          "consequence": "Multiplied out, 0.999 to the seventh is 99.30%. Against 8,760 hours that is about 61 hours a year in which some part of the journey is unavailable, compared with the 8.8 hours a single service at target would suggest. You check whether anyone has ever computed it. Nobody has.",
+          "why": "One line of arithmetic and it reframes the entire contract. Availability targets set per component do not compose to the availability of anything a customer does, because a journey needs every component at once — so seven services individually meeting a strong target produce an end-to-end figure that would breach it badly if anyone had ever written it down.\n\nNobody is at fault and nothing has been misreported. The number that describes the customer's experience is simply not a number anyone in either organisation has ever calculated, and it is seven times worse than the one on the board pack."
+        },
+        {
+          "key": "B",
+          "text": "Check whether any individual service is running close to its target.",
+          "quality": "defensible",
+          "next": "the-measurement",
+          "consequence": "The identity service is the tightest, averaging 99.93% and touching 99.91% twice. Everything else sits comfortably above.",
+          "why": "The natural way to read a service report, and the only findings it can produce are the ones the report was designed to surface. A per-service view answers whether any single supplier obligation is at risk, which is a contract-management question, and the report is built to answer it. The exposure sits in the relationship between the seven, which is the one place a per-service view cannot look."
+        },
+        {
+          "key": "C",
+          "text": "Ask for the end-to-end availability target so you can compare the composed figure against it.",
+          "quality": "defensible",
+          "next": "the-measurement",
+          "consequence": "There is not one. Not in the contract, not in the service design documents, not in the technology committee's terms of reference. The service manager is surprised to find it missing and so is the provider's account director.",
+          "why": "Exactly the right question, and the absence it uncovers is the finding — with one problem of order. Presented on its own, a missing target reads as a documentation gap, and it will be closed by writing one. Presented after the composition, it reads as the reason a board has been shown 99.9% for fourteen months while the achievable figure was 99.3%. Same fact, and its weight depends entirely on whether the arithmetic has been done first."
+        },
+        {
+          "key": "D",
+          "text": "Accept it. Seven services each contracted at 99.9% is a demanding arrangement.",
+          "quality": "poor",
+          "next": "the-measurement",
+          "consequence": "You record the availability arrangements as appropriate and well managed, supported by the contract schedule and fourteen months of reporting.",
+          "why": "It is a demanding arrangement, per service, and the reason it feels reassuring is that 99.9% is a number people have a feel for and seven of them multiplied together is a number nobody has a feel for. The strength of each target is not in question. What is in question is whether anything in the contract commits the provider to the availability of a customer transaction, and nothing does."
+        }
+      ]
+    },
+    "the-measurement": {
+      "situation": "How each figure is produced: a monitoring node inside the provider's network calls each service's /health endpoint every sixty seconds. A 200 response counts as available. The monthly figure is successful polls over total polls.",
+      "prompt": "What do you establish about that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask what the health endpoint actually checks.",
+          "quality": "best",
+          "next": "the-proof",
+          "consequence": "The provider's engineer answers straight away, slightly puzzled that anyone is asking. It returns 200 whenever the process is running. It does not call the database, does not call downstream services, and does not exercise the code path a customer's request takes.",
+          "why": "The definition of available is doing all the work in this contract and it is one function, thirty lines long, that nobody on the customer's side has ever read. A process that is running but returning errors to every real request is available by this measure — so the metric cannot distinguish a healthy service from a broken one, only a running one from a stopped one.\n\nThis is the second half of the case and it compounds the first. Seven components measured by liveness, composed by nobody, reported as a single green line."
+        },
+        {
+          "key": "B",
+          "text": "Ask for the measurement to be taken from outside the provider's network.",
+          "quality": "defensible",
+          "next": "the-proof",
+          "consequence": "The provider agrees it is a reasonable ask and adds an external monitoring node the following month. The reported figures do not move.",
+          "why": "A real weakness correctly identified — a measurement taken inside the network cannot see the network path the customer uses — and it is the smaller of the two problems here. Moving the probe changes where the request comes from and not what it asks for, so an external node calling the same liveness endpoint returns the same answer. Fixing the vantage point of a measurement that is not measuring the right thing improves the geometry and nothing else."
+        },
+        {
+          "key": "C",
+          "text": "Note that a sixty-second polling interval will miss short outages.",
+          "quality": "defensible",
+          "next": "the-proof",
+          "consequence": "You calculate the exposure: an outage under sixty seconds may be missed entirely, and one of ninety seconds may register as a single failed poll. The provider does not dispute it.",
+          "why": "True, quantifiable, and second-order. Sampling frequency bounds the resolution of a measurement, so it is worth stating — but a finer interval on this check would only ask the same uninformative question more often. Polling interval matters a great deal once the probe is testing something real, which makes this the right finding in the wrong sequence."
+        },
+        {
+          "key": "D",
+          "text": "Accept it. Synthetic health checks are standard practice for service monitoring.",
+          "quality": "poor",
+          "next": "the-proof",
+          "consequence": "You record the measurement approach as consistent with common practice and move on to the reporting governance.",
+          "why": "They are standard practice, for operational alerting, which is what they are good at: telling an engineer that a process has stopped. That is a different job from evidencing a contractual availability figure to a board, and the fact that a technique is widespread says nothing about whether it supports the claim being made from it. Common practice is a statement about how often something is done, not about what it proves."
+        }
+      ]
+    },
+    "the-proof": {
+      "situation": "You now believe the reported figure does not describe what customers experience, and you have nothing that does. The provider's position is that every contractual obligation has been met, and that position is correct.\n\nThe service manager cannot help. He is one person on a £4.1m contract, every analytical capability sits on the provider's side, and he has no way to produce a number of his own.\n\nYou could build one. A script that runs the whole journey — browse, add to basket, checkout, submit a payment — every two minutes from outside, logging each step. Two hours of work.",
+      "prompt": "How do you establish what customers actually experience?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Build the script and run it for three weeks.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You run it from a cloud host from Monday. Over three weeks it records 94 windows in which the journey could not be completed, including four Sunday evenings over an hour. The test payments are submitted with a card you expensed, and 6,700 of them reach the acquirer.",
+          "taint": "built-the-metric",
+          "why": "The most direct evidence available, settling the question completely, in two hours. That is the shape of the decisions that end engagements.\n\nAuthority first. Three weeks of automated traffic against a production storefront, and 6,700 transactions through a live acquirer from an unapproved source — a card-scheme matter rather than a testing detail. Nobody agreed to any of it because nobody was asked.\n\nThen the evidence. The finding rests on an instrument you built, ran and interpreted, which the provider cannot reproduce and has every reason to attack: the timeouts, the retries, the user agent, the cloud region are all yours, and each is an argument.\n\nThen the role, which does not wash out. The organisation had no journey-level measurement and now has exactly one, belonging to internal audit. The instinct is the strongest an analytical auditor has: if the number does not exist, go and produce it. Right for a data question, wrong for a control question — and the tell is that producing it made you a participant in the process you were reviewing."
+        },
+        {
+          "key": "B",
+          "text": "Derive it from records the organisation already keeps.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "You combine three: completed orders per fifteen minutes against the same interval in prior weeks, contact-centre contacts coded 'cannot complete order', and the payment provider's own authorisation attempt logs. All three peak on the same eleven windows. The payment logs give you attempted authorisations that never completed: 31,000 across six months.",
+          "why": "Three independent records, none produced for this purpose, none produced by either party to the contract, all agreeing. That is stronger than anything a purpose-built probe could give you, and the reason is not that it is more accurate — it is that nobody can dismiss it as your instrument.\n\nThe payment authorisation log is the piece that carries the finding. It counts customers who reached the last step and did not get through, which is the closest thing in existence to a measurement of the outcome the contract was supposed to be about, and it has been sitting with a third party the whole time."
+        },
+        {
+          "key": "C",
+          "text": "Ask the provider to add a journey-level synthetic check and report on it.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "They agree without resistance and implement it in six weeks. The first month's figure is 99.2%.",
+          "why": "The right long-term arrangement and they should be the ones running it, so this is not a wasted ask. Two things it does not do. It produces nothing about the fourteen months you are reporting on, and it leaves the measurement in the hands of the party being measured — which is how the current arrangement came about. Their cooperation here is genuine and it does not change who would have to notice if the new check drifted."
+        },
+        {
+          "key": "D",
+          "text": "Commission an independent third-party synthetic monitoring trial.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "Procurement takes four weeks and the trial runs for a month. It is properly authorised, professionally operated, and reports end-to-end availability of 99.1%.",
+          "why": "Independent, authorised, defensible, and it costs six weeks and a purchase order to establish something the order data would have shown you in an afternoon. It also measures from the day it starts, so it says nothing about the period under audit. Buying an instrument is the correct answer when no record of the outcome exists; here the organisation had three."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "Clearance. The chief information officer is not defensive and his position is accurate on every point.\n\n\"Every service met its contracted target every month. The provider has not breached anything. The measurement is the one in the schedule we signed. I am not disputing that customers had a bad Sunday — I am asking what the finding is.\"",
+      "prompt": "What do you tell him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the provider has under-delivered against the availability commitment and service credits are due.",
+          "quality": "poor",
+          "next": "end-contract-met",
+          "consequence": "The provider's account director produces the schedule and the fourteen monthly reports. Legal reviews it and confirms no breach has occurred. The clearance meeting is reconvened twice and the finding is reworded to note that availability reporting could be enhanced.",
+          "why": "They have not breached, and saying they have hands the argument to the only party who can win it. The contract measures per-service liveness and every service was live, so a claim for credits is answered by reading the schedule aloud.\n\nThe cost is not the failed claim. It is that two meetings spent establishing that the provider complied leave everyone with the impression the substance was overstated, and the composed figure never gets discussed at all."
+        },
+        {
+          "key": "B",
+          "text": "That availability is contracted and measured per component while the business consumes a journey; that seven targets at 99.9% compose to 99.3%; and that no end-to-end objective exists anywhere for that to be compared against.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He works through the arithmetic on the whiteboard himself and does not challenge any of it. He asks what the equivalent figure would be if each service were contracted at 99.97%, and you tell him 99.79% — about eighteen hours a year. The finding goes to the technology committee in those terms.",
+          "why": "It concedes everything he is right about — no breach, correct reporting, the measurement in the signed schedule — and states what survives all of it, which is that nobody has ever quantified the availability of the thing the business sells.\n\nHis follow-up question is the sign it landed. He has stopped defending the fourteen months and started asking what target would actually deliver a usable storefront, which is the question the contract should have been built around and was not. A finding a CIO can extend for you is one that will survive the meeting."
+        },
+        {
+          "key": "C",
+          "text": "That the health endpoint is not a valid availability measure and should be replaced with a transaction-level check.",
+          "quality": "defensible",
+          "next": "end-measured",
+          "consequence": "Accepted immediately and implemented within the quarter. The journey check reports 99.2% in its first full month, and the service report gains an eighth line.",
+          "why": "Correct, specific, cheap and quick, and it produces an honest number where there was a dishonest one — a genuinely good outcome. What it treats as the defect is the instrument. The instrument is downstream of a contract that sets seven separate targets for a service the business experiences as one, and replacing the probe leaves that structure exactly as it was: the new figure appears as an eighth line with no target beside it, because there is still nothing anywhere that says what end-to-end availability is supposed to be."
+        },
+        {
+          "key": "D",
+          "text": "That the contract should be restructured around a single end-to-end availability commitment at the next renewal.",
+          "quality": "defensible",
+          "next": "end-measured",
+          "consequence": "Agreed and recorded as an action for procurement. The contract has nineteen months to run.",
+          "why": "The right destination, handed to a function that cannot act on it for nineteen months, in a document that will have been closed and archived long before then. It also skips the part you can do now: the composed figure and the journey measurement do not require anyone's renegotiation, and having both on the table when the renewal comes is worth more than an instruction to restructure. Recommendations that can only be executed at a future commercial event tend to arrive at that event as a line in a handover pack."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Seven nines make one",
+      "verdict": "strong",
+      "narrative": "The committee is shown the composition and the payment authorisation data side by side. An end-to-end availability objective is set for the first time — 99.9% for the order journey — and the per-service targets are recalculated backwards from it, which lifts five of the seven and puts identity at 99.99%.\n\nJourney-level measurement is contracted from the provider and independently corroborated each quarter against the payment provider's authorisation logs, which cost nothing and belong to neither party.\n\nThe Sunday evening windows turn out to be catalogue cache rebuilds. They are moved and the pattern stops. The trading director's four lost arguments are noted in the committee minutes, which is not something you asked for.\n\nAt renewal the contract is restructured around the journey. The provider's own pricing barely moves; they had been engineering to the composed figure all along and had no way to be credited for it.",
+      "why": "Nobody misled anybody. The provider met every obligation, the reports were arithmetically correct, and the service manager passed on exactly what he was given. The failure is that the number describing what the business sells was never calculated by anyone, and could not have been noticed by looking at any single line of the report.\n\nTwo mechanisms, stacked. Per-component targets do not compose: seven services at 99.9% deliver 99.3% to a journey that needs all seven, and the gap is seven times the apparent exposure. And the measurement point was liveness — a process running, checked from inside the provider's own network — which cannot tell a working service from a broken one.\n\nThe general form is worth more than the arithmetic. When a target is set on the parts and the value is delivered by the whole, ask who has multiplied it out. Usually nobody has, because each part is somebody's responsibility and the composition is nobody's.\n\nThe evidence mattered as much as the analysis. Three records nobody produced for this purpose — order rates, contact reasons, third-party authorisation logs — agreeing with each other is what made the finding unarguable. The temptation was to build a better instrument. The better instrument was already in the building."
+    },
+    "end-measured": {
+      "title": "An eighth line on the report",
+      "verdict": "acceptable",
+      "narrative": "The measurement is fixed, or the renegotiation is scheduled, and both are real improvements. A journey-level check appears on the service report at 99.2%, honest at last.\n\nIt has no target beside it. For three months the committee asks what a good number would be and nobody can answer, because setting one requires deciding what the business needs and then costing it back through seven services — work that belongs to the contract, not to the monitoring.\n\nBy the fourth month the line is still there and nobody reads it. At renewal, the schedule is reissued with the same seven per-service targets and one additional reported metric.",
+      "why": "You replaced a measurement that could not see failures with one that can, which is worth having and is the smaller half.\n\nA metric without an objective is an observation. The reason the old arrangement produced fourteen green months was not that the probe was weak — it was that seven targets were set on components while the value was delivered by a journey, and no target existed for the journey at any point. Fix the instrument and the structure survives intact: a true number appears on a report with nothing to compare it against, and a number nobody can act on stops being read.\n\nThe same applies to deferring it to renewal. Nineteen months is long enough for the analysis to be forgotten and short enough that it feels like a plan."
+    },
+    "end-contract-met": {
+      "title": "No breach occurred",
+      "verdict": "weak",
+      "narrative": "The credit claim fails, correctly, and takes three meetings to fail. Legal confirms the provider has complied with the schedule in every particular. The provider's account director, who had been cooperative throughout, becomes considerably less so.\n\nThe finding issued reads that availability reporting could be enhanced to better reflect customer experience. It is accepted, assigned to the service manager, and closed the following quarter when the external monitoring node is added.\n\nThe composition is never presented. The board continues to see one green line, and the eleven windows in the order data are never explained to anyone.",
+      "why": "The analysis was right and it was aimed at the one claim the other side could disprove. The provider met the contract; that was never in doubt, and asserting otherwise moved the entire discussion onto whether they had complied — where they had, and where being right about that made everything else look overstated.\n\nThe finding was never about the provider. It was that the organisation had contracted for the availability of seven components and sold a journey, and had no measurement or objective for the thing it sold. That finding costs the provider nothing and is worth far more, which is exactly why conceding the contract point first is free."
+    },
+    "end-instrument": {
+      "title": "The measurement was yours",
+      "verdict": "failed",
+      "narrative": "Your script produces the clearest evidence anyone has ever had about the storefront: 94 failed journeys in three weeks, timestamped, with the failing step identified.\n\nThe acquirer's fraud team flags the pattern in week two — 6,700 authorisations from a single cloud host against one card — and suspends the merchant's test credentials while it is investigated. The provider's security team opens an incident for automated traffic from an unregistered source. Both trails end at you.\n\nThe engagement is paused. The provider's response to the finding, when it eventually issues, is that the data was gathered by an unapproved tool operated by the auditor under conditions they were unable to observe, and legal advises that the composition finding be reported without it. It is, and it lands weakly, because the arithmetic on its own reads as theoretical.\n\nThe service manager asks whether the script can keep running. There is nothing else, and now there is nothing at all.",
+      "why": "The instinct is the best one an analytical auditor has. The number that mattered did not exist, you could see how to produce it, and it took two hours. Everything about that is professionally admirable and it is the wrong move here for three separate reasons, any one of which is enough.\n\nAuthority. Automated traffic against a production storefront and live transactions through an acquirer are changes to an operating environment, and nobody who could permit them was asked. An auditor who would never approve an unauthorised production change should not be making one.\n\nEvidence. A finding resting on an instrument you built, ran and interpreted alone is a finding only you can defend. Every parameter is an attack surface, none of it is reproducible by the party it concerns, and its exclusion collapses the rest of the work — which is what happened.\n\nRole. The organisation had no journey-level measurement. After three weeks it had one, and it was audit's. From that point on, every conversation about platform availability runs through a tool the assurance function owns, and there is nobody left to give an independent opinion on it.\n\nThe discipline is a single question asked before building anything: does a record of this outcome already exist somewhere nobody made for me? Here there were three — order rates, contact reasons, and the payment provider's authorisation logs — and all three were stronger than the script precisely because you did not make them."
+    }
+  }
+}
