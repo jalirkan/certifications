@@ -339,10 +339,29 @@ export class Narrator {
     this.voices = await whenVoicesReady()
     this.emit()
     // Probe without importing the engine: a plain fetch for a 44-byte config
-    // answers "is it downloaded" without pulling 2MB of inference code onto a
-    // screen that may never narrate anything.
+    // answers "is it downloaded" without pulling inference code onto a screen
+    // that may never narrate anything.
     this.neuralHere = await probeModel()
     this.emit()
+
+    /*
+     * Warm the engine in the background, if it is the one that will be used.
+     *
+     * The wait people notice is the one-off session build, and it used to be
+     * paid on the first press - the exact moment they wanted to hear
+     * something. Doing it at startup costs nothing now that inference is on a
+     * worker: no frame is dropped and no interaction blocks. By the time
+     * anyone reaches a speak button it is usually already done.
+     *
+     * Deliberately narrow: only when narration is switched on AND the neural
+     * engine is chosen AND the weights are present. Someone who never enables
+     * it never loads 92MB, and someone on system voices never pays for a
+     * feature they are not using.
+     */
+    if (this.settings.enabled && this.settings.engine === 'neural'
+        && this.neuralHere) {
+      void this.warmNeural()
+    }
   }
 
   // ---- neural engine -------------------------------------------------
@@ -365,6 +384,11 @@ export class Narrator {
 
   get neuralProblem(): string {
     return this.neuralError
+  }
+
+  /** "webgpu/fp16", "wasm/q8" - shown so the speed is explainable. */
+  get neuralBackend(): string {
+    return neuralModule ? neuralModule.backend() : ''
   }
 
   /**
@@ -435,10 +459,19 @@ export class Narrator {
   }
 
   update(patch: Partial<NarrationSettings>): void {
+    const was = this.settings
     this.settings = { ...this.settings, ...patch }
     saveSettings(this.settings)
     if (!this.settings.enabled) this.stop()
     this.emit()
+
+    // Turning it on, or switching to neural, starts the load now rather than
+    // leaving it for the first press.
+    const nowNeural = this.settings.enabled && this.settings.engine === 'neural'
+    const wasNeural = was.enabled && was.engine === 'neural'
+    if (nowNeural && !wasNeural && this.neuralHere && !this.neuralReady) {
+      void this.warmNeural()
+    }
   }
 
   private pickVoice(): SpeechSynthesisVoice | null {

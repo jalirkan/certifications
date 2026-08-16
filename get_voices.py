@@ -48,6 +48,12 @@ DEST = os.path.join(HERE, "models", "kokoro")
 # a machine with WebGPU is not the one that needs help.
 MODEL_FILE = "onnx/model_quantized.onnx"
 
+# The GPU path needs a different quantization, not just a different flag: the
+# WebGPU execution provider does not reliably run q8's quantized operators, so
+# --webgpu fetches fp16 as well (163 MB). Without it a machine with a perfectly
+# good GPU still runs on the CPU, which works and is simply slower.
+WEBGPU_FILE = "onnx/model_fp16.onnx"
+
 SUPPORT = [
     "config.json",
     "tokenizer.json",
@@ -88,8 +94,10 @@ def human(n: float) -> str:
     return "%.0f B" % n
 
 
-def wanted(everything: bool):
+def wanted(everything: bool, webgpu: bool = False):
     files = list(SUPPORT) + [MODEL_FILE]
+    if webgpu:
+        files.append(WEBGPU_FILE)
     voices = ENGLISH + (OTHER if everything else [])
     files += ["voices/%s" % v for v in voices]
     return files
@@ -228,13 +236,15 @@ def report(files) -> int:
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(
         description="Download the offline neural voice model for narration.")
+    parser.add_argument("--webgpu", action="store_true",
+                        help="also fetch fp16 for GPU inference (+163 MB)")
     parser.add_argument("--all", action="store_true",
                         help="every language, not just English (~14 MB more)")
     parser.add_argument("--check", action="store_true",
                         help="report what is on disk and exit")
     args = parser.parse_args(argv)
 
-    files = wanted(args.all)
+    files = wanted(args.all, args.webgpu)
     if args.check:
         return report(files)
 

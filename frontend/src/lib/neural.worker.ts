@@ -51,12 +51,50 @@ export type ToWorker =
 
 export type FromWorker =
   | { type: 'progress'; fraction: number }
+  | { type: 'backend'; name: string }
   | { id: number; type: 'loaded' }
   | { id: number; type: 'audio'; wav: ArrayBuffer }
   | { id: number; type: 'error'; message: string }
 
 let tts: KokoroTTS | null = null
 let loading: Promise<KokoroTTS> | null = null
+/** Which backend actually won, for the UI to report honestly. */
+let backend = ''
+
+/**
+ * Pick a backend, preferring the GPU but never depending on it.
+ *
+ * Two things have to line up for WebGPU, not one: an adapter, and a model
+ * quantization the WebGPU execution provider will actually run. q8 is what
+ * `get_voices.py` fetches by default because it is smallest and best on CPU,
+ * and the WebGPU provider does not reliably support its quantized operators -
+ * so if `model_fp16.onnx` is present (via `get_voices.py --webgpu`) that is
+ * what the GPU path uses.
+ *
+ * Every candidate is *tried*, in order, and a failure falls through to the
+ * next. That matters more than the ordering: an adapter reporting itself as
+ * available is not a promise that a session will build on it.
+ */
+async function candidates(): Promise<Array<{ device: 'webgpu' | 'wasm'; dtype: 'fp16' | 'q8' }>> {
+  const out: Array<{ device: 'webgpu' | 'wasm'; dtype: 'fp16' | 'q8' }> = []
+  const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } }).gpu
+  if (gpu) {
+    let adapter: unknown = null
+    try {
+      adapter = await gpu.requestAdapter()
+    } catch {
+      adapter = null
+    }
+    if (adapter) {
+      const fp16 = await fetch(`${MODEL_ROOT}${MODEL_ID}/onnx/model_fp16.onnx`,
+                               { method: 'HEAD' }).then((r) => r.ok).catch(() => false)
+      if (fp16) out.push({ device: 'webgpu', dtype: 'fp16' })
+      out.push({ device: 'webgpu', dtype: 'q8' })
+    }
+  }
+  out.push({ device: 'wasm', dtype: 'q8' })   // always last, always works
+  return out
+}
 
 const post = (msg: FromWorker, transfer?: Transferable[]) =>
   (self as unknown as Worker).postMessage(msg, transfer ?? [])
@@ -64,20 +102,30 @@ const post = (msg: FromWorker, transfer?: Transferable[]) =>
 async function ensure(): Promise<KokoroTTS> {
   if (tts) return tts
   if (!loading) {
-    loading = KokoroTTS.from_pretrained(MODEL_ID, {
-      // q8 is the smallest file kokoro-js offers — 92MB against 305 for q4,
-      // which despite the name is the largest — and the fastest on CPU.
-      dtype: 'q8',
-      device: 'wasm',
-      progress_callback: (info: { status?: string; progress?: number }) => {
-        if (info?.status === 'progress' && typeof info.progress === 'number') {
-          post({ type: 'progress', fraction: info.progress / 100 })
+    loading = (async () => {
+      const tried: string[] = []
+      for (const option of await candidates()) {
+        const tag = `${option.device}/${option.dtype}`
+        try {
+          const model = await KokoroTTS.from_pretrained(MODEL_ID, {
+            dtype: option.dtype,
+            device: option.device,
+            progress_callback: (info: { status?: string; progress?: number }) => {
+              if (info?.status === 'progress' && typeof info.progress === 'number') {
+                post({ type: 'progress', fraction: info.progress / 100 })
+              }
+            },
+          })
+          tts = model
+          backend = tag
+          post({ type: 'backend', name: tag })
+          return model
+        } catch (err) {
+          tried.push(`${tag}: ${err instanceof Error ? err.message : String(err)}`)
         }
-      },
-    }).then((model) => {
-      tts = model
-      return model
-    })
+      }
+      throw new Error(`No usable backend. Tried ${tried.join(' | ')}`)
+    })()
   }
   return loading
 }
@@ -87,6 +135,7 @@ self.onmessage = async (ev: MessageEvent<ToWorker>) => {
   try {
     if (msg.type === 'load') {
       await ensure()
+      post({ type: 'backend', name: backend })
       post({ id: msg.id, type: 'loaded' })
       return
     }

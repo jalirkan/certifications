@@ -37,6 +37,7 @@ export interface NarrationHandle {
     loading: boolean
     progress: number
     problem: string
+    backend: string
   }
   reason: string | null
   say: (text: Narratable) => void
@@ -83,6 +84,7 @@ export function useNarration(key: unknown): NarrationHandle {
       loading: narrator.neuralBusy,
       progress: narrator.neuralLoadProgress,
       problem: narrator.neuralProblem,
+      backend: narrator.neuralBackend,
     },
     reason: narrator.unavailableReason,
     say,
@@ -276,7 +278,10 @@ export function NarrationControls({ n, kind = 'case' }: {
             </>
           ) : n.neural.ready ? (
             <span className="good">
-              Neural voice loaded. Synthesis happens on this machine.
+              Neural voice ready{n.neural.backend
+                ? ` on ${n.neural.backend.startsWith('webgpu')
+                    ? 'your GPU' : 'the CPU'}`
+                : ''}. Synthesis happens on this machine.
             </span>
           ) : (
             <>

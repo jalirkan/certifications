@@ -111,6 +111,12 @@ const pending = new Map<number, {
 }>()
 let onProgress: ((fraction: number) => void) | null = null
 let loadedFlag = false
+let backendName = ''
+
+/** Which backend the worker settled on, e.g. "webgpu/fp16" or "wasm/q8". */
+export function backend(): string {
+  return backendName
+}
 
 function ensureWorker(): Worker {
   if (worker) return worker
@@ -120,6 +126,10 @@ function ensureWorker(): Worker {
     const msg = ev.data
     if (msg.type === 'progress') {
       onProgress?.(msg.fraction)
+      return
+    }
+    if (msg.type === 'backend') {
+      backendName = msg.name
       return
     }
     const waiting = pending.get(msg.id)
