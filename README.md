@@ -131,6 +131,15 @@ interval — 1, 3, 7, 16, then 35 days. One wrong answer resets it to zero and d
 Lifetime accuracy is a tiebreaker throughout, so a question you have missed repeatedly keeps
 resurfacing even after one lucky correct answer.
 
+**A correct answer you rated a guess does not move the question up the ladder.** It holds where it
+is. Getting something right by luck is not evidence you have learned it, and without this a run of
+lucky guesses could earn a 35-day interval on material you cannot actually do — three-quarters of a
+study cycle of silence, bought by chance. It holds rather than resets, because you *did* get it
+right and a guess is not a miss. Rating a question `unsure` still advances it.
+
+Answers logged before confidence capture existed carry no rating, and are treated exactly as they
+were before: a blank is never read as a guess. Nothing in your history gets rewound by this.
+
 Use `--mode due` once you have been through the bank a few times: it holds back anything still
 inside its interval, so you only see what the schedule says you are about to forget.
 
@@ -721,15 +730,12 @@ below four questions. Three or four mocks of headroom in the heavy domains would
 
 ## Next up
 
-1. **Let confidence inform the scheduler.** A guessed-correct answer should not earn a 35-day
-   interval. Check 7 shows the confidence signal is trustworthy from about 300 answers, so this is
-   no longer blocked on evidence — only on someone building it.
-2. **More branching cases.** Three proves the format; it is not yet a library.
-3. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
+1. **More branching cases.** Three proves the format; it is not yet a library.
+2. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
    would be better.
-4. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
+3. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
    of a thousand reviews to fit against, and defaults would just be Leitner with extra arithmetic.
-5. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
+4. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
    exam structure changed under CPA Evolution, and CPA includes task-based simulations this
    multiple-choice engine does not model.
 

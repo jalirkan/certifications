@@ -512,14 +512,63 @@ class TestConcurrentWritesDoNotCorruptState(unittest.TestCase):
         self.assertEqual(leftovers, [])
 
 
-class TestSchedulerIsUntouched(unittest.TestCase):
-    """Rule 4: capture first, prove the signal, then touch a working scheduler."""
+class TestConfidenceReachesTheScheduler(unittest.TestCase):
+    """The deferral is over, and these are its terms.
 
-    def test_the_scheduler_does_not_read_confidence(self):
-        with open(scheduler.__file__, "r", encoding="utf-8") as fh:
-            source = fh.read()
-        self.assertNotIn("confidence", source,
-                         "the scheduler must not use confidence in this phase")
+    This class used to assert the opposite - that `confidence` appeared nowhere
+    in the scheduler - because the order was deliberate: capture the signal,
+    prove it, and only then touch code that works. `DETECTION.md` check 7 now
+    puts the confidence signal at 96% detection with no false positives, which
+    was the evidence the deferral was waiting on.
+    """
+
+    def test_a_guessed_correct_answer_does_not_extend_the_interval(self):
+        """The failure this whole feature exists to stop.
+
+        Five lucky guesses used to climb the ladder to a 35-day interval,
+        buying three-quarters of a study cycle of silence on material the
+        learner cannot actually do.
+        """
+        history = {"q": [{"correct": True, "confidence": "guess", "ts": ""}
+                         for _ in range(5)]}
+        p = scheduler.build_progress(history)["q"]
+        self.assertEqual(p.streak, 0)
+        self.assertEqual(p.interval_days, 0.0)
+        self.assertEqual(p.guessed_correct, 5)
+
+    def test_a_guess_holds_the_interval_rather_than_resetting_it(self):
+        """Holding, not punishing: the learner did get it right."""
+        history = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
+                         for _ in range(3)]
+                        + [{"correct": True, "confidence": "guess", "ts": ""}]}
+        p = scheduler.build_progress(history)["q"]
+        self.assertEqual(p.streak, 3)
+        self.assertEqual(p.interval_days, 7.0)
+
+    def test_a_wrong_answer_still_resets_whatever_the_confidence(self):
+        history = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
+                         for _ in range(3)]
+                        + [{"correct": False, "confidence": "confident", "ts": ""}]}
+        self.assertEqual(scheduler.build_progress(history)["q"].streak, 0)
+
+    def test_unlabelled_history_is_never_treated_as_a_guess(self):
+        """Rows written before capture existed carry `confidence == ""`.
+
+        `store.py` refuses to backfill them, so reading a blank as a guess
+        would silently rewind the schedule of everything answered before this
+        feature shipped.
+        """
+        blank = {"q": [{"correct": True, "ts": ""} for _ in range(5)]}
+        rated = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
+                       for _ in range(5)]}
+        self.assertEqual(scheduler.build_progress(blank)["q"].interval_days,
+                         scheduler.build_progress(rated)["q"].interval_days)
+
+    def test_unsure_still_advances(self):
+        """Documented in scheduler.ADVANCING_CONFIDENCE, and revisitable."""
+        history = {"q": [{"correct": True, "confidence": "unsure", "ts": ""}
+                         for _ in range(3)]}
+        self.assertEqual(scheduler.build_progress(history)["q"].streak, 3)
 
     def test_selection_is_identical_with_and_without_confidence(self):
         questions = [q("q%d" % i) for i in range(12)]

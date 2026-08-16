@@ -20,6 +20,27 @@ from .store import parse_ts
 # Days to wait after n consecutive correct answers. Index = streak length.
 INTERVALS_DAYS: Sequence[float] = (0.0, 1.0, 3.0, 7.0, 16.0, 35.0)
 
+# Confidence levels whose correct answers advance the ladder.
+#
+# A question answered correctly on an admitted guess has not been learned; it
+# has been survived. Letting it climb toward a 35-day interval is how a lucky
+# answer buys three-quarters of a study cycle of silence on material the
+# learner cannot actually do. `guess` therefore holds the question where it is:
+# still correct, still not a miss, but not evidence of knowing.
+#
+# The empty string is here deliberately and must stay. Every attempt logged
+# before confidence capture existed carries `confidence == ""`, and `store.py`
+# refuses to backfill it on the grounds that an invented confidence is worse
+# than a missing one. Treating unlabelled history as a guess would silently
+# rewind the schedule of everything answered before the feature shipped.
+#
+# `unsure` advances for now. It sits above chance in every calibration curve
+# seen so far, and the failure this exists to prevent is specifically the
+# guessed-correct answer - `calibration.py` names it as such. If a learner's
+# curve ever shows `unsure` running near chance for them, this is the line to
+# revisit, and the confidence data to justify it is already collected.
+ADVANCING_CONFIDENCE = ("confident", "unsure", "")
+
 TIER_MISSED = 0    # got it wrong last time -> highest urgency
 TIER_UNSEEN = 1    # never served
 TIER_SPACED = 2    # answered correctly last time, waiting out its interval
@@ -31,6 +52,10 @@ class Progress:
     attempts: int = 0
     correct: int = 0
     streak: int = 0
+    # Correct answers the learner admitted were guesses. Counted rather than
+    # discarded so a diagnostic can say "this looks learned but four of the
+    # five right answers were guesses".
+    guessed_correct: int = 0
     last_correct: Optional[bool] = None
     last_seen: Optional[datetime] = None
 
@@ -67,7 +92,15 @@ def build_progress(history: Dict[str, List[Dict]]) -> Dict[str, Progress]:
             ok = bool(row.get("correct"))
             p.attempts += 1
             p.correct += 1 if ok else 0
-            p.streak = p.streak + 1 if ok else 0
+            if not ok:
+                p.streak = 0
+            elif str(row.get("confidence", "")) in ADVANCING_CONFIDENCE:
+                p.streak += 1
+            else:
+                # Correct, but guessed: hold the interval rather than extend
+                # it. Not reset - resetting would treat a right answer like a
+                # miss, and the learner did get it right.
+                p.guessed_correct += 1
             p.last_correct = ok
             ts = parse_ts(row.get("ts", ""))
             if ts is not None:

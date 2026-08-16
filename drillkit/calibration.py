@@ -8,7 +8,8 @@ Four states; only two were previously visible:
 
                  correct                     wrong
     confident    genuinely known             THE DANGEROUS QUADRANT
-    unsure/guess lucky - counted as learned  known unknown, least dangerous
+    unsure       lucky - counted as learned  known unknown, least dangerous
+    guess        lucky - no longer counted    known unknown, least dangerous
 
 The dangerous quadrant is the one that sinks people. You are confident, you are
 wrong, and nothing else in this system will ever bring that question back as a
@@ -28,9 +29,11 @@ Three rules govern everything here:
   in accuracy figures and are reported separately here; they are never
   redistributed across the three levels.
 
-This module reads. It does not touch the scheduler - using confidence to stop a
-guessed-correct answer earning a long interval is the highest-value application
-of the data and is deliberately a later phase.
+This module still only reads. The scheduler now reads confidence too, which was
+the highest-value application of this data and was deliberately deferred until
+the signal had been measured - `DETECTION.md` check 7 puts it at 96% detection
+with no false positives. A correct answer the learner called a guess no longer
+advances the spacing ladder; see `scheduler.ADVANCING_CONFIDENCE`.
 """
 
 from __future__ import annotations

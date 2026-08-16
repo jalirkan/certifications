@@ -175,6 +175,18 @@ data, which is worse than leaving it alone.
   most planted ones by luck. The Bank screen says the stat is not measurable rather than showing a
   bare dash.
 
+- **Confidence feeds the scheduler, and `guess` is the only level that changes anything.** A correct
+  answer rated a guess holds its spacing interval instead of extending it — a lucky answer should
+  not buy a 35-day silence on material the learner cannot do. It *holds* rather than resets, because
+  a guess that was right is still not a miss. `unsure` advances normally, since it sits above chance
+  in every curve seen so far and the failure being prevented is specifically the guessed-correct
+  one. **An unrated answer is never read as a guess**: everything logged before capture existed
+  carries `confidence == ""`, `store.py` refuses to backfill it, and treating a blank as a guess
+  would silently rewind the schedule of a learner's entire earlier history.
+  This was deferred on purpose until `DETECTION.md` check 7 measured the signal at 96% detection
+  with no false positives. Changing the scheduler changes every simulated history, so re-run
+  `python drill.py simulate --write` after touching it.
+
 - **No gamification, ever.** No streaks, XP, badges, confetti, leaderboards. They measure engagement,
   not learning, and were explicitly rejected.
 
