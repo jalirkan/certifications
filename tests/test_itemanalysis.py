@@ -133,18 +133,38 @@ class TestFlags(unittest.TestCase):
         self.assertEqual(item.flags, ["THIN_DATA"])
 
     def test_an_item_everyone_gets_right_is_flagged_as_uninformative(self):
-        rows = [row("q1", True, session="s%d" % i) for i in range(10)]
+        """Enough of them that the interval, not the streak, says so.
+
+        Ten straight correct is a 95% interval of 72-100%: consistent with a
+        75% question having a good run. The flag now needs the lower bound
+        above the threshold, so the fixture carries the evidence that claim
+        requires.
+        """
+        rows = [row("q1", True, session="s%d" % i) for i in range(25)]
         item = itemanalysis.analyze(rows, [q("q1")])[0]
         self.assertIn("TOO_EASY", item.flags)
 
+    def test_a_short_lucky_run_is_not_called_too_easy(self):
+        """The regression this gating exists for: 79% of items on a clean
+        3000-answer history used to be flagged, mostly like this."""
+        rows = [row("q1", True, session="s%d" % i) for i in range(8)]
+        item = itemanalysis.analyze(rows, [q("q1")])[0]
+        self.assertNotIn("TOO_EASY", item.flags)
+
     def test_an_item_almost_always_missed_is_flagged(self):
-        rows = [row("q1", False, chosen="A", session="s%d" % i) for i in range(8)]
+        rows = [row("q1", False, chosen="A", session="s%d" % i) for i in range(15)]
         item = itemanalysis.analyze(rows, [q("q1")])[0]
         self.assertIn("TOO_HARD", item.flags)
 
     def test_options_nobody_ever_picks_are_flagged_as_dead(self):
+        """Gated on wrong answers, since that is what a distractor draws from.
+
+        Four wrong answers over three distractors leaves most of them empty by
+        arithmetic; eight makes an empty one worth remarking on - under 4% by
+        chance if picks were even.
+        """
         rows = ([row("q1", True, chosen="B") for _ in range(6)]
-                + [row("q1", False, chosen="A") for _ in range(4)])
+                + [row("q1", False, chosen="A") for _ in range(9)])
         item = itemanalysis.analyze(rows, [q("q1", answer="B")])[0]
         dead = [f for f in item.flags if f.startswith("DEAD_OPTION")]
         self.assertEqual(dead, ["DEAD_OPTION:CD"])
@@ -157,10 +177,13 @@ class TestFlags(unittest.TestCase):
 
     def test_negative_discrimination_is_flagged(self):
         # Correct on the auditor's weak sessions, wrong on the strong ones.
+        # Twenty sessions, not six. A Pearson correlation over six points has a
+        # standard error near 0.45 - about half of clean items came back
+        # negative on noise alone, which is what made this flag fire on four
+        # items in five. The gate is twenty; the fixture meets it.
         rows = []
-        for i, (target_ok, other_ok) in enumerate(
-                [(True, False), (True, False), (True, False),
-                 (False, True), (False, True), (False, True)]):
+        pattern = [(True, False)] * 10 + [(False, True)] * 10
+        for i, (target_ok, other_ok) in enumerate(pattern):
             session = "s%d" % i
             rows.append(row("target", target_ok, chosen="B" if target_ok else "A",
                             session=session))
@@ -175,7 +198,7 @@ class TestFlags(unittest.TestCase):
 
     def test_positive_discrimination_is_not_flagged(self):
         rows = []
-        for i, ok in enumerate([True, True, True, False, False, False]):
+        for i, ok in enumerate([True] * 10 + [False] * 10):
             session = "s%d" % i
             rows.append(row("target", ok, chosen="B" if ok else "A", session=session))
             for j in range(4):
@@ -246,7 +269,7 @@ class TestRollups(unittest.TestCase):
 
     def test_rewrite_candidates_exclude_healthy_items(self):
         rows = ([row("fine", i < 4, session="s%d" % i) for i in range(6)]
-                + [row("trivial", True, session="s%d" % i) for i in range(10)])
+                + [row("trivial", True, session="s%d" % i) for i in range(25)])
         stats = itemanalysis.analyze(rows, [q("fine"), q("trivial")])
         suspects = {s.question_id for s in itemanalysis.needs_rewrite(stats)}
         self.assertIn("trivial", suspects)

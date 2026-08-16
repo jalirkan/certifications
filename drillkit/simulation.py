@@ -557,10 +557,23 @@ CHECKS: List[Check] = [
           detect_asymmetry_topic_half, "Component of check 3."),
     Check("4", "A question that measures nothing is flagged",
           "One question answered at chance regardless of ability",
-          "itemanalysis.needs_rewrite()", "items", detect_dead_item),
+          "itemanalysis.needs_rewrite()", "items", detect_dead_item,
+          "Detecting this needs per-item discrimination, and discrimination "
+          "needs about twenty attempts *on the same question*. The median "
+          "question in a 3000-answer history has around seven, so barely any "
+          "item in this bank is measurable at all - one in 334 on a sample "
+          "run. That is a limit of how thinly one learner's answers spread "
+          "over 386 questions, not a threshold that can be tuned away: it "
+          "would take roughly an order of magnitude more answers. This check "
+          "previously appeared to detect far more, but it was firing on 79% "
+          "of *all* items, so most of its hits were the false-positive rate "
+          "wearing a disguise."),
     Check("5", "A miskeyed question is flagged",
           "One question whose wrong answers converge on a single distractor",
-          "itemanalysis.needs_rewrite()", "items", detect_miskeyed),
+          "itemanalysis.needs_rewrite()", "items", detect_miskeyed,
+          "Detected on KEY_CHALLENGED, which counts option picks and needs no "
+          "correlation - which is why this one survives the data density that "
+          "defeats check 4."),
     Check("6", "Persistent misses come back sooner",
           "Three questions the learner reliably gets wrong",
           "scheduler.select()", "items", detect_scheduler_returns,

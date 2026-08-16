@@ -28,13 +28,54 @@ from .loader import OPTION_KEYS, Question
 
 # Below these counts a statistic is reported as unknown rather than as a number.
 MIN_ATTEMPTS_STATS = 5      # difficulty and flags
-MIN_ATTEMPTS_DISC = 6       # discrimination needs a little more
-MIN_SESSIONS_DISC = 3       # ...across at least this many sessions
-MIN_ATTEMPTS_DEAD = 8       # before calling an option dead
-
-EASY_THRESHOLD = 0.95
-HARD_THRESHOLD = 0.25
+MIN_SESSIONS_DISC = 3       # discrimination needs this many distinct sessions
 ATTRACTIVE_DISTRACTOR = 0.20
+
+# Judged on the interval rather than the point estimate, so these are the
+# levels a *bound* has to clear, and they are deliberately reachable. Requiring
+# the lower bound to clear 0.95 - the old point-estimate threshold - would need
+# about 73 consecutive correct answers, which is a flag that never fires: the
+# same failure as the original in the opposite direction. 0.85 is cleared by a
+# little over 20 straight correct, which is a real amount of evidence and an
+# attainable one for a heavily-drilled item.
+EASY_THRESHOLD = 0.85
+HARD_THRESHOLD = 0.30
+
+# ---------------------------------------------------------------------------
+# Why the rewrite flags are gated the way they are
+#
+# `DETECTION.md` scored these against synthetic learners and two checks failed
+# outright: a question that measures nothing, and a miskeyed question, both
+# fired on learners with *nothing planted* - 64% and 26% of them. Measured
+# directly, 79% of scored items were flagged on a clean 3000-answer history.
+# A flag that fires on four items in five is not a finding.
+#
+# The cause was the same in every flag and is not subtle in hindsight: they
+# tested point estimates from a handful of attempts. The median item in a
+# 3000-answer history has about **seven** attempts. Seven attempts is not a
+# sample you can call a question too easy from - 7 of 7 correct happens 20% of
+# the time on a question the learner simply knows - and it is not a sample you
+# can compute a correlation from at all.
+#
+# This is the one place the rule in CLAUDE.md 3.6 was never applied: every
+# other statistic in this project carries an interval and a minimum sample.
+# These now do too. Each threshold below is set so the flag fires when the
+# observation would be *surprising*, not merely possible.
+# ---------------------------------------------------------------------------
+
+# A correlation over six points is noise: roughly half of clean items came back
+# negative. Twenty is the point at which a negative value is worth reporting,
+# and it must be meaningfully negative rather than a hair below zero.
+MIN_ATTEMPTS_DISC = 20
+NEG_DISCRIMINATION_AT = -0.15
+
+# Dead options are gated on *wrong* answers, not total attempts, which was the
+# real error: with seven attempts at 78% accuracy there are about one and a
+# half wrong answers to spread over three distractors, so most distractors show
+# zero picks by arithmetic rather than by being unattractive. With W wrong
+# answers spread evenly, the chance a given distractor draws none is (2/3)^W;
+# at W = 8 that is under 4%, which makes a zero worth remarking on.
+MIN_WRONG_FOR_DEAD = 8
 
 
 # --------------------------------------------------------------------------
@@ -253,20 +294,29 @@ def _flags(item: ItemStats, q: Optional[Question], min_attempts: int) -> List[st
         flags.append("THIN_DATA")
         return flags
 
-    p = item.p_value or 0.0
-    if p >= EASY_THRESHOLD:
+    # Difficulty is judged on the interval, not the point estimate. A question
+    # answered 7 of 7 has a Wilson bound from 65% to 100% - easy is plausible,
+    # but so is 70%, and only the lower bound clearing the threshold means the
+    # question really is too easy rather than briefly lucky.
+    low, high = wilson_interval(item.correct, item.attempts)
+    if low >= EASY_THRESHOLD:
         flags.append("TOO_EASY")
-    if p <= HARD_THRESHOLD:
+    if high <= HARD_THRESHOLD:
         flags.append("TOO_HARD")
 
-    if item.discrimination is not None and item.discrimination < 0:
+    if (item.discrimination is not None
+            and item.attempts >= MIN_ATTEMPTS_DISC
+            and item.discrimination <= NEG_DISCRIMINATION_AT):
         flags.append("NEG_DISCRIMINATION")
 
     if q is not None:
         distractors = [k for k in OPTION_KEYS if k != q.answer]
         key_count = item.option_counts.get(q.answer, 0)
 
-        if item.attempts >= MIN_ATTEMPTS_DEAD:
+        # Gated on wrong answers, because that is what a distractor can draw
+        # from. Total attempts is the wrong denominator entirely.
+        wrong = sum(item.option_counts.get(k, 0) for k in distractors)
+        if wrong >= MIN_WRONG_FOR_DEAD:
             dead = [k for k in distractors if item.option_counts.get(k, 0) == 0]
             if dead:
                 flags.append("DEAD_OPTION:%s" % "".join(sorted(dead)))

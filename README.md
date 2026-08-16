@@ -564,19 +564,25 @@ the question is genuinely ambiguous and worth rewriting — tell me and I will f
 
 ### How much to trust these flags
 
-Less than the rest of the tool, and `DETECTION.md` says so with numbers.
+Unevenly, and `DETECTION.md` says which is which with numbers.
 
-The harness plants a question that measures nothing — answered at chance regardless of ability — and
-asks whether `needs_rewrite()` flags it. At 3,000 answers it catches 55% of them **and also fires on
-88% of learners with nothing planted**. A miskeyed question does better on detection, 98%, with a
-37% false-positive rate. Both are outside the threshold this project uses for a trustworthy check.
+**A miskeyed question is caught reliably** — 98% detection with a 0% false-positive rate at 3,000
+answers, which clears the bar this project uses for a trustworthy check. `KEY_CHALLENGED` counts
+option picks, and counting is something a few hundred answers can support.
 
-Note the direction of the problem: the false-positive rate *rises* with more history rather than
-falling, which is the signature of thresholds that fire on ordinary variation once samples get large,
-not of a check that merely needs more data.
+**A question that measures nothing is not caught** — 10% detection. That one is a real limit rather
+than a tuning problem. Spotting it needs per-item *discrimination*, discrimination needs roughly
+twenty attempts on the same question, and the median question in a 3,000-answer history has about
+seven. On a sample run exactly one item in 334 was measurable at all. Answering that properly would
+take an order of magnitude more study than one person produces.
 
-Read a flag as "worth a look" rather than as a verdict. On a bank this size, most of what it
-highlights at high volume will be fine.
+Both flags used to look better than this and were worse. They tested bare point estimates from a
+handful of attempts, so they fired on **79% of all items** on a learner with nothing wrong — which
+also inflated their apparent detection, because flagging four items in five catches most planted
+ones by luck. They are now gated on intervals and minimum samples like every other statistic here.
+The honest result is one flag that works and one that cannot, rather than two that looked plausible.
+
+Read a flag as "worth a look" rather than as a verdict.
 
 ---
 
@@ -715,23 +721,21 @@ below four questions. Three or four mocks of headroom in the heavy domains would
 
 ## Next up
 
-1. **Repair item analysis, or narrow what it claims.** `DETECTION.md` shows both of its flags
-   outside the trustworthy threshold, with false positives that *rise* as history grows — 88% and
-   37% at 3,000 answers. Either the thresholds need to scale with sample size, or the flags need to
-   be presented as hints rather than findings. This is now the weakest thing in the repository, and
-   it is only known because the harness measured it.
-2. **Re-run the harness against the enlarged bank.** `DETECTION.md` was generated against 346
-   questions and 23 rules; the bank is now 386 with the expert band mapped in. The asymmetry finding
-   is unlikely to reverse, and the sample-size thresholds may move.
-3. **Let confidence inform the scheduler.** A guessed-correct answer should not earn a 35-day
+1. **Decide what to do about item discrimination.** Repairing the flags fixed the miskeyed check
+   (98% detection, 0% false positives) and revealed that the other one cannot be fixed at this data
+   density: one learner's answers spread over 386 questions leave about seven attempts per item, and
+   discrimination needs twenty. The options are to drop the claim, to pool answers across profiles
+   so items accumulate attempts faster, or to leave it stated as a known limit. Doing nothing is
+   fine; pretending it works is not.
+2. **Let confidence inform the scheduler.** A guessed-correct answer should not earn a 35-day
    interval. Check 7 shows the confidence signal is trustworthy from about 300 answers, so this is
    no longer blocked on evidence — only on someone building it.
-4. **More branching cases.** Three proves the format; it is not yet a library.
-5. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
+3. **More branching cases.** Three proves the format; it is not yet a library.
+4. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
    would be better.
-6. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
+5. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
    of a thousand reviews to fit against, and defaults would just be Leitner with extra arithmetic.
-7. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
+6. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
    exam structure changed under CPA Evolution, and CPA includes task-based simulations this
    multiple-choice engine does not model.
 
