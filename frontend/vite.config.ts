@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
@@ -9,6 +10,19 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: './',
+  resolve: {
+    alias: {
+      /*
+       * kokoro-js imports `phonemizer`, which embeds espeak-ng as an Emscripten
+       * module. Minifying it leaves espeak with an empty language table and
+       * every call fails with `Invalid language identifier: "en-us"`. The same
+       * file served unbundled works. So the import is redirected to a shim that
+       * fetches the untouched copy from /models/runtime/ at runtime.
+       * See src/lib/phonemizer-shim.ts.
+       */
+      phonemizer: fileURLToPath(new URL('./src/lib/phonemizer-shim.ts', import.meta.url)),
+    },
+  },
   build: {
     outDir: '../web',
     emptyOutDir: true,

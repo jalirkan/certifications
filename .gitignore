@@ -20,3 +20,7 @@ Thumbs.db
 */results/exams/
 */results/cases/
 */results/settings.json
+
+# Neural voice weights, ~107 MB, fetched by get_voices.py. Too big for a repo
+# and reproducible from one command, so it is a setup step rather than source.
+models/

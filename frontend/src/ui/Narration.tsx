@@ -18,6 +18,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Narrator, RATES, type Narratable } from '../lib/speech'
+// A plain array of ids and labels - no engine code, so importing it here
+// does not drag transformers.js into the main bundle.
+import { NEURAL_VOICES } from '../lib/voices'
 
 export interface NarrationHandle {
   narrator: Narrator
@@ -27,6 +30,14 @@ export interface NarrationHandle {
   speaking: boolean
   /** The passage currently being read, so a button knows if it is the one. */
   speakingText: string
+  /** Kokoro state, for the picker and the loading line. */
+  neural: {
+    available: boolean      // weights on disk
+    ready: boolean          // weights in memory
+    loading: boolean
+    progress: number
+    problem: string
+  }
   reason: string | null
   say: (text: Narratable) => void
   stop: () => void
@@ -66,6 +77,13 @@ export function useNarration(key: unknown): NarrationHandle {
     autoRead: narrator.current.autoRead,
     speaking: narrator.isSpeaking,
     speakingText: narrator.speakingText,
+    neural: {
+      available: narrator.neuralAvailable,
+      ready: narrator.neuralReady,
+      loading: narrator.neuralBusy,
+      progress: narrator.neuralLoadProgress,
+      problem: narrator.neuralProblem,
+    },
     reason: narrator.unavailableReason,
     say,
     stop,
@@ -137,16 +155,43 @@ export function NarrationControls({ n, kind = 'case' }: {
 
       {settings.enabled ? (
         <>
+          {settings.engine === 'system' ? (
+            <label className="narration-field">
+              <span>Voice</span>
+              <select value={settings.voice}
+                      onChange={(ev) => n.narrator.update({ voice: ev.target.value })}>
+                <option value="">Default ({voices[0]?.name ?? 'none'})</option>
+                {voices.map((v) => (
+                  <option key={v.name} value={v.name}>{v.name} — {v.lang}</option>
+                ))}
+              </select>
+            </label>
+          ) : null}
+
           <label className="narration-field">
-            <span>Voice</span>
-            <select value={settings.voice}
-                    onChange={(ev) => n.narrator.update({ voice: ev.target.value })}>
-              <option value="">Default ({voices[0]?.name ?? 'none'})</option>
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>{v.name} — {v.lang}</option>
-              ))}
+            <span>Engine</span>
+            <select value={settings.engine}
+                    onChange={(ev) => n.narrator.update({
+                      engine: ev.target.value === 'neural' ? 'neural' : 'system',
+                    })}>
+              <option value="system">System voices</option>
+              <option value="neural" disabled={!n.neural.available}>
+                Neural{n.neural.available ? '' : ' — not downloaded'}
+              </option>
             </select>
           </label>
+
+          {settings.engine === 'neural' ? (
+            <label className="narration-field">
+              <span>Voice</span>
+              <select value={settings.neuralVoice}
+                      onChange={(ev) => n.narrator.update({ neuralVoice: ev.target.value })}>
+                {NEURAL_VOICES.map((v) => (
+                  <option key={v.id} value={v.id}>{v.label}</option>
+                ))}
+              </select>
+            </label>
+          ) : null}
 
           <label className="narration-field">
             <span>Speed</span>
@@ -169,9 +214,46 @@ export function NarrationControls({ n, kind = 'case' }: {
         </>
       ) : null}
 
+      {settings.enabled && settings.engine === 'neural' ? (
+        <div className="narration-neural">
+          {n.neural.problem ? (
+            <span className="bad">
+              The neural voice failed to load: {n.neural.problem}. Switch back to
+              system voices, or re-run <code>python get_voices.py --check</code>.
+            </span>
+          ) : n.neural.loading ? (
+            <>
+              <span className="spinner" />
+              Loading the voice model — {Math.round(n.neural.progress * 100)}%.
+              About 92&nbsp;MB, once per session; it plays as soon as it is in.
+            </>
+          ) : n.neural.ready ? (
+            <span className="good">
+              Neural voice loaded. Synthesis happens on this machine.
+            </span>
+          ) : (
+            <>
+              The model loads on your first press, which takes a few seconds.
+              After that it stays in memory for the session.
+            </>
+          )}
+        </div>
+      ) : null}
+
+      {settings.enabled && !n.neural.available ? (
+        <div className="narration-neural">
+          Better voices are available and free. The system voices on Windows are
+          a decade old; Kokoro-82M runs locally and sounds far better. One
+          download, then it is offline like everything else:
+          {' '}<code>python get_voices.py</code>
+        </div>
+      ) : null}
+
       <p className="narration-note">
         {voices.length} offline {voices.length === 1 ? 'voice' : 'voices'} on this
-        machine. Cloud voices are never used, so nothing you hear leaves it.
+        machine. Cloud voices are never used, so nothing you hear leaves it —
+        that holds for the neural engine too: the weights sit on your disk and
+        synthesis runs in this browser.
         {isDrill
           ? ' The stem and the explanations are read; the four options are not '
             + '— they are meant to be compared side by side, which listening '

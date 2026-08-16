@@ -26,6 +26,10 @@ from urllib.parse import parse_qs, unquote, urlparse
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 WEB_DIR = os.path.join(ROOT, "web")
+# Neural voice weights, fetched once by get_voices.py. Deliberately NOT under
+# web/: vite builds with emptyOutDir, so anything in there is deleted on the
+# next `npm run build` - which would silently throw away a 92 MB download.
+MODELS_DIR = os.path.join(ROOT, "models")
 sys.path.insert(0, ROOT)
 
 from drillkit import loader  # noqa: E402
@@ -106,25 +110,68 @@ class Handler(BaseHTTPRequestHandler):
         return data if isinstance(data, dict) else {}
 
     # ---- static ------------------------------------------------------
-    def _static(self, path: str) -> None:
-        relative = unquote(path.lstrip("/")) or "index.html"
-        target = os.path.normpath(os.path.join(WEB_DIR, relative))
-        # Refuse anything that escapes the web directory.
-        if not target.startswith(WEB_DIR + os.sep) and target != WEB_DIR:
+    def _stream(self, target: str, ctype: str) -> None:
+        """Send a file without reading it all into memory first.
+
+        The voice model is ~92 MB. `fh.read()` on that allocates the whole
+        thing per request, and the browser re-requests it whenever its cache
+        is cold. Chunked writes cost nothing for the small files and stop the
+        big one from being a memory spike.
+        """
+        size = os.path.getsize(target)
+        self.send_response(200)
+        self.send_header("Content-Type", ctype)
+        self.send_header("Content-Length", str(size))
+        # Weights are immutable and large; letting the browser keep them is the
+        # difference between a one-second start and a 92 MB re-download.
+        self.send_header("Cache-Control",
+                         "public, max-age=31536000, immutable"
+                         if target.startswith(MODELS_DIR) else "no-store")
+        self.end_headers()
+        try:
+            with open(target, "rb") as fh:
+                while True:
+                    block = fh.read(262144)
+                    if not block:
+                        break
+                    self.wfile.write(block)
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # the browser navigated away or cancelled
+
+    def _serve_from(self, root: str, relative: str, index: bool) -> None:
+        target = os.path.normpath(os.path.join(root, relative))
+        # Refuse anything that escapes the root.
+        if not target.startswith(root + os.sep) and target != root:
             return self._error("Not found", 404)
-        if os.path.isdir(target):
+        if index and os.path.isdir(target):
             target = os.path.join(target, "index.html")
         if not os.path.isfile(target):
             return self._error("Not found", 404)
         ctype = mimetypes.guess_type(target)[0] or "application/octet-stream"
         if ctype.startswith("text/") or ctype in ("application/javascript",):
             ctype += "; charset=utf-8"
-        with open(target, "rb") as fh:
-            self._send(200, fh.read(), ctype)
+        self._stream(target, ctype)
+
+    def _static(self, path: str) -> None:
+        relative = unquote(path.lstrip("/")) or "index.html"
+        self._serve_from(WEB_DIR, relative, index=True)
+
+    def _model(self, path: str) -> None:
+        """Voice weights for offline narration.
+
+        Read-only and served as plain files, because that is what the model
+        loader in the browser expects. Absent until `python get_voices.py` has
+        been run, and a 404 here is a normal state, not an error - narration
+        falls back to the system voices and says so.
+        """
+        relative = unquote(path[len("/models/"):])
+        self._serve_from(MODELS_DIR, relative, index=False)
 
     # ---- routing -----------------------------------------------------
     def do_GET(self):  # noqa: N802
         route = urlparse(self.path).path
+        if route.startswith("/models/"):
+            return self._model(route)
         if not route.startswith("/api/"):
             return self._static(route)
         try:

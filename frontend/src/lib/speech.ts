@@ -52,7 +52,30 @@
  * starts talking on its own.
  */
 
+/*
+ * `neural.ts` is imported dynamically, never statically. It pulls in
+ * transformers.js and the ONNX runtime bindings, which are ~2MB of JavaScript
+ * - a real cost on a screen belonging to someone who may never turn narration
+ * on at all. Loading it on first neural use keeps the main bundle at its old
+ * size and puts the cost where the benefit is.
+ *
+ * The one thing needed eagerly is the default voice name, which is a string.
+ */
+import type * as NeuralModule from './neural'
+
+export const DEFAULT_NEURAL_VOICE = 'af_heart'
+
+let neuralModule: typeof NeuralModule | null = null
+
+async function neuralImport(): Promise<typeof NeuralModule> {
+  if (!neuralModule) neuralModule = await import('./neural')
+  return neuralModule
+}
+
 const KEY = 'cisa.narration'
+
+/** Which synthesiser reads. `system` is the browser's; `neural` is Kokoro. */
+export type Engine = 'system' | 'neural'
 
 /**
  * Text cleared for narration.
@@ -135,10 +158,20 @@ export interface NarrationSettings {
    * have just acted and the case is telling you what happened.
    */
   autoRead: boolean
+  /**
+   * `system` is the browser's built-in voices - always available, and on
+   * Windows they are 2013-era concatenative synthesis. `neural` is Kokoro-82M
+   * running locally, which sounds dramatically better and needs a one-time
+   * ~103MB download via get_voices.py. System stays the default because it is
+   * the one that always works.
+   */
+  engine: Engine
+  neuralVoice: string
 }
 
 export const DEFAULTS: NarrationSettings = {
   enabled: false, voice: '', rate: 1.05, autoRead: false,
+  engine: 'system', neuralVoice: DEFAULT_NEURAL_VOICE,
 }
 
 export const RATES = [0.8, 1.0, 1.25, 1.5, 1.75, 2.0]
@@ -155,6 +188,10 @@ export function loadSettings(): NarrationSettings {
         ? parsed.rate
         : DEFAULTS.rate,
       autoRead: Boolean(parsed.autoRead),
+      engine: parsed.engine === 'neural' ? 'neural' : 'system',
+      neuralVoice: typeof parsed.neuralVoice === 'string' && parsed.neuralVoice
+        ? parsed.neuralVoice
+        : DEFAULT_NEURAL_VOICE,
     }
   } catch {
     return { ...DEFAULTS }
@@ -166,6 +203,16 @@ export function saveSettings(s: NarrationSettings): void {
     localStorage.setItem(KEY, JSON.stringify(s))
   } catch {
     // Private browsing, or storage full. Narration still works this session.
+  }
+}
+
+/** Is the voice model on disk? A 44-byte fetch, not an engine import. */
+async function probeModel(): Promise<boolean> {
+  try {
+    const res = await fetch('/models/kokoro/config.json', { cache: 'force-cache' })
+    return res.ok
+  } catch {
+    return false
   }
 }
 
@@ -260,6 +307,13 @@ export class Narrator {
   private current_text = ''
   private listeners = new Set<() => void>()
 
+  /** Kokoro playback, created with the module on first neural use. */
+  private neural: NeuralModule.NeuralSpeaker | null = null
+  private neuralHere = false        // model files on disk?
+  private neuralLoading = false
+  private neuralProgress = 0
+  private neuralError = ''
+
   constructor(settings: NarrationSettings = loadSettings()) {
     this.settings = settings
   }
@@ -276,6 +330,66 @@ export class Narrator {
   async ready(): Promise<void> {
     this.voices = await whenVoicesReady()
     this.emit()
+    // Probe without importing the engine: a plain fetch for a 44-byte config
+    // answers "is it downloaded" without pulling 2MB of inference code onto a
+    // screen that may never narrate anything.
+    this.neuralHere = await probeModel()
+    this.emit()
+  }
+
+  // ---- neural engine -------------------------------------------------
+
+  get neuralAvailable(): boolean {
+    return this.neuralHere
+  }
+
+  get neuralReady(): boolean {
+    return neuralModule ? neuralModule.isLoaded() : false
+  }
+
+  get neuralBusy(): boolean {
+    return this.neuralLoading
+  }
+
+  get neuralLoadProgress(): number {
+    return this.neuralProgress
+  }
+
+  get neuralProblem(): string {
+    return this.neuralError
+  }
+
+  /**
+   * Load the weights, on demand rather than at startup.
+   *
+   * ~92MB decoded into memory is not something to do because someone opened
+   * the Cases screen. It happens on the first press of a speak button with the
+   * neural engine selected, which is also the first moment the delay is
+   * explainable.
+   */
+  async warmNeural(): Promise<boolean> {
+    if (this.neuralReady) return true
+    if (!this.neuralHere) return false
+    if (this.neuralLoading) return false
+    this.neuralLoading = true
+    this.neuralProgress = 0
+    this.neuralError = ''
+    this.emit()
+    try {
+      const mod = await neuralImport()
+      if (!this.neural) this.neural = new mod.NeuralSpeaker()
+      await mod.loadModel((fraction) => {
+        this.neuralProgress = fraction
+        this.emit()
+      })
+      return true
+    } catch (err) {
+      this.neuralError = err instanceof Error ? err.message : String(err)
+      return false
+    } finally {
+      this.neuralLoading = false
+      this.emit()
+    }
   }
 
   get available(): boolean {
@@ -336,13 +450,19 @@ export class Narrator {
    * and the common case is the learner moving on before the last one finished.
    */
   speak(text: Narratable): void {
-    if (!this.settings.enabled || !this.available) return
+    if (!this.settings.enabled) return
+    const pieces = chunk(text)
+    if (!pieces.length) return
+
+    if (this.settings.engine === 'neural' && this.neuralHere) {
+      void this.speakNeural(text, pieces)
+      return
+    }
+    if (!this.available) return
     const voice = this.pickVoice()
     if (!voice) return
 
     this.stop()
-    const pieces = chunk(text)
-    if (!pieces.length) return
 
     this.speaking = true
     this.current_text = text
@@ -366,9 +486,41 @@ export class Narrator {
     })
   }
 
+  private async speakNeural(text: Narratable, pieces: string[]): Promise<void> {
+    this.stop()
+    // The model may not be in memory yet on the first press. Loading is shown
+    // rather than hidden: several seconds of silence with no explanation reads
+    // as a broken button.
+    if (!this.neuralReady) {
+      const ok = await this.warmNeural()
+      if (!ok || !this.neural) return
+    }
+    this.speaking = true
+    this.current_text = text
+    this.emit()
+    await this.neural!.speak(
+      pieces, this.settings.neuralVoice, this.settings.rate,
+      () => {
+        this.speaking = false
+        this.current_text = ''
+        this.emit()
+      },
+    )
+  }
+
   /** Stop and clear the queue. Called on navigation, node change and unmount. */
   stop(): void {
-    if (!supported()) return
+    // Both engines, unconditionally: the setting can change mid-utterance, and
+    // stopping only the currently-selected one would leave the other talking.
+    this.neural?.stop()
+    if (!supported()) {
+      if (this.speaking) {
+        this.speaking = false
+        this.current_text = ''
+        this.emit()
+      }
+      return
+    }
     window.speechSynthesis.cancel()
     if (this.speaking) {
       this.speaking = false
