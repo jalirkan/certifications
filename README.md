@@ -371,6 +371,36 @@ Format is documented in `cisa/cases/SCHEMA.md`. Case results go to `cases.jsonl`
 `attempts.jsonl` — a case is not a four-option question and letting it reach item analysis or the
 scheduler would corrupt both.
 
+### Narration — browser only, and why
+
+Cases can be **read aloud** in the web app. Turn it on at the top of the Cases screen, pick a voice
+and a speed, and a small button appears beside each piece of prose: the brief, each situation, each
+consequence, and the outcome in the debrief. Nothing ever starts speaking on its own.
+
+Three things about it are deliberate:
+
+- **Only the narrative is read. The options never are.** Opening, situation and consequence are
+  prose you take in order, which suits audio. The four options are a *comparison* — you hold them
+  side by side and notice that two differ by one word. Read aloud they arrive one at a time and
+  leave, turning a reading task into a memory task for reasons that have nothing to do with audit
+  judgment. This is enforced in the type system, not by convention: the speak function will not
+  accept an option.
+- **Local voices only.** Your operating system's own voices, filtered on `localService`. Some
+  browsers also offer cloud voices; those would send the case text to a vendor's servers, so they
+  are never used. If your machine has no offline voice installed, the feature switches itself off
+  and says so rather than quietly falling back.
+- **It is comfort and access, not training.** There is no evidence that hearing a case read aloud
+  improves exam performance, and the exam itself is read silently under time pressure. Use it
+  because it is easier on the eyes over months of study, not because it is supposed to help you
+  score better.
+
+**This is the one feature that does not work from the command line.** Every other part of this
+project works identically from `drill.py` and the browser. The browser ships a speech engine and
+the terminal does not, and closing that gap would mean adding a text-to-speech dependency to
+`drillkit/`, which is deliberately standard-library only. That trade is worth it in this direction.
+If a terminal equivalent is ever wanted, the honest route is a separate opt-in script outside
+`drillkit/` — not a dependency inside it.
+
 ---
 
 ## Calibration — did you know that you knew

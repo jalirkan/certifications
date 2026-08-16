@@ -24,6 +24,8 @@ import { plural, stamp } from '../lib/format'
 import { useAsync, useKeys } from '../lib/hooks'
 import { Callout, Card, ErrorNote, Loading, Section } from '../ui/primitives'
 import { CaseGraph } from '../charts/CaseGraph'
+import { NarrationControls, SpeakButton, useNarration } from '../ui/Narration'
+import { narrate } from '../lib/speech'
 
 const VERDICT_TONE: Record<string, string> = {
   strong: 'good',
@@ -71,6 +73,7 @@ export function CasesHome() {
    */
   const wanted = new URLSearchParams(useLocation().search).get('case') ?? ''
   const highlight = useRef<HTMLDivElement | null>(null)
+  const narration = useNarration('list')
 
   useEffect(() => {
     if (wanted && highlight.current) {
@@ -105,6 +108,8 @@ export function CasesHome() {
           never whether it was a good one. Some choices cannot be walked back.
         </p>
       </Callout>
+
+      <NarrationControls n={narration} />
 
       <div style={{ marginTop: 18 }}>
         {list.data.cases.map((c) => (
@@ -204,6 +209,9 @@ export function CaseRunner() {
   const [pending, setPending] = useState(false)
   const started = useRef(Date.now())
   const continueRef = useRef<HTMLButtonElement | null>(null)
+  // Keyed on the node id, so moving to the next decision cancels the previous
+  // consequence mid-sentence rather than letting the two overlap.
+  const narration = useNarration(state?.node?.id ?? '')
 
   useEffect(() => {
     let live = true
@@ -304,6 +312,8 @@ export function CaseRunner() {
         {opening ? (
           <Card className="case-opening">
             <Prose text={state.opening} />
+            <SpeakButton n={narration} text={narrate.opening(state)}
+                         label="Read the brief aloud" />
           </Card>
         ) : (
           /* Still reachable, because a 12-minute case outlives your memory of
@@ -311,12 +321,18 @@ export function CaseRunner() {
           <details className="case-brief">
             <summary>The brief</summary>
             <Prose text={state.opening} />
+            <SpeakButton n={narration} text={narrate.opening(state)}
+                         label="Read the brief aloud" />
           </details>
         )}
 
         <div className="qcard" style={{ marginTop: opening ? 20 : 0 }}>
           <div className="case-situation">
             <Prose text={node.situation} />
+            {/* Situation and prompt only. The options below are deliberately
+                not narrated — see lib/speech.ts. */}
+            <SpeakButton n={narration} text={narrate.situation(node)}
+                         label="Read the situation aloud" />
           </div>
           <p className="stem">{node.prompt}</p>
 
@@ -343,6 +359,8 @@ export function CaseRunner() {
               <div className="consequence">
                 <div className="kicker">What happens</div>
                 <Prose text={consequence.consequence} />
+                <SpeakButton n={narration} text={narrate.consequence(consequence)}
+                             label="Read this aloud" />
               </div>
               <div className="runner-foot">
                 <button className="btn primary" ref={continueRef} onClick={advance}>
@@ -370,6 +388,7 @@ export function CaseRunner() {
 export function CaseDebriefScreen() {
   const { session = '' } = useParams()
   const debrief = useAsync<CaseDebrief>(() => api.caseDebrief(session), [session])
+  const narration = useNarration(session)
 
   if (debrief.loading) return <div className="wrap"><Loading what="Building the debrief…" /></div>
   if (debrief.error || !debrief.data) {
@@ -402,6 +421,8 @@ export function CaseDebriefScreen() {
           <h2 className="ending-title">{d.ending.title}</h2>
         </div>
         <Prose text={d.ending.narrative} className="ending-narrative" />
+        <SpeakButton n={narration} text={narrate.endingNarrative(d.ending)}
+                     label="Read the outcome aloud" />
         <div className="rule-note" style={{ marginTop: 16 }}>
           <div className="kicker">What this path got right or wrong</div>
           <Prose text={d.ending.why} />

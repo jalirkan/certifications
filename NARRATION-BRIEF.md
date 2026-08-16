@@ -1,15 +1,31 @@
 # Case narration — handoff brief
 
-> **Status: not started, as of 2026-08-01.** Nothing in §7 exists.
+> **Status: built 2026-08-01.** `frontend/src/lib/speech.ts`, `frontend/src/ui/Narration.tsx`,
+> wired into `Cases.tsx`, with `tests/test_narration.py` (16 structural guards) and the §6
+> asymmetry note in the README. Every item in §7 is on disk.
 >
-> Verified on disk: no `speechSynthesis`, `SpeechSynthesisUtterance` or voice handling anywhere in
-> `frontend/src`. The only matches for "narrat" are the case *text* — `ending.narrative` in
-> `api/types.ts`, `Cases.tsx` and the `.ending-narrative` style — which is the content this feature
-> would read aloud, not the feature. The README carries no CLI-asymmetry note either.
+> §1's feasibility finding held, with one correction. It says to listen for `voiceschanged` before
+> populating a picker. On the browser this was tested in, `voiceschanged` **never fires** — voices
+> were empty at first call and present at 850ms. A pure listener waits forever there; a fixed
+> timeout was the first fix and was also wrong, because 850ms on one machine is not 850ms on a
+> slower one and the failure is silent (the feature reports "no voice installed" and disables
+> itself). `whenVoicesReady()` now listens *and* polls to a 6s deadline, resolving the moment
+> voices appear either way.
 >
-> The brief itself is unchanged and still current; §1's feasibility finding has not been retested.
-> This is the last unbuilt piece of the certifications roadmap other than `FRONTEND-II-BRIEF.md`
-> pieces C, D and E.
+> §3 was implemented as written and is enforced by the type system rather than by convention:
+> `speak()` takes a branded `Narratable` that only the `narrate` allow-list can mint, so passing
+> `option.text` is a compile error. Four deliberate mutations of that mechanism were each caught by
+> the test suite.
+>
+> **One thing §8 asks for that was not done:** whether listening actually feels better than reading
+> is a judgment about audio, and the agent that built this could not hear it. The mechanism is
+> verified end to end — a full tainted d5 path played with narration on, 16 utterances, no option
+> text among them — but the comfort question is open and belongs to whoever uses it.
+>
+> Related tension worth a decision, flagged rather than resolved: §4.3 forbids autoplay, so every
+> utterance sits behind a button, which is four extra clicks per case and they fall on the
+> consequence — the piece most worth hearing. Arguably switching the feature *on* is the learner
+> asking. Left as the brief specifies; see the note at the end of §4.
 
 For a coding agent with a terminal. Read `CLAUDE.md` first, then `cisa/cases/SCHEMA.md`.
 
