@@ -1,0 +1,300 @@
+{
+  "id": "d3-the-control-matrix",
+  "title": "The Control Matrix",
+  "domain": "3",
+  "section": "A",
+  "topics": [
+    "Control Identification and Design",
+    "System Development Methodologies",
+    "Types of Controls and Considerations",
+    "Project Governance and Management",
+    "Enterprise Risk Management"
+  ],
+  "principles": [
+    "prevent-first",
+    "risk-first",
+    "earlier-is-cheaper",
+    "root-cause",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "A national charity is replacing the system it uses to award and pay grants. Four thousand awards a year, £62m out of the door, applications from small organisations who mostly get one shot at it.\n\nYou are the IS auditor attached to the programme. Design phase; build starts in nine weeks.\n\nOn Monday the control workstream sends you their matrix for review. Eighty-four controls, each with an owner, a description, a system reference and a cross-reference to the requirement it satisfies. Every requirement has a control against it. Every control traces to a requirement.\n\nIt is the most complete control matrix you have been given by a programme.",
+
+  "taints": {
+    "borrowed-the-control-set": "end-someone-elses",
+    "confirmed-comfort": "end-minuted"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "Eighty-four controls, nine weeks to build. The workstream lead wants your comments by the end of next week so anything you raise can still land in the design.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test the traceability: every requirement has a control, every control has a requirement, no orphans either way.",
+          "quality": "poor",
+          "next": "the-workshop",
+          "consequence": "Three days of work. The traceability is complete in both directions, with two duplicated references you flag as tidy-ups. You report the matrix as complete and internally consistent.",
+          "why": "Traceability is real and testable and it establishes internal consistency — that the matrix agrees with itself. It cannot say anything about adequacy, because both sides of the comparison came from the same programme: the requirements were written by the same people who wrote the controls. Confirming a document is consistent with its own source is the kind of finding that reads as assurance and is closer to proofreading, and it costs you three of the nine weeks in which anything could still change."
+        },
+        {
+          "key": "B",
+          "text": "Establish where the eighty-four came from.",
+          "quality": "best",
+          "next": "the-provenance",
+          "consequence": "You ask the workstream lead. He is completely open about it: the matrix was built from the legacy system's audit findings register, ten years and 140 findings, each mapped forward to a control in the new design.",
+          "why": "A control set is an answer, and the first useful question about any answer is what question it was responding to. Provenance is cheap to establish, it is almost never in the document, and it determines what the set can and cannot contain — because a derivation carries the shape of whatever it was derived from. Asking it first also costs an hour, against three days for the traceability test that will tell you the matrix agrees with itself."
+        },
+        {
+          "key": "C",
+          "text": "Classify the eighty-four by control type and look at the distribution.",
+          "quality": "defensible",
+          "next": "the-provenance",
+          "consequence": "An afternoon with the descriptions. Seventy-one are detective, nine corrective, four preventive. You take the counts to the workstream lead, who is surprised by them and does not dispute them.",
+          "why": "A cheap analytic that goes straight to the symptom, and it produces a number the programme cannot argue with. What it gives you is the shape without the reason, and a distribution presented on its own gets treated as a balance problem: the workstream adds preventive controls until the ratio looks better. Knowing why every control came out detective is what stops the fix being cosmetic, and that answer is one conversation away."
+        },
+        {
+          "key": "D",
+          "text": "Assess the design of the ten controls over grant payment, since that is where the money leaves.",
+          "quality": "defensible",
+          "next": "the-provenance",
+          "consequence": "You work through the payment controls in detail. Each is competently specified. Between them they will identify a payment made in error within a month of it going out.",
+          "why": "Correct prioritisation — payment is where the irrecoverable loss is — and it examines the controls one at a time, which is the level at which this particular defect is invisible. Every one of the ten is well designed for what it does. The problem only appears when you look at what they all are, and no amount of depth on an individual control surfaces a property of the set."
+        }
+      ]
+    },
+
+    "the-provenance": {
+      "situation": "The matrix was built from the legacy system's audit findings register: ten years, 140 findings from internal audit, external audit and two grant-funder reviews, each mapped forward to a control in the new design.\n\nA risk assessment for the new process was scheduled for the design phase. It was descoped in February when the timeline compressed by six weeks.\n\nThe workstream lead thinks this was a good decision, and his reasoning is not weak: the findings register is the only structured record anyone has of what actually goes wrong in grant-making at this charity, and a workshop would have produced somebody's imagination instead.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Classify the eighty-four by control type and see what the derivation produced.",
+          "quality": "best",
+          "next": "the-shape",
+          "consequence": "Seventy-one detective, nine corrective, four preventive. Three of the four preventive controls are password and session settings inherited from the security standard.",
+          "why": "You have a hypothesis about the derivation and this is the test of it. If a control set built from findings inherits something structural from findings, it will show up in the distribution — and the distribution is a property of the whole matrix, computable in an afternoon, that no line-by-line review would ever reveal.\n\nThe four preventive controls are the part that makes it undeniable. Three of them did not come from the derivation at all; they arrived from a security standard, which means the findings register contributed essentially one preventive control in eighty-four."
+        },
+        {
+          "key": "B",
+          "text": "Read the 140 findings to understand what risks they cover.",
+          "quality": "defensible",
+          "next": "the-shape",
+          "consequence": "Two days. The findings are good ones, well written, spanning eligibility, duplicate applications, bank detail changes, monitoring of awarded grants and conflicts of interest. Nothing about them is thin.",
+          "why": "Careful work and the register turns out to be strong, which is precisely the trap. What you have established is what the register contains; the exposure is in what it cannot contain, and reading it more closely can never surface that. A findings register records failures that were discovered — so it is silent about failures nobody found, and silent about risks that have not yet materialised at this charity, and those absences are invisible from the inside of it."
+        },
+        {
+          "key": "C",
+          "text": "Report that the risk assessment was descoped and should be reinstated before build.",
+          "quality": "defensible",
+          "next": "the-shape",
+          "consequence": "You raise it. The programme board notes it, agrees a risk assessment would be good practice, and schedules it for the delivery phase, after build has started.",
+          "why": "True, and it is a process finding delivered without its consequence. Told that a step was skipped, a board under timeline pressure weighs the step against the timeline and schedules it late — which is what happened. Told that skipping it produced eighty-four controls of which four are preventive on a process that pays out £62m, the same board is weighing something else entirely. The finding is the same; only one version of it can compete with a date."
+        },
+        {
+          "key": "D",
+          "text": "Accept the reasoning. A findings register is empirical evidence of what goes wrong, which beats a workshop's speculation.",
+          "quality": "poor",
+          "next": "the-shape",
+          "consequence": "You record the derivation as a reasonable basis and turn to reviewing individual control descriptions.",
+          "why": "His argument is good and it is an argument for using the register as an input, not as the source. Empirical is doing a lot of work in that sentence: a findings register is empirical about the subset of failures that were discovered, at one organisation, on a system being replaced. It is evidence, and it is a sample with a selection rule nobody chose — which makes accepting it as the population the same error the case is about, committed by the reviewer."
+        }
+      ]
+    },
+
+    "the-shape": {
+      "situation": "Seventy-one detective. Nine corrective. Four preventive, and three of those four are password and session settings that came from the security standard rather than from the register.\n\nThe one substantive preventive control in the matrix is a check that stops two grants being paid to the same bank account in the same round.\n\nThe charity's recovery rate on grants later found to have been paid in error is 11%.",
+      "prompt": "What does that tell you?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The design is unbalanced and needs more preventive controls.",
+          "quality": "defensible",
+          "next": "the-benchmark",
+          "consequence": "You put it to the workstream. They agree readily and add four preventive controls over the following fortnight, taking the count to eight.",
+          "why": "The right conclusion expressed as a quantity, and a quantity is what you get back. Four controls appear, chosen by the same people from the same source, and the ratio improves without anybody having asked which risks needed preventing. The distribution was a symptom; treating it as the finding invites a fix aimed at the number, and a matrix with eight preventive controls out of eighty-eight looks materially better and is not."
+        },
+        {
+          "key": "B",
+          "text": "Findings are written in the past tense, so a control set derived from them can only be detective.",
+          "quality": "best",
+          "next": "the-benchmark",
+          "consequence": "You take it to the workstream lead with three findings quoted verbatim: 'was not identified until', 'was not detected by', 'no report existed that would have shown'. He reads them, and then reads several more, and stops arguing halfway through.",
+          "why": "This is the mechanism and it is nobody's mistake. A finding is written after something has gone wrong and gone unnoticed, so its natural grammar is the absence of detection — and a control derived from 'X was not detected' is a control that detects X. Map 140 of them forward and you get a system that will tell you, accurately and promptly, about every kind of loss the charity has previously suffered, after it has suffered it again.\n\nStated at this level the finding survives everyone involved leaving, and it points somewhere: the defect is in the derivation, so the answer is a different source, not more controls from the same one."
+        },
+        {
+          "key": "C",
+          "text": "The detective controls should be tested for adequacy — whether the reports would actually surface what they claim to.",
+          "quality": "poor",
+          "next": "the-benchmark",
+          "consequence": "You review the reporting specifications in detail. They are well designed and would surface what they are meant to surface. You conclude the detective control set is adequate.",
+          "why": "A careful piece of work performed entirely inside the frame you should be questioning. Confirming that seventy-one detective controls detect well tells the programme that the matrix is sound, which is the opposite of the finding. On a process where money leaves the organisation to external applicants and comes back 11% of the time, the question is not how good detection is; it is why almost nothing stops the payment."
+        },
+        {
+          "key": "D",
+          "text": "Compare the matrix against the risks a grant-making process actually carries, listed independently.",
+          "quality": "defensible",
+          "next": "the-benchmark",
+          "consequence": "You start listing: ineligible applicant, fabricated applicant organisation, duplicate application under a second registration, altered bank details, staff conflict of interest, grant spent outside purpose. Against each you find a detective control and, in four of the six, nothing that would stop it.",
+          "why": "The right method, and it is the work the programme descoped, now being performed by the person reviewing the programme. That has two costs. It is your list, so the gaps are gaps against your judgement rather than against the charity's agreed view of its own risks — and it puts you a short distance from having authored the risk assessment the design will be rebuilt on. The output is genuinely useful; where it comes from decides who owns it."
+        }
+      ]
+    },
+
+    "the-benchmark": {
+      "situation": "You will be asked what you are comparing the matrix against. It is a fair question, and without an answer the finding is an opinion about eighty-four controls that were each individually approved.",
+      "prompt": "What do you use as the basis for comparison?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The control matrix from the grant-making platform you reviewed at another organisation two years ago. It is a good one and you still have it.",
+          "quality": "poor",
+          "next": "the-workshop",
+          "consequence": "You map the eighty-four against it. Sixteen controls present in the other matrix have no counterpart here, including pre-payment eligibility validation and a bank-detail change hold. The gap list is concrete, specific and immediately persuasive.",
+          "taint": "borrowed-the-control-set",
+          "why": "This is experience used the way experience is supposed to be used, and it produces the best gap list you could have written. It is also two failures at once, and the second only looks obvious afterwards.\n\nThe first is confidentiality. A control matrix describes how an organisation defends itself and where it does not. It belongs to that client, it is in this client's file now, and no engagement letter permits that. Deleting the document does not undo it, because the gap list derived from it is in the report.\n\nThe second is that you have committed the error you are reporting. The finding is that the programme selected controls from a catalogue of past events rather than from an assessment of this charity's risks; your test selected controls from a catalogue of another organisation's design, for the same reason. Sixteen gaps against someone else's matrix are not gaps — they are differences between two organisations, and nothing in the comparison says which of them matter here."
+        },
+        {
+          "key": "B",
+          "text": "Derive it from this charity's own exposure: what can go wrong in its grant process, what each would cost, and what would stop it.",
+          "quality": "best",
+          "next": "the-workshop",
+          "consequence": "You work it up with the head of grants and the finance director over two sessions, and the register function reviews it. Six exposures, ranked by irrecoverable cost. Against four of the six there is detection and nothing that prevents.",
+          "why": "The comparison has to come from the same place the controls should have come from, or the finding is one taste against another. Deriving it with the grants and finance leads rather than alone does two things at once: it produces a list the charity owns, and it means the eventual recommendation is measured against their view of their own exposure rather than yours.\n\nRanking by irrecoverable cost is what makes it bite. On a process with an 11% recovery rate, the distinction between prevented and detected is most of the money."
+        },
+        {
+          "key": "C",
+          "text": "Compare against a published control framework's catalogue for application controls.",
+          "quality": "defensible",
+          "next": "the-workshop",
+          "consequence": "The mapping takes two days and produces thirty-one catalogue controls with no counterpart in the matrix. Several are clearly irrelevant to a grant-making charity and you spend a further day deciding which.",
+          "why": "A legitimate and citable reference point, and a catalogue is written to be a superset for every organisation, so it produces a gap list rather than an answer. Thirty-one gaps, some of which matter and some of which do not, hands the programme the job of deciding which — and they will decide the way anyone under timeline pressure decides.\n\nThere is a sharper problem underneath. Selecting controls from a catalogue is what the risk assessment exists to avoid, so testing a catalogue-shaped failure with a catalogue reproduces the error one level up."
+        },
+        {
+          "key": "D",
+          "text": "Ask the charity's risk function for its grant-making risk register and compare against that.",
+          "quality": "defensible",
+          "next": "the-workshop",
+          "consequence": "They send it the same day. Six entries covering grant-making, written at entity level: 'reputational damage arising from grant fraud', 'loss of funder confidence', 'regulatory censure'.",
+          "why": "The right source and the wrong altitude. An entity risk register is written for a board, in outcomes, and controls are designed against events — 'reputational damage from grant fraud' does not tell you whether an applicant can submit twice under two registered numbers. It is the correct document to anchor to and it needs a layer of process-level analysis beneath it before anything can be designed from it, which is the layer the programme descoped."
+        }
+      ]
+    },
+
+    "the-workshop": {
+      "situation": "Design authority, Thursday. You present: the derivation, the distribution, and the exposures with no preventive control against them.\n\nThe programme director takes it well. He does not defend the matrix, he asks two good questions, and he agrees the derivation was a shortcut.\n\nThen, in front of the group, with the minute-taker typing: \"So — are you comfortable with the control set as it stands?\"",
+      "prompt": "How do you answer?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Say yes, broadly, subject to the points you have just raised.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The minute records: 'Internal Audit confirmed comfort with the control design, subject to points raised.' The control workstream is closed at the same meeting and its budget released to integration testing.",
+          "taint": "confirmed-comfort",
+          "why": "It is the collegiate answer to a direct question from someone who has just conceded your entire argument, and refusing it would have felt ungracious. That is exactly the moment to notice what is being asked for.\n\nAn audit opinion is a product with a process behind it: evidence, review, a written record of scope and basis, and a reader who can see all three. Given verbally it arrives with none of that, and the minute keeps the conclusion while discarding everything that qualified it. 'Subject to points raised' does not survive a summary, and the summary is what the programme board reads.\n\nWhat makes it unrecoverable is what the answer permitted. The workstream closed on the strength of it. Your written report on Friday is now a change of position rather than a first position, and it will be received as audit hardening its line after the fact — which is a much weaker place to argue from than never having answered."
+        },
+        {
+          "key": "B",
+          "text": "Say your view will be in a written report by Friday, and set out now what it is going to say.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "You give them the substance in the room — four exposures with no preventive control, the derivation, what you will recommend — and decline to characterise it as comfort. The director asks you to send the draft to him first, which you agree to. The workstream stays open.",
+          "why": "This gives the group everything useful and withholds only the thing that cannot be given verbally. They can act on Thursday, which is the whole reason for being in the room; what they cannot do is record a conclusion that has no basis behind it yet.\n\nThe distinction is worth holding on to, because the question will be asked in every one of these meetings. Findings are information and can be shared as soon as you have them. An opinion is a product, and it exists when it is written, reviewed and scoped — not when someone asks for it."
+        },
+        {
+          "key": "C",
+          "text": "Say no, you are not comfortable, and list the gaps again.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The minute records: 'Internal Audit not comfortable with control design.' The programme board reads it the following week without the four exposures, and the director spends the meeting explaining what audit's objection is.",
+          "why": "The substance is right and it is still a verbal opinion, which is the part that gets recorded. A negative one is not safer than a positive one; it is the same object with the sign reversed, and it loses the same detail on the way to the minute.\n\nThe cost here is specific. What reaches the board is a disagreement, and disagreements are resolved by seniority. What should have reached them is four exposures on a process that pays £62m and recovers 11%, which is not a disagreement at all."
+        },
+        {
+          "key": "D",
+          "text": "Say that internal audit does not give comfort on a design that is still in progress.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The answer is correct and lands flatly. The director moves on, the meeting closes the control workstream anyway, and the minute records that internal audit declined to comment.",
+          "why": "Right, and delivered as a rule rather than as help. He asked a reasonable question in a forum whose purpose is to decide things, and a procedural refusal with nothing attached reads as unwillingness to engage — so the group proceeds on its own judgement, having asked for yours and been told the process does not allow it.\n\nThe position is the same as the strong answer; what is missing is the half that makes it useful. Declining to give an opinion works when you replace it with the findings."
+        }
+      ]
+    },
+
+    "the-recommendation": {
+      "situation": "Build starts in seven weeks. Whatever you recommend has to be executable inside that, or it will be deferred to a phase that does not exist yet.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That a process-level risk assessment be performed and the control matrix rebuilt from it, before build starts.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The programme director pushes back hard on the timeline and then proposes a compromise: two weeks, scoped to the six exposures rather than the whole process, run by the grants function with the workstream facilitating. It takes eleven days and changes nineteen of the eighty-four controls.",
+          "why": "The recommendation attaches to the derivation rather than to the count, which is why the fix is a different source rather than more controls from the same one. Nineteen changed controls out of eighty-four is what that looks like: not additions, replacements.\n\nHis compromise is better than the recommendation as written. Scoping the assessment to the six exposures makes it fit the timeline, and having the grants function run it puts the risk judgement with the people who bear the consequence — both of which are improvements you would not have arrived at alone. Pushback that produces a narrower version that actually happens is a good outcome."
+        },
+        {
+          "key": "B",
+          "text": "That additional preventive controls be specified for the exposures currently covered only by detection.",
+          "quality": "defensible",
+          "next": "end-rebalanced",
+          "consequence": "Accepted without argument. Six preventive controls are specified over three weeks and built with the rest. The matrix goes to build with ten preventive controls out of ninety.",
+          "why": "It closes the four exposures you identified, before build, which is real and not a small thing. What it leaves untouched is the way controls get chosen: the six are the six you named, specified by the same workstream from the same register, and everything not on your list is still covered the way it was.\n\nThe test of a recommendation is whether it would have caught something you did not personally find. This one would not, which makes your review a permanent dependency of the design."
+        },
+        {
+          "key": "C",
+          "text": "That the detective controls run daily rather than monthly, so an error is caught within a day of the payment.",
+          "quality": "defensible",
+          "next": "end-rebalanced",
+          "consequence": "Accepted and built. Exception reporting moves from monthly to overnight, and the average time between a payment made in error and its identification falls from 23 days to under two.",
+          "why": "A genuine improvement and on a payment process timeliness is worth a great deal — recovery prospects fall steeply with elapsed time, so twenty-three days to two is money.\n\nIt is still detection. The payment has been made, the funds have left, and the charity is asking for them back from a small organisation that has probably spent them; faster asking improves an 11% recovery rate without changing what it is a rate of. Improving the speed of a control is worth doing and is not the same as questioning whether it is the right kind of control."
+        },
+        {
+          "key": "D",
+          "text": "That the control matrix be re-examined at the post-implementation review.",
+          "quality": "poor",
+          "next": "end-detected",
+          "consequence": "Accepted immediately and recorded as an action for the following year. Build proceeds on the matrix as it stands.",
+          "why": "A post-implementation review is the right forum for judging how a system turned out and the wrong one for a control design defect you have already found. By then the controls are built, the money has been spent, and changing a preventive control from nothing to something is a change request against a live system rather than a line in a specification.\n\nIt is also the recommendation the programme accepts fastest, which on a finding raised seven weeks before build is the signal to look at twice. Cost of correction is lowest today and never lower again."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "Findings are written in the past tense",
+      "verdict": "strong",
+      "narrative": "The two-week assessment runs before build. Nineteen of the eighty-four controls are replaced rather than supplemented: eligibility validated against the regulator's register at submission instead of reported on afterwards; bank detail changes held for a callback to a number on file rather than flagged in a monthly exception report; duplicate registration numbers blocked at application rather than identified at reconciliation.\n\nIn the first year on the new system, the eligibility check stops 41 applications, of which 6 would have been funded. The bank-detail hold stops one attempt that the old monthly report would have found nine weeks after payment.\n\nThe findings register keeps its place in the method, as an input alongside the risk assessment rather than instead of it.",
+      "why": "Nobody in this case did anything careless. The workstream used the best structured evidence available, the derivation was deliberate and defended, and the matrix that came out of it was the most complete one anybody had produced.\n\nThe mechanism is in the grammar. Findings are written after a loss has occurred and gone unnoticed, so they take the form 'X was not detected' — and a control derived from that sentence detects X. Do it 140 times and you have a system that reports every category of loss the organisation has previously suffered, shortly after suffering it again. The derivation is faithful; what it inherits is the tense.\n\nTwo things follow. Prevention outranks detection wherever the loss is irrecoverable, and an 11% recovery rate is what irrecoverable looks like in a number — so the distinction between stopping a payment and finding it is most of the money on this process. And a control set is only as good as the question it answered: derived from what has already gone wrong, it cannot reach what has not yet.\n\nThe comparison mattered as much as the analysis. Built from this charity's own exposures with the grants and finance leads in the room, it produced a list the charity owned. Borrowed from a catalogue or from another organisation, it would have been the same substitution the programme made, performed by the reviewer."
+    },
+    "end-rebalanced": {
+      "title": "Six more controls, one faster report",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented before build and it works. Either six preventive controls are added for the exposures you named, or detection moves from monthly to overnight and the gap between an incorrect payment and its identification collapses from three weeks to two days.\n\nBoth are real improvements and both are visible in the first year's numbers.\n\nIn year two the charity opens a new funding stream for individual researchers rather than organisations. The eligibility risks are different — no charity number to check, no registered accounts, no organisational bank account — and the controls specified for it are drawn from the same matrix, by the same method. They are detective.",
+      "why": "You closed what you found. The way controls get chosen was left as it was, so the next set arrives with the same shape.\n\nThat is the practical test of a recommendation: would it have caught something the auditor did not personally identify? Adding six controls for six named exposures makes the design depend on the review having happened, which means the review has to happen again, every time, forever. Attaching the fix to the derivation instead means the next funding stream gets a risk assessment without anyone having to remember this one.\n\nFaster detection deserves its own note, because it is genuinely valuable and genuinely not the point. Recovery prospects fall with elapsed time, so two days beats twenty-three by a lot of money. It improves the rate at which a loss that has already happened is partially reversed. Nothing about it stops the loss."
+    },
+    "end-detected": {
+      "title": "Reviewed at the post-implementation review",
+      "verdict": "weak",
+      "narrative": "The matrix goes to build unchanged. The system launches on time and works well; the exception reporting is comprehensive and the grants team find it a marked improvement on the legacy system, because they now hear about problems within a month instead of at year end.\n\nIn the first eighteen months the reports identify £310,000 of grants paid to applicants who did not meet the published eligibility criteria, across eleven awards. Every one is identified accurately and promptly by a control that worked exactly as designed. £34,000 is recovered.\n\nThe post-implementation review takes place in month twenty. It notes that the control environment is operating effectively, with all eighty-four controls in place and functioning.",
+      "why": "Every control worked. The reports found the problems, on time, as specified, and the review that followed found nothing wrong — because a control set built to detect was assessed on whether it detected.\n\nThat is what a deferred control design finding costs. Seven weeks before build, the fix was a specification change. Twenty months later it is a change request against a live system that the review has just described as effective, and the £276,000 that did not come back is the price of the intervening period.\n\nThe post-implementation review is the right forum for asking how a system turned out and cannot substitute for a decision made while the design is still soft. Cost of correction rises with time and never falls, and 'revisit it later' is the one recommendation that guarantees the expensive version."
+    },
+    "end-someone-elses": {
+      "title": "Sixteen gaps against another organisation",
+      "verdict": "failed",
+      "narrative": "The gap list is the most persuasive thing in the engagement. Sixteen named controls, specific and concrete, and the programme accepts twelve of them without argument.\n\nIn month four of build, the workstream lead asks where the comparison came from, because two of the sixteen only make sense for a funder that pays in tranches against milestones and this charity pays in full on award. You explain. He mentions it to the programme director, who mentions it to the director of finance, who recognises the other organisation from the description.\n\nThe firm notifies the other client. The engagement is withdrawn and the report is not issued. A second reviewer is appointed, three weeks before build completes, and finds the same underlying defect from a standing start — by which time the twelve accepted controls have been built, including the two that were never relevant here.\n\nThe finding was right. It was reached in a way that made it unusable and cost a client relationship that had nothing to do with this charity.",
+      "why": "This is expertise doing the thing expertise is for. You had seen a good grant-making control set, you could see this one was wrong, and the comparison was sitting in your files. Refusing to use what you know would feel like professional self-harm.\n\nTwo failures, and they are independent — either alone would be enough.\n\nA control matrix describes how an organisation defends itself and where it does not. It is among the more sensitive documents a client will ever give an auditor, it was given for one engagement, and no confidentiality term you have signed permits it to appear in another client's file. Deleting the file afterwards does not help: the gap list derived from it is the disclosure.\n\nAnd the method is the case's own error. The finding is that the programme selected controls from a record of past events rather than from an assessment of this charity's risks. The test selected controls from a record of another organisation's design rather than from an assessment of this charity's risks. Sixteen differences between two organisations are not sixteen gaps, and nothing in the comparison can tell you which of them matter here — which is exactly how two irrelevant controls got built.\n\nThe legitimate use of experience is to know which questions to ask. It stops being legitimate at the point where it supplies the answers."
+    },
+    "end-minuted": {
+      "title": "Comfort, subject to points raised",
+      "verdict": "weak",
+      "narrative": "The minute reads: Internal Audit confirmed comfort with the control design, subject to points raised. The control workstream closes at the same meeting and its remaining budget moves to integration testing.\n\nYour report goes out on Friday and says what you told the room it would say. The programme board reads both in the same pack. The director's response, delivered without heat, is that audit expressed comfort on Thursday and a different view on Friday, and that the workstream cannot be reopened on that basis seven weeks before build.\n\nThe board accepts the report as noted. Two of the six exposures are addressed by the workstream lead in his own time, because he agreed with you. Four are not.\n\nThe system launches with the matrix substantially as designed.",
+      "why": "A direct question, asked in good faith, by someone who had just accepted your entire analysis. Saying yes was the natural, collegiate, obviously reasonable thing to do, and none of the alternatives felt available in the second and a half you had to answer.\n\nAn opinion is a product. It has evidence behind it, review over it, a written scope and basis around it, and a reader who can see all three. Delivered as a sentence in a meeting it has none of those, and the record keeps only the conclusion — the qualification does not survive the minute, and the minute is what the board reads.\n\nThe damage is in what it authorised. The workstream closed on Thursday, so Friday's report is not a first position but a reversal, and a reversal is a credibility question rather than a control question. You end up arguing about consistency instead of about £62m and an 11% recovery rate.\n\nThe answer that works costs nothing: give them the findings in the room, which is what they are there for and what they can act on, and put the opinion where it belongs. Information is shareable the moment you have it. A conclusion exists when it is written."
+    }
+  }
+}
