@@ -1,0 +1,291 @@
+{
+  "id": "d1-the-last-two-weeks",
+  "title": "The Last Two Weeks",
+  "domain": "1",
+  "section": "B",
+  "topics": [
+    "Audit Project Management",
+    "Quality Assurance and Improvement of Audit Process",
+    "Risk-Based Audit Planning",
+    "Reporting and Communication Techniques"
+  ],
+  "principles": [
+    "business-impact",
+    "explicit-and-owned",
+    "untested-unknown",
+    "outcome-over-activity",
+    "root-cause"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are in charge of a six-week review of application controls over the ERP at a building products distributor. Two juniors, one manager reviewing from a distance, twenty-two procedures in the programme.\n\nIt is Friday of week four. You run the numbers for the weekly update.\n\nSixty-two per cent of the budget is spent. Nine of the twenty-two procedures are complete.\n\nThe work has not been slow and nothing has gone wrong. The two juniors are good and the client has been responsive. The arithmetic simply does not reach the end of the programme.",
+
+  "taints": {
+    "scope-as-planned": "end-as-planned",
+    "carried-forward-the-testing": "end-prior-year"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "Two weeks of budget left, thirteen procedures outstanding. On the current run rate you will finish about fifteen.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take it to the audit manager now, with the numbers and a proposal for what would be dropped.",
+          "quality": "best",
+          "next": "the-conversation",
+          "consequence": "You send the figures on Friday afternoon and ask for twenty minutes on Monday. She replies within the hour and moves a meeting to take it.",
+          "why": "The decision being made here is what the engagement will and will not cover, which is a scope decision, and scope belongs to whoever owns the opinion. Raising it in week four gives her options that do not exist in week six. The proposal matters as much as the escalation: arriving with the numbers and a recommendation is what makes it a decision rather than a problem you have handed upward."
+        },
+        {
+          "key": "B",
+          "text": "Absorb it. The team can put in the extra hours and the programme gets finished.",
+          "quality": "poor",
+          "next": "the-week-five",
+          "consequence": "The three of you work the next two Saturdays. By the end of week five you are at 88% of budget with thirteen procedures done.",
+          "why": "It does not work, and the more expensive part is what it does to next year. The recorded time understates the effort, so the budget rolls forward looking adequate, and the same engagement runs the same overrun again with a different in-charge. Unrecorded overtime is the mechanism by which a bad estimate survives being wrong."
+        },
+        {
+          "key": "C",
+          "text": "Re-sequence the remaining programme so the highest-risk procedures are done first.",
+          "quality": "defensible",
+          "next": "the-conversation",
+          "consequence": "You reorder the plan around the revenue and inventory cycles. The two juniors move onto three-way match testing on Monday.",
+          "why": "The right instinct about what should survive, and it changes which procedures are lost rather than whether any are. It is also a coverage decision taken alone. Re-sequencing quietly is attractive because it looks like project management rather than de-scoping, and by week six the reduction has happened without anyone having decided on it."
+        },
+        {
+          "key": "D",
+          "text": "Carry on in programme order and reassess at the end of week five.",
+          "quality": "poor",
+          "next": "the-week-five",
+          "consequence": "You work through the programme as written. At the end of week five you are at 88% of budget with thirteen procedures done and nine outstanding.",
+          "why": "A week of information you already had. Nothing about the run rate was going to improve, and the only thing that changed is how many options remain: at week four the manager could have added budget, changed scope or split the engagement, and at week five and a half she can choose which procedures to abandon. Waiting converts a decision into a consequence."
+        }
+      ]
+    },
+
+    "the-week-five": {
+      "situation": "Eighty-eight per cent of the budget, thirteen of twenty-two procedures complete. Four days of budget remain and nine procedures are outstanding.\n\nThe manager has not been told there is a problem.",
+      "prompt": "What now?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Escalate today: what is done, what is not, what each remaining procedure would cost.",
+          "quality": "best",
+          "next": "the-conversation",
+          "consequence": "You call her. She is not pleased to be hearing it in week five and says so once, then works the problem with you for an hour.",
+          "why": "Late is not a reason to be later. She still has the two decisions that matter — whether to fund the rest and what the report may conclude — and she cannot make either without knowing. The annoyance is the cost of week four, and it is a much smaller cost than the alternative, which is her finding out from the report."
+        },
+        {
+          "key": "B",
+          "text": "Complete the four cheapest remaining procedures so the coverage number looks as good as possible.",
+          "quality": "poor",
+          "next": "the-signoff-sheet",
+          "consequence": "You finish four quick procedures over the last four days. Seventeen of twenty-two are complete when fieldwork closes.",
+          "why": "Seventeen of twenty-two is a better number and a worse audit. Cost is not correlated with risk, and selecting on cheapness means the five you abandon are the five that were expensive — which, on any programme built from a risk assessment, is where the work was concentrated. Optimising a completion percentage optimises the thing that measures the work rather than the thing the work is for."
+        },
+        {
+          "key": "C",
+          "text": "Complete the two highest-risk remaining procedures and carry the other seven into next year's plan.",
+          "quality": "defensible",
+          "next": "the-signoff-sheet",
+          "consequence": "You finish the inventory and revenue interface tests. The seven remaining go onto a list you intend to raise with planning.",
+          "why": "The right two, and a decision that is not yours. What goes into next year's plan is the plan owner's call, made against next year's risk assessment and next year's capacity — an in-charge deciding it in week five means seven procedures are deferred by someone with no visibility of what they are being deferred against. The judgement about which two to run is sound; the disposal of the other seven is a transfer of the problem dressed as a decision."
+        }
+      ]
+    },
+
+    "the-conversation": {
+      "situation": "The manager asks the obvious question: how was the budget set?\n\nIt was rolled forward from last year's actual hours plus five per cent. The programme was rebuilt in February against a new risk assessment, after the ERP upgrade added two modules, and it is about a third larger than last year's.\n\nNobody compared the two documents. There is no step in the process at which anyone would have.",
+      "prompt": "What do you propose?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Drop the last four procedures in the programme — they are the ones least far along.",
+          "quality": "poor",
+          "next": "the-prior-year",
+          "consequence": "She accepts the proposal and the four are removed. They are the payment run authorisation tests, which sit at the end because that is the order the cycles were written up in.",
+          "why": "This is the whole failure of the case, performed deliberately. The order of a programme reflects how someone wrote it down; the order of importance reflects risk; and there is no reason the two should agree. Dropping from the end means the engagement's coverage was decided by document sequence, and the fact that a manager approved it does not make it a risk-based decision — it makes it an approved one."
+        },
+        {
+          "key": "B",
+          "text": "Rank what remains by the risk each procedure addresses, cut from the bottom, and record the reduction, the reason and who approved it.",
+          "quality": "best",
+          "next": "the-prior-year",
+          "consequence": "You rank the nine. The bottom three are user-preference configuration, a duplicate control already covered by another test, and a report-formatting check. She approves dropping those three and funds two extra days for the rest.",
+          "why": "Two things, and the second is the one people leave out. Cutting by risk is what makes the remaining coverage defensible. Recording the cut — what went, why, and whose decision it was — is what makes it findable a year from now, by you, by the next in-charge, and by whoever has to say what this engagement did and did not look at. An undocumented de-scope is indistinguishable from work that was never planned."
+        },
+        {
+          "key": "C",
+          "text": "Ask for the budget to be increased to complete the programme as written.",
+          "quality": "defensible",
+          "next": "the-prior-year",
+          "consequence": "She takes it to the head of audit. Two extra weeks are approved, drawn from the contingency held for the year. The programme is completed in full.",
+          "why": "Entirely legitimate, and it produces the best coverage available. What it buys is this engagement and not the next one. The budget was wrong because nothing reconciles the estimate to the programme, and funding the gap resolves the symptom so completely that the mechanism is never examined — the contingency absorbs it, the year closes, and next February the same two documents are written by the same two processes."
+        },
+        {
+          "key": "D",
+          "text": "Report on what is covered now, and open a second engagement in the fourth quarter for the rest.",
+          "quality": "defensible",
+          "next": "the-prior-year",
+          "consequence": "The split is agreed. A follow-on engagement is scheduled for the fourth quarter and appears on the plan as a named piece of work.",
+          "why": "Clean, honest, and it puts the remaining scope somewhere a committee can see it. Two costs. A second mobilisation on the same system is expensive in a way nobody budgets for, and fourth-quarter work is the first thing displaced when something urgent arrives in October. Deferral with a name on it is much better than deferral without one, and it is still deferral."
+        }
+      ]
+    },
+
+    "the-prior-year": {
+      "situation": "One of the procedures under pressure is the automated three-way match between purchase order, goods receipt and invoice. It is the largest single control in the programme.\n\nYou tested it last year and concluded it was effective. The change log for the purchasing module shows no changes since.\n\nThe manager's suggestion is practical: cross-reference last year's working paper, note that nothing has changed, and move on.",
+      "prompt": "How do you handle it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Do that. Reference the prior-year paper, note the absence of changes, and record the control as effective.",
+          "quality": "poor",
+          "next": "the-signoff-sheet",
+          "consequence": "The working paper is a half page: a cross-reference to last year's file, a line about the change log, and a conclusion that the control operated effectively during the period.",
+          "taint": "carried-forward-the-testing",
+          "why": "Reliance on prior work is a real technique and that is exactly what makes this hard to refuse. Look at what the conclusion asserts. It says the control operated effectively during *this* period, and the only evidence behind it covers the previous one. Nothing you hold speaks to the twelve months you are reporting on.\n\nThe file is the part that does not recover. A half-page cross-reference reads as a tested control to every future reader — the manager signing it, next year's in-charge relying on it in turn, the external auditor placing reliance on internal audit's work. Nobody who reads it can tell that no test was performed, because the paper does not say so and the sign-off sheet will not either. An untested control is an unknown one, and this converts an unknown into a documented conclusion without anybody deciding to."
+        },
+        {
+          "key": "B",
+          "text": "Run a reduced current-year test: confirm the configuration is unchanged and re-perform a small sample, then record the reduced scope and why.",
+          "quality": "best",
+          "next": "the-signoff-sheet",
+          "consequence": "Half a day. The tolerance settings match last year's screenshots and eight of eight sampled transactions behave correctly. You record what you did, what you did not do, and the reliance placed on prior-year work.",
+          "why": "The proportionate answer, and the reason it works is that it produces current-period evidence at a fraction of current-period cost. A configuration comparison and a small sample cannot support the same conclusion as a full test, and they support a conclusion about this year rather than a stronger conclusion about last year.\n\nWriting down the reduction is what makes the reliance legitimate rather than hidden. Prior-year work is a perfectly good input as long as the file shows it was an input."
+        },
+        {
+          "key": "C",
+          "text": "Record the control as not tested this year, with the prior-year result noted as context.",
+          "quality": "defensible",
+          "next": "the-signoff-sheet",
+          "consequence": "You write it up as a scope limitation. The manager questions it, since half a day would have produced something, and accepts it.",
+          "why": "Honest and unambiguous, and it gives away comfort that was cheaply available. A configuration check and eight transactions is a few hours and would have moved this from unknown to reasonably supported. Declaring a gap you had the time to close overstates the exposure, and it spends the reader's attention on a limitation that need not have existed. The instinct is right; the arithmetic is not."
+        },
+        {
+          "key": "D",
+          "text": "Rely on the change log showing no changes to the purchasing module.",
+          "quality": "defensible",
+          "next": "the-signoff-sheet",
+          "consequence": "You obtain the change log, confirm no entries against the module, and conclude the control is unchanged. It later emerges that the match tolerance is held in a finance configuration table, maintained outside the change process.",
+          "why": "A reasonable basis and a common one, undone by two gaps. The change log is management's record of changes to the thing whose stability you are asserting, so it needs its own completeness established before you lean on it. And a module is not a control: the parameters that decide whether the match actually blocks anything can sit anywhere, and here they sat somewhere the log never covered. Absence of recorded change is not evidence of absence of change."
+        }
+      ]
+    },
+
+    "the-signoff-sheet": {
+      "situation": "Fieldwork closes. The programme sign-off sheet has one row per procedure and three columns: performed by, reviewed by, and a tick box headed N/A.\n\nThere is no state for a procedure that was planned and not performed. The template has been in use for nine years.\n\nQuality assurance samples closed engagements and tests whether the file supports the conclusions reached. It reads the sign-off sheet first.",
+      "prompt": "What do you record against the procedures you did not perform?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Tick N/A. It is the only column the sheet offers and the file has to be complete.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "The sheet shows twenty-two rows, all accounted for, none blank. It goes into the file and through review without a query.",
+          "why": "N/A is a conclusion: it says this procedure was considered and found not to apply. That judgement was never made — the procedure applied perfectly well and there was no time. Recording one state as another is how the coverage reduction becomes permanently invisible, and the reason it feels acceptable is that the sheet gives you nowhere else to put it. A template with no state for something that happens every year is a finding about the template, not an instruction."
+        },
+        {
+          "key": "B",
+          "text": "Record them as planned and not performed, with the reason and the approver, even though the sheet has no field for it.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "You add a column by hand and a note beneath. The reviewing manager asks why the template has no such state, cannot answer, and raises it with the head of audit.",
+          "why": "The file has to record what happened, and where the form disagrees with what happened, the form loses. This is also the only route by which the underlying defect ever surfaces: a de-scope that is recorded is a data point, and enough data points are a pattern about how budgets are set. The manager's question is the finding escaping the engagement, which is what quality assurance is supposed to do and cannot do from a sheet with no space for the truth."
+        },
+        {
+          "key": "C",
+          "text": "Remove the rows for the procedures not performed, so the sheet reflects the work actually done.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "The programme in the file has seventeen rows, every one performed and reviewed. It is the tidiest file you have produced.",
+          "why": "The programme stops being a record of what was planned and becomes a record of what was achieved, at which point nothing anywhere shows that five procedures existed. This is worse than the N/A tick, because a tick is at least a claim someone could challenge. A missing row cannot be challenged, and a hundred per cent completion rate against a programme edited to match the work is the single most reassuring artefact an engagement can produce."
+        },
+        {
+          "key": "D",
+          "text": "Tick N/A on the sheet and set out the reduction properly in the engagement memo.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The memo records the five procedures, the reason and the approval. The sheet shows twenty-two rows with five ticked N/A.",
+          "why": "The substance is on the file and a reader who opens the memo will find it, so this is a genuine attempt to keep the record honest. The difficulty is which document gets read. Quality assurance starts from the sign-off sheet, next year's in-charge starts from the sign-off sheet, and both will see a procedure marked not applicable. Recording the truth somewhere and its opposite somewhere more prominent leaves the file saying two things, and the louder one wins."
+        }
+      ]
+    },
+
+    "the-report": {
+      "situation": "You are drafting. The scope section has been carried over from the engagement letter and describes the full twenty-two-procedure programme: the cycles covered, the period, the modules in scope.\n\nIt is the paragraph nobody reads and everybody relies on.",
+      "prompt": "What does the scope section say?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Leave it. It is the agreed scope, and the scope section is boilerplate.",
+          "quality": "poor",
+          "next": "end-quiet",
+          "consequence": "The report is issued. The scope section describes the twenty-two-procedure programme and the conclusion is a general one about the adequacy of application controls over the ERP.",
+          "taint": "scope-as-planned",
+          "why": "The scope section is the only part of the report that tells a reader what the conclusion is entitled to cover, which makes it an assertion and not boilerplate. As drafted it says the engagement examined things it did not examine.\n\nWhat makes this unrecoverable is who relies on it and for how long. The audit committee reads the conclusion through the scope. The external auditors read it when deciding what internal audit work they can lean on. Next year's planning reads it to decide the ERP was covered recently and can rotate out. Every one of those decisions is now made against coverage that did not happen, and none of them will ever be revisited, because there is no event that would cause anyone to re-read a scope paragraph.\n\nThe engagement letter describes what was agreed at the start. The report has to describe what was done."
+        },
+        {
+          "key": "B",
+          "text": "Describe the scope as performed, name what was not covered and why, and say what the omission does and does not permit the conclusion to cover.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The scope section names the five procedures not performed, the approval, and states that the conclusion does not extend to payment run authorisation. The committee chair asks why the programme was not completed, and the budget question reaches her.",
+          "why": "Three sentences, and each does different work. Naming what was covered lets the reader rely on the conclusion. Naming what was not stops them relying on it further than it goes. Saying what the conclusion therefore excludes is the part auditors skip, and it is the part that prevents an honest scope note being read as a formality.\n\nThe chair's question is the point. The reduction happened because an estimate and a programme were produced by two processes that never meet, and the only route by which that reaches anyone who could change it is a report that says so."
+        },
+        {
+          "key": "C",
+          "text": "Describe the scope as performed, but leave out the reason — no need to air the budget problem in a report to the committee.",
+          "quality": "defensible",
+          "next": "end-partial",
+          "consequence": "The scope section lists the five procedures as outside the scope of this review. Nobody asks why, and the report is received without comment.",
+          "why": "The reader learns what was covered, which is the part they need in order to rely on the conclusion, so the report is honest and useful. What it withholds is the only thing that would have changed anything. Without the reason, five procedures outside scope reads as a scoping choice made in February rather than as a budget that ran out in June, and a committee cannot ask about a mechanism it has not been shown. Protecting the function from an awkward question also protects the process that produced it."
+        },
+        {
+          "key": "D",
+          "text": "Add a standard limitation paragraph noting that scope may be adjusted for practical constraints during fieldwork.",
+          "quality": "poor",
+          "next": "end-quiet",
+          "consequence": "The paragraph is added and appears in every subsequent report from the function.",
+          "why": "A caveat that names nothing conveys nothing. It is technically true of every engagement ever performed, which is why it will be read as boilerplate from the first report and ignored from the second — and it now provides cover for any future reduction without any of them being disclosed. A general disclaimer is not a smaller version of a specific one; it is a substitute that removes the obligation to write the specific one."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "The estimate and the programme",
+      "verdict": "strong",
+      "narrative": "The report is issued with the scope as performed and the reduction explained. Payment run authorisation is picked up in a short follow-on engagement in September and produces two findings.\n\nThe committee chair's question travels. The head of audit finds that budgets have been rolled forward from prior-year actuals for eleven years while programmes are rebuilt annually from the risk assessment, and that nothing in the process compares them. Planning gains a step: no engagement is released until the programme has been costed against its own procedures.\n\nThree engagements are re-budgeted that year. Two go up, one goes down.",
+      "why": "Nobody misjudged anything. The estimate was produced correctly from history, the programme was produced correctly from risk, and the two were never in the same room — so the point at which they disagreed was week four of fieldwork, where the only currency available to settle it was coverage.\n\nThat is the shape worth carrying. When two artefacts constrain the same work and no process compares them, the conflict does not disappear; it surfaces at the latest and most expensive moment, and it is resolved by whichever one is easier to change. Coverage is always easier to change than a budget.\n\nThe second half is the sign-off sheet. A form with no state for something that happens every year does not prevent the thing; it prevents the record of it, and quality assurance can only find what the file is capable of saying."
+    },
+    "end-partial": {
+      "title": "Scope stated, cause unstated",
+      "verdict": "acceptable",
+      "narrative": "The report is accurate. It says what was covered, the conclusion is properly bounded, and no reader is misled about anything.\n\nThe five procedures are not picked up. The following year the same engagement is budgeted from this year's actual hours, which were understated by the reduction, and the new in-charge reaches week four at 64% of budget with ten of twenty-three procedures complete.\n\nShe raises it with the same manager, who recognises the conversation.",
+      "why": "The reporting was sound and the diagnosis stayed in the room. A scope note without a reason is a description of an outcome; the committee cannot act on a cause it has not been given, and the head of audit never hears that the estimating process and the programme-building process do not meet.\n\nThere is a compounding detail. This year's actual hours become next year's budget, and they are actual hours for a reduced programme — so the estimate does not merely stay wrong, it gets worse in the same direction each time it is rolled forward. Withholding the reason to spare the function an awkward question is what allows the mechanism to keep operating on the function."
+    },
+    "end-quiet": {
+      "title": "Seventeen of twenty-two",
+      "verdict": "weak",
+      "narrative": "The report is issued and well received. The conclusion on application controls is positive, the two findings raised are accepted, and quality assurance samples the file six months later and passes it: the working papers support every conclusion drawn.\n\nThey do. That was never the question.\n\nEighteen months on, a duplicate-payment scheme is found in the payment run — one of the procedures that came off the programme in week five. The review asks whether internal audit had covered payment authorisation. The file says twenty-two procedures, five marked not applicable.",
+      "why": "Every individual document was defensible and the file passed the process designed to catch exactly this. That is the finding.\n\nQuality assurance tests whether the file supports the conclusions reached, and a file with five procedures removed supports its conclusions perfectly, because the conclusions were narrowed to fit. Nothing in the method looks for the procedure that is not there. Coverage lost silently is invisible to a review that starts from the file, and the sign-off sheet — with a column for not applicable and none for not performed — guarantees the silence.\n\nThe deeper cost is that nothing recorded the reduction as a decision, so nobody owned it, so it recurred. A de-scope that leaves no trace is not a smaller audit; it is an audit whose boundary nobody can state afterwards, including you."
+    },
+    "end-as-planned": {
+      "title": "The scope as agreed",
+      "verdict": "failed",
+      "narrative": "The report describes the twenty-two-procedure programme and concludes generally on the adequacy of application controls over the ERP.\n\nThe external auditors reduce their own substantive testing over the purchase-to-pay cycle on the strength of it, and record internal audit's coverage in their reliance memorandum. Planning rotates the ERP out for three years on the basis that it was covered.\n\nTwo years later a duplicate-payment scheme surfaces. The external firm's reliance is examined, the internal audit file is pulled, and the sign-off sheet shows five procedures marked not applicable against a report that describes them as in scope. The firm's position, correctly, is that it relied on the scope the report stated.\n\nThe engagement was competent. Nine people relied on a paragraph that was not.",
+      "why": "This is the failure that requires no bad intent and almost no attention. The scope section was inherited from the engagement letter, it read as administrative, and changing it would have felt like drawing attention to something already approved.\n\nThe scope paragraph is the boundary of the opinion. Everything the conclusion is permitted to mean is defined there, and nowhere else — so a scope stated as planned rather than as performed does not overstate a detail, it overstates the whole assertion. It also spreads: an audit report is an input to the external auditor's reliance decision, to next year's rotation, and to the committee's picture of what has been looked at. None of those readers re-open the paragraph, and there is no event that would make them.\n\nThe rule is one sentence and it is not about honesty in any dramatic sense. The engagement letter says what was agreed at the start; the report says what was done. When those differ, the report follows the work."
+    },
+    "end-prior-year": {
+      "title": "Effective, per last year",
+      "verdict": "weak",
+      "narrative": "The three-way match is reported as operating effectively. The working paper is a cross-reference and two sentences, and it is reviewed and signed without a query, because it looks like every other reliance-on-prior-work paper in the file.\n\nThe match tolerance was raised from £50 to £2,500 nine months before your fieldwork, by a finance configuration change that never touched the purchasing module and so never appeared in the change log. Invoices up to £2,500 above the purchase order had been passing without exception since.\n\nIt is found the following year, by the same test, performed properly.",
+      "why": "Prior-year reliance is legitimate, widely used, and the reason this is so easy to reach for. It is also bounded in a way the shorthand loses: prior-year evidence supports a conclusion about the prior year, and reliance on it in the current year is a judgement that requires current-year evidence of continued operation. That evidence is usually cheap. Half a day here would have found a tolerance two orders of magnitude out.\n\nThe change log made it worse rather than better. It is a record of changes to the module, maintained by the party whose stability you are asserting, and the control's behaviour turned on a value held somewhere it did not cover. No recorded change is not the same as no change, and a control is not a module.\n\nWhat does not recover is the paper. It states a current-period conclusion, and nothing in the file distinguishes it from a procedure that was performed. Every subsequent reader — the reviewer, quality assurance, next year's in-charge, the external auditor — reads a tested control. An untested control is unknown, and the moment that unknown is written down as a conclusion, nobody can find their way back to it."
+    }
+  }
+}
