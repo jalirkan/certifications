@@ -38,7 +38,7 @@ lose data.
 | Decision rules | 23 documented, 308 of 386 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
 | Study guides | **all five domains**, same depth |
-| Branching cases | 3 written (~35 needed); playable in the browser and the CLI |
+| Branching cases | 4 written (~35 needed); playable in the browser and the CLI. D2 still uncovered |
 | Tests | **364, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |

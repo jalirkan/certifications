@@ -1,0 +1,269 @@
+{
+  "id": "d3-the-cutover-weekend",
+  "title": "The Cutover Weekend",
+  "domain": "3",
+  "section": "B",
+  "topics": [
+    "System Readiness and Implementation Testing",
+    "System Migration, Infrastructure Deployment, and Data Conversion",
+    "Project Governance and Management",
+    "Post-implementation Review"
+  ],
+  "principles": [
+    "untested-unknown",
+    "completeness",
+    "accountability-stays",
+    "auditor-role",
+    "earlier-is-cheaper",
+    "explicit-and-owned"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are the IS auditor attached to a finance system replacement. Eighteen months, two delays, a hard external driver: the legacy vendor stops issuing security patches at the end of the quarter.\n\nIt is Thursday. The go-live decision meeting is tomorrow morning, and cutover is scheduled to start Friday night.\n\nYour role on this project is observer with a reporting line to the audit committee. You are not a member of the steering committee and you do not have a vote.",
+
+  "taints": {
+    "signed-the-approval": "end-compromised",
+    "conversion-unverified": "end-failed"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "The readiness pack arrives the evening before the meeting. User acceptance testing is reported as 94% complete. Forty defects remain open, of which twelve are severity 2 — the tier the project's own defect policy says must be closed or formally accepted before go-live.\n\nThe pack's summary page says 'no severity 1 or 2 defects outstanding'.",
+      "prompt": "The summary and the detail disagree. What do you do first?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Email the project manager that the summary is wrong and ask for a corrected pack.",
+          "quality": "defensible",
+          "next": "the-reclassification",
+          "consequence": "You send the note. The project manager replies within the hour with a revised summary page and an explanation that the twelve were reclassified last week.",
+          "why": "Reasonable and fast, and it does get you the answer. What it gives up is the chance to see the discrepancy for yourself before the project explains it — the explanation arrives ahead of the evidence, which is the wrong order when you may need to weigh the two against each other."
+        },
+        {
+          "key": "B",
+          "text": "Pull the defect records from the tracking tool yourself before raising anything.",
+          "quality": "best",
+          "next": "the-reclassification",
+          "consequence": "You export the defect log directly. Twelve items sit at severity 2. Each carries a change-history entry dated eight days ago: severity lowered from 2 to 3, no comment recorded.",
+          "why": "The discrepancy is the finding's starting point, not its conclusion. Reading the source record first tells you what actually happened; asking the project first tells you what the project believes happened. Both matter, and the order matters — evidence you obtain independently is not shaped by the explanation you are about to be given."
+        },
+        {
+          "key": "C",
+          "text": "Note the inconsistency for the report and raise it at the meeting tomorrow.",
+          "quality": "poor",
+          "next": "the-reclassification",
+          "consequence": "You add it to your notes. Overnight, the project circulates an updated pack; by morning the summary and the detail agree.",
+          "why": "Waiting costs you the only moment when the discrepancy is visible. A finding raised for the first time in the decision meeting, against a pack that has since been corrected, has no evidence behind it and reads as obstruction. Timing is part of audit technique, not an administrative detail."
+        },
+        {
+          "key": "D",
+          "text": "Accept the summary — a 94% completion rate on a project this size is normal.",
+          "quality": "poor",
+          "next": "the-conversion-numbers",
+          "consequence": "You take the pack at face value and turn to the data conversion section.",
+          "why": "The completion percentage is not what you were looking at. Two parts of the same document contradict each other, and choosing the one that requires no work is not a judgment about materiality — it is declining to make one."
+        }
+      ]
+    },
+
+    "the-reclassification": {
+      "situation": "The twelve defects were downgraded from severity 2 to severity 3 eight days ago. The change history shows a single user account made all twelve changes inside four minutes. The account belongs to the test manager, who reports to the project manager.\n\nThe project's defect policy says severity is assigned by the business process owner and may be changed only with their agreement.",
+      "prompt": "What is the question you need answered?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Whether the twelve defects are genuinely low impact.",
+          "quality": "defensible",
+          "next": "the-conversion-numbers",
+          "consequence": "You review the twelve. Nine look like genuine severity 3s. Three concern the calculation of period-end accruals and look material to you.",
+          "why": "Worth knowing, and you found something real. But it puts you in the position of re-deciding severity yourself, which is the process owner's job, not yours. The stronger question is not 'is this rating right' but 'who was entitled to make it' — one you can answer from the control, and one that does not depend on your opinion of accruals."
+        },
+        {
+          "key": "B",
+          "text": "Whether the business process owner agreed to the reclassification.",
+          "quality": "best",
+          "next": "the-conversion-numbers",
+          "consequence": "You ask. The finance controller — the named process owner — was not consulted on any of the twelve. She learns of the change from your question.",
+          "why": "The control is not 'defects must be severity 2'; it is 'severity is set by the person who bears the consequence'. Testing the control rather than second-guessing the rating keeps the finding on ground you can defend, and it produces a stronger result: not twelve arguable ratings, but a process owner who has been written out of her own approval."
+        },
+        {
+          "key": "C",
+          "text": "Whether the test manager had authority to change severity.",
+          "quality": "defensible",
+          "next": "the-conversion-numbers",
+          "consequence": "You confirm the tool grants him the permission. Technically he was able to; the policy says he should not have done so alone.",
+          "why": "A fair question that lands one step short. System permission and policy authority are different things, and finding a gap between them is useful — but it frames this as a user-access issue when the substance is that an approval was bypassed. The access finding is real and secondary."
+        }
+      ]
+    },
+
+    "the-conversion-numbers": {
+      "situation": "The data conversion report is in the pack. 2,214,880 customer transaction records extracted from the legacy system; 2,214,880 loaded into the new one. Record counts reconcile exactly, and the report is signed by the migration lead.\n\nThe report does not show monetary totals.",
+      "prompt": "The counts match. What do you make of that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept it. A record-count reconciliation with an exact match is the standard conversion control.",
+          "quality": "poor",
+          "next": "the-signoff",
+          "consequence": "You mark conversion as controlled and move on.",
+          "taint": "conversion-unverified",
+          "why": "Counting rows proves nothing was dropped. It cannot prove anything arrived intact: a field truncated, a decimal shifted, a sign inverted or a date reinterpreted all preserve the record count perfectly. Completeness and accuracy are two assertions and this evidence addresses one of them. Signing off on it is how a conversion error reaches a general ledger."
+        },
+        {
+          "key": "B",
+          "text": "Ask for control totals — sum of transaction values, on both sides.",
+          "quality": "best",
+          "next": "the-control-total",
+          "consequence": "You ask. It takes the migration lead two hours. The legacy total is $4,182,660,314.08. The new system totals $4,182,660,311.62 — a difference of $2.46.",
+          "why": "Completeness and accuracy need separate evidence. A value total is the cheapest test that speaks to accuracy, and asking for it before go-live costs two hours; asking for it after costs a restatement. The size of the difference is not the point — that there is one, when the counts said everything was fine, is."
+        },
+        {
+          "key": "C",
+          "text": "Sample fifty converted records and trace them back to the legacy system.",
+          "quality": "defensible",
+          "next": "the-control-total",
+          "consequence": "You trace fifty. All fifty agree exactly. You mention in passing that a value reconciliation would be quicker, and the migration lead runs one — the totals differ by $2.46.",
+          "why": "Sound technique, and it would eventually find a systematic error. But it is expensive and it is weak against a fault affecting a small subset: fifty clean records out of 2.2 million tell you very little about the other 2,214,830. Against a population you can total, totalling it is both cheaper and stronger."
+        }
+      ]
+    },
+
+    "the-control-total": {
+      "situation": "The $2.46 difference resolves quickly. Six transactions in a legacy currency field carried four decimal places; the new system's field holds two, and the conversion routine truncated rather than rounded.\n\nSix records, $2.46. The migration lead calls it immaterial and proposes to note it and proceed.",
+      "prompt": "Six records and $2.46. Is he right?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree. $2.46 against $4.18 billion is immaterial by any measure.",
+          "quality": "poor",
+          "next": "the-signoff",
+          "consequence": "You agree the amount is trivial and the item is noted as an accepted difference.",
+          "why": "The amount is trivial. The amount is not the finding. A conversion routine that truncates instead of rounding will do so on every future record with that shape, and this population happened to contain six — the error is in the logic, not in the six. Materiality applies to the misstatement you found; it does not apply to the defect that produced it."
+        },
+        {
+          "key": "B",
+          "text": "Point out that the amount is immaterial but the defect is systematic, and ask what else uses that routine.",
+          "quality": "best",
+          "next": "the-signoff",
+          "consequence": "The question lands. The same truncation routine handles the daily interface from the treasury system, which carries four-decimal FX rates and runs every night after go-live.",
+          "why": "The right question about a small error is 'what produced it', not 'how big is it'. Here the answer converts a $2.46 rounding note into a nightly interface that will silently truncate FX rates from the day the system goes live — found before cutover, when it costs a code fix, rather than after, when it costs a reconciliation of every day since."
+        },
+        {
+          "key": "C",
+          "text": "Ask for the six records to be corrected manually after go-live.",
+          "quality": "defensible",
+          "next": "the-signoff",
+          "consequence": "The migration lead agrees to a post-go-live correction and logs it as a task.",
+          "why": "It fixes the six. It leaves the routine that created them in place, so the seventh, eighth and every subsequent record with four decimals will be truncated too. Correcting instances rather than causes is the most common way a small finding is closed and stays open."
+        }
+      ]
+    },
+
+    "the-signoff": {
+      "situation": "Friday morning. The go/no-go meeting runs for ninety minutes. The steering committee resolves to proceed, with your open items recorded as post-implementation actions.\n\nAs the room clears, the programme director slides the approval form across the table. There is a signature block on it headed 'Internal Audit — reviewed and supported'. He says every other function has signed and the form goes to the board.",
+      "prompt": "Do you sign it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Sign. You did review the readiness pack, and the block only says you reviewed it.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You sign. The form goes to the board on Monday with internal audit listed among the functions supporting the go-live decision.",
+          "taint": "signed-the-approval",
+          "why": "'Reviewed and supported' is not a description of what you did; it is a share of the decision. Once your name is on the approval, you cannot later report on whether the approval was sound — you would be auditing your own signature. Management decides and accepts the risk; the auditor evaluates. The wording feels harmless in the room and is not harmless on the board pack."
+        },
+        {
+          "key": "B",
+          "text": "Decline, and offer instead a written summary of your open items to be attached to the form.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "You decline the signature block and send a one-page summary of the reclassified defects, the unconsulted process owner and the truncation routine. It is attached to the approval and goes to the board alongside it.",
+          "why": "This gives the board strictly more than a signature would: the actual findings, in your words, attached to the decision — while leaving the decision itself where it belongs. Declining is not obstruction if you replace the signature with something more useful, and the offer is what makes the refusal land as professional rather than awkward."
+        },
+        {
+          "key": "C",
+          "text": "Decline outright — audit does not sign management's approvals.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "You decline. The programme director is visibly irritated and the form goes up without an audit line and without your findings.",
+          "why": "The right answer, delivered in a way that costs you the outcome. The principle is correct and the board ends up with less information than if you had offered the alternative. Being right about independence and silent about the findings is a poor trade when both were available."
+        },
+        {
+          "key": "D",
+          "text": "Sign, but write 'observer only' beside your signature.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You annotate and sign. The form is scanned for the board pack; the annotation is legible but small.",
+          "taint": "signed-the-approval",
+          "why": "A qualifier next to a signature does not survive the document being summarised, scanned or referred to. What reaches the board is that audit signed. If the position needs a footnote to be defensible, the position is that you should not be signing."
+        }
+      ]
+    },
+
+    "the-report": {
+      "situation": "Cutover runs over the weekend. On Tuesday you are drafting the audit committee note.\n\nYou have three findings: twelve defects reclassified without the process owner, a conversion routine that truncates, and — depending on what you asked for — an FX interface that will do the same nightly.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the project team be reminded to follow the defect severity policy.",
+          "quality": "poor",
+          "next": "end-symptom",
+          "consequence": "The recommendation is accepted without discussion and closed at the next meeting.",
+          "why": "A reminder is not a control. The severity field was changed by someone the system allowed to change it, in a tool that recorded no reason and required no approval. Nothing about a reminder prevents the identical action next Thursday, which is why recommendations of this shape are accepted so readily and change so little."
+        },
+        {
+          "key": "B",
+          "text": "That severity changes require the process owner's recorded approval in the tool, and that the truncation routine be fixed before the next interface run.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "Both are accepted. The tool change ships in the following sprint; the routine is corrected before month-end.",
+          "why": "Each recommendation attaches to the mechanism that failed rather than to the people involved, and each is verifiable — you can test whether the approval field exists and whether the routine rounds. That is what makes them closable on evidence instead of on assurance."
+        },
+        {
+          "key": "C",
+          "text": "That the post-implementation review examine whether go-live was premature.",
+          "quality": "defensible",
+          "next": "end-thin",
+          "consequence": "The audit committee agrees and schedules the review for the following quarter.",
+          "why": "Not wrong, and a post-implementation review is genuinely the right forum for a go/no-go judgment. But it defers everything by a quarter, including the interface truncation, which runs nightly in the meantime. Deferring a fix you already have evidence for in order to study the decision is the wrong thing to make wait."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "The interface that would have run every night",
+      "verdict": "strong",
+      "narrative": "The system goes live and stays live. The truncation routine is corrected before the first month-end, which means the treasury interface never runs against production with a two-decimal field. The defect tool gains a mandatory approver on severity changes, and the finance controller — who had not known the twelve were reclassified — asks for the same control on two other projects.\n\nYour name is not on the approval form. Your findings are attached to it.",
+      "why": "Every one of these came from following an inconsistency to its cause rather than to its size. The summary page disagreeing with the detail led to an approval that had been bypassed. A $2.46 difference led to a routine that would have truncated FX rates nightly. Neither was material where you found it; both were material where they were heading.\n\nAnd you kept the position that let you report it. Declining the signature while offering the findings gave the board more than a signature would have, and left you able to audit the decision afterwards."
+    },
+    "end-symptom": {
+      "title": "Reported, reminded, unchanged",
+      "verdict": "weak",
+      "narrative": "The findings are reported and accepted. The project team is reminded of the severity policy. Nine months later a different project reclassifies defects the same way, in the same tool, without the process owner — and the reminder is reissued.",
+      "why": "The work was sound and the recommendation was not. Recommendations aimed at behaviour are accepted quickly because they cost nothing and change nothing; the tool still permits the action, so the action recurs. A finding is only as durable as the mechanism its recommendation attaches to."
+    },
+    "end-thin": {
+      "title": "Right findings, scheduled for later",
+      "verdict": "acceptable",
+      "narrative": "The audit committee receives the findings and schedules a post-implementation review for the following quarter. The review, when it happens, is thorough and reaches the same conclusions you already held.",
+      "why": "Nothing here is wrong, and the findings were real. What it cost was time on the one item that could not wait: a nightly interface with a known truncation defect ran for a quarter while the decision that produced it was studied. Deferring analysis is often right; deferring a fix you already have evidence for rarely is."
+    },
+    "end-compromised": {
+      "title": "Listed among the functions that supported it",
+      "verdict": "weak",
+      "narrative": "The board pack lists internal audit among the functions that reviewed and supported the go-live. When the FX truncation surfaces six weeks later and the committee asks whether the readiness process was adequate, the question cannot be put to you — you are named on the approval. A second-line review is commissioned to answer it.\n\nYour findings were good. They were made by someone who had signed the decision.",
+      "why": "The signature was the whole outcome, and it was collected in the least guarded moment of the engagement: after the meeting, with a form already carrying everyone else's name, over a block of text that sounded like a description of work you had genuinely done.\n\n'Reviewed and supported' reads as a formality and functions as a share of the decision. Once it is given, every finding you produced becomes a finding about a decision you endorsed — and the organisation has to buy the independent opinion it already employed you to provide."
+    },
+    "end-failed": {
+      "title": "The conversion nobody checked for value",
+      "verdict": "failed",
+      "narrative": "Cutover completes cleanly. Record counts reconcile, as they did in testing.\n\nThe truncation is found in the third month, by a customer, in a dispute over an invoice. The subsequent reconciliation covers every transaction converted and every transaction the treasury interface has written since go-live. The finance director asks what audit reviewed before go-live, and the answer is a report that reconciled row counts.",
+      "why": "Counting records proves that nothing was lost. It cannot prove that anything arrived intact, because every one of the errors that matters — truncation, rounding, a shifted decimal, an inverted sign, a reinterpreted date — leaves the count exactly right.\n\nCompleteness and accuracy are two assertions. Accepting evidence for one as evidence for both is the single most common way a conversion error reaches a general ledger, and it is not a technical oversight: the reconciliation was produced, signed and filed, and it was answering a question nobody had asked."
+    }
+  }
+}

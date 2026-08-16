@@ -384,7 +384,8 @@ The debrief shows the path you walked, what the best option was at each node and
 branches you did not take would have led, and the ending with its verdict. **Never a percentage** —
 collapsing a path to one number throws away the part that teaches.
 
-Three cases ship today: audit execution (D1), business resilience (D4), incident response (D5).
+Four cases ship today: audit execution (D1), systems implementation (D3), business resilience (D4),
+incident response (D5).
 Format is documented in `cisa/cases/SCHEMA.md`. Case results go to `cases.jsonl`, not to
 `attempts.jsonl` — a case is not a four-option question and letting it reach item analysis or the
 scheduler would corrupt both.
@@ -737,7 +738,7 @@ below four questions. Three or four mocks of headroom in the heavy domains would
 
 ## Next up
 
-1. **More branching cases.** Three proves the format; it is not yet a library.
+1. **More branching cases.** Four is not yet a library, and D2 has none at all.
 2. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
    would be better.
 3. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
