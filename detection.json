@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15T22:58:24-04:00",
+  "generated": "2026-08-15T23:05:43-04:00",
   "seeds": 200,
   "sizes": [
     100,
@@ -456,7 +456,7 @@
       "title": "A question that measures nothing is flagged",
       "planted": "One question answered at chance regardless of ability",
       "diagnostic": "itemanalysis.needs_rewrite()",
-      "note": "",
+      "note": "Detecting this needs per-item discrimination, and discrimination needs about twenty attempts *on the same question*. The median question in a 3000-answer history has around seven, so barely any item in this bank is measurable at all - one in 334 on a sample run. That is a limit of how thinly one learner's answers spread over 386 questions, not a threshold that can be tuned away: it would take roughly an order of magnitude more answers. This check previously appeared to detect far more, but it was firing on 79% of *all* items, so most of its hits were the false-positive rate wearing a disguise.",
       "component": false,
       "trustworthy_from": null,
       "cells": [
@@ -543,7 +543,7 @@
       "title": "A miskeyed question is flagged",
       "planted": "One question whose wrong answers converge on a single distractor",
       "diagnostic": "itemanalysis.needs_rewrite()",
-      "note": "",
+      "note": "Detected on KEY_CHALLENGED, which counts option picks and needs no correlation - which is why this one survives the data density that defeats check 4.",
       "component": false,
       "trustworthy_from": 3000,
       "cells": [

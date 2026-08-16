@@ -118,6 +118,8 @@ Component of check 3.
 
 **Planted:** One question answered at chance regardless of ability  
 **Diagnostic:** `itemanalysis.needs_rewrite()`
+  
+Detecting this needs per-item discrimination, and discrimination needs about twenty attempts *on the same question*. The median question in a 3000-answer history has around seven, so barely any item in this bank is measurable at all - one in 334 on a sample run. That is a limit of how thinly one learner's answers spread over 386 questions, not a threshold that can be tuned away: it would take roughly an order of magnitude more answers. This check previously appeared to detect far more, but it was firing on 79% of *all* items, so most of its hits were the false-positive rate wearing a disguise.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
@@ -130,6 +132,8 @@ Component of check 3.
 
 **Planted:** One question whose wrong answers converge on a single distractor  
 **Diagnostic:** `itemanalysis.needs_rewrite()`
+  
+Detected on KEY_CHALLENGED, which counts option picks and needs no correlation - which is why this one survives the data density that defeats check 4.
 
 | Answers | Detected | 95% CI | False positive | 95% CI | Trustworthy |
 |---|---|---|---|---|---|
