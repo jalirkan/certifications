@@ -1,0 +1,340 @@
+{
+  "id": "d5-the-leavers-report",
+  "title": "The Leavers Report",
+  "domain": "5",
+  "section": "A",
+  "topics": [
+    "Identity and Access Management",
+    "IT Vendor Management",
+    "Audit Evidence Collection Techniques",
+    "Operational Log Management",
+    "Reporting and Communication Techniques"
+  ],
+  "principles": [
+    "independent-population",
+    "completeness",
+    "timeliness",
+    "authorization-first",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are auditing identity and access management at an engineering and construction group. Three thousand four hundred employees, and at any moment several hundred contractors on site and on the network.\n\nThe control is standard and well documented. When someone leaves, the HR system's nightly termination feed reaches the identity platform, which disables the account. Policy says within five working days.\n\nYou drew forty leavers from the HR termination report for the year and traced each one. Thirty-nine were disabled inside the window. One took nine days, because the manager had recorded the wrong last working day.\n\nOne exception in forty. A small, ordinary, entirely real finding.",
+
+  "taints": {
+    "scope-carved-out": "end-carved",
+    "credential-shared": "end-unattributable"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "You have a defensible test, a clean result and a minor exception you can write up in a paragraph. Two weeks of fieldwork remain.",
+      "prompt": "What do you do next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Extend the leaver sample to eighty to firm up the exception rate.",
+          "quality": "defensible",
+          "next": "the-extract",
+          "consequence": "You select forty more from the same report. Thirty-nine are clean; one took seven days. The rate holds at roughly 2.5%.",
+          "why": "Sound technique and it does what it promises: you now know the exception rate more precisely. What it cannot do is tell you anything about people who left and never appeared on the report you sampled from. Doubling a sample increases precision about a population; it says nothing about whether the population is the right one, and precision on the wrong population is the most convincing kind of wrong."
+        },
+        {
+          "key": "B",
+          "text": "Reconcile enabled accounts against an independent view of who should have one, before concluding on the population.",
+          "quality": "best",
+          "next": "the-extract",
+          "consequence": "You ask what the total enabled account count is and how it compares to headcount. Nobody has the second number to hand.",
+          "why": "You tested forward, from a list of leavers to their accounts, and that direction can only ever confirm that the people on the list were handled. Reversing it — starting from every account that exists and asking who is entitled to it — is the only direction that can find someone the leaver report never knew about. The pause before the answer is the first sign that this question is not routinely asked."
+        },
+        {
+          "key": "C",
+          "text": "Write up the nine-day exception and move on to joiner testing.",
+          "quality": "poor",
+          "next": "the-extract",
+          "consequence": "You draft the exception with the manager's date error as the cause, and open the joiner sample.",
+          "why": "You have a finding, which is the problem. A small exception is satisfying in a way that closes the subject: the control was tested, it mostly worked, here is the paragraph. Nothing about finding a minor issue is evidence that you looked in the right place, and a test that returns a plausible small number is far more likely to end an enquiry than one that returns nothing at all."
+        },
+        {
+          "key": "D",
+          "text": "Test the compensating control — the quarterly access recertification.",
+          "quality": "defensible",
+          "next": "the-extract",
+          "consequence": "The last campaign closed at 100% completion, with 6,412 entitlements reviewed and every reviewer responding inside the window. The evidence pack is thorough.",
+          "why": "The right instinct, and worth doing. The care needed is what a compensating control is for: it is supposed to catch what the primary control misses, so testing whether it ran is only useful if you also establish whether it could see the same things. A campaign that completes at 100% has told you about its own execution, not about its coverage, and those two are easy to conflate when the evidence pack is this good."
+        }
+      ]
+    },
+
+    "the-extract": {
+      "situation": "You need a complete list of every enabled account in the directory.\n\nThe identity team's extract queue is running at three days. The service desk manager offers a shortcut: he can lend you the operator account the team uses for lookups, and you can run whatever queries you like this afternoon.",
+      "prompt": "How do you obtain the list?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the operator account. It is faster, and you only intend to read.",
+          "quality": "poor",
+          "next": "the-orphans",
+          "consequence": "He gives you the credentials for svc-desk-ops, shared by six people on the team. You use it for the next three weeks to run queries. It also carries enable, disable and password reset rights, which you do not use.",
+          "taint": "credential-shared",
+          "why": "It is faster, you did only read, and neither of those is the problem. Three things happened at once. You obtained privileged access to a production directory from someone with no authority to grant it and no record that he did — the same authorisation control you are in the building to test. Your activity is now logged under an identity shared by seven people, which means nothing you did can be told apart from anything they did. And the finding you are walking toward is that access in this organisation cannot be attributed to individuals. You are about to write it as a participant, using evidence you gathered through the weakness itself."
+        },
+        {
+          "key": "B",
+          "text": "Request a dated export through the engagement's agreed channel with the fields specified, and obtain the HR active list and the contractor list from their own owners.",
+          "quality": "best",
+          "next": "the-orphans",
+          "consequence": "Three days later you hold three files: an as-at directory export from the identity team, an active-employee list from HR, and a live purchase order report from procurement. No single function supplied both sides of any comparison.",
+          "why": "The waiting is the cost and the independence is what you bought. A reconciliation is only as strong as the separation between its two sides; if the identity team produces both the account list and the entitlement list, any population they cannot see is missing from both and the comparison closes cleanly on nothing. Asking each owner for their own record, with a stated as-at time, is what makes the residual mean something."
+        },
+        {
+          "key": "C",
+          "text": "Ask the identity team to run the comparison and give you the accounts with no HR match.",
+          "quality": "defensible",
+          "next": "the-orphans",
+          "consequence": "They are helpful and quick. Two days later you receive a list of 190 accounts with no employee record, along with the query they used.",
+          "why": "Efficient, and they will almost certainly do it correctly. The exposure is that the join logic is now part of the thing under test, and you cannot see what it excluded. If their query drops disabled-then-re-enabled accounts, or matches on employee number where contractors have none, the residual arrives already filtered by an assumption you did not make. Asking for the query was the right instinct and is not the same as running it yourself."
+        },
+        {
+          "key": "D",
+          "text": "Use the directory export IT produced three weeks ago for the licence true-up.",
+          "quality": "defensible",
+          "next": "the-orphans",
+          "consequence": "It is on the shared engagement folder already. It is dated, it is complete-looking, and its filter is not documented anywhere.",
+          "why": "Free, immediate, and produced for a different question. A licence extract is normally filtered to accounts that consume a licence, which is close to what you want and not the same as it, and three weeks is long enough for the population to move. Reusing evidence gathered for another purpose is often sensible; doing it without establishing the filter means your conclusion carries a boundary you cannot describe."
+        }
+      ]
+    },
+
+    "the-orphans": {
+      "situation": "Enabled accounts: 4,190. HR active employees: 3,412. Contractors with a live purchase order: 564.\n\nTwo hundred and fourteen enabled accounts match neither list.\n\nOf those, 148 map to contractor records in procurement whose purchase order has ended. Sixty-one ended more than thirty days ago; the oldest closed fourteen months ago. The remaining 66 are service accounts, test accounts, and accounts nobody present can identify.\n\nThree of the sixty-one have authenticated in the last thirty days.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish why these accounts were invisible to both the leaver process and the recertification, before doing anything else with them.",
+          "quality": "best",
+          "next": "the-recert",
+          "consequence": "You ask how a contractor leaves. There is no answer that involves the identity platform: contractors have no HR record, so no termination event is ever generated for them.",
+          "why": "Two hundred and fourteen accounts is a number, and a number is what management will remediate. Why the controls could not see them is what determines whether the number comes back. Asking it before the cleanup also matters practically — once the accounts are disabled the population is gone, and with it the evidence of how long each had been open and what it had been used for."
+        },
+        {
+          "key": "B",
+          "text": "Investigate the three that have authenticated recently.",
+          "quality": "defensible",
+          "next": "the-recert",
+          "consequence": "Two are being used by current staff who inherited the credentials when the contractor left, to keep a reporting job running. The third authenticated at 02:14 from an address outside the corporate range, and the security team opens an incident.",
+          "why": "Correct to prioritise live use, and it produced the sharpest facts in the engagement — including one that is now somebody else's incident rather than your finding. Keep hold of what it is evidence of. Two shared credentials and one unexplained authentication are consequences of the gap; treated as the story, they turn a control finding into three anecdotes, and the anecdotes get closed individually."
+        },
+        {
+          "key": "C",
+          "text": "Ask IT to disable all 214 immediately, then continue the audit.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "The identity team disables them within a day. Two hours later a scheduled data export fails, and one of the accounts is re-enabled to restore it.",
+          "taint": null,
+          "why": "The exposure closes, which is worth something, and you have destroyed the only view anyone had of how it arose. Once the accounts are disabled you cannot establish how long each was open, whether any were used, or which control should have caught which — and you have also caused an operational change on the strength of an auditor's request, which is management's decision to make. The re-enabled account is the reminder: somebody had wired a production job to a departed contractor's credentials, and that fact was reachable for one day."
+        },
+        {
+          "key": "D",
+          "text": "Age the sixty-one against their purchase order end dates to quantify the exposure.",
+          "quality": "defensible",
+          "next": "the-recert",
+          "consequence": "You build the distribution. Median 94 days open past the engagement end; the tail runs to 428 days. Total account-days of unentitled access across the year: just over 11,000.",
+          "why": "Good measurement and the eleven thousand account-days will do more work in a committee paper than any adjective. It is evidence rather than explanation, though, and it has a specific weakness here: expressing the finding as elapsed time invites a response about tightening timescales, when no timescale was ever running. Nothing was late. Nothing had started."
+        }
+      ]
+    },
+
+    "the-recert": {
+      "situation": "You go back to the recertification campaign that closed at 100%.\n\nThe tool builds its reviewer assignment from the manager field in the HR system. An account with no HR record has no manager to route to, so it lands in a bucket the tool labels 'unassigned'. Unassigned accounts are excluded from the completion calculation, which is computed over assigned accounts.\n\nThe unassigned bucket holds 214 accounts.",
+      "prompt": "What do you make of that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The compensating control reads identity from the same source as the control it compensates for, so it cannot see anything that control misses.",
+          "quality": "best",
+          "next": "the-mechanism",
+          "consequence": "You put it to the identity manager. He opens the tool and looks at the unassigned bucket, which he says he had always read as a data quality queue.",
+          "why": "This is the whole case in one sentence and it is the thing nobody in the organisation has said out loud. A compensating control earns its name by failing independently of the control it backs up. When both read entitlement from the same feed, a person invisible to one is invisible to the other by construction, and the second control's clean result is not weak evidence — it is the same evidence, counted twice."
+        },
+        {
+          "key": "B",
+          "text": "The completion metric is overstated, since it excludes accounts the tool could not assign.",
+          "quality": "defensible",
+          "next": "the-mechanism",
+          "consequence": "You verify the calculation. True completion against all enabled accounts is 96.8%, not 100%.",
+          "why": "Precisely right and a genuinely good catch — a denominator that silently drops what the process could not handle will report perfection at exactly the moment it is failing. Where it stops short is that it reads as a reporting defect, and the response to a reporting defect is to fix the report. The accounts in the unassigned bucket are not a measurement problem; they are the population the whole control was supposed to protect against."
+        },
+        {
+          "key": "C",
+          "text": "Recertification is a detective control and this is a preventive failure. Report them separately.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You draft two findings with no link between them: contractor deprovisioning does not occur, and the recertification campaign excludes unassigned accounts.",
+          "why": "Both statements are true and separating them throws away the only thing that makes either urgent. Management will accept a preventive gap more calmly if a detective control is thought to be behind it, and will treat an exclusion bucket as housekeeping if the accounts in it look incidental. It is the same 214 accounts, missed twice, for one reason. Split across two findings, the reason disappears."
+        },
+        {
+          "key": "D",
+          "text": "Test whether the unassigned bucket is ever worked by anybody.",
+          "quality": "defensible",
+          "next": "the-mechanism",
+          "consequence": "It is not. There is no procedure covering it, no owner, and no record of anyone opening it in the eight campaigns since the tool was implemented.",
+          "why": "A good question and the answer is damning in a useful way: the exception queue that would have caught this has never been opened in two years. It is one more fact about the same failure rather than the explanation of it, and there is a subtle trap in where it leads — if the bucket had been worked diligently every quarter, the finding would still stand, because a compensating control depending on the same feed is defective by design and not by neglect."
+        }
+      ]
+    },
+
+    "the-mechanism": {
+      "situation": "You have both routes established.\n\nDeprovisioning fires on the HR termination feed. Contractors are onboarded by a service desk ticket raised by the hiring manager and have no HR record, so no termination event is ever generated for them. Their end date lives on the purchase order in the procurement system, which has no connection to identity.\n\nRecertification assigns reviewers from the HR manager field. No HR record, no reviewer, no review.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Contractor accounts are not disabled when engagements end.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "You draft it that way, with the 61 accounts and the 11,000 account-days in an appendix.",
+          "why": "Accurate, and it will get the accounts disabled. The wording locates the failure in the outcome rather than in what produced it, so the response is to disable these accounts and remind managers to raise leaver tickets for contractors — which puts the control back in the hands of the individual whose contractor has just left. Findings written at the level of the outcome are closed by fixing the outcome."
+        },
+        {
+          "key": "B",
+          "text": "Both the joiner-leaver control and the recertification that compensates for it read identity from HR, and a population that HR does not hold is invisible to both.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "The CISO reads it and does not argue. He says the recertification was bought specifically as the backstop for exactly this, and that he had never asked what it reads from.",
+          "why": "One sentence that explains the 214 accounts, the 100% campaign, the empty unassigned bucket and the clean leaver sample at the same time. It also carries the general lesson past this client: a compensating control that shares an input with the control it compensates for is not a second line of defence, it is the same line drawn twice. Ask what each control reads from before accepting that one backs up the other."
+        },
+        {
+          "key": "C",
+          "text": "The recertification tool's coverage is incomplete and its completion metric is misleading.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The tool's configuration is corrected within a month so that unassigned accounts count against completion. The next campaign reports 96.8%.",
+          "why": "It fixes the measurement, which is real: a metric that hides its own exclusions will keep producing false comfort. What it leaves is a campaign that now correctly reports it cannot review 214 accounts, and no route by which anybody ever will. Making an invisible failure visible is a genuine improvement and it is not the same as giving the failure somewhere to go."
+        },
+        {
+          "key": "D",
+          "text": "HR records are incomplete, since a significant working population is missing from them.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "The HR director's response is immediate: contractors are not employees, they are correctly not in the HR system, and their engagement records live in procurement where they belong.",
+          "why": "She is right and the finding has been aimed at the wrong system. HR holds employees, accurately and by design; nothing about that is a defect. The defect is that two identity controls were built to read entitlement from a system that only ever covered part of the working population, and calling that an HR data problem asks a function to expand its scope to cover somebody else's design decision."
+        }
+      ]
+    },
+
+    "the-report": {
+      "situation": "Clearance. The CISO accepts everything on the facts and makes a proposal that is not unreasonable.\n\nContractor access, he says, sits inside the third-party assurance programme, which reviews vendors annually and has its own reporting line. Putting it in an internal IAM report duplicates that work and confuses accountability. He suggests your report covers employee access management, and contractor access is referred across.\n\nHe adds that the third-party programme is genuinely well run, and he is right.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree. The split is clean, the other programme is competent, and it avoids duplicated reporting.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "Your report covers employee access management and concludes that the joiner-leaver control operates effectively, with one timing exception. A referral note goes to the third-party assurance lead.",
+          "taint": "scope-carved-out",
+          "why": "Every part of his argument is sound in isolation, which is what makes it work. Follow where it leaves the subject. The third-party programme reviews vendors — their security posture, their contracts, their controls — and does not test your client's directory. The IAM audit that does test the directory has just recorded that the control operates effectively, over a population defined to exclude the accounts that were open for fourteen months. Nobody has lied and nobody will look, and the audit function is the party that arranged it. Scope defines what you go looking for; it cannot define away what you have already found."
+        },
+        {
+          "key": "B",
+          "text": "Report the whole population in one finding, and state plainly that the two controls share a dependency.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "He does not enjoy it and does not contest it. The report goes up covering all 4,190 enabled accounts, with the shared-dependency point in the first paragraph rather than the detail.",
+          "why": "The finding is about a population and a mechanism, and both are destroyed by splitting them. Employee accounts and contractor accounts are not two subjects; they are one directory, governed by one control, which reads from a source covering only some of them. Reporting the whole population is what makes the number mean anything, and keeping the two controls in one finding is what stops the compensating one being offered as mitigation for the primary."
+        },
+        {
+          "key": "C",
+          "text": "Report both, but present contractor access as a distinct finding routed to the third-party programme for remediation.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Both findings go into the report. The contractor finding is assigned to the third-party assurance lead, who accepts it and schedules it into her next cycle, four months out.",
+          "why": "The substance survives and reaches the committee, which is the part that matters, and routing remediation to the function that owns vendor relationships is defensible. What it costs is the shape. Two findings in one report read as two problems, so the shared dependency between them is a sentence rather than the point — and the remediation now sits with a programme whose cycle is annual, for a defect in a control that runs nightly."
+        },
+        {
+          "key": "D",
+          "text": "Report the contractor accounts and treat the 66 service and test accounts as a housekeeping item.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The 66 are listed in an appendix with a recommendation that IT identify owners for them. The main finding covers the 148 contractor accounts.",
+          "why": "The 66 are the worst of the population, not the least of it. A contractor account at least has a person and a purchase order behind it; an account with no identifiable owner has nobody to recertify it, nobody accountable for what it does, and no event anywhere that would ever end it. Housekeeping is the word for the tidy end of a list, and this is the end where the accounts have no owner at all."
+        }
+      ]
+    },
+
+    "the-recommendation": {
+      "situation": "The committee has the finding and wants a recommendation it can hold someone to.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Add contractors to the HR system so the existing controls cover them.",
+          "quality": "defensible",
+          "next": "end-tightened",
+          "consequence": "Accepted in principle. HR scopes the work: a new worker type, a data model change, and a procurement integration, estimated at three quarters and dependent on the HR platform upgrade already scheduled for next year.",
+          "why": "It would work, and it puts the fix in a system whose purpose is employment records, owned by a function that does not manage contractor engagements. That is why the estimate is three quarters and why it depends on somebody else's roadmap. It also solves the problem by widening the source rather than by removing the dependency on a single source, so the next population that sits outside HR — an acquired subsidiary on its own payroll, a joint venture — arrives with exactly the same result."
+        },
+        {
+          "key": "B",
+          "text": "Trigger deprovisioning on the earlier of the HR termination date and the purchase order end date, assign recertification reviewers from a source covering every identity, and treat any account the tool cannot assign as an exception requiring resolution rather than an exclusion.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The identity manager takes the third limb first because it is a configuration change and ships it in a fortnight. The purchase order feed takes a quarter. The CISO asks for the unassigned count to be reported to him monthly.",
+          "why": "Three limbs, each attached to a mechanism rather than to a person, and each verifiable next year by inspection. The third is the one that carries past this finding: an exception queue that reduces the denominator will always report success, and an exception queue that must be emptied will always report the truth. Whatever the next invisible population turns out to be, it arrives in that bucket, and now the bucket is somebody's number."
+        },
+        {
+          "key": "C",
+          "text": "Reconcile enabled accounts to HR and procurement every quarter, and investigate the residual.",
+          "quality": "defensible",
+          "next": "end-tightened",
+          "consequence": "Implemented the following month. The first run finds nine new orphaned accounts, the second finds eleven.",
+          "why": "A real detective control, cheap, running immediately, and it is the test you performed made permanent — which is a good instinct in general. What it accepts is that accounts will keep being orphaned and will be caught afterwards, up to a quarter later. For a contractor with directory access to project files that is ninety days of unentitled access per occurrence, by design. Worth having alongside a preventive fix; thin as the answer to one."
+        },
+        {
+          "key": "D",
+          "text": "Disable the 214 and remind hiring managers to raise a leaver ticket when a contractor's engagement ends.",
+          "quality": "poor",
+          "next": "end-instances",
+          "consequence": "Both are done within a fortnight. A reminder goes out with the monthly IT bulletin and the accounts are closed.",
+          "why": "The accounts you found are gone and the mechanism that produced them is intact, now with a reminder in front of it. It also moves the control from an automated feed to an individual manager remembering an administrative step at the end of a project — which is a weaker control than the one that failed, offered as the remedy for its failure. This is the recommendation management accepts fastest, and the speed is the warning."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "What each control reads from",
+      "verdict": "strong",
+      "narrative": "The unassigned bucket becomes an exception queue with an owner and a monthly number. It empties in three weeks; two of the accounts in it turn out to belong to a subsidiary acquired in 2024 that runs its own payroll, which nobody had connected to identity at all.\n\nThe purchase order feed lands the following quarter. Contractor accounts now expire on the engagement end date, and the median gap between a contractor leaving site and losing access falls from 94 days to under two.\n\nThe account that authenticated at 02:14 is traced to a former subcontractor's laptop that was never returned. It is the only one, and it is found because the population was looked at rather than sampled.",
+      "why": "The engagement started with a control test that passed, a compensating control that reported 100%, and one minor timing exception. Every piece of evidence available pointed at a process that worked.\n\nWhat it turned on is a question with a general form: what does this control read from, and does the control that backs it up read from the same place? Both of these took identity from HR. A population HR does not hold was invisible to the primary control and invisible to the compensating one for the identical reason, so the second control's clean result carried no information the first had not already given. Two controls sharing an input are one control with two names.\n\nThe subsidiary is the proof the fix generalises. Nobody was looking for it, and the mechanism found it anyway, because the exception queue now has to be emptied rather than excluded."
+    },
+    "end-tightened": {
+      "title": "Covered, at a quarter's notice",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented and it works. Either contractors are added to the HR platform in the following year's upgrade, or the quarterly reconciliation runs and finds nine, then eleven, then seven orphaned accounts.\n\nThe exposure is real but bounded now, and the audit committee sees the residual count each quarter.\n\nIn the autumn the group acquires a civil engineering firm that keeps its own payroll for eighteen months. Its 240 staff are provisioned into the group directory and are not in the HR platform. The reconciliation finds them; the reconciliation is the only thing that does.",
+      "why": "The finding was right and the remedy was aimed at the population rather than the dependency. Widening the source, or checking the residual afterwards, both leave the controls reading entitlement from a single place and treating whatever that place does not cover as an exception to be found later.\n\nA detective reconciliation is worth having and it accepts a quarter of unentitled access per occurrence as the design. The acquisition is the tell: the same defect produced a new population within a year, and the control that caught it was the one that runs after the fact."
+    },
+    "end-instances": {
+      "title": "Two hundred and fourteen accounts, closed",
+      "verdict": "weak",
+      "narrative": "The accounts are disabled and the reminder goes out with the monthly bulletin. The finding is closed at the next tracking meeting on the evidence of the disablement report.\n\nThe following year's audit runs the same reconciliation and finds 189 enabled accounts matching neither list. Forty-one of them were created after the reminder was issued.\n\nThe recertification campaign reports 100% completion for four consecutive quarters throughout.",
+      "why": "The remediation addressed the accounts, which were the damage, and left the two feeds exactly as they were. Nothing that produced 214 orphaned accounts changed, so it produced more.\n\nThe reminder deserves its own attention. It replaced an automated feed with a hiring manager remembering an administrative task at the end of a project, which is a materially weaker control than the one that failed — and it was accepted immediately, by everyone, because it costs nothing. A recommendation that meets no resistance is usually one that requires no capability the organisation does not already have, and the organisation already had a process that did not work."
+    },
+    "end-carved": {
+      "title": "Employee access management operates effectively",
+      "verdict": "failed",
+      "narrative": "The report is issued and it is accurate. Employee joiner-leaver controls operate effectively, one timing exception, recertification complete. The referral note reaches the third-party assurance lead and is logged.\n\nThe third-party programme does what it does: annual reviews of vendor security posture, contract terms and the vendors' own control environments. It has never tested the client's directory, and nothing in its scope would cause it to.\n\nTwo years later a project data room is exfiltrated through a contractor account that had been open since the engagement ended nineteen months earlier. The forensic timeline reaches back to an internal audit report stating that access management operates effectively, and to a scope note explaining that contractor access was covered elsewhere.\n\nIt was not covered elsewhere. It was covered nowhere, by agreement, in writing, at a clearance meeting.",
+      "why": "This is the failure mode that does not feel like one, because nothing in the conversation was dishonest. The third-party programme is well run. Duplicated reporting is a real cost. Confused accountability is a real risk. He believed what he was saying and so did you.\n\nWhat makes it unrecoverable is the direction the boundary was drawn from. Scope is set before you know what is there, in order to make an engagement finite. Redrawing it afterwards, around something you have already found, with the party the finding concerns, does not narrow the work — it removes the finding and leaves a positive assurance statement standing over the gap. The 214 accounts existed either way. What the carve-out produced was a document saying they did not need to be looked for.\n\nThe question that stops it is not whether the other programme is competent. It is whether anyone in that programme performs the test that would have found this, and it takes one phone call to answer."
+    },
+    "end-unattributable": {
+      "title": "Seven people used that account",
+      "verdict": "weak",
+      "narrative": "During your three weeks with svc-desk-ops, four of the orphaned accounts are disabled. Nobody has asked for them to be, and the identity team cannot say who did it: the log records svc-desk-ops, and seven people had the credentials.\n\nYou did not disable them. There is no way to demonstrate that.\n\nThe finding on unattributable privileged access goes into the report and management accepts it, then asks how the audit's own queries were run. The engagement quality review requires the directory evidence to be re-gathered through the proper channel, and the report is delayed a month while the identity team rebuilds an as-at position that no longer exists.",
+      "why": "You needed a list, the queue was three days, he had the credentials in his hand, and you only intended to read. Each of those is true and none of them is the point.\n\nThe first cost is authorisation. A service desk manager cannot grant an auditor privileged access to a production directory; there is no record of the grant, no defined scope, and no end date, which is precisely the control gap you were engaged to test. Without written authority your access is indistinguishable from any other unapproved privileged access in the environment.\n\nThe second cost is what makes it unrecoverable. The engagement's central finding is that activity under shared accounts cannot be attributed to a person. Your own activity now cannot be attributed to a person, in the same account, during the same period, which means your evidence sits inside the weakness it describes and you cannot separate your footprints from anyone else's.\n\nThe three-day wait was the whole price of avoiding this."
+    }
+  }
+}

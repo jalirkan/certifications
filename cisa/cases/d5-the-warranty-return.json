@@ -1,0 +1,292 @@
+{
+  "id": "d5-the-warranty-return",
+  "title": "The Warranty Return",
+  "domain": "5",
+  "section": "A",
+  "topics": [
+    "Physical and Environmental Controls",
+    "IT Asset Management",
+    "Data Encryption",
+    "Data Governance and Classification",
+    "IT Vendor Management"
+  ],
+  "principles": [
+    "protection-follows-data",
+    "completeness",
+    "evidence-quality",
+    "root-cause",
+    "accountability-stays"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are reviewing protection of information assets at a private hospital group. Six sites, one central data centre, patient records going back nineteen years.\n\nYou started with media disposal, expecting it to be the weak point. It is not. Decommissioned equipment goes to a disposal queue, a certified vendor collects it, degausses or shreds each unit, and issues a certificate quoting the serial number. You sampled thirty disposals across two years and traced every one to a matching certificate. Thirty for thirty. It is the cleanest control you have tested all year.\n\nOn Wednesday the infrastructure manager walks you through the data centre. Passing a rack of shelving near the loading door, you notice a cardboard box.\n\nInside are four disk drives in anti-static bags. Each carries a printed label with a returns reference and the storage vendor's address.",
+
+  "taints": {
+    "carried-the-data-out": "end-carried"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "Four drives, bagged, labelled and addressed. The box is not sealed. Nobody is standing near it.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the infrastructure manager what the box is and what happens to it.",
+          "quality": "defensible",
+          "next": "the-maintenance-event",
+          "consequence": "He explains without hesitation. Failed drives under warranty go back to the vendor, who ships a replacement in advance. It happens every few weeks and has done for years.",
+          "why": "The natural question, and he answers it honestly and completely. The cost is small here and worth naming: the first account you hold is the one from the person who runs the process, and it will be framed as what is supposed to happen rather than as what does. It is a good opening move when the person is candid, which you cannot know before you ask."
+        },
+        {
+          "key": "B",
+          "text": "Establish what is on the drives and by what route they leave the building, before asking anyone what is meant to happen.",
+          "quality": "best",
+          "next": "the-maintenance-event",
+          "consequence": "You note the four serial numbers and the returns references, then trace them: pulled from a production array, logged in a support ticket, collected by a courier on Fridays. No entry in the disposal log and no asset record for any of the four.",
+          "why": "The drives are the exposure and the process is the explanation, and taking them in that order means you arrive at the explanation already knowing what it has to account for. It also matters that this is physical evidence with a courier collection on it. What is in the box on Wednesday is not in the box on Monday, and the serial numbers are the only thing that survives the collection."
+        },
+        {
+          "key": "C",
+          "text": "Check whether the disposal certificates you sampled cover drive returns as well as whole units.",
+          "quality": "defensible",
+          "next": "the-maintenance-event",
+          "consequence": "You go back through the thirty. Every certificate is for a complete server, workstation or array chassis. Not one is for an individual drive.",
+          "why": "A sharp instinct and it produces a real fact, and there is a trap folded into it. You are searching the disposal population for something that may never enter the disposal population, so an empty result has two possible readings: the certificates are incomplete, or drive returns are not disposals at all. Those are very different findings, and the search cannot tell them apart."
+        },
+        {
+          "key": "D",
+          "text": "Ask the storage vendor's account manager what happens to drives returned under warranty.",
+          "quality": "poor",
+          "next": "the-maintenance-event",
+          "consequence": "He replies the same afternoon, courteously, with a two-page statement of the company's environmental and data handling policy and an offer to supply certificates of destruction.",
+          "why": "You have gone outside the organisation, to the party with the largest interest in the answer, before establishing anything inside it — and what came back is a policy document, which describes intent. It also puts the vendor on notice mid-engagement, before you know what you are looking at, so any record they produce from here is a record produced by someone who knows you are asking."
+        }
+      ]
+    },
+
+    "the-maintenance-event": {
+      "situation": "The process is simple and has never been questioned.\n\nA drive fails. The array flags it and opens a support ticket with the vendor. A replacement is shipped in advance, the engineer swaps it, and the failed drive goes back in the replacement's packaging under a returns reference. The ticket is closed as a maintenance event.\n\nNothing about that sequence touches the disposal process, because nothing has been disposed of. The array is the asset. The drive is a component of it, and components do not have asset records.",
+      "prompt": "What do you establish?",
+      "options": [
+        {
+          "key": "A",
+          "text": "How many drives have left this way, and over what period.",
+          "quality": "best",
+          "next": "the-sixty-one",
+          "consequence": "There is no single record to ask for. You reconstruct it from four years of support tickets: 61 drives, across nine arrays.",
+          "why": "The mechanism is now clear and its size is not, and a finding about a route needs the traffic on it. Note where the number had to come from: no asset record, no disposal log, no register of any kind, only the support tickets that exist because the vendor needed a returns reference. When the only trace of an exposure is a record kept for an unrelated purpose, that itself is most of the finding."
+        },
+        {
+          "key": "B",
+          "text": "Whether the drives were encrypted.",
+          "quality": "defensible",
+          "next": "the-sixty-one",
+          "consequence": "The storage team's answer is that the arrays use self-encrypting drives and that returned drives are cryptographically erased first. Two of the nine arrays, installed in 2019, predate the standard.",
+          "why": "The question that decides how serious this is, asked one step before you can use the answer. Without the population you cannot tell whether the two unencrypted arrays account for two drives or thirty, and 'the drives are encrypted' is going to turn out to have a more complicated answer than yes. Ask it after you know how many, and you can attach the answer to a number."
+        },
+        {
+          "key": "C",
+          "text": "Whether the vendor contract's data protection terms cover the warranty returns channel.",
+          "quality": "defensible",
+          "next": "the-sixty-one",
+          "consequence": "The master services agreement has a data processing schedule. It is written around the managed backup service and the disposal contract; the maintenance and warranty terms sit in a separate annex that does not mention data at all.",
+          "why": "Worth establishing, and the gap between the two annexes is a genuine finding. Keep clear about what it is evidence of. A contractual obligation is a statement about who is liable, not about what happened to sixty-one drives, and accountability for patient data stays with the hospital whatever any annex says. Contract work tells you how much protection you bought; it cannot tell you what left the building."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that warranty returns be brought inside the disposal process.",
+          "quality": "poor",
+          "next": "the-encryption",
+          "consequence": "You draft it. The infrastructure manager points out that a warranty return has to go back to the vendor intact, and that shredding it would void the replacement credit.",
+          "why": "A recommendation written before the finding, and his objection is a real one that would have been obvious from the process. Disposal destroys media; a warranty return requires the media to arrive at the vendor. Those two requirements are in direct conflict, which is why the answer is not to route returns through disposal but to put a sanitisation step in front of the return — and you cannot know that until you know whether sanitisation is even possible on a failed drive."
+        }
+      ]
+    },
+
+    "the-sixty-one": {
+      "situation": "Sixty-one drives in four years, reconstructed from support tickets. No asset record for any of them, no disposal certificate, no entry in any log kept for the purpose.\n\nThe nine arrays hold, between them: the patient administration system, the diagnostic imaging store, and the group's HR and payroll.",
+      "prompt": "How do you establish what was on them?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Map each of the 61 to the array it came from, and each array to what it holds.",
+          "quality": "best",
+          "next": "the-encryption",
+          "consequence": "Every ticket names the array. Thirty-one of the 61 came from the two arrays behind patient administration and imaging; nine came from the payroll array; the rest from test and archive tiers.",
+          "why": "The array is the link between a serial number and a data classification, and the tickets already carry it. This is what converts sixty-one anonymous components into thirty-one drives from the systems holding patient records, which is the version of the fact that determines who needs to hear about it and how quickly. It is an afternoon of work against records that already exist."
+        },
+        {
+          "key": "B",
+          "text": "Treat all 61 as though they held patient data. It is the prudent assumption.",
+          "quality": "defensible",
+          "next": "the-encryption",
+          "consequence": "You draft on that basis. The IT director's first response at the meeting is that most of the arrays are test and archive tiers, and he is partly right.",
+          "why": "Conservative, defensible in principle, and it hands over the one part of the finding that is easy to disprove. Where the classification is genuinely unknowable an assumption is the right tool; here it is knowable from records you already hold, so assuming instead of checking spends credibility to save an afternoon. The correction will also be remembered longer than the finding."
+        },
+        {
+          "key": "C",
+          "text": "Ask the vendor to confirm what was done with the 61 drives.",
+          "quality": "poor",
+          "next": "the-encryption",
+          "consequence": "The account manager offers certificates of destruction. When you look at them, they are issued under the disposal contract's certificate template and reference collection dates rather than the returns references you supplied.",
+          "why": "Two problems, and the second is the one worth carrying. You have asked the interested party to grade the outcome, which puts a document in your file in place of a test. And the documents that came back are from a different contract: the disposal service does destroy media and issue per-serial certificates, and the warranty returns channel is not that service. A certificate that answers a question you did not ask is more dangerous than no certificate, because it closes the point."
+        },
+        {
+          "key": "D",
+          "text": "Sample a dozen tickets and extrapolate the classification profile.",
+          "quality": "defensible",
+          "next": "the-encryption",
+          "consequence": "You review twelve. Six come from arrays holding patient data, which you project across the population as roughly half.",
+          "why": "Sound method applied to a population that does not need it. Sixty-one is small enough to enumerate completely, and enumerating it costs about the same as sampling it and produces certainty instead of an estimate. Sampling exists to make an intractable population tractable; reaching for it out of habit converts a fact you could have stated into a projection somebody can argue with."
+        }
+      ]
+    },
+
+    "the-encryption": {
+      "situation": "Seven of the nine arrays use self-encrypting drives. The two oldest, installed in 2019, do not.\n\nThe storage team's position is clear and, on its face, sound: before a self-encrypting drive is returned, the array issues a secure-erase instruction that destroys the drive's internal key. The data remains on the platters and is cryptographically unrecoverable. This is a recognised and legitimate control.",
+      "prompt": "How do you test it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask for the erase confirmation recorded against each of the 61 returns.",
+          "quality": "best",
+          "next": "the-drive",
+          "consequence": "The array logs the result of every erase instruction. Confirmation exists for 22 of the 61. For 31, the instruction returned an error. For 8 there is no record either way. Several tickets state the reason in plain words: the drive was unresponsive.",
+          "why": "The control is described as something the array does, so the array's own log is the evidence, and it is contemporaneous, independent of anybody's account and already sitting there. The result is the case: a control that is real, correctly designed, properly intended, and confirmed on barely a third of the population it was supposed to cover."
+        },
+        {
+          "key": "B",
+          "text": "Accept it. Self-encrypting drives with key destruction are a recognised control and the design is sound.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You record the encryption as a mitigating control and turn to the reporting.",
+          "why": "The design is sound and you have accepted a description of it as evidence that it ran. Every element of this control is a claim about a period: sixty-one instructions, issued on sixty-one occasions, each of which either succeeded or did not. The array records that, so the operating evidence exists and is one request away. Accepting the design is the specific error the whole engagement was in a position to avoid."
+        },
+        {
+          "key": "C",
+          "text": "Start with the two 2019 arrays, since those drives cannot have been encrypted at all.",
+          "quality": "defensible",
+          "next": "the-drive",
+          "consequence": "Eleven of the 61 came from the unencrypted arrays. Both hold archived imaging studies from before the 2021 platform migration.",
+          "why": "Correct prioritisation and eleven drives of unencrypted patient imaging is a finding on its own. What it does is accept the storage team's account for the other fifty, on the strength of the design being sound. The exposure you can see first is not always the largest, and the account you have not tested is the one covering five times as many drives."
+        },
+        {
+          "key": "D",
+          "text": "Ask the storage team to demonstrate the erase on a drive currently pending return.",
+          "quality": "defensible",
+          "next": "the-drive",
+          "consequence": "They run it on one of the four drives in the box. The array issues the instruction, the drive acknowledges, and the confirmation appears in the log within seconds. It works exactly as described.",
+          "why": "Direct observation of the control operating, which is strong evidence about the drive you watched. Look at which drive that was: one that responded. Drives are returned under warranty because they have failed, and the ones that failed hardest are the ones least able to accept an instruction. You have demonstrated the control on the easiest member of the population and the demonstration is genuinely convincing, which is what makes it worth being careful about."
+        }
+      ]
+    },
+
+    "the-drive": {
+      "situation": "Erase confirmed on 22 of 61. Errored on 31. Unknown on 8.\n\nThe reason is not negligence and nobody hid it. A crypto-erase is an instruction sent to the drive's own controller, and the drive has to be alive enough to receive it, execute it and report back. These drives are being returned because they stopped doing that.\n\nThe storage manager has gone quiet. Then he points at the box on the shelf. \"Take one of those. Plug it into something. If you can read anything off it, I will write the finding myself.\"",
+      "prompt": "How do you establish whether the returned drives were readable?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take a drive and connect it to your engagement laptop.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You borrow an adapter, take a drive back to the room you have been working in, and connect it. It mounts. The volume is unformatted at the operating system level but a hex reader returns recognisable text, including what appear to be patient identifiers.",
+          "taint": "carried-the-data-out",
+          "why": "He offered, it settles the question, and direct evidence outranks everything else. It is also the exact exposure you are reporting, performed by you.\n\nSpecial category personal data left the hospital's controlled environment on your person, on the invitation of someone with no authority to release it, and is now on a laptop belonging to your firm with no basis for holding it. Both organisations have an incident to declare and one of them has to be told by the other. The drive is out of the returns chain, so the client's replacement credit is at risk and their own record of what went back is now wrong. And the finding you were about to write — that data leaves this building without anybody controlling it — has acquired a sixty-second instance with your name on it.\n\nThe part that stings is that the question did not need a drive. You already knew the erase had failed on thirty-one of them, and a failed erase on a drive that still holds its platters is the whole answer."
+        },
+        {
+          "key": "B",
+          "text": "Answer it from the control's own preconditions. A crypto-erase needs the drive to accept the instruction, and these drives are returned because they no longer do.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "You put it in writing: for 39 of the 61, the key destruction did not complete, and the data is therefore present on the platters in recoverable form. The storage manager reads it and does not challenge a word.",
+          "why": "The strongest finding in the case needs no experiment, because the control's design contains the answer. Crypto-erase depends on the drive being functional, and the population it must operate on is defined by drives that are not. The precondition of the control is negated by the condition that triggers it.\n\nThat is the shape worth carrying out of here. When a mitigating control is offered, ask what has to be true for it to work, then ask whether the situation that calls for it makes that thing false. A backup that requires the array to be readable, a failover that requires the primary to shut down cleanly, a wipe that requires the disk to respond — the same structure every time."
+        },
+        {
+          "key": "C",
+          "text": "Ask the client to run a read test themselves, in the data centre, on their equipment, with you watching and the drive not leaving the room.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "They set it up the following morning. Two of the four drives in the box return readable fragments; the other two do not respond at all. You witness it and the drives go back in the box.",
+          "why": "Properly handled — their environment, their equipment, their custody, your observation — and it produces real evidence with none of the exposure. Two things keep it below the analytical answer. It tests four drives out of sixty-one, and the two that did not respond prove nothing either way, since unreadable in a test rig is not the same as unrecoverable in a laboratory. It also spends a day and the client's effort on a question the erase log had already settled."
+        },
+        {
+          "key": "D",
+          "text": "Establish what the vendor's returns terms actually say happens to the media.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The warranty annex is explicit. Returned drives are diagnosed, and units that can be recovered are reconditioned and re-enter the vendor's replacement pool for other customers. Destruction applies only to units that fail diagnosis.",
+          "why": "A genuinely serious fact, and it changes the character of the finding: this is not media sitting in a warehouse awaiting destruction, it is media entering a pool that ships to other organisations. It is a fact about the vendor's process rather than about the hospital's control, and both belong in the report. The reason it is not the headline is that the exposure exists whatever the vendor does with the drives, because the hospital never established that they were safe to send."
+        }
+      ]
+    },
+
+    "the-report": {
+      "situation": "Clearance. The IT director is not hostile and his position is coherent.\n\nNo incident has occurred that anyone is aware of. The vendor is a global manufacturer with its own certifications and a contract. The drives were physically failed. In his view this is a gap in asset record-keeping, and he would like it reported as one.",
+      "prompt": "How do you frame the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That sixty-one drives left the site unsanitised and patient data may have been exposed.",
+          "quality": "poor",
+          "next": "end-incident",
+          "consequence": "He contests the second half immediately and asks what evidence there is of any exposure. There is none. The meeting spends most of its time on whether a breach can be asserted, and the finding is reworded down to inadequate controls over the return of storage media.",
+          "why": "The first half is established and the second is a claim you cannot support, so you have attached a solid finding to a speculative one and handed him the ground to fight on. He wins that argument correctly, and the report that results is weaker than the facts warranted. There is no need to allege an exposure: sixty-one drives holding patient data left the building with no control applied and no record kept, which is fully reportable without asserting anything about what happened next."
+        },
+        {
+          "key": "B",
+          "text": "That sanitisation is triggered by disposal, warranty returns are recorded as maintenance, and the technical control that would compensate requires a responsive drive, which these are not by definition.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He accepts it in the room. The finding goes to the clinical governance committee as well as the audit committee, at the medical director's request, once the imaging arrays are named.",
+          "why": "It concedes what he is right about — no known incident, a reputable vendor, genuinely failed drives — and states what survives all of it. The two limbs also explain each other: the process gap put the drives outside every record, and the technical control that everyone believed was covering them could not operate on precisely this population.\n\nA finding management can agree with in the room is one that leaves the meeting intact, and the second reporting line is the sign it landed at the right level."
+        },
+        {
+          "key": "C",
+          "text": "That the asset register should record drives individually so that returns can be tracked.",
+          "quality": "defensible",
+          "next": "end-tracked",
+          "consequence": "Accepted without resistance. Serial-level records are introduced for storage media across the estate within two months.",
+          "why": "A real improvement and the thing he offered, which is worth noticing. Serial-level records tell you which drives left; they do not put a control in front of them leaving. Records are what let you investigate afterwards, and sanitisation is what makes the investigation unnecessary. Accepting the record-keeping framing gets you a better register and leaves the next drive going out of the door in exactly the same condition, now with a row against it."
+        },
+        {
+          "key": "D",
+          "text": "That the vendor contract be amended to require certified destruction of all returned media.",
+          "quality": "defensible",
+          "next": "end-tracked",
+          "consequence": "Procurement opens the negotiation. The vendor's position is that destruction of returned units voids the advance replacement arrangement, and the commercial discussion runs for two quarters.",
+          "why": "Sensible in principle and it puts the control at the wrong end of the chain. A contractual obligation placed on the vendor takes effect after the drive has left the hospital's custody, which means the protection depends on somebody else's process and somebody else's evidence for the whole period that matters. Accountability for the data does not move with the drive, so the control should not either: the step that has to be certain is the one before it goes in the box."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "The erase that needs a working drive",
+      "verdict": "strong",
+      "narrative": "A sanitisation gate is put in front of the returns process. Every drive is crypto-erased before it is bagged; where the erase cannot complete, the drive is retained and physically destroyed and the replacement is bought outright rather than claimed under warranty. Finance costs the change at about £9,000 a year.\n\nThe eleven drives from the 2019 unencrypted arrays are reported to the regulator as an unquantifiable exposure. The vendor is asked to search its reconditioning pool for the thirty-one serials; nine are located and destroyed, and the rest cannot be traced.\n\nThe sanitisation gate is applied to every route media takes out of the building, and the review that follows finds two more: laptop battery swaps that send the whole chassis back, and a diagnostic imaging modality whose service engineer routinely takes the local cache disk away for analysis.",
+      "why": "Two mechanisms, stacked, and neither involved anybody doing their job badly.\n\nThe first is that a control triggered by disposal cannot see a drive that leaves as a maintenance event. Nothing was bypassed; the drive never entered the process, because the process is entered by a different name. Asking what triggers a control, and then what else could produce the same outcome without pulling that trigger, is the general form of this and it is where whole classes of exposure live.\n\nThe second is the better lesson. Crypto-erase is a genuine, well-designed control that requires the drive to receive and execute an instruction — and the population it exists to protect is defined by drives that have stopped doing that. The precondition of the control is negated by the condition that invokes it. When somebody offers a mitigating control, the question is not whether it works, but whether the circumstance that calls for it is the same circumstance that stops it working.\n\nThe imaging engineer taking cache disks away is what a finding written at that level buys you. Nobody was looking for him."
+    },
+    "end-tracked": {
+      "title": "Now we know which ones left",
+      "verdict": "acceptable",
+      "narrative": "Serial-level records are introduced, or the contract is renegotiated over two quarters, and both are genuine improvements. The estate can now say which drives went back and when, and the vendor accepts a destruction obligation for units that fail diagnosis.\n\nDrives continue to leave the site in the same condition. Fourteen months later the register makes it possible to establish, quickly and precisely, that nine drives from the imaging array were returned during a period when the erase step was failing — which is how the exposure is eventually identified, by an external reviewer, from the register you recommended.",
+      "why": "The recommendation improved the evidence and left the exposure where it was. A register records what happened; a contract allocates liability afterwards. Neither puts anything between the data and the loading door.\n\nThe distinction is between controls that let you reconstruct an event and controls that prevent one, and the register genuinely helped — it is how the problem was eventually found. Being able to describe an exposure accurately is worth having, and it is not the same as not having the exposure. The step that had to change was the one before the drive went into the box, and it was the only step nobody was asked to change."
+    },
+    "end-incident": {
+      "title": "An exposure you could not evidence",
+      "verdict": "weak",
+      "narrative": "The draft alleges possible exposure of patient data and the clearance meeting turns into an argument about it. Three rounds of wording follow. The version issued reads that controls over the return of storage media are inadequate and that asset records do not cover individual drives, with a management response noting that no evidence of any data compromise was identified.\n\nThe erase failure rate is not in the final report. Neither are the eleven unencrypted drives. The remediation is a serial-level register.",
+      "why": "The substance was as strong as anything in the case and it was attached to a claim you could not support. He was right that no exposure had been demonstrated, and being right about that let him be treated as right about the rest.\n\nWhat it cost was avoidable at no price. Sixty-one drives holding patient data left the building with no sanitisation applied and no record kept, and the erase evidence shows the compensating control failed on thirty-one of them. Every word of that is established and none of it requires a breach to have happened. Asserting the consequence rather than the condition moved the argument onto the one piece of ground you could not hold, and the parts you could hold went out of the report with it."
+    },
+    "end-carried": {
+      "title": "The sixty-second drive",
+      "verdict": "failed",
+      "narrative": "The drive is in your bag when you leave that evening. It is returned to the hospital two days later.\n\nBy then both organisations have an incident. The hospital's data protection officer records an unauthorised disclosure of special category personal data to a third party; your firm records the receipt and imaging of patient data with no lawful basis and no processing agreement. The laptop is quarantined and forensically wiped. The regulator is notified, by the hospital, about its auditors.\n\nThe drive misses the twenty-one-day returns window and the replacement credit is refused, so the client pays £1,400 for a drive they had already been sent. Their record of what went back to the vendor is wrong for the period, which is the specific defect your engagement existed to report.\n\nThe finding is issued, eventually, by a different team. It is accurate and thorough. The first paragraph of the covering note explains why the original engagement was withdrawn.",
+      "why": "He offered it, and he offered it in good faith, and that changes nothing. A storage manager cannot authorise the release of patient data from a hospital, and an invitation is not an authorisation — the person who has to be satisfied that the transfer is lawful is the one carrying the drive out.\n\nThe direct evidence was real and it was the most expensive way to obtain something you already had. Thirty-one erase instructions returned errors, and a failed crypto-erase on a drive whose platters are intact is a complete answer to the question of whether the data is still there. If the reading test had been necessary, it belonged in the client's data centre, on the client's equipment, with the drive never leaving the room — which was available, and which nobody would have objected to.\n\nThe part worth carrying is the symmetry. The finding is that data leaves this building without anyone controlling where it goes, and the response to it was to take some data out of the building. Protection follows the data, and it does not stop following it because the person carrying it is the auditor."
+    }
+  }
+}

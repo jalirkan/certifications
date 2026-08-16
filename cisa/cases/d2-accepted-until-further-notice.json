@@ -1,0 +1,292 @@
+{
+  "id": "d2-accepted-until-further-notice",
+  "title": "Accepted Until Further Notice",
+  "domain": "2",
+  "section": "A",
+  "topics": [
+    "Enterprise Risk Management",
+    "IT Policies, Standards, Procedures and Practices",
+    "Organizational Structure, IT Governance, and IT Strategy",
+    "IT Change, Configuration, and Patch Management",
+    "Audit Testing and Sampling Methodology"
+  ],
+  "principles": [
+    "explicit-and-owned",
+    "segregation",
+    "independent-population",
+    "timeliness",
+    "root-cause"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are auditing IT risk management at a regional water utility. The risk function is four people and a tool.\n\nThe register holds 2,412 open IT risks. Four hundred and ten of them are recorded as accepted, meaning the organisation has decided to carry the exposure rather than treat it.\n\nThe policy delegates who may accept what. Low risks are accepted by a team lead, Medium by a head of function, High by the CIO, Critical by the executive risk committee. It is a clean, sensible matrix and it fits on one page.",
+
+  "taints": {
+    "sampled-on-their-rating": "end-clean-sample"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "Four hundred and ten acceptances is more than you can test in the time available, so you will be sampling.\n\nThe chief risk officer is helpful about it. He suggests you concentrate on the High and Critical acceptances, since those are where the consequence sits: forty-one items, small enough to test exhaustively, and the Low and Medium population is by definition low-consequence.",
+      "prompt": "How do you scope the test?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take his suggestion. Test all 41 High and Critical acceptances exhaustively.",
+          "quality": "poor",
+          "next": "the-clean-result",
+          "consequence": "You scope to the 41 and document the rationale: risk-based, proportionate, complete coverage of the material band.",
+          "taint": "sampled-on-their-rating",
+          "why": "Every word of the justification is standard practice, which is what makes it hard to see. You are testing whether risks are accepted by people with authority for their rating, and you have just stratified your sample using that same rating — a field set inside the process you are testing. If the weakness is that a rating can be moved, the moved ones land in the band you excluded, and no amount of rigour inside the 41 can reach them. A sampling frame keyed to the variable under test cannot detect movement in that variable."
+        },
+        {
+          "key": "B",
+          "text": "Stratify on something the accepting manager does not set — the inherent rating recorded at identification, and the age of the acceptance — and cover every residual band.",
+          "quality": "best",
+          "next": "the-clean-result",
+          "consequence": "You build the sample that way: 60 items spread across all four residual bands, weighted toward high inherent ratings and old acceptances. The CRO thinks it is more work than the risk warrants and does not object.",
+          "why": "The residual rating is an output of the process under review. Sampling on it means your view of the population is produced by the thing you are supposed to be forming a view about. Inherent rating and acceptance age are set elsewhere or set by the passage of time, so they see the population the way the process cannot rearrange it. This is the same instinct as reconciling a population to an independent source, applied one level up: not just where the list came from, but which field you sorted it by."
+        },
+        {
+          "key": "C",
+          "text": "Sample proportionally across all four bands.",
+          "quality": "defensible",
+          "next": "the-clean-result",
+          "consequence": "You draw 60 items in proportion to band size: two Critical, six High, twenty-two Medium and thirty Low.",
+          "why": "It excludes nothing, which is the important part, and proportional allocation is a legitimate default. What it lacks is a reason. Proportional sampling spends most of your effort on the largest band rather than the most informative one, and it gives you two Critical items, which will support no conclusion about Critical at all. Nothing here is wrong; you have just declined to use what you know."
+        },
+        {
+          "key": "D",
+          "text": "Test all 41 High and Critical, plus a random sample of 40 from the rest.",
+          "quality": "defensible",
+          "next": "the-clean-result",
+          "consequence": "You scope both. The random 40 comes back as a fairly ordinary spread of Low and Medium items.",
+          "why": "This reaches the whole population, so the finding is still findable, and exhaustive coverage of the material band is a real strength. The random tail is doing no work though — it is a gesture at completeness rather than a test aimed at anything. You would find the problem here by luck rather than by design, which matters because you cannot rely on the luck next time."
+        }
+      ]
+    },
+
+    "the-clean-result": {
+      "situation": "You test each sampled acceptance against the authority matrix: was it accepted by someone holding authority for that residual band?\n\nEvery single one passes. Not one exception.",
+      "prompt": "What do you make of that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conclude that acceptance authority operates effectively, and move on to the next objective.",
+          "quality": "poor",
+          "next": "the-standing-acceptance",
+          "consequence": "You record the control as operating effectively, with a clean sample and no exceptions, and turn to the currency of the accepted risks.",
+          "why": "The conclusion follows from the test and the test may not follow from anything. A 100% pass rate is a fact about your procedure before it is a fact about the control, and the first question it should raise is whether the procedure was capable of returning anything else. Controls do sometimes operate perfectly; tests that cannot fail also return perfect results, and the two look identical on the page."
+        },
+        {
+          "key": "B",
+          "text": "Treat a perfect result as a question about the test. Ask what determines the rating that determined the authority.",
+          "quality": "best",
+          "next": "the-rating",
+          "consequence": "You pull the tool's configuration. Residual rating is computed from a likelihood score and an impact score, both entered by the risk owner. Nothing else feeds it.",
+          "why": "The matrix compares two things: who accepted, and what band it was in. If one of those is set inside the process by the people the matrix constrains, then the comparison is being made against a number the constrained party supplies, and it will always agree. Asking where the band comes from is the only question that could have produced an exception, and it is not in any standard programme."
+        },
+        {
+          "key": "C",
+          "text": "Extend the sample. A clean result on 60 is worth confirming on 120.",
+          "quality": "defensible",
+          "next": "the-rating",
+          "consequence": "You draw 60 more. All 60 pass. In pulling the records you notice that several show a residual band changed a few days before the acceptance was recorded.",
+          "why": "Reasonable, and it is what most auditors do with a suspiciously clean result. The limitation is that extending a test only tells you more about what that test measures — twice the sample of the same procedure is twice the evidence for the same bounded claim. Here it worked, but it worked because you were reading the records rather than because the extension was capable of failing."
+        },
+        {
+          "key": "D",
+          "text": "Authority looks sound, so move to the other limb: are the accepted risks still valid?",
+          "quality": "defensible",
+          "next": "the-standing-acceptance",
+          "consequence": "You turn to currency and start with the oldest acceptances in the register.",
+          "why": "Currency is a real and separate question, and you will find something there. What this gives up is the chance to interrogate the clean result while you are still holding it. 'Looks sound' has done a lot of work in that sentence: the test passed, which is not the same as the control being sound, and moving on closes the point without ever having put weight on it."
+        }
+      ]
+    },
+
+    "the-rating": {
+      "situation": "Residual rating is likelihood multiplied by impact. Both scores are entered by the risk owner in the tool, and the risk owner is usually the manager who then records the acceptance or reports to the person who does.\n\nThe tool does not restrict who may change a score. It does log every change, with a timestamp and a user.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test whether residual ratings move shortly before acceptance, and who moved them.",
+          "quality": "best",
+          "next": "the-downgrades",
+          "consequence": "You export the change history for all 410 acceptances and line the score changes up against the acceptance dates.",
+          "why": "You now have a hypothesis with a shape: if the threshold can be brought to the risk, the movement will cluster just before acceptance and the mover will be the interested party. Both are testable from data the tool already keeps, and the change log is the one record in this process that nobody curated for you."
+        },
+        {
+          "key": "B",
+          "text": "Assess whether the ratings themselves are appropriate. Are these genuinely Medium risks?",
+          "quality": "defensible",
+          "next": "the-downgrades",
+          "consequence": "You review thirty in detail. Most look defensible to you; eight look understated, including an unsupported database version rated Medium on the basis that compensating network controls are in place.",
+          "why": "It finds real substance and it puts you in the risk owner's chair. Rating a risk is a management judgement, and disputing thirty of them turns your report into thirty arguments you can only win by asserting your opinion over theirs. The stronger question is not whether a rating is right but whether the process lets the person constrained by the rating set it — that one you can answer from records rather than from judgement."
+        },
+        {
+          "key": "C",
+          "text": "Recommend that residual ratings be set by the risk function rather than by risk owners.",
+          "quality": "poor",
+          "next": "the-standing-acceptance",
+          "consequence": "You draft the recommendation. The CRO points out that his team is four people and the register has 2,412 entries.",
+          "why": "A recommendation before a finding. You have not yet established that ratings actually move, so this proposes to rebuild a process on a suspicion — and it proposes something the organisation cannot staff, which means it will be accepted in principle and never implemented. Central rating also throws away the only people who understand the risks. The defect, if there is one, is in who may change a score relative to who benefits, not in who first writes one down."
+        },
+        {
+          "key": "D",
+          "text": "Check whether the tool permits a rating to be changed after acceptance has been recorded.",
+          "quality": "defensible",
+          "next": "the-downgrades",
+          "consequence": "You confirm it does, and that six acceptances show a post-acceptance change. All six moved the rating up rather than down.",
+          "why": "A fair question that lands next to the target. Post-acceptance changes are worth knowing about and these turn out to be benign. The exposure runs the other way: a change made before acceptance decides who is allowed to accept, and by the time the acceptance exists the decision has already been routed. You are testing the door after the person has walked through it."
+        }
+      ]
+    },
+
+    "the-downgrades": {
+      "situation": "Of the 410 acceptances, 118 had an impact score reduced within thirty days before the acceptance was recorded.\n\nIn 74 of those, the person who reduced the score is the person who recorded the acceptance.\n\nIn 19, the reduction moved the residual band across a delegation boundary: from High to Medium in fifteen cases, from Critical to High in four. Each of the nineteen was then accepted by the manager who had lowered it, at a level they were now authorised to accept.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Seventy-four acceptances involved a rating change made by the accepting manager.",
+          "quality": "defensible",
+          "next": "the-standing-acceptance",
+          "consequence": "You draft it that way, with the seventy-four listed in an appendix and the nineteen highlighted.",
+          "why": "Accurate, and it will be read as seventy-four people doing something questionable. That framing produces a response about conduct — a reminder, a training module, perhaps a conversation with the fifteen managers involved — and leaves untouched the arrangement that made it the natural thing to do. Most of the seventy-four were not gaming anything; they revised a score and accepted a risk, in that order, in a tool that invited both."
+        },
+        {
+          "key": "B",
+          "text": "Acceptance authority is delegated on a rating the accepting manager is able to set, so the threshold can be brought to the risk instead of the risk to the threshold.",
+          "quality": "best",
+          "next": "the-standing-acceptance",
+          "consequence": "You put it to the CRO in one sentence. He is quiet for a moment and then says the matrix has been in the policy since before he joined, and that nobody has ever connected the two halves of it.",
+          "why": "This is the mechanism, and it explains the clean test as well as the exceptions. A delegation matrix is only a control if the variable it keys on is outside the delegate's reach; here the constrained party supplies the input that decides which constraint applies. Written this way the finding does not depend on anybody's motive, survives every manager involved moving on, and points at a fix. Written as seventy-four rating changes it depends on all three."
+        },
+        {
+          "key": "C",
+          "text": "The tool's permissions allow risk owners to change scores, which is an access control weakness.",
+          "quality": "poor",
+          "next": "the-standing-acceptance",
+          "consequence": "You raise it as a permissions issue. The IT risk lead agrees to review the tool's role configuration next quarter.",
+          "why": "There is a real access point buried in here and it is not the finding. Restricting who can edit a score does not fix a matrix keyed to an editable score; it just moves the edit to whoever retains the permission, who will be asked by the manager who needs it. Access framing is attractive because it produces a small, cheap, closable action, and that is exactly the tell."
+        },
+        {
+          "key": "D",
+          "text": "Nineteen risks were accepted by someone without authority for their true rating.",
+          "quality": "defensible",
+          "next": "the-standing-acceptance",
+          "consequence": "You draft the nineteen as exceptions. At clearance, two managers explain in detail why the original impact scores had been overstated, and produce the analysis that supported the reduction.",
+          "why": "The sharpest instances, and the framing hands the argument to the other side. 'True rating' is a judgement, the risk owner owns that judgement, and you have just built a finding that can only be defended by asserting your rating over theirs — item by item, nineteen times. Some of those reductions were probably correct. The defect does not depend on whether any of them were."
+        }
+      ]
+    },
+
+    "the-standing-acceptance": {
+      "situation": "You turn to whether accepted risks stay accepted.\n\nThe oldest live acceptance dates from 2019: an unsupported database version, accepted pending a migration scheduled for 2020. The migration was cancelled in 2021. The acceptance is still open and still current.\n\nThe expiry field in the tool is optional and is populated on 12% of acceptances. The policy requires annual review, which the risk function performs by emailing each manager a list of their acceptances with a reply-by date. A reply is recorded as re-confirmation. No reply is also recorded as re-confirmation.",
+      "prompt": "How do you frame this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report that the 2019 acceptance is stale and should be revalidated.",
+          "quality": "poor",
+          "next": "the-finding",
+          "consequence": "You raise it. The database owner revalidates it within a week and the acceptance is refreshed with a current date.",
+          "why": "You have fixed the example and left the machine that produced it running. It is also the version of this finding management can close fastest, which is worth noticing as a warning rather than a convenience. One revalidated acceptance and 409 unchanged is the outcome, and next year the oldest live acceptance will be from 2020."
+        },
+        {
+          "key": "B",
+          "text": "Report that acceptances carry no mandatory expiry and that the annual review treats silence as re-confirmation, so nothing has a route back out.",
+          "quality": "best",
+          "next": "the-finding",
+          "consequence": "You draft both limbs together. The CRO's own reaction is that he had read the 88% blank expiry field as a data completeness problem.",
+          "why": "Two defaults doing the same work. Without a mandatory expiry an acceptance has no end; with silence read as agreement, the one control that could end it requires nobody to do anything. A temporary accommodation becomes permanent unmanaged risk without a single person deciding that it should, which is why the finding has to be about the defaults rather than about the risks sitting behind them."
+        },
+        {
+          "key": "C",
+          "text": "Recommend the risk function chase non-responders until every acceptance has an explicit annual confirmation.",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "The CRO accepts it and adds a chase cycle to the annual process. Response rates rise from 61% to 94% the following year.",
+          "why": "It converts a default into a decision, which is the right direction and a real improvement. Two things it does not reach. It is a resourcing answer to a design problem, so it holds only while the chasing holds. And an annual confirmation with no expiry still gives an acceptance an indefinite life, one year at a time — the 2019 database would be re-confirmed six times and still be there."
+        },
+        {
+          "key": "D",
+          "text": "Size it first: how many live acceptances are older than the remediation they were granted for?",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "You run the comparison. Ninety-one acceptances outlive the date of the fix they were waiting on; thirty-one of those relate to projects that were cancelled.",
+          "why": "A good measurement and one that will carry the finding, because thirty-one acceptances waiting for a project that no longer exists is a sentence an audit committee cannot misread. It is evidence rather than a conclusion though. The number tells you the size; it does not tell you why, and the answer to why is that nothing in the process ever asks."
+        }
+      ]
+    },
+
+    "the-finding": {
+      "situation": "Clearance. The CRO does not dispute the facts. His position is that the framework is sound and the issue is discipline in applying it — better guidance for risk owners, and a reminder of what the matrix is for.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Guidance and training for risk owners on consistent impact scoring.",
+          "quality": "poor",
+          "next": "end-behaviour",
+          "consequence": "The CRO welcomes it. A scoring guide is published in the following quarter and referenced in the risk induction pack.",
+          "why": "He proposed it and you agreed to it, which is the moment worth examining rather than the recommendation itself. Nothing about a scoring guide changes who may set the number that decides who may accept. The managers who moved a score into their own authority will read the guide and still be able to do it, and the reason this recommendation gets accepted so warmly is that it asks the organisation to try harder rather than to change anything."
+        },
+        {
+          "key": "B",
+          "text": "Key the authority threshold to a rating the accepting manager cannot set, and give acceptances a mandatory expiry with positive re-acceptance rather than silent rollover.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The CRO pushes back hard on the first limb, arguing it makes his four-person team a bottleneck. The final position is that delegation keys to the inherent rating recorded at identification, which the owner sets once and cannot revise without the risk function, and that residual rating continues to drive treatment. Expiry becomes mandatory, capped at twelve months.",
+          "why": "Both limbs attach to a default rather than to a person, and both are testable next year: you can check whether the field is mandatory and whether the threshold reads from a locked value. The negotiation is the interesting part — he was right that central rating would not scale, and the answer that survived is better than the one you proposed, because it keys authority to a number set before anyone knows what it will cost them."
+        },
+        {
+          "key": "C",
+          "text": "Require the risk function's approval for any rating change made within ninety days of an acceptance.",
+          "quality": "defensible",
+          "next": "end-partial",
+          "consequence": "Accepted and configured in the tool within the quarter. Rating changes inside the window drop to almost none.",
+          "why": "This attaches to the mechanism rather than to conduct, and it is cheap, specific and enforceable — a genuinely good control. Its weakness is the window. A control defined by a period can be waited out, and the behaviour it targets does not need to happen in ninety days; it needs to happen before the acceptance, which the manager also controls the timing of. It raises the cost of the route without closing it."
+        },
+        {
+          "key": "D",
+          "text": "Require segregation: whoever sets the rating must not be the person who records the acceptance.",
+          "quality": "defensible",
+          "next": "end-partial",
+          "consequence": "Accepted in principle. In practice each manager asks a peer in the same function to record the acceptance, and the register shows a second name against each one.",
+          "why": "Correct in principle, and watch what it produced. Segregation works when the second party has both the knowledge and the incentive to disagree; here it is a colleague in the same team clicking a button on a rating they have no view of. You get a second name and no second judgement, which is worse than an honest single name because the register now looks as though someone checked."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "A threshold nobody can move",
+      "verdict": "strong",
+      "narrative": "Delegation is re-keyed to the inherent rating, locked at identification and editable only by the risk function. Every acceptance gains a mandatory expiry capped at twelve months, and re-acceptance requires a positive action from someone with current authority for the band.\n\nThe first expiry cycle runs nine months later. Two hundred and six acceptances lapse without re-acceptance. Of those, 174 are simply re-accepted; 32 are not, including the 2019 database, which is finally migrated because nobody is willing to put their name to it again.\n\nThe unsupported database had been carried for seven years without a single person ever choosing to carry it.",
+      "why": "The engagement began with a test that returned 100% and could not have returned anything else, and the whole case turns on refusing to accept that as good news.\n\nWhat it found was not misconduct. It was a matrix keyed to a number the constrained party supplies, and an acceptance process with no exit — two defaults that between them let an organisation hold a risk for seven years without deciding to. Findings written at the level of the default are the ones that change what happens after everyone involved has moved on."
+    },
+    "end-partial": {
+      "title": "The route is narrowed",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented and it bites. Rating changes near an acceptance become rare, or a second name appears on every acceptance, depending on which limb you chose.\n\nThe following year's audit finds the pattern has moved rather than stopped: score reductions now cluster four to five months before acceptance, or the second signatory is a peer in the same team in almost every case. The 2019 database acceptance is still open.",
+      "why": "You attached the recommendation to the mechanism rather than to the people, which is the harder half and you did it. What was left on the table was the shape of the constraint.\n\nA control defined by a window can be waited out. A control satisfied by a second signature can be satisfied by a colleague. Both raise the cost of the route without removing it, and a route that still exists is a route the same pressure will find again. The test of a control on a threshold is whether the party it constrains can still reach the input."
+    },
+    "end-behaviour": {
+      "title": "Guidance issued",
+      "verdict": "weak",
+      "narrative": "The scoring guide is published and the finding is closed at the next tracking meeting. Response rates to the annual review are unchanged, expiry dates are still optional, and the delegation matrix still reads from a field risk owners can edit.\n\nEighteen months later a regulatory inspection asks how the utility governs its accepted IT risks. The answer includes a one-page matrix, a scoring guide and an unsupported database that has been accepted since 2019.",
+      "why": "The recommendation was proposed by the person whose control had failed and accepted by the person who had just proved it did. That combination should be a warning rather than a convenience: a recommendation the auditee is pleased with usually asks them to try harder at something rather than to give something up.\n\nThe work behind it was real. Guidance cannot reach a defect in who may set a number, and the register was still doing exactly what it had been doing when you arrived."
+    },
+    "end-clean-sample": {
+      "title": "Forty-one acceptances, no exceptions",
+      "verdict": "weak",
+      "narrative": "The report states that acceptance authority operates effectively, evidenced by exhaustive testing of the entire High and Critical population with no exceptions found. The scope is documented as risk-based and proportionate, and the audit committee accepts it without question. It is a good-looking piece of work.\n\nTwo years later, following an outage traced to an unsupported component, an external review of the risk framework finds nineteen acceptances whose rating was reduced across a delegation boundary by the manager who then accepted them. Fifteen of the nineteen were sitting in the Medium band on the day you scoped your sample.",
+      "why": "This is not an integrity failure and nobody would have refused to sign it. It is a sampling frame keyed to the variable under test, which is the quietest way an engagement can be made incapable of finding what it was looking for.\n\nThe question the test asked was whether authority matches rating. The scope was chosen by rating. Anything that moved between bands moved out of the population before the test began, and the exhaustive coverage of the remaining band is what makes the result so convincing. A clean result from a frame the process can rearrange is not weak evidence — it is evidence of nothing, presented in the form of evidence of something.\n\nThe defence is one question asked before scoping rather than after: is the field I am stratifying on set outside the process I am testing?"
+    }
+  }
+}

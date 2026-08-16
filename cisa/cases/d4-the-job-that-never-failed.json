@@ -1,0 +1,331 @@
+{
+  "id": "d4-the-job-that-never-failed",
+  "title": "The Job That Never Failed",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "Job Scheduling and Production Process Automation",
+    "System Interfaces",
+    "Problem and Incident Management",
+    "Operational Log Management",
+    "Audit Data Analytics"
+  ],
+  "principles": [
+    "outcome-over-activity",
+    "root-cause",
+    "authorization-first",
+    "completeness",
+    "auditor-role"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are auditing batch operations at a food wholesaler with sixty depots.\n\nOne job matters more than the rest. INV_RECON runs nightly: it collects each depot's stock movement file, loads it, and updates central inventory. Everything downstream — replenishment, purchasing, the stock figure in the management accounts — reads from what it produces.\n\nThe scheduler's availability report covers eighteen months and 3,100 runs of INV_RECON. Success rate: 100%. No failed runs, no retries, no incidents raised.\n\nYou export the run log to look at the timings. The durations are bimodal. Most runs take between 35 and 50 minutes. Two hundred and fourteen took less than fifteen seconds.",
+
+  "taints": {
+    "induced-the-failure": "end-unauthorised",
+    "fixed-the-script": "end-authored"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "Two hundred and fourteen runs completed in under fifteen seconds. All 214 are recorded as successful, the same as the other 2,886.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the batch operations manager what the short runs are.",
+          "quality": "defensible",
+          "next": "the-eleven-seconds",
+          "consequence": "He does not have to think about it. \"Nights with nothing to process. The job checks for the file, there isn't one, it finishes.\" He offers to show you the script.",
+          "why": "Efficient, and he told you the truth. The cost is one of sequence: the explanation now sits in front of the evidence, and everything you look at afterwards you will be checking against his account rather than reading fresh. It worked here because he answered honestly and immediately. When the short answer is a reasonable-sounding one that happens to be incomplete, arriving already holding it is expensive."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the job actually did on one of the short runs, from the job's own log output.",
+          "quality": "best",
+          "next": "the-eleven-seconds",
+          "consequence": "You pull the stdout capture for a run that took eleven seconds. One line: 'INFO: no input file present; nothing to process'. Then a clean exit.",
+          "why": "A duration distribution is a signal, not a finding, and the gap between them is one log file. Reading the job's own output for a single anomalous run is the cheapest possible step and it turns a curiosity into a fact you own. It also matters that you got there before anyone characterised it for you, because the characterisation is going to be reasonable and is going to be the thing in dispute."
+        },
+        {
+          "key": "C",
+          "text": "Note the timing spread as an observation. The runs succeeded; duration is not a control.",
+          "quality": "poor",
+          "next": "the-variance",
+          "consequence": "You record it in your working papers under general observations and move to the change management sample.",
+          "why": "Duration is not a control and it is very often the only place a silent failure becomes visible. A job that finishes in eleven seconds instead of forty minutes did not do the same work faster; it did different work, or none. Declining to ask which is how a metric that was screaming gets filed as colour."
+        },
+        {
+          "key": "D",
+          "text": "Request the interface specification and the job's design documentation.",
+          "quality": "defensible",
+          "next": "the-eleven-seconds",
+          "consequence": "The specification arrives the next day. It describes a daily file from each depot, a load, and a reconciliation of record counts. It says nothing about what happens if the file is absent.",
+          "why": "Worth having and it is design evidence, which answers a question you did not ask. The specification tells you what the job was meant to do; the 214 short runs are a statement about what it did. When those two disagree the specification will not tell you so — and here it is silent on precisely the condition you are looking at, which is itself a finding waiting for you at the end."
+        }
+      ]
+    },
+
+    "the-variance": {
+      "situation": "Three weeks later, finance raises a query with you directly. The Warrington depot's stock ledger has drifted; the physical count in April was £41,000 below the system figure and nobody has been able to explain it. They know you have been looking at batch operations and ask whether the nightly interface could be involved.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Go back to the run log and check whether Warrington's file was ever missing on the nights in question.",
+          "quality": "best",
+          "next": "the-eleven-seconds",
+          "consequence": "You pull the job's log output for the period. Several runs record a single line: 'INFO: no input file present; nothing to process', followed by a clean exit and a success status.",
+          "why": "The variance gave you a date range and a depot, which is more than you had. Taking a specific business symptom back to the operational record is the whole move — and it lands on the anomaly you had already seen and set aside, which is the part worth sitting with."
+        },
+        {
+          "key": "B",
+          "text": "Tell them the interface has a 100% success record over eighteen months, so it is unlikely to be the cause.",
+          "quality": "poor",
+          "next": "the-wrapper",
+          "consequence": "Finance accepts that and opens a stock-loss investigation at the depot. Two weeks of counting follow.",
+          "why": "You have passed on a metric as though it were evidence, and you are the person best placed to know what it measures. A 100% success rate over 3,100 runs is a claim about what the scheduler recorded, and you had already seen 214 runs that did not look like the others. Repeating the number without that context sent a stock investigation to the wrong building."
+        },
+        {
+          "key": "C",
+          "text": "Suggest they reconcile the depot's own movement records against the central system for the period.",
+          "quality": "defensible",
+          "next": "the-wrapper",
+          "consequence": "The reconciliation takes finance nine days. It shows that on eleven dates the central system recorded no movements at all for Warrington, while the depot recorded a normal trading day.",
+          "why": "The right test, handed to the wrong people. Finance will get there, and it costs them nine days of work to establish something the job's own log states in one line. You had the operational records and the reason to suspect them; suggesting the business go and prove it from their side spends their time to avoid spending yours."
+        }
+      ]
+    },
+
+    "the-eleven-seconds": {
+      "situation": "The wrapper script checks for the input file. If it is not there, it writes 'no input file present; nothing to process' and exits zero. The scheduler reads a zero exit as success, which is what it means.\n\nA comment above the check is dated March 2019: 'depots closed Sundays - absent file is normal'.\n\nThe business moved to seven-day depot operation in 2023.",
+      "prompt": "What do you do next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept it. The job is correctly handling a condition it was designed to expect.",
+          "quality": "poor",
+          "next": "the-wrapper",
+          "consequence": "You record the short runs as expected behaviour and turn to the rest of the batch estate.",
+          "why": "The job is handling the condition correctly, and the condition no longer means what it meant. In 2019 an absent file meant a closed depot; since 2023 it can also mean a depot that traded and failed to send. The code did not change and the world did — and a control whose correctness depends on an assumption nobody re-examined is exactly the sort of thing an audit exists to notice."
+        },
+        {
+          "key": "B",
+          "text": "Check whether the short runs fall on Sundays.",
+          "quality": "best",
+          "next": "the-one-three-six",
+          "consequence": "Seventy-eight of the 214 are Sundays before the seven-day change. The remaining 136 are not: ordinary trading nights, spread across fourteen depots and concentrated in three.",
+          "why": "One line of analysis against a hypothesis the code itself handed you. If every short run were a Sunday, the behaviour would be exactly what the 2019 comment says and there is no finding. That test is cheap, it is decisive either way, and it converts an argument about intent into a count. This is what data analytics is for in an audit: not volume, but settling a question that would otherwise be a matter of opinion."
+        },
+        {
+          "key": "C",
+          "text": "Raise it with the depot systems team — a missing file means their export failed.",
+          "quality": "defensible",
+          "next": "the-one-three-six",
+          "consequence": "You escalate. The team investigates and comes back four days later: the export fails when the depot's till reconciliation has not been closed off by 23:00, and it fails silently.",
+          "why": "You have found the upstream cause and you spent your escalation to do it. Arriving without knowing how many nights, which depots or over what period turns a briefing into a request for them to find out, and it makes the finding theirs to characterise. The upstream cause is real and it is also not the finding: an export that fails is ordinary, and an export that fails invisibly for eighteen months is the problem."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the wrapper be changed to exit non-zero when no input file is present.",
+          "quality": "defensible",
+          "next": "the-one-three-six",
+          "consequence": "You draft the recommendation. The batch manager asks, reasonably, what the job should then do on a night a depot genuinely does not trade.",
+          "why": "The correct instinct arriving three steps early, and his question is the reason to wait. You do not yet know how many nights are involved, whether the data was ever recovered, or whether a legitimate no-trade night still exists. A recommendation written before the size and shape are known tends to be a fix for the example rather than for the defect, and this one would page an operator at 3am for a closed depot."
+        }
+      ]
+    },
+
+    "the-one-three-six": {
+      "situation": "One hundred and thirty-six trading nights, fourteen depots, three of them accounting for ninety of the occurrences.\n\nOn each of those nights the central system recorded no stock movement for that depot at all. Replenishment ran off the unchanged figures the following morning.\n\nNo incident was raised on any of the 136 nights. The service desk never heard: monitoring reported success, so nothing alerted.",
+      "prompt": "How do you establish what this cost?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the three worst-affected depots whether they noticed anything.",
+          "quality": "defensible",
+          "next": "the-wrapper",
+          "consequence": "Two of the three managers describe recurring phantom stock: the system showing goods they do not have, most often on Monday and Tuesday mornings. Both say they raised it and were told it was a counting discipline issue.",
+          "why": "Genuinely useful and it corroborates beautifully — the symptom, the timing and the fact that it was reported and misattributed. Treat it as direction rather than measurement. Recollection cannot tell you how many nights or how much stock, and you now hold something better: 136 dated occurrences that can be reconciled to the penny."
+        },
+        {
+          "key": "B",
+          "text": "Reconcile depot-held movement totals against the central system for the affected dates.",
+          "quality": "best",
+          "next": "the-wrapper",
+          "consequence": "The depots' own till and goods-received records survive independently of the interface. Across the 136 nights, £2.3m of movements never reached central inventory. Roughly two-thirds washed out at the next full stock count; the rest did not.",
+          "why": "The depot records are the independent source, which is what makes this evidence rather than inference. It also answers the question the clearance meeting is going to turn on. 'Some nights were missed' invites a conversation about whether it mattered; £2.3m of movements, two-thirds of which corrected themselves by accident, does not."
+        },
+        {
+          "key": "C",
+          "text": "Ask operations to hold back tonight's file from one depot so you can observe the job's behaviour directly.",
+          "quality": "poor",
+          "next": "the-wrapper",
+          "consequence": "The shift supervisor agrees and diverts the file. The job runs for eleven seconds and reports success. The following morning that depot's replenishment order is placed against yesterday's figures, and a chilled line is over-ordered by two pallets.",
+          "taint": "induced-the-failure",
+          "why": "Direct observation is the strongest evidence there is, which is what makes this so tempting, and you obtained it by causing a production incident. Three things went at once. You acted on a live system without authority from anyone who could give it — a shift supervisor cannot authorise a deliberate interface failure. You created the event you were investigating, so the 137th occurrence is yours and every timeline now has to account for it. And you already had 136 naturally occurring instances with full records. The one thing you could not do with them was watch, and watching is what you did not need."
+        },
+        {
+          "key": "D",
+          "text": "Ask the interface team to replay the missing files for the affected dates.",
+          "quality": "defensible",
+          "next": "the-wrapper",
+          "consequence": "They confirm the depot files are retained for ninety days. Twelve of the 136 dates are still recoverable; those are replayed, and central inventory moves for the first time on those dates.",
+          "why": "Remediation ahead of measurement. It is worth knowing the files are retained and worth recovering the twelve, so this is not wasted. But it answers 'can we fix it' before 'how big is it', and it changes production data during your fieldwork, so the state you eventually report on is partly a state you caused to change. Recover after you have measured, or measure what you are about to alter."
+        }
+      ]
+    },
+
+    "the-wrapper": {
+      "situation": "The batch operations manager is straightforward about it. The 2019 assumption was correct in 2019, nobody revisited the scripts when the depots went to seven-day trading, and he had no way to see this because the monitoring reported exactly what the job returned.\n\nHe has the script open. He asks whether you can just tell him what it ought to say.",
+      "prompt": "How do you answer him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Write the corrected check for him. It is four lines and you can see exactly what is needed.",
+          "quality": "poor",
+          "next": "the-other-jobs",
+          "consequence": "You write it at his desk. He pastes it in, tests it against a copied file, and it goes to production on Thursday as an operational correction rather than through the change process.",
+          "taint": "fixed-the-script",
+          "why": "Four lines, ten minutes, an obvious improvement, and you are now the author of the control. You cannot report on whether the remediation is adequate, because the evidence that it is would be your own code. If it misfires on a genuine no-trade night, that defect is yours, in production, at a client. And it went in outside change management on your authority as the auditor who suggested it — which is the same control you would have tested next week. Helping is the most comfortable way this happens, because at no point does it feel like taking a decision."
+        },
+        {
+          "key": "B",
+          "text": "State the control requirement — a missing file must be distinguishable from a file with nothing in it, and both must be visible to whoever watches the batch — and leave the implementation to them.",
+          "quality": "best",
+          "next": "the-other-jobs",
+          "consequence": "He writes it down and comes back two days later with a design: absent file raises a warning status and an alert to the depot systems queue, an empty file logs a distinct code, and a suppression list covers genuinely closed depots. You review it and note that the suppression list needs an owner and an expiry.",
+          "why": "The requirement is yours to state and the implementation is his to choose, and the boundary is not bureaucratic — it is what leaves you able to test the result. It also produced a better answer than the one you would have written, because he knows about the closed-depot case and about the alerting queue. Stating requirements rather than solutions is how an auditor stays useful without becoming a party to the fix."
+        },
+        {
+          "key": "C",
+          "text": "Tell him it should exit non-zero when the file is absent.",
+          "quality": "defensible",
+          "next": "the-other-jobs",
+          "consequence": "He changes it that afternoon. Nine days later the Aberdeen depot closes for a refit, the job fails at 02:00, and the on-call engineer is paged three nights running.",
+          "why": "Specific, actionable and one notch from writing it yourself — and it is a solution rather than a requirement, which is why it is subtly the wrong one. Failure is not the objective; distinguishability is. An absent file needs to be visible and attributable, and there is a legitimate case where it is expected. Prescribing the mechanism instead of the outcome hands them your answer to a question you had not fully asked, and they will implement it because you are the auditor."
+        },
+        {
+          "key": "D",
+          "text": "Ask what the runbook tells the operator to do when the log records no input file.",
+          "quality": "defensible",
+          "next": "the-other-jobs",
+          "consequence": "The runbook has no entry for it. It has entries for a failed load, a partial load and a locked file, all of which raise alerts. Nobody wrote a procedure for a condition that never appeared on a screen.",
+          "why": "A good question that opens the second half of the defect: the code decides what the scheduler sees, and the scheduler decides what a human is ever asked to do about it. What it does not do is answer the one he asked you, and he is going to change the script this week either way. Understanding the monitoring gap is worth more than the code fix in the long run and it does not remove the need to be careful about the code fix now."
+        }
+      ]
+    },
+
+    "the-other-jobs": {
+      "situation": "The wrapper is not bespoke. It was copied from a template, and the template is still in the scripts directory with the 2019 comment intact.\n\nYou search for the guard clause across the scheduler's estate. Eleven jobs contain it, including the one that loads the supplier price file into the ordering system and the one that collects card settlement files from the acquirer.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Extend the finding to all eleven jobs and have each of them checked.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "You list the eleven in the report with a recommendation that each be reviewed. Operations works through them over two months; four have had short runs, two of them recently.",
+          "why": "Right, and it will fix eleven jobs. What it does not do is stop the twelfth. The clause is in a template, the template has no owner, and the next job written from it inherits a 2019 assumption along with the code. Extending a finding across every instance you can find is thorough instance-level work, which is a different thing from reaching the mechanism."
+        },
+        {
+          "key": "B",
+          "text": "Report that job success is defined by script completion rather than by work performed, so any job on this template reports success on a night it did nothing — and that the template carries an operating assumption from 2019 that no process required anyone to revisit.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "The head of IT operations reads it and asks how many other assumptions are sitting in the estate with a date on them. He commissions a sweep of scheduled jobs for hard-coded calendar and trading assumptions.",
+          "why": "Two levels, and the second one is the one that pays. The first is that success means the script finished, which is a statement about activity and not about outcome — the class of failure this cannot see is any failure that leaves the script running normally. The second is that the assumption was correct when written and no event required anyone to look at it again. His question back is the sign it landed: he is no longer thinking about eleven scripts."
+        },
+        {
+          "key": "C",
+          "text": "Prioritise the settlement job. Card settlement carries the largest financial exposure of the eleven.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The settlement job is examined within the week. It has had no short runs; the acquirer sends a file every day including bank holidays, and a nil file when there is nothing to settle.",
+          "why": "Prioritising by consequence is sound and it is the right way to sequence eleven items. Taken as the finding rather than as the sequencing, it narrows the report to the job with the biggest number attached — and here that job turns out to be fine, because the acquirer sends a nil file. Which is the whole point, said from the other direction: the jobs that are safe are safe because something upstream distinguishes nothing-to-do from nothing-arrived."
+        },
+        {
+          "key": "D",
+          "text": "Raise the eleven jobs with the platform team as a code quality item for their backlog.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "It is logged as a technical debt item and scheduled behind the scheduler upgrade, which is planned for the following financial year.",
+          "why": "Calling it code quality moves a live control failure onto an engineering backlog, where it will be sequenced against work with a business sponsor and will lose. This is the most quietly effective way a finding gets closed without being fixed, and it is attractive because the defect genuinely is in code. What the code produced was eighteen months of false assurance about stock, which is not a technical debt item."
+        }
+      ]
+    },
+
+    "the-report": {
+      "situation": "Clearance. The head of IT operations does not dispute anything and makes a fair point.\n\n\"The job never failed. The monitoring reported accurately what the job returned. The script did what it was written to do. I am not being difficult — I genuinely want to know what the finding is called.\"",
+      "prompt": "What do you tell him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the interface failed on 136 nights and the failures went undetected.",
+          "quality": "poor",
+          "next": "end-succeeded",
+          "consequence": "He disputes it immediately and produces the exit codes. The meeting spends forty minutes on whether a job that ran to completion can be described as having failed, and the finding is reworded to 'interface did not process data on 136 occasions'.",
+          "why": "The job did not fail, and saying it did hands him the one argument he can win. Worse, he wins it on the record: forty minutes establishing that the software behaved correctly leaves the meeting with the impression that the substance was overstated. He was inviting you to name the defect precisely and you reached for the dramatic word instead."
+        },
+        {
+          "key": "B",
+          "text": "That the organisation cannot tell a night the interface worked from a night it had nothing to work on, and has not been able to since the operating model changed.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He accepts it without argument and says that is a fair way to put it. The finding goes to the audit committee in those words, with the £2.3m and the 136 dates attached.",
+          "why": "It concedes everything true — the job ran correctly, the monitoring reported honestly, nobody made an error — and states what is left, which is that a whole class of failure is invisible by construction. Conceding the parts he is right about costs nothing and removes every available defence. A finding he can agree with in the room is a finding that survives the meeting intact."
+        },
+        {
+          "key": "C",
+          "text": "That monitoring coverage is incomplete, and an alert should be added for runs that process zero records.",
+          "quality": "defensible",
+          "next": "end-alerted",
+          "consequence": "Accepted without resistance and implemented in three weeks. Zero-record runs now raise an alert.",
+          "why": "A real control, accepted easily, and it will catch this. Two things it gives up. It is a solution stated in place of a defect, so the report records what to build rather than what was wrong — and next year's reader cannot tell from it that success meant the wrong thing. And zero records is not the same condition as no file: a depot that sends an empty file, or a load that silently drops every row, produces zero records too, and an alert keyed to one of the two symptoms will find the one you happened to see."
+        },
+        {
+          "key": "D",
+          "text": "That the 136 nights must be reconciled and any residual stock variances corrected.",
+          "quality": "defensible",
+          "next": "end-alerted",
+          "consequence": "Finance runs the reconciliation over six weeks. £790,000 of variance is identified and written off against the affected depots' results.",
+          "why": "Necessary work that somebody had to do, and it settles the balance sheet. As the finding, it is the instances: the 136 nights are the damage, not the defect, and correcting them leaves a template, a monitoring definition and a runbook exactly as they were. It is also the version management prefers, because it converts a control failure into an accounting exercise with an end date."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "Success meant the script finished",
+      "verdict": "strong",
+      "narrative": "The finding goes up in the terms you set: for eighteen months the organisation could not distinguish an interface that worked from one that had nothing to work on, and the monitoring reported the second as the first 214 times.\n\nJob success is redefined across the batch estate as work performed rather than script completion. Absent inputs raise a distinct status with an owner; genuinely closed depots go on a suppression list with an expiry. The sweep for dated assumptions finds two more, one of them in the year-end valuation extract.\n\nWarrington's phantom stock stops. The depot managers who had reported it for two years and been told it was a counting problem are told what it actually was.",
+      "why": "Nobody in this case did anything wrong. A developer wrote a correct guard clause in 2019 with the reason in a comment, and the business changed shape four years later without anything requiring that comment to be read again.\n\nThe defect is in what success was defined to mean. An exit code reports that a script completed, which is an activity measure, and any failure that leaves the script completing normally is invisible to it by construction — not missed, not under-monitored, invisible. That is why the 100% success rate was true and worthless at the same time, and why extending the test, tuning the alerting or fixing the eleven scripts would each have left the definition in place.\n\nThe reason it held up at clearance is that you gave him everything he was right about first. The job ran correctly. The monitoring was honest. What remained after all of that was still a control that could not see a whole class of failure, and there was no argument left to have about it."
+    },
+    "end-alerted": {
+      "title": "An alert for the failure you found",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented promptly and works. Zero-record runs alert, or the 136 nights are reconciled and £790,000 is written off, and the immediate exposure closes.\n\nFourteen months later a different depot's file starts arriving with the header row only. The load succeeds, one record is processed, and no alert fires. It runs that way for five weeks before a depot manager queries her replenishment figures.",
+      "why": "The work was sound and the finding was written one level too low. What went into the report was a control to build or a balance to correct, and both were correct responses to the instance in front of you.\n\nWhat stayed out of the report is that success was defined as the script finishing. An alert keyed to zero records catches the symptom you happened to observe; a load that processes one row of a thousand produces neither a zero count nor a failure. Recommendations aimed at the observed symptom are accepted quickly because they are concrete and cheap, and they leave the next variant of the same defect to be discovered from scratch."
+    },
+    "end-succeeded": {
+      "title": "Reported as a job failure",
+      "verdict": "weak",
+      "narrative": "The finding is issued as an interface failure and management response is defensive throughout. Three rounds of wording follow, the exit codes are produced twice, and the version that reaches the audit committee reads that the interface did not process data on 136 occasions, with a management comment noting that the software operated as designed.\n\nThe committee reads a technical dispute. The fix is agreed for the one job. The template is untouched, and the eleven jobs are not mentioned in the final version at all.",
+      "why": "The substance was real and the framing gave it away. A job that ran to completion and returned zero did not fail, and describing it as a failure moves the argument onto the one piece of ground management can hold — where they are right, and where being right about a detail is enough to make the whole finding look overstated.\n\nThe thing worth taking is how little it cost to avoid. Conceding that the job worked, that the monitoring was accurate and that nobody erred removes every defence at once, because what is left after those concessions is a definition of success that could not see the failure. You lose nothing by giving away the parts that are true."
+    },
+    "end-unauthorised": {
+      "title": "The hundred and thirty-seventh night",
+      "verdict": "failed",
+      "narrative": "The diverted file is picked up in the post-incident review of the over-ordered chilled line. The shift supervisor says the auditor asked him to hold it back; you confirm that you did.\n\nThe engagement is suspended while the firm establishes what else was touched. The finding is eventually reported by a second team, and the report has to record that one of the 137 occurrences was created by the audit. The £2.3m stands and is barely discussed. Every conversation is about the pallets.\n\nThe control failure was real, eighteen months old, and is now the second thing anybody remembers.",
+      "why": "The intent was rigour. Direct observation outranks every other form of evidence, the test would have been decisive, and it took one phone call to arrange — which is exactly the profile of the decisions that end engagements.\n\nAuthorisation is the part that was missing and it is not a formality. A deliberately induced production failure is a change to a live environment, and a shift supervisor has no authority to permit one on a client's operations. Without that authority the action is indistinguishable from the incident it was meant to study, and the auditor is inside their own timeline.\n\nThe second failure is the one worth carrying: you already had 136 naturally occurring instances, each with dated logs, depot records and a measurable consequence. The evidence was complete. The only thing the induced run added was the experience of watching, and that is not an evidential gap. Ask what the test would tell you that the existing records do not, before asking whether it can be arranged."
+    },
+    "end-authored": {
+      "title": "Four lines, in production, yours",
+      "verdict": "weak",
+      "narrative": "The check goes live on the Thursday. It works, and the finding is closed at the next tracking meeting on the strength of it.\n\nIn November the Aberdeen depot closes for eleven days of refurbishment. The job now fails nightly, the on-call engineer is paged at 02:00 for nine consecutive nights, and the fix applied under pressure is to remove the check from that depot's schedule entry — where it remains.\n\nThe post-implementation question is who wrote it and under what change authority. The answer is the auditor, at the batch manager's desk, outside the change process, during the audit that would have tested that process.",
+      "why": "Nothing here felt like a decision. He asked, you knew, it was four lines, and refusing would have looked precious about a trivial thing.\n\nWhat it cost is threefold and none of it was visible at the time. You cannot evaluate the adequacy of a remediation you authored, so the one finding you were best placed to close is the one you can no longer opine on. The closed-depot case was a real requirement that the person who lives with the system would have raised and you had no way to know — which is the general reason auditors state requirements and let operators choose mechanisms. And a production change went in on your suggestion outside the change process, in the middle of an engagement covering it.\n\nThe boundary is not between helping and refusing to help. It is between telling them what the control has to achieve and telling them what to type."
+    }
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "id": "d4-nobody-owns-the-spreadsheet",
+  "title": "Nobody Owns the Spreadsheet",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "Shadow IT and End-User Computing",
+    "IT Change, Configuration, and Patch Management",
+    "Identity and Access Management",
+    "Audit Evidence Collection Techniques",
+    "IT Policies, Standards, Procedures and Practices"
+  ],
+  "principles": [
+    "design-vs-operating",
+    "segregation",
+    "evidence-quality",
+    "root-cause",
+    "protection-follows-data"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You are two weeks into IT general controls at a housing association with 22,000 homes.\n\nThe application register holds 74 systems. Change control, access recertification, backup classification and disaster recovery tiering all key off that register, and the testing has been clean. It is a well-run framework.\n\nOn Thursday you ask a routine question: which systems produce the figures in the annual rent return to the regulator?\n\nThe answer names three applications and a spreadsheet.",
+
+  "taints": {
+    "rerun-as-evidence": "end-verified-nothing"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "The spreadsheet is called the rent model. It is not on the application register, and your engagement letter scopes the audit to IT general controls over the application estate.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Record it as outside the scope of an ITGC audit and refer it to the financial audit team.",
+          "quality": "poor",
+          "next": "the-referral",
+          "consequence": "You write a short note to the financial audit lead describing what you were told, and continue with the register-based testing.",
+          "why": "You have just applied the same rule that created the problem. The framework covers applications, and this is not one, so it falls out — and your scope covers applications, and this is not one, so it falls out again. Nothing about the risk changed at either boundary. Scope decides what you go looking for; it is not a test of whether something matters, and reaching for it before you know what the file does is how a gap gets confirmed by the function whose job is to find it."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the file does, what feeds it and what depends on its output, before deciding what it is.",
+          "quality": "best",
+          "next": "the-model",
+          "consequence": "You spend an hour with the finance analyst who runs it. It calculates the rent increase for every property, and its output goes into the regulatory return and into the billing run.",
+          "why": "Whether something is in scope is a conclusion, not a starting position, and you cannot reach it from the file extension. What the object is built in tells you nothing about what depends on it; what depends on it tells you everything about whether it belongs in the engagement. An hour spent this way either produces the finding or lets you drop the point with a reason."
+        },
+        {
+          "key": "C",
+          "text": "Check whether it appears on the end-user computing register.",
+          "quality": "defensible",
+          "next": "the-model",
+          "consequence": "It does not. The EUC register has 31 entries, all dated within a two-week window in 2021.",
+          "why": "The obvious framework question and it gets you a fast, useful fact. What it does is ask whether a control was applied before establishing whether it should have been, so the answer only means something once you know what the file is. The 2021 date is the more interesting half of what came back, and it arrived by accident."
+        },
+        {
+          "key": "D",
+          "text": "Ask IT whether the spreadsheet is covered by any of their controls.",
+          "quality": "defensible",
+          "next": "the-model",
+          "consequence": "The IT director answers within the hour and without hedging: no. Change control, access recertification, backup tiering and DR classification all read from the application register, and nothing that is not on it is covered by any of them.",
+          "why": "A clean answer to a clear question, and he is describing his framework accurately. The limit is that you have learned where IT's controls stop, which is a fact about IT rather than about the exposure. Everything that determines this file's risk sits on the other side of that line, and asking the question from IT's side tends to settle the matter as a jurisdictional one before it has been looked at as a risk."
+        }
+      ]
+    },
+
+    "the-referral": {
+      "situation": "The financial audit lead comes back within a day. She is not being obstructive and her answer is precise.\n\nThe calculation logic, she says, is reviewed by finance as part of the return sign-off, and she has evidence of that review. The controls over the file itself — who can change it, whether changes are reviewed, whether it is backed up, whether prior versions exist — are IT general controls, and those are yours.\n\nBetween the two of you, nobody is looking at the second half.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take it back into your engagement. Nobody is covering it, and that is itself the shape of the problem.",
+          "quality": "best",
+          "next": "the-model",
+          "consequence": "You extend the scope and tell the head of audit why. She agrees in one sentence and asks to be told what you find.",
+          "why": "Two scopes drawn at a sensible boundary can leave a subject in the space between them, and the subject does not know it is in a gap. What makes this the right call is not diligence but the specific fact you now hold: you have asked both functions and been told, accurately by both, that the other one has it. That is not an ambiguity to be resolved later; it is the finding, and you found it before the return went in."
+        },
+        {
+          "key": "B",
+          "text": "Accept the split. Finance reviews the calculation, so the model is covered.",
+          "quality": "poor",
+          "next": "the-recalculation",
+          "consequence": "You record the model as covered by the finance sign-off and complete your register-based testing. The ITGC report goes out clean.",
+          "why": "Finance reviews the numbers the model produces. That is a substantive check on an output, and it is capable of catching a figure that looks wrong. It cannot tell you whether the file was changed between the review and the submission, whether the reviewed version is the one that ran, or who else could have edited it — because none of those leave a trace in the number. A review of an output is not a control over the thing that produced it."
+        },
+        {
+          "key": "C",
+          "text": "Propose a joint review of end-user computing for next year's plan.",
+          "quality": "defensible",
+          "next": "the-recalculation",
+          "consequence": "It goes into the plan for the following year and is welcomed by both functions. The rent return is submitted in six weeks.",
+          "why": "The right destination on the wrong timetable. A joint review is exactly what should exist and it will be a good piece of work, and in the meantime a figure affecting 22,000 tenancies goes to the regulator out of a file neither function is examining. Scheduling something for next year is the standard way an issue you have already identified stops being this year's problem."
+        }
+      ]
+    },
+
+    "the-model": {
+      "situation": "The rent model is a workbook of 41 sheets and roughly 180,000 formulae. It sits on a finance shared drive as 'Rent model 2026 FINAL v7 (2).xlsx' and is saved over in place.\n\nInputs: a monthly tenancy extract from the housing management system, dropped on the same drive as a CSV; a rent matrix maintained by hand; and last year's submitted figures, typed in.\n\nOutputs: the rent increase for every property. Those go into the regulatory return and into the billing run behind 22,000 direct debits.\n\nIt was built in 2014 by an analyst who left in 2019. The folder grants modify rights to the finance group, which currently has 31 members.",
+      "prompt": "What do you establish first?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Whether the calculation is correct.",
+          "quality": "poor",
+          "next": "the-recalculation",
+          "consequence": "You start working through the sheets. After a day and a half you have traced the increase logic for one tenure type out of six and found nothing wrong with it.",
+          "why": "One hundred and eighty thousand formulae, and you are auditing arithmetic you will never finish. It is also the wrong claim to be chasing: even a complete verification would tell you the file was correct on the day you looked, which is worth nothing about the version that ran in April or the version that will run next year. The question is not whether this workbook is right. It is whether anything would tell you if it stopped being."
+        },
+        {
+          "key": "B",
+          "text": "Which controls apply to it, and by what route each of them would have had to reach it.",
+          "quality": "best",
+          "next": "the-recalculation",
+          "consequence": "You map it out. Change control keys off the application register. Access recertification keys off the register. Backup tiering and DR classification key off the register. Segregation of duties is defined for application roles. Every one of them arrives at the same test, and the file fails it in the same way.",
+          "why": "This is the difference between a list of missing controls and an explanation. Any one absence reads as an oversight; all of them absent through the identical route is a structural property, and the route is the finding. Tracing how each control decides what it covers takes an afternoon and tells you that nobody made a decision about this file at all."
+        },
+        {
+          "key": "C",
+          "text": "Who can change it, and whether anyone reviews changes.",
+          "quality": "defensible",
+          "next": "the-recalculation",
+          "consequence": "Thirty-one people hold modify rights. No change log exists, the drive keeps no version history, and the analyst who runs the model both makes the changes and performs the check that the output looks reasonable.",
+          "why": "A real limb, well chosen, and the self-review point is the sharpest single fact in the case. It is one limb though. Access without versioning, versioning without backup, backup without change control — each of these is a story about a different missing control, and collecting them one at a time produces a finding that reads as a list. The list has a cause and it is worth reaching it before you write."
+        },
+        {
+          "key": "D",
+          "text": "Whether the output agrees to the billing run and to last year's submitted return.",
+          "quality": "defensible",
+          "next": "the-recalculation",
+          "consequence": "The current output agrees to the billing file exactly. The prior-year comparison is inconclusive: the submitted return exists as a PDF and the workbook that produced it does not.",
+          "why": "A substantive test, and substantive tests are the right instinct when the controls look thin. What it gives you is comfort about one cycle, obtained at the cost of the cycle you cannot test — and the reason you cannot test it is the finding walking past you. Notice what the inconclusive half is telling you: the number was submitted to a regulator and the thing that produced it no longer exists."
+        }
+      ]
+    },
+
+    "the-recalculation": {
+      "situation": "You want some assurance about the figure submitted last April.\n\nThe analyst is entirely willing. She offers to open the model and re-run the calculation with you sitting there, so you can watch it work end to end and satisfy yourself that it produces the right answer.",
+      "prompt": "How do you get comfort over the submitted figure?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the re-run. Watching the calculation reproduce the submitted figure is re-performance, and re-performance is strong evidence.",
+          "quality": "poor",
+          "next": "the-finding",
+          "consequence": "She refreshes the tenancy extract, recalculates, and the model returns the figure submitted in April. It agrees to the penny. She sends you a screenshot of both numbers and you file it.",
+          "taint": "rerun-as-evidence",
+          "why": "Re-performance is the strongest technique there is, and it is strong only when the thing you re-perform is the thing that ran. Nothing in this exercise was. The workbook has been saved over in place for eleven months, so the formulae are today's; the extract was refreshed, so the data is today's; and what you observed is today's model computing today's answer.\n\nThe agreement to the penny is the part worth sitting with. Eleven months of tenancy changes — new lets, voids, transfers — should have moved that figure. A model reading current data and returning last April's total exactly is either not reading the data or reading a number that was typed in. The result that felt like the strongest confirmation available was the one fact in the room that could not be true, and it went into your file as evidence."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the model contained in April, and whether any version of it still exists, before re-performing anything.",
+          "quality": "best",
+          "next": "the-finding",
+          "consequence": "The shared drive keeps no version history. Backups are nightly at file level with 30-day retention, so the April file is long gone. The submitted return survives as a PDF. The workbook behind the number the regulator holds does not exist anywhere in the organisation.",
+          "why": "Before you can re-perform something you have to be able to say what it was, and asking that question first is what turns an unsatisfying answer into a finding. There is no April version, which means the calculation behind a submitted regulatory return cannot be reproduced, inspected or defended by anyone — not by you, not by finance, and not by the association if the regulator asks. That is worth more than any re-run could have given you, and it took ten minutes."
+        },
+        {
+          "key": "C",
+          "text": "Re-perform it yourself, independently, from an as-at-April extract regenerated from the housing system.",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "The housing system can rebuild the April position. You reconstruct the increase logic for the two largest tenure types and calculate them independently. Your figures land within 0.3% of the submitted total, with a difference you can explain.",
+          "why": "Genuinely strong work and it gives real comfort on the number, which nothing else here does. Two limits. It cost you three days, and it tests the figure rather than the model, because what you re-performed is your reconstruction of the logic rather than the logic that ran. You have established that a reasonable calculation lands near the submitted total. You have not established what the file did, and the file is the subject."
+        },
+        {
+          "key": "D",
+          "text": "Rely on the finance director's sign-off of the return.",
+          "quality": "poor",
+          "next": "the-finding",
+          "consequence": "You obtain the signed submission approval and file it. It is properly authorised and dated before the submission.",
+          "why": "The sign-off is real evidence of something: that an authorised person approved the return. It says nothing about how the number was produced, and it comes from the party whose figure it is. This is the weakest form of evidence, obtained from the most interested source, used to support the one claim in the engagement that most needed independent support."
+        }
+      ]
+    },
+
+    "the-finding": {
+      "situation": "You have it all. No version history, no change control, thirty-one people with modify rights, the maker checking her own output, no surviving copy of the version that produced the submitted figure, and no entry on either register.\n\nThe end-user computing policy does exist. It requires business-critical end-user computing applications to be registered and controlled. The register's 31 entries were all created during a two-week exercise in 2021, and nothing has been added since.\n\nThe policy names no trigger for identification and no owner for it.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The rent model is an unregistered business-critical end-user computing application and should be registered and controlled.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "You draft it that way. Finance accepts it without argument and the model is added to the register within the week.",
+          "why": "True, and it will get this file controlled, which is worth having. What the wording carries is an implication that the policy works and somebody failed to apply it — so the response is to apply it, once, here. The register has had no additions in five years and the policy requires no one to look. Written this way, the finding is closed by the only spreadsheet you happened to ask about."
+        },
+        {
+          "key": "B",
+          "text": "The control framework attaches to applications, and every property that makes this file risky is a property of what it does rather than of what it is built in — so a framework operating fully within its scope reaches none of it. The EUC policy that should bridge the gap has no trigger and no owner.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "The IT director reads it twice and says he has never been able to explain why his controls kept coming back clean while finance kept building things he had never heard of. The head of audit asks how many other files are in the same position, and nobody in the room can answer.",
+          "why": "Two levels and they fit together. The framework is not failing; it is succeeding completely within a scope defined by object type, while the risk is defined by function — what the thing produces, who depends on it, what data it holds. A control set keyed to the container cannot reach content, and no amount of rigour inside the register changes that.\n\nThe second level is why the safety net did not catch it. A policy that requires a judgement nobody is obliged to make on any particular day is not a control; it is a description of a control, and it produced exactly one burst of activity in 2021. The unanswerable question at the end of the meeting is the measure of the finding."
+        },
+        {
+          "key": "C",
+          "text": "Access to the rent model is excessive and should be restricted to the analyst who maintains it.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "Agreed on the spot. The folder permissions are cut from thirty-one people to three within two days.",
+          "why": "The cheapest limb, closed fastest, and it makes the position slightly worse in one respect: restricting the file to the person who both builds and checks it removes the last set of eyes that could have been on it. Thirty-one people with modify rights is a real finding and it is the one that requires nothing structural to change, which is why it was accepted in the meeting rather than after it."
+        },
+        {
+          "key": "D",
+          "text": "The 2021 EUC register is stale and should be refreshed.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "A refresh exercise is commissioned. It runs for six weeks and identifies 58 end-user computing applications, up from 31.",
+          "why": "It finds twenty-seven more, which is real value, and it commissions the same exercise that produced the register you have just shown to be inadequate. A refresh gives you a better snapshot with the identical defect: no trigger, no owner, and a shelf life that starts running the day it finishes. In 2029 someone will find that the register was last updated in 2026."
+        }
+      ]
+    },
+
+    "the-recommendation": {
+      "situation": "The finance director accepts the substance without argument and asks what he should actually do. The IT director's position is unchanged and not unreasonable: his framework covers the application estate, it covers it well, and spreadsheets built by finance are a finance matter.\n\nThe rent return is submitted in five weeks.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the rent model be registered as an end-user computing application and brought under the associated controls.",
+          "quality": "defensible",
+          "next": "end-registered",
+          "consequence": "Accepted and done inside a month. The model gets version control, a restricted folder, a documented change procedure and an independent check of the output before submission.",
+          "why": "A good outcome for this file and the controls it gains are the right ones. It is also the recommendation that treats the model as the subject, when the model was the example — the reason you found it was a passing remark in a Thursday conversation. Every other file in the same position stays in the same position, and there is no mechanism in the recommendation that would ever surface one."
+        },
+        {
+          "key": "B",
+          "text": "That the calculation be moved into the housing management system, where the existing controls already apply.",
+          "quality": "poor",
+          "next": "end-replaced",
+          "consequence": "Both directors welcome it. A change request is raised with the system vendor and scoped over the following two quarters, with an estimate that lands in the next financial year's budget cycle.",
+          "why": "Strategically appealing and it accepts the framing you should be attacking — that safety comes from being an application. It also does nothing for five weeks, nothing for this year's return, and nothing for whatever else finance is running, while being the kind of recommendation everyone agrees with and nobody has to fund yet. A recommendation that requires a project is a recommendation with a budget cycle in front of it."
+        },
+        {
+          "key": "C",
+          "text": "That end-user computing be identified by what its output reaches — any file feeding an external return, a payment run or the financial statements is in scope whatever it is built in — with a named owner and a run at each reporting cycle.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The finance director objects that this could catch dozens of files. The IT director agrees to own the test if finance owns the response. The first run, tied to the year-end timetable, returns 46 files, of which 9 feed something external.",
+          "why": "The scope test now reads from the same property that creates the risk, which is what makes it a control rather than a policy statement. The two details that make it survive: it is triggered by a calendar event that happens anyway rather than by someone remembering, and it has a name against it. The finance director's objection is the sign it will work — a scope test that catches nothing new was not a scope test."
+        },
+        {
+          "key": "D",
+          "text": "That the model be locked down, versioned, and each change reviewed by a second analyst before use.",
+          "quality": "defensible",
+          "next": "end-registered",
+          "consequence": "Implemented within three weeks. Change review, versioning and restricted access are all in place before the return is submitted.",
+          "why": "Fast, specific, in place before the deadline, and it closes the self-review point that was the sharpest thing you found. It is instance-level remediation done well. The framework still decides what it covers by object type, the EUC policy still has no trigger, and the next file will be found the same way this one was, which is to say by chance."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "Scope by what it reaches",
+      "verdict": "strong",
+      "narrative": "End-user computing scope is redefined by output. Anything feeding an external return, a payment run or the statutory accounts is in scope regardless of what it is built in, the test runs against the reporting timetable, and the IT director owns running it.\n\nThe first run finds 46 files. Nine feed something external, including a service-charge apportionment model behind £4.2m of annual tenant billing that nobody in either function had heard of.\n\nThe rent model gets version control and an independent check. The April gap is reported to the regulator as a known limitation of the prior submission rather than found by them later.",
+      "why": "The framework was not broken. It covered its scope completely and its scope was drawn around a kind of object, while the risk was a property of a function: what the thing produces, who relies on it, what data it holds. A control set keyed to the container cannot reach content, and nothing you can do inside the register fixes a boundary drawn outside it.\n\nThe safety net failed for a different reason worth keeping separate. The EUC policy required a judgement — is this business-critical? — that no event obliged anyone to make. A requirement with no trigger and no owner produces one burst of compliance and then a register with a date on it.\n\nThe fix works because it replaces a judgement with an observable property and hangs it on a calendar that turns anyway. The service-charge model is the proof: it was found by the mechanism rather than by an auditor asking a lucky question on a Thursday."
+    },
+    "end-registered": {
+      "title": "This one is controlled now",
+      "verdict": "acceptable",
+      "narrative": "The rent model is registered, versioned, access-restricted and independently checked, all before the return is submitted. It is a genuinely better position than the one you found and the finding is properly closed.\n\nEighteen months later a service-charge apportionment model is found during a tenant complaint. It sits on the same drive, it has been maintained by one person since 2017, it apportions £4.2m of annual charges, and it is not on either register.\n\nIt was found by a complaint, which is how the rent model would have been found if you had not asked about the return.",
+      "why": "The remediation was correct and quick and it treated the example as the subject. Everything that was wrong with the rent model was fixed; nothing that produced it was.\n\nThe distinction that matters is between a control and an instance of one. Registering this file adds an entry to a register whose entry condition is still a judgement nobody has to make. The framework still decides coverage by object type. The next file surfaces the same way this one did, and the only reason this one surfaced at all is that an auditor asked an unrelated question and followed the answer."
+    },
+    "end-replaced": {
+      "title": "Scheduled for the system",
+      "verdict": "weak",
+      "narrative": "The recommendation to move the calculation into the housing management system is accepted by everyone and estimated at £180,000. It is scoped, prioritised behind a compliance upgrade, and deferred once. Two years on it has not started.\n\nThe rent model runs the 2027 and 2028 returns from the same shared drive with the same thirty-one people holding modify rights, protected by a recommendation everybody agreed with.",
+      "why": "The recommendation accepted the premise it should have challenged: that control comes from being an application. It proposed to solve the problem by making the file into the kind of object the framework already covers, which is true and expensive and slow, and which leaves the boundary exactly where it was for everything else finance runs.\n\nThere is a pattern here worth recognising. Recommendations that require a project are welcomed in the meeting because nobody has to say no to them, and they convert a live control gap into a funding decision made by people who were not at the meeting. The five weeks before the return went in were the whole of the time you had, and the recommendation used none of it."
+    },
+    "end-verified-nothing": {
+      "title": "It agreed to the penny",
+      "verdict": "weak",
+      "narrative": "The report records that the rent calculation was verified by re-performance and agreed to the submitted figure, and the working papers hold the screenshot.\n\nFourteen months later the association restates two years of service-charge apportionments after a tenant challenge, and the review that follows examines the rent model as well. The prior-year comparative in the workbook is a hard-coded value, typed in at some point nobody can date, which the model returns whenever the comparison is recalculated. It had been reproducing the submitted figure because it was the submitted figure.\n\nThe review asks what audit verified. The answer is a screenshot of a number reproducing itself.",
+      "why": "Re-performance sits at the top of the evidence hierarchy and that is exactly what made this hard to refuse. The technique is only as strong as the identity between the thing you re-perform and the thing that ran, and here nothing was shared between them: eleven months of saving over the file in place, a refreshed extract, and no surviving April version to compare against.\n\nThe tell was in the result. A model reading a current tenancy extract, after eleven months of lets, voids and transfers, returning last April's total to the penny, is describing a calculation that is not reading the data. An exact agreement where an approximate one was the most that could be expected is not the strongest confirmation available — it is the observation that should have stopped the engagement.\n\nThe habit that prevents it is one question asked before any re-performance: what exactly am I re-performing, and how do I know it is what ran?"
+    }
+  }
+}

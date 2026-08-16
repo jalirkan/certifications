@@ -1,0 +1,315 @@
+{
+  "id": "d1-the-audit-universe",
+  "title": "The Audit Universe",
+  "domain": "1",
+  "section": "A",
+  "topics": [
+    "Risk-Based Audit Planning",
+    "Types of Audits, Assessments, and Reviews",
+    "IS Audit Standards, Guidelines, and Codes of Ethics",
+    "IT Asset Management",
+    "Enterprise Risk Management"
+  ],
+  "principles": [
+    "completeness",
+    "risk-first",
+    "auditor-role",
+    "earlier-is-cheaper",
+    "business-impact"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+
+  "opening": "You have taken over IS audit planning at a 4,000-person insurance broker. Your predecessor left in March; the annual plan is due to the audit committee in three weeks.\n\nThe plan you inherited is a good-looking document. Fourteen engagements, each with a risk rating, an owner and a quarter. The ratings are scored against a five-factor model. The methodology section runs to three pages.\n\nNothing in it says where the fourteen came from.",
+
+  "taints": {
+    "advisory-became-ownership": "end-compromised"
+  },
+
+  "nodes": {
+    "start": {
+      "situation": "The plan covers 14 engagements drawn from an audit universe of 96 entries. Coverage is described as risk-based, on a three-year rotation for anything rated medium or above.\n\nYou have three weeks and a predecessor who is not answering email.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Re-score the 96 entries against the risk model, since the ratings are two years old.",
+          "quality": "defensible",
+          "next": "the-universe",
+          "consequence": "You refresh the scoring with current incident data and change volumes. Nine entries move a band; the top of the ranking is largely unchanged.",
+          "why": "Necessary work that you will have to do anyway. What it assumes is that the 96 are the right 96. Improving the ranking of a list is only worth the effort if the list is the population, and nothing you have seen yet establishes that it is."
+        },
+        {
+          "key": "B",
+          "text": "Establish how the audit universe is derived, and whether it is complete.",
+          "quality": "best",
+          "next": "the-universe",
+          "consequence": "You ask where the 96 come from. They are exported each January from the configuration management database, filtered to the 'business application' category.",
+          "why": "A risk-based plan is two things: a population and a ranking. Almost all the methodology, and almost all the review attention, goes to the ranking. The population is usually inherited, usually derived from something built for another purpose, and is where the coverage actually gets lost."
+        },
+        {
+          "key": "C",
+          "text": "Interview the executive team and build the plan from what they say concerns them.",
+          "quality": "defensible",
+          "next": "the-universe",
+          "consequence": "You run seven interviews. Four executives name the same two systems; the chief operating officer raises a supplier you have not heard of and cannot find anywhere in the plan.",
+          "why": "A legitimate and valuable input, and here it produced the one loose thread in the scenario. The care needed is that a plan built from what management worries about inherits management's blind spots exactly, and looking where they are not looking is most of why the function exists. Use it to challenge the ranking, not to set the population."
+        },
+        {
+          "key": "D",
+          "text": "Start from last year's plan and the open remediation actions, then adjust.",
+          "quality": "poor",
+          "next": "rolled-forward",
+          "consequence": "You have a draft in two days. Eleven engagements carry forward, three rotate in, and every open action has an owner and a follow-up date.",
+          "why": "It is fast, it sounds defensible, and it plans the past. Last year's plan encodes last year's understanding of the estate; rolling it forward reproduces whatever that understanding missed, and dresses the reproduction as a decision."
+        }
+      ]
+    },
+
+    "rolled-forward": {
+      "situation": "Your draft has fourteen engagements. It is coherent, it maps to the open actions, and it looks very like the document you inherited.\n\nThe audit committee chair reads it and asks a mild question: how do you know these are the right fourteen?",
+      "prompt": "How do you answer her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Go back and check what population the fourteen were selected from, and how that population is built.",
+          "quality": "best",
+          "next": "the-universe",
+          "consequence": "You tell her you will come back with that. The universe turns out to be an annual export from the configuration management database, filtered to the 'business application' category.",
+          "why": "The question has no answer that does not run through the population. Selection can only be defended relative to what was available for selection, and that is the one thing the three-page methodology never describes."
+        },
+        {
+          "key": "B",
+          "text": "Explain that rotational coverage on a three-year cycle is standard practice and the rotation is being honoured.",
+          "quality": "poor",
+          "next": "the-programme",
+          "consequence": "She accepts the answer. The plan is tabled for approval at the following meeting.",
+          "why": "Rotation is a real method and it answers a different question. It tells you how often each entry gets visited; it says nothing about whether the entries are the things worth visiting. Citing a defensible process in place of a defensible population is how a function stays thorough for years about the wrong estate."
+        },
+        {
+          "key": "C",
+          "text": "Attach the risk scores for each of the fourteen so the selection is evidenced.",
+          "quality": "defensible",
+          "next": "the-programme",
+          "consequence": "You add the scoring sheet as an appendix. The chair is satisfied that the selection is documented.",
+          "why": "It makes the ranking auditable, which is worth doing and is what she asked for on the surface. It also makes the plan look more rigorous without making it more complete, and that combination is the risk: a documented selection from an undocumented population reads as evidence and is not."
+        }
+      ]
+    },
+
+    "the-universe": {
+      "situation": "The audit universe is generated once a year: an export from the configuration management database, filtered to items categorised as 'business application'. Ninety-six rows.\n\nThe CMDB is maintained by the service transition team. A record is created when IT deploys something, or takes on support for something.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reconcile the universe against a source outside IT's own records before relying on it.",
+          "quality": "best",
+          "next": "the-sixty-one",
+          "consequence": "You pull the identity provider's list of applications with federated sign-on, and a year of accounts payable coded to software and subscriptions. Neither matches the 96.",
+          "why": "The universe is a population, and a population supplied by the function whose estate you are ranking has to be checked against something that function does not maintain. Identity and payments are good choices precisely because they are records of the company doing something, not records of IT knowing about it."
+        },
+        {
+          "key": "B",
+          "text": "Ask the service transition manager whether the CMDB covers everything the business runs.",
+          "quality": "defensible",
+          "next": "the-sixty-one",
+          "consequence": "He is immediately clear about it. The CMDB covers what IT deploys or supports. He says he has raised the gap twice, and volunteers that most of the SaaS the departments buy has never come near him.",
+          "why": "Efficient, and here it gets you the answer in one conversation because the person who owns the record knows exactly what it is for. Two cautions. Inquiry tells you what someone believes and needs corroborating before you rely on it, and asking the owner of a record whether it is complete more often produces a defence than a diagnosis. It worked because he had already noticed."
+        },
+        {
+          "key": "C",
+          "text": "Accept it. The CMDB is the organisation's system of record for applications.",
+          "quality": "poor",
+          "next": "the-programme",
+          "consequence": "You treat the 96 as the population and move on to allocating capacity across the year.",
+          "why": "It is the system of record for applications IT deployed or supports, which is a smaller and different set from applications the company runs. Every derived population carries the filter of the system it came from, and inheriting that filter without noticing is the difference between a plan with a gap and a plan with a gap nobody can see."
+        }
+      ]
+    },
+
+    "the-sixty-one": {
+      "situation": "The identity provider lists 173 applications with federated sign-on. Sixty-one of them have no CMDB record.\n\nAccounts payable shows a further 22 suppliers with software-shaped descriptions that appear in neither list.\n\nNone of this is hidden. Several of the 61 are on the intranet's own tools page.",
+      "prompt": "What does this tell you about the plan?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The company has a shadow IT problem, and the plan should include an audit of it.",
+          "quality": "defensible",
+          "next": "the-programme",
+          "consequence": "You add a shadow IT engagement to the draft. The CIO reads it and objects to the word, pointing out that his own team configured sign-on for most of the 61.",
+          "why": "A reasonable engagement to run, and the label is doing damage. 'Shadow' says these were acquired around IT; federated sign-on says IT was in the room. Naming it that way locates the problem in departmental behaviour, which produces recommendations about discipline rather than about an inventory that failed to record what everyone did openly."
+        },
+        {
+          "key": "B",
+          "text": "The universe inherits the CMDB's scope, and the CMDB records what IT deploys rather than what the company runs.",
+          "quality": "best",
+          "next": "the-programme",
+          "consequence": "You write it in one sentence and take it to the CIO. He does not dispute it. He says the CMDB has done its job exactly as designed for eleven years.",
+          "why": "This is the mechanism, and it is nobody's mistake. The entry condition for a CMDB record is an IT deployment, so a department buying a platform and asking IT only for sign-on never triggers one — and a plan built on that export is bounded by it. Stated at this level the finding survives the CIO, the service transition manager and you all moving on."
+        },
+        {
+          "key": "C",
+          "text": "The CMDB is inaccurate and should be remediated before the plan is finalised.",
+          "quality": "poor",
+          "next": "the-programme",
+          "consequence": "You raise it as a data quality issue. The CIO agrees readily and commissions a cleanup, scheduled to begin after the current service management upgrade.",
+          "why": "The CMDB is accurate. It contains what it was built to contain, and calling that inaccuracy is the framing management accepts fastest, because it converts a question about audit coverage into a housekeeping task on somebody else's roadmap. It also makes your plan depend on a project you do not control."
+        },
+        {
+          "key": "D",
+          "text": "Confirm the 61 before relying on the number — some will be dormant, duplicated or trivial.",
+          "quality": "defensible",
+          "next": "the-programme",
+          "consequence": "You work through them. Eleven are dormant or duplicated, thirty are small, and twenty hold client data. One is a claims triage platform used by a third of the operations floor.",
+          "why": "Right, necessary, and a step rather than a conclusion. Sixty-one is a headline figure and headline figures overstate; you cannot put one in a committee paper unexamined. What it does not do is answer the planning question, and the answer to that does not move: whatever the number turns out to be, the plan could not have selected any of them."
+        }
+      ]
+    },
+
+    "the-programme": {
+      "situation": "The CIO has moved quickly. He is standing up a SaaS intake process: a short assessment any department must complete before a new platform gets sign-on, with a register behind it. His own count, done in an afternoon, puts about 170 platforms on federated sign-on against 96 in the CMDB — among them a claims triage tool used by a third of the operations floor.\n\nHe asks you to join the design group and own the control design. His argument is direct. You are the person who worked out why the current arrangement misses things, the design will be better with you in it, and it costs the company nothing.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Join and own the control design. You understand the failure better than anyone else available.",
+          "quality": "poor",
+          "next": "the-plan",
+          "consequence": "You attend six sessions over five weeks. The intake assessment, the register fields and the trigger conditions are substantially your work, and the group adopts them.",
+          "taint": "advisory-became-ownership",
+          "why": "Early involvement is genuinely the cheapest point to fix a control, which is exactly why this is hard to refuse. The scope note on that rule is the whole lesson: early involvement has to stay advisory. Owning the design makes you the author of the control, so the first audit of SaaS intake is an audit of your own work by the one person who cannot perform it. You have traded a permanent capability for a better control this quarter."
+        },
+        {
+          "key": "B",
+          "text": "Decline membership, and offer a written pre-implementation review of the design against the specific gaps you identified.",
+          "quality": "best",
+          "next": "the-plan",
+          "consequence": "The group sends you the draft in week three. You return four pages naming what the trigger conditions would still miss, including departmental card payments that never reach sign-on. Two points are adopted, one is rejected and one is deferred.",
+          "why": "Everything valuable about your involvement and none of the cost. A written review is an audit product: dated, attributable, a record of what you said and a record that they decided. The rejection matters as much as the adoptions, because a design group that can reject your input is a design group you can still audit."
+        },
+        {
+          "key": "C",
+          "text": "Attend as a non-voting observer, minuted as such, and comment as the discussion goes.",
+          "quality": "defensible",
+          "next": "the-plan",
+          "consequence": "You attend all six sessions and speak in most of them. The minutes record you as an observer.",
+          "why": "A legitimate arrangement and a hard one to hold. You were in the room for every trade-off, your comments shaped the result, and the only record of the boundary is one word in a minute. The bill arrives later, when someone asks whether your input was material — and after six sessions the honest answer is usually yes. A written contribution draws a line you can point at; presence with a label on it does not."
+        },
+        {
+          "key": "D",
+          "text": "Decline. Audit does not design controls, and you will review the process once it is running.",
+          "quality": "poor",
+          "next": "the-plan",
+          "consequence": "You decline without offering an alternative. The group designs the intake assessment around contract value, with a threshold below which no assessment is required.",
+          "why": "The principle is right and applied without judgement. Independence prohibits owning the decision, not helping the organisation avoid a predictable error — and you have just watched a control get keyed to contract value while holding evidence that the exposure is keyed to what data the platform receives. You will find that in a year, and it will cost a rebuild. Declining is correct; declining silently is a decision to be right later."
+        }
+      ]
+    },
+
+    "the-plan": {
+      "situation": "Three weeks to the committee. Your capacity is roughly fourteen engagements across the year and that number is not moving.\n\nThe rated universe holds the policy administration platform, the general ledger and the claims payment system. Outside it sit the claims triage tool and, on the CIO's own count, several dozen other platforms nobody has scored.",
+      "prompt": "What does the plan look like?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The fourteen highest-rated entries from the universe as it stands.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "You submit the plan substantially as inherited, with refreshed scores and a note about the CMDB in the assumptions section.",
+          "why": "You found the defect and then planned as though you had not. The assumptions section is where a finding goes to be technically disclosed and practically ignored. The fourteen may even be the right fourteen — but you now know the ranking that produced them could not see the estate the CIO just counted, and submitting it unchanged asks the committee to rely on a number you personally established is wrong."
+        },
+        {
+          "key": "B",
+          "text": "An engagement early in the year to establish the application population and what it holds, the rest of the capacity allocated on ratings you can defend, and a documented re-plan once it reports.",
+          "quality": "best",
+          "next": "the-committee",
+          "consequence": "The draft goes up that way, with the population engagement in the first quarter and the re-plan point written into the plan rather than into the covering note.",
+          "why": "The population defect is itself an auditable subject, so it goes into the plan rather than blocking it. Sequencing it first is what makes the rest of the year's allocation defensible, and the re-plan commitment is the part people skip: without it the discovery work reports into a year whose capacity is already spent, and changes nothing until the following January."
+        },
+        {
+          "key": "C",
+          "text": "Split the capacity: nine engagements from the rated universe, five from the platforms nobody has scored.",
+          "quality": "defensible",
+          "next": "the-committee",
+          "consequence": "You draft it that way. The five are spread across departments, and the plan shows visible coverage of both populations.",
+          "why": "It gets audit eyes on the new estate this year, which is worth something real. What it gives up is prioritisation: you are auditing whichever five you happened to pick from an unranked set, so the coverage is genuine and the selection is arbitrary. Sampling an unranked population buys presence, not assurance."
+        },
+        {
+          "key": "D",
+          "text": "Devote the year to the unscored platforms, since they are the part nobody has ever looked at.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "You reallocate the plan toward the newly visible estate. The general ledger and the claims payment system drop out of the year.",
+          "why": "Unknown is not the same as high. The rated universe contains the systems that settle claims and produce the accounts, and their risk did not fall because you found something else. Swinging the whole plan at the newest thing you learned is the same failure as ignoring it, committed in the opposite direction."
+        }
+      ]
+    },
+
+    "the-committee": {
+      "situation": "The plan is on the table. The chair puts one question to you directly: does this plan give the committee coverage of the organisation's IT risk?",
+      "prompt": "What do you tell her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Yes. The plan covers the highest-rated entries in the audit universe.",
+          "quality": "poor",
+          "next": "end-recorded-estate",
+          "consequence": "The chair thanks you and the plan is approved without discussion.",
+          "why": "It is a true statement about the universe, and she did not ask about the universe. Answering a coverage question with the list's own claim passes the committee's assurance straight through a population you have personally established is incomplete — in the one forum whose job is to notice."
+        },
+        {
+          "key": "B",
+          "text": "Set out what the plan covers, what the universe could not see, and how the gap gets closed.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "You describe the boundary: the plan covers the recorded application estate, that estate is derived from IT deployment activity, and on the CIO's own count some seventy platforms with federated sign-on sit outside it. The chair asks for the population work to be scheduled first, and to report to the committee directly rather than through the CIO.",
+          "why": "A coverage statement is worth exactly what its boundary is worth. Naming what the plan cannot see converts an assurance the committee has to take on trust into a scoped one they can govern — and her follow-up is the proof. She understood that the population work reports on the function that produced the population, and routed it accordingly. A yes would have bought none of that."
+        },
+        {
+          "key": "C",
+          "text": "Give her a figure: the plan covers 71% of the universe by risk-weighted value.",
+          "quality": "poor",
+          "next": "end-recorded-estate",
+          "consequence": "The number goes into the committee pack and is quoted in the following quarter's board summary.",
+          "why": "A percentage computed over a population you know to be incomplete is worse than no percentage, because it survives. The caveats stay in the meeting; the number goes into the pack, then the board summary, then next year's comparison, and every one of those reads it as coverage of the estate rather than coverage of a list. Precision borrowed from a bad denominator is the most durable thing you can hand a committee."
+        },
+        {
+          "key": "D",
+          "text": "Tell her coverage cannot be stated until the universe is rebuilt, and bring the plan back next quarter.",
+          "quality": "defensible",
+          "next": "end-narrow",
+          "consequence": "The committee accepts the deferral. The plan is retabled in October and approved; fieldwork begins in the last quarter of the year.",
+          "why": "Honest, and it defers the wrong thing. The population defect is real and it does not stop you auditing the general ledger, so holding the whole plan hostage to it buys accuracy in one sentence and costs most of a year of audit work. The universe question belongs inside the plan as an engagement, not in front of it as a precondition."
+        }
+      ]
+    }
+  },
+
+  "endings": {
+    "end-strong": {
+      "title": "A population you can defend",
+      "verdict": "strong",
+      "narrative": "The population engagement runs first and reports in April: 173 applications on federated sign-on, 22 further suppliers reached only through card payments, and twenty applications holding client data that had never been in scope for anything.\n\nThe universe is re-derived from identity and payment records rather than from deployment activity, and the plan is re-cut against it. Two of the newly visible applications are audited the same year; one is replaced.\n\nThe committee's coverage statement now names its own boundary.",
+      "why": "The engagement never found a control failure. It found that the plan's population was derived from a system built to record IT deployments, and that everything downstream — the scoring, the rotation, the three pages of methodology — was a rigorous treatment of the wrong list.\n\nThat is the shape worth recognising. Ranking gets the review attention because it is the visible, arguable, methodological part. The population is inherited from whatever was to hand, and it decides what the ranking is allowed to consider. A plan is only as risk-based as its universe is complete."
+    },
+    "end-narrow": {
+      "title": "Right about the universe, late with the plan",
+      "verdict": "acceptable",
+      "narrative": "The plan is deferred and retabled in October. The population work is done properly and the universe is rebuilt on a defensible derivation.\n\nFieldwork starts in the final quarter. Six of the fourteen engagements complete by year end; the rest carry into the following year, and the committee receives one substantive report instead of a programme.",
+      "why": "The analysis was right and the sequencing was not. A defect in the population is an audit subject, and audit subjects go into the plan — putting it in front of the plan stopped the work that was never in question.\n\nThe committee ended the year with an accurate account of what audit could not see and very little account of what it could. Accuracy about coverage is not a substitute for coverage."
+    },
+    "end-recorded-estate": {
+      "title": "Fourteen engagements on the recorded estate",
+      "verdict": "weak",
+      "narrative": "The plan is approved and delivered. All fourteen engagements complete, four findings are raised and closed, and the year reads well.\n\nIn November the claims triage platform is breached through a misconfigured integration. It has been in daily use by a third of the operations floor for two years. It was not in the CMDB, so it was not in the universe, so it could not be selected, so it was never audited — and no document the audit function produced that year says so.",
+      "why": "Nothing in the plan was wrong. Every engagement was competently scoped and competently run, against a population that could not contain the platform that failed.\n\nThe cost is not the missed audit; no function audits everything. The cost is that the committee spent a year believing it had coverage of IT risk, because the one person who knew where the population ended answered a question about coverage with a statement about the list."
+    },
+    "end-compromised": {
+      "title": "The control you designed",
+      "verdict": "weak",
+      "narrative": "The SaaS intake process ships in the autumn and works. The register fills up, the assessment catches two platforms before they receive data, and the CIO credits your involvement in his year-end report to the board.\n\nThe following year's plan includes an audit of SaaS intake. It cannot be performed by you, and there is nobody else in the function; the committee commissions it externally and pays for it. The reviewer's first question is who wrote the trigger conditions.\n\nThe control is better than it would have been. The function is one subject smaller than it was.",
+      "why": "This is the offer that never feels like a decision. You had the knowledge, the design was going to be built either way, and refusing would have looked like bureaucracy. All of that is true.\n\nThe rule that early correction is cheapest carries a scope note, and the scope note is the entire content: early involvement must stay advisory. The line is not between helping and not helping. It is between input the organisation can weigh and reject, and authorship it cannot. Written comment on someone else's design leaves you able to audit the result; owning the design converts a permanent capability into one good control, and stepping off the group afterwards does not give it back."
+    }
+  }
+}

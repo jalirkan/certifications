@@ -38,8 +38,8 @@ lose data.
 | Decision rules | 23 documented, 308 of 386 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
 | Study guides | **all five domains**, same depth |
-| Branching cases | 5 written (~35 needed), one per domain; playable in the browser and the CLI |
-| Tests | **364, all passing** — `python run_tests.py` |
+| Branching cases | 11 written (~35 needed), blueprint-weighted, every domain covered |
+| Tests | **483, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
