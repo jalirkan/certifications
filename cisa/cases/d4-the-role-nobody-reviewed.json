@@ -1,0 +1,275 @@
+{
+  "id": "d4-the-role-nobody-reviewed",
+  "title": "The Role Nobody Reviewed",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "Database Management",
+    "Identity and Access Management",
+    "Information Asset Security Frameworks, Standards, and Guidelines",
+    "IT Policies, Standards, Procedures and Practices",
+    "Operational Log Management"
+  ],
+  "principles": [
+    "segregation",
+    "design-vs-operating",
+    "completeness",
+    "root-cause",
+    "evidence-quality"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing access management at a payroll bureau. Nine hundred client companies, about a hundred and forty thousand people paid every month, one database at the centre of all of it.\n\nThe access recertification is the control everyone is proud of. Every quarter, each asset owner receives the list of users holding access to their asset and confirms or revokes each one. Reminders are automated, non-responses escalate to the owner's director, and the campaign does not close until every line has an answer.\n\nSixteen consecutive quarters at 100% completion. Five hundred and forty-four confirmations in the last cycle alone. The external assessor described it last year as the strongest access review he had seen at a firm this size.",
+  "taints": {
+    "tested-to-the-standard": "end-compliant"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Four years of complete campaigns, every line answered, every revocation actioned within five working days.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test the campaigns: did each one complete, and was every revocation actually applied?",
+          "quality": "defensible",
+          "next": "the-review-screen",
+          "consequence": "You test four quarters. Every campaign closed with all lines answered. Thirty-one revocations were raised and all thirty-one were applied, median two days. The evidence is complete and well organised.",
+          "why": "Proper operating-effectiveness testing on a control that turns out to operate faithfully, and the result is clean. What it establishes is that the process ran, that the reviewers answered, and that the answers were acted on — three real things, all about the mechanics.\n\nNone of them speaks to what the reviewers were shown. A control can execute perfectly against the wrong input for four years, and the more reliably it executes, the more convincing the evidence that it works."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the recertification actually puts in front of the reviewer.",
+          "quality": "best",
+          "next": "the-review-screen",
+          "consequence": "You ask for a screenshot of a live campaign. Each line is a person and a role: 'J. Okonkwo - PAY_SUPPORT', with a confirm button and a revoke button. There is nothing else on the screen.",
+          "why": "A review is only as good as what the reviewer can see, and that is a property of the screen rather than of the process. Ten minutes and one screenshot tells you the shape of every one of the 544 answers: the reviewer was asked whether this person should hold this role, and could answer nothing else.\n\nStarting here also frames everything after it. Once you know what the question was, the four-year record of complete campaigns stops being reassurance and becomes a measurement of how consistently one question got asked."
+        },
+        {
+          "key": "C",
+          "text": "Sample users and confirm each one's access is appropriate to their job.",
+          "quality": "defensible",
+          "next": "the-review-screen",
+          "consequence": "You sample thirty users across four departments and check each against their role and their responsibilities. All thirty are appropriate. Two leavers you deliberately included had been revoked in the correct cycle.",
+          "why": "Substantive testing of the outcome the control is supposed to produce, and it comes back clean because the assignments genuinely are correct — support staff hold the support role, and they should.\n\nThe frame is the same one the control uses. Checking whether the right people hold a role can only ever confirm or contradict the assignment, and both your test and the control are silent about what holding it means."
+        },
+        {
+          "key": "D",
+          "text": "Accept the four-year record and spend the time on a control with a weaker history.",
+          "quality": "poor",
+          "next": "the-incident",
+          "consequence": "You note the recertification as well established and turn to privileged access management, where the evidence is patchier.",
+          "why": "Risk-based effort allocation is right in general and the signal is being read backwards. A control with a patchy record is one the organisation already knows is imperfect; a control with sixteen perfect quarters is one nobody has questioned in four years, and unbroken results are as often a property of the question as of the answer.\n\nThe places worth looking are rarely where the evidence is thin. They are where it is abundant, consistent, and about something slightly different from what everyone believes."
+        }
+      ]
+    },
+    "the-incident": {
+      "situation": "Six weeks later, a client calls. One of their employees was paid into an account she does not recognise, and her bank details in the system are not the ones she supplied.\n\nThe change did not go through the payroll application. The application's audit trail has no record of it at all. The change was made directly against the database.\n\nYou are asked whether your access review testing covered database access.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Go back and establish what the recertification actually reviews.",
+          "quality": "best",
+          "next": "the-review-screen",
+          "consequence": "You pull a live campaign screen. Each line is a person and a role, confirm or revoke, and nothing else. The database is in scope for the campaign; every user with access to it is on the list.",
+          "why": "The question you were asked is whether the testing covered database access, and the honest answer turns on what covering it would have meant. Going back to the review screen answers that in ten minutes and answers it structurally, rather than by defending or disowning the earlier work.\n\nWhat you find is worse than a gap in coverage. The database was in scope, every user was reviewed, and the review still could not have surfaced this."
+        },
+        {
+          "key": "B",
+          "text": "Check whether the user who made the change had been properly recertified.",
+          "quality": "poor",
+          "next": "the-standard",
+          "consequence": "She had. Confirmed by the asset owner in each of the last six campaigns as appropriate for her role, which is payroll support, which she does. Everything about her access is correct and documented.",
+          "why": "You have tested the control against the incident and it passes, which will read as the control working. It did work: the person is a support analyst, she should hold the support role, and every confirmation was right.\n\nThat is the finding, arrived at and mistaken for its opposite. When a control correctly approves the access that enabled the loss, the question is not whether the approval was sound but what the approval was about — and stopping at 'properly recertified' closes the enquiry at the exact moment it becomes interesting."
+        },
+        {
+          "key": "C",
+          "text": "Establish who holds direct write access to that table.",
+          "quality": "defensible",
+          "next": "the-review-screen",
+          "consequence": "The answer takes a day to assemble because nobody has the query to hand. Thirty-four people hold a role that can write to it, plus four database administrators.",
+          "why": "Straight at the exposure and it produces the number that will carry the finding. Thirty-four people able to change bank details on nine hundred companies' payrolls is a sentence that needs no explaining.\n\nThe reason it sits a notch below is what the difficulty of getting it tells you. Nobody could answer this question quickly, which means nobody has ever asked it — and that absence is the mechanism, reachable directly from the review screen rather than inferred from how long the query took."
+        }
+      ]
+    },
+    "the-review-screen": {
+      "situation": "The recertification screen shows one line per user per asset: the person's name and the role they hold. Confirm, or revoke.\n\nThere is nothing describing what the role permits. No permissions, no link to a definition, no summary. The reviewer is asked whether this person should hold this role, and that is the only thing they can answer.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Find out what the roles actually grant.",
+          "quality": "best",
+          "next": "the-grant",
+          "consequence": "You extract the grants from the database. PAY_SUPPORT holds SELECT across the payroll schema, and UPDATE on three tables: employee_bank_details, employee_pay_elements and batch_control.",
+          "why": "The reviewer is confirming a role and the risk lives in what the role permits, so the permissions are the thing nobody in the control has ever seen. Extracting them is a query, it takes minutes, and it is the only step that can turn an observation about a screen into a finding about an exposure.\n\nIt is also evidence of the strongest kind available here. The grants are the database's own account of itself, not anyone's description of what they believe the role does."
+        },
+        {
+          "key": "B",
+          "text": "Ask the asset owner what he understands PAY_SUPPORT to allow.",
+          "quality": "defensible",
+          "next": "the-grant",
+          "consequence": "\"Read-only support access. They look things up when a client queries a payslip.\" He has been confirming those 34 lines every quarter for three years and answers without hesitation.",
+          "why": "Exactly the right person to ask and the answer is devastating in a way you can quote, because it comes from the man whose confirmation is the control. It is also inquiry, and it tells you what he believes rather than what is true — those happen to differ here, and you cannot demonstrate the difference until you have the grants.\n\nHold on to the answer, though. When the finding is contested, 'the asset owner believed it was read-only' is worth more than any amount of argument about screen design."
+        },
+        {
+          "key": "C",
+          "text": "Check whether role definitions are documented anywhere.",
+          "quality": "defensible",
+          "next": "the-grant",
+          "consequence": "There is a role catalogue, produced in 2019 when the roles were designed. PAY_SUPPORT is described as read-only access to payroll data for client query resolution. It has not been amended since it was written.",
+          "why": "A good question and the catalogue turns out to be a second piece of the same picture — the documented intent, matching what the asset owner believes, and matching what the role did in 2019.\n\nWhat it cannot do is tell you what the role does now. Documentation is a record of a decision at a point in time, and the whole exposure here is that something changed afterwards without the record following it. Comparing the catalogue to the live grants is the test; the catalogue alone is one half of it."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the review screen display each role's permissions.",
+          "quality": "poor",
+          "next": "the-grant",
+          "consequence": "You raise it as a design improvement. The identity team agree it would be better and add it to their backlog for the next platform upgrade.",
+          "why": "A recommendation written before the finding, and it will be sized as a user interface enhancement because that is what it looks like. Nothing in it conveys urgency, since nobody yet knows whether any role grants anything unexpected — including you.\n\nThere is also a question the screen alone cannot answer. Showing permissions helps only if someone would have noticed them changing, and whether anything reviews entitlement definitions at all is the thing still to establish."
+        }
+      ]
+    },
+    "the-grant": {
+      "situation": "PAY_SUPPORT holds UPDATE on employee_bank_details, employee_pay_elements and batch_control.\n\nThe grants were made on 14 March 2021 by a database administrator during a failed payroll run, to correct a corrupted batch overnight. The incident ticket records them as temporary, to be reversed once the run completed.\n\nThirty-four people hold the role. Sixteen quarterly campaigns have passed since. Five hundred and forty-four confirmations, all of them correct: every one of the thirty-four is a payroll support analyst who should have payroll support access.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That a temporary grant made during an incident was never reversed.",
+          "quality": "defensible",
+          "next": "the-standard",
+          "consequence": "You draft it that way. The grants are revoked within two days and the incident ticket is closed with a note. Everyone agrees it should not have happened.",
+          "why": "True, immediately actionable, and accepted without resistance — which is worth noticing rather than enjoying. Written this way the finding is a three-year-old mistake by a DBA under pressure at 2am, and the response is to undo it.\n\nWhat that leaves is the four years. Removing the grant does not explain why sixteen quarterly reviews, each correctly completed by the right person, could not surface it — and that question is the whole reason the control exists."
+        },
+        {
+          "key": "B",
+          "text": "That the recertification reviews the assignment and never the entitlement, so a change to what a role grants is invisible to the control that exists to catch it.",
+          "quality": "best",
+          "next": "the-standard",
+          "consequence": "You put it to the asset owner and the head of identity together. Neither disputes it. The head of identity works out loud that no process anywhere in the organisation looks at what a role permits after the day it is created.",
+          "why": "This explains the four clean years as well as the exposure, which is the test of a mechanism-level finding. Every confirmation was correct because the question was correct: should this person hold this role. Nothing was ever asked about what the role holds, so a role's permissions can change without a single control noticing.\n\nStated this way it also generalises past PAY_SUPPORT. Any role, any asset, any grant made after creation day is outside every review the organisation performs — and that is true whether or not anyone ever made a mistake at 2am."
+        },
+        {
+          "key": "C",
+          "text": "That a database administrator was able to grant UPDATE on a sensitive table without approval.",
+          "quality": "defensible",
+          "next": "the-standard",
+          "consequence": "You raise it. It is real: the emergency change process covers application changes and says nothing about database grants, and the DBA followed no process because none existed for what he was doing.",
+          "why": "A genuine second finding and it belongs in the report. It explains how the grant was made and says nothing about why it survived four years of review, which is the more serious half — an unapproved grant that is caught next quarter is an incident, and one that is never caught is a control gap.\n\nBoth are worth raising. If only one goes in the summary, the durable one is the review that could not see it."
+        },
+        {
+          "key": "D",
+          "text": "That thirty-four users hold excessive access to sensitive payroll data, and their access should be reduced.",
+          "quality": "poor",
+          "next": "the-standard",
+          "consequence": "You raise it as a user access finding. The asset owner reviews all thirty-four again and confirms, correctly, that every one of them is a payroll support analyst who needs payroll support access.",
+          "why": "The thirty-four are not the problem and reviewing them again produces the answer it produced sixteen times before. Their assignments are right; what is wrong is what the assignment carries.\n\nThis is the same error the control makes, committed by the auditor. Aiming at users when the defect is in the entitlement guarantees the remediation is a re-confirmation, and a re-confirmation is exactly what has been happening quarterly for four years."
+        }
+      ]
+    },
+    "the-standard": {
+      "situation": "The head of information security has the access control standard open on his laptop. He is not being difficult and he has a point.\n\nThe standard reads: 'User access rights shall be reviewed at planned intervals by asset owners.' It was approved by the board, it maps line by line to the framework the group has adopted, and the external assessor tested it against that framework last year and raised nothing.\n\nThe control does exactly what the standard requires. Quarterly. Complete. Four years.\n\n\"Against what criteria,\" he asks, \"are you saying this control is ineffective?\"",
+      "prompt": "How do you answer him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Concede the point. The control complies with the approved standard, and substituting your own criteria for the organisation's is not the auditor's role. Report the temporary grant as an exception.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The report records that the access recertification control operates effectively, evidenced by sixteen complete campaigns, with one exception noted: an emergency grant from 2021 that was not reversed. The exception is closed within the week.",
+          "taint": "tested-to-the-standard",
+          "why": "He is right about everything he said, and the instinct is a good one: audit against approved criteria, not personal preference. You would raise it as a finding if you saw someone else inventing a standard per engagement.\n\nThe move that fails is treating compliance and effectiveness as one question. Compliance asks whether the control does what the standard says; effectiveness asks whether it addresses the risk. They agree whenever the standard is sound, which is nearly always — so the distinction stays invisible until the standard is the thing that is wrong.\n\nHere the standard requires user access rights to be reviewed and the organisation reviews them faithfully. No wording in it reaches the definition of the rights, so a compliance test can only return a pass: the yardstick and the defect are the same object.\n\nThe sentence it produces is what does not recover. 'Operates effectively' reaches the committee pack, the assessor's reliance next year and the rotation decision, while the exposure closes as a one-off exception."
+        },
+        {
+          "key": "B",
+          "text": "Separate the two: the control complies with the standard, and the standard does not reach entitlement definitions — so compliance is established and effectiveness is not, and the standard is itself a finding.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "He reads the sentence again, slowly, and then says that in nine years nobody has pointed out that it only covers one half. The standard goes on the agenda for the next security governance meeting alongside the audit finding.",
+          "why": "Concede the compliance point completely — it is true, it costs nothing, and it removes his only argument. What remains is that a control can implement its standard precisely and still leave the risk open, because standards are written in words and words have edges.\n\nThe part that makes this land rather than sound like sophistry is that the standard becomes a finding in its own right, with its own owner and its own fix. You are not asserting private criteria against the organisation's; you are showing that the organisation's criteria have a gap, evidenced by a role that thirty-four people held, that everybody believed was read-only, and that could change bank details on nine hundred payrolls."
+        },
+        {
+          "key": "C",
+          "text": "Report the control as effective, and raise the standard's wording separately as an observation.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Two items go into the report: a positive conclusion on the recertification control, and an observation that the access control standard could be clarified to cover entitlement definitions. The observation is assigned to the security policy owner with a twelve-month review date.",
+          "why": "The substance reaches the file and nobody is misled about the facts, so this is honest work. What it does is split one finding into two of very unequal weight, and let the weaker half carry the important part.\n\nA positive effectiveness conclusion is what appears in the summary, in the committee pack and in next year's planning. An observation about policy wording is what appears in an appendix on a twelve-month cycle. The reader ends up with a control described as effective and a note that the standard behind it could be clearer, and no reason to connect them."
+        },
+        {
+          "key": "D",
+          "text": "Argue that the framework the standard derives from plainly intends entitlement review, so the standard is a defective transposition.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "You take him through the framework's control text and its implementation guidance. He reads it differently, the external assessor's report is produced, and the meeting spends fifty minutes on what the framework means.",
+          "why": "You are probably right on the interpretation, and it converts the discussion into a textual argument about a third party's document — where he has an external assessor's opinion on his side and you have a reading.\n\nIt also concedes something you did not need to concede: that the question is settled by what the framework intends rather than by what the exposure is. Thirty-four people who can change bank details on nine hundred payrolls, reviewed sixteen times without anyone being shown that, is a finding whether or not the framework says so."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The audit committee wants a recommendation with an owner and a date.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That entitlement definitions be reviewed on the same cycle as assignments, with the reviewer shown what each role grants and any change since the last review highlighted.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The head of identity pushes back on the volume — 410 roles against 544 user lines — and proposes a compromise: full definition review annually, plus an automated report each quarter of every grant added to any role since the previous campaign. Twelve roles change in the first quarterly diff. Two of them are unexplained.",
+          "why": "Both halves of the control now exist: who holds the role, and what the role holds. Showing the change since last time is the detail that makes it work at scale, because a reviewer confirming 410 unchanged definitions stops reading by the fortieth and a reviewer shown twelve changes reads all twelve.\n\nHis compromise is better than the recommendation as written, and worth recognising as such. Annual depth with a quarterly diff catches the same thing at a fraction of the effort, and it came from the person who knows what 410 role definitions look like on a screen."
+        },
+        {
+          "key": "B",
+          "text": "That the UPDATE grants be revoked and a time-bounded process introduced for emergency database grants.",
+          "quality": "defensible",
+          "next": "end-revoked",
+          "consequence": "Both are done inside a month. The grants are removed, and emergency grants now carry a mandatory expiry of seven days enforced by the platform, after which they lapse automatically.",
+          "why": "Genuinely good work and the expiry is a real preventive control — it stops this specific route reliably and without anyone having to remember. The exposure closes and the same thing cannot recur.\n\nWhat it does not cover is every other way a role's permissions can change: a deliberate grant made through the normal process, a role reused for a new purpose, a permission inherited when two roles are merged. None of those is an emergency, none of them expires, and none of them is reviewed. The recertification still cannot see what any role holds."
+        },
+        {
+          "key": "C",
+          "text": "That direct database changes be logged and the log reviewed monthly.",
+          "quality": "defensible",
+          "next": "end-revoked",
+          "consequence": "Accepted. Database auditing is enabled on the sensitive tables and a monthly review is assigned to the payroll operations manager. Retention is set to fourteen days by the platform default, which nobody notices for five months.",
+          "why": "Detection where there was none, and on a control this size that is worth having — a change to bank details currently leaves no trace the application can show anyone.\n\nIt is detection, on a payment that has already left, in a process where the money reaches an account the same day. And the fourteen-day retention against a monthly review means that for half of each cycle the evidence is gone before anyone looks at it, which is the kind of detail that turns a real control into a documented one."
+        },
+        {
+          "key": "D",
+          "text": "That the asset owner re-approve all thirty-four users now that he knows what the role grants.",
+          "quality": "poor",
+          "next": "end-reconfirmed",
+          "consequence": "He reviews all thirty-four with the permissions in front of him and confirms every one. They are all payroll support analysts and they all need payroll support access. The finding is closed on the evidence of the re-approval.",
+          "why": "The seventeenth correct answer to the same question. The assignments were never wrong — the thirty-four should hold the support role — so re-approving them with better information changes nothing except the date on the record.\n\nIt also closes the finding, which is the real cost. A remediation that produces a confirmation is the most persuasive kind of evidence that nothing needed to change, and the entitlement that thirty-four people hold is still UPDATE on employee bank details."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Who holds it, and what it holds",
+      "verdict": "strong",
+      "narrative": "The recertification gains a second half. Role definitions are reviewed annually in full, and every quarter the campaign carries an automated diff of every grant added to any role since the last one.\n\nThe first annual review covers 410 roles and finds nine carrying permissions nobody can account for, including a reporting role with DELETE on an archive table and a former integration role still holding write access to the client reference data. The first quarterly diff finds twelve changes, two unexplained.\n\nThe access control standard is amended to require review of entitlement definitions as well as assignments. The external assessor picks the amendment up the following year and asks two other group companies why they do not have it.\n\nThe asset owner's line about read-only access goes into the awareness material, because it is the most useful sentence anyone produced during the engagement.",
+      "why": "Sixteen quarters, 544 confirmations, and every single answer was correct. That is what makes this worth studying: nothing failed, nobody was careless, and the control operated exactly as designed for four years while the exposure sat underneath it.\n\nAn access review has two halves. Who holds this role is one of them, and it is the one that is easy to present on a screen, easy to complete, and easy to measure at 100%. What this role permits is the other, and it changes without anyone being assigned to notice, because a grant is made by a DBA at 2am and a role definition is not a thing anyone owns.\n\nThe second mechanism is the harder lesson. The standard said user access rights shall be reviewed, the organisation reviewed user access rights, and the framework mapping was clean. Compliance and effectiveness give the same answer whenever the criteria are sound — so the distinction only becomes visible in the one case where it matters, and in that case the criteria are the thing being tested against.\n\nWhat generalises: when a control has a perfect multi-year record, establish what question it asks before believing what its results mean. And when an auditee answers a challenge by pointing at an approved standard, the answer is to concede the compliance point entirely and ask whether the standard reaches the risk."
+    },
+    "end-revoked": {
+      "title": "The grant that expires",
+      "verdict": "acceptable",
+      "narrative": "The UPDATE grants are removed and emergency grants now lapse automatically after seven days, or database auditing is enabled and reviewed monthly. Both are implemented promptly and both work. The specific exposure is closed and cannot recur by the route it came.\n\nEighteen months later the bureau consolidates two client-onboarding roles into one during a platform migration. The merged role inherits the union of both permission sets, including write access to the client bank mandate table that only one of the two originally had.\n\nIt is not an emergency grant, so nothing expires. It is a deliberate, approved, documented change made through the normal process. Nineteen people hold the merged role and every one of them is confirmed, correctly, in each of the next six campaigns.",
+      "why": "You closed the route and left the blind spot.\n\nThe expiry control is genuinely good and it is scoped to emergency grants, which is one of several ways a role's permissions change. Deliberate grants, role merges, permission inheritance and reuse of an old role for a new purpose are all normal, approved, well-documented events — and none of them is temporary, so none expires, and none is reviewed, because the recertification still only asks who holds the role.\n\nMonitoring has the same shape. It detects use after the fact on a payment that reaches an account the same day, and the fourteen-day retention against a monthly cycle means half of each period is gone before anyone looks.\n\nThe test of a remediation is whether it would catch a variant the auditor did not personally find. Neither of these would."
+    },
+    "end-reconfirmed": {
+      "title": "Confirmed, with the permissions visible",
+      "verdict": "weak",
+      "narrative": "The asset owner reviews all thirty-four users with the role's permissions in front of him for the first time. He confirms every one, and he is right to: they are payroll support analysts and they need payroll support access.\n\nThe finding is closed on the strength of the re-approval, which is documented, thorough and signed. The audit committee reads it as a control gap identified and remediated within the quarter.\n\nPAY_SUPPORT still holds UPDATE on employee_bank_details. Thirty-four people still hold PAY_SUPPORT. What changed is that the position is now approved by someone who has seen the permissions, which makes it considerably harder to raise again.",
+      "why": "The thirty-four assignments were correct sixteen times and they are correct the seventeenth. Re-asking a question that has always had the right answer produces the right answer, and the recommendation aimed at the users when the defect was in what the users' role carried.\n\nThe outcome is worse than doing nothing, and that is the part worth sitting with. An exposure that was undocumented and unexamined is now an exposure that has been reviewed by the accountable owner with full information and explicitly approved. It has acquired a defence. Next year's auditor will find a signed re-approval and a closed finding.\n\nRemediation that consists of a confirmation should always be looked at twice: it produces evidence that nothing needed to change, whether or not that is true."
+    },
+    "end-compliant": {
+      "title": "Compliant with the standard",
+      "verdict": "weak",
+      "narrative": "The report concludes that the access recertification control operates effectively, evidenced by sixteen complete quarterly campaigns and 544 confirmations, with one exception: an emergency grant from March 2021 not reversed. The exception is closed in a week.\n\nThe conclusion travels. It goes into the committee pack. The external assessor reads it the following year and reduces his own testing accordingly. Planning rotates access management out for two years on the basis that it was recently examined and sound.\n\nTwo years on, a support analyst leaves and three weeks later four client payrolls pay eleven employees into accounts opened the previous month. The changes were made directly against the database, in a role the leaver had held legitimately, using credentials that had not yet been disabled because the leaver process ran on the HR feed and she was a contractor.\n\nThe post-incident review asks what the access review had covered. It had covered everything the standard required.",
+      "why": "The instinct is the correct one, which is what makes this the hardest of the four to see. An auditor tests against approved criteria and does not substitute personal preference; the standard was board-approved, framework-mapped and externally assessed; and he was entitled to ask what you were measuring against.\n\nCompliance and effectiveness answer the same question whenever the criteria reach the risk, which is nearly always — and that is precisely why the distinction is invisible in the one case where it matters. Here the standard required review of user access rights, the organisation reviewed user access rights faithfully, and no wording in it reached the definition of the rights. Testing compliance against criteria that are themselves the defect can only return a pass, because the yardstick and the flaw are the same object.\n\nWhat makes it unrecoverable is the sentence. 'Operates effectively' is not a finding that can be corrected later; it is an assertion that other people build on — an external assessor's reliance, a rotation decision, a committee's picture of what has been examined. Every one of those is taken once and not revisited.\n\nThe way through it costs nothing: concede the compliance point in full, and report separately that the standard does not reach the risk. Both statements are true, they do not conflict, and only one of them can be argued with."
+    }
+  }
+}
