@@ -375,7 +375,12 @@ scheduler would corrupt both.
 
 Cases can be **read aloud** in the web app. Turn it on at the top of the Cases screen, pick a voice
 and a speed, and a small button appears beside each piece of prose: the brief, each situation, each
-consequence, and the outcome in the debrief. Nothing ever starts speaking on its own.
+consequence, and the outcome in the debrief.
+
+There is also **"Read each passage automatically"**, off by default. With it on you stop clicking:
+choose an option and the consequence reads itself, press Continue and the next situation does.
+Nothing speaks at a screen you merely arrived at — opening a case, resuming one, or loading the
+debrief is always silent, because auto-reading only arms once you have acted inside the run.
 
 Three things about it are deliberate:
 

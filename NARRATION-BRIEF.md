@@ -22,10 +22,20 @@
 > verified end to end — a full tainted d5 path played with narration on, 16 utterances, no option
 > text among them — but the comfort question is open and belongs to whoever uses it.
 >
-> Related tension worth a decision, flagged rather than resolved: §4.3 forbids autoplay, so every
-> utterance sits behind a button, which is four extra clicks per case and they fall on the
-> consequence — the piece most worth hearing. Arguably switching the feature *on* is the learner
-> asking. Left as the brief specifies; see the note at the end of §4.
+> **§4.3 was relaxed on purpose, by the project owner, after the button-only version shipped.**
+> There is now an opt-in "read each passage automatically", off by default. The part of the rule
+> that mattered is kept exactly — nothing speaks at a screen you merely arrived at — because
+> auto-reading arms only after you act *inside* a run: choosing an option or pressing Continue.
+> Opening a case, resuming one and loading the debrief are all silent, verified by sitting on a
+> freshly opened case for three seconds with the setting on and counting zero utterances.
+>
+> That change also produced the sharpest bug in this feature, and it is worth recording because it
+> was **invisible on screen**. `useNarration` returns a fresh handle object every render, so an
+> effect depending on the handle re-fires every render — and `say()` flips `speaking` and notifies
+> subscribers, which *causes* a render. The screen looked perfect: right text, right order. The
+> synthesiser was called **24,664 times for one decision**. It surfaced only from counting calls
+> rather than watching the page. Fixed with primitive dependencies plus a per-passage guard, and
+> `tests/test_narration.py` now fails if any effect in the case screen depends on the bare handle.
 
 For a coding agent with a terminal. Read `CLAUDE.md` first, then `cisa/cases/SCHEMA.md`.
 

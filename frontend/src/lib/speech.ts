@@ -36,7 +36,20 @@
  * - `pause()`/`resume()` are unreliable across browsers and are not used; stop
  *   and restart is honest and predictable.
  *
- * No autoplay, anywhere. Narration starts when the learner asks for it.
+ * ## Nothing speaks at a screen you merely arrived at
+ *
+ * Every utterance is either a button press, or — with `autoRead` on, which is
+ * off by default — a passage arriving *after* you acted inside a run: chose an
+ * option, or pressed Continue. Opening a case, resuming one, or landing on the
+ * debrief is always silent.
+ *
+ * The original rule was "no autoplay, narration starts when the learner asks
+ * for it", and `autoRead` is a considered relaxation of it rather than a drift
+ * away: switching the feature on is the asking, and the button was costing
+ * four clicks a case that all landed on the consequence — the passage most
+ * worth hearing, since you have just acted and the case is telling you what
+ * happened. The part of the rule that mattered is kept exactly: the app never
+ * starts talking on its own.
  */
 
 const KEY = 'cisa.narration'
@@ -80,9 +93,24 @@ export interface NarrationSettings {
   enabled: boolean
   voice: string
   rate: number
+  /**
+   * Read each new passage without asking, once you are inside a run.
+   *
+   * Off by default, and it is not autoplay even when on: the runner only
+   * auto-speaks after you have chosen an option or pressed Continue, so
+   * nothing ever talks at a screen you merely arrived at. Landing on a case
+   * (or resuming one) stays silent until you act.
+   *
+   * It exists because the button costs four extra clicks per case and they all
+   * land on the consequence, which is the passage most worth hearing - you
+   * have just acted and the case is telling you what happened.
+   */
+  autoRead: boolean
 }
 
-export const DEFAULTS: NarrationSettings = { enabled: false, voice: '', rate: 1.05 }
+export const DEFAULTS: NarrationSettings = {
+  enabled: false, voice: '', rate: 1.05, autoRead: false,
+}
 
 export const RATES = [0.8, 1.0, 1.25, 1.5, 1.75, 2.0]
 
@@ -97,6 +125,7 @@ export function loadSettings(): NarrationSettings {
       rate: typeof parsed.rate === 'number' && parsed.rate >= 0.5 && parsed.rate <= 3
         ? parsed.rate
         : DEFAULTS.rate,
+      autoRead: Boolean(parsed.autoRead),
     }
   } catch {
     return { ...DEFAULTS }

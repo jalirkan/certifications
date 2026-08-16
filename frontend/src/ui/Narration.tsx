@@ -5,9 +5,11 @@
  * — moving to the next decision while the previous consequence is still being
  * read is the obvious bug, and it is the one users hit first.
  *
- * **No autoplay.** Every utterance is behind a button press. A case that starts
- * talking on its own is hostile, and browsers block it without a gesture
- * anyway.
+ * **Nothing speaks at a screen you merely arrived at.** Every utterance is
+ * either a button press, or — with `autoRead` on, off by default — a passage
+ * arriving after you acted inside a run. Opening a case, resuming one, or
+ * loading the debrief is always silent. A case that starts talking on its own
+ * is hostile, and browsers block it without a gesture anyway.
  *
  * The copy here claims comfort and access, never a learning benefit. Narration
  * has not been shown to improve exam performance and the exam is read silently
@@ -21,6 +23,7 @@ export interface NarrationHandle {
   narrator: Narrator
   available: boolean
   enabled: boolean
+  autoRead: boolean
   speaking: boolean
   reason: string | null
   say: (text: Narratable) => void
@@ -58,6 +61,7 @@ export function useNarration(key: unknown): NarrationHandle {
     narrator,
     available: narrator.available,
     enabled: narrator.current.enabled,
+    autoRead: narrator.current.autoRead,
     speaking: narrator.isSpeaking,
     reason: narrator.unavailableReason,
     say,
@@ -134,6 +138,12 @@ export function NarrationControls({ n }: { n: NarrationHandle }) {
               ))}
             </select>
           </label>
+
+          <label className="narration-toggle">
+            <input type="checkbox" checked={settings.autoRead}
+                   onChange={(ev) => n.narrator.update({ autoRead: ev.target.checked })} />
+            <span>Read each passage automatically</span>
+          </label>
         </>
       ) : null}
 
@@ -142,6 +152,13 @@ export function NarrationControls({ n }: { n: NarrationHandle }) {
         machine. Cloud voices are never used, so nothing you hear leaves it.
         The narrative is read; the options are not — they are meant to be
         compared side by side, which listening makes harder.
+        {settings.enabled && settings.autoRead ? (
+          <>
+            {' '}Automatic reading starts only once you are moving through a case:
+            choosing an option or pressing Continue. Opening or resuming a case
+            stays silent.
+          </>
+        ) : null}
       </p>
     </div>
   )

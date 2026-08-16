@@ -153,18 +153,91 @@ class TestNoAutoplayAndNoOverlap(unittest.TestCase):
         self.assertRegex(ui, r"useEffect\(\(\) => \{\s*narrator\.stop\(\)",
                          "no effect stops speech when the node changes")
 
-    def test_nothing_speaks_without_a_press(self):
-        """Every call into the narrator hangs off a handler, never an effect."""
-        cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
-        for line in cases.splitlines():
-            if "narrate." in line:
-                self.assertIn("SpeakButton", line,
-                              "narration is invoked outside a button: %s" % line.strip())
+    def test_every_utterance_is_a_button_or_an_auto_read(self):
+        """Narration is invoked from exactly two places, and no third.
 
-    def test_narration_is_off_until_switched_on(self):
+        Buttons, or the two auto-read effects. This used to assert that every
+        `narrate.` line sat inside a `SpeakButton`, which stopped being true
+        when auto-read landed - so it now checks the real rule: anything that
+        is not a button must be inside an effect guarded by `acted.current`.
+        """
+        cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
+
+        # All auto-reading funnels through one guarded helper, so there is a
+        # single place the gate can be checked - and a single place to lose it.
+        helper = re.search(r"const autoSay = useCallback\((.*?)\n  \}, \[",
+                           cases, re.S)
+        self.assertIsNotNone(helper, "the guarded autoSay helper is missing")
+        body = helper.group(1)
+        self.assertIn("acted.current", body,
+                      "autoSay is not gated on a real interaction, so it can "
+                      "fire on arrival")
+        self.assertIn("autoRead", body, "autoSay ignores the setting")
+
+        # Effects may call autoSay; nothing else may reach the narrator.
+        # Checked per *statement*, not per line: these calls wrap, and a
+        # line-based check reported a false positive on the continuation.
+        flat = re.sub(r"\s+", " ", cases)
+        for match in re.finditer(r"narrate\.\w+\(", flat):
+            before = flat[max(0, match.start() - 160):match.start()]
+            self.assertTrue(
+                "SpeakButton" in before or "autoSay(" in before,
+                "narration reached a third place, near: %s"
+                % flat[match.start():match.start() + 60])
+        # The gate lives in autoSay, so the screen must not reach past it to
+        # the handle. (autoSay's own `say(text)` is the one legitimate call.)
+        self.assertEqual(
+            len(re.findall(r"narration\.say\(", cases)), 0,
+            "the screen calls narration.say() directly, bypassing autoSay's gate")
+        self.assertEqual(
+            len(re.findall(r"\bsay\(text\)", cases)), 1,
+            "expected exactly one raw say(), inside autoSay")
+
+    def test_auto_read_cannot_loop_on_its_own_renders(self):
+        """The bug this test exists for, because it is silent when it happens.
+
+        `useNarration` returns a fresh handle object every render. An effect
+        that depends on the handle therefore re-runs on every render - and
+        `say()` flips `speaking` and notifies subscribers, which *causes* a
+        render. That is a loop with no brake, and the screen looks perfect
+        while it runs: the right text, the right order, 24,664 utterances for
+        one decision. It was found by counting calls, not by watching.
+
+        So: no `useEffect` in the case screen may depend on the bare handle.
+        """
+        cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
+        deps = re.findall(r"\}, \[([^\]]*)\]\)", cases)
+        for group in deps:
+            names = [d.strip() for d in group.split(",") if d.strip()]
+            self.assertNotIn(
+                "narration", names,
+                "an effect depends on the whole narration handle, which is a "
+                "new object every render: [%s]" % group.strip())
+
+    def test_a_passage_is_never_read_twice(self):
+        """Belt and braces on top of the deps, since the failure is silent."""
+        cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
+        self.assertIn("spokenFor", cases,
+                      "no guard against re-reading the same passage")
+        self.assertRegex(cases, r"if \(spokenFor\.current === mark\) return")
+
+    def test_arriving_at_a_case_is_silent(self):
+        """`acted` starts false and is set only by choosing or continuing."""
+        cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
+        self.assertIn("const acted = useRef(false)", cases)
+        sets = re.findall(r"acted\.current = true", cases)
+        self.assertEqual(len(sets), 2,
+                         "expected exactly two arming points (choose and "
+                         "advance); found %d" % len(sets))
+
+    def test_narration_and_auto_read_are_both_off_by_default(self):
         body = read(SPEECH)
-        self.assertRegex(body, r"DEFAULTS[^=]*=\s*\{\s*enabled:\s*false",
-                         "narration defaults to on")
+        match = re.search(r"export const DEFAULTS: NarrationSettings = \{(.*?)\}",
+                          body, re.S)
+        self.assertIsNotNone(match, "DEFAULTS is missing")
+        block = match.group(1)
+        self.assertRegex(block, r"enabled:\s*false", "narration defaults to on")
+        self.assertRegex(block, r"autoRead:\s*false", "auto-read defaults to on")
 
 
 class TestSettingsPersist(unittest.TestCase):

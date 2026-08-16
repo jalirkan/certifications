@@ -25,7 +25,7 @@ import { useAsync, useKeys } from '../lib/hooks'
 import { Callout, Card, ErrorNote, Loading, Section } from '../ui/primitives'
 import { CaseGraph } from '../charts/CaseGraph'
 import { NarrationControls, SpeakButton, useNarration } from '../ui/Narration'
-import { narrate } from '../lib/speech'
+import { narrate, type Narratable } from '../lib/speech'
 
 const VERDICT_TONE: Record<string, string> = {
   strong: 'good',
@@ -212,6 +212,13 @@ export function CaseRunner() {
   // Keyed on the node id, so moving to the next decision cancels the previous
   // consequence mid-sentence rather than letting the two overlap.
   const narration = useNarration(state?.node?.id ?? '')
+  /*
+   * Auto-read is gated on a real interaction inside this run, not just on the
+   * setting. Arriving at a case, resuming one, or reloading the tab must stay
+   * silent; only choosing an option or pressing Continue arms it. That is the
+   * difference between "reads the next passage for you" and autoplay.
+   */
+  const acted = useRef(false)
 
   useEffect(() => {
     let live = true
@@ -233,6 +240,7 @@ export function CaseRunner() {
   const choose = useCallback(
     async (key: string) => {
       if (!state?.node || pending || consequence) return
+      acted.current = true
       setPending(true)
       try {
         const res = await api.caseChoose(
@@ -250,6 +258,7 @@ export function CaseRunner() {
 
   const advance = useCallback(() => {
     if (!consequence) return
+    acted.current = true
     if (consequence.finished) {
       nav(`/cases/debrief/${session}`)
       return
@@ -263,6 +272,48 @@ export function CaseRunner() {
   useEffect(() => {
     if (consequence) continueRef.current?.focus()
   }, [consequence])
+
+  /*
+   * Auto-read fires once per passage.
+   *
+   * Two things make that harder than it looks, and getting either wrong is
+   * silent - the screen behaves correctly and the synthesiser is called
+   * thousands of times. Found by counting calls, not by watching it.
+   *
+   * First, the deps must be primitives. `useNarration` returns a fresh object
+   * every render, so depending on the handle itself re-fires the effect on
+   * every render; and because `say()` flips `speaking` and notifies, it
+   * *causes* a render. That is a loop with no brake - it produced 24,664
+   * utterances for one decision.
+   *
+   * Second, `spokenFor` is belt and braces: even if some future dep change
+   * re-runs the effect, a passage is never read twice.
+   */
+  const { enabled: narrationOn, autoRead, say } = narration
+  const spokenFor = useRef('')
+
+  const autoSay = useCallback((mark: string, text: Narratable) => {
+    if (!acted.current || !narrationOn || !autoRead) return
+    if (spokenFor.current === mark) return
+    spokenFor.current = mark
+    say(text)
+  }, [narrationOn, autoRead, say])
+
+  // The consequence, once it lands. This is the passage auto-read exists for:
+  // you have just chosen, and nothing else on screen competes for your eyes.
+  useEffect(() => {
+    if (!consequence) return
+    autoSay(`c:${consequence.chosen}:${consequence.decisions}`,
+            narrate.consequence(consequence))
+  }, [consequence, autoSay])
+
+  // The next situation, after Continue. Skipped on arrival and on resume,
+  // which is what `acted` is for.
+  const node0 = state?.node
+  useEffect(() => {
+    if (!node0 || consequence) return
+    autoSay(`s:${node0.id}`, narrate.situation(node0))
+  }, [node0, consequence, autoSay])
 
   useKeys((ev) => {
     if (consequence) {
