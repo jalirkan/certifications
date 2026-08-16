@@ -98,12 +98,13 @@ export function useNarration(key: unknown): NarrationHandle {
  * anyway - moves it out of the moment when you actually want to hear a
  * question.
  *
- * **The page freezes while it happens, and saying so is the honest option.**
- * ONNX runs on the main thread, so nothing can repaint during the build: a
- * progress bar here would be a progress bar that never draws. Measured by
- * polling the button label every 60ms during a load - the first sample landed
- * at 1179ms, meaning not one tick ran in between. A Web Worker is the real fix
- * and is not built yet; until then the button warns rather than pretending.
+ * The progress number is real. Inference runs in a worker, so React can
+ * repaint while the session builds - verified with the Long Task API, which
+ * reports zero main-thread tasks over 50ms through a cold load and a full
+ * synthesis. An earlier version of this comment claimed a measured 1.2s
+ * freeze on the main thread; that number came from a timer poll in a hidden
+ * tab, where timers are throttled to about 1/second, so it did not show what
+ * it was said to show.
  */
 function PreviewButton({ n }: { n: NarrationHandle }) {
   const settings = n.narrator.current
@@ -116,11 +117,13 @@ function PreviewButton({ n }: { n: NarrationHandle }) {
     <button type="button" className="btn small"
             disabled={warming}
             onClick={() => (playing ? n.stop() : n.say(sample))}>
-      {playing
-        ? 'Stop'
-        : neural && !n.neural.ready
-          ? 'Hear this voice — first play freezes briefly'
-          : 'Hear this voice'}
+      {warming
+        ? `Loading the voice… ${Math.round(n.neural.progress * 100)}%`
+        : playing
+          ? 'Stop'
+          : neural && !n.neural.ready
+            ? 'Hear this voice (loads it first)'
+            : 'Hear this voice'}
     </button>
   )
 }
@@ -278,10 +281,9 @@ export function NarrationControls({ n, kind = 'case' }: {
           ) : (
             <>
               Not loaded yet. The first play builds a 92&nbsp;MB inference
-              session and <b>the page stops responding while it does</b> —
-              a few seconds here, longer on a slower machine. It happens once
-              per session. Doing it now, on this screen, means the drill itself
-              starts without the pause.
+              session, once per session. It runs on a background thread, so the
+              page stays usable while it happens — but doing it here, now,
+              means the drill itself starts without any wait.
             </>
           )}
         </div>
