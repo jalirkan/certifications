@@ -49,6 +49,7 @@ certifications/
   drill.py                  the CLI you actually run
   serve.py                  local web server, 127.0.0.1 only
   run_tests.py              runs every test suite
+  get_voices.py             one-time download for the neural narration voices
   drillkit/                 the engine (certification-agnostic, stdlib only)
     loader.py                 question bank loading, validation, profile settings
     scheduler.py              spaced-repetition-lite selection
@@ -67,6 +68,7 @@ certifications/
     webapi.py                 JSON API over the same engine
   frontend/                 React + TypeScript source for the browser app
   web/                      its built output, committed so serve.py needs no Node
+  models/                   neural voice weights - gitignored, see get_voices.py
   tests/                    364 unit tests
   cisa/
     outline.json            ISACA exam content outline, all 5 domains (structural reference)
@@ -399,19 +401,63 @@ Three things about it are deliberate:
   leave, turning a reading task into a memory task for reasons that have nothing to do with audit
   judgment. This is enforced in the type system, not by convention: the speak function will not
   accept an option.
-- **Local voices only.** Your operating system's own voices, filtered on `localService`. Some
-  browsers also offer cloud voices; those would send the case text to a vendor's servers, so they
-  are never used. If your machine has no offline voice installed, the feature switches itself off
-  and says so rather than quietly falling back.
+- **Nothing leaves the machine.** Two engines, both local. See *Two voice engines* below.
+  If neither is available the feature switches itself off and says so rather than quietly
+  falling back to something that phones home.
 - **It is comfort and access, not training.** There is no evidence that hearing a case read aloud
   improves exam performance, and the exam itself is read silently under time pressure. Use it
   because it is easier on the eyes over months of study, not because it is supposed to help you
   score better.
 
+### Two voice engines
+
+| | **System** (default) | **Neural** |
+|---|---|---|
+| Setup | none | `python get_voices.py`, once |
+| Disk | none | ~134 MB, gitignored |
+| Sound | your OS voices | markedly better |
+| Windows 10 | David / Zira / Mark, 2013-era | 13 voices, American and British |
+
+The system voices work everywhere with no setup, and on Windows they are pre-neural concatenative
+synthesis that sounds it. The neural engine is [Kokoro-82M](https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX),
+an open-weight model that runs **in your browser, on your machine**. No key, no account, no
+per-word cost, and no network once it is downloaded.
+
+```bash
+python get_voices.py            # ~134 MB: weights, 29 English voices, ONNX runtime
+python get_voices.py --check    # what is on disk
+python get_voices.py --all      # every language Kokoro ships, not just English
+python get_voices.py --webgpu   # only if the app says it fell back to the CPU
+```
+
+Then in the app: turn narration on, set **Engine** to *Neural*, pick a voice, and press
+**Hear this voice** to audition it. Thirteen names tell you nothing, and this is also what builds
+the inference session — doing it on the settings screen means your first drill starts without a
+pause.
+
+**Setup needs the network. Studying does not.** That distinction is the whole design. `npm install`
+already needs the network too; what matters is that once the files are here, narration is offline
+exactly like everything else. Verified rather than asserted: with narration playing, browser-level
+network capture matches nothing for huggingface, jsdelivr, cdn, unpkg or googleapis — every request
+is `127.0.0.1`. Getting there took defeating three separate defaults that would have quietly phoned
+home, two of which look completely fine on a connected machine. They are documented in
+`frontend/src/lib/neural.ts`.
+
+The weights are **not in git** — ~103 MB belongs in a download, not a repository — so re-run
+`get_voices.py` after a fresh clone. Skip it entirely and narration falls back to the system
+voices, which is what shipped first and still works.
+
+**Speed.** Inference runs on a Web Worker, so the page stays responsive while it loads and while it
+speaks. The model warms in the background at startup when narration is on, so the wait usually
+happens before you ask for anything. If a GPU is available it is used automatically and the panel
+says so; if it says *on the CPU* and you have a discrete GPU, `--webgpu` fetches a quantization the
+GPU path may prefer. On this machine, warm: about a quarter of a second from press to audio.
+
 **This is the one feature that does not work from the command line.** Every other part of this
 project works identically from `drill.py` and the browser. The browser ships a speech engine and
 the terminal does not, and closing that gap would mean adding a text-to-speech dependency to
-`drillkit/`, which is deliberately standard-library only. That trade is worth it in this direction.
+`drillkit/`, which is deliberately standard-library only. `get_voices.py` is standard library and
+lives outside `drillkit/` for the same reason. That trade is worth it in this direction.
 If a terminal equivalent is ever wanted, the honest route is a separate opt-in script outside
 `drillkit/` — not a dependency inside it.
 
