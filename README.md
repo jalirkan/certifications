@@ -743,3 +743,29 @@ precede improved accuracy on the questions that depend on it?
 
 Worth being honest about the limit — one learner, everything confounded with whatever else was
 studied that week. It would catch a game that does nothing. It would not prove one that helps.
+
+---
+
+## Licence and attribution
+
+MIT — see [`LICENSE`](LICENSE). Use it, fork it, build on it.
+
+Two things the licence does not cover, and should not be mistaken for:
+
+**Not affiliated with ISACA.** CISA is ISACA's certification and trademark; this is an independent
+study tool with no endorsement or connection. **Every one of the 386 questions is original**, written
+for this project. None is reproduced or adapted from ISACA's official materials, the QAE database,
+or any other exam bank — that rule is recorded in `CLAUDE.md` §3.1 and applies to any future batch.
+Verify current exam facts (domain weights, topic lists, length, passing score) against
+[isaca.org](https://www.isaca.org) rather than trusting `cisa/outline.json`, which was last checked
+2026-07-26 and will drift.
+
+**MIT covers the questions too, which is a deliberate choice worth understanding.** MIT is a
+software licence, and the bank is the part of this repository that took the most work. Applying MIT
+to it means anyone may redistribute or sell those questions, with attribution. If that is not what
+you want, the usual split is MIT for the code and something like CC BY-SA for `cisa/` — changing it
+later only binds people who take a copy after the change, so it is cheaper to decide now.
+
+Third-party components keep their own licences: [Kokoro-82M](https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX)
+(Apache-2.0) for the neural voices, and the front end's npm dependencies. None of them ship in this
+repository — `get_voices.py` and `npm install` fetch them.
