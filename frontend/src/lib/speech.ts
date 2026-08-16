@@ -106,6 +106,14 @@ export const narrate = {
   /** The prompt is a question, not a comparison — safe, unlike the options. */
   prompt: (n: { prompt: string }) => narratable(n.prompt),
 
+  /**
+   * A fixed sample for auditioning a voice, written to sound like the material
+   * it will be reading. Takes no argument, so it cannot be handed content.
+   */
+  sample: () => narratable(
+    'The control was designed well but was not operating for three months of '
+    + 'the period. Before concluding, find out why it stopped.'),
+
   /** A drill question's stem. The four options are not narratable, ever. */
   stem: (q: { stem: string }) => narratable(q.stem),
 

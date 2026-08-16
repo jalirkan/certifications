@@ -17,7 +17,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Narrator, RATES, type Narratable } from '../lib/speech'
+import { narrate, Narrator, RATES, type Narratable } from '../lib/speech'
 // A plain array of ids and labels - no engine code, so importing it here
 // does not drag transformers.js into the main bundle.
 import { NEURAL_VOICES } from '../lib/voices'
@@ -88,6 +88,41 @@ export function useNarration(key: unknown): NarrationHandle {
     say,
     stop,
   }
+}
+
+/**
+ * Audition the selected voice, and warm the engine while you are at it.
+ *
+ * The neural engine's cost is almost entirely the one-off session build, not
+ * the synthesis. Paying it here - on a settings screen, while you are choosing
+ * anyway - moves it out of the moment when you actually want to hear a
+ * question.
+ *
+ * **The page freezes while it happens, and saying so is the honest option.**
+ * ONNX runs on the main thread, so nothing can repaint during the build: a
+ * progress bar here would be a progress bar that never draws. Measured by
+ * polling the button label every 60ms during a load - the first sample landed
+ * at 1179ms, meaning not one tick ran in between. A Web Worker is the real fix
+ * and is not built yet; until then the button warns rather than pretending.
+ */
+function PreviewButton({ n }: { n: NarrationHandle }) {
+  const settings = n.narrator.current
+  const sample = narrate.sample()
+  const playing = n.speakingText === sample
+  const warming = n.neural.loading
+  const neural = settings.engine === 'neural'
+
+  return (
+    <button type="button" className="btn small"
+            disabled={warming}
+            onClick={() => (playing ? n.stop() : n.say(sample))}>
+      {playing
+        ? 'Stop'
+        : neural && !n.neural.ready
+          ? 'Hear this voice — first play freezes briefly'
+          : 'Hear this voice'}
+    </button>
+  )
 }
 
 /** A single "read this aloud" button, sitting beside the prose it reads. */
@@ -193,6 +228,15 @@ export function NarrationControls({ n, kind = 'case' }: {
             </label>
           ) : null}
 
+          {/*
+            Auditioning a voice here does double duty. It is the only way to
+            tell thirteen names apart without committing to a session - and it
+            builds the 92MB inference session, which is the slow part. Do it on
+            this screen and the first press inside a drill is instant instead
+            of a long silence with a dead button.
+          */}
+          <PreviewButton n={n} />
+
           <label className="narration-field">
             <span>Speed</span>
             <select value={String(settings.rate)}
@@ -233,8 +277,11 @@ export function NarrationControls({ n, kind = 'case' }: {
             </span>
           ) : (
             <>
-              The model loads on your first press, which takes a few seconds.
-              After that it stays in memory for the session.
+              Not loaded yet. The first play builds a 92&nbsp;MB inference
+              session and <b>the page stops responding while it does</b> —
+              a few seconds here, longer on a slower machine. It happens once
+              per session. Doing it now, on this screen, means the drill itself
+              starts without the pause.
             </>
           )}
         </div>
