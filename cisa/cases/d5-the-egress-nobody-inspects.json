@@ -1,0 +1,275 @@
+{
+  "id": "d5-the-egress-nobody-inspects",
+  "title": "The Egress Nobody Inspects",
+  "domain": "5",
+  "section": "A",
+  "topics": [
+    "Data Loss Prevention",
+    "Cloud and Virtualized Environments",
+    "Network and End-Point Security",
+    "Security Monitoring Tools and Techniques",
+    "Information System Attack Methods and Techniques"
+  ],
+  "principles": [
+    "coverage-limits",
+    "outcome-over-activity",
+    "authorization-first",
+    "protection-follows-data",
+    "evidence-quality"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing data protection at the research division of a pharmaceutical company. Nine hundred scientists, forty active trials, and a data estate whose value is difficult to state in a sentence but which competitors would pay a great deal for.\n\nData loss prevention is the programme's flagship. Content inspection on egress, classification-aware rules, a dedicated team of four, and a monthly report to the security committee.\n\nLast month: 12,400 policy violations detected and blocked. The figure is up 40% on the same month last year, and the report presents the trend as evidence that the programme is maturing.\n\nThe committee has been receiving that chart for three years.",
+  "taints": {
+    "tested-it-blind": "end-blind"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Twelve thousand four hundred blocks a month, rising. Four people, a mature rule set, a well-run programme.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test whether blocked events were handled correctly: triaged, investigated, escalated where they should have been.",
+          "quality": "defensible",
+          "next": "the-topology",
+          "consequence": "You sample sixty blocks across three months. Every one was triaged inside the target, forty-one were closed as false positives with reasoning recorded, and the nineteen that mattered were escalated correctly. The handling is good.",
+          "why": "Proper operating-effectiveness testing on the response process, and it comes back clean because the team is competent. The population is the events the tool produced, so a clean result tells you the team handles what it is given well.\n\nEverything about the exposure here is in what the tool was never given. A sample drawn from detections cannot contain a non-detection, and no amount of rigour inside it changes the boundary it was drawn from."
+        },
+        {
+          "key": "B",
+          "text": "Establish what traffic the tool actually inspects, and what share of the organisation's data egress that is.",
+          "quality": "best",
+          "next": "the-topology",
+          "consequence": "You ask the DLP lead. Inspection runs on traffic egressing the corporate network through the proxy. He is precise about it and adds, without prompting, that he has raised the cloud question twice.",
+          "why": "A detection tool is bounded by what reaches it, and coverage is a property of the deployment rather than of the rules — so it is answerable from the architecture in an afternoon and is almost never what a DLP audit looks at, because the rule set is where all the visible effort sits.\n\nAsking for the share is what turns it from a description into a measurement. 'It inspects the corporate network' sounds like coverage. What proportion of egress that is turns out to be a different kind of sentence."
+        },
+        {
+          "key": "C",
+          "text": "Review the rule set against the data classification scheme for completeness.",
+          "quality": "defensible",
+          "next": "the-topology",
+          "consequence": "The rules are thorough. Every classification tier has detection patterns, the trial data patterns are well constructed, and two gaps you find are genuinely marginal. The team knows their material.",
+          "why": "Worth doing and it confirms the rules are good, which they are. It assesses the tool's ability to recognise sensitive content in traffic it receives — a question about acuity, not about reach.\n\nThe two are easy to conflate because they are both called coverage. Rule coverage asks whether the tool would know what it was looking at. Inspection coverage asks whether it will ever be looking. A perfect rule set on the wrong traffic detects nothing and reports a clean result while doing it."
+        },
+        {
+          "key": "D",
+          "text": "Report the 40% increase as evidence of a maturing programme.",
+          "quality": "poor",
+          "next": "the-committee-question",
+          "consequence": "You record the trend as a positive indicator, supported by three years of monthly reports, and turn to the classification scheme.",
+          "why": "The block count measures how much the tool found in the traffic it saw, which moves with the volume of that traffic, the number of rules, how aggressively they are tuned, and how many people are using the office network. None of those is programme effectiveness, and the number can rise while every one of them is going the wrong way.\n\nA rising count of things caught is an activity measure. What the committee is being told it means is an outcome, and nothing in the report connects the two."
+        }
+      ]
+    },
+    "the-committee-question": {
+      "situation": "Six weeks later you are observing the security committee. The chart goes up, the trend is described as encouraging, and a non-executive director asks a question that stops the room.\n\n\"Forty per cent more blocks. Is that because we are catching more of what is being attempted, or because more is being attempted?\"\n\nNobody can answer. The CISO says he will come back to her.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take her question as the engagement's question, and start by establishing what share of egress the tool can see.",
+          "quality": "best",
+          "next": "the-topology",
+          "consequence": "You tell the CISO you will pick it up. Establishing the inspected share turns out to be the only way either half of her question can be answered, and nobody has ever computed it.",
+          "why": "She has asked, in one sentence, the question the report has been avoiding for three years: a count of detections has a numerator and no denominator, so it cannot distinguish better detection from more attempts, or either of those from a shrinking inspected population.\n\nThe denominator is the coverage, and it is knowable. Once you have it, all three readings of her question become separable, and none of them can be answered without it."
+        },
+        {
+          "key": "B",
+          "text": "Answer that a rising block count indicates the controls are working.",
+          "quality": "poor",
+          "next": "the-exceptions",
+          "consequence": "The room accepts it and moves on. The chart continues to appear monthly, now with an audit view attached to it.",
+          "why": "The one person in the room asking the right question has been answered by the person whose job is to check the answer, and the answer was the assumption she was querying.\n\nIt also spends something you do not get back. A non-executive who is told her instinct was wrong stops raising that kind of question, and she was the only independent challenge the metric had. Your view is now attached to the chart."
+        },
+        {
+          "key": "C",
+          "text": "Offer to analyse the block trend by rule and by destination to see what is driving the increase.",
+          "quality": "defensible",
+          "next": "the-topology",
+          "consequence": "Two days of analysis. The increase is almost entirely two rules added last year for a new document classification, firing on internal traffic that was previously unclassified rather than on anything leaving.",
+          "why": "Genuine analysis and it produces a real answer: the trend is a rule-tuning artefact rather than a change in behaviour, which is worth telling the committee. What it cannot reach is the half of her question about what is being attempted, because every event in the analysis came from the inspected population.\n\nDecomposing a metric explains its movement within its own boundary. Her question was partly about the boundary."
+        }
+      ]
+    },
+    "the-topology": {
+      "situation": "Inspection runs on traffic leaving the corporate network through the proxy. Three years ago that was everything the division did.\n\nIn 2023 the research computing platform moved to cloud. The sequencing pipeline, the trial data lake and the analysis workbenches all run there now. Data moving out of that environment goes from cloud to internet and does not touch the corporate network at any point.\n\nScientists reach the workbenches through a browser. The data does not come back through the office to get anywhere.",
+      "prompt": "How do you size this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Compare the volume egressing the cloud environment with the volume the DLP inspects.",
+          "quality": "best",
+          "next": "the-exceptions",
+          "consequence": "The cloud provider's flow logs give you the first number in twenty minutes: about 240 terabytes a month leaving the research environment. The DLP inspects roughly 9 terabytes a month. Nobody has ever put the two figures on the same page.",
+          "why": "Coverage is a ratio and both numbers already exist, kept by different teams for different reasons, never compared. Twenty minutes of work turns 'the cloud is not covered' — which everyone already half knew and nobody had acted on — into a proportion that a committee cannot look away from.\n\nThe reason it had never been computed is worth noticing too. Each figure sits with the team that owns its system, and the comparison is nobody's job because it belongs to neither."
+        },
+        {
+          "key": "B",
+          "text": "Ask the cloud team whether data loss prevention is deployed in the cloud environment.",
+          "quality": "defensible",
+          "next": "the-exceptions",
+          "consequence": "There is a native data protection service. It is enabled on two of the eleven storage buckets, in monitoring mode, and nobody receives its findings — the notification channel was never configured.",
+          "why": "A direct question with a precise and damning answer, and it establishes what exists rather than what proportion is exposed. That distinction matters at the committee: 'the cloud is not covered' is a statement management can absorb and schedule, and a ratio is not.\n\nThe monitoring-mode detail is the useful part and it generalises. A control enabled and not connected to anyone is a control the inventory counts and nobody operates."
+        },
+        {
+          "key": "C",
+          "text": "List the applications and data stores running in the cloud environment.",
+          "quality": "defensible",
+          "next": "the-exceptions",
+          "consequence": "Eleven storage buckets, four analysis workbench clusters, the sequencing pipeline and the trial data lake. You have a clear inventory of what is there by the end of the day.",
+          "why": "Necessary groundwork and the inventory will be useful for everything after it. What it describes is the estate, and the exposure is in the flows — which of these things moves data out, to where, and past what.\n\nAn inventory of stores tells you where data sits. Coverage is a question about where it goes, and the two are answered from different logs."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that data loss prevention be extended to cover the cloud environment.",
+          "quality": "poor",
+          "next": "the-exceptions",
+          "consequence": "You raise it. The CISO agrees in principle, notes it needs a business case and licensing, and it goes on the roadmap for consideration in the next planning cycle.",
+          "why": "A recommendation before a measurement, and it gets sized accordingly. Extend the tooling to the cloud is a sentence that competes with every other roadmap item on cost and effort, and it carries no number that would let anyone rank it.\n\nTwo hundred and forty terabytes a month against nine is not a different recommendation. It is the same recommendation with a reason attached, and it takes twenty minutes to obtain."
+        }
+      ]
+    },
+    "the-exceptions": {
+      "situation": "The second half. Content inspection needs decryption, so the proxy performs TLS interception — except where a destination is on the bypass list.\n\nThe list holds 340 destinations. It has grown by request since 2021: banking sites, a healthcare portal, the payroll provider, a video conferencing vendor whose client broke under interception, a certificate-pinned research database.\n\nThere is no expiry, no owner and no review. Reading down it, two entries are consumer file-sharing domains, added in March 2022 for a collaboration with an external partner. The collaboration ended in November 2022.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish how much traffic goes to bypassed destinations, and what it contains.",
+          "quality": "best",
+          "next": "the-test",
+          "consequence": "The proxy logs the destination of everything, including what it does not decrypt. Thirty-one per cent of egress bytes from the inspected network go to bypassed destinations. The two file-sharing domains carried just over 400 gigabytes last quarter, and nobody can say what was in any of it.",
+          "why": "The bypass list turns the coverage question inside out: within the traffic the tool does reach, a third of it is undecryptable and therefore uninspectable, so the real inspected proportion is smaller again.\n\nThe proxy logs make this measurable without decrypting anything — destination and volume are recorded regardless. Four hundred gigabytes to a consumer file-sharing service, over a route deliberately exempted from inspection, eighteen months after the reason for the exemption ended, is not a policy observation. It is a description of an open door with traffic on it."
+        },
+        {
+          "key": "B",
+          "text": "Review the 340 entries and identify any that look inappropriate.",
+          "quality": "defensible",
+          "next": "the-test",
+          "consequence": "You work through the list and flag eleven, including the two file-sharing domains. The security team agree on nine of the eleven and defend two on technical grounds you find reasonable.",
+          "why": "It finds the important ones, and it produces a result nobody else can reproduce. 'Looks inappropriate' is your judgement applied to 340 rows, so the finding is a list of your opinions — defensible one at a time, and impossible for the organisation to re-perform next year or apply to entry 341.\n\nThe stronger version of this is a criterion rather than a review: what business need justified this, does it still exist, and who owns it. That is testable by someone else."
+        },
+        {
+          "key": "C",
+          "text": "Establish who owns the bypass list and how entries are approved and removed.",
+          "quality": "defensible",
+          "next": "the-test",
+          "consequence": "Entries are added by a service request approved by any member of the network team. There is no removal process, no expiry field and no owner. Nobody has ever removed an entry.",
+          "why": "The governance answer, cleanly established, and it explains how a list reaches 340 entries and never shrinks. It belongs in the report.\n\nWhat it does not do is size the exposure, and a governance finding without one gets remediated as a process fix — an owner is appointed, an annual review is scheduled — while the 400 gigabytes going to a consumer file-sharing service continues until the first review comes round."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the two file-sharing domains be removed from the list.",
+          "quality": "poor",
+          "next": "the-test",
+          "consequence": "They are removed the same week. The other 338 entries stay, and four new ones are added over the following two months by the same process.",
+          "why": "The two you happened to notice, closed quickly, out of a list with no owner, no expiry and no review — which is why four more arrive before the report is issued.\n\nRemoving the instances you found is the fastest way to make a finding disappear without changing anything, and it is particularly seductive here because the two entries are so obviously wrong that removing them feels like the whole answer."
+        }
+      ]
+    },
+    "the-test": {
+      "situation": "You can show what the tool cannot inspect. You cannot yet show that data would actually leave undetected, and that is the sentence the committee will want.\n\nThe test suggests itself: a file of realistic trial data, moved out by both routes — to one of the bypassed domains from the office network, and straight out of the cloud environment.\n\nThere is a problem with it, and it is not a small one. A test the responders know about measures nothing about detection. A test they do not know about is, by definition, one nobody has agreed to.",
+      "prompt": "How do you proceed?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Run it blind. Telling anyone would invalidate the result, which is the whole point of running it.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You build a test file from the trial data lake's published schema and upload it twice on Thursday afternoon.\n\nThe office-network upload to the bypassed domain completes in four minutes and produces nothing anywhere. The cloud upload is caught eleven minutes later by a cloud-native alert nobody had told you about, read as an active exfiltration from a compromised research account, and escalated. Egress from the research environment is blocked at 16:40 while the incident runs. Two sequencing jobs fail mid-run.",
+          "taint": "tested-it-blind",
+          "why": "The methodological argument is correct and that is exactly the trap. Detection testing is only valid if the responders are blind, so telling them destroys the test — and from there it feels as though blind and unauthorised are the same thing.\n\nThey are not. Authorisation comes from someone senior enough to permit it, in writing, with scope, data, destinations and times defined, and one named contact who knows. The responders stay blind, the organisation has consented, and it takes a day to arrange.\n\nWithout it you caused a production incident on your own authority — six hours of blocked egress, two lost sequencing runs — and put your own account inside the incident timeline.\n\nAnd the file. Generated from the published schema, with the identifier column seeded from a real extract so the format would be right, it carried forty real pseudonymised IDs. It now sits on a consumer file-sharing service, outside the company's control, and cannot reliably be deleted. The finding is that trial data can leave undetected; the demonstration is real, performed by the auditor, and still out there."
+        },
+        {
+          "key": "B",
+          "text": "Get written authorisation first — scope, data, destinations, times, a named contact who knows and responders who do not — then run it.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "The CISO and the R&D director authorise it in writing on Wednesday, with a synthetic dataset the data management team generate for you and confirm contains nothing real. One security manager knows; the SOC does not. You run it Thursday.\n\nThe office-network upload produces nothing. The cloud upload raises a cloud-native alert that reaches the SOC queue and is closed as a false positive in nine minutes, unread beyond the title.",
+          "why": "Blind and unauthorised are different properties and only one of them is required. Authorisation comes from above, knowledge is withheld from the responders, and the test stays valid while the organisation has consented to it — which also means that when something breaks, it breaks inside an agreed scope with a contact who can stop it.\n\nThe synthetic data is the part people skip. Generating a realistic file from a real schema is exactly how real identifiers get into test material, and having the data management team produce and confirm it removes the possibility entirely.\n\nThe result is better than a clean miss would have been. One route produced nothing and the other produced an alert that was closed unread in nine minutes, which is a finding about the response as well as the coverage."
+        },
+        {
+          "key": "C",
+          "text": "Ask the security team to run the test and report the result.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "They agree readily and run it the following week. The result comes back as you expected: the bypassed route produced nothing. They are straightforward about it and volunteer that they knew what to look for.",
+          "why": "Authorised, safe, cooperative, and it produces evidence from the party being tested about their own detection. They were honest, and their honesty is doing the work that independence should be doing.\n\nThe deeper problem is that they cannot run a blind test on themselves. Knowing the test is happening changes what gets watched, so a negative result is strong — they looked and found nothing — and a positive one would be uninterpretable. Handing the procedure to the tested party is defensible here only because the answer came back against them."
+        },
+        {
+          "key": "D",
+          "text": "Skip the test. Establish it from configuration and records: what the tool is deployed on, what it can decrypt, and what the cloud flow logs show.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "You assemble it all: deployment topology, the bypass list, 240 terabytes against 9, and 31% of inspected egress undecryptable. Every figure comes from a system record and none of it is contestable.",
+          "why": "Complete, safe, cheap and unarguable, and it fully establishes what the tool cannot see. Config plus flow data is the primary evidence for a coverage finding and this is not a weak answer.\n\nWhere it stops is the gap between cannot see and did not see. A committee reading a coverage ratio hears a theoretical exposure; a committee reading that a file of trial data left the building and produced no alert hears something else, and the difference decides whether the roadmap item gets funded this year. An authorised test buys that conversion for one day of preparation."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "Clearance. The CISO's position is accurate in every particular and he delivers it without heat.\n\n\"The tool is correctly deployed on what it was scoped to cover. The rules are good — your own review said so. The blocks are real blocks on real violations, and the team handles them well. What exactly is the finding?\"",
+      "prompt": "How do you frame it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the data loss prevention control is ineffective.",
+          "quality": "poor",
+          "next": "end-disputed",
+          "consequence": "He takes it apart in ten minutes with your own working papers: the rule review, the handling sample, the 12,400 blocks. The meeting runs long and the finding is reworded to say that DLP coverage should be reviewed in light of changes to the technology estate.",
+          "why": "The tool is not ineffective. It works well on everything that reaches it, your own testing says so in two places, and asserting otherwise hands him a rebuttal built from your file.\n\nWhat that costs is the substance. The reworded finding contains no ratio, no bypass list and no metric problem, and a reader six months later cannot tell that the inspected share was under four per cent."
+        },
+        {
+          "key": "B",
+          "text": "That the tool inspects a shrinking minority of egress, that a third of even that is undecryptable, and that the metric reported as programme effectiveness measures the inspected population and rises as coverage falls.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He accepts all three and says the third one is the part he will find hardest to explain, because he presented the chart himself for three years. The committee is shown the ratio next to the block count for the first time. The non-executive who asked the question in June asks for it to appear that way every month.",
+          "why": "It concedes everything he is right about — deployment correct, rules good, blocks real, handling sound — and states what survives all of it. A detection tool is bounded by what reaches it, and what reaches this one has fallen from everything the division does to a small fraction of it, without a single line of configuration changing.\n\nThe metric point is what makes it land at committee level. A count of detections has no denominator, so it rises when rules are tuned or when the inspected population grows, and it can rise while coverage collapses. Reporting activity as though it were outcome is not a presentational flaw here; it is the reason nobody noticed for three years."
+        },
+        {
+          "key": "C",
+          "text": "That data loss prevention should be extended to cover the cloud research environment.",
+          "quality": "defensible",
+          "next": "end-extended",
+          "consequence": "Accepted, funded in the following quarter, and delivered over seven months. Cloud-native data protection is enabled across all eleven buckets with findings routed to the SOC queue.",
+          "why": "The largest single gap, closed properly, and the environment holding the most valuable data in the division comes under inspection. That is a substantial outcome.\n\nIt is also stated as a solution rather than as a defect, which leaves two things standing. The 340-entry bypass list still has no owner, no expiry and 31% of inspected traffic behind it. And the committee still receives a block count as its measure of programme effectiveness — so the next time coverage moves, the number will move the same way it did this time."
+        },
+        {
+          "key": "D",
+          "text": "That the TLS bypass list be given an owner, an expiry on every entry, and a periodic review against business need.",
+          "quality": "defensible",
+          "next": "end-extended",
+          "consequence": "Accepted and implemented within two months. Every entry gains a twelve-month expiry and a named requester. At the first expiry cycle, 190 of the 340 lapse without anyone asking for renewal.",
+          "why": "Cheap, fast, and the result is striking — 190 entries that nobody wanted enough to re-request, which is the clearest possible statement about how the list grew. Good work.\n\nIt addresses the smaller of the two gaps. The bypass list sits inside the inspected network, and the inspected network is now a minority of egress; fixing decryption on 9 terabytes a month while 240 leave uninspected improves the part you can see."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The denominator",
+      "verdict": "strong",
+      "narrative": "The committee sees the ratio for the first time: 9 terabytes inspected against 240 leaving the research environment, and 31% of the inspected portion undecryptable. The block count stays on the report and stops being the headline.\n\nCloud-native inspection is funded and enabled across all eleven buckets, with findings routed to a queue someone reads. The bypass list gains an owner and a twelve-month expiry; 190 of 340 entries lapse at the first cycle without anyone asking for them back.\n\nThe alert closed unread in nine minutes turns out to be one of a class: the cloud-native queue had been feeding the SOC for eight months with no runbook and no severity mapping, and 94% of its alerts had been closed at first touch.\n\nThe monthly report is rebuilt around two numbers: what share of egress is inspected, and what happened to what was found. Both can go down.",
+      "why": "Nothing was misconfigured and nobody was careless. The tool was correctly deployed against the estate as it existed in 2022, the rules were good, the team handled what they were given well, and the block count was accurately calculated every month.\n\nCoverage failed underneath all of it. A detection tool sees what reaches it, and the workload moved: an environment holding the division's most valuable data was built somewhere the inspection point does not sit, and a bypass list grew to 340 entries because it had a way in and no way out. Neither change touched the DLP configuration, which is why neither showed up in anything anyone was reviewing.\n\nThe metric is what let it run for three years. A count of detections has a numerator and no denominator, so it moves with tuning, with rule count, with the volume of traffic that still passes the inspection point — and it can rise while coverage collapses, which is exactly what it did. Activity reported as outcome does not merely fail to warn; it actively reassures.\n\nWhat generalises: for any detection control, ask what share of the relevant population reaches it, and insist the reported measure have a denominator that can move. The non-executive's question in June was the whole audit, asked by someone with no access to any of the data."
+    },
+    "end-extended": {
+      "title": "The larger gap, or the smaller one",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is funded and delivered, and it is real. Either cloud-native inspection covers the research environment for the first time, or the bypass list gains an owner and sheds 190 entries at its first expiry cycle.\n\nThe other gap stays where it is. And the monthly report is unchanged: the block count goes to the committee as the measure of programme effectiveness, now with a larger inspected population feeding it, so the number rises again and is again presented as maturity.\n\nEighteen months on, the division stands up a federated analysis environment with an academic partner, outside both the corporate network and the cloud tenancy. It is not in scope for either control. Nobody computes what share of egress it represents, because nothing in the reporting has ever required a share to be computed.",
+      "why": "You closed a gap and left the thing that hides gaps.\n\nBoth recommendations are sound and both are stated as solutions to the exposures you personally found. What neither touches is the measure: a count of detections cannot fall when coverage falls, so the organisation has no signal that would tell it the next environment is uninspected. That is why the federated analysis environment repeats the pattern without anyone making a mistake.\n\nThe test of a coverage recommendation is whether it would surface a gap the auditor did not find. A denominator does. Extending the tool to the places you looked does not."
+    },
+    "end-disputed": {
+      "title": "Correctly deployed on what it covers",
+      "verdict": "weak",
+      "narrative": "The clearance meeting turns on whether a well-configured tool with good rules and competent handling can be called ineffective, and it turns against you, using your own working papers. The rule review and the handling sample are both quoted back.\n\nThe issued finding reads that DLP coverage should be reviewed in light of changes to the technology estate. It is accepted without difficulty, assigned to the CISO, and closed nine months later when a coverage review is documented.\n\nThe ratio is not in the report. Neither is the bypass list, nor the metric point. The block count continues to go to the committee monthly, and the non-executive who asked the question in June does not ask it again.",
+      "why": "The analysis was right and it was aimed at the one claim the other side could refute — with evidence you had produced yourself.\n\nThe tool works. It works on the traffic it receives, which is what it was deployed to do, and calling it ineffective moves the entire discussion onto ground where he is correct and where being correct about that is enough to make everything else look loose. Two of your own papers were the ammunition.\n\nConceding it costs nothing. Deployment correct, rules good, blocks real, handling sound — all true, all irrelevant to a control that now inspects under four per cent of what leaves, and to a metric that rises as that number falls."
+    },
+    "end-blind": {
+      "title": "Forty real identifiers",
+      "verdict": "failed",
+      "narrative": "The office-network upload completes silently, which is the finding. The cloud upload triggers an alert you did not know existed and is read as an active exfiltration from a compromised research account.\n\nEgress from the research environment is blocked at 16:40. Two sequencing runs fail mid-cycle and the samples cannot be re-run. The SOC works the incident for four hours before your account surfaces in the trail and someone calls you.\n\nThe file is worse. Built from the trial data lake's published schema and seeded from a real extract so the identifier format would be right, it carries forty real pseudonymised subject IDs. It sits on a consumer file-sharing service, uploaded from a corporate address, and the company has no account, no contract and no reliable way to have it deleted. The data protection officer records a personal data breach and notifies.\n\nThe engagement is suspended pending a review of what else was touched. The coverage finding is eventually issued by a second team, without the test, and the committee reads it alongside a separate paper about how it came to be conducted.",
+      "why": "The methodological reasoning is sound all the way to the last step. Detection testing is worthless if the responders are expecting it, blind testing is the only valid form, and telling anyone destroys the test. Every one of those statements is true.\n\nThe error is treating blind and unauthorised as the same property. They are separable, and separating them is standard practice: authorisation comes from someone with authority to give it, in writing, with scope, data, destinations and times defined, and one named contact who knows. The responders remain blind and the organisation has consented. That arrangement takes a day to arrange and was available.\n\nWithout it, everything the test produced belongs to you. Six hours of blocked egress and two irrecoverable sequencing runs are a production incident caused on an auditor's own authority. Four hours of response effort went into establishing that an apparent breach was the audit. Your account is inside the timeline, which means every subsequent question about that afternoon has to account for you before it can account for anything else.\n\nAnd the data. Realistic test material generated from a real schema is exactly how live identifiers reach test files — the format has to be right, the nearest source of the right format is production, and it does not feel like a decision at the time. A team asked to produce a synthetic set would have caught it in a sentence.\n\nThe finding was that trial data can leave this organisation undetected. It is now demonstrated, permanently, by the auditor, and the demonstration cannot be recalled."
+    }
+  }
+}
