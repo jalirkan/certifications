@@ -813,6 +813,8 @@ export interface Items {
   with_stats: number
   mean_p: number | null
   mean_discrimination: number | null
+  /** Items with enough attempts to have a discrimination value at all. */
+  with_discrimination: number
   spread: Record<string, number>
   flags: Record<string, number>
   suspect: SuspectItem[]

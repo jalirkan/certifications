@@ -276,6 +276,42 @@ class TestRollups(unittest.TestCase):
         self.assertNotIn("fine", suspects)
 
 
+class TestTheEvidenceGatesStay(unittest.TestCase):
+    """The gates are a decision, not a tuning knob.
+
+    `DETECTION.md` check 4 is failing and will stay failing: discrimination
+    needs about twenty attempts on one question and one learner's answers give
+    about seven. The tempting "fix" is to lower these thresholds until the
+    check passes again - which is exactly the original bug, where the flags
+    fired on 79% of all items and their apparent detection was the
+    false-positive rate in disguise. See CLAUDE.md section 4.
+    """
+
+    def test_discrimination_needs_a_real_sample(self):
+        self.assertGreaterEqual(itemanalysis.MIN_ATTEMPTS_DISC, 20)
+
+    def test_a_negative_correlation_must_be_meaningfully_negative(self):
+        self.assertLessEqual(itemanalysis.NEG_DISCRIMINATION_AT, -0.1)
+
+    def test_dead_options_are_gated_on_wrong_answers(self):
+        """Total attempts is the wrong denominator: a distractor can only be
+        picked by someone getting the question wrong."""
+        self.assertGreaterEqual(itemanalysis.MIN_WRONG_FOR_DEAD, 8)
+
+    def test_difficulty_flags_read_a_bound_not_a_point_estimate(self):
+        """Eight straight correct is a lucky run, not a too-easy question."""
+        rows = [row("q1", True, session="s%d" % i) for i in range(8)]
+        item = itemanalysis.analyze(rows, [q("q1")])[0]
+        self.assertNotIn("TOO_EASY", item.flags)
+
+    def test_the_easy_threshold_stays_reachable(self):
+        """The opposite failure: requiring the lower bound to clear 0.95 needs
+        about 73 consecutive correct answers, a flag that never fires."""
+        rows = [row("q1", True, session="s%d" % i) for i in range(30)]
+        item = itemanalysis.analyze(rows, [q("q1")])[0]
+        self.assertIn("TOO_EASY", item.flags)
+
+
 class TestAgainstRealBank(unittest.TestCase):
     def test_analysis_runs_over_the_shipped_bank_without_error(self):
         questions = loader.load_questions("cisa")

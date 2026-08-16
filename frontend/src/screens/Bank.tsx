@@ -64,6 +64,13 @@ export function Bank() {
               value={items.data.mean_p == null ? '—' : items.data.mean_p.toFixed(2)}
               foot="proportion correct"
             />
+            {/*
+              An empty stat should say why it is empty. Discrimination needs
+              about twenty attempts on one question, and one learner's answers
+              spread over the whole bank rarely put that many anywhere - so
+              this reads "—" almost always, and "higher is better" underneath a
+              permanent dash tells the reader nothing. DETECTION.md check 4.
+            */}
             <Stat
               label="Mean discrimination"
               value={
@@ -71,7 +78,11 @@ export function Bank() {
                   ? '—'
                   : `${items.data.mean_discrimination >= 0 ? '+' : ''}${items.data.mean_discrimination.toFixed(2)}`
               }
-              foot="higher is better"
+              foot={
+                items.data.with_discrimination
+                  ? `higher is better · ${items.data.with_discrimination} of ${items.data.with_stats} items measurable`
+                  : 'not measurable yet — needs ~20 answers on one question'
+              }
             />
           </div>
 

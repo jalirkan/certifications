@@ -981,6 +981,7 @@ class Api:
             "with_stats": health.with_stats,
             "mean_p": health.mean_p_value,
             "mean_discrimination": health.mean_discrimination,
+            "with_discrimination": health.with_discrimination,
             "spread": health.difficulty_spread,
             "flags": health.flag_counts,
             "suspect": [{"id": s.question_id, "topic": s.topic,

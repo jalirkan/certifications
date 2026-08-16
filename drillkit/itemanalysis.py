@@ -338,6 +338,12 @@ class BankHealth:
     served: int = 0
     never_served: int = 0
     with_stats: int = 0
+    # How many items have enough attempts for a discrimination value at all.
+    # Almost always a small number, and worth surfacing rather than leaving a
+    # blank stat: discrimination needs ~20 attempts on one question, and one
+    # learner's answers over a few hundred questions rarely reach it. See
+    # DETECTION.md check 4.
+    with_discrimination: int = 0
     mean_p_value: Optional[float] = None
     mean_discrimination: Optional[float] = None
     flag_counts: Dict[str, int] = field(default_factory=dict)
@@ -357,6 +363,7 @@ def bank_health(stats: Sequence[ItemStats]) -> BankHealth:
     discs = [s.discrimination for s in stats if s.discrimination is not None]
     if discs:
         health.mean_discrimination = sum(discs) / len(discs)
+    health.with_discrimination = len(discs)
 
     buckets = {"very hard <25%": 0, "hard 25-50%": 0, "moderate 50-75%": 0,
                "easy 75-95%": 0, "trivial >=95%": 0}

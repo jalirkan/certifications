@@ -721,21 +721,15 @@ below four questions. Three or four mocks of headroom in the heavy domains would
 
 ## Next up
 
-1. **Decide what to do about item discrimination.** Repairing the flags fixed the miskeyed check
-   (98% detection, 0% false positives) and revealed that the other one cannot be fixed at this data
-   density: one learner's answers spread over 386 questions leave about seven attempts per item, and
-   discrimination needs twenty. The options are to drop the claim, to pool answers across profiles
-   so items accumulate attempts faster, or to leave it stated as a known limit. Doing nothing is
-   fine; pretending it works is not.
-2. **Let confidence inform the scheduler.** A guessed-correct answer should not earn a 35-day
+1. **Let confidence inform the scheduler.** A guessed-correct answer should not earn a 35-day
    interval. Check 7 shows the confidence signal is trustworthy from about 300 answers, so this is
    no longer blocked on evidence — only on someone building it.
-3. **More branching cases.** Three proves the format; it is not yet a library.
-4. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
+2. **More branching cases.** Three proves the format; it is not yet a library.
+3. **More mock-exam headroom in D4 and D5.** Both now clear two non-overlapping mocks; three or four
    would be better.
-5. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
+4. **A retention model (FSRS)** — deliberately deferred. Personalised parameters need on the order
    of a thousand reviews to fit against, and defaults would just be Leitner with extra arithmetic.
-6. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
+5. **Stand up `cpa/`** once CISA is passed — verify the current AICPA blueprints first, since the
    exam structure changed under CPA Evolution, and CPA includes task-based simulations this
    multiple-choice engine does not model.
 

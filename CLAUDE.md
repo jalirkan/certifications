@@ -162,6 +162,19 @@ data, which is worse than leaving it alone.
   be in the bank, so an empty domain reports a shortfall instead of vanishing.
 - **The exam clock only runs while a sitting is open**, and can only move forward. A reloaded tab
   cannot rewind it.
+- **Item discrimination is not measurable here, and that is settled.** `DETECTION.md` check 4 asks
+  whether a question that measures nothing gets flagged. It does not: 10% detection. Spotting it
+  needs per-item discrimination, discrimination needs roughly 20 attempts *on the same question*,
+  and one learner's answers spread over 386 questions give about seven — one item in 334 was
+  measurable on a sample run. The three options were to drop the claim, pool answers across
+  profiles so items accumulate attempts faster, or document the limit. **Documented.** Pooling was
+  rejected because it cuts against rule 14, and mixing two learners to rescue one statistic would
+  corrupt the scheduler and every other diagnostic to fix the weakest one.
+  Do not "fix" this by loosening the thresholds. That was the original bug: the flags fired on 79%
+  of all items, which inflated their apparent detection because flagging four items in five catches
+  most planted ones by luck. The Bank screen says the stat is not measurable rather than showing a
+  bare dash.
+
 - **No gamification, ever.** No streaks, XP, badges, confetti, leaderboards. They measure engagement,
   not learning, and were explicitly rejected.
 
