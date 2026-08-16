@@ -82,6 +82,35 @@ export const narrate = {
   endingNarrative: (e: { narrative: string }) => narratable(e.narrative),
   /** The prompt is a question, not a comparison — safe, unlike the options. */
   prompt: (n: { prompt: string }) => narratable(n.prompt),
+
+  /** A drill question's stem. The four options are not narratable, ever. */
+  stem: (q: { stem: string }) => narratable(q.stem),
+
+  /**
+   * The explanations behind a revealed answer, as one script.
+   *
+   * This is the only entry that *composes* rather than forwarding a field, so
+   * it is worth being explicit about why it is still safe: the parameter is a
+   * `Reveal`, and a Reveal physically does not carry option text — the server
+   * sends `answer`, `why_correct`, `why_wrong` and nothing else (see
+   * `webapi.reveal`). There is no option text in scope here to leak.
+   *
+   * Options are referred to by letter, which is the whole point of doing this
+   * as one utterance: "why B is wrong" is meaningless read in isolation, and
+   * perfectly clear read in order with B still on the screen in front of you.
+   * The screen keeps the comparison; the audio carries the reasoning.
+   */
+  explanations: (r: {
+    answer: string
+    why_correct: string
+    why_wrong: Partial<Record<string, string>>
+  }) => narratable([
+    `Why ${r.answer} is right. ${r.why_correct}`,
+    ...Object.keys(r.why_wrong)
+      .sort()
+      .filter((k) => k !== r.answer && r.why_wrong[k])
+      .map((k) => `Why ${k} is wrong. ${r.why_wrong[k]}`),
+  ].join('\n')),
 } as const
 
 export interface VoiceOption {
@@ -222,6 +251,13 @@ export class Narrator {
   private settings: NarrationSettings
   private voices: SpeechSynthesisVoice[] = []
   private speaking = false
+  /**
+   * What is being read right now, so a button can tell whether *it* is the one
+   * playing. Without this, `speaking` is narrator-wide and every button on the
+   * screen flips to "Stop" together - the stem button offering to stop the
+   * explanations it is not reading.
+   */
+  private current_text = ''
   private listeners = new Set<() => void>()
 
   constructor(settings: NarrationSettings = loadSettings()) {
@@ -271,6 +307,11 @@ export class Narrator {
     return this.speaking
   }
 
+  /** The passage being read, or '' when silent. Compared by value. */
+  get speakingText(): string {
+    return this.speaking ? this.current_text : ''
+  }
+
   update(patch: Partial<NarrationSettings>): void {
     this.settings = { ...this.settings, ...patch }
     saveSettings(this.settings)
@@ -304,6 +345,7 @@ export class Narrator {
     if (!pieces.length) return
 
     this.speaking = true
+    this.current_text = text
     this.emit()
 
     pieces.forEach((piece, i) => {
@@ -312,8 +354,13 @@ export class Narrator {
       utterance.rate = this.settings.rate
       utterance.lang = voice.lang
       if (i === pieces.length - 1) {
-        utterance.onend = () => { this.speaking = false; this.emit() }
-        utterance.onerror = () => { this.speaking = false; this.emit() }
+        const finished = () => {
+          this.speaking = false
+          this.current_text = ''
+          this.emit()
+        }
+        utterance.onend = finished
+        utterance.onerror = finished
       }
       window.speechSynthesis.speak(utterance)
     })
@@ -325,6 +372,7 @@ export class Narrator {
     window.speechSynthesis.cancel()
     if (this.speaking) {
       this.speaking = false
+      this.current_text = ''
       this.emit()
     }
   }

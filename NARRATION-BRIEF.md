@@ -37,6 +37,18 @@
 > rather than watching the page. Fixed with primitive dependencies plus a per-passage guard, and
 > `tests/test_narration.py` now fails if any effect in the case screen depends on the bare handle.
 
+> **Extended to drills 2026-08-01, at the owner's request.** §3 anticipated this exactly — "the
+> same applies to the question bank if narration is extended there later: stem yes, options no" —
+> and that is what shipped. The stem gets a button; the four options never do. The explanations are
+> read as one passage that names options by letter, which is safe for a structural reason rather
+> than a careful one: the function takes a `Reveal`, and a Reveal physically does not carry option
+> text (see `webapi.reveal`), so there is nothing there to leak. Drills are button-only — auto-read
+> is a case behaviour and the toggle is hidden on the drill screen rather than shown doing nothing.
+>
+> Playing it surfaced a bug that reading the code would not have: `speaking` is narrator-wide, so
+> with two speak buttons on one screen *both* flipped to "Stop" together, the stem offering to stop
+> the explanations it was not reading. Invisible with one button per screen, obvious with two.
+
 For a coding agent with a terminal. Read `CLAUDE.md` first, then `cisa/cases/SCHEMA.md`.
 
 Independent of `DIFFICULTY-BRIEF.md`; either can ship first.

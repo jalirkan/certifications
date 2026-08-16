@@ -31,8 +31,16 @@ sys.path.insert(0, ROOT)
 FRONTEND = os.path.join(ROOT, "frontend", "src")
 SPEECH = os.path.join(FRONTEND, "lib", "speech.ts")
 
-# Fields that are prose, consumed in order, and suit audio.
-NARRATABLE_FIELDS = ("opening", "situation", "consequence", "narrative", "prompt")
+# Fields the allow-list may read. All prose or a letter; none is option text.
+# `answer` and `why_wrong` are here because the drill explanations name which
+# option they are about ("why B is wrong") without ever reading B out.
+NARRATABLE_FIELDS = (
+    "opening", "situation", "consequence", "narrative", "prompt",
+    "stem", "answer", "why_correct", "why_wrong",
+)
+
+# Property names that would mean option text had reached the allow-list.
+BANNED_FIELDS = ("options", "option", "opt")
 
 
 def source_files():
@@ -55,6 +63,50 @@ class TestTheFeatureExists(unittest.TestCase):
         cases = read(os.path.join(FRONTEND, "screens", "Cases.tsx"))
         self.assertIn("useNarration", cases)
         self.assertIn("SpeakButton", cases)
+
+    def test_the_drill_screen_uses_it(self):
+        drill = read(os.path.join(FRONTEND, "screens", "Drill.tsx"))
+        self.assertIn("useNarration", drill)
+        self.assertIn("narrate.stem(", drill)
+        self.assertIn("narrate.explanations(", drill)
+
+
+class TestDrillsAreButtonOnly(unittest.TestCase):
+    """Cases auto-read; drills deliberately do not.
+
+    A case narrates prose *between* decisions, when nothing else needs your
+    eyes. A drill question is a stem plus four options you have to compare, so
+    reading the stem on arrival would talk over the part of the screen you are
+    working on. Button-only here is a design decision, not an oversight.
+    """
+
+    def setUp(self):
+        self.drill = read(os.path.join(FRONTEND, "screens", "Drill.tsx"))
+
+    def test_nothing_in_the_drill_screen_speaks_by_itself(self):
+        for match in re.finditer(r"narrate\.\w+\(", re.sub(r"\s+", " ", self.drill)):
+            flat = re.sub(r"\s+", " ", self.drill)
+            before = flat[max(0, match.start() - 160):match.start()]
+            self.assertIn("SpeakButton", before,
+                          "the drill screen narrates outside a button, near: %s"
+                          % flat[match.start():match.start() + 60])
+
+    def test_the_drill_screen_has_no_auto_read_effect(self):
+        self.assertNotIn("autoSay", self.drill,
+                         "auto-read reached the drill screen")
+        self.assertNotIn("acted.current", self.drill)
+
+    def test_the_auto_read_toggle_is_hidden_on_drills(self):
+        """Offering a switch that changes nothing about drills would mislead."""
+        ui = read(os.path.join(FRONTEND, "ui", "Narration.tsx"))
+        match = re.search(r"\{isDrill \? null : \((.*?)\)\}", ui, re.S)
+        self.assertIsNotNone(match, "the auto-read toggle is not hidden on drills")
+        self.assertIn("autoRead", match.group(1))
+
+    def test_the_drill_setup_offers_the_controls(self):
+        self.assertIn('NarrationControls', self.drill)
+        self.assertRegex(self.drill, r'kind="drill"',
+                         "the drill screen uses the case copy")
 
 
 class TestOptionsAreNeverSpoken(unittest.TestCase):
@@ -95,23 +147,53 @@ class TestOptionsAreNeverSpoken(unittest.TestCase):
         self.assertNotRegex(body, r"export\s+function\s+narratable\b",
                             "narratable() is exported, so anything can be spoken")
 
-    def test_the_allow_list_covers_prose_and_nothing_else(self):
+    def test_the_allow_list_reads_only_approved_fields(self):
+        """Checked by every property the block touches, not by entry shape.
+
+        Most entries forward one field. `explanations` composes a script from
+        several, so a per-entry regex would miss what it reads - this walks
+        every `x.field` access in the whole block instead.
+        """
         body = read(SPEECH)
         match = re.search(r"export const narrate = \{(.*?)\n\} as const",
                           body, re.S)
         self.assertIsNotNone(match, "the narrate allow-list is missing")
         block = match.group(1)
+        # Strip comments: prose about options is not a reference to them.
+        code = re.sub(r"/\*.*?\*/", "", block, flags=re.S)
+        code = re.sub(r"//[^\n]*", "", code)
 
-        # Every entry reads one named prose field.
-        fields = set(re.findall(r"=>\s*narratable\(\w+\.(\w+)\)", block))
-        self.assertTrue(fields, "no allow-list entries found")
-        for field in fields:
-            self.assertIn(field, NARRATABLE_FIELDS,
-                          "'%s' is not prose and must not be narratable" % field)
+        reads = set(re.findall(r"\b[a-z]\w*\.(\w+)\b", code))
+        # Method calls on strings/arrays are not field reads.
+        reads -= {"map", "join", "filter", "sort", "keys", "split", "trim",
+                  "length", "slice", "replace"}
+        self.assertTrue(reads, "no allow-list field reads found")
+        for field in reads:
+            self.assertIn(
+                field, NARRATABLE_FIELDS,
+                "the allow-list reads '%s', which is not on the approved list; "
+                "if it is prose, add it deliberately" % field)
 
-        for banned in ("options", "option", "text", "key"):
-            self.assertNotIn(banned, fields,
+        for banned in BANNED_FIELDS:
+            self.assertNotIn(banned, reads,
                              "the allow-list can reach option text via '%s'" % banned)
+
+    def test_the_explanation_script_cannot_see_option_text(self):
+        """Its parameter type is the reason, so the type is what is checked.
+
+        A `Reveal` carries answer, why_correct, why_wrong and nothing else -
+        the server never sends option text with it (webapi.reveal). There is
+        no option text in scope for that function to leak, which is a stronger
+        guarantee than reviewing what it happens to concatenate today.
+        """
+        types = read(os.path.join(FRONTEND, "api", "types.ts"))
+        match = re.search(r"export interface Reveal \{(.*?)\n\}", types, re.S)
+        self.assertIsNotNone(match, "the Reveal type is missing")
+        for banned in ("options", "text", "stem"):
+            self.assertNotRegex(
+                match.group(1), r"^\s*%s\b" % banned,
+                "Reveal now carries '%s', so the explanation script could "
+                "reach option text" % banned)
 
     def test_no_call_site_narrates_an_option(self):
         pattern = re.compile(
@@ -122,6 +204,34 @@ class TestOptionsAreNeverSpoken(unittest.TestCase):
             self.assertIsNone(
                 hit, "%s narrates an option: %r"
                 % (os.path.relpath(path, ROOT), hit.group(0) if hit else ""))
+
+
+class TestOnlyThePlayingButtonOffersToStop(unittest.TestCase):
+    """Found by playing a drill, not by reading the code.
+
+    `speaking` is narrator-wide, so a button keyed on it flips to "Stop" the
+    moment *anything* starts - the stem button offering to stop the
+    explanations it is not reading. With two speak buttons on one screen that
+    is wrong on its face; with one it was invisible.
+    """
+
+    def test_the_button_compares_its_own_text(self):
+        ui = read(os.path.join(FRONTEND, "ui", "Narration.tsx"))
+        self.assertRegex(ui, r"const mine = n\.speakingText === text",
+                         "SpeakButton does not check whether it is the one "
+                         "playing")
+        match = re.search(r"export function SpeakButton\(.*?\n\}", ui, re.S)
+        self.assertIsNotNone(match)
+        body = match.group(0)
+        self.assertNotIn("n.speaking ?", body,
+                         "SpeakButton still branches on the narrator-wide flag")
+
+    def test_the_narrator_reports_what_it_is_reading(self):
+        body = read(SPEECH)
+        self.assertRegex(body, r"get speakingText\(\): string")
+        # Cleared on both finish paths, or a stale button stays on "Stop".
+        self.assertGreaterEqual(len(re.findall(r"current_text = ''", body)), 2,
+                                "speakingText is not cleared on every stop path")
 
 
 class TestLocalVoicesOnly(unittest.TestCase):

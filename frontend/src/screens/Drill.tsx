@@ -20,6 +20,8 @@ import { LETTERS, pct } from '../lib/format'
 import { useKeys } from '../lib/hooks'
 import { Callout, Card, Field, Loading, Seg } from '../ui/primitives'
 import { OptionList, QuestionMeta, RuleNote } from '../ui/QuestionView'
+import { NarrationControls, SpeakButton, useNarration } from '../ui/Narration'
+import { narrate } from '../lib/speech'
 
 const MODES: { value: DrillMode; label: string }[] = [
   { value: 'smart', label: 'Smart' },
@@ -78,6 +80,9 @@ export function DrillSetup() {
   const { boot } = useApp()
   const nav = useNavigate()
   const seed = useQueryDefaults()
+  // The same settings the Cases screen writes; turning it on in either place
+  // turns it on in both, because it is one stored preference, not two.
+  const narration = useNarration('drill-setup')
   const [mode, setMode] = useState<DrillMode>(seed.mode ?? 'smart')
   const [domain, setDomain] = useState(seed.domain)
   const [topic, setTopic] = useState(seed.topic)
@@ -227,6 +232,8 @@ export function DrillSetup() {
             Answer with <kbd>A</kbd>–<kbd>D</kbd> or <kbd>1</kbd>–<kbd>4</kbd>, then <kbd>Enter</kbd>
           </span>
         </div>
+
+        <NarrationControls n={narration} kind="drill" />
       </Card>
 
       <Card>
@@ -304,6 +311,13 @@ export function DrillRunner() {
   }, [])
 
   const question = set?.questions[progress.index] ?? null
+  /*
+   * Button-only here, deliberately, unlike cases. A case narrates prose
+   * between decisions; a drill question is a stem plus four options you have
+   * to compare, and auto-reading the stem on arrival would talk over the part
+   * of the screen you actually need to work on.
+   */
+  const narration = useNarration(question?.id ?? '')
 
   /**
    * Two keystrokes, one action. Picking a letter only *selects* it; the answer
@@ -486,6 +500,10 @@ export function DrillRunner() {
         <div className="qcard">
           <QuestionMeta question={question} />
           <p className="stem">{question.stem}</p>
+          {/* The stem only. The four options below are never narrated - they
+              are a comparison, and hearing them one at a time destroys it. */}
+          <SpeakButton n={narration} text={narrate.stem(question)}
+                       label="Read the question aloud" />
 
           <OptionList
             question={question}
@@ -516,6 +534,11 @@ export function DrillRunner() {
                 </div>
               ) : null}
               {reveal.principle ? <RuleNote principle={reveal.principle} /> : null}
+              {/* One utterance for the whole reveal. Options are named by
+                  letter, never read out: the screen keeps the comparison, the
+                  audio carries the reasoning. */}
+              <SpeakButton n={narration} text={narrate.explanations(reveal)}
+                           label="Read the explanations aloud" />
               <div className="runner-foot">
                 <button className="btn primary" ref={nextRef} onClick={next}>
                   {progress.index + 1 >= set.questions.length ? 'Finish' : 'Next question'}

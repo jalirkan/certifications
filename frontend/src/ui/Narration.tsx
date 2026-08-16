@@ -25,6 +25,8 @@ export interface NarrationHandle {
   enabled: boolean
   autoRead: boolean
   speaking: boolean
+  /** The passage currently being read, so a button knows if it is the one. */
+  speakingText: string
   reason: string | null
   say: (text: Narratable) => void
   stop: () => void
@@ -63,6 +65,7 @@ export function useNarration(key: unknown): NarrationHandle {
     enabled: narrator.current.enabled,
     autoRead: narrator.current.autoRead,
     speaking: narrator.isSpeaking,
+    speakingText: narrator.speakingText,
     reason: narrator.unavailableReason,
     say,
     stop,
@@ -76,11 +79,15 @@ export function SpeakButton({ n, text, label = 'Read aloud' }: {
   label?: string
 }) {
   if (!n.available || !n.enabled) return null
+  // Only the button whose own passage is playing offers to stop it. `speaking`
+  // alone is narrator-wide, which turned every button on the screen into
+  // "Stop" at once - the stem offering to stop the explanations.
+  const mine = n.speakingText === text
   return (
     <button type="button" className="speak-btn"
-            onClick={() => (n.speaking ? n.stop() : n.say(text))}
-            aria-label={n.speaking ? 'Stop reading' : label}>
-      {n.speaking ? (
+            onClick={() => (mine ? n.stop() : n.say(text))}
+            aria-label={mine ? 'Stop reading' : label}>
+      {mine ? (
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="1.5" /></svg>
       ) : (
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor"
@@ -90,15 +97,27 @@ export function SpeakButton({ n, text, label = 'Read aloud' }: {
           <path d="M18.5 5.5a9 9 0 010 13" />
         </svg>
       )}
-      <span>{n.speaking ? 'Stop' : label}</span>
+      <span>{mine ? 'Stop' : label}</span>
     </button>
   )
 }
 
-/** The settings row: on/off, voice, rate. Shown on the case list screen. */
-export function NarrationControls({ n }: { n: NarrationHandle }) {
+/**
+ * The settings row: on/off, voice, rate.
+ *
+ * `kind` changes the copy and hides the auto-read toggle on drills, because
+ * auto-read is a case behaviour and does not apply here. Showing a switch on
+ * the drill screen that changes nothing about drills would be a small lie, and
+ * the setting itself is shared - turning narration on in either place turns it
+ * on in both, since it is one stored preference.
+ */
+export function NarrationControls({ n, kind = 'case' }: {
+  n: NarrationHandle
+  kind?: 'case' | 'drill'
+}) {
   const settings = n.narrator.current
   const voices = n.narrator.voiceOptions
+  const isDrill = kind === 'drill'
 
   if (n.reason) {
     return (
@@ -113,7 +132,7 @@ export function NarrationControls({ n }: { n: NarrationHandle }) {
       <label className="narration-toggle">
         <input type="checkbox" checked={settings.enabled}
                onChange={(ev) => n.narrator.update({ enabled: ev.target.checked })} />
-        <span>Read cases aloud</span>
+        <span>{isDrill ? 'Read questions aloud' : 'Read cases aloud'}</span>
       </label>
 
       {settings.enabled ? (
@@ -139,20 +158,30 @@ export function NarrationControls({ n }: { n: NarrationHandle }) {
             </select>
           </label>
 
-          <label className="narration-toggle">
-            <input type="checkbox" checked={settings.autoRead}
-                   onChange={(ev) => n.narrator.update({ autoRead: ev.target.checked })} />
-            <span>Read each passage automatically</span>
-          </label>
+          {/* Cases only: a drill has no passage that arrives after you act. */}
+          {isDrill ? null : (
+            <label className="narration-toggle">
+              <input type="checkbox" checked={settings.autoRead}
+                     onChange={(ev) => n.narrator.update({ autoRead: ev.target.checked })} />
+              <span>Read each passage automatically</span>
+            </label>
+          )}
         </>
       ) : null}
 
       <p className="narration-note">
         {voices.length} offline {voices.length === 1 ? 'voice' : 'voices'} on this
         machine. Cloud voices are never used, so nothing you hear leaves it.
-        The narrative is read; the options are not — they are meant to be
-        compared side by side, which listening makes harder.
-        {settings.enabled && settings.autoRead ? (
+        {isDrill
+          ? ' The stem and the explanations are read; the four options are not '
+            + '— they are meant to be compared side by side, which listening '
+            + 'makes harder. Explanations name the options by letter.'
+          : ' The narrative is read; the options are not — they are meant to be '
+            + 'compared side by side, which listening makes harder.'}
+        {isDrill
+          ? ' Nothing reads itself here; every passage is a button.'
+          : null}
+        {!isDrill && settings.enabled && settings.autoRead ? (
           <>
             {' '}Automatic reading starts only once you are moving through a case:
             choosing an option or pressing Continue. Opening or resuming a case

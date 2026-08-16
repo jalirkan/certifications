@@ -373,7 +373,16 @@ scheduler would corrupt both.
 
 ### Narration — browser only, and why
 
-Cases can be **read aloud** in the web app. Turn it on at the top of the Cases screen, pick a voice
+Cases **and drills** can be **read aloud** in the web app.
+
+On a drill, turn on **"Read questions aloud"** in the Drill setup, and a button appears under the
+stem and, once you answer, under the explanations. The explanations are read as one passage that
+names the options by letter — "why C is right", "why A is wrong" — so the reasoning makes sense in
+sequence while the options stay on the screen in front of you. Drills are button-only: there is no
+automatic reading, because a question is a stem plus four options you have to compare, and reading
+the stem the moment it appears would talk over the part of the screen you are working on.
+
+The rest of this section is about cases. Turn it on at the top of the Cases screen, pick a voice
 and a speed, and a small button appears beside each piece of prose: the brief, each situation, each
 consequence, and the outcome in the debrief.
 
