@@ -41,6 +41,38 @@ INTERVALS_DAYS: Sequence[float] = (0.0, 1.0, 3.0, 7.0, 16.0, 35.0)
 # revisit, and the confidence data to justify it is already collected.
 ADVANCING_CONFIDENCE = ("confident", "unsure", "")
 
+
+def confidence_is_informative(history: Dict[str, List[Dict]]) -> bool:
+    """Has *this* learner's confidence been shown to carry signal?
+
+    The rule above takes a self-rating at face value, which is only sound if
+    the rating means something. It is not always so. `calibration.py` names the
+    failure directly: a learner whose confidence carries no information about
+    whether they are right, whose curve is flat rather than rising. Holding a
+    question back because someone called it a guess, when their guesses are as
+    likely to be right as their certainties, is holding on a coin flip - it
+    churns the schedule and buys nothing.
+
+    This was found rather than anticipated. Applying the rule unconditionally
+    dropped `DETECTION.md` check 7 from trustworthy-at-1000 to never (88% ->
+    23% detection), because that check's learner is built with flat confidence
+    on purpose, and a third of their correct answers are rated "guess" at
+    random.
+
+    So the same evidence bar the rest of the project uses applies here too, per
+    learner: confidence steers the schedule only once the gap between confident
+    and non-confident accuracy is real - a positive gap, enough answers behind
+    it, and an interval that excludes zero. A learner with no confidence data,
+    or with confidence that is not yet telling them anything, schedules exactly
+    as they did before.
+    """
+    from . import calibration    # local: calibration imports nothing from here
+    rows = [row for attempts in history.values() for row in attempts]
+    gap = calibration.overconfidence_gap(rows)
+    return bool(gap.get("enough")
+                and gap.get("spans_zero") is False
+                and (gap.get("gap") or 0.0) > 0.0)
+
 TIER_MISSED = 0    # got it wrong last time -> highest urgency
 TIER_UNSEEN = 1    # never served
 TIER_SPACED = 2    # answered correctly last time, waiting out its interval
@@ -84,7 +116,11 @@ class Progress:
         return self.days_since(now) / interval
 
 
-def build_progress(history: Dict[str, List[Dict]]) -> Dict[str, Progress]:
+def build_progress(history: Dict[str, List[Dict]],
+                   use_confidence: Optional[bool] = None) -> Dict[str, Progress]:
+    """`use_confidence=None` decides from the learner's own calibration."""
+    if use_confidence is None:
+        use_confidence = confidence_is_informative(history)
     out: Dict[str, Progress] = {}
     for qid, attempts in history.items():
         p = Progress(question_id=qid)
@@ -94,7 +130,8 @@ def build_progress(history: Dict[str, List[Dict]]) -> Dict[str, Progress]:
             p.correct += 1 if ok else 0
             if not ok:
                 p.streak = 0
-            elif str(row.get("confidence", "")) in ADVANCING_CONFIDENCE:
+            elif (not use_confidence
+                  or str(row.get("confidence", "")) in ADVANCING_CONFIDENCE):
                 p.streak += 1
             else:
                 # Correct, but guessed: hold the interval rather than extend

@@ -183,9 +183,18 @@ data, which is worse than leaving it alone.
   one. **An unrated answer is never read as a guess**: everything logged before capture existed
   carries `confidence == ""`, `store.py` refuses to backfill it, and treating a blank as a guess
   would silently rewind the schedule of a learner's entire earlier history.
-  This was deferred on purpose until `DETECTION.md` check 7 measured the signal at 96% detection
-  with no false positives. Changing the scheduler changes every simulated history, so re-run
-  `python drill.py simulate --write` after touching it.
+  **And the rule only switches on once that learner's confidence has earned it.** Taking a
+  self-rating at face value is only sound if the rating means something, and `calibration.py`
+  names the case where it does not: a flat curve, where confidence carries no information about
+  correctness. `scheduler.confidence_is_informative()` gates on the same evidence bar used
+  everywhere else — a positive confident-vs-rest gap, enough answers behind it, and an interval
+  excluding zero. Below that bar, scheduling is exactly what it was before.
+  That gate was **found, not designed**: applying the rule unconditionally dropped check 7 from
+  trustworthy-at-1000 to never (88% detection to 23%), because check 7's learner has deliberately
+  flat confidence and a third of their correct answers are rated "guess" at random. Holding a
+  question on a coin flip churns the schedule and buys nothing.
+  Deferred until check 7 measured the signal in the first place. Changing the scheduler changes
+  every simulated history, so re-run `python drill.py simulate --write` after touching it.
 
 - **No gamification, ever.** No streaks, XP, badges, confetti, leaderboards. They measure engagement,
   not learning, and were explicitly rejected.

@@ -140,6 +140,13 @@ right and a guess is not a miss. Rating a question `unsure` still advances it.
 Answers logged before confidence capture existed carry no rating, and are treated exactly as they
 were before: a blank is never read as a guess. Nothing in your history gets rewound by this.
 
+**This only switches on once your confidence has been shown to mean something.** Taking a
+self-rating at face value assumes the rating carries information, and for some people it does not —
+a flat calibration curve means your guesses are about as likely to be right as your certainties.
+Holding a question back on that basis is holding on a coin flip. So the tool checks your own
+calibration first: until the gap between your confident and non-confident accuracy is real, spacing
+works exactly as it did before. The Calibration screen shows you that gap.
+
 Use `--mode due` once you have been through the bank a few times: it holds back anything still
 inside its interval, so you only see what the schedule says you are about to forget.
 

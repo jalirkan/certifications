@@ -531,7 +531,7 @@ class TestConfidenceReachesTheScheduler(unittest.TestCase):
         """
         history = {"q": [{"correct": True, "confidence": "guess", "ts": ""}
                          for _ in range(5)]}
-        p = scheduler.build_progress(history)["q"]
+        p = scheduler.build_progress(history, use_confidence=True)["q"]
         self.assertEqual(p.streak, 0)
         self.assertEqual(p.interval_days, 0.0)
         self.assertEqual(p.guessed_correct, 5)
@@ -541,7 +541,7 @@ class TestConfidenceReachesTheScheduler(unittest.TestCase):
         history = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
                          for _ in range(3)]
                         + [{"correct": True, "confidence": "guess", "ts": ""}]}
-        p = scheduler.build_progress(history)["q"]
+        p = scheduler.build_progress(history, use_confidence=True)["q"]
         self.assertEqual(p.streak, 3)
         self.assertEqual(p.interval_days, 7.0)
 
@@ -549,7 +549,7 @@ class TestConfidenceReachesTheScheduler(unittest.TestCase):
         history = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
                          for _ in range(3)]
                         + [{"correct": False, "confidence": "confident", "ts": ""}]}
-        self.assertEqual(scheduler.build_progress(history)["q"].streak, 0)
+        self.assertEqual(scheduler.build_progress(history, use_confidence=True)["q"].streak, 0)
 
     def test_unlabelled_history_is_never_treated_as_a_guess(self):
         """Rows written before capture existed carry `confidence == ""`.
@@ -561,14 +561,49 @@ class TestConfidenceReachesTheScheduler(unittest.TestCase):
         blank = {"q": [{"correct": True, "ts": ""} for _ in range(5)]}
         rated = {"q": [{"correct": True, "confidence": "confident", "ts": ""}
                        for _ in range(5)]}
-        self.assertEqual(scheduler.build_progress(blank)["q"].interval_days,
-                         scheduler.build_progress(rated)["q"].interval_days)
+        self.assertEqual(scheduler.build_progress(blank, use_confidence=True)["q"].interval_days,
+                         scheduler.build_progress(rated, use_confidence=True)["q"].interval_days)
 
     def test_unsure_still_advances(self):
         """Documented in scheduler.ADVANCING_CONFIDENCE, and revisitable."""
         history = {"q": [{"correct": True, "confidence": "unsure", "ts": ""}
                          for _ in range(3)]}
-        self.assertEqual(scheduler.build_progress(history)["q"].streak, 3)
+        self.assertEqual(scheduler.build_progress(history, use_confidence=True)["q"].streak, 3)
+
+    def test_the_rule_is_off_until_the_learner_earns_it(self):
+        """Found by measuring, not by reasoning.
+
+        Applying this unconditionally dropped DETECTION.md check 7 from
+        trustworthy-at-1000 to never - 88% detection down to 23% - because that
+        check's learner has deliberately flat confidence, so a third of their
+        correct answers are rated "guess" at random. Holding a question because
+        someone called it a guess, when their guesses are as likely to be right
+        as their certainties, is holding on a coin flip.
+        """
+        flat = {"q%d" % i: [{"correct": i % 2 == 0,
+                             "confidence": ("guess", "unsure", "confident")[i % 3],
+                             "ts": ""}]
+                for i in range(60)}
+        self.assertFalse(scheduler.confidence_is_informative(flat))
+
+    def test_the_rule_switches_on_when_confidence_tracks_correctness(self):
+        good = {"q%d" % i: [{"correct": i < 40,
+                             "confidence": "confident" if i < 40 else "guess",
+                             "ts": ""}]
+                for i in range(60)}
+        self.assertTrue(scheduler.confidence_is_informative(good))
+
+    def test_a_learner_with_no_confidence_data_is_unaffected(self):
+        self.assertFalse(scheduler.confidence_is_informative(
+            {"q": [{"correct": True, "ts": ""}]}))
+
+    def test_auto_detection_is_the_default(self):
+        """build_progress decides for itself unless told."""
+        flat = {"q": [{"correct": True, "confidence": "guess", "ts": ""}
+                      for _ in range(5)]}
+        # Not enough evidence that this learner's confidence means anything,
+        # so the guesses advance exactly as they did before the feature.
+        self.assertEqual(scheduler.build_progress(flat)["q"].streak, 5)
 
     def test_selection_is_identical_with_and_without_confidence(self):
         questions = [q("q%d" % i) for i in range(12)]
