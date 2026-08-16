@@ -38,7 +38,7 @@ lose data.
 | Decision rules | 23 documented, 308 of 386 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
 | Study guides | **all five domains**, same depth |
-| Branching cases | 11 written (~35 needed), blueprint-weighted, every domain covered |
+| Branching cases | 19 written (~35 needed), blueprint-weighted; 52 of 60 topics, all 23 rules |
 | Tests | **483, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
@@ -74,7 +74,7 @@ certifications/
     principles.json         23 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
     questions/              386 questions, one file per domain-section
-    cases/                  branching audit cases + SCHEMA.md (3 written, ~35 needed)
+    cases/                  branching audit cases + SCHEMA.md (19 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
   cpa/                reserved sibling, activated after CISA
