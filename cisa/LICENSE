@@ -1,0 +1,55 @@
+Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+
+Copyright (c) 2026 Justin
+
+WHAT THIS COVERS
+----------------
+
+The study content in this directory, which is original work written for this
+project:
+
+  questions/            386 original exam-style questions, with the rationale
+                        for the key and for every distractor
+  cases/                branching audit scenarios
+  study-guides/         one guide per domain
+  principles.json       the decision-rule taxonomy
+  confusable-pairs.json documented confusions and their discriminators
+
+The software in the rest of the repository is MIT licensed - see ../LICENSE.
+Where the two meet, the rule is simple: the engine is MIT, the material it
+reads is CC BY-SA.
+
+WHAT THIS DOES NOT COVER
+------------------------
+
+`outline.json` is a structural transcription of ISACA's published CISA exam
+content outline - domain names, section names, topic names and the published
+domain weights. That is ISACA's material and their trademark, and no licence
+is claimed over it here. It is included because the tool needs the topic
+vocabulary to tag questions against, and it is facts and headings rather than
+prose. Verify it against isaca.org rather than trusting this copy.
+
+Nothing in this directory is reproduced or adapted from ISACA's official
+materials, the QAE database, or any other exam bank. Every question is
+original.
+
+THE LICENCE
+-----------
+
+You are free to share and adapt this material, including commercially,
+provided you give appropriate credit and license your adaptations under the
+same terms.
+
+  Summary:    https://creativecommons.org/licenses/by-sa/4.0/
+  Full text:  https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+The canonical text is linked rather than copied. Creative Commons recommends
+including the licence or a link to it, and a link cannot be transcribed
+slightly wrong - which for a legal document is a worse failure than the
+inconvenience of following a URL.
+
+ATTRIBUTION
+-----------
+
+  "CISA question bank" by Justin (https://github.com/jalirkan/certifications),
+  licensed under CC BY-SA 4.0.

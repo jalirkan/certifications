@@ -748,7 +748,18 @@ studied that week. It would catch a game that does nothing. It would not prove o
 
 ## Licence and attribution
 
-MIT — see [`LICENSE`](LICENSE). Use it, fork it, build on it.
+Split, because the two halves are different kinds of work:
+
+| | Licence | |
+|---|---|---|
+| **Software** — `drillkit/`, `drill.py`, `serve.py`, `frontend/`, `web/`, `tests/` | MIT | [`LICENSE`](LICENSE) |
+| **Study content** — `cisa/questions/`, `cisa/cases/`, `cisa/study-guides/`, `cisa/principles.json`, `cisa/confusable-pairs.json` | CC BY-SA 4.0 | [`cisa/LICENSE`](cisa/LICENSE) |
+
+The engine is MIT: take it, fork it, point it at your own bank. The material it
+reads is CC BY-SA: share and adapt it, including commercially, with credit, and
+license your adaptations the same way. The share-alike is the point — 386
+questions with a written rationale for every distractor took real work, and the
+condition for building on them is that what you build stays open too.
 
 Two things the licence does not cover, and should not be mistaken for:
 
@@ -760,11 +771,10 @@ Verify current exam facts (domain weights, topic lists, length, passing score) a
 [isaca.org](https://www.isaca.org) rather than trusting `cisa/outline.json`, which was last checked
 2026-07-26 and will drift.
 
-**MIT covers the questions too, which is a deliberate choice worth understanding.** MIT is a
-software licence, and the bank is the part of this repository that took the most work. Applying MIT
-to it means anyone may redistribute or sell those questions, with attribution. If that is not what
-you want, the usual split is MIT for the code and something like CC BY-SA for `cisa/` — changing it
-later only binds people who take a copy after the change, so it is cheaper to decide now.
+**`cisa/outline.json` is excluded from both.** It is a structural transcription of ISACA's
+published exam content outline — domain, section and topic names, and the published weights. That
+is ISACA's material, and no licence is claimed over it here. It ships because the engine needs the
+topic vocabulary to tag questions against.
 
 Third-party components keep their own licences: [Kokoro-82M](https://huggingface.co/onnx-community/Kokoro-82M-v1.0-ONNX)
 (Apache-2.0) for the neural voices, and the front end's npm dependencies. None of them ship in this
