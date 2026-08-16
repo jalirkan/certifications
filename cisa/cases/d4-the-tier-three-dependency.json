@@ -1,0 +1,283 @@
+{
+  "id": "d4-the-tier-three-dependency",
+  "title": "The Tier Three Dependency",
+  "domain": "4",
+  "section": "B",
+  "topics": [
+    "Business Continuity Plan",
+    "System and Operational Resilience",
+    "Business Impact Analysis",
+    "Disaster Recovery Plans",
+    "IT Components"
+  ],
+  "principles": [
+    "remove-single-points",
+    "business-impact",
+    "untested-unknown",
+    "completeness",
+    "explicit-and-owned"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing operational resilience at a regional building society. Two hundred and forty thousand members, sixty-one branches, mortgages and savings.\n\nThe recovery tiering is the centrepiece of the continuity framework and it is a serious piece of work. One hundred and forty systems, each assigned a tier with a recovery time objective: Tier 1 at two hours, Tier 2 at eight, Tier 3 at forty-eight, Tier 4 on best endeavours. Runbooks are written to the tiers, the alternate site is sized to the tiers, and the annual exercise is scoped from the tiers.\n\nCore banking, payments, the branch teller system, online banking and the savings platform are all Tier 1.\n\nThe executive risk committee approved the table last year. The regulator has seen it twice.",
+  "taints": {
+    "published-the-map": "end-circulated"
+  },
+  "nodes": {
+    "start": {
+      "situation": "One hundred and forty rows, four tiers, an approved framework and six years of successful annual exercises.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test whether the Tier 1 systems can actually meet the recovery times they have been given.",
+          "quality": "defensible",
+          "next": "the-question",
+          "consequence": "You work through the five. The restore procedures are documented, the alternate site is provisioned, and the last exercise recovered each of them inside two hours. On their own terms every one holds up.",
+          "why": "The obvious test and a fair one, and it examines each system by itself, which is the same frame the tiering used. A recovery objective is a claim about a system returning to service, and 'on its own terms' is doing quiet work in that sentence — every one of these five will be recovered into an environment, and nothing in a per-system test asks what has to be in that environment first."
+        },
+        {
+          "key": "B",
+          "text": "Establish how a system gets its tier, and what the assessment actually asks.",
+          "quality": "best",
+          "next": "the-question",
+          "consequence": "You get the questionnaire. It goes to the business owner of each service and asks one substantive question: what is the longest period this service could be unavailable before the harm becomes unacceptable? The answer maps directly to a tier.",
+          "why": "The tiering drives the runbooks, the site sizing and the exercise scope, so everything downstream inherits whatever the assessment can and cannot see. One page, ten minutes, and it tells you the shape of every answer in the table.\n\nA questionnaire is a set of questions and therefore a set of things that cannot be found. That is usually more informative than the answers, and it is almost never what an audit of continuity looks at."
+        },
+        {
+          "key": "C",
+          "text": "Check that the tiering table covers everything in the estate.",
+          "quality": "defensible",
+          "next": "the-question",
+          "consequence": "You reconcile the 140 rows against the configuration database and the licence inventory. Seven items appear in neither the table nor any runbook: a secrets vault, two certificate services, an internal DNS pair, a message broker and a scheduling service.",
+          "why": "A good completeness instinct and it lands on something real — every one of the seven is a shared component rather than a business service, which is a pattern, and you have found it by counting rather than by understanding.\n\nWhat that costs is the reason. Seven omissions look like an incomplete inventory, and the response to an incomplete inventory is to add seven rows. The interesting question is why the population came out this way, and it is one page away."
+        },
+        {
+          "key": "D",
+          "text": "Accept the tiering. It was approved by the executive risk committee and reviewed by the regulator.",
+          "quality": "poor",
+          "next": "the-exercise",
+          "consequence": "You record the tiering as appropriately governed and approved, and move on to testing the recovery arrangements against it.",
+          "why": "Approval tells you the table was considered by people with authority to consider it. It carries no information about whether the method that produced the table can see what it needs to see, and a committee reviewing 140 rows is reviewing outputs — nobody at that meeting was ever going to re-derive the questionnaire.\n\nRegulatory sight is the weaker of the two comforts. A regulator reads a framework for whether it is coherent and governed; establishing whether it is right is the reason you are here."
+        }
+      ]
+    },
+    "the-question": {
+      "situation": "The questionnaire goes to the business owner of each service and asks how long it could be unavailable before the harm becomes unacceptable. The answer maps to a tier.\n\nWhere a system has no business owner, IT completes the questionnaire on its behalf.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask what the questionnaire says about dependencies.",
+          "quality": "best",
+          "next": "the-dependency",
+          "consequence": "Nothing. There is no question about what the system depends on, and no question about what depends on the system. The continuity manager confirms it and says he has never been asked before.",
+          "why": "The method asks each system how much its own loss would hurt, and a shared component's own loss hurts nobody directly — no member is turned away, no payment fails, no branch closes, until you notice that everything failing is happening for another reason.\n\nSo the questionnaire is not producing wrong answers. It is producing correct answers to a question that cannot reach transitive impact, which means a component every critical service needs will be rated by how much it matters on its own, and that is always low."
+        },
+        {
+          "key": "B",
+          "text": "Look at how IT answered the questionnaire for the systems it owns.",
+          "quality": "defensible",
+          "next": "the-dependency",
+          "consequence": "You read them. The identity platform is Tier 3: 'no member-facing process stops immediately on loss of authentication; existing sessions persist'. Certificate services, Tier 3. Internal DNS, Tier 4. Every answer is defensible on its own terms.",
+          "why": "It goes straight to the affected population and the answers are exactly what you needed to see, and it finds them one at a time. Each rating is individually reasonable — the identity answer is even technically accurate — so what you hold is a set of judgements you disagree with rather than a defect in how judgements are reached.\n\nThat matters when you get to the recommendation. Re-rating four systems you looked at leaves the next shared service to be found the same way, by an auditor reading answers."
+        },
+        {
+          "key": "C",
+          "text": "Check that the business owners' answers map correctly to the recorded tiers.",
+          "quality": "defensible",
+          "next": "the-dependency",
+          "consequence": "You test all 140. Every answer maps to the right tier, the mapping table is applied consistently, and two borderline cases were resolved upward rather than downward.",
+          "why": "Clean, testable, and it establishes that the process is faithful to its own inputs — which it is, conscientiously so, including erring toward caution on the borderline cases.\n\nFaithful transcription of an answer to a question that does not reach the exposure produces an accurate table and no protection. This is the continuity version of reconciling a metric to its own source: correct in every particular, silent on whether the particulars are the right ones."
+        },
+        {
+          "key": "D",
+          "text": "Ask the continuity manager whether he is comfortable with the tiers as they stand.",
+          "quality": "poor",
+          "next": "the-dependency",
+          "consequence": "He is, and he explains why with some care: the tiers were set with the business, reviewed by the executive, tested annually, and nothing has ever failed.",
+          "why": "You have asked the person who owns the framework whether the framework is sound, and he has given you an honest and well-reasoned yes. Everything he says is true and all of it describes the process working as designed.\n\nInquiry of the control owner is the weakest evidence available on the question you are actually asking, because the defect here is invisible from inside the method — he cannot tell you about a question the questionnaire does not ask, since from where he sits there is nothing missing."
+        }
+      ]
+    },
+    "the-dependency": {
+      "situation": "Identity platform: Tier 3, recovery objective forty-eight hours. Certificate services: Tier 3. Internal DNS: Tier 4, best endeavours. The secrets vault has no tier at all, because it was never in the table.\n\nCore banking is Tier 1, recovery objective two hours.\n\nCore banking authenticates through the identity platform.",
+      "prompt": "How do you establish the scale of this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the Tier 1 recovery runbooks and work out what each one needs to be running before its first step can execute.",
+          "quality": "best",
+          "next": "the-exercise",
+          "consequence": "Five runbooks, an afternoon. Every one requires identity before an operator can log in to begin. Three require certificate services before their service endpoints will start. Two require the secrets vault to retrieve database credentials. The branch teller system additionally needs internal DNS to find anything at all.\n\nNot one runbook mentions any of these as a prerequisite. Each begins with step one of its own recovery.",
+          "why": "The runbooks are the operational truth of the recovery, so reading them as a dependency question turns an argument about ratings into an inventory of prerequisites. It is also the version of the finding an operations team cannot dispute: these are their own documents, and the missing preconditions are missing from their own first steps.\n\nThe detail worth carrying is that each runbook starts at step one of its own system. That is exactly what per-system planning produces, and it is why nobody noticed."
+        },
+        {
+          "key": "B",
+          "text": "Ask the architecture team for the dependency map.",
+          "quality": "defensible",
+          "next": "the-exercise",
+          "consequence": "One exists. It was drawn in 2021 for the cloud migration, covers the eleven systems in that programme, and has not been updated since. It is accurate about those eleven and silent about the other 129.",
+          "why": "The right artefact to ask for and a reasonable first move, and what came back is a snapshot of a subset taken for a different purpose three years ago. It is genuinely useful as a starting point.\n\nThe trap is treating it as the population. A map drawn for a migration includes what the migration touched, so its boundary is the programme's scope rather than the estate — and the components most likely to be missing are the shared ones that were left in place precisely because nothing was moving them."
+        },
+        {
+          "key": "C",
+          "text": "Count how many Tier 1 systems use single sign-on.",
+          "quality": "defensible",
+          "next": "the-exercise",
+          "consequence": "All five. You have a clean number and a clear finding on the identity platform.",
+          "why": "One number, quickly obtained, and it carries the identity finding on its own. What it will miss is everything that is not single sign-on: the systems that fail on certificate services, the ones that cannot retrieve a database credential without the vault, and the branch teller system that cannot resolve a hostname.\n\nCounting one dependency finds one single point of failure. The finding is that a whole class of shared component was rated the same way for the same reason, and a count of one kind of dependency cannot show a class."
+        },
+        {
+          "key": "D",
+          "text": "Report that the identity platform is incorrectly rated and should be Tier 1.",
+          "quality": "poor",
+          "next": "the-exercise",
+          "consequence": "You raise it. It is accepted without argument, the identity platform is moved to Tier 1, and the runbook is rewritten within the month. The certificate services, DNS and the vault stay where they are.",
+          "why": "The fastest finding to close and the easiest to accept, because it asks the organisation to change one row. It also treats the rating as the defect when the rating was produced correctly by a method that had no way to reach the right answer.\n\nOne rating fixed and three left is not a partial result here; it is a demonstration that nobody has understood the mechanism, including the auditor. The next shared service the society introduces arrives at Tier 3 by exactly the same route."
+        }
+      ]
+    },
+    "the-exercise": {
+      "situation": "The annual exercise. It restores the Tier 1 systems at the alternate site and measures each against its two-hour objective. Six consecutive years, every objective met, signed off by the executive risk committee each time.\n\nThe identity platform is not in scope, because it is Tier 3.\n\nIt runs throughout the exercise, at the primary site, serving the recovery team's logins.",
+      "prompt": "What do you make of that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The exercise cannot find this, because it never removes the thing everything depends on.",
+          "quality": "best",
+          "next": "the-map",
+          "consequence": "You put it to the continuity manager, who works through it out loud and then goes quiet. The exercise scope is drawn from the tiering, so a component the tiering rates low is a component the exercise leaves running — and every recovery it has ever measured was measured with that component available.",
+          "why": "The exercise and the tiering are not independent. Scope is derived from the tier, so anything the tiering underrates is present and working during every test of everything that depends on it — which means six clean years is not six pieces of evidence about the recovery, it is the same assumption, tested six times.\n\nThis is what makes the finding urgent rather than theoretical. There is no route by which the organisation's own assurance process could ever have discovered it, and the assurance process is the reason everyone is confident."
+        },
+        {
+          "key": "B",
+          "text": "Recommend that the next exercise include the Tier 3 systems.",
+          "quality": "defensible",
+          "next": "the-map",
+          "consequence": "The continuity manager agrees it is worth doing and points out that Tier 3 is forty systems, that the exercise window is one weekend, and that the next one is eleven months away.",
+          "why": "The right direction, sized wrong and scheduled late. Forty systems will not fit a weekend, so what actually happens is a subset chosen by whoever plans it, and the selection criterion will be practicality.\n\nIt is also a recommendation about the test rather than about the estate. Eleven months of the current recovery plan runs in the meantime, and the plan restores core banking in two hours into an environment where nobody can log in for two days."
+        },
+        {
+          "key": "C",
+          "text": "Ask whether any exercise has ever failed to meet an objective.",
+          "quality": "defensible",
+          "next": "the-map",
+          "consequence": "None has. Six years, every objective met, no exercise ever stopped or re-run. The continuity manager is proud of it and says so.",
+          "why": "A good question with an informative answer, and the answer is about the test rather than the estate. Six years without a single miss on a live recovery exercise is not usually what competence looks like; it is usually what a scope that excludes the hard part looks like.\n\nIt is a signal worth acting on and it is not yet a finding. What makes it one is establishing why the exercise cannot fail, and the reason is sitting in how its scope is derived."
+        },
+        {
+          "key": "D",
+          "text": "Record the exercise results as evidence that the recovery objectives are achievable.",
+          "quality": "poor",
+          "next": "the-map",
+          "consequence": "You record six years of met objectives as evidence of a tested and effective recovery capability, supported by the exercise reports and the committee sign-offs.",
+          "why": "The exercise measures what happens when Tier 1 systems are restored while every shared service is running. That is a real capability and it is not the scenario the plan exists for, because the events that take out a data centre take out the shared services in it.\n\nSix years of results is a large amount of evidence about a narrow claim. The volume is what makes it persuasive and the scope is what makes it beside the point."
+        }
+      ]
+    },
+    "the-map": {
+      "situation": "You have the analysis. A diagram and a table: for each Tier 1 service, the shared components it cannot start without, and the four shared services whose recovery objectives are longer than those of everything depending on them. It names the components, the hostnames from the runbooks, and the order in which the estate has to come back.\n\nIt is the clearest picture anyone at the society has ever had of how the whole thing hangs together.\n\nThe report's standard distribution is forty-one recipients: the audit committee, the executive, IT leadership, the operational resilience working group, and the two outsourced infrastructure partners.",
+      "prompt": "How do you handle the analysis?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Put the full map and table in the report. It is the evidence, and without it the finding is an assertion.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The report goes out with the diagram as Appendix B and the component table as Appendix C. It is the most praised piece of work the function has produced that year, and two directors ask for extra copies for their teams.",
+          "taint": "published-the-map",
+          "why": "Every professional instinct points this way. A finding needs evidence, the evidence is the map, and holding it back would look like asking the committee to take your word for it. The praise is deserved.\n\nWhat the document also is: a ranked list of the components whose loss would stop a building society, with hostnames, distributed to forty-one recipients and stored in a committee library four hundred staff can read. Two copies go to outsourced partners, one of whom loses the contract nine months later.\n\nThe finding never needed it. Four shared services rated below their dependants, five runbooks with unstated prerequisites, and the reason — unarguable without naming a hostname. The map is the working paper behind it.\n\nThe instinct that fails is the one that is right almost everywhere else: show your work. An audit report is an assurance product, and this one is also a description of where to push."
+        },
+        {
+          "key": "B",
+          "text": "State the finding and the counts in the report; hold the map as a referenced working paper, and hand it to the continuity function under their own handling rules.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "The report says four shared services carry recovery objectives longer than those of the Tier 1 services depending on them, that five Tier 1 runbooks omit their prerequisites, and why. Appendix B is a reference to a working paper available to committee members on request. The continuity function receives the full analysis and classifies it as they would their own recovery documentation.",
+          "why": "The report has to carry enough to be acted on and no more, and the count plus the mechanism is enough. Nobody reading it needs the hostnames in order to agree; the people who need the hostnames are the people who will fix it, and they get the whole thing through a channel with handling rules already attached.\n\nThis also puts the analysis where it belongs permanently. Recovery dependency documentation is the continuity function's asset, maintained and protected as such — not an appendix in an audit report, which is a document type with a wide distribution and no classification habit."
+        },
+        {
+          "key": "C",
+          "text": "Include the map with the component names redacted.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The diagram shows four unnamed shared components with arrows from every Tier 1 service. The committee understands it. Two directors ask which ones they are and are told verbally.",
+          "why": "A real attempt at both objectives and it half-achieves each. The reader gets the shape, which is enough to grasp the finding, and the specifics do not travel — so this is meaningfully safer than the full version.\n\nWhat it still publishes is the structure: four shared components, every critical service dependent on all of them, and a recovery order. For anyone who can already see the estate, redacted names are a puzzle rather than a barrier. And a diagram people have to ask about verbally will be explained in meetings, in emails, and eventually in an updated version."
+        },
+        {
+          "key": "D",
+          "text": "Send the full analysis to the continuity function first and let them decide what goes into the report.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "They are grateful for it and immediately useful about it. They ask that Appendices B and C be left out on handling grounds, and you agree. The report carries the finding and the counts.",
+          "why": "The right custodian, the right handling outcome, and the decision made by the wrong party. What appears in an audit report is the auditor's judgement, and handing that judgement to the function the report concerns sets a precedent that will not always land this well — this time their reasoning was sound and their interest and yours coincided.\n\nConsulting them about handling is right. Letting them decide the content of the report, even on a point you agree with, is a different thing, and it is much harder to take back the next time the request is less reasonable."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The audit committee wants something it can hold someone to.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the four shared services be re-tiered to Tier 1 and their runbooks rewritten accordingly.",
+          "quality": "defensible",
+          "next": "end-retiered",
+          "consequence": "Accepted immediately and done within two months. Identity, certificate services, DNS and the vault all move to Tier 1, the alternate site is re-sized, and the Tier 1 runbooks gain a prerequisites section.",
+          "why": "It fixes the four, quickly, with no argument, and the estate is genuinely more resilient at the end of it. Everything you found is closed.\n\nWhat is untouched is how a system gets its tier. The questionnaire still asks each owner about their own service's loss, so the next shared component — the API gateway in the open banking programme, the event bus, whatever arrives next year — is rated by how much it matters on its own, and that is always low. You have corrected the outputs of a method that will keep producing the same shape."
+        },
+        {
+          "key": "B",
+          "text": "That tiering be derived from the dependency graph, so no component may carry a longer recovery objective than the shortest objective of anything depending on it — with the graph maintained and the exercise scoped from it.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The continuity manager objects that maintaining a dependency graph across 147 components is a standing commitment nobody is funded for. The committee funds it, at half what he asked, and makes it a condition of the architecture review board's sign-off that new components declare their dependants.",
+          "why": "The rule is one sentence, it is mechanical, and it is testable by inspection next year — a component's tier can be checked against its dependants without anyone re-running a judgement. That is what makes it a control rather than an instruction to be more careful.\n\nScoping the exercise from the graph rather than from the tier is the half that closes the loop. Otherwise the test continues to leave running whatever the framework underrates, and the assurance keeps confirming the assumption.\n\nHis objection is the right one and it is the reason the sign-off condition matters: a graph maintained by a project gate stays current, and a graph maintained by good intentions is accurate on the day it is drawn."
+        },
+        {
+          "key": "C",
+          "text": "That the next exercise include a full loss of the identity platform.",
+          "quality": "defensible",
+          "next": "end-retiered",
+          "consequence": "Agreed and scheduled. The exercise runs eleven months later and is stopped after ninety minutes: with identity down, the recovery team cannot authenticate to the alternate site's management console to begin any of the Tier 1 restores.",
+          "why": "A genuinely valuable test and the result is the most persuasive artefact anyone could ask for — a recovery that could not start. Two limits. It arrives eleven months after you found the problem, during which the plan is the plan. And it tests one dependency: certificate services, DNS and the vault are still rated where they were, and the exercise that finally exposed identity was scoped by hand rather than by a method that would have caught the others."
+        },
+        {
+          "key": "D",
+          "text": "That the business impact analysis be re-run across the estate.",
+          "quality": "poor",
+          "next": "end-rerun",
+          "consequence": "Accepted and commissioned. The exercise takes four months, goes to every business owner, and produces a refreshed table. The identity platform comes back as Tier 3.",
+          "why": "The same questionnaire, asking the same question, of the same people, produces the same answers — and it now has a fresh date on it, which makes it harder to challenge than the version you started with.\n\nRe-running an assessment is the natural response to an assessment that produced a wrong result, and it only helps when the assessment asked the right question badly. Here it asked the wrong question well, and four months of careful work reproduces the defect with better provenance."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Nothing may recover slower than what needs it",
+      "verdict": "strong",
+      "narrative": "The rule goes into the framework: no component may hold a recovery objective longer than the shortest objective of anything that depends on it. Applied to the estate it moves nine systems, not four — the message broker and the scheduling service turn out to sit under payments, and two monitoring components turn out to sit under the recovery process itself.\n\nThe architecture review board gains a gate: a new component declares its dependants before it goes live, and inherits its tier from them.\n\nThe following year's exercise is scoped from the graph and starts by taking identity down. It runs eleven hours over its window and is the first exercise in seven years to record a failure. The committee's minute describes it as the most useful one the society has run.\n\nThe recovery plan now begins with a page nobody had ever written: the order in which the estate has to come back.",
+      "why": "Every rating in the original table was produced correctly. The questionnaire asked each business owner how long their service could be unavailable before the harm became unacceptable, they answered honestly, and the answers mapped faithfully to tiers.\n\nThe method had no question that could reach a shared component. Loss of the identity platform stops nothing on its own — no member is turned away, no payment fails — and it stops everything transitively, which is a property of the graph and not of the system. So criticality assessed by consequence-of-loss puts the components everything needs at the bottom, reliably, every time, and does it more confidently the more carefully the assessment is performed.\n\nThe second mechanism is what made it undiscoverable. The exercise scope is derived from the tiering, so a component the tiering underrates is running during every test of everything that depends on it. Six clean years was one assumption tested six times, and the assurance process was structurally incapable of producing a different answer.\n\nWhat generalises: when a rating is assigned per item, ask what the method does with the things every item needs. And when a test's scope is derived from the thing under test, the test cannot fail in that direction."
+    },
+    "end-retiered": {
+      "title": "Four rows corrected",
+      "verdict": "acceptable",
+      "narrative": "The four shared services are re-tiered and their runbooks rewritten, or the exercise finally takes identity down and stops after ninety minutes with nobody able to log in. Either way the specific exposure closes and the estate is materially safer than it was.\n\nThe questionnaire is unchanged.\n\nFourteen months later the society goes live with open banking. The API gateway sits in front of the member-facing services and is rated by the same process, on the same question, by IT, because no business owner owns it. Its own loss stops nothing immediately.\n\nIt is rated Tier 3.",
+      "why": "You corrected the outputs and left the generator running.\n\nThe distinction that matters is between a wrong answer and a method that cannot produce the right one. Re-tiering four systems addresses the four; the assessment still asks each owner about their own service's loss, so any component whose importance is transitive comes out low, correctly, according to a question that cannot see transitive importance.\n\nThe exercise variant has the same shape and is more seductive because the result is so vivid. A recovery that could not start is compelling evidence and it tests one dependency, chosen by hand — while the scope of every other test is still derived from the tiering it was supposed to check."
+    },
+    "end-rerun": {
+      "title": "A fresher wrong answer",
+      "verdict": "weak",
+      "narrative": "The refreshed business impact analysis takes four months, reaches every business owner, and is the most thorough one the society has produced. Response rates are high, the workshops are well run, and the executive risk committee approves the output with real confidence.\n\nThe identity platform comes back as Tier 3. Certificate services, Tier 3. Internal DNS, Tier 4. The secrets vault is added to the table for the first time, at Tier 3.\n\nWhen you raise it again the following year, the answer is that the analysis was refreshed only twelve months ago, by the business, with executive approval.",
+      "why": "Re-running an assessment is the natural response to an assessment that produced a wrong result, and it works when the assessment asked the right question badly. Here the question was the defect, so four months of careful work reproduced the defect with better evidence behind it.\n\nThe cost is worse than doing nothing. The original table was old enough to be challengeable; the new one is recent, thorough, business-owned and executive-approved, which makes it considerably harder to argue with. A refresh has converted a finding into a settled matter.\n\nWhen a method produces a wrong answer, establish whether it was the execution or the question before recommending it be done again."
+    },
+    "end-circulated": {
+      "title": "Appendix B",
+      "verdict": "weak",
+      "narrative": "The report is the best-received piece of work the function produces that year. The finding is accepted in full, the four services are re-tiered, and the committee chair says the appendices are the clearest thing she has seen on the subject.\n\nThe file goes to forty-one recipients. It is stored in the committee's document library, which inherits default permissions readable by around four hundred staff. It is forwarded twice — once to a supplier's implementation team, once by a director to his own leadership group. One of the two outsourced infrastructure partners loses the contract nine months later, and the offboarding review cannot establish what it still holds.\n\nEighteen months on, the society has a contained ransomware incident. The forensic timeline shows lateral movement that reached the certificate services and the secrets vault early, in an order that matched the recovery dependency table.\n\nNobody can show the two were connected, and nobody can show they were not. The regulator's question is narrower and unanswerable: how did a document naming every single point of failure in the society come to be distributed to forty-one people and stored where four hundred could read it?",
+      "why": "This is the good instinct — show the evidence, do not ask the committee to take your word for it — applied to the one document where it inverts.\n\nAn audit report is an assurance product with a wide distribution, no classification habit, and a long life in shared drives. This one was also a ranked description of where to push to stop a building society, with hostnames and a recovery order. Both things were true of the same file, and only one of them was in anyone's mind when the distribution list was applied.\n\nThe finding never required it. Four shared services rated below their dependants, five Tier 1 runbooks with unstated prerequisites, and the reason why — that is complete, unarguable, and actionable without naming a component. The map is the working paper that supports it, available to anyone entitled to test the conclusion, and the permanent home for it is the continuity function's own documentation, where handling rules already exist.\n\nThe reason it falls to the auditor is uncomfortable and worth sitting with. You are the only person who will produce this analysis, so you are the only person in a position to think about who reads it. Sensitivity travels with the content, not with the document type, and an appendix inherits the distribution of whatever it is stapled to."
+    }
+  }
+}
