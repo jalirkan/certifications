@@ -1,0 +1,231 @@
+{
+  "id": "d2-the-vendor-nobody-approved",
+  "title": "The Vendor Nobody Approved",
+  "domain": "2",
+  "section": "B",
+  "topics": [
+    "IT Vendor Management",
+    "Organizational Structure, IT Governance, and IT Strategy",
+    "Data Governance and Classification",
+    "IT Policies, Standards, Procedures and Practices",
+    "Enterprise Risk Management"
+  ],
+  "principles": [
+    "accountability-stays",
+    "explicit-and-owned",
+    "auditor-role",
+    "evidence-quality",
+    "root-cause",
+    "protection-follows-data"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are three weeks into an audit of third-party management. The control you are testing is simple to state: every vendor handling company data goes through security review and contract approval before any data moves.\n\nThe approved-vendor register lists 214 suppliers. You have been reconciling it against accounts payable.\n\nOne name in AP is not in the register. Eleven monthly payments of £3,400, the first fourteen months ago, coded to a marketing cost centre.",
+  "taints": {
+    "let-them-regularise": "end-manufactured",
+    "assurance-as-evidence": "end-unsupported"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The supplier is a customer-analytics platform. Fourteen months of payments, no entry in the approved-vendor register, no security review on file, no contract in the contracts database.\n\nThe cost centre belongs to the marketing director.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the marketing director what the supplier does and why they were engaged.",
+          "quality": "defensible",
+          "next": "what-data",
+          "consequence": "She is straightforward about it. The platform scores customer propensity to churn; her team uploads a customer extract monthly. She says procurement told her a card payment under £5,000 did not need the full process.",
+          "why": "A reasonable opening and it gets you the story quickly. The cost is that the first version of events you hold is the one from the person whose decision is in question — not because she is dishonest, but because everyone's account of a fourteen-month-old choice is reconstructed. Establishing what actually moved, before hearing why, gives you something to weigh her account against."
+        },
+        {
+          "key": "B",
+          "text": "Establish what data has gone to this supplier before speaking to anyone.",
+          "quality": "best",
+          "next": "what-data",
+          "consequence": "You pull the outbound file logs. Monthly extracts, fourteen of them, each around 340,000 rows: customer name, email, postcode, product holdings, and payment-arrears flag.",
+          "why": "The vendor register is the control that failed; the data is the exposure. Which one you establish first shapes everything after it — an unapproved supplier is a process finding, an unapproved supplier holding fourteen months of arrears data is a risk finding, and the second is the one the audit committee needs. It also means you arrive at every subsequent conversation already knowing the answer to the question that matters most."
+        },
+        {
+          "key": "C",
+          "text": "Check whether procurement really does waive the process below £5,000.",
+          "quality": "defensible",
+          "next": "what-data",
+          "consequence": "The procurement policy has a £5,000 threshold for competitive tendering. It says nothing about security review, which the information security policy requires for any supplier receiving customer data regardless of value.",
+          "why": "You will need this, and it turns out to be the mechanism — two policies with different thresholds and no link between them. But leading with it puts the emphasis on whether someone broke a rule, when the more urgent question is what left the building. Root cause is worth reaching; it is not usually worth reaching first."
+        },
+        {
+          "key": "D",
+          "text": "Raise it with the CIO now — an unapproved vendor is a governance breach.",
+          "quality": "poor",
+          "next": "what-data",
+          "consequence": "You escalate. The CIO asks what data is involved and how long it has been going on. You do not yet know either, and say so.",
+          "why": "Escalating before you can characterise the issue spends the escalation. You get one moment of senior attention on a finding like this, and arriving without the two facts that determine its severity converts it from a briefing into a request to come back later — by which time the organisation has begun forming its own account."
+        }
+      ]
+    },
+    "what-data": {
+      "situation": "The extracts contain customer name, email, postcode, product holdings and an arrears flag. Under the company's own data classification standard, arrears status is Confidential — the tier that requires a completed security review and a data processing agreement before it leaves the organisation.\n\nNeither exists for this supplier.",
+      "prompt": "What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Whether the supplier has adequate security — ask them for their certifications.",
+          "quality": "poor",
+          "next": "the-offer",
+          "consequence": "You email the supplier. They send an ISO 27001 certificate and a two-page security summary. Both look fine.",
+          "taint": "assurance-as-evidence",
+          "why": "You have asked the party with the strongest interest in the answer to grade themselves, accepted the result, and now hold a certificate in place of a review. The certificate may even be genuine — the failure is that it is not the control. The control is *the company* assessing the supplier before data moves, and a document collected fourteen months afterwards by the auditor cannot retroactively be that assessment."
+        },
+        {
+          "key": "B",
+          "text": "Whether this is the only one — run the same reconciliation across every cost centre.",
+          "quality": "best",
+          "next": "the-others",
+          "consequence": "You extend the test. Nine more suppliers appear in AP and not in the register. Four of them receive data extracts. Two of those handle Confidential fields.",
+          "why": "One exception is an incident; ten is a control that does not work. The register reconciled to AP is a test you have already built, and running it across the population converts an anecdote into a rate — which is the difference between a finding management can treat as a one-off and one they cannot. It is also the cheapest possible extension of work you have already done."
+        },
+        {
+          "key": "C",
+          "text": "Whether the data protection officer knows about the transfer.",
+          "quality": "defensible",
+          "next": "the-others",
+          "consequence": "She does not. She adds it to the processing register that afternoon and asks you to tell her if you find others.",
+          "why": "Correct and necessary — a transfer of Confidential customer data with no processing agreement is her problem as much as yours. It is one supplier's worth of action, though, and the question you are sitting on is whether the control works at all. Her request for the others is the tell: she has understood the population question before you have asked it."
+        }
+      ]
+    },
+    "the-others": {
+      "situation": "Ten unapproved suppliers. Four receive data. Two of those receive Confidential fields.\n\nThe common thread is the £5,000 threshold: procurement waives competitive tendering below it, and every one of the ten sits under £5,000 a month on a departmental card. The information security policy's review requirement has no threshold at all — but it is triggered by a form that procurement only issues above £5,000.",
+      "prompt": "You now know how this happens. What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ten suppliers were engaged without the required security review.",
+          "quality": "defensible",
+          "next": "the-offer",
+          "consequence": "You draft it that way. It is accurate and the ten are listed in an appendix.",
+          "why": "True, and it will be read as ten mistakes by ten people. The recommendation that follows from it is training or a reminder, because the finding as written locates the fault in the engagements rather than in the mechanism that let all ten through the same gap."
+        },
+        {
+          "key": "B",
+          "text": "The security review is triggered by a procurement threshold that has nothing to do with data risk.",
+          "quality": "best",
+          "next": "the-offer",
+          "consequence": "You draft it that way. The head of procurement reads it and says, with some feeling, that nobody had ever noticed the review form was attached to the tendering process.",
+          "why": "This names the mechanism, and the mechanism is the finding: a control whose trigger is contract value, applied to a risk that scales with data sensitivity. Under £5,000 a supplier can receive arrears data with no review at all, and no individual has to do anything wrong for that to happen. Findings written at this level survive the people involved moving on."
+        },
+        {
+          "key": "C",
+          "text": "The approved-vendor register is incomplete and should be reconciled to AP regularly.",
+          "quality": "defensible",
+          "next": "the-offer",
+          "consequence": "You draft it that way. The recommendation for a quarterly reconciliation is accepted readily.",
+          "why": "A useful detective control, and it would catch the next ten — after they had been engaged and after the data had moved. It is worth recommending and it is not the finding. Detecting an unapproved transfer quarterly is a poor substitute for a trigger that prevents it."
+        }
+      ]
+    },
+    "the-offer": {
+      "situation": "The marketing director asks for a meeting. She is not defensive. She proposes that her team completes the security review and the processing agreement for all four data-receiving suppliers this week, before your report is finalised — so the report can say the position is remediated rather than open.\n\nShe adds, reasonably, that this is what you would want them to do anyway.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree. The remediation is what matters, and a closed finding is a better outcome.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "The reviews are completed on Thursday and Friday. Your report describes the position as remediated.",
+          "taint": "let-them-regularise",
+          "why": "She is right that the reviews should happen and wrong that they should happen before the report. What you have agreed to is a record showing four suppliers that passed security review — with no visible trace that the review came fourteen months after the data did. The control now appears to have worked. You have not just closed a finding early; you have helped construct the evidence that will be relied on next time someone asks whether this process is sound."
+        },
+        {
+          "key": "B",
+          "text": "Encourage the reviews immediately, and report the position as it stood when you found it.",
+          "quality": "best",
+          "next": "the-committee",
+          "consequence": "The reviews start the same day. Your report states that four suppliers received Confidential data for up to fourteen months with no review, and that reviews were completed in week fifteen after audit identified the gap.",
+          "why": "Both halves matter and they are not in tension. Remediation should be as fast as possible; the report should describe what was true when you tested. Recording the sequence — gap found, then remediated — is what preserves the finding's meaning, because the same file next year has to show that this control failed once, not that it has always been fine."
+        },
+        {
+          "key": "C",
+          "text": "Decline any remediation until the report is issued, to protect the finding.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "Remediation waits three weeks for the report. Confidential data continues to sit with four unreviewed suppliers in the meantime.",
+          "why": "This protects the report at the expense of the thing the report exists to serve. Nothing about issuing a finding requires the exposure to persist while you write it; the auditor's interest in a clean finding does not outrank the organisation's interest in closing a live data exposure. Independence is about not owning the decision, not about withholding the fix."
+        },
+        {
+          "key": "D",
+          "text": "Offer to review the four security assessments yourself as they are completed.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "You review each assessment as it is produced and suggest changes to two of them.",
+          "taint": "let-them-regularise",
+          "why": "You have joined the second line. The assessments are now partly your work, which means nobody independent can say whether they were adequate — and you are the person who would have been asked. Helping is the most comfortable way an auditor loses the ability to give an opinion, because it never feels like a decision at the time."
+        }
+      ]
+    },
+    "the-committee": {
+      "situation": "The audit committee has your report. The chair asks one question: given this has been running for fourteen months across ten suppliers, how confident are you that you found all of them?",
+      "prompt": "What do you tell her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the AP reconciliation covers all payments, so the population is complete.",
+          "quality": "poor",
+          "next": "end-overstated",
+          "consequence": "The chair accepts it and the committee moves on.",
+          "why": "It is not complete and the gap is knowable. A supplier paid through an expense claim, a corporate card statement line, or bundled into a reseller invoice never appears as its own AP entry. Claiming completeness you have not tested is the one answer that costs you the committee's trust later, because the next unapproved supplier will be found by someone else."
+        },
+        {
+          "key": "B",
+          "text": "That the test covers suppliers paid through AP, and name what it would miss.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "You set out the limits: expense claims, corporate card lines and reseller-bundled invoices are outside the population you tested. The chair asks for that gap to be closed in the next cycle and it goes into the plan.",
+          "why": "The value of a population statement is entirely in its boundary. Naming what the test could not see turns a partial answer into a scoped one, and it does the committee's job for them — they now know exactly which question is still open. An auditor who volunteers the limits of their own work is the one whose completeness claims are worth something."
+        },
+        {
+          "key": "C",
+          "text": "That you cannot be confident, and recommend a full third-party discovery exercise.",
+          "quality": "defensible",
+          "next": "end-scoped",
+          "consequence": "The committee agrees to commission the exercise. It is scoped over the following two months, starting from scratch rather than from the routes you had already ruled in or out.",
+          "why": "Honest, and it lands in a reasonable place. What it skips is the part only you can supply: which routes you did cover and which you did not. 'I cannot be confident' from the person who just tested the population is less useful than the same person saying precisely where the population ended."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "A trigger that follows the data",
+      "verdict": "strong",
+      "narrative": "The security review is decoupled from the procurement threshold and re-triggered on data classification: any supplier due to receive Confidential data requires a review, at any contract value, including card payments. The four data-receiving suppliers are reviewed; one fails and is replaced.\n\nThe payment-route gap you named is closed in the following cycle, and finds two more.",
+      "why": "The finding was written at the level of the mechanism rather than the ten engagements, which is why the remediation changed a trigger instead of issuing a reminder. A control keyed to contract value cannot protect an asset whose risk is keyed to data sensitivity, and once that is said plainly the fix is obvious.\n\nThe committee answer did the other half. Naming the routes your test could not see is what turned a finding about ten suppliers into a programme that found the rest."
+    },
+    "end-overstated": {
+      "title": "The completeness you did not test",
+      "verdict": "weak",
+      "narrative": "The report is accepted and the trigger is fixed. Five months later a supplier receiving customer data is found by the data protection officer, paid through monthly expense claims by a team leader — a route your population never touched.\n\nThe committee's first question is why the audit said the population was complete.",
+      "why": "The substantive work was good and one sentence undid its standing. A population claim is a statement about a boundary, and asserting one you have not tested converts every future completeness statement from this function into something the committee has to check.\n\nThe cost is not the missed supplier. It is that the finding which was right is now remembered alongside the claim that was wrong."
+    },
+    "end-manufactured": {
+      "title": "Four suppliers that passed review",
+      "verdict": "failed",
+      "narrative": "The reviews are completed before the report is issued and the position is reported as remediated. The file shows four suppliers with completed security assessments and signed processing agreements.\n\nEighteen months later, a regulator asks the company to demonstrate its controls over customer data shared with third parties. The file answers the question well. Nothing in it shows that fourteen months of arrears data moved before any of it existed, and the control that let it happen is described as operating effectively.",
+      "why": "The remediation was right and the sequence was everything. A record showing four suppliers that passed review is a true record of a review; it is a false record of a control, because it carries no trace that the review followed the data by more than a year.\n\nAgreeing to it feels like efficiency and is the point at which the audit stops being evidence of anything. The organisation loses the only account of what actually happened, and it loses it to the function whose purpose was to keep one."
+    },
+    "end-unsupported": {
+      "title": "Their certificate, not your review",
+      "verdict": "weak",
+      "narrative": "The supplier's ISO certificate goes into the file and the finding is reported as one of process rather than exposure. The certificate turns out to be genuine and scoped to a different platform than the one holding the extracts — which nobody establishes for another year.",
+      "why": "You asked the party with the largest stake in the answer to supply the assurance, and filed what came back. The failure is not that the certificate was misleading; it is that a document obtained by the auditor from the supplier, after the fact, is not the control being tested.\n\nThe control was the company assessing the supplier before data moved. Nothing collected afterwards can be that assessment, and treating it as though it were leaves a file that looks complete and answers a question nobody asked."
+    },
+    "end-scoped": {
+      "title": "Someone else works out where to look",
+      "verdict": "acceptable",
+      "narrative": "The discovery exercise is commissioned and runs for two months. It re-derives the payment routes you had already tested, then finds two further suppliers on expense claims.\n\nThe answer is right. It arrives a quarter later and costs two months of someone else's time to establish what you could have said in the meeting.",
+      "why": "Declining to claim completeness is honest, and it is only half of what you were in a position to give. You had just tested the population: you knew it covered AP and you knew it did not cover expense claims, card lines or reseller invoices.\n\n'I cannot be confident' hands the committee an open question. Naming the boundary hands them a scoped one, and the difference between those two answers is a quarter of elapsed time and the work of rediscovering what you already knew."
+    }
+  }
+}
