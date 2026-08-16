@@ -1,0 +1,275 @@
+{
+  "id": "d1-the-readiness-assessment",
+  "title": "The Readiness Assessment",
+  "domain": "1",
+  "section": "A",
+  "topics": [
+    "Types of Audits, Assessments, and Reviews",
+    "IS Audit Standards, Guidelines, and Codes of Ethics",
+    "Laws, Regulations, and Industry Standards",
+    "Information Asset Security Frameworks, Standards, and Guidelines",
+    "Reporting and Communication Techniques"
+  ],
+  "principles": [
+    "design-vs-operating",
+    "auditor-role",
+    "evidence-quality",
+    "explicit-and-owned",
+    "accountability-stays"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You run internal audit at a payments processor. Eighty staff, enterprise customers, a certification programme scheduled to begin next year and not yet started.\n\nSales has a deal. Two point one million a year, a signature due in three weeks, and a procurement team on the other side asking for evidence that the controls work. There is no attestation report to give them, because there is not yet anything to attest to.\n\nOn Tuesday the CISO puts a proposal to you. Internal audit performs a readiness assessment against the framework — a gap analysis, the sort of thing you would do anyway before the certification programme starts — and the resulting report goes to the customer.\n\nHis argument is not unreasonable. The work needs doing regardless, you are the people who would do it, and the customer wants to know what you would be telling them.",
+  "taints": {
+    "dropped-the-restriction": "end-relied-on"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Three weeks. A hundred and fourteen control objectives in the framework. One deal, and a customer who has asked for evidence of control effectiveness.",
+      "prompt": "How do you respond to the proposal?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree in principle, and establish first who will read the output and what they will do with it.",
+          "quality": "best",
+          "next": "the-scope",
+          "consequence": "You ask. The answer is that it goes into the customer's procurement portal, is reviewed by their third-party risk function, and is retained for their supplier file. Sales confirms it will be referenced in the contract schedule.",
+          "why": "The reader determines the engagement. A gap analysis for a CISO planning a certification programme and a document a customer's risk function files as evidence are different products with different independence, evidence and reporting requirements, and the words on the cover do not decide which one you have produced — the use does. Asking before scoping is the only moment at which you can still choose the engagement to fit the use rather than discovering the mismatch after the report has travelled."
+        },
+        {
+          "key": "B",
+          "text": "Decline. Internal audit reports to the audit committee, not to customers.",
+          "quality": "defensible",
+          "next": "the-pressure",
+          "consequence": "The CISO accepts it without argument and asks the external firm for a quote instead. It comes back at eight weeks and £140,000.",
+          "why": "The instinct is sound — internal audit's reporting line exists for a reason and customer-facing deliverables strain it. As an absolute it is too strong. Internal audit output can legitimately reach outside parties where the engagement is scoped, evidenced and worded for that use, and refusing on principle without offering the conditions under which it could work usually means something worse goes to the customer instead, produced by people with no independence at all."
+        },
+        {
+          "key": "C",
+          "text": "Agree, and scope it as a full assurance engagement so the report can be relied on.",
+          "quality": "defensible",
+          "next": "the-scope",
+          "consequence": "You draft a plan covering design and operating effectiveness across the framework. Costed properly it needs nine weeks and two more people.",
+          "why": "Right about what the reader needs and wrong about what three weeks can produce. Operating effectiveness is a claim about a period and needs evidence covering that period across a hundred and fourteen objectives; there is no version of it that fits before the signature. The risk in this answer is that it is agreed at the start and then quietly compressed as the deadline approaches, which produces a document labelled as assurance and evidenced as a walkthrough."
+        },
+        {
+          "key": "D",
+          "text": "Agree and start immediately. Three weeks is tight and the scoping can be settled as the work goes on.",
+          "quality": "poor",
+          "next": "the-scope",
+          "consequence": "You put two people on it on Wednesday. By the end of the first week you have walkthroughs for forty objectives and no agreement on what the deliverable is.",
+          "why": "The deliverable decides the procedures, so starting without it means the procedures are chosen by whatever the team can get to. It also removes the one point of leverage you had. Scope, wording and restrictions are negotiable in week one when nothing has been promised, and not negotiable in week three when a report is expected and a signature is booked."
+        }
+      ]
+    },
+    "the-pressure": {
+      "situation": "The quote lands badly. Eight weeks against a three-week deadline, and £140,000 against a deal worth £2.1m a year.\n\nThe chief financial officer asks you directly, and without any edge to it: what can internal audit produce inside three weeks that would be honest?",
+      "prompt": "What do you tell her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A design-level readiness assessment, labelled as one, with the limitations in the report — and say plainly what it cannot support.",
+          "quality": "best",
+          "next": "the-scope",
+          "consequence": "She agrees on the spot and asks you to put the limitations in writing to her before fieldwork starts, so nobody is surprised by them later.",
+          "why": "The honest answer to a fair question, and it keeps the choice where it belongs. She is entitled to know what is available and to decide whether to offer it; you are not entitled to decide what the company sends a customer. Naming the limitation before the work starts is what stops it being negotiated at the end, and her asking for it in writing is the arrangement working."
+        },
+        {
+          "key": "B",
+          "text": "Repeat that internal audit does not produce customer-facing reports.",
+          "quality": "poor",
+          "next": "the-scope",
+          "consequence": "She accepts it and stops asking. Nine days later sales sends the customer the CISO's own control self-assessment spreadsheet, 114 rows, every one marked compliant. Procurement replies asking whether internal audit has reviewed it.",
+          "why": "Holding the line and offering nothing does not remove the customer's need for evidence; it decides who supplies it. What went out is a self-assessment by the function that owns the controls, with no independent involvement of any kind, and it is now attached to your name by a question you have to answer anyway. A refusal without an alternative is a decision that someone less independent will make the deliverable."
+        },
+        {
+          "key": "C",
+          "text": "Offer to review and validate the CISO's control self-assessment instead. It is faster and it is his document, not yours.",
+          "quality": "defensible",
+          "next": "the-scope",
+          "consequence": "You review the self-assessment against evidence over eight days and challenge nineteen of the 114 ratings. The document goes to the customer as management's assessment, with a note that internal audit reviewed it.",
+          "why": "Faster, cheaper, and it keeps the assertion with management, which is genuinely where it belongs. The difficulty is what a note saying internal audit reviewed it means to a reader. It is a weaker product than a readiness assessment — you have checked someone else's conclusions rather than reaching your own — and it will be read as a stronger one, because a customer sees an independent function's name on a document making 114 compliance claims."
+        }
+      ]
+    },
+    "the-scope": {
+      "situation": "What three weeks buys: inquiry, inspection of policies and configuration, walkthroughs of each control, and an assessment of whether each is designed to meet the objective.\n\nWhat it does not buy: evidence that any of them operated over a period.",
+      "prompt": "What do you agree to deliver?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A design-level gap assessment against the framework, with the basis, the procedures performed and the limitations set out in the report itself.",
+          "quality": "best",
+          "next": "the-sample",
+          "consequence": "The scope is agreed in writing with the CISO and the CFO before fieldwork starts. The report template opens with a page describing what was and was not done.",
+          "why": "The limitations belong in the document because the document is what travels. Everything else — the scoping email, the conversation with the CFO, the understanding in the room — stays behind when the file is forwarded to a procurement portal, attached to a contract schedule, or read eighteen months later by someone who was not there. A report has to be able to describe its own boundaries without help."
+        },
+        {
+          "key": "B",
+          "text": "A design-level gap assessment, with the limitations explained in the covering email.",
+          "quality": "defensible",
+          "next": "the-sample",
+          "consequence": "You write a careful covering note. It is thorough, it is accurate, and it is read once by the CISO before he forwards the attachment to sales.",
+          "why": "The person you sent it to understands exactly what they have, which is a real achievement and lasts about one forward. Emails do not survive being uploaded to a portal, and the attachment is the artefact everyone downstream works from. Putting a limitation somewhere the report is not is functionally the same as putting it nowhere, with the added cost that you will believe you disclosed it."
+        },
+        {
+          "key": "C",
+          "text": "Test operating effectiveness on the ten controls the customer is most likely to care about, and design-assess the remaining 104.",
+          "quality": "defensible",
+          "next": "the-sample",
+          "consequence": "You test ten properly and assess the rest by walkthrough. The report has two kinds of paragraph in it, distinguished by a footnote convention.",
+          "why": "Better evidence where it matters most, and a good instinct about proportionality. The cost is legibility. A document in which some conclusions rest on period testing and others on a walkthrough asks the reader to track which is which across 114 rows, and no third-party risk analyst does that — they read the strongest claim in the document and apply it to the whole. A mixed-standard report is read at its highest standard."
+        },
+        {
+          "key": "D",
+          "text": "A gap assessment expressed as a maturity score out of five for each framework domain.",
+          "quality": "poor",
+          "next": "the-sample",
+          "consequence": "The report scores nine domains between 2.8 and 4.1, with a weighted overall of 3.4. Sales asks whether 3.4 is a good number and you find the question hard to answer.",
+          "why": "A number outlives every caveat attached to it. Within a week 3.4 is in a slide, and it will be compared with other suppliers' numbers produced from different frameworks by different methods. Maturity also measures the wrong thing for this reader: it describes how established a practice is, and the customer is asking whether their data is protected. Those diverge most sharply at exactly the maturity levels that sound reassuring."
+        }
+      ]
+    },
+    "the-sample": {
+      "situation": "Fieldwork, day nine. You reach the access review objective.\n\nYou ask for evidence and receive one quarter's completed recertification campaign: reviewer assignments, responses, and the closure report. It is well documented and it covers Q2.\n\nThe period the customer cares about is the year.",
+      "prompt": "What do you do with one quarter's evidence?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Record that the control is appropriately designed, and that operating effectiveness over the period was not tested.",
+          "quality": "best",
+          "next": "the-portal",
+          "consequence": "The row reads: designed to meet the objective; one campaign inspected as a walkthrough; no conclusion drawn on operation across the period.",
+          "why": "This is the whole discipline of the engagement in one row. The evidence supports a design conclusion and a single observation, and it is worth exactly that. Writing down both what you concluded and what you did not lets a reader place their own weight on it — and it is the row that will be quoted back at you later, so it needs to be able to survive being read on its own."
+        },
+        {
+          "key": "B",
+          "text": "Conclude the control is operating effectively. You have seen a completed campaign with responses and a closure report.",
+          "quality": "poor",
+          "next": "the-portal",
+          "consequence": "The row reads: operating effectively. It is one of eleven rows in the report using that phrase.",
+          "why": "One campaign is one occurrence. Operating effectiveness is a claim about every occurrence in the period, and three of the four quarters here are simply unknown — not doubtful, unknown. The wording matters more than usual because of where the document is going: a customer's risk function reading 'operating effectively' is being told that the control ran all year, which is the one thing you did not establish."
+        },
+        {
+          "key": "C",
+          "text": "Ask for all four quarters. It costs them an hour to export.",
+          "quality": "defensible",
+          "next": "the-portal",
+          "consequence": "They send all four the same afternoon. Three are complete; the Q4 campaign closed with 12% of reviewers not responding. You now have an operating-effectiveness finding on a control you were not testing for operating effectiveness.",
+          "why": "Cheap, and it found something real, which makes the awkwardness worth naming. You have started performing an assurance procedure inside an engagement scoped and worded as advisory, on one control out of 114 — so the report will carry one row evidenced to a different standard than the rest, and a reader has no way to know which. Scope creep toward better evidence is still scope creep, and it works against the one thing keeping this document honest, which is that it does the same thing everywhere."
+        },
+        {
+          "key": "D",
+          "text": "Record it as a gap, since the evidence available does not support the objective.",
+          "quality": "defensible",
+          "next": "the-portal",
+          "consequence": "Access review appears in the gap list. The CISO objects, correctly, that the control exists, is designed properly and ran in the quarter you looked at.",
+          "why": "The opposite error to overclaiming, and it is a mistake in the same place. A design assessment is not supposed to hold operating evidence, so treating its absence as a deficiency misstates what a gap means in this engagement and inflates the list with things that are not wrong. It also spends your credibility with the CISO on a row you cannot defend, which you will need for the rows you can."
+        }
+      ]
+    },
+    "the-portal": {
+      "situation": "The report is drafted. Its opening page says: this was an advisory readiness assessment; procedures were limited to inquiry, inspection and walkthrough; no opinion on operating effectiveness is expressed; the report was prepared for management's internal use and is not intended for reliance by third parties.\n\nThe customer's procurement portal rejects documents containing a restriction-on-use clause. It is an automated check.\n\nSales asks you to remove the paragraph. The CISO backs them up, and his point is a fair one: the work was done properly, by qualified people, to the same standard you apply to any engagement, and the disclaimer makes it sound as though it was not.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Remove it. The work was done to audit standard and the paragraph understates what you actually did.",
+          "quality": "poor",
+          "next": "the-question",
+          "consequence": "The paragraph comes out. The report uploads cleanly, the customer's risk function accepts it, and the contract schedule cites it by title and date as evidence of the control environment.",
+          "taint": "dropped-the-restriction",
+          "why": "He is right that the work was done properly, and that is not what the paragraph is about. The restriction states what the engagement was scoped, evidenced and resourced to support — three weeks, walkthrough-level evidence, and no conclusion about whether anything operated across a period.\n\nWhat you removed is the only thing distinguishing the document from an assurance report. A third-party risk function has no way to know what procedures sat behind any row; they will read 'designed to meet the objective' as a control that works. And the reliance is now contractual — the schedule names the report, so the customer's due diligence obligation is discharged against it.\n\nThe instinct that makes it hard to refuse is professional pride. You did good work and the caveat reads like an apology for it. It is not an apology; it is the scope, and a document travelling without its scope asserts whatever the reader needs it to."
+        },
+        {
+          "key": "B",
+          "text": "Refuse to remove it, and offer to write a short plain-language statement of what was and was not done that procurement can accept on its own terms.",
+          "quality": "best",
+          "next": "the-question",
+          "consequence": "You draft five sentences: what was examined, by what procedures, over what period, what is asserted, what is not. It contains no restriction clause and no legal formula. Procurement accepts it and attaches it to the report.",
+          "why": "The portal rejects a clause, not a limitation, and once you see that, the problem is solvable. What the customer's risk function actually needs is to know what they are holding — and a description of the procedures performed does that better than a legal restriction ever did, because it is readable by the analyst rather than by their counsel.\n\nThis is the pattern worth keeping. When a control you are asked to drop exists to prevent a specific misunderstanding, find another way to prevent the misunderstanding; do not defend the wording. The wording was never the point."
+        },
+        {
+          "key": "C",
+          "text": "Refuse, and leave it to sales to decide what they send.",
+          "quality": "defensible",
+          "next": "the-question",
+          "consequence": "Sales sends a two-page summary they write themselves, drawing on the report, with no restriction clause and no description of procedures. Your report stays internal.",
+          "why": "The line holds and the document you control is intact, so this is not a failure. What you gave up was influence over what actually reached the customer. Refusing without offering anything usable makes it somebody else's problem, and the person whose problem it becomes has a deal to close and no obligation to describe your procedures accurately. You protected the report and not the reader."
+        },
+        {
+          "key": "D",
+          "text": "Replace it with a softer form of words that keeps the meaning.",
+          "quality": "defensible",
+          "next": "the-question",
+          "consequence": "You substitute a sentence saying the report is provided for information purposes. The portal accepts it and the customer's risk function files the report.",
+          "why": "A reasonable negotiation and the meaning does not survive it. 'For information purposes' reads to a procurement lawyer as a restriction and to a risk analyst as a courtesy, and the analyst is the one who files it. The specific facts that mattered — no operating-effectiveness testing, no conclusion across a period, walkthrough-level evidence — are gone, replaced by a phrase that sounds like a caveat and constrains nothing."
+        }
+      ]
+    },
+    "the-question": {
+      "situation": "Three months on. The deal signed, and the report is in the customer's supplier file.\n\nAn analyst in their third-party risk team emails you directly. She is polite, she has clearly read the document, and she has one question.\n\n\"Your report says the access review control is appropriately designed. Can you confirm it was operating throughout the year?\"",
+      "prompt": "How do you answer her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Answer within what you did: design assessed at a point in time, no operating-effectiveness testing performed, no confirmation possible — and tell her what would produce one.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "You reply the same day, in four sentences, and copy the CISO and the account director. She thanks you and asks when the certification programme is expected to complete. It goes into her file as an open item with a review date.",
+          "why": "She asked the exact question the report was not able to answer, which means she read it correctly, and the only response that respects that is the true one. Naming what would produce the confirmation turns a refusal into a route.\n\nCopying the CISO and the account director is the part that is easy to skip. It stops the same question being answered differently by someone else next week, and it puts the company on notice that the customer's reliance has a boundary the company now has to manage."
+        },
+        {
+          "key": "B",
+          "text": "Tell her you saw a completed quarterly campaign and have no reason to think the other quarters differ.",
+          "quality": "poor",
+          "next": "end-informal",
+          "consequence": "You reply informally. She quotes the sentence in her assessment: 'Supplier internal audit confirmed no indication of exceptions across the period.' The file is closed as satisfactory.",
+          "why": "You have converted a limitation into an assurance, in writing, to a third party, in an email that carries none of the report's careful wording. 'No reason to think' is a statement about your knowledge and will be read as a statement about the control.\n\nThe report was the artefact you controlled and you protected it. The email is the artefact she quotes, and it now says something the engagement never established. Everything you were careful about in the document can be undone in three lines of correspondence."
+        },
+        {
+          "key": "C",
+          "text": "Decline to correspond directly with a customer, and route the question to the account team.",
+          "quality": "defensible",
+          "next": "end-commercial",
+          "consequence": "The account director replies to her within the hour: the controls are reviewed regularly by an independent internal audit function and no issues were identified. She marks the item closed.",
+          "why": "The instinct about channel is sound — direct correspondence between an auditor and a customer's risk function needs to be governed, and answering unilaterally has its own hazards. What it overlooks is who then answers. The account director has a renewal in eleven months and no way of knowing that 'no issues were identified' is not what your report says. Routing a technical question to a commercial channel does not delay the answer; it changes it."
+        },
+        {
+          "key": "D",
+          "text": "Offer to perform the operating-effectiveness testing as a separate, properly scoped engagement.",
+          "quality": "defensible",
+          "next": "end-commercial",
+          "consequence": "You propose the engagement. It is scoped and scheduled for the following quarter, and lands with the customer as a proposal rather than an answer. Her original question is never answered.",
+          "why": "The right destination and it does not respond to what she asked. She wanted to know what your report supports; you offered her a future engagement, which reads from her side as an upsell in reply to a factual question. Answer the question first, in the terms of the work already done, and then offer the route. Reversed, the offer looks like an evasion even when it is not one."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "What the document could carry",
+      "verdict": "strong",
+      "narrative": "The customer's file records a design-level readiness assessment, the procedures behind it, and an open item on operating effectiveness with a review date. The deal signs.\n\nEight months later the certification programme completes and the customer receives a real attestation report. Their analyst closes the open item against it, and notes in the file that the earlier document had been correctly characterised.\n\nThe access review control turns out to have had a 12% non-response quarter, which the attestation picks up. Nothing in your report had said otherwise.",
+      "why": "The engagement type was chosen by what three weeks and one team could produce. The assurance a reader takes from a document is decided by who they are and what they do with it. Nothing in any organisation's process connects those two, and this case is what happens in the space between them.\n\nThe defence is not a stronger disclaimer. It is deciding the engagement from the use — asking at the outset who reads this and what for — and then making the document able to describe its own limits without the covering email, the meeting, or you in the room to explain it.\n\nThe last decision was worth as much as the first. A report can be carefully bounded and then undone by three lines of email, because the reader quotes whichever artefact answers their question. Both have to say the same thing."
+    },
+    "end-commercial": {
+      "title": "Answered by someone else",
+      "verdict": "acceptable",
+      "narrative": "The report is accurate and properly bounded, and the question about the period is answered somewhere you do not control — by an account director in an hour, or by a proposal for a future engagement that arrives instead of an answer.\n\nThe customer's file is closed as satisfactory. The basis on which it was closed is a sentence nobody in internal audit wrote.\n\nAt renewal the following year, procurement asks for the same assurance and refers back to what they were told.",
+      "why": "Everything about the engagement was handled well and the last step gave the answer away. A question about what your work supports can only be answered by the people who did the work, and passing it to a channel with a commercial interest converts it into a commercial answer — not dishonestly, just by people who do not know the distinction they are collapsing.\n\nThe same applies to answering with an offer. A proposal for future testing is a good thing to have on the table and it is not a response to 'can you confirm this operated'. The answer has to come first, in the terms of what was done, from the person who did it."
+    },
+    "end-informal": {
+      "title": "No reason to think otherwise",
+      "verdict": "weak",
+      "narrative": "Your email is quoted in the customer's supplier assessment as confirmation from the supplier's internal audit function that no exceptions were indicated across the period. The item is closed.\n\nThe following year's certification work establishes that the Q4 recertification campaign closed with 12% of reviewers never responding, and that the two before it had closed with unresolved exception queues.\n\nThe customer's risk team goes back through their file. The report says what it always said. The email does not.",
+      "why": "The report was written carefully and the correspondence was not, and the reader keeps whichever one answers their question. That asymmetry is the whole lesson: everything protecting the document — the scope page, the described procedures, the agreed limitations — applies to the document, and a follow-up question arrives in a medium where none of it is present.\n\n'No reason to think otherwise' is the specific phrase to watch. It is true, it is about the state of your knowledge, and it will be recorded as a statement about the state of the control. When the honest answer is that you do not know, the words have to say you do not know."
+    },
+    "end-relied-on": {
+      "title": "Cited in the contract schedule",
+      "verdict": "failed",
+      "narrative": "The report uploads cleanly and the deal signs. The contract schedule names it by title and date as evidence of the control environment, and the customer's third-party risk function records their supplier due diligence as discharged against it.\n\nFourteen months later the payments platform has an access-related incident affecting four customers. The customer's regulator asks what due diligence was performed before onboarding. The answer is a document from the supplier's internal audit function stating that the relevant controls were designed to meet the objectives of the framework.\n\nThe questions come back in order. What procedures were performed. Over what period. What conclusion was drawn on operating effectiveness. Whether the report said so. It did, in a paragraph that was removed so the file would upload.\n\nThe work was good. Two people with no ill intent turned it into something it was not, in a meeting that lasted ten minutes.",
+      "why": "This is the failure that is hardest to see coming, because the argument for it is true. The work was done properly. The team was competent. The procedures were the ones you would have performed anyway. The disclaimer did read like a lawyer's hedge on honest work.\n\nAnd the restriction was never a statement about quality. It was the statement of what the engagement was scoped, resourced and evidenced to support — three weeks, walkthrough-level procedures, no conclusion about any period. Remove it and nothing in the document tells a reader which of the two possible products they are holding, so they assume the one they asked for.\n\nWhat makes it unrecoverable is the chain it starts. The report is cited in a contract, the citation discharges the customer's own third-party risk obligation, and their regulator later tests that obligation against the document. None of those readers can be reached and none of them will re-examine the basis, because a supplier assurance document in a procurement file is a settled matter until an incident unsettles it.\n\nThe practical rule: when someone asks you to remove a limitation because the work deserves better, they are describing the procedures and you are describing the assertion. Those are different subjects, and only one of them is what the reader will rely on."
+    }
+  }
+}
