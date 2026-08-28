@@ -1,0 +1,147 @@
+# Continuous integration.
+#
+# This runs the commands the project has always been verified with - the test
+# suite, drill.py validate for both certs, and the front end build - so that
+# "green" here means what README.md and CLAUDE.md already say it means. None of
+# it is a new standard. It is the existing one, run by a machine nobody owns
+# rather than by hand on one desk, which is the only way a claim like "491
+# tests, validate clean with no warnings" is checkable by anyone but Justin.
+#
+# Nothing below installs a Python dependency. drillkit/, drill.py and serve.py
+# are standard library only (rule 15) and this workflow keeps it that way: no
+# pip install step, nothing to add one to.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  engine:
+    name: Engine - tests and bank integrity
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # README says Python 3.7 or newer, and with no third-party imports there
+      # is no requirements file to pin against. 3.12 is what the documented
+      # counts were measured on, so it is what runs here. The 3.7 floor is a
+      # claim this workflow does not test - worth a matrix if it ever matters.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Every test suite
+        run: python run_tests.py
+
+      # validate exits 0 on warnings; it only fails on errors. The project
+      # standard is stricter than the exit code - both banks are recorded as
+      # "clean with no warnings" - so a warning has to break the build or that
+      # standard quietly slips the first time someone is in a hurry. The engine
+      # is not changed to enforce it; the check lives here instead.
+      - name: CISA bank integrity, warning-clean
+        run: |
+          python drill.py validate | tee validate-cisa.log
+          if grep -q '^Warnings (' validate-cisa.log; then
+            echo "::error::validate reported warnings. The bank standard is warning-clean."
+            exit 1
+          fi
+
+      - name: CPA AUD bank integrity, warning-clean
+        run: |
+          python drill.py --cert cpa-aud validate | tee validate-cpa-aud.log
+          if grep -q '^Warnings (' validate-cpa-aud.log; then
+            echo "::error::validate reported warnings. The bank standard is warning-clean."
+            exit 1
+          fi
+
+  frontend:
+    name: Front end - typecheck and build
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # There is no .nvmrc and no engines field, so the floor comes from the
+      # lockfile: vite 8.2.0 and @vitejs/plugin-react 6.0.5 both declare
+      # node ^20.19.0 || >=22.12.0. 24 is what web/ was last built with, and
+      # matching it is what makes the drift check below an assertion rather
+      # than a coin toss.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      # npm ci, not npm install: the lockfile decides, and a build that
+      # resolved different versions than the committed web/ was built from
+      # would make the drift check below meaningless.
+      - name: Install from the lockfile
+        run: npm ci
+        working-directory: frontend
+
+      # npm run build is `tsc --noEmit && vite build`, so the typecheck and the
+      # build are the one documented command.
+      - name: Typecheck and build
+        run: npm run build
+        working-directory: frontend
+
+      # web/ is build output committed so that serve.py needs no Node. That
+      # split only works while the two halves agree, and nothing has checked
+      # that they do: an edit to frontend/src that is never rebuilt ships a
+      # stale app to everyone who runs serve.py, silently and indefinitely.
+      # The build above writes into web/; this step only reads what changed
+      # and CI never commits it.
+      - name: web/ matches a fresh build
+        run: |
+          if [ -n "$(git status --porcelain -- web)" ]; then
+            echo "::error::web/ is out of date. Run 'cd frontend && npm run build' and commit the result."
+            git status --porcelain -- web
+            git diff --stat -- web
+            exit 1
+          fi
+
+  offline:
+    name: Offline claim - no network at runtime
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # The first paragraph of README claims no network access at runtime, and
+      # it runs on a plane. That is a testable claim, so test it rather than
+      # assert it: the suites and both banks re-run inside a namespace with no
+      # interface at all beyond loopback. Anything reaching for the network
+      # fails here instead of on the plane.
+      #
+      # Loopback is brought up on purpose. unshare hands back a namespace whose
+      # lo is DOWN, and the webapi suites bind 127.0.0.1 - without this, nine
+      # tests fail on the isolation rather than on any network access. Binding
+      # localhost is not network access; serve.py binds 127.0.0.1 only.
+      #
+      # This covers the runtime claim, not the build. The front end job has to
+      # reach npm to install, which is an install-time cost the committed web/
+      # exists precisely to keep away from anyone who only wants to study.
+      - name: Tests and both banks with no network
+        run: |
+          unshare --map-root-user --net -- sh -c '
+            ip link set lo up
+            python run_tests.py &&
+            python drill.py validate &&
+            python drill.py --cert cpa-aud validate
+          '
