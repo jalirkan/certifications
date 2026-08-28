@@ -94,8 +94,11 @@ data, which is worse than leaving it alone.
 1. **Never reproduce ISACA, QAE, or any other copyrighted exam questions.** Every question in the
    bank is original and must stay that way. This is not negotiable and applies to every future batch.
 2. **Verify exam facts online before writing them** — domain weights, topic lists, exam length,
-   passing score. These change. The outline was last verified **2026-07-26** against isaca.org.
-   Update that date when you re-verify.
+   passing score. These change. The outline was last verified **2026-08-28** against isaca.org:
+   no drift, all sixty topic strings byte-identical. Update that date when you re-verify.
+   **Verify against the page in `cisa/outline.json`'s `source`, not the Candidate Guide.** ISACA
+   publishes the outline twice and the renderings differ on fourteen topics — four of them by real
+   words, not just acronyms. See `source_note` in that file before concluding anything has changed.
 3. **Question `topic` values must match `cisa/outline.json` exactly.** `python drill.py validate`
    enforces this. Run it after any edit to the bank.
 4. **Question banks are data, never hardcoded into the engine.**

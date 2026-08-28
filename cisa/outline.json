@@ -2,15 +2,18 @@
   "cert": "CISA",
   "cert_name": "Certified Information Systems Auditor",
   "source": "https://www.isaca.org/credentialing/cisa/cisa-exam-content-outline",
-  "verified_on": "2026-07-26",
-  "note": "Domain names, section names and topic lists transcribed from ISACA's published CISA Exam Content Outline. Weights confirmed on the same page. This file is a structural reference for tagging questions; it contains no ISACA question content.",
+  "verified_on": "2026-08-28",
+  "note": "Domain names, section names and topic lists transcribed from ISACA's published CISA Exam Content Outline at the URL in `source`. Weights confirmed on the same page. This file is a structural reference for tagging questions; it contains no ISACA question content. Re-verified 2026-08-28: all five weights, ten section names and sixty topic strings still match that page byte for byte, as do 150 questions / 240 minutes / 200-800 / 450.",
   "exam_format": {
     "questions": 150,
     "minutes": 240,
-    "score_scale": [200, 800],
+    "score_scale": [
+      200,
+      800
+    ],
     "passing_score": 450,
-    "format": "multiple choice, four options, one correct",
-    "verified_on": "2026-07-26"
+    "format": "multiple choice, four options, one best answer",
+    "verified_on": "2026-08-28"
   },
   "domains": {
     "1": {
@@ -153,5 +156,6 @@
         }
       }
     }
-  }
+  },
+  "source_note": "ISACA publishes the outline TWICE, and the two renderings differ. This file follows the web page in `source` (the short form). The Certification Exam Candidate Guide, Appendix A ('CISA Examination Content Outline (Effective August 2024)'), carries expanded strings for fourteen topics - ten are acronym expansions or capitalisation, but four add words: 1A1 adds 'Functions,'; 1B4 adds '(including audit algorithms)'; 5A1 adds 'Policies,'; 5B4 adds 'Logs,'. Both documents are live and both describe the same August 2024 job practice; neither supersedes the other. Recorded because a future re-verification against the Guide instead of the page would look like drift and is not. If the tagged strings are ever switched to the Guide's, every question tag has to move with them - `validate` enforces exact matches."
 }
