@@ -1,0 +1,256 @@
+{
+  "cert": "CPA-AUD",
+  "cert_name": "CPA Exam — Auditing and Attestation (AUD)",
+  "source": "https://www.aicpa-cima.com/resources/download/learn-what-is-tested-on-the-cpa-exam",
+  "source_document": "Uniform CPA Examination Blueprints, approved by the Board of Examiners Aug. 18, 2025, effective January 2026 (CPA_Exam_Blueprints_2026.pdf)",
+  "verified_on": "2026-08-27",
+  "note": "Area, group and topic names transcribed verbatim from the AICPA's published AUD blueprint. This file is a structural reference for tagging questions; it contains no AICPA question content. Two modelling conventions: (1) blueprint Areas map to this engine's 'domains' and Groups to its 'sections'; (2) where the published blueprint defines no topic level under a group, the group name is carried as that section's single topic, so questions stay taggable without inventing subdivision the blueprint does not publish. Each area's 'weight' is the midpoint of the published range (midpoints sum to exactly 100), used for blueprint-weighted sampling; the official range is kept alongside it.",
+  "exam_format": {
+    "questions": 78,
+    "minutes": 120,
+    "score_scale": [0, 99],
+    "passing_score": 75,
+    "format": "multiple choice, four options, one correct",
+    "note": "This tool models the MCQ half of AUD only. The real section is 78 MCQs plus 7 task-based simulations in 240 minutes, scored 50% MCQ / 50% TBS. A mock here is the 78 MCQs at 120 minutes — the MCQ share of the official time — so pacing practice transfers; it is not the full exam and cannot be read as one.",
+    "official_format": {
+      "mcqs": 78,
+      "task_based_simulations": 7,
+      "minutes": 240,
+      "scoring": "50% MCQ / 50% TBS",
+      "testlets": "2 MCQ testlets (39 + 39), 3 TBS testlets (2 + 3 + 2)"
+    },
+    "verified_on": "2026-08-27"
+  },
+  "skill_allocation": {
+    "note": "Published AUD skill weighting, for reference when writing questions.",
+    "remembering_and_understanding": "30-40%",
+    "application": "30-40%",
+    "analysis": "15-25%",
+    "evaluation": "5-15%"
+  },
+  "domains": {
+    "1": {
+      "name": "Ethics, Professional Responsibilities and General Principles",
+      "weight": 20,
+      "weight_range": "15-25%",
+      "sections": {
+        "A": {
+          "name": "Ethics, independence and professional responsibilities",
+          "topics": [
+            "AICPA Code of Professional Conduct",
+            "Requirements of the Securities and Exchange Commission and the Public Company Accounting Oversight Board",
+            "Requirements of the Government Accountability Office and the Department of Labor"
+          ]
+        },
+        "B": {
+          "name": "Professional skepticism and professional judgment",
+          "topics": [
+            "Professional skepticism and professional judgment"
+          ]
+        },
+        "C": {
+          "name": "Nature and scope",
+          "topics": [
+            "Audit engagements",
+            "Engagements conducted under Government Accountability Office Government Auditing Standards",
+            "Other engagements"
+          ]
+        },
+        "D": {
+          "name": "Terms of engagement",
+          "topics": [
+            "Preconditions for an engagement",
+            "Terms of engagement and the engagement letter"
+          ]
+        },
+        "E": {
+          "name": "Requirements for engagement documentation",
+          "topics": [
+            "Requirements for engagement documentation"
+          ]
+        },
+        "F": {
+          "name": "Communication with management and those charged with governance",
+          "topics": [
+            "Planned scope and timing of an engagement",
+            "Internal control related matters"
+          ]
+        },
+        "G": {
+          "name": "Audit and assurance quality",
+          "topics": [
+            "Audit and assurance quality"
+          ]
+        }
+      }
+    },
+    "2": {
+      "name": "Assessing Risk and Developing a Planned Response",
+      "weight": 30,
+      "weight_range": "25-35%",
+      "sections": {
+        "A": {
+          "name": "Planning an engagement",
+          "topics": [
+            "Overall engagement strategy",
+            "Engagement plan"
+          ]
+        },
+        "B": {
+          "name": "Understanding an entity and its environment",
+          "topics": [
+            "External factors",
+            "Internal factors"
+          ]
+        },
+        "C": {
+          "name": "Understanding an entity's control environment and business processes, including information technology (IT) systems",
+          "topics": [
+            "COSO Internal Control - Integrated Framework",
+            "Control environment, entity-level controls and IT general controls",
+            "Business processes and the design of internal controls, including the IT environment",
+            "Implications of an entity using a service organization",
+            "Limitations of controls and risk of management override"
+          ]
+        },
+        "D": {
+          "name": "Materiality",
+          "topics": [
+            "For the financial statements as a whole",
+            "Tolerable misstatement and performance materiality"
+          ]
+        },
+        "E": {
+          "name": "Assessing and responding to risks of material misstatement, whether due to fraud or error",
+          "topics": [
+            "Assessing and responding to risks of material misstatement, whether due to fraud or error"
+          ]
+        },
+        "F": {
+          "name": "Planning for and using the work of others",
+          "topics": [
+            "Planning for and using the work of others"
+          ]
+        },
+        "G": {
+          "name": "Specific areas of engagement risk",
+          "topics": [
+            "An entity's compliance with laws and regulations",
+            "Accounting estimates",
+            "Related parties and related party transactions",
+            "Uniform Guidance for single audits"
+          ]
+        }
+      }
+    },
+    "3": {
+      "name": "Performing Further Procedures and Obtaining Evidence",
+      "weight": 35,
+      "weight_range": "30-40%",
+      "sections": {
+        "A": {
+          "name": "Use of data and information",
+          "topics": [
+            "Requesting, preparing and transforming data",
+            "Reliability of data and information",
+            "Data analytics"
+          ]
+        },
+        "B": {
+          "name": "Sufficient appropriate evidence",
+          "topics": [
+            "Sufficient appropriate evidence"
+          ]
+        },
+        "C": {
+          "name": "Sampling techniques",
+          "topics": [
+            "Sampling techniques"
+          ]
+        },
+        "D": {
+          "name": "Procedures to obtain sufficient appropriate evidence",
+          "topics": [
+            "Test of controls and test of details",
+            "Analytical procedures",
+            "External confirmations"
+          ]
+        },
+        "E": {
+          "name": "Specific matters that require special consideration",
+          "topics": [
+            "Accounting estimates",
+            "Investments in securities",
+            "Inventory and inventory held by others",
+            "Litigation, claims and assessments",
+            "An entity's ability to continue as a going concern",
+            "Uniform Guidance for single audits"
+          ]
+        },
+        "F": {
+          "name": "Misstatements and internal control deficiencies",
+          "topics": [
+            "Misstatements and internal control deficiencies"
+          ]
+        },
+        "G": {
+          "name": "Written representations",
+          "topics": [
+            "Written representations"
+          ]
+        },
+        "H": {
+          "name": "Subsequent events and subsequently discovered facts",
+          "topics": [
+            "Subsequent events and subsequently discovered facts"
+          ]
+        }
+      }
+    },
+    "4": {
+      "name": "Forming Conclusions and Reporting",
+      "weight": 15,
+      "weight_range": "10-20%",
+      "sections": {
+        "A": {
+          "name": "Reporting on audit engagements",
+          "topics": [
+            "Reporting on audit engagements"
+          ]
+        },
+        "B": {
+          "name": "Reporting on attestation engagements",
+          "topics": [
+            "Examination or review engagements",
+            "Agreed-upon procedures engagements"
+          ]
+        },
+        "C": {
+          "name": "Accounting and review service engagements",
+          "topics": [
+            "Preparation engagements",
+            "Compilation engagements",
+            "Review engagements"
+          ]
+        },
+        "D": {
+          "name": "Reporting on compliance",
+          "topics": [
+            "Reporting on compliance"
+          ]
+        },
+        "E": {
+          "name": "Other reporting considerations",
+          "topics": [
+            "Comparative statements and consistency between periods",
+            "Other information in documents with audited statements",
+            "Review of interim financial information",
+            "Supplementary information",
+            "Additional reporting requirements under Government Accountability Office Government Auditing Standards",
+            "Special-purpose frameworks"
+          ]
+        }
+      }
+    }
+  }
+}

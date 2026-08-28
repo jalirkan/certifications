@@ -224,6 +224,30 @@ def load_outline(cert: str) -> Outline:
     return Outline(cert=cert.upper(), raw=_read_data_file(path))
 
 
+def list_certs() -> List[Dict[str, str]]:
+    """Discover certification folders.
+
+    A certification is any repo-root subdirectory holding a questions/
+    directory. The display name comes from the outline when one exists, so a
+    new cert becomes switchable by creating its folder - no registry to edit.
+    """
+    certs: List[Dict[str, str]] = []
+    root = repo_root()
+    for entry in sorted(os.listdir(root)):
+        full = os.path.join(root, entry)
+        if entry.startswith(".") or not os.path.isdir(full):
+            continue
+        if not os.path.isdir(os.path.join(full, "questions")):
+            continue
+        outline = load_outline(entry)
+        certs.append({
+            "id": entry,
+            "cert": str(outline.raw.get("cert", entry.upper())),
+            "name": str(outline.raw.get("cert_name", entry.upper())),
+        })
+    return certs
+
+
 def load_questions(cert: str, paths: Optional[List[str]] = None) -> List[Question]:
     """Read every question file for a cert and return Question objects.
 

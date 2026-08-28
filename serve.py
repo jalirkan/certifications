@@ -64,9 +64,33 @@ class ApiPool:
             return api
 
 
+class CertPool:
+    """One ApiPool per certification, so the browser can switch certs without
+    restarting the server. Certs share nothing - each keeps its own parsed
+    bank, profiles and results, which is what keeps their histories apart.
+    """
+
+    def __init__(self, default_cert: str, allowed) -> None:
+        self.default = default_cert
+        self.allowed = set(allowed) | {default_cert}
+        self._pools: dict = {}
+        self._lock = threading.Lock()
+
+    def get(self, cert: str = "", profile: str = "") -> Api:
+        key = (cert or "").strip().lower() or self.default
+        if key not in self.allowed:
+            raise ApiError("Unknown certification %r." % key, 404)
+        with self._lock:
+            pool = self._pools.get(key)
+            if pool is None:
+                pool = ApiPool(key)
+                self._pools[key] = pool
+        return pool.get(profile)
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = "DrillKit"
-    pool: ApiPool = None  # type: ignore[assignment]
+    pool: CertPool = None  # type: ignore[assignment]
 
     # ---- plumbing ----------------------------------------------------
     def log_message(self, fmt, *args):  # quieter than the default
@@ -92,11 +116,12 @@ class Handler(BaseHTTPRequestHandler):
         self._json({"error": message}, status)
 
     def _api(self) -> Api:
+        query = parse_qs(urlparse(self.path).query)
         profile = self.headers.get("X-Profile", "") or ""
         if not profile:
-            query = parse_qs(urlparse(self.path).query)
             profile = (query.get("profile") or [""])[0]
-        return self.pool.get(profile)
+        cert = self.headers.get("X-Cert", "") or (query.get("cert") or [""])[0]
+        return self.pool.get(cert, profile)
 
     def _body(self) -> dict:
         length = int(self.headers.get("Content-Length") or 0)
@@ -314,7 +339,28 @@ def main(argv=None) -> int:
         print("Missing web/ directory at %s" % WEB_DIR)
         return 1
 
-    Handler.pool = ApiPool(args.cert)
+    # Sibling certs are switchable at runtime via the X-Cert header. Each is
+    # validated here so a broken bank surfaces at startup as a warning rather
+    # than as a 500 mid-study; the cert asked for on the command line stays a
+    # hard failure, handled above.
+    available = [args.cert]
+    for meta in loader.list_certs():
+        cid = meta["id"]
+        if cid == args.cert:
+            continue
+        try:
+            errs, _ = loader.validate(loader.load_questions(cid),
+                                      loader.load_outline(cid))
+        except QuestionError as exc:
+            print("  (cert %r not switchable: %s)" % (cid, exc))
+            continue
+        if errs:
+            print("  (cert %r not switchable: %d validation error(s))"
+                  % (cid, len(errs)))
+            continue
+        available.append(cid)
+
+    Handler.pool = CertPool(args.cert, available)
     port = find_port(args.port)
     url = "http://127.0.0.1:%d/" % port
 
@@ -325,6 +371,8 @@ def main(argv=None) -> int:
     print("  %s study system" % args.cert.upper())
     print("=" * 66)
     print("  %d questions ready" % len(questions))
+    if len(available) > 1:
+        print("  certs: %s" % ", ".join(sorted(available)))
     print("  %s" % url)
     print("  localhost only - nothing is exposed off this machine")
     print("  Ctrl+C to stop")

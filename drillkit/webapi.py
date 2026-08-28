@@ -181,6 +181,8 @@ class Api:
 
         return {
             "cert": self.cert.upper(),
+            "cert_name": str(outline.raw.get("cert_name", self.cert.upper())),
+            "certs": loader.list_certs(),
             "profile": self.profile or "",
             "profiles": loader.list_profiles(self.cert),
             "questions": len(self.questions),
@@ -613,8 +615,14 @@ class Api:
 
     def exam_new(self, params: Dict[str, Any]) -> Dict[str, Any]:
         pool = self._filtered(params)
-        total = max(1, min(int(params.get("n", exam_mod.DEFAULT_QUESTIONS)), 300))
-        minutes = max(1, min(int(params.get("minutes", exam_mod.DEFAULT_MINUTES)), 600))
+        # A mock exam defaults to this cert's declared format, not to CISA's.
+        # The outline carries questions/minutes; the engine-wide constants are
+        # only the fallback for a cert that has not declared a format.
+        fmt = self.outline.raw.get("exam_format", {}) or {}
+        default_total = int(fmt.get("questions", exam_mod.DEFAULT_QUESTIONS))
+        default_minutes = int(fmt.get("minutes", exam_mod.DEFAULT_MINUTES))
+        total = max(1, min(int(params.get("n", default_total)), 300))
+        minutes = max(1, min(int(params.get("minutes", default_minutes)), 600))
         rng = random.Random(params.get("seed"))
         state, picked = exam_mod.new_exam(pool, self.outline, self.cert,
                                           total=total, minutes=minutes, rng=rng)

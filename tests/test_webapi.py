@@ -404,7 +404,7 @@ class TestHttpLayer(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        serve.Handler.pool = serve.ApiPool("cisa")
+        serve.Handler.pool = serve.CertPool("cisa", ["cisa"])
         cls.srv = ThreadingHTTPServer(("127.0.0.1", 0), serve.Handler)
         cls.port = cls.srv.server_address[1]
         cls.thread = threading.Thread(target=cls.srv.serve_forever, daemon=True)
@@ -422,10 +422,12 @@ class TestHttpLayer(unittest.TestCase):
                     os.remove(os.path.join(root, f))
                 os.rmdir(root)
 
-    def call(self, path, body=None, profile=None):
+    def call(self, path, body=None, profile=None, cert=None):
         url = "http://127.0.0.1:%d%s" % (self.port, path)
         req = urllib.request.Request(url, method="POST" if body is not None else "GET")
         req.add_header("X-Profile", profile if profile is not None else self.profile)
+        if cert is not None:
+            req.add_header("X-Cert", cert)
         data = None
         if body is not None:
             data = json.dumps(body).encode()
@@ -531,6 +533,60 @@ class TestHttpLayer(unittest.TestCase):
                 for f in files:
                     os.remove(os.path.join(root, f))
                 os.rmdir(root)
+
+    def test_an_unknown_cert_is_a_clean_404_not_a_crash(self):
+        status, data = self.call("/api/bootstrap", cert="not-a-cert")
+        self.assertEqual(status, 404)
+        self.assertIn("error", data)
+
+    def test_the_cert_header_routes_to_that_cert(self):
+        status, data = self.call("/api/bootstrap", cert="cisa")
+        self.assertEqual(status, 200)
+        self.assertEqual(data["cert"], "CISA")
+
+
+class TestCertDiscovery(unittest.TestCase):
+    """Multi-cert support: certs are discovered from folders, never registered."""
+
+    def test_list_certs_finds_the_cisa_bank(self):
+        certs = loader.list_certs()
+        ids = [c["id"] for c in certs]
+        self.assertIn("cisa", ids)
+        for c in certs:
+            self.assertTrue(c["id"])
+            self.assertTrue(c["cert"])
+            self.assertTrue(c["name"])
+
+    def test_bootstrap_lists_every_discovered_cert(self):
+        api = Api("cisa", "test-certs-%s" % os.urandom(3).hex())
+        boot = api.bootstrap()
+        self.assertEqual([c["id"] for c in boot["certs"]],
+                         [c["id"] for c in loader.list_certs()])
+        self.assertTrue(boot["cert_name"])
+
+
+class TestExamFormatComesFromTheOutline(ApiTestBase):
+    """A mock exam must default to the cert's own declared format. CISA's
+    150/240 happens to match the engine constants, so this injects a fake
+    format to prove the outline is actually read."""
+
+    def test_exam_new_defaults_to_the_outline_format(self):
+        raw = dict(self.api.outline.raw)
+        raw["exam_format"] = dict(raw.get("exam_format", {}),
+                                  questions=12, minutes=34)
+        self.api._cache["outline"] = loader.Outline(cert="CISA", raw=raw)
+        exam = self.api.exam_new({})
+        self.assertEqual(len(exam["questions"]), 12)
+        self.assertEqual(exam["duration"], 34 * 60)
+
+    def test_an_explicit_request_still_wins(self):
+        raw = dict(self.api.outline.raw)
+        raw["exam_format"] = dict(raw.get("exam_format", {}),
+                                  questions=12, minutes=34)
+        self.api._cache["outline"] = loader.Outline(cert="CISA", raw=raw)
+        exam = self.api.exam_new({"n": 5, "minutes": 9})
+        self.assertEqual(len(exam["questions"]), 5)
+        self.assertEqual(exam["duration"], 9 * 60)
 
 
 if __name__ == "__main__":
