@@ -1,0 +1,355 @@
+{
+  "id": "d3-the-business-case",
+  "title": "The Business Case",
+  "domain": "3",
+  "section": "A",
+  "topics": [
+    "Business Case and Feasibility Analysis",
+    "Project Governance and Management",
+    "Post-implementation Review"
+  ],
+  "principles": [
+    "outcome-over-activity",
+    "evidence-quality",
+    "explicit-and-owned",
+    "earlier-is-cheaper",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "A wholesale distributor of catering and cleaning supplies — restaurants, care homes, schools, £740m of turnover through nine regional depots — is nineteen months into a £31.2m warehouse automation programme. Goods-to-person picking modules and a new warehouse management system, depot by depot.\n\nThe business case promises £6.6m a year once all nine depots are live. £3.9m of that is the removal of 96 warehouse posts, costed fully loaded with the overtime and agency cover they attract. The remaining £2.7m is peak agency hours, pick-error credits, and a tenth depot the automation defers by four years.\n\nThe £14.2m NPV, the 19% IRR and the 4.7-year payback all clear the board's hurdle. Take the £3.9m out and none of them do.\n\nGate 1 released £6.8m for design and one pilot depot. Gate 2, in eight working days, releases £18.4m for the next five.\n\nYou are the IS auditor. The audit committee has asked you to review the business case before the gate. You are not a member of the investment committee and you do not have a vote.",
+  "taints": {
+    "authored-the-case": "end-authored"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The case document runs to forty-six pages and it is well made: three scenarios, a sensitivity analysis, a benefits schedule phased by depot and by month, a risk register with thirty-one entries. The finance director's team built the model and the programme office maintains it.\n\nEight working days. Whatever you raise has to be raisable at the gate, or it is a comment on a decision that has already been taken.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Verify the model: arithmetic, formula integrity, the discount rate against treasury policy, the phasing of the capital.",
+          "quality": "poor",
+          "next": "the-throughput",
+          "consequence": "Three days. No broken references, no circularity, the capital phasing ties to the contract. You find one phasing error worth £40,000 and a discount rate half a point below treasury policy, and you note both.",
+          "why": "The most testable thing in the pack, and an error here would be unarguable — which is why there is barely one. A finance team built this model and a finance team reviewed it.\n\nA model is a machine for turning inputs into a conclusion. Verifying the machine establishes that the conclusion follows from the inputs, which was never in doubt, and says nothing whatever about the inputs. It also costs three of your eight days, and the two quantities the £18.4m rests on are visible in half a day."
+        },
+        {
+          "key": "B",
+          "text": "Take the £3.9m apart: which quantities have to hold for it to become cash, and where each one came from.",
+          "quality": "best",
+          "next": "the-throughput",
+          "consequence": "Half a day with the model. Every line of the £3.9m derives from two quantities: 285 picks per operator-hour after automation against 112 today, and 96 warehouse posts removed across the nine depots. The 285 carries a footnote — vendor design basis, confirmed in design workshops. The 96 carries none. It is not derived from the 285 anywhere in the model; it first appears in a benefits workshop output from March last year and is carried forward unchanged.",
+          "why": "A business case is an argument, and an argument has load-bearing members and decoration. Three scenarios, a sensitivity analysis and thirty-one risks are all downstream of two quantities, and a model this well built will carry either of them faithfully to a precisely wrong answer.\n\nThe other £2.7m is not where the exposure is. It follows from the throughput, and the pilot depot has been testing the throughput for five months. The £3.9m needs something throughput cannot supply — somebody has to actually remove a post — and half a day of reduction is what makes that difference visible.\n\nIt also shows that the two quantities were never connected to each other in the model at all. Nobody hid that. Nobody had asked the question in a form that would have made it visible."
+        },
+        {
+          "key": "C",
+          "text": "Read the gate 1 approval and whatever conditions were attached to it.",
+          "quality": "defensible",
+          "next": "the-throughput",
+          "consequence": "One condition, minuted fifteen months ago: benefits to be validated against pilot performance before gate 2. Nothing in the gate 2 pack refers to it. The programme office confirms that no validation has been produced and that the condition was not tracked.",
+          "why": "Cheap, quick, and it gives you a finding with the organisation's own governance behind it rather than your judgement — the committee set the test itself, and the test has not been run. That is a good place to be standing.\n\nWhat it establishes is that something is missing, not what would have been found had it been done. A condition finding is also the easiest kind to discharge: the programme can produce a validation inside a week, and will produce it from the same source the case came from. The condition is a hook to hang a finding on. It is not the finding."
+        },
+        {
+          "key": "D",
+          "text": "Ask the programme office for the benefits realisation plan and the current benefits status.",
+          "quality": "poor",
+          "next": "the-throughput",
+          "consequence": "It arrives within the hour. Forty-one pages, a benefits map, a benefits register with an owner named against every line, a RAG status of green, and a note that all nine depots have been engaged through the benefits workshop programme. The milestone tracker shows the programme 71% complete.",
+          "why": "It is the document that exists to answer your question, and everything in it is true: the workshops happened, the map was drawn, the register is maintained by someone conscientious. None of it is a measurement of a benefit.\n\nGreen is a judgement about benefits management. 71% measures the programme. 'All nine depots engaged' counts meetings. A benefits document reporting on its own activity can stay green for the entire life of a programme that delivers nothing — which is not a criticism of the person maintaining it, but of a process whose only available measure is of effort."
+        }
+      ]
+    },
+    "the-throughput": {
+      "situation": "The first of the two quantities: 285 picks per operator-hour after automation, against 112 today. The footnote reads 'vendor design basis, confirmed in design workshops'. The vendor is paid on installation milestones. The design workshops were attended by the programme team and the vendor.\n\nThe pilot depot — the largest of the nine — has been running the new modules for twenty-two weeks. The gate 2 pack describes the pilot as delivered to plan, with benefits tracking to follow. It quotes no throughput figure.",
+      "prompt": "How do you test the 285?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Pull the pilot depot's throughput from the WMS, weekly, since go-live.",
+          "quality": "best",
+          "next": "the-pilot-numbers",
+          "consequence": "The report already exists and takes the site systems analyst forty minutes to run off. Twenty-two weekly figures, from a first-month dip to 231 in the most recent week, still climbing.",
+          "why": "The organisation has been generating the answer for twenty-two weeks and nobody has looked at it. Every other test available here is a proxy — the vendor's reference site, a specialist's opinion, a published range. This is the same equipment, the same product mix, the same people, in this business, and it is the closest evidence to the assertion that exists anywhere.\n\nIt matters that you take it from the system rather than from the programme. The pack's description of the pilot as delivered to plan is not a misstatement; it is a statement about installation. The throughput figure was never asked for, so nobody ever had to decide whether to quote it."
+        },
+        {
+          "key": "B",
+          "text": "Ask the vendor for the reference installation data behind the 285.",
+          "quality": "poor",
+          "next": "the-pilot-numbers",
+          "consequence": "Four days of chasing produces a two-page case study. The site is not named. The order profile is ambient grocery, mostly single-line, against your client's mixed chilled and ambient at an average of nine lines an order.",
+          "why": "The right target and the weakest available source at the same time. You are asking the party paid on installation to substantiate the number that justifies the installation, about a site you cannot visit, in a document written to sell. Even scrupulously honest it answers a question about somebody else's warehouse — and single-line ambient picking is a different activity from nine-line mixed picking, which a case study is under no obligation to point out.\n\nThe cost is four of your remaining days, spent obtaining weaker evidence than the evidence sitting unread in your client's own WMS."
+        },
+        {
+          "key": "C",
+          "text": "Commission an independent materials-handling specialist to review the vendor's design basis.",
+          "quality": "defensible",
+          "next": "the-pilot-numbers",
+          "consequence": "You find one. She is available in three weeks and quotes £14,000. The gate is inside a week.",
+          "why": "Genuinely the right instrument for the question. An independent expert on the throughput of a specific configuration is stronger evidence on that point than anything you can produce yourself, and against £31.2m of capital the fee is not the objection.\n\nThe clock is. Evidence that arrives after the decision is not evidence for the decision, and the choice you are actually making is between an expert opinion in three weeks and your own client's operating data this afternoon. Independence is one dimension of evidence quality; proximity and timeliness are the others, and here the free option wins on two of the three."
+        },
+        {
+          "key": "D",
+          "text": "Benchmark the 285 against published figures for goods-to-person picking.",
+          "quality": "defensible",
+          "next": "the-pilot-numbers",
+          "consequence": "Half a day. The published range runs from about 180 to over 400 picks per operator-hour depending on order profile, module configuration and how an operator-hour is defined. The 285 sits inside it with room either side.",
+          "why": "Fast, free, citable, and it decides nothing. A benchmark wide enough to contain the number you are testing cannot confirm the number; it confirms the number is not absurd, which was not the question. The width is not a defect in the published data either — throughput genuinely depends on order profile and on where you draw the boundary of an hour, so a general figure has to be general.\n\nWhat makes it worth noticing is how it would land. Presented at the gate, 'within published industry norms' reads as validation, and you would have been the one who supplied it."
+        }
+      ]
+    },
+    "the-pilot-numbers": {
+      "situation": "Twenty-two weeks of WMS data. Weeks one to four dipped to 84 picks per operator-hour while the depot learned the modules. Week twenty-two: 231, rising about three a week. The vendor's own ramp curve puts the plateau at 250 to 260.\n\nSo the 285 is optimistic by roughly ten per cent, and the direction of it is real.\n\nThen the payroll side, which nobody has costed. The pilot depot's warehouse establishment was 128 at go-live and is 126 today — two leavers not replaced. Agency hours are down 44%, overtime down 61%.",
+      "prompt": "What do you make of that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The 285 is overstated. Re-base the case to the achievable 255.",
+          "quality": "poor",
+          "next": "the-rebased-case",
+          "consequence": "You put it to the programme director. He agrees immediately, and the programme office re-bases the benefits schedule inside two days: £3.9m becomes £3.5m and the NPV £11.0m. The updated gate pack presents the correction as evidence of active benefits management.",
+          "why": "It is a real overstatement, you found it with good evidence, and it is the finding the programme is most pleased to accept — which is the thing to notice about it. Conceding an assumption costs a programme nothing and closes the subject. The case now carries an audited number, and the correction becomes a demonstration that the process works.\n\nThe throughput was never the exposure. The pilot did close to what was promised, and the establishment is 126 against 128. Whatever is wrong sits downstream of the assumption you just corrected — and the corrected case has exactly the same defect at a slightly smaller number."
+        },
+        {
+          "key": "B",
+          "text": "Ask the pilot depot manager what happened to the hours.",
+          "quality": "defensible",
+          "next": "the-commitment",
+          "consequence": "He is glad to be asked. He redeployed nine people onto an evening despatch shift, and the depot now offers next-day delivery to care homes inside a two-hour radius, which it could not do before. Twenty weeks in, that is £1.1m of annualised new revenue at 21% margin. He has never been asked to reduce his establishment and does not believe anyone intends him to.",
+          "why": "The right person and a very good question, and it produces the explanation: the hours are not missing. They were spent on something the case has no line for, by a manager who did something genuinely useful with them. Two things are easy to lose in that.\n\nThe first is that you now have the reason before you have the size. £231,000 of new margin sounds like it covers the gap; it is worth knowing whether the gap is £223,000 or £400,000, and you cannot know until somebody costs the depot's actual labour movement against the benefits schedule. An explanation you cannot measure is a story.\n\nThe second is that it is not the same money. £31.2m of capital clears the board's hurdle only because £3.9m of it comes out of the labour cost base, not because of margin on a service the other eight depots have no equivalent of.\n\nAnd he is not the finding. Nothing asked him to remove the posts, nothing in his budget assumed it, nothing in his objectives measured it — so what he did was the sensible use of a resource nobody had claimed. The finding is the absence of the claim."
+        },
+        {
+          "key": "C",
+          "text": "Cost it. Turn the pilot depot's actual labour movement into an annual figure and set it against the benefits schedule line for that depot.",
+          "quality": "best",
+          "next": "the-commitment",
+          "consequence": "The finance business partner has it by the afternoon. Total labour cost at the depot, annualised, is down £248,000. The benefits schedule has this depot at £471,000. She says, unprompted, that nobody has ever put the two numbers together, because the benefits schedule belongs to the programme and the depot's costs belong to her.",
+          "why": "The whole case is in those two numbers, and neither was hard to obtain — they had simply never been in the same room. The pilot did roughly what the case said it would do, physically, and returned about half of what the case said that would be worth. Whatever is wrong is therefore not in the assumption everyone is arguing about. It is in the step between hours saved and money saved, and that is the step the case has no evidence for at all.\n\nWhat the £248,000 is made of matters as much as its size. It is agency hours and overtime — the flexible margin, which comes back the week volume rises. Two posts left the establishment and neither was removed on purpose. The modelled saving was permanent establishment, and none of that has arrived.\n\nThe reason nobody had spotted it is structural rather than careless. Two numbers, held in two places, by two functions, neither of whom is ever asked for the other's — that is how a benefit goes missing without anybody misreporting anything. It is also the finding that cannot be closed by conceding a number, which is why it is worth more than the ten per cent you could have claimed instead."
+        },
+        {
+          "key": "D",
+          "text": "Twenty-two weeks is a short run on a curve that is still rising. Say the pilot cannot yet support a conclusion.",
+          "quality": "defensible",
+          "next": "the-commitment",
+          "consequence": "You say so. The programme notes the reservation, the pack is unchanged, and the gate proceeds as scheduled on the vendor's 285.",
+          "why": "Methodologically careful, and it is the right reservation about a ramping series: twenty-two weeks of a curve that has not plateaued will not give you the plateau.\n\nThe trouble is what it leaves standing. Declining to conclude does not return the decision to neutral — it returns it to the vendor's figure, because that is what is in the pack. Insufficient evidence is a finding when the decision can wait for better evidence, and a concession when it cannot.\n\nAnd the part of the data that does support a conclusion is not the part still moving. An establishment of 126 against 128 is not a ramp. Twenty-two weeks in, with throughput up a hundred and nineteen picks an hour, two posts have gone and both of them left on their own."
+        }
+      ]
+    },
+    "the-rebased-case": {
+      "situation": "The re-based schedule is in the gate pack with four days to go. £3.5m recurring, the NPV down from £14.2m to £11.0m, everything still clear of the board's hurdle. The covering note records that the benefits assumptions have been reviewed against pilot performance by internal audit.\n\nThe programme director has stopped defending the 285 and started citing the 255. Inside the programme the correction is being read as the audit finding, and the subject is closed.\n\nThe second quantity is where it was. Nobody has costed what the pilot depot's labour actually did, and the 96 posts remain one line in one document with no derivation behind it.",
+      "prompt": "The throughput question is closed and the pack carries internal audit's name against it. What do you do with the four days?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cost it. Turn the pilot depot's actual labour movement into an annual figure and set it against the benefits schedule line for that depot.",
+          "quality": "best",
+          "next": "the-commitment",
+          "consequence": "The finance business partner has it by the afternoon. Total labour cost at the depot, annualised, is down £248,000. The depot's line in the benefits schedule is £471,000, and the re-base has not been pushed down to depot level. She says, unprompted, that nobody has ever put the two numbers together, because the benefits schedule belongs to the programme and the depot's costs belong to her.",
+          "why": "Late, and still the only number that settles anything. The re-base moved the modelled saving; it did not measure a single pound of the saving arriving, and those are not the same operation. The pilot did roughly what the case said it would do, physically, and returned about half of what the case said that would be worth — a fact about the step between hours saved and money saved, which no correction to the throughput touches.\n\nWhat arriving here late costs you is the ground you speak from. The correction is already in the pack under audit's name, so the £248,000 now lands as a second point from a review the programme believes it has already answered, and every hour you spend on it is an hour you spent producing the first one. It is still the finding, and four days is still enough to establish it."
+        },
+        {
+          "key": "B",
+          "text": "Have the pack record that the re-based saving still depends on a post reduction nobody has yet shown is planned.",
+          "quality": "defensible",
+          "next": "end-rebaselined",
+          "consequence": "The programme office adds it to the risk register as entry thirty-two — 'benefits dependency: warehouse establishment reduction', owner the programme director, status amber, mitigation 'benefits workshops continue'. The covering note is unchanged. The pack goes to the committee with the re-based case and the new entry.",
+          "why": "You named the right dependency, in the right week, and then put it in the one place in the pack where naming a thing substitutes for doing anything about it. A risk register is a list of matters somebody is managing. A gate condition is a thing that has to be true before money moves, and only the second changes what the committee decides on Tuesday.\n\nThe amber is the tell. Thirty-one entries were already on that register and the £6.8m at gate 1 was released against all of them. What you have is not really a risk anyway — a risk is an event that may or may not occur, and the absence of the reduction from nine budgets is a fact about the case as it stands. Facts about the case belong in front of the decision, not beside it."
+        },
+        {
+          "key": "C",
+          "text": "Close the review on the correction. Write the gate memo around the re-based case.",
+          "quality": "poor",
+          "next": "end-rebaselined",
+          "consequence": "You write it up: the assumption tested against twenty-two weeks of pilot data, an overstatement of roughly ten per cent identified, the case re-based before the gate. The audit committee chair replies that this is exactly the timely intervention the review was commissioned for. The £18.4m is released on the re-based case.",
+          "why": "A real finding, well evidenced, delivered before the decision, and it will be received better than anything else you could have written — which is the thing to weigh rather than enjoy. A programme can concede an assumption at no cost to itself. No budget moves, nobody's objectives change, and the concession becomes evidence that the governance is working.\n\nThe larger of the two quantities has now been tested by nobody. The 96 posts have no derivation in the model, they are not connected to the 285 anywhere, and four days was enough to establish in nine depot budgets whether they existed. What goes into the pack instead is a line saying internal audit reviewed the benefits assumptions, attached to a case whose central weakness no one has looked at."
+        }
+      ]
+    },
+    "the-commitment": {
+      "situation": "The pilot has returned £248,000 of a modelled £471,000. You turn to the second quantity: the 96 posts.\n\nThe depot budgets for the coming financial year are set. Warehouse establishment is flat at all nine. The £3.9m appears in exactly one document — the programme's benefits schedule.\n\nNo depot manager's objectives refer to the reduction. Their incentive runs on service level and cost per case delivered, both of which improve with automation whether or not anybody leaves.\n\nHR has no consultation plan. Six of the nine depots have union recognition, and the reduction is not spread evenly: three depots carry 44 of the 96 between them. The case models no redundancy cost; at the group's average settlement, ninety-six would be about £1.4m.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The depot managers are not delivering the reduction and the chief operating officer should hold them to it.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "You raise it with the COO, who takes it seriously and calls the depot managers that week. Two agree to reflect the reduction in next year's budget in principle. The others ask which posts and by when, and are told the programme will confirm. When you ask him who owns the £3.9m he says the Group Supply Chain Director; she left in February, the role was split on her departure, and the case was never updated. He treats the question as settled by the calls he has just made. It does not come back before the gate.",
+          "why": "You have found the right gap and attached it to the wrong thing. Nobody has failed to deliver a reduction they were never given — it is not in their budgets, not in their objectives, not in any plan — so there is no undertaking to hold anyone to and no non-compliance to report.\n\nIt also moves you somewhere you should not be standing. Pressing a chief operating officer to commit nine managers to removing ninety-six jobs is advocating a commercial outcome, and the outcome you are advocating is the one that makes the case you are reviewing come true. Your question is whether the £3.9m is capable of being delivered and who is accountable for delivering it. Whether the posts ought to go is the committee's decision, and not a matter on which you have a view.\n\nAnd it spends the ownership question before you have asked it. The named benefits owner left seven months ago and nobody noticed; where the £3.9m should sit instead, and in whose budget, and before which budget round, was the decision this engagement still had left to make. Once the COO has made nine phone calls about it, it is a matter he has dealt with rather than one you get to place, and it goes to the gate as nine verbal undertakings with no owner behind them.\n\n'In principle' is also not a budget line, which is the part that will still be true next year."
+        },
+        {
+          "key": "B",
+          "text": "The saving is not committed anywhere it could be delivered from: not in a budget, not in an objective, not in a plan — and the cost of delivering it is not in the case.",
+          "quality": "best",
+          "next": "the-owner",
+          "consequence": "You write it as four tests, each with a yes-or-no answer and a document behind it: is the reduction carried in a depot budget, is it in anybody's objectives, is there a consultation plan, is the cost of running one in the case. The finance business partner and the HR director confirm their halves without argument. Neither had been asked before.",
+          "why": "The £3.9m is not an estimate that might turn out high or low. It is a quantity that has to be created by a sequence of specific acts — a budget reduced, an objective set, a consultation run, posts removed — and not one of those acts is scheduled, funded or assigned to anybody. That is a different species of finding from an optimistic assumption, and it cannot be closed by conceding a number.\n\nStating it as four documentary tests is what makes it survive the room. Each answer is a fact about a document that exists or does not, so the discussion cannot slide into whether the depots will get there in the end.\n\nThe unmodelled £1.4m belongs inside that finding rather than beside it. A case that omits the cost of delivering its own benefit has not been through the step where somebody worked out how the benefit would actually be delivered — the omission is not an arithmetic slip, it is the fingerprint of the missing step."
+        },
+        {
+          "key": "C",
+          "text": "The £1.4m redundancy cost is missing from the case and should be added.",
+          "quality": "defensible",
+          "next": "the-owner",
+          "consequence": "Finance agrees within a day and adds it. The NPV falls from £14.2m to £13.0m, the payback moves out three months, and the corrected case goes into the gate pack.",
+          "why": "A genuine omission, quantified, accepted at once and correctly reflected. What it improves is the accuracy of the cost of an event that is not scheduled to happen. The case now states, more precisely than before, what it would cost to deliver a saving nobody has agreed to deliver.\n\nCorrections of this shape are attractive precisely because they land — they are concrete, they are arithmetic, and no one has to change what they do. They also consume the finding. The case has been amended in response to audit, the amendment is visible in the pack, and the committee will reasonably read that as the review having been done."
+        },
+        {
+          "key": "D",
+          "text": "The collective consultation obligation is a legal exposure and should go to the general counsel.",
+          "quality": "defensible",
+          "next": "the-owner",
+          "consequence": "She is precise about it. The statutory duty bites per establishment, so this is not one ninety-six-post exercise: the three largest depots each cross the twenty-post threshold and carry a thirty-day minimum, the other six do not, and the recognition agreements at the six unionised sites commit the company to consult on establishment changes whatever the threshold says. Then a selection process in front of all of it. She asks who is planning it. Nobody is. She sends a note to the programme board.",
+          "why": "Correct, and it surfaces something the timetable badly needs: the benefits schedule has savings arriving in months that a proper consultation could not have finished in.\n\nWhere it goes wrong is the routing. A benefits accountability problem that enters the organisation as a legal question comes back with a legal answer, and the legal answer is that the company will consult properly whenever it decides to reduce. That is a true and complete response to the question you asked. It tells the investment committee nothing at all about whether the £3.9m exists."
+        }
+      ]
+    },
+    "the-owner": {
+      "situation": "The case names a benefits owner: the Group Supply Chain Director. She left in February, seven months ago. The role was split in two on her departure and the case was never updated.\n\nThe programme board's terms of reference assign benefits realisation to the programme director. The programme closes at final depot handover, month 30. The benefits schedule reaches its full £3.9m run rate in month 34.",
+      "prompt": "Who should own the £3.9m?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The programme director, as the terms of reference already provide.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "He accepts without hesitation and observes, pleasantly, that his contract runs to programme closure. The gate pack records the benefits owner question as resolved.",
+          "why": "It is the answer the governance document already gives and the fastest one to close, which is why it closes so fast — nobody has to be persuaded of anything and no budget moves.\n\nIt places a benefit that arrives in month 34 with a structure that ceases to exist in month 30, held by a person whose success is measured by delivering nine installations on time and to budget. A programme can hit every milestone, hand over cleanly and be congratulated while the benefit is delivered by nobody, because the programme was never the thing that had to change. The posts sit in depot budgets, and only the person who owns those budgets can remove them."
+        },
+        {
+          "key": "B",
+          "text": "Finance, since they hold the model and can track the outturn.",
+          "quality": "defensible",
+          "next": "the-committee",
+          "consequence": "The finance director agrees readily and commits to a quarterly benefits outturn report against the case, starting at the next quarter end.",
+          "why": "Sensible, and it fixes the measurement problem — finance is the one function that can put actual depot labour cost next to the benefits schedule, which is precisely what nobody did for twenty-two weeks at the pilot.\n\nMeasurement is not ownership, and the two get confused because the reports come out of the same place. Finance cannot remove a warehouse post. What this creates is an accurate quarterly account of a benefit failing to arrive, delivered to people under no obligation to act on it. That is better than the present position, and it is a reporting line rather than an owner."
+        },
+        {
+          "key": "C",
+          "text": "The nine depot P&Ls, through the chief operating officer, with the number in their budgets from the year it is modelled to arrive.",
+          "quality": "best",
+          "next": "the-committee",
+          "consequence": "The COO's first response is that this is really a programme matter. His second, after you show him the pilot's £248,000 against £471,000, is to ask when the budgets would have to change for it to be real. The answer is the coming budget round, which closes in six weeks.",
+          "why": "Ownership of a benefit is the ability to deliver it and the consequence of not delivering it, held by the same person. Only the depot P&Ls can remove a warehouse post, and only a budget carries the consequence. An owner whose own numbers are unaffected by the outcome is a correspondent, not an owner.\n\nSo the test of whether a benefit is owned is not whether a name appears against it in a register. It is whether somebody's figures get worse if the money does not arrive. Until the £3.9m is subtracted from nine depot budgets, every party to this programme can succeed completely while the saving never materialises, and not one of them will have done anything wrong.\n\nThe six weeks matter as much as the answer. There is one window a year in which this can be made true at no cost, and it is open now."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that a named executive owner be appointed before the gate.",
+          "quality": "defensible",
+          "next": "the-committee",
+          "consequence": "The recommendation is accepted at once. The programme board appoints the programme director, on the grounds that the terms of reference already say so and the appointment can be made in the meeting.",
+          "why": "Right in shape, and it hands the choice to the people whose interest lies in placing it where it costs least. A requirement to name an owner is discharged by naming one, and it will be named in the room, from the people in the room, to the person already carrying it on paper.\n\nThe specificity is the entire recommendation. 'A named benefits owner' and 'the owner of the budget the saving has to come out of' read as the same sentence to a board and are completely different instructions — and only one of them can be satisfied by the programme director."
+        }
+      ]
+    },
+    "the-committee": {
+      "situation": "Investment committee, Tuesday morning. The CFO chairs. Eleven people, and item four is the £18.4m.\n\nYou present: throughput real and ramping towards something near 255; the pilot returning £248,000 against a modelled £471,000; the £3.9m absent from all nine depot budgets and from every objective; no consultation plan; £1.4m of unmodelled cost; a benefits owner who left in February.\n\nThe CFO listens to the whole thing without interrupting. Then: \"Fine. So — do we release the eighteen point four, or not?\"",
+      "prompt": "How do you answer?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Say no. On these numbers the case does not stand up.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The room stops. The COO asks whether internal audit is taking investment decisions now. The CEO says the evening despatch service at the pilot is worth more than the case ever contemplated and he would fund the programme for that alone. The CFO closes the item and asks for your recommendation in writing by Thursday.",
+          "why": "The findings were good, you had just delivered them well, and the question was framed so that any other answer would feel like evasion. It is still not your decision, and answering it moves you from the strongest position in the room to the weakest.\n\nThe strong position is that four specific things are not true. That is not arguable — nine budgets say what they say. 'The case does not stand up' is a judgement about an investment, and judgements about investments get contested by the people who own investments, on grounds like the CEO's: legitimate, material, and impossible for you to weigh. You traded a set of facts for an opinion, and the room is now discussing the opinion.\n\nThe boundary is not squeamishness about being useful. This committee is entitled to fund the programme for reasons the business case never mentioned. What it is not entitled to do is fund it believing the £3.9m is committed when nothing commits it."
+        },
+        {
+          "key": "B",
+          "text": "Set out what has to become true for the £3.9m to be cash, say which of those things are true today, and leave the release decision with the committee.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "You give the four: a budget line, an objective, a consultation plan, and the cost of running one. None is met today. The CFO writes them down as you say them and reads them back. The COO notes that the budget round closes in six weeks. She asks for the four in writing by Thursday and moves to item five.",
+          "why": "It answers the question she needs answered without answering the question she asked, and that gap is the whole of the auditor's position at a funding gate. Whether £18.4m is a good use of the company's money turns on the service gain at the pilot, the vendor's price hold, the state of the legacy conveyors and the board's appetite for capital — none of which is yours. Whether the £3.9m in the paper in front of them is capable of being delivered, and by whom, is entirely yours, and nobody else in that room was ever going to say it.\n\nConditions also survive the minute in a way a verdict does not. A verdict is recorded as audit's position and then weighed against other people's positions. Four things that are not true in nine budgets get recorded as four things that are not true in nine budgets."
+        },
+        {
+          "key": "C",
+          "text": "Say you cannot answer that, and that your recommendation will be with them on Thursday.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The item closes in under a minute. At the end of the meeting the COO's summary is that audit has some concerns about benefits tracking, and the minute records it that way.",
+          "why": "The right refusal, and the room fills the space you left. Everything you had just presented is compressed into 'concerns about benefits tracking' by the person best placed to do the compressing, and that phrase is now the record of your position.\n\nDeclining the verdict is correct. Declining and then stopping leaves eleven people with a decision to make and nothing from you to make it with, so they reassemble what you said into something manageable. The refusal works when the substance travels with it — and you had the substance, four sentences of it, ready to say."
+        },
+        {
+          "key": "D",
+          "text": "Offer to work with the programme office to re-derive the savings from the pilot actuals and bring back a corrected case.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "taint": "authored-the-case",
+          "consequence": "The CFO is visibly relieved and agrees on the spot. You spend nine days with the benefits analyst rebuilding the schedule from twenty-two weeks of pilot data: a plateau at 255, a redundancy provision, budget transfers phased from month 20, £2.8m recurring. It is approved at the March committee along with the £18.4m, and your working papers are appended to the case.",
+          "why": "The relief in the room is the tell. You were offered the most interesting work in the engagement, by the most senior person present, at the moment the programme's own numbers had just failed in public — and the offer was genuine, because there was nobody else in the building who could do it.\n\nThe line between assurance and management is not about competence and it is not about who happens to be available. It is about who will be asked, later, whether the assumptions were reasonable when they were made. Once the phasing in the benefits schedule is yours, the post-implementation review has no independent reviewer, and the organisation has to buy one from outside after the money has gone.\n\nThe answer that stays on the right side of the line was already on the table and costs nothing: name the four conditions, say which are met today, and let the programme office do the arithmetic. You would have shaped the corrected case just as much and owned none of it."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "Thursday. Whatever you write has to be capable of being done at the gate itself, or it becomes a condition that outlives everyone's memory of why it was set.\n\nThe budget round for the coming year closes in six weeks.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the gate be held until the pilot has run a full year and the savings are demonstrated.",
+          "quality": "poor",
+          "next": "end-held",
+          "consequence": "The committee defers three months rather than the nine you asked for. The vendor's price hold lapses and £610,000 is added to the contract. Two depots whose legacy conveyors were due for replacement carry them another quarter.",
+          "why": "The instinct is right and there is real evidence behind it — £18.4m should not be committed against a benefit nobody has shown can be delivered. It goes wrong on the instrument and on the diagnosis.\n\nWithholding capital is the committee's lever. Recommending it puts you in the business of pricing a delay against vendor terms, legacy equipment condition and depot sequencing — costs you cannot see and were never asked to weigh. You asked for nine months and got three, which is what happens when somebody else does the pricing.\n\nThe diagnosis is the more expensive error. More pilot data cannot produce the missing thing, because the missing thing was never in the pilot. It is in nine depot budgets, one set of objectives and one consultation plan, and the budget round closes while the programme gathers more evidence about a question that was not in doubt."
+        },
+        {
+          "key": "B",
+          "text": "That release be conditional on three things: the £3.9m carried in the nine depot budgets from the year it is modelled to arrive, a named benefits owner in the operating line accountable for those budgets, and a post-implementation review measured on actual depot labour cost against the case.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The committee releases the £18.4m with the three conditions attached and gives the COO the budget round to discharge the first two.",
+          "why": "Each condition attaches to a mechanism rather than to a promise, and each is testable by somebody who was not in any of these meetings. A budget line either carries the number or it does not. An owner either holds the P&L the saving comes out of or does not. A review either measures labour cost or measures picks per hour.\n\nThe consultation plan and its £1.4m sit inside the first condition rather than beside it: a budget that carries the number has to carry the cost of getting there, or it is a target rather than a budget.\n\nThe three work as a set, which is why splitting them weakens the recommendation more than the missing piece suggests. The budget makes it real, the owner makes it survive the people, and the measurement decides what 'realised' will be allowed to mean in three years' time — and that third one is the quietest and the easiest to lose, because every programme in the world would rather report the activity that was supposed to produce the benefit.\n\nAll three are executable at the gate, in the six weeks before the budget round closes, which is the only reason they will happen at all."
+        },
+        {
+          "key": "C",
+          "text": "That the £3.9m be transferred into the depot budgets, with the timing agreed between the chief operating officer and finance.",
+          "quality": "defensible",
+          "next": "end-transferred",
+          "consequence": "Accepted. The COO and the finance director agree a phasing over the following month. Four depots take the reduction in the coming year; the remaining five are scheduled for the year after, when their modules land.",
+          "why": "The most important of the three conditions on its own, and the one that converts a promise into somebody's number — which is why this produces most of the value that was available.\n\nWhat it leaves out is everything that has to operate after you have gone. With no named owner, the phasing is an agreement between two executives, and agreements about future years get renegotiated in future years by whoever holds the roles by then. With no review defined in cash, the closure report will measure what programme closure reports always measure.\n\nA budget transfer with no owner and no measurement is durable for about one budget round, which is roughly how long anyone remembers why it was made."
+        },
+        {
+          "key": "D",
+          "text": "That the case be re-based to the pilot's demonstrated throughput and the NPV recomputed.",
+          "quality": "poor",
+          "next": "end-rebaselined",
+          "consequence": "Accepted the same day. The benefits schedule is rebuilt at 255 picks per operator-hour, the recurring saving becomes £3.5m and the NPV £11.0m. The gate pack notes that the case has been validated by internal audit against pilot performance.",
+          "why": "You corrected a number that was genuinely wrong, with the best evidence available, and the programme accepted it in a day. The speed is the signal.\n\nA programme can concede an assumption at no cost to itself. What it cannot concede on its own is that nobody is accountable for the benefit, because that finding has no version the programme can close without someone else's budget moving. That was the finding you were holding, and the speed of acceptance is what separates the two kinds.\n\nThis one also does something worse than nothing. 'Validated by internal audit against pilot performance' now sits in the pack, attached to a case whose central weakness you had the evidence to name and did not. Re-basing carried the pilot's £471,000 forward at £422,000 and left the £248,000 exactly where it was."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Nine budgets and a name",
+      "verdict": "strong",
+      "narrative": "The £18.4m is released with the conditions attached. The COO takes the £3.9m into the budget round: seven depots carry a reduced warehouse establishment into the following year, two negotiate a twelve-month deferral and are minuted as having done so. HR schedules consultation at the three depots that cross the threshold and at the other three recognised sites under the recognition agreements, and the £1.4m goes into the case as a cost.\n\nThe pilot depot's evening despatch shift stays. It is written into the depot plan as a service change with its own revenue line, kept separate from the automation benefit, because the two are now measured by different people for different purposes.\n\nThe post-implementation review runs in month 36 and measures actual warehouse labour cost across the nine depots against the case. £2.9m of the £3.9m has been realised. The shortfall traces to the two deferred depots and to a throughput plateau at 257 rather than 285 — both of them known, quantified and minuted before the money was spent.\n\nYou are asked to review the benefits case for the next programme.",
+      "why": "The two weaknesses in this case were not in the same place, and only one of them was where everybody was looking.\n\nThe throughput assumption was the visible one: vendor-sourced, unverified, footnoted to a workshop the vendor attended. It was also approximately right. Twenty-two weeks of the client's own WMS data settled it in forty minutes — stronger evidence than a reference site, a specialist or a published range, and it was sitting in the building the whole time because nobody had asked for it.\n\nWhat that data produced was the real finding, and it was the opposite of the expected one. The equipment did roughly what the vendor said it would do, and the depot returned half the money anyway. A headcount saving is not an estimate that lands high or low; it is an event, made to happen by a named person removing a specific post from a specific budget. The case had no such person, no such budget line, and no plan for the consultation the removal would legally require. The benefit was not overstated. It was uncommitted — which looks identical in a spreadsheet and behaves completely differently in a business.\n\nThe timing did as much work as the analysis. Everything here was fixable at no cost in the six weeks before the budget round closed, and unfixable at any price afterwards; that window, not the gate, was the real deadline.\n\nAnd the boundary held, which is what made the finding usable. You never said whether the £18.4m was worth spending. The committee is entitled to fund a programme for the service gain at the pilot, or for the state of the legacy conveyors, or for reasons it owes you no account of. What it is not entitled to do is approve £18.4m believing a £3.9m saving is committed when nine budgets say it is not. Facts about documents are hard to argue with and easy to act on; a verdict on an investment is neither."
+    },
+    "end-transferred": {
+      "title": "Four of nine",
+      "verdict": "acceptable",
+      "narrative": "The gate is approved and the transfer is agreed. Four depots carry the reduction in the coming year and deliver £1.6m. The other five are scheduled for the year after.\n\nThe COO moves to a group role in month 23. His successor inherits the phasing as a line in a handover pack and reopens it for the remaining five, on the reasonable ground that two of them have not yet had their modules installed. The programme closes on time in month 30 and reports 100% of milestones delivered.\n\nThe post-implementation review, run by the programme office in month 34, reports benefits realisation at 61%, measured by picks per operator-hour against target.",
+      "why": "The budget transfer was the right instrument and it did the one thing nothing else does: it made £1.6m somebody's number, and £1.6m arrived. Most of the value available in this engagement came out of that single recommendation.\n\nWhat it could not do is survive the people. An agreement between a chief operating officer and a finance director about years two and three is a sound arrangement while both are in post and a paragraph in a handover pack afterwards. A named accountable owner is not bureaucracy; it is the mechanism by which an arrangement outlasts the person who made it.\n\nThe measurement is the other half of what was lost. A review reporting 61% realisation on picks per operator-hour is making a true statement about throughput and no statement at all about money — the same substitution the pilot depot made for twenty-two weeks before anyone put the two numbers side by side. A benefit denominated in cash has to be reviewed in cash. Otherwise the review measures the activity that was supposed to produce the benefit, calls it the benefit, and closes."
+    },
+    "end-rebaselined": {
+      "title": "Validated against pilot performance",
+      "verdict": "weak",
+      "narrative": "The case is re-based at 255 picks per operator-hour. The recurring saving becomes £3.5m, the NPV £11.0m, and the gate pack records that the assumptions have been validated by internal audit against pilot data. The £18.4m is released.\n\nNothing changes in the nine depot budgets, because nothing asked them to.\n\nThe modules go in on schedule and the equipment performs. Throughput at each of the five new depots reaches 240 to 260 within six months of go-live, close to the re-based figure. Establishment across the nine falls by 21 posts over two years, every one of them through attrition, and group warehouse labour cost is broadly flat against rising volume.\n\nThe post-implementation review in month 36 finds that the automation performed as specified. Realised recurring saving: £0.9m against £3.5m. The report attributes the shortfall to depot-level implementation and recommends a benefits recovery plan.",
+      "why": "You corrected the number that was wrong. It was wrong, the correction was well evidenced, and the programme accepted it inside two days — which was the thing to have noticed.\n\nConceding an assumption costs a programme nothing. Nobody's budget moves, nobody's objectives change, and the concession becomes evidence that the governance is working. The finding a programme cannot close on its own is the one that requires somebody else's numbers to change, and that was the finding you were holding: the pilot returned £248,000 of £471,000 while doing what it was asked to do. Re-basing the throughput carried the £471,000 forward at £422,000 and left the £248,000 precisely where it was.\n\nThe correction also did something worse than nothing, because 'validated by internal audit against pilot data' is now in the pack. The one document that could have told the committee the benefit was uncommitted instead tells it that audit checked the numbers.\n\nAnd the £0.9m that did arrive is the tell. It came from attrition — posts that happened not to be refilled, in depots where nobody had ever been asked to remove them. That is what an uncommitted benefit realises: whatever the ordinary churn of the business delivers by accident."
+    },
+    "end-held": {
+      "title": "Three months, and then the same case",
+      "verdict": "weak",
+      "narrative": "The committee defers rather than refuses, and defers three months rather than nine. The vendor's price hold lapses and £610,000 is added to the contract. Two depots carry their legacy conveyors another quarter.\n\nIn April the pilot is at 249 picks per operator-hour and its labour cost is down £291,000 against a modelled £471,000 — the same shape, measured more precisely. The programme presents this as the validation the deferral was for, and the gate is approved on the original case.\n\nThe budget round closed in February. Warehouse establishment for the year is set, flat, at all nine depots.\n\nThe post-implementation review in month 39 reports realised savings of £1.1m against £3.9m.",
+      "why": "The instinct was sound and the evidence behind it was real: £18.4m should not be committed against a benefit nobody has demonstrated. It failed on the instrument and on the diagnosis, and the two failures compounded.\n\nWithholding capital is the committee's lever. Recommending it puts you in the business of pricing a delay against the vendor's terms, the condition of the legacy equipment and the depot sequence — costs you cannot see and were not asked to weigh. The committee can see them, so the committee priced it differently, and you got a third of what you asked for.\n\nThe diagnosis cost more. Another nine months of pilot data would have shown exactly what twenty-two weeks showed, to two more decimal places: throughput arriving, cash not. The thing preventing the cash was never measurable at the pilot at all. It sat in nine depot budgets, one set of objectives and one consultation plan that did not exist.\n\nAnd the three months were spent out of the wrong account. The gate could be reopened; the budget round could not. That was the single window in the year when the £3.9m could have been made real at no cost to anyone, and it closed in February while the programme collected more evidence about a question that was not in doubt."
+    },
+    "end-authored": {
+      "title": "The case with your working papers in it",
+      "verdict": "failed",
+      "narrative": "The rebuilt case is good work — better than anything the programme produced. Twenty-two weeks of pilot actuals, a plateau at 255, a £1.4m redundancy provision, budget transfers phased from month 20, £2.8m recurring. The committee approves it in March along with the £18.4m and £600,000 of slippage.\n\nIn month 31 the audit committee commissions the post-implementation review and asks for it from you, as the person who knows the programme.\n\nRealised recurring saving is £1.9m against your £2.8m. The phasing you built assumed budget transfers from month 20; four depots transferred and five did not. What the committee wants to know is whether that assumption was reasonable when it was made.\n\nYou cannot answer it. The head of internal audit withdraws you and an external firm is appointed. Their report is competent, takes eleven weeks, and arrives in month 42 with the finding you had in your first eight days — that the benefit was never carried in the budgets it had to come out of — presented as new, against £18.4m already spent.",
+      "why": "This was the most useful thing you could have done for the organisation in that room, and it was the one thing you could not do. The CFO asked a question nobody in the programme could answer, you had the evidence and the skill to answer it, and refusing would have felt like withholding help to satisfy a rule.\n\nThe rule earns its keep at exactly this point. An auditor who builds the benefits case will later be asked to review the benefits, and the only person who can say whether the phasing assumption was reasonable is the person who made it. So the organisation ends up with no independent view of a £31.2m programme and has to buy one — late, from a standing start, at eleven weeks and full cost.\n\nWhat makes it unrecoverable is the timing, not the quality. The numbers were better than the ones they replaced. But the working papers are yours, the assumptions are yours, and no amount of subsequent care separates the reviewer from the author. There is no version of month 31 in which you can be asked that question and answer it.\n\nThe offer that stays inside the line was already on the table and cost nothing: name what has to be true, say which of those things are true today, and say who would have to make the rest true. Naming the conditions of a benefit is assurance. Deriving the number is management, and the difference is invisible in the room and decisive two years later.\n\nAnd the eight days mattered more than the eleven weeks. The finding existed before the gate, while £18.4m was unspent and the budget round was still open. It was delivered in month 42."
+    }
+  }
+}

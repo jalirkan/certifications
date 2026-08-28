@@ -1,0 +1,324 @@
+{
+  "id": "d1-four-thousand-exceptions",
+  "title": "Four Thousand Exceptions",
+  "domain": "1",
+  "section": "B",
+  "topics": [
+    "Audit Data Analytics",
+    "Audit Project Management",
+    "Audit Evidence Collection Techniques",
+    "Reporting and Communication Techniques",
+    "Types of Controls and Considerations"
+  ],
+  "principles": [
+    "coverage-limits",
+    "understand-before-acting",
+    "outcome-over-activity",
+    "evidence-quality"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this study system. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are in charge of a six-week review of purchase-to-pay controls at a facilities management group — cleaning, catering, grounds and building maintenance across three hundred and forty client sites. You have one junior. The audit manager reviews from a distance.\n\nThe centrepiece of the programme is a full-population analytic over the automated three-way match: no invoice pays unless it agrees with a purchase order and a goods receipt. The script was written by a contract data engineer against an extract of purchase order lines for the twelve months to 31 March.\n\nIt ran on Thursday 9 April. Against 214,318 lines it returned 3,918 exceptions.\n\nBy that afternoon the finance systems manager had read the summary and replied in one line: the tool is wrong.\n\nThe data engineer's contract ended three weeks ago and was not renewed. What he left behind is a SQL file in the shared repository and a one-page README.\n\nFieldwork closes on Thursday 23 April.",
+  "taints": {
+    "full-population-claimed": "end-overstated"
+  },
+  "nodes": {
+    "start": {
+      "situation": "It is Friday morning. You hold the output file, the SQL, and a README that says the script tests the three-way match. It does not say what rule the script applied or what it ran over.\n\n3,918 exceptions is 1.8% of the lines. You cannot currently explain a single one of them.\n\nTen working days of fieldwork remain.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Send the exception count to your audit manager today and flag a probable control failure over purchase-to-pay.",
+          "quality": "poor",
+          "next": "the-early-number",
+          "consequence": "You send it on Friday morning. By Friday afternoon the figure has reached the group financial controller's office and a meeting is in the diary for Tuesday.",
+          "why": "Escalating early is usually right, and what you escalated was not a finding. It was a count produced by a rule you did not write and cannot yet explain, over a population you have not yet defined — and a number, once it has been said out loud to a controller, becomes the thing everyone argues about. You will spend Tuesday defending a figure instead of asking for the two artefacts that would tell you what it means.\n\nFour thousand hits is a statement about the rule at least as often as it is a statement about the control. A control that failed 1.8% of the time on a population that size would be an extraordinary finding, and extraordinary findings are much more commonly a join condition than a breakdown."
+        },
+        {
+          "key": "B",
+          "text": "Break the 3,918 down by which test flagged them and what kind of spend they are, before treating any of them as exceptions.",
+          "quality": "best",
+          "next": "the-strata",
+          "consequence": "You spend Friday sorting the output file. The exceptions fall into four flag reasons, very unevenly, and one reason accounts for two thirds of them.",
+          "why": "A day, and it decides how the other nine are spent. Stratifying answers the only question that matters at this point — are these four thousand things, or are they four things — and the shape of the answer tells you immediately whether you are looking at a control that fails everywhere or a rule that misfires on one class of transaction.\n\nIt is also the cheapest possible way to test the systems manager's assertion without relying on it. If he is right, the stratification will show you where; if he is wrong, you will know that from your own file rather than his."
+        },
+        {
+          "key": "C",
+          "text": "Select forty exceptions at random and re-perform the three-way match by hand on each.",
+          "quality": "defensible",
+          "next": "the-strata",
+          "consequence": "Friday, Monday and Tuesday. Thirty-one of the forty are cleaning or grounds maintenance contracts with no goods receipt anywhere in the system. Six are invoices a few pounds over the purchase order value. Three do not resolve.",
+          "why": "This is auditor-performed evidence over an auditee's data, which is the strongest thing you can produce, and it arrives at broadly the right answer. The cost is that it takes three of your remaining ten days to learn what sorting a spreadsheet would have shown you on Friday afternoon.\n\nRandom selection is the right instinct when you believe in the population. Here the population is one of the two things in question, so randomness buys you less than structure does. Re-performance is the correct technique deployed one step too early."
+        },
+        {
+          "key": "D",
+          "text": "Ask the finance systems manager what is wrong with the tool, and take his account as the basis for the work.",
+          "quality": "poor",
+          "next": "the-managers-rewrite",
+          "consequence": "He replies within the hour. Over the weekend he rewrites the script himself, and on Monday morning he sends you a new output file containing sixty-one exceptions.",
+          "why": "Asking him was sensible and would have been the fastest route to understanding. Taking his account as the basis is a different act, and what happened here is the reason: an open question to the party responsible for the control returned a redefinition of the test.\n\nInquiry directs testing and does not conclude it. That is the standard formulation and it undersells the problem in analytics specifically, because in analytics the auditee's explanation arrives as executable code. A verbal explanation you can weigh; a rewritten script you either adopt or reject, and adopting it means the population and the rule of your test were both set by the person whose control you are testing."
+        }
+      ]
+    },
+    "the-early-number": {
+      "situation": "The meeting is Tuesday. The group financial controller has been told internal audit has found roughly four thousand breakdowns in the three-way match, and the head of procurement has been invited.\n\nThe finance systems manager has circulated a note in advance setting out three categories he believes are false positives. It is the first useful description of the data anyone has produced, and it is his.\n\nYou still cannot explain a single one of the 3,918.",
+      "prompt": "How do you handle the meeting?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Say plainly that the figure is unvalidated tool output, that you cannot yet say what it measures, and ask for the two things you need: the ERP's match configuration and the definition of the population the extract covered.",
+          "quality": "best",
+          "next": "the-strata",
+          "consequence": "The controller is visibly relieved and visibly irritated. You leave with a commitment that the configuration will be exported for you by Thursday and that someone in finance systems will walk you through the extract's scope.",
+          "why": "Two separate things, and the second is what turns a bad meeting into a useful one. Retracting the status of the number costs you nothing you were entitled to keep — you never had support for it — and it stops the engagement being about whether the four thousand is real.\n\nAsking for the configuration and the population definition in the room, with the controller present, is the part auditors skip when they are embarrassed. Those are the two artefacts that decide the whole case, they are held by the people you have just annoyed, and this is the moment at which the request is easiest to make and hardest to refuse."
+        },
+        {
+          "key": "B",
+          "text": "Withdraw the number, apologise for circulating it before it was validated, and go quiet until the work is done.",
+          "quality": "defensible",
+          "next": "the-strata",
+          "consequence": "The meeting lasts eleven minutes. The controller accepts the withdrawal without comment. You request the match configuration by email on Wednesday and receive it the following Monday.",
+          "why": "Honest, and it restores the accuracy of what people believe, which is not nothing. What it spends is the only leverage the mistake created. A meeting with the controller and the head of procurement in the room is a resource — you had their attention on purchase-to-pay for half an hour and you used it to say less than you had already said.\n\nThe configuration took five days to arrive by email and would have taken two if it had been asked for in front of the controller. Against a 23 April close that is a fifth of what you have left, given away out of contrition."
+        },
+        {
+          "key": "C",
+          "text": "Stand behind the figure pending investigation. It came from a full-population test, not a sample, and softening it now would look like retreat under pressure.",
+          "quality": "poor",
+          "next": "the-managers-rewrite",
+          "consequence": "The meeting runs for ninety minutes. The systems manager takes his three categories one at a time. You cannot confirm or refute any of them. A follow-up is scheduled for Friday, and the controller asks that any further requests for system data come through his office. On Thursday evening the systems manager pre-empts the follow-up: he has rewritten the script himself, and the output file attached to his note contains sixty-one exceptions.",
+          "why": "The instinct is a good one in the wrong place. Auditors should not soften findings because management is uncomfortable, and that rule is about conclusions you have supported — it says nothing about a number you cannot explain.\n\nThe specific error is worth naming because it recurs wherever analytics appear. Full-population testing eliminates sampling risk. It eliminates only sampling risk. It does not tell you the extract was complete, it does not tell you the rule matched the control, and it does not tell you the flagged items are exceptions. Treating 'we tested everything' as though it were 'we are therefore certain' converts a technical advantage into unearned confidence.\n\nThe lasting cost is the last sentence of that meeting. Every artefact you need for the rest of this engagement is now routed through a controller who has watched you defend a number you could not explain.\n\nThe follow-up never happens as a meeting, and that is the second cost. Ninety minutes of an argument you cannot win is an invitation to the other side to settle it, and the form the settlement takes is a rewritten script. The definition of your test now arrives as a file from the man whose control you are testing, which is where you would have been on Friday morning had you simply asked him what was wrong with the tool — except that it is now a week later and the controller is watching."
+        }
+      ]
+    },
+    "the-managers-rewrite": {
+      "situation": "The rewritten script returns 61 exceptions. His covering note explains the three changes: he excluded service purchase orders, which have no goods receipt; he applied the system's configured match tolerance instead of exact equality; and he removed postings made by system accounts.\n\nEach of the three sounds reasonable on its face. He wrote all three. He is also responsible for the configuration of the control being tested.",
+      "prompt": "What do you do with the 61?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Set the rewrite aside as a hypothesis, obtain the original SQL and the ERP's match configuration, and establish for yourself what rule the control performs and what population the extract covered.",
+          "quality": "best",
+          "next": "the-strata",
+          "consequence": "You ask for a configuration export and open the SQL file. The WHERE clause is four lines long and the joins are three. It takes you a morning to read and a further morning to reconcile against the configuration screens.",
+          "why": "His three changes are probably right. That is exactly why they have to be established rather than accepted — a plausible correction from an interested party is harder to refuse than an implausible one, and the cost of being wrong is identical.\n\nWhat you are converting here is evidence class. His note is a representation about the control. The configuration export is a system artefact you obtained. The SQL is the actual rule that produced the four thousand. Two of those three you can put in a working paper and defend a year from now; one of them you cannot. And reading the SQL yourself is the only route to the question he did not address at all, which is what the extract ran over."
+        },
+        {
+          "key": "B",
+          "text": "Treat his three exclusions as three assertions to be tested, and reconcile every one of the 3,857 suppressed items to the exclusion that removed it.",
+          "quality": "defensible",
+          "next": "the-strata",
+          "consequence": "The junior spends four days on the reconciliation. Every suppressed item maps to one of the three exclusions, and 2,605 of them map to the first.",
+          "why": "Rigorous, and it does establish that the rewrite did what the note said it did. Two costs, one of them subtle.\n\nThe visible cost is four days of a ten-day budget spent proving the arithmetic of someone else's script. The subtle one is that you have adopted his taxonomy. His three categories become the categories in which you think about the population, and the question his categories do not raise — whether service purchase orders being outside the match is a defect rather than an exclusion — is now very hard to see, because it has been filed as a reason for removal."
+        },
+        {
+          "key": "C",
+          "text": "Test the 61. If they hold up as genuine exceptions, that is the finding.",
+          "quality": "poor",
+          "next": "the-strata",
+          "consequence": "You test all 61 over two days. Fifty-eight are supported by documented approvals. Three are unresolved and small.",
+          "why": "Efficient, and it tests a population defined by the man responsible for the control, using a rule written by the man responsible for the control. Everything you can conclude is bounded by choices you did not make and have not examined.\n\nThe result is the worst kind: a clean one. Fifty-eight of sixty-one supported reads as reassurance, and it is reassurance about the residue of three filters whose justification you never tested. The dangerous item is never in the list you were handed; it is in the 3,857 that the list-maker took out."
+        }
+      ]
+    },
+    "the-strata": {
+      "situation": "The 3,918 sort into four flag reasons:\n\n2,605 — no goods receipt found for the purchase order line\n986 — invoice value differs from purchase order value\n291 — goods receipt posted after the invoice posting date\n36 — match manually overridden\n\nThe README still says only that the script tests the three-way match. Fieldwork closes on Thursday 23 April — nine working days away if getting here cost you nothing it did not have to. There are two of you.",
+      "prompt": "How do you spend what is left?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Read the SQL and obtain the match configuration, and put the rule the analytic applied side by side with the rule the control actually performs.",
+          "quality": "best",
+          "next": "the-rule-and-the-population",
+          "consequence": "A day and a half. The SQL is short. The configuration export runs to nine pages of match settings by document type and company code, and two of the four flag reasons do not survive contact with it.",
+          "why": "The strata told you the exceptions are not four thousand independent events; they are four rules, applied once each, to a population. From that point the unit of investigation is the rule, not the item, and testing items to understand a rule is arithmetic performed on the wrong object.\n\nThis is also the step that a departed data engineer makes feel impossible and does not. The person is gone; the rule is in the repository and the control is in the configuration, and both are better evidence than he would have been. What you have lost is convenience, not evidence."
+        },
+        {
+          "key": "B",
+          "text": "Start with the 36 manual overrides — the smallest group, and the only one where you know a human made a decision.",
+          "quality": "defensible",
+          "next": "the-rule-and-the-population",
+          "consequence": "The junior clears all 36 in a day. Thirty-four carry documented approval from a finance controller under a written override procedure. Two do not, both for the same site, both under two thousand pounds.",
+          "why": "Real work on real evidence, and it produces a small genuine result. The judgement to question is sequencing. The overrides are the one stratum where the analytic's flag is unambiguous — the system recorded that a person deliberately bypassed the match — so they are the least likely to be a rule artefact and the most affordable to leave until the end.\n\nSpending your first day on the stratum you understand best is a very natural way to feel productive in a week where nothing else is legible. Nine days from the end, the sequencing question is not what is tractable, it is what is undecided."
+        },
+        {
+          "key": "C",
+          "text": "Put both of you on the 2,605 no-goods-receipt items and work through as many as you can before fieldwork closes.",
+          "quality": "poor",
+          "next": "the-rule-and-the-population",
+          "consequence": "Five days. Between you, 640 items examined and documented. Every one of the 640 is a cleaning, catering or grounds maintenance contract, and none of them has a goods receipt.",
+          "why": "Understandable, and it is the most expensive mistake available to you this fortnight. Two thirds of the exceptions sit in that stratum, so working the biggest pile feels like the highest-value use of the time, and five days later you have a large, careful, well-documented working paper that says the same thing the first twenty items said.\n\nThe measure being optimised is items examined, which describes your effort and nothing about the control. 640 of 2,605 is a completion rate. It is not a conclusion, it does not become one at any number, and the thing that would have made it unnecessary was a configuration screen you could have opened on the first morning."
+        }
+      ]
+    },
+    "the-rule-and-the-population": {
+      "situation": "The SQL joins purchase order lines to the goods receipt table. Service-based purchase orders — cleaning, catering, grounds, the group's core business — are not receipted there at all; they are receipted through service entry sheets held in a separate table the script never touches. That is the 2,605.\n\nThe configured match tolerance is the lower of 4% or £300. The SQL tested exact equality. Of the 986 value differences, 945 fall inside the configured tolerance and 41 do not.\n\nThat leaves 368 items the analytic and the control agree about: 41 over tolerance, 291 sequence violations, 36 overrides.\n\nSix days to the close, at best.",
+      "prompt": "Where do you take it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Before touching the 368, establish what the extract's population actually was. Reconcile the 214,318 lines to the general ledger's third-party purchase spend for the year.",
+          "quality": "best",
+          "next": "the-second-instance",
+          "consequence": "Half a day. The extract's purchase order lines total £113.2m. The ledger shows £159.4m of third-party purchase spend for the same twelve months.",
+          "why": "You have just proved that the rule was wrong twice. The population is the other half of the same question and nothing you have found so far speaks to it — the SQL's joins told you what the script compared, and its WHERE clause tells you what it compared it over, and those are different lines of the same file.\n\nHalf a day against a ledger the auditee does not control is the cheapest high-value procedure available to you all engagement. It is also the only one that can detect the failure mode an analytic cannot report on itself: a script returns nothing about the rows it never read, and a clean result over a partial extract looks precisely like a clean result."
+        },
+        {
+          "key": "B",
+          "text": "Work the 291 sequence items now. They are the stratum where the analytic's rule and the control's rule agree, and 291 is the largest number that survived.",
+          "quality": "defensible",
+          "next": "the-second-instance",
+          "consequence": "The junior finds the pattern in a day: purchase order, goods receipt and invoice posted within the same minute by a single shared account. Separately, the group's monthly reporting pack lands on your desk, and its procurement summary shows £159.4m of third-party spend against the £113.2m in your extract.",
+          "why": "The right stratum and a genuine finding, arrived at directly. The 291 is where the case's real defect lives and you went at it without being told to.\n\nWhat to notice is how you learned about the population. It fell out of a reporting pack that happened to cross your desk, not from a procedure you designed, and if the pack had been a week later you would have concluded on 71% of the group's spend believing it was all of it. The finding is the same; the assurance you can take from your own process is not. A gap you discover by luck is a gap your method does not look for."
+        },
+        {
+          "key": "C",
+          "text": "Record the 2,605 and the 945 as analytic false positives, treat the 368 as the finding, and close out the analytic work.",
+          "quality": "poor",
+          "next": "the-conclusion",
+          "consequence": "You draft on that basis, and the junior closes out the 368. He reports that 291 of them share a posting pattern: purchase order, goods receipt and invoice created within the same minute by a shared account belonging to the invoice-scanning interface.\n\nIn review the audit manager asks what the £113.2m of purchase order lines represents as a proportion of group spend, and you do not know. You have a day to find out, and by the end of it you have the answer and nothing else. The SQL restricts to company codes 1000 to 1600. The northern region, acquired fourteen months ago, runs on its own ERP instance under company codes 2100 to 2400, and £46.2m of third-party spend was never in the extract. Fieldwork closes tomorrow.",
+          "why": "The arithmetic is right and the label is wrong, and the label is doing the damage. 'False positive' means the tool flagged something that is not there. What the tool flagged in the 2,605 is entirely there: two thousand six hundred purchase orders, covering the group's largest spend category, to which the automated three-way match does not apply.\n\nThat is not a defect in the analytic. It is the analytic finding something its author did not intend it to find, and calling it a false positive files the discovery under the heading of a bug. The control's description says all purchase invoices are subject to a system-enforced three-way match. You now have evidence that a whole class of spend is not, and you have just written it off as a data problem.\n\nThe second cost is the calendar, and it is the one you will feel. Closing out the analytic work is what left you establishing the boundary of your own population in review, with a day to describe the £46.2m and none to go anywhere near it. On the day you closed out you had five days and a junior who still held read access to the northern instance — enough for a configuration export and a hand-worked sample, which is the difference between a coverage finding and a sentence saying you did not look. The population question does not wait for you to be finished with the rule; it is the same question."
+        }
+      ]
+    },
+    "the-second-instance": {
+      "situation": "£46.2m of the group's third-party spend is not in the extract. The SQL restricts to company codes 1000 to 1600. The northern region, acquired fourteen months ago, still runs on its own ERP instance under company codes 2100 to 2400; the integration programme is scheduled for next year.\n\nAt planning, procurement told you purchasing was 'all in the ERP'. It is. Just not all in the one the extract read. The junior still holds read access to the northern instance's reporting, granted in week two for a supplier masterfile test and never withdrawn.\n\nThe junior's work on the 291 is finished: purchase order, goods receipt and invoice posted within the same minute by a shared account belonging to the invoice-scanning interface. £4.1m across the year, sixty-one users, and a documented 'create purchase order from invoice' step used by site administrators when an invoice arrives with no order behind it.\n\nFive days at most.",
+      "prompt": "What do you do about the population the analytic never saw?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Obtain the legacy instance's match configuration and re-perform the match by hand on a sample from it — enough to say whether the control exists there at all — and state the analytic's coverage in the report either way.",
+          "quality": "best",
+          "next": "the-conclusion",
+          "consequence": "Two days. On the legacy instance the three-way match is configured as a warning rather than a block: the invoice posts whether or not the match succeeds. Twenty-five of twenty-five sampled invoices posted. Eleven had no goods receipt at all.",
+          "why": "The question about an excluded population is not whether you can test it to the same depth — you cannot, with five days and no data engineer. It is whether you can say anything defensible about it, and here a configuration export and twenty-five re-performed matches answer the only question that mattered: does the control exist over there.\n\nIt did not. A match configured as a warning is not a preventive control, whatever the risk and control matrix calls it; it is a message on a screen that a user dismisses. Two days of proportionate work turned the largest coverage gap in the engagement from a limitation into the strongest finding in the report, and it did so because you treated 'the tool did not cover it' as a question rather than a boundary."
+        },
+        {
+          "key": "B",
+          "text": "Extend the analytic to the second instance in full, so the coverage claim can stand as originally intended. Nobody on the team can write the extract, so you ask the finance systems manager to build it.",
+          "quality": "defensible",
+          "next": "the-second-number",
+          "consequence": "He agrees the same afternoon. Three days pass. An output file for the legacy instance arrives on the final afternoon of fieldwork showing 1,140 exceptions, with no note of the rule it applied or the company codes it covered.",
+          "why": "The most complete answer in principle, and the sequencing is what defeats it. Completeness of coverage is worth a great deal and it is worth it early; five days from the end, with the only person who could build the extract being the party under review, it is an ambition rather than a plan.\n\nThe outcome is exact repetition. You have acquired a second population from the same source that produced the first, with no time to establish its rule or its scope, and 1,140 is now a number in your file that means as little as 3,918 did on the Thursday this started. The engagement spent its last three days manufacturing the problem it opened with."
+        },
+        {
+          "key": "C",
+          "text": "Record the excluded population as a scope limitation, agree it with the audit manager and the sponsor, and report the boundary explicitly.",
+          "quality": "defensible",
+          "next": "the-conclusion",
+          "consequence": "The audit manager agrees and the sponsor accepts it. The report will state that the analytic covered company codes 1000 to 1600 and that the northern region was not examined.",
+          "why": "Properly owned, properly disclosed, and nobody reading the report will be misled about anything. This is a legitimate answer and it is the one to reach for when the excluded population genuinely cannot be reached.\n\nHere it could be. Your junior already has read access, and two days buys a configuration export and twenty-five re-performed matches — which is not an opinion on the northern region but is enough to say whether the control is switched on. Declaring a gap you had the days and the access to narrow overstates the constraint, and a scope limitation is the one thing in a report that guarantees nobody asks a follow-up question."
+        },
+        {
+          "key": "D",
+          "text": "Report on what the extract covered. Procurement described the ERP as the purchasing system at planning, the analytic ran over the purchasing system, and the report will describe it as a full-population analysis of the group's purchase orders.",
+          "quality": "poor",
+          "taint": "full-population-claimed",
+          "next": "the-conclusion",
+          "consequence": "The methodology section reads: all purchase order lines for the period were tested, without sampling. The figure 214,318 appears in the second paragraph. Company codes are not mentioned.",
+          "why": "Nobody lies in this option and that is what makes it the one to watch for. Procurement did say the ERP was the purchasing system, the script did read every row it was given, and 'full population' is what the engagement letter promised the audit committee in February.\n\nWhat the phrase asserts to a reader is that sampling risk has been removed, which is a stronger claim than any sample-based test in the report and is the reason it will be quoted. It is true of 71% of the group's spend, and the 29% it excludes is the recently acquired business running on unintegrated systems — which is to say the phrase is at its most confident exactly where the control was weakest.\n\nThis does not recover, and the mechanism is who reads it. The committee reads the coverage claim to decide how much comfort the conclusion carries. The external auditors read it when deciding what internal audit work they can rely on, and full-population testing is the kind of work they rely on most. Next year's planning reads it to decide purchase-to-pay was covered and can rotate out. None of those readers will ever re-open the methodology paragraph, and there is no event in the following three years that would cause them to."
+        }
+      ]
+    },
+    "the-second-number": {
+      "situation": "The file shows 1,140 exceptions over the legacy instance. There is no note of the rule it applied, no note of the company codes it covered, and nobody to ask about either who is not the party under review.\n\nYou have spent a fortnight establishing what 3,918 was worth. What you have not got is a second fortnight.\n\nThe junior's read access to the northern instance's reporting is still live. The draft goes to the audit manager tomorrow.",
+      "prompt": "It is the final afternoon. What do you do with the file?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Leave the 1,140 out, and spend the hours you have on the one fact the junior's access will give you: whether the northern instance's match blocks the invoice or only warns.",
+          "quality": "best",
+          "next": "the-conclusion",
+          "consequence": "The junior pulls the match configuration screens in forty minutes. On the legacy instance the match is set to warn — the invoice posts whether or not it succeeds. You end the day with no tested items from the northern region and one configuration export.",
+          "why": "Forty minutes against three days, and the forty minutes is the part that survives review. The 1,140 carries every defect the 3,918 carried and one more on top: you cannot describe the rule, you cannot describe the population, and this time there is no fortnight left in which to find out.\n\nWhat the configuration gives you instead is a fact about the control rather than a count of its output. Whether a match blocks or warns is binary, it is held in the system rather than in anyone's account of it, and it decides whether there is a preventive control over £46.2m of spend at all. In the last hours of an engagement, one well-chosen system artefact is worth more than a number you would have to defend without being able to explain it."
+        },
+        {
+          "key": "B",
+          "text": "Put the 1,140 in the report as an indicator that the northern instance needs its own review, described plainly as unvalidated tool output.",
+          "quality": "defensible",
+          "next": "the-conclusion",
+          "consequence": "The figure goes in with the qualification attached. In clearance the head of procurement asks what the 1,140 are. You say that you do not know, and that establishing it is what the recommended review would do.",
+          "why": "Honest labelling, and the qualification is real rather than decorative — you have said exactly what the number is and what it is not. The difficulty is what a quantity does in a report regardless of the sentence attached to it.\n\nThe number is read and the caveat is not, and the reader who carries 1,140 away has taken a measurement from a script whose rule and population are both unknown to you. You have watched this happen once already this fortnight, to a figure produced by a script you at least held the source for. The recommendation is right and does not need the number to stand up: £46.2m of spend, and a principal test that never read it, carries the point on its own."
+        },
+        {
+          "key": "C",
+          "text": "Work a sample of the 1,140 with the junior tonight, so that whatever goes in the report has been tested by you.",
+          "quality": "poor",
+          "next": "the-conclusion",
+          "consequence": "You get through nineteen of them by nine in the evening. Eleven are service contracts with no goods receipt. Four sit within a tolerance you have not seen configured. Four do not resolve. You write up the nineteen.",
+          "why": "The instinct is the right one — do not report what you have not tested — and it is aimed at the wrong object. Testing items drawn from a list tells you about the items. It cannot tell you what the list is, and the list is the thing in question.\n\nNineteen items also reproduce the shape of the first week exactly: service contracts with no goods receipt, and differences inside a tolerance you have not established. You are re-deriving the primary instance's answer over a population whose rule you did not write, at nine in the evening, with the draft due in the morning. None of it touches the only question the northern region actually poses, which is whether the match is switched on over there — and that one was forty minutes of the junior's access away."
+        }
+      ]
+    },
+    "the-conclusion": {
+      "situation": "Fieldwork closes tomorrow. What you can support:\n\nThe automated match does not apply to service-based purchase orders — £38.6m of spend within the instance you tested, receipted through service entry sheets and approved by the site contract manager who raised the requisition. The risk and control matrix describes a system-enforced three-way match over all purchase invoices.\n\n291 invoices totalling £4.1m where the purchase order and goods receipt were generated from the invoice, in the same posting run, by the interface account.\n\n41 invoices outside the configured tolerance, and 2 overrides without documented approval.\n\n£46.2m of third-party spend running on the northern region's instance, which the analytic never read.\n\nThe finance systems manager's position has not changed: the analytic was defective and the exception count was never real.",
+      "prompt": "What does the report say?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lead with 3,918 exceptions identified by full-population testing of the three-way match, and set the explained categories out beneath.",
+          "quality": "poor",
+          "next": "end-count",
+          "consequence": "The draft goes to the controller on Friday. By Monday the systems manager has circulated a four-page response reconciling the 3,918 down to 368, and the clearance meeting is spent on his reconciliation.",
+          "why": "The number is the most striking thing you have and it is the one thing in the file that measures nothing about the control. It counts what a rule you have since shown to be wrong did to a population you have since shown to be incomplete.\n\nWhat it costs is the argument. Leading with 3,918 makes the systems manager's reconciliation the subject of the meeting, and he wins that argument on the merits, because he is right that most of the four thousand are not breakdowns. Every minute spent there is a minute not spent on service spend, on the £46.2m nobody tested, and on 291 invoices whose orders were written from them — none of which he can answer at all."
+        },
+        {
+          "key": "B",
+          "text": "Report three findings — service spend outside the automated match, the match that cannot fail where all three documents derive from the invoice, and the £46.2m running on an instance the analytic never read — and state in the methodology what the analytic covered and what it did not.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "You draft it that way, with the coverage of the analytic set out in the methodology and each finding stated in spend rather than in item counts. The systems manager disputes the framing of the first finding and accepts the second and third. The head of procurement asks for a meeting about the 291.",
+          "why": "Three findings, none of which is an exception count, and each of which names a different way an automated control fails to be one.\n\nThe first is scope: a control that does not apply to a class of spend is not operating weakly over that class, it is absent, and the matrix describing it as universal is the reason nobody knew. The second is architecture: where the order and the receipt are generated from the invoice, the match compares a document to itself, and no failure rate will ever reveal that, because the control cannot fail. The third is coverage, and how far you can take it depends on what you established — if you obtained the northern instance's configuration you can report a match that warns instead of blocking; if you did not, you report 29% of the group's third-party spend on which your principal test is silent. Both are findings. Neither is a methodology footnote.\n\nStating coverage in the methodology is what makes the rest defensible. The analytic's value was never that it tested everything; it was that it made the shape of the population visible, and the honest description of what it reached is the part that lets a reader use the findings correctly."
+        },
+        {
+          "key": "C",
+          "text": "Report the two findings your own testing supports — service spend, and the coverage gap on the northern instance — and raise the 291 as an observation for management to investigate, since you have not established intent or impact.",
+          "quality": "defensible",
+          "next": "end-bounded",
+          "consequence": "The report carries two findings and one observation. Management accepts both findings and undertakes to review the invoice-driven purchase order process during the next financial year.",
+          "why": "Defensible reporting discipline: you have the service entry sheet configuration and the ledger reconciliation behind the first two and you have a pattern behind the third, and there is a real argument for not stating as a finding something whose cause you have not established.\n\nThe argument runs out on what a finding has to assert. You do not need intent, and you do not need to quantify loss. You have established that for 291 invoices the three documents the control compares were created from one another in a single posting run, which means the control returned a pass it was structurally incapable of withholding. That is a control design finding and it is fully supported by what is already in your file.\n\nAn observation is what you write when you are unsure. Here the uncertainty is about why it happens, not whether the control works, and demoting it hands management the timetable — which they set at 'next year'."
+        },
+        {
+          "key": "D",
+          "text": "Report that once the correct rule and tolerance were applied the analytic returned no substantiated exceptions of significance, and that the three-way match operated as configured throughout the period.",
+          "quality": "poor",
+          "next": "end-cleared",
+          "consequence": "The report is short and is accepted without amendment. The systems manager's reconciliation is appended as management's response. The engagement closes two days early.",
+          "why": "Everything in that sentence is true, and it is true in a way that answers a question nobody asked. The match did operate as configured. That is the finding, not the conclusion — it was configured not to apply to £38.6m of service spend, configured to pass documents generated from each other, and never applied at all to the £46.2m on the northern instance.\n\nThe pull towards this option is strong and worth naming, because it is relief. You were wrong about four thousand exceptions, you said so in front of a controller, the systems manager was right, and writing that down closes a fortnight that has been uncomfortable throughout. What it does is convert a genuine control finding into an apology for a scripting error, and the reason management accepts it without amendment is that it costs them nothing at all."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The control that could not fail",
+      "verdict": "strong",
+      "narrative": "The report carries three findings and a methodology paragraph that says exactly what the analytic read.\n\nThe risk and control matrix is rewritten: the three-way match is recorded as applying to goods-based procurement on the primary instance only, and the service entry approval is recorded as what it is — a manual control performed by the person who raised the requisition. That entry alone produces a segregation finding in the following year's plan.\n\nThe 'create purchase order from invoice' step is disabled for site administrators within the quarter and routed through a purchasing exception queue.\n\nManagement's response to the coverage finding discloses that the northern instance's match is configured as a warning rather than a block. It is switched to a block at the next release, which surfaces four hundred held invoices in the first week and a backlog of unrecorded site orders behind them.\n\nThe head of internal audit adds a step to the analytics methodology: no analytic result is reported until the extract's population has been reconciled to an independent total and the rule tested against the control's configuration. It takes half a day per analytic and it catches two more scope gaps that year.",
+      "why": "The engagement's real product was not the four thousand and it was not the three hundred and sixty-eight. It was an accurate description of what the control is, which nobody in the organisation had, and which the analytic produced by failing in an informative way.\n\nThe shape worth carrying is that a full-population test has exactly one property a sample lacks: no sampling risk. Everything else that can go wrong with a test is still fully available, and two of them went wrong here at once. The rule tested a match against a table that £38.6m of spend is not receipted in. The population stopped at a company code range that excluded £46.2m more. Neither is visible from inside the result set, because a script is silent about the rows it did not read and confident about the rule it was given.\n\nThe finding that would never have come from a sample is the 291. A sample tests whether the control worked on the items you drew; it cannot tell you that for one class of transaction the control compares a document to a copy of itself and therefore always passes. That is a defect in the control's design, discoverable only by asking what the mechanism does rather than how often it fails — and a pass rate of one hundred per cent is what a control that cannot fail looks like from the outside."
+    },
+    "end-bounded": {
+      "title": "Two findings and an observation",
+      "verdict": "acceptable",
+      "narrative": "The report is accurate and properly supported. Service spend outside the automated match is accepted and a control redesign is scheduled. The northern instance is brought into scope of the following quarter's analytics and its match configuration is corrected within two months.\n\nThe observation on invoice-driven purchase orders is logged for review during the next financial year. In September the review is deferred to accommodate the ERP integration programme, on the reasonable ground that the process will change anyway.\n\nThe integration slips by seven months. The step is still in use, by a larger number of site administrators, when the following year's audit re-runs the analytic — this time with the rule and the population established first — and raises it as a finding.",
+      "why": "Two findings correctly stated and correctly evidenced, and a third that was correctly evidenced and incorrectly graded.\n\nThe reasoning that demoted it is the reasoning to examine. Not knowing why something happens feels like not knowing enough to report it, and for most findings that instinct is right — cause determines the recommendation, and a finding without a cause produces a recommendation that misses. This one is different because the cause was never the point. What you established was that for a defined class of transaction the control's comparison is between documents derived from one another, and no fact about anybody's intent changes that. The control's design was the finding, and it was complete.\n\nThe cost is control of the timetable. A finding obliges management to respond with a date; an observation invites them to choose one, and the choice will always be made against whatever else is happening that year. Grading is not a courtesy — it is the mechanism by which the audit function decides what gets fixed, and giving it away to be tentative gives away the only leverage the report has."
+    },
+    "end-count": {
+      "title": "Three thousand nine hundred and eighteen",
+      "verdict": "weak",
+      "narrative": "The clearance meeting runs for two hours and is entirely about the reconciliation. The systems manager takes the room through 2,605 service orders, 945 within-tolerance variances and 41 outside it, and by the end the audit committee's summary records that internal audit's initial figure was substantially overstated.\n\nThe service spend point survives, reworded as a scoping recommendation for the analytic. The 291 appears in a table on page nine. The northern instance is a sentence in the methodology.\n\nAt the committee, the discussion is about the reliability of the audit function's analytics. The head of internal audit is asked whether the tooling has been quality-assured. She says it will be. Analytics on the following year's plan are reduced from six engagements to two.",
+      "why": "The findings were in the report. They lost to the headline, which is what headlines are for.\n\nA count of exceptions is an activity measure wearing a control's clothing. It records what a rule did to a file — and when the rule was wrong, the count measures the error twice over, once in the rule and once in the population. Leading with it made the reconciliation the subject of the meeting, and on the reconciliation management was right, so the meeting was lost on the merits before the real findings were reached.\n\nThe expensive part is the last paragraph. Overstating an analytic result once does not merely cost this engagement; it costs the technique its standing with the people who fund it, and analytics are exactly the tool that finds control defects sampling cannot see. Four analytics came off the plan because one number was published before anyone knew what it measured."
+    },
+    "end-cleared": {
+      "title": "Operated as configured",
+      "verdict": "weak",
+      "narrative": "The report concludes that the three-way match operated as configured throughout the period, with no substantiated exceptions of significance once the correct rule and tolerance were applied. Management's response records that the initial exception population arose from errors in the audit tool.\n\nEighteen months later a group-wide review of supplier spend finds that a site manager in the northern region raised invoices through a supplier he part-owned across two financial years. There were no purchase orders. The match warned on every one of them and every one of them posted.\n\nThe review asks whether internal audit had covered purchase-to-pay. The file shows a full-population analytic over 214,318 purchase order lines and a conclusion that the control operated as configured.",
+      "why": "The conclusion is literally true and it is the wrong sentence. 'Operated as configured' asserts that the control did what it was set up to do, which was never in doubt — the whole content of this engagement is what it was set up to do, and the answer was: not apply to £38.6m of service spend, not run at all over £46.2m more, and pass documents generated from one another.\n\nThe route here is the part to remember, because it is not laziness. You had been wrong in public about a large number, the systems manager had been right, and the analytic really had misfired. Concluding that the tool was at fault and the control was fine resolves all of that in one paragraph, and every fact in it is defensible.\n\nWhat it does is answer a question about the rule as though it were a question about the control. A misfiring analytic is a fact about your test. Whether the control works is a separate question that your test, once corrected, was in an unusually good position to answer — and the correction is what surfaced the answer. Treating the correction as the end of the matter throws away everything the failure taught you."
+    },
+    "end-overstated": {
+      "title": "Without sampling",
+      "verdict": "failed",
+      "narrative": "The report states that all purchase order lines for the period were tested without sampling, and concludes on the operation of the three-way match across the group's purchase-to-pay cycle. Company codes appear nowhere in it.\n\nThe external auditors record the analytic in their reliance memorandum and reduce their substantive testing over purchase-to-pay accordingly; full-population coverage is cited as the basis. The audit committee accepts the cycle as covered. Planning rotates purchase-to-pay out for three years.\n\nTwo years later the northern region is integrated onto the primary ERP. The migration reconciliation finds £2.8m of invoices with no purchase order behind them and a further £900k where the order was raised after payment. The external firm's reliance is reviewed. The internal audit file shows a WHERE clause restricting the extract to company codes 1000 to 1600, and a report that does not mention company codes anywhere.\n\nThe firm's position, correctly, is that it relied on the coverage the report stated. The engagement was competently performed over 71% of the group's spend.",
+      "why": "No one misled anyone on purpose, and that is the whole point of this ending. The script read every row it was given. Procurement had described the ERP as the purchasing system. The engagement letter had promised full-population testing and the report delivered the promised phrase.\n\n'Full population' is not a description of effort. It is an assertion that a specific risk — sampling risk — has been removed, and it is the strongest coverage claim an audit report can make, which is precisely why other people build decisions on top of it. An external auditor reduces substantive work on it. A committee closes a cycle on it. Planning rotates a system out on it. Every one of those decisions was taken against a population that excluded the newest, least integrated and least controlled part of the group.\n\nThe rule is short and it survives the whole case. A tool reports on what reached it. An analytic's coverage is a finding about the analytic, established by reconciling the extract to something outside it, and it belongs in the report at the same volume as the result — because a coverage claim, unlike a control finding, is never revisited. It is read once, believed, and built on."
+    }
+  }
+}

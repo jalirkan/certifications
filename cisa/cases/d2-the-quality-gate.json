@@ -1,0 +1,342 @@
+{
+  "id": "d2-the-quality-gate",
+  "title": "The Quality Gate",
+  "domain": "2",
+  "section": "B",
+  "topics": [
+    "Quality Assurance and Quality Management of IT",
+    "IT Performance Monitoring and Reporting",
+    "IT Resource Management",
+    "Organizational Structure, IT Governance, and IT Strategy"
+  ],
+  "principles": [
+    "segregation",
+    "outcome-over-activity",
+    "design-vs-operating",
+    "independent-population",
+    "accountability-stays"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing quality management and IT performance reporting at an online travel agency. £2.3bn of gross bookings a year, sold through one platform, built by fourteen squads inside a technology group of 260, released to production twice a week.\n\nRelease Assurance is the gate. Eleven people who run the acceptance checks over each release candidate, classify anything that escapes into production, and sign the deployment off. Nothing ships without their signature.\n\nThe escaped-defect rate — Severity 1 and 2 defects found in production within fourteen days of a release, divided by releases — has fallen for three consecutive quarters. 2.8, then 1.6, then 1.1, then 0.8. The technology committee has seen the trend line four times. The board pack calls it a 71% reduction and the strongest evidence yet that the quality programme is working.\n\nThe Head of Release Assurance reports to the Delivery Director, whose release dates the gate holds up.",
+  "taints": {
+    "endorsed-the-number": "end-endorsed"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The improvement is not sitting still. It is the headline of a paper going to the technology committee at its next meeting, ten weeks away, recommending that the regression test window be cut from five working days to two and that six of the eleven Release Assurance engineers move into the squads. The saving is costed at just over £400,000 a year.\n\nThe Delivery Director's scorecard carries on-time delivery at 40% and quality at 20%. Both numbers are produced by functions that report to him.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the Head of Release Assurance what drove the improvement.",
+          "quality": "defensible",
+          "next": "the-composition",
+          "consequence": "He answers without hesitation and gives you four things: contract tests added to six squads, a daily triage board, two senior test engineers hired eighteen months ago, and version three of the Release Assurance Standard, issued at the start of the period, which he describes as mostly about making severity judgements more consistent. He offers you the standard and seems pleased to be asked.",
+          "why": "The right person, candid, and he volunteers the one fact the case turns on inside a list of four improvements where it looks exactly like the other three. That is worth having and it is not evidence. What he has given you is the account the function holds of itself, which tells you what the organisation believes about the improvement and nothing about whether the improvement happened.\n\nKeep the list. Three of those four items would reduce the number of defects reaching production. One of them changes how the ones that reach production are counted, and only the underlying population can tell you which was doing the work."
+        },
+        {
+          "key": "B",
+          "text": "Take the whole production defect population, unfiltered by severity, across the full eighteen months.",
+          "quality": "best",
+          "next": "the-composition",
+          "consequence": "You export every defect raised against production within fourteen days of a release for the last six quarters, with its severity, its raise date and its release, and the deployment log for the denominators. Six quarterly totals: 188, 203, 194, 197, 201, 198.",
+          "why": "The reported measure is a count filtered on a field. The way to test a filtered measure is to look at the population before the filter, because a genuine improvement and a change in the filter are indistinguishable inside it and unmistakable outside it. If defects really stopped reaching production, the total falls. If the boundary moved, the total does not.\n\nIt also arrives before anyone frames the question for you. You are not yet asking why the number improved, which is a question that presumes the improvement. You are asking what the number is made of, and the answer to that is a fact."
+        },
+        {
+          "key": "C",
+          "text": "Reconcile the reported quarterly figures back to the defect tool.",
+          "quality": "defensible",
+          "next": "the-composition",
+          "consequence": "You tie out all six quarters. Every count is correct, the fourteen-day window is applied consistently, the release denominators agree with the deployment log, and one transposed digit in a footnote is the only error in eighteen months of reporting.",
+          "why": "Proper verification, competently done, and the cleanness of the result is the difficulty with it. Reconciling a metric to its own source establishes that the arithmetic is faithful to the definition. It cannot say anything about whether the definition measures what the report claims, and a correctly computed number derived from a moved boundary is the most persuasive kind of wrong.\n\nThe practical cost is what the working paper now says. Three days of testing that concluded the figures are right is the first thing the auditee will cite when you come back to say the figures do not mean what the board pack says they mean, and you will be arguing against your own file. Reconciliation is worth doing after you know what the definition is, not instead of finding out."
+        },
+        {
+          "key": "D",
+          "text": "Accept the improvement as supported and move on to testing whether the release gate operates.",
+          "quality": "poor",
+          "next": "the-nudge",
+          "consequence": "You record the quality improvement as evidenced by eighteen months of consistent reporting and turn to the gate control.",
+          "why": "The reasoning is sound as far as it goes. Eighteen months of consistent reporting is a real record, the gate is the control the audit programme names, and there is no obvious reason to distrust anybody. The difficulty is what is being treated as evidence: the escaped-defect figure is produced by the function whose performance it describes, from a field that function assigns, and accepting it as evidence of that function's performance is accepting the thing under review as the evidence for it.\n\nThe shape of the trend is information on its own, too. 71% in three quarters, from a codebase and a release cadence that did not change, is a rate of improvement that engineering organisations do not usually achieve by testing harder. Steep, sustained, monotonic movement in a metric is more often a change in the measurement than a change in the world, and it is worth at least one question before it becomes a premise."
+        }
+      ]
+    },
+    "the-nudge": {
+      "situation": "Two weeks later the service centre operations manager finds you between meetings. She has heard you are looking at platform quality.\n\n\"Can somebody explain why my system-assisted bookings queue has gone from 90 a week to 240 while technology's quality numbers keep improving? I hired three people for that queue. I was told it was demand growth. Bookings are up 9%.\"",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take both accounts back to the defect data and establish what each one is measuring.",
+          "quality": "best",
+          "next": "the-composition",
+          "consequence": "You export every production defect raised in the last six quarters with its severity, and you ask the service centre for the queue's own coding. The queue codes each item to a defect reference where one exists. Six quarterly defect totals: 188, 203, 194, 197, 201, 198.",
+          "why": "Two functions are describing the same platform over the same period and disagreeing, and both are reporting honestly. That is not a dispute to adjudicate; it is a signal that the two accounts are measuring different things, and the way to find out which is to go to a record neither of them produced for this purpose.\n\nThe reason to take the defect population rather than her queue is what each one can do. Her queue can corroborate — it is a symptom, and symptoms only ever add weight. The full defect population can falsify: if the total fell, the improvement is real and she is describing something else, and if it did not, the improvement is a boundary. Take the thing that can come back against you first."
+        },
+        {
+          "key": "B",
+          "text": "Explain that queue volumes are a service operations matter and that the escaped-defect rate is the measured quality metric.",
+          "quality": "poor",
+          "next": "the-composition",
+          "consequence": "She accepts it and does not raise it again. The following month the queue's growth is written into the service centre's headcount plan as demand growth, and two further posts are approved.",
+          "why": "Both halves of what you told her are true. Queue staffing is her division's business, the escaped-defect rate is the metric the organisation has agreed on, and an auditor who chases every corridor complaint never finishes an engagement. Scope discipline is a real professional virtue and this is the wrong place to spend it.\n\nHer account is not anecdotal in the way a complaint is anecdotal. It is a counted, coded, funded queue, maintained by a function with no stake in the quality figure, that has tripled in the exact window the quality figure improved. You have used the metric's authority to close down the only signal contradicting it, and the signal was the better of the two.\n\nThe cost is not the conversation. It is that a business function has now hired five people to absorb something nobody has established the cause of, and that it will be very hard to ask her again. Every organisation has a small number of people who will walk up to an auditor with an inconsistency. What happens to the first one determines whether there is a second."
+        },
+        {
+          "key": "C",
+          "text": "Get the queue's own data first — volumes, reasons, handling time — before deciding what it means.",
+          "quality": "defensible",
+          "next": "the-composition",
+          "consequence": "The queue runs at 210 to 260 items a week at an average handling time of 26 minutes, about two and a half full-time equivalents. Each item carries a reason code and, where one exists, a defect reference. Sixty-two distinct defect references account for four fifths of the volume.",
+          "why": "A good independent source, properly sized, and it corroborates her strongly. What it measures is customers whose booking failed and who stayed on the line long enough for an agent to complete it manually — a real cost and an unknown fraction of the customers affected, so it establishes the pattern without sizing it.\n\nSixty-two defect references is the thread. You now have a list of defects the business is paying people to work around, and the next question is what severity each of them was given — which takes you to the defect population anyway, one step later and with the queue's framing already in your head."
+        }
+      ]
+    },
+    "the-composition": {
+      "situation": "The defect population, six quarters, all severities, raised against production within fourteen days of a release.\n\nTotal: 188, 203, 194, 197, 201, 198.\nSeverity 1 and 2: 71, 79, 73, 43, 29, 20.\nSeverity 3: 117, 124, 121, 154, 172, 178.\n\nThe escaped-defect metric counts Severity 1 and 2 only. The document register shows version three of the Release Assurance Standard taking effect on the first day of the fourth quarter in that run.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what version three changed, and who applies it.",
+          "quality": "best",
+          "next": "the-taxonomy",
+          "consequence": "You pull version three and the triage records behind it. It is nine pages and it revises two things: the severity rules and the dispositions available at sign-off. Two of the severity changes are new capping rules, and both are decided at triage.",
+          "why": "Two numbers moved and one did not. Severity 1 and 2 fell by 73%, Severity 3 rose by 47%, and the total sat between 188 and 203 for six quarters without noticing either. A quality programme that works reduces the number of defects reaching production. It does not hold the total constant and move the contents across a line.\n\nThat leaves two explanations — the defects genuinely became less severe, or the definition of severe moved — and only one of them is written down somewhere you can read. Going to the standard is cheaper than re-rating defects and it answers a question re-rating cannot: not whether the ratings are right, but who is entitled to set them and what that person is measured on."
+        },
+        {
+          "key": "B",
+          "text": "Re-rate a sample of the capped Severity 3 defects against the previous standard.",
+          "quality": "defensible",
+          "next": "the-taxonomy",
+          "consequence": "You take forty of the most recent quarter's Severity 3 defects that were capped under the new rules and apply the old definitions. Twenty-three would have been Severity 2 or higher, including a fare-display fault that showed a stale price on multi-city itineraries for eleven days and a payment retry loop that double-charged fourteen customers.",
+          "why": "It establishes the substance, and it puts you in the triage lead's chair. Severity is a judgement, that judgement belongs to the person doing triage, and a finding built on your re-rating can only be defended by asserting your opinion over theirs — forty times, item by item, at clearance, with the engineer who raised each defect available to explain why yours is wrong on that one.\n\nThe sample is also judgemental, drawn deliberately from the capped population, so it cannot be projected across the quarter and any number you build from it will be attacked on exactly that ground. Some of the re-ratings will be wrong, and the finding must not depend on which. Keep the twenty-three as corroboration; it is very good corroboration. The question that does not require your judgement is who is permitted to set the field and whether they are assessed on the total it produces."
+        },
+        {
+          "key": "C",
+          "text": "Ask the Head of Release Assurance to explain the shift in the mix.",
+          "quality": "defensible",
+          "next": "the-taxonomy",
+          "consequence": "He explains it as a maturity effect: squads catching the serious faults earlier in the pipeline, so what escapes is smaller by nature. He answers without hesitation and has clearly not looked at the total, because when you show it to him he asks you to send him the export.",
+          "why": "Worth asking and the answer is sincere, which is the thing to hold on to about it. He is not managing a number; he is describing a mechanism he believes in, and his belief is the reason nobody in the function has ever put the total next to the trend.\n\nWhat you have obtained is an account rather than evidence, and accounts given by the function under review tend to become the frame the rest of the fieldwork is arranged around. His reaction to the export is the more useful half: he asked for it, which tells you the composition has genuinely never been looked at, and that is itself a finding about the reporting."
+        },
+        {
+          "key": "D",
+          "text": "Report that the metric excludes Severity 3 and recommend it be widened to all severities.",
+          "quality": "poor",
+          "next": "the-enhancement",
+          "consequence": "It is accepted readily. The following month's committee pack carries a second line showing all-severity defect volume, which is flat, alongside the escaped-defect rate, which is not.",
+          "why": "The observation is right and it has been converted into a recommendation before it was converted into a finding, which forfeits both. Widened or not, the metric is still assembled from a field set by the function it assesses, so the same movement can happen again in the new measure the moment anything in it is filtered.\n\nThe deeper cost is what a recommendation closes. A metric definition change is an enhancement: it is agreed, it is implemented, it is signed off, and three quarters of board reporting built on the old definition are never revisited. Nobody ever has to say what the number was actually doing while the committee was looking at it."
+        }
+      ]
+    },
+    "the-enhancement": {
+      "situation": "The recommendation is agreed inside a fortnight. The committee pack now carries all-severity defect volume alongside the escaped-defect rate, the audit point is logged as an agreed enhancement with an implementation date against it, and the Head of Release Assurance regards the question as settled.\n\nNobody asks about the second line. It is flat, it sits under a heading about reporting completeness, and the paper recommending the regression window be cut from five days to two goes forward unchanged.\n\nThe document register entry for version three of the Release Assurance Standard is still where you found it.",
+      "prompt": "The point is closed on the record. What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Treat the definition point as addressed and move on to testing whether the release gate operates.",
+          "quality": "poor",
+          "next": "the-gate",
+          "consequence": "You close the metric scope point as agreed and implemented, record the all-severity series in the file, and turn to the gate control. Version three is not read.",
+          "why": "There is a real argument for it. The observation was made, it was accepted within a fortnight, the pack now shows the number you wanted shown, and an auditor who reopens agreed points spends credibility they will need at clearance. The difficulty is that what was agreed is a disclosure and what you found is a mechanism, and the second is untouched by the first.\n\nThe loss is specific and it arrives later. Version three is nine pages you never read, so you reach clearance able to say the metric excluded Severity 3 and unable to say who decided what Severity 3 means, who applies that decision to each defect, or what else the same revision changed. The first is a scoping observation the organisation has already absorbed and priced at nothing. The second was sitting in the document register the entire time, one request away."
+        },
+        {
+          "key": "B",
+          "text": "Separate the two questions: the widened metric is an agreed enhancement, and what version three changed and who applies it is a different point.",
+          "quality": "best",
+          "next": "the-taxonomy",
+          "consequence": "You pull version three and the triage records behind it. It is nine pages and it revises two things: the severity rules and the dispositions available at sign-off. Two of the severity changes are new capping rules, and both are decided at triage.",
+          "why": "Right, and the awkwardness of it is the price of the recommendation. An agreed enhancement is not a closed subject, but it feels closed to everybody who agreed it, so returning to the same period means being explicit that you are asking a different question rather than reversing yourself. Say which question, in one sentence, before you ask for anything.\n\nThe question the widening does not answer is the one that matters. The total sat between 188 and 203 for six quarters while Severity 1 and 2 fell by 73%: either the defects genuinely became less severe or the definition of severe moved, and only one of those is written down somewhere you can read. What the standard says, and who is entitled to apply it, is a matter of record rather than of opinion — which is what makes it defensible even after you have been seen to settle for less."
+        },
+        {
+          "key": "C",
+          "text": "Re-rate a sample of the Severity 3 defects raised since version three took effect against the definitions in force before it.",
+          "quality": "defensible",
+          "next": "the-taxonomy",
+          "consequence": "You take forty of the most recent quarter's Severity 3 defects and rate them against the previous definitions. Twenty-three would have been Severity 2 or higher, including a fare-display fault that showed a stale price on multi-city itineraries for eleven days and a payment retry loop that double-charged fourteen customers.",
+          "why": "It establishes the substance, and it puts you in the triage lead's chair. Severity is a judgement, that judgement belongs to the person doing triage, and a finding built on your re-rating can only be defended by asserting your opinion over theirs — forty times, item by item, at clearance, with the engineer who raised each defect on hand to explain why yours is wrong on that one.\n\nIt is worth more here than it would have been an hour earlier, because you have already conceded the scope point and need something the auditee cannot answer with an implementation date. Twenty-three out of forty is that. Hold it as corroboration and go to the standard for the finding: the question that does not require your judgement is who is permitted to set the field and what they are assessed on."
+        }
+      ]
+    },
+    "the-taxonomy": {
+      "situation": "Version three of the Release Assurance Standard, effective the first day of the improvement. Two additions to the severity rules:\n\n— a production defect for which a documented workaround exists is recorded at Severity 3 regardless of customer impact;\n— a defect reproducible on fewer than 2% of transactions in the affected journey is recorded at Severity 3.\n\nBoth determinations are made at triage by the Release Assurance triage lead. Severity 3 sits outside the escaped-defect metric.\n\nThe standard was drafted by Release Assurance and approved by the Delivery Director. It was not tabled at the technology committee. Prior periods were not restated, and the trend line the committee has seen four times has no marker on it.\n\nRegression testing is delivered by a managed test partner: twenty-eight testers, £1.9m a year, with service credits payable on escaped Severity 1 and 2 defects above a threshold. £84,000 of credits in the two quarters before the standard changed. Nil in the three since.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "The customer changed the definition that drives the partner's service credits, and the credits should be recovered.",
+          "quality": "poor",
+          "next": "the-request",
+          "consequence": "Procurement and legal review it over three weeks. The partner's account director produces the schedule, which defines severity by reference to the customer's own classification standard as amended from time to time. No credits are recoverable and the partner's delivery manager stops attending the joint quality forum. Three weeks of the fieldwork window have gone and the release gate is still untested.",
+          "why": "The instinct is sound and the observation behind it is the sharpest in the file: £84,000 stopped flowing on the exact date the definition changed. Money moving is the hardest evidence there is that a definition change was consequential rather than tidy-up, and wanting to follow it is right.\n\nWhat is wrong is who it is aimed at. The partner did not write the standard, was not consulted on it, and has performed exactly what the contract asks; reading the schedule aloud ends the discussion. Part of the cost is that several weeks spent establishing the partner complied leaves everyone with the impression the substance was overstated, and the standard, the reporting line and the three quarters of committee papers never get discussed at all.\n\nThe rest of the cost is the calendar. Those three weeks were the weeks the release gate was going to be tested, and a claim against a supplier is the one line of enquiry in this engagement that cannot produce a finding about the client. So the sign-off log, the deployment log and the dispositions the same revision created stay unopened, and you arrive at clearance with a point about a measure and nothing at all about the control the measure was supposed to describe. The £84,000 is a symptom worth one sentence in the report, not a claim."
+        },
+        {
+          "key": "B",
+          "text": "The measure is derived from a field set by the function the measure assesses, and that function revised the definition of the field inside the reported period with no change control and no restatement.",
+          "quality": "best",
+          "next": "the-gate",
+          "consequence": "You put it to the Head of Release Assurance in one sentence. He does not dispute any part of it. He says the capping rules were written to stop the triage board arguing for an hour over every defect, that he wrote them himself, and that he had never put the two halves of the arrangement side by side.",
+          "why": "Name the mechanism, not the motive. The capping rules are not unreasonable in themselves — a fault with a workaround genuinely is less urgent than one without, and a rule that ends an hour of argument is worth having. Judged on their own they are sensible hygiene, which is exactly why nobody outside the function ever looked at them.\n\nThe defect is not in the rules. It is that one function writes the definition of severity, applies it to each defect, computes the measure that definition produces and reports it — four steps with nothing between any two of them — and it is the function the measure assesses. Under that arrangement a change in the definition and a change in performance are indistinguishable from outside, and the organisation has no way to know which it has been looking at.\n\nIt is also the line between quality assurance and quality management. Release Assurance is the check. The standard, the taxonomy, the thresholds and the reporting are the system the check operates inside, and the check has quietly absorbed all of it. A check that owns its own definitions is not a check."
+        },
+        {
+          "key": "C",
+          "text": "The standard was changed without change control and prior periods were not restated.",
+          "quality": "defensible",
+          "next": "the-gate",
+          "consequence": "Accepted almost immediately. The Delivery Director agrees the revision should have gone to the committee, offers to restate the three quarters, and asks his team to add classification standards to the change register.",
+          "why": "True, and it is the smallest true version of what you have. Framed this way it reads as a comparability and documentation failure, and it will be closed by tabling a document and reissuing a chart — both of which will happen, promptly, and neither of which touches who gets to write the next version.\n\nNotice how fast it was accepted. The reason the missing change control mattered is that nothing outside the function had to agree to a revision that moved the function's own headline number by 71%. That is a statement about where authority over the definition sits. Presented as a process gap it will be fixed as a process gap, and the same person will approve version four."
+        },
+        {
+          "key": "D",
+          "text": "Trace what the capping rules cost, by following the workarounds.",
+          "quality": "defensible",
+          "next": "the-gate",
+          "consequence": "Sixty-two of the latest quarter's 178 Severity 3 defects carry a workaround performed by the service centre. That queue runs at 240 items a week at 26 minutes each, roughly two and a half full-time equivalents, resourced last year as demand growth. The fix service level for Severity 3 is 30 working days against four hours for Severity 1; the median age of open Severity 3 defects has gone from 34 days to 96, and nineteen are older than six months with the workaround still running.",
+          "why": "Strong evidence and the right instinct behind it. A workaround does not remove impact; it moves the impact to somebody whose costs are not in the metric, and here it moved it to a queue in a different division that then hired against it. The severity cap also changed the fix clock, so the capped defects are not merely uncounted — they are unfixed, for months, by design.\n\nOn its own it will be read as a service centre cost issue and answered with a resourcing plan and a backlog sprint. It carries the finding once the mechanism has been stated; it does not substitute for stating it. Evidence of what a design costs is not the same as evidence of what is wrong with the design."
+        }
+      ]
+    },
+    "the-gate": {
+      "situation": "You turn to the gate itself. The SDLC standard says nothing deploys to production without Release Assurance sign-off. The deployment pipeline enforces an approval step. The Head of Release Assurance attests annually that the gate has operated throughout the year, and the attestation for the period is on file, signed.",
+      "prompt": "How do you test whether the gate works?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Walk the pipeline configuration and confirm the approval step cannot be skipped.",
+          "quality": "defensible",
+          "next": "the-request",
+          "consequence": "The step is mandatory and cannot be removed or self-approved by a squad. There is one exception route, labelled expedited release, which requires the Delivery Director's approval in the tool and bypasses the gate entirely.",
+          "why": "Well-obtained design evidence, and it hands you the thing worth counting. A configuration walk establishes what the pipeline requires today; the deployments happened over twelve months, some of them under an earlier configuration, and none of them are visible from here.\n\nThe exception route is the part to follow. An expedited path approved by the director whose delivery dates the gate exists to hold up is not a control weakness in itself — genuine emergencies need a route — but its usage over the period is a fact about operation, and you now know exactly which log to ask for."
+        },
+        {
+          "key": "B",
+          "text": "Sample releases and confirm each has a valid sign-off.",
+          "quality": "defensible",
+          "next": "the-request",
+          "consequence": "You draw twenty from the sign-off log. Every one has a sign-off record, correctly authorised by someone holding the delegation, complete and retained.",
+          "why": "The standard test, correctly executed, and the sampling is sound in every respect except where the population came from. It answers the question the record was built to answer, which is why it returns a clean result: every release in the sign-off log has a sign-off, necessarily. The releases worth finding are the ones that reached production without producing a record, and they cannot appear in a sample drawn from the records of the control.\n\nThe fix is one step rather than a different test. Draw the population from the deployment log, which is maintained by a different system for a different purpose, and reconcile the two. The gap between what deployed and what was signed is the test."
+        },
+        {
+          "key": "C",
+          "text": "Take every release in the period from the deployment log and compare it with the sign-off record and its timestamp.",
+          "quality": "best",
+          "next": "the-request",
+          "consequence": "104 releases. Thirty-one were signed pass with observations — a disposition created by the same version three, permitting deployment with open defects on an undertaking to remediate them in a later release. Twenty-four of those undertakings have no remediation recorded. Eleven releases went through the expedited route, all approved by the Delivery Director, nine of them in the fortnight before a campaign launch. Seven sign-offs carry a timestamp after the deployment timestamp, by a median of forty minutes.",
+          "why": "The standard, the pipeline configuration and the annual attestation are three pieces of evidence and every one of them is about design: what the gate requires, what the tooling enforces now, and what the person operating the gate says about their own operation of it. None of the three covers a period, and the last is a statement by the controller that the control worked, which is the precise thing operating evidence exists to replace.\n\nStarting from the deployment log rather than the sign-off log is what makes the test capable of failing. The population comes from the system that records what actually reached customers, maintained by people with no interest in the gate, so a release that went round the gate is present in it.\n\nAnd the disposition is the thread back to the rest of the case. The same revision of the same standard, approved by the same person, at the start of the same three quarters, capped severity and invented a pass that is not a pass."
+        },
+        {
+          "key": "D",
+          "text": "Accept the gate as designed, enforced in tooling and attested.",
+          "quality": "poor",
+          "next": "the-request",
+          "consequence": "You record the release gate as appropriately designed and operating effectively, supported by the SDLC standard, the pipeline configuration and the signed annual attestation, and move on.",
+          "why": "Three genuine pieces of evidence and a conclusion none of them supports. Each is worth having and each answers the design question: the standard says what should happen, the pipeline shows the tooling can enforce it, and the attestation is a formal management representation obtained in writing. Only records covering the period tell you the control ran.\n\nThe attestation feels like the strongest of the three and is the weakest, because it is the person who performs the control certifying their own performance of it — the same structure you have already found in the defect metric, in a different part of the same function.\n\nThat repetition is the point worth taking. When you have found one place where a function reports on itself with nothing in between, the productive assumption is that it is a habit of the organisation rather than an isolated arrangement."
+        }
+      ]
+    },
+    "the-request": {
+      "situation": "Nine days before the technology committee. The Delivery Director asks for a short note: audit has reviewed the escaped-defect reporting and has no concerns to date.\n\nHe is entirely pleasant about it and everything he says is accurate. No finding has been issued. Nothing has been through clearance. The fieldwork is not complete. He says the committee will simply want to know audit has been over the numbers before it votes, and the paper still recommends cutting the regression window from five days to two and moving six Release Assurance engineers into the squads.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Provide the note, worded to say only that no finding has been issued to date.",
+          "quality": "poor",
+          "next": "the-clearance",
+          "consequence": "You send four sentences, carefully drafted, claiming nothing. The paper goes to the committee with a line reading that internal audit has reviewed the escaped-defect reporting and raised no concerns. The recommendation is approved unanimously. The regression window is cut from the following month and six engineers move into squads.",
+          "taint": "endorsed-the-number",
+          "why": "Every word of the note is true, and its truth is what makes it work as an endorsement. An interim comfort statement is read as an opinion however it is drafted, because the reader has a decision in front of them and your name at the bottom, and no committee has ever parsed the difference between no finding has been issued and there is nothing wrong.\n\nWhat you knew when you wrote it was that a 71% improvement coincided exactly with a definition change made, approved and applied inside the function being measured, and that the total defect count had not moved. That is not a finding and you were right not to call it one. It is a fact, it was established, and it was the single piece of information the committee needed before voting to cut testing.\n\nYou did not suppress it. You supplied something in its place, which is worse, because a silence can be broken later and an endorsement cannot be withdrawn without impeaching yourself."
+        },
+        {
+          "key": "B",
+          "text": "Decline the note, and put the established fact to him and the committee chair: the total is flat, the mix moved, and the move coincides with a definition change made inside the function. Say plainly that it is not a cleared finding and that the committee should have it before the vote.",
+          "quality": "best",
+          "next": "the-clearance",
+          "consequence": "He is not pleased and does not dispute any of it. The chair asks for a one-page factual note with no conclusions, circulates it with the paper and reads the composition table into the meeting. The committee defers the resourcing recommendation for one cycle pending the audit. The Delivery Director asks, reasonably, to see the report in draft before it is tabled, and you agree to the normal clearance process.",
+          "why": "Two obligations pull against each other here and both are real. Independence says you do not give opinions before clearance. Timeliness says a committee about to take an irreversible resourcing decision on the strength of a measure you already know to be unreliable is the one audience that cannot wait for the report.\n\nThe resolution is not to pick one. It is to separate the fact from the conclusion. What the total defect count did over six quarters is a fact, it is established, and it belongs to the organisation rather than to your report. Whether it constitutes a finding, what caused it and what should be done are conclusions, and those wait for clearance.\n\nNotice who decides. You supply the fact and the committee defers its own decision; you do not ask for the deferral and you do not recommend one. A comfort note gets the whole thing backwards: it releases the conclusion, which you do not have, and withholds the fact, which you do. Refusing to give an opinion is not the same as refusing to say what you have seen, and an audit function that treats the two as identical will keep watching decisions be taken on evidence it is holding."
+        },
+        {
+          "key": "C",
+          "text": "Decline, and tell him audit will report through the normal process after clearance.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "He accepts it without argument and does not press. The paper goes to the committee with no reference to audit. The recommendation is approved and the regression window is cut from the following month.",
+          "why": "Correct on the thing it addresses and silent on everything else. Declining to give comfort before clearance is right, and stopping there treats no opinion before clearance as though it also meant no facts before clearance.\n\nThe cost is specific and it lands three weeks later: the regression window is halved on the strength of a number you had already established was measuring its own definition, and the six engineers are dispersed before anyone knows whether the quality programme did anything. Nothing in the audit standards required that. Process discipline is a means of protecting the value of what you say, and it becomes something else when it is used as a reason to say nothing while a decision goes past."
+        },
+        {
+          "key": "D",
+          "text": "Ask the committee chair to defer the resourcing decision until the audit reports.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "The chair agrees and defers it. He asks what the concern is and you tell him the audit is not yet complete. He accepts that and moves on.",
+          "why": "It reaches the right outcome and it spends the wrong currency. A deferral granted because audit asked for it, with no reason the committee can weigh, puts you inside the resourcing decision rather than beside it: the committee has acted on your authority instead of on evidence, the decision is now partly yours, and if the audit finds nothing the delay is yours to account for.\n\nIt is also not repeatable. He asked for the reason and you had one — a flat total, a moved mix, a definition changed inside the measured function — and it was a fact rather than a conclusion, so nothing prevented you giving it and letting him decide. Next time he will ask again, and an audit function that answers that question with the audit is not complete gets one deferral and then stops getting them."
+        }
+      ]
+    },
+    "the-clearance": {
+      "situation": "Clearance with the CTO. He is not defensive and he has read everything.\n\n\"Three things. The capping rules are reasonable — a fault with a workaround genuinely is less severe than one without, and I would sign them again. The standard was applied consistently; you have not shown me a single defect that was rated against it wrongly. And escaped defects are contractually the test partner's accountability. That is what £1.9m a year buys. So tell me what the finding is.\"",
+      "prompt": "What do you tell him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That triage has been applying severity inconsistently and needs guidance, refresher training and a re-rating of the last three quarters.",
+          "quality": "poor",
+          "next": "end-retriage",
+          "consequence": "He agrees on the spot and commissions the re-rating that afternoon. Release Assurance re-rates three quarters of defects over six weeks, uplifts twenty-two of them, and publishes a triage guidance note with worked examples. The finding is closed at the next tracking meeting.",
+          "why": "It is the shape of finding a CTO expects from a quality audit — people, consistency, training — and it is the one version of the case he cannot argue with, which is why he did not. How fast a recommendation is accepted is diagnostic rather than convenient.\n\nLook at what it concedes. It accepts his second point in full and then contradicts your own evidence, because nothing you found was about inconsistency. The standard was applied consistently. That is the problem, not the mitigation: a consistently applied rule that caps severity whenever a workaround exists will produce this result every quarter, correctly, forever.\n\nAnd the remedy hands the work back to the function that owns the definition, to be judged against the definition, by the people it assesses. Three quarters of defects re-rated by Release Assurance against a Release Assurance standard is the original arrangement performed once more at greater expense."
+        },
+        {
+          "key": "B",
+          "text": "That the function being measured writes the definition of the measure, applies it case by case, computes it and reports it, with nothing between the four; that a definition change inside the reported period moved the boundary while the total stayed flat; and that release quality is the organisation's accountability, not the partner's.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He accepts the first limb without argument once you put the composition table next to the standard's effective date. On the partner he pushes back for some time and then concedes the distinction: the partner owes test coverage against a defined scope, and the organisation owes a working booking platform to its customers, and no contract moves the second. He asks what the measure should be instead, and you name three the function cannot set — service centre workaround volume, booking completion on affected journeys, and the age of unremediated defects. He asks for the six-quarter composition to go to the committee with the effective date marked on it.",
+          "why": "It concedes everything he is right about. The rules are defensible, they were applied consistently, and the partner has performed. Then it states what survives all three, which is that no one outside the function has ever been in a position to know whether the improvement was real.\n\nEach limb attaches to an arrangement rather than to a person. The measure is unreliable because of who controls its input, not because anyone gamed it. The gate is unproven because attestations are design evidence, not because the Head of Release Assurance was untruthful. The partner point is the one that would have quietly closed the case: a contract can transfer test execution and some financial consequence, and it cannot transfer answerability for what customers experience — so the fact that escaped defects are somebody's KPI is precisely why the definition of an escaped defect could not be left inside the function reporting it.\n\nHis question about the replacement is the sign it landed, and answering it with three candidates is advice, not decision — he still has to choose them, own them and resource them. He has stopped defending three quarters and started asking what a measure would have to be immune from, which is the question the reporting should have been built around."
+        },
+        {
+          "key": "C",
+          "text": "That the escaped-defect metric should be replaced with an outcome measure the function cannot set, and the three quarters restated.",
+          "quality": "defensible",
+          "next": "end-restated",
+          "consequence": "Accepted and implemented inside the quarter. The committee pack gains workaround volume and defect age alongside a restated escaped-defect series. The classification rules, the triage decision and the sign-off disposition stay exactly where they are.",
+          "why": "It fixes the instrument, which is real and is the smaller half. Two things it leaves standing. The new measures still have to be assembled by somebody, and the somebody is the same function; within two quarters the workaround volume line is being populated from a workaround required flag that Release Assurance sets at triage, and the mechanism has reappeared in the new metric without anybody deciding that it should.\n\nAnd it says nothing about the gate. The pass with observations disposition, the twenty-four unremediated undertakings and the eleven expedited releases came from the same standard revision and the same approval, and a case that ends with a better chart leaves the thing the chart describes unchanged."
+        },
+        {
+          "key": "D",
+          "text": "That the reporting line is the defect: Release Assurance should report to the CTO rather than to the Delivery Director whose dates it gates.",
+          "quality": "defensible",
+          "next": "end-restated",
+          "consequence": "He agrees and the line moves at the next organisational review, four months later. The Head of Release Assurance keeps his team, his standard, his triage lead and his metric, and now presents them one level up.",
+          "why": "Correct, and it is the half that is easiest to agree to and slowest to bite. Moving a reporting line changes who the pressure comes from; it does not change who writes the definition, who applies it, who computes the number or who reports it, and all four of those were the mechanism.\n\nThere is a second, quieter problem with stopping here. A reporting line is a design fact. You would test it next year by reading an organisation chart — which is exactly the class of evidence this engagement has just demonstrated to be insufficient, twice: once for the gate, where a standard, a pipeline and an attestation described a control that thirty-one releases went round, and once for the metric, where a documented, approved, consistently applied standard produced a 71% improvement that had not happened."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The mix, not the number",
+      "verdict": "strong",
+      "narrative": "The committee is shown the six-quarter composition with the standard's effective date marked on it, next to the trend line it has seen four times. Nobody argues.\n\nThe three quarters are restated on the previous definitions: 2.8, 2.6, 2.4, 2.3. A real improvement, and about a quarter of the reported one. The escaped-defect rate stays as an operational measure for the squads and comes out of the board pack, replaced by three the function cannot set — service centre workaround volume and cost, booking completion on affected journeys, and the age of unremediated defects.\n\nThe severity definitions and the metric's scope move under the technology committee's change control and now need the committee's approval to revise. Pass with observations is withdrawn and the twenty-four unremediated undertakings are scheduled. The partner's quality KPI is rewritten to reference a definition neither party can amend alone; the £84,000 is not pursued, and the minutes record that the partner's obligation is test coverage and the organisation's is a working platform.\n\nThe regression window is not cut. Three of the six engineers move into squads anyway, on the argument that testing closer to the code is worth doing whatever the metric said.\n\nThe sixty-two workaround defects are worked down over two quarters. The system-assisted bookings queue falls from 240 items a week to 85, and the service centre releases the three posts it hired for demand growth.",
+      "why": "Nobody lied. The capping rules are defensible, the standard was applied consistently, the arithmetic was correct in every quarter, the partner performed, and the Head of Release Assurance reported what his own system told him. The improvement was reported in good faith by people who believed in it, and three quarters of it was the definition.\n\nThe mechanism is one sentence: a function wrote the definition of the field its own performance measure filters on, and then revised it mid-period. Everything else follows. A measure is only independent of the thing it measures if the party assessed cannot reach its inputs, and severity was an input reachable at triage, by the team whose number it was, in a standard they wrote and their own director approved.\n\nThe general form transfers. When a headline measure improves sharply without the underlying population moving, you are looking at a boundary, not an outcome. When a measure is derived from a classification, the audit question is never whether the classifications are right — that is a judgement you will lose item by item — but who is entitled to set them and what they are assessed on.\n\nTwo supporting ideas did real work. The gate looked strong from three pieces of evidence that were all about design: a standard, a pipeline configuration and an annual attestation signed by the person who operates the control. Only the deployment log, a population drawn from outside the control, could show what happened over the period. And the partner argument, which sounded like the end of the case, was the misapplication it usually is: contracts move activity and money, never answerability.\n\nUnderneath all of it sits the distinction the organisation had lost. Release Assurance was quality assurance — the check. The standard, the taxonomy, the dispositions, the thresholds and the reporting were quality management — the system the check operates inside. When the check owns the system, an improving metric is the one thing it can always produce."
+    },
+    "end-restated": {
+      "title": "A better measure, in the same hands",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented and it is a genuine improvement. Either the committee pack gains outcome measures and a restated series, or Release Assurance moves under the CTO, depending on which limb you took.\n\nThe following year's audit finds the shape has survived the fix. The workaround volume measure is populated from a workaround required flag set at triage by the same team. The defect age measure is calculated from severity, so capping still moves the clock. Under the new reporting line the standard is still drafted, applied, computed and presented by the function it assesses; the approval signature is one level higher.\n\nPass with observations is still in the standard. Nine of the twenty-four unremediated undertakings from the audit period are still open. The system-assisted bookings queue is running at 260 items a week.",
+      "why": "You replaced an unreliable measure with better ones, or you removed a reporting line that should never have existed. Both are worth having and both stop one step short of the mechanism.\n\nA measure is not made independent by being a better idea. It is made independent by being assembled from something the assessed party cannot reach, and every one of the replacements was reconstructed out of the same triage field within two quarters — not by anyone's design, simply because that was the only place the data lived and nobody had said otherwise.\n\nThe reporting line has the same property. Moving it changes who applies pressure and leaves intact who writes the definition, who applies it, who computes the number and who reports it. Those four were the finding, and they can be held by one function under any manager in the organisation.\n\nThe test to apply to your own recommendation is whether you could verify it next year from a record the audited function does not produce. A restated chart and an organisation chart both fail that test, which is the same failure the gate's attestation had."
+    },
+    "end-retriage": {
+      "title": "Consistently applied",
+      "verdict": "weak",
+      "narrative": "The re-rating runs for six weeks. Release Assurance reviews three quarters of defects against the Release Assurance standard, uplifts twenty-two, and issues a triage guidance note with worked examples that the committee receives warmly. The escaped-defect rate is restated upward from 0.8 to 1.1 and is still described as a 61% improvement.\n\nThe resourcing decision had already gone through. The regression window is two days, six engineers are in squads, and the capping rules are unchanged because nobody found them to be wrong.\n\nEleven months later a fare-display fault shows stale prices on multi-city itineraries. It is triaged Severity 3 on the second capping rule — 1.4% of transactions on that journey — with the workaround that the service centre rebooks affected customers manually. It runs for eleven weeks. It leaves as a consumer protection complaint about advertised pricing, and the regulator's first question is how the platform's defect severities are set and by whom.",
+      "why": "The finding was reframed as conduct, and conduct findings are the ones auditees accept fastest because they ask the organisation to try harder rather than to give something up.\n\nIt also contradicted your own evidence. Nothing you found suggested triage was inconsistent; the standard was applied faithfully, and that is the more serious version, because a rule applied faithfully produces its result every quarter without anybody deciding anything. Guidance and re-rating are answers to a problem of application. You had a problem of authorship.\n\nThe size of the correction is the tell. Twenty-two uplifts across three quarters, found by the function against its own definitions, is a fraction of what the capped population contained — a forty-item look at the capped defects in the final quarter alone had turned up more than that. Nothing was concealed. Re-rating against the standard whose rules are the problem can only ever surface the cases the rules did not cover.\n\nThe remedy handed the work back to the function that wrote the definition, to be assessed against that definition, by the people it measures — the original arrangement, performed once more, at greater cost, and now with an audit report recording that it was checked.\n\nThe fare-display fault is not bad luck. It is the capping rules operating exactly as written, on a defect nobody was permitted to call serious, for eleven weeks, with the cost carried by a queue in another division."
+    },
+    "end-endorsed": {
+      "title": "No concerns to date",
+      "verdict": "failed",
+      "narrative": "The four sentences are quoted in the committee paper. The recommendation passes without discussion; the regression window goes to two days and six engineers move into the squads the following month.\n\nYour report issues nine weeks later. It says the escaped-defect measure is derived from a field controlled by the function it assesses, that the definition was revised inside the reported period without change control or restatement, and that the three quarters of improvement cannot be relied upon.\n\nThe committee chair's first question is why internal audit wrote to him nine days before the vote to say there were no concerns. There is no answer to it that does not sound like an answer. The finding is reworded twice and issued as a recommendation to strengthen governance over performance metric definitions, rated medium, accepted, and closed the following quarter when the classification standard is added to a change register.\n\nThe escaped-defect rate rises to 1.6 over the next two quarters and is explained as a triage tightening. Nobody can tell whether it is, because the measure that would say is the one under discussion, and audit's opinion of it is now a matter of record on both sides.\n\nThe service centre's system-assisted bookings queue reaches 310 items a week.",
+      "why": "The instinct is the reasonable one and the note was honestly drafted. Nothing in it was untrue, you were careful about that, and the care is what makes the failure worth studying: the wording was never the problem.\n\nAn interim statement of comfort is an opinion, whatever it says. The reader has a decision in front of them, your name at the bottom, and no interest in the distinction between no finding has been issued and there is nothing wrong. Deciding whether to give one is not a drafting question; it is a decision about whether to place audit's authority behind a number before the work that would justify doing so is finished.\n\nWhat made it unrecoverable is not the endorsement but its position. Having said there were no concerns, everything you report afterwards impeaches your own note, and the argument moves permanently off quality and onto audit's consistency — the one topic on which the auditee cannot lose and the committee has no appetite. A finding that has to be defended against your own earlier document does not get reworded twice by accident.\n\nAnd the fact you held was giveable. The total defect count over six quarters, the shift in the mix, and the effective date of the standard were established facts, not conclusions, and stating them would have breached nothing. The discipline is a single question asked before writing anything to anybody before clearance: am I about to release a conclusion I do not have while withholding a fact I do?"
+    }
+  }
+}

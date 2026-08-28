@@ -1,0 +1,326 @@
+{
+  "id": "d5-the-shared-tablets",
+  "title": "The Shared Tablets",
+  "domain": "5",
+  "section": "A",
+  "topics": [
+    "Mobile, Wireless, and Internet-of-Things Devices",
+    "Identity and Access Management",
+    "Network and End-Point Security",
+    "Physical and Environmental Controls"
+  ],
+  "principles": [
+    "accountability-stays",
+    "protection-follows-data",
+    "prevent-first",
+    "segregation",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are reviewing protection of information assets at a residential and nursing care group. Twenty-two homes, one thousand three hundred and forty residents, and a medicines round that runs four times a day in every one of them.\n\nPaper medication charts went three years ago. Every dose is now recorded at the bedside on a tablet, on the group's electronic medication administration record, and the group is proud of it. Errors are down, the medicines audit takes a morning instead of a fortnight, and the regulator has been complimentary at the last two inspections.\n\nIt is ten to eight on a Tuesday at Meadowview, on a thirty-four bed nursing unit. The drug trolley is being unlocked. The tablet sits in a rubber case on top of it.\n\nTaped to the side of the trolley is a laminated card. It carries a username, MDW-U3, and a password.",
+  "taints": {
+    "framed-as-interim": "end-closed-by-a-refresh"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The nurse in charge does not hide it and is not embarrassed by it. Every nurse and senior carer on the unit signs in with that account; there are eleven of them on this week's rota. The card has been taped to the trolley since the system went in.\n\nThe round is about to begin.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the nurse in charge why the unit uses one account.",
+          "quality": "defensible",
+          "next": "the-drug-round",
+          "consequence": "She answers straight away. Signing in individually takes most of a minute and the tablet locks after two, and there are thirty-four residents to get through before breakfast. The arrangement was agreed with the home manager in the first week of go-live.",
+          "why": "The obvious question, asked of the person best placed to answer it, and she tells you the truth. The cost is small and worth naming. What you now hold is the justification, offered before you have seen the thing it justifies, and a justification heard first tends to frame everything after it — you will spend the rest of the engagement testing whether her account is reasonable rather than establishing what the arrangement produces."
+        },
+        {
+          "key": "B",
+          "text": "Say nothing yet and watch the whole round.",
+          "quality": "best",
+          "next": "the-drug-round",
+          "consequence": "One hour forty-five minutes, thirty-four residents, sixty-one administrations. She unlocks the tablet forty-one times. Two other nurses use the trolley during the round, one for a nine o'clock insulin. For a controlled drug she calls a colleague over to witness, and both signatures go in under MDW-U3.",
+          "why": "The shared account is an answer to something, and the only way to learn what it is answering is to watch the thing it answers. Observation also hands you the fact nobody would have volunteered and no document records: three people used one identity inside one round, and the second-person check on a controlled drug was signed by the same identity as the administration it was checking. You saw a control fail while it was working normally."
+        },
+        {
+          "key": "C",
+          "text": "Establish whether this is one unit's workaround or how the group runs.",
+          "quality": "defensible",
+          "next": "the-drug-round",
+          "consequence": "The group's digital care lead answers within the hour. Sixty-three units, sixty-three unit accounts, set up that way at go-live and described in the implementation plan. It is not a workaround; it is the configuration.",
+          "why": "A good early move, and it removes the reading everyone reaches for first — one unit cutting a corner — before anybody can offer it to you. What you have bought less of is understanding. You now know the arrangement was designed, which means it will be defended by its designers with a rationale you have not yet tested, and you learned that it is deliberate before learning what it does."
+        },
+        {
+          "key": "D",
+          "text": "Tell the home manager the shared account has to stop and ask for individual accounts on the unit today.",
+          "quality": "poor",
+          "next": "the-record",
+          "consequence": "He agrees without argument and the digital care lead creates accounts for the unit's eleven nurses that afternoon. You come back nine days later for the rest of the fieldwork. The evening round is running forty minutes long and two nurses have started writing administrations on a printed sheet and entering them at the end of the shift.",
+          "why": "The instinct is right in almost every environment you will ever work in, and you acted on it in the one place where the operational answer had not been established. Two things follow. You directed an operational change to a clinical process on an auditor's say-so, which is management's decision and not yours — you can recommend it, and you can escalate if they refuse, but you cannot take it. And you altered the thing you came to examine before examining it, so the arrangement you will now report on is the one you caused. The printed sheets are the point: a control that cannot be operated is replaced by something worse, and here what replaced it removed the record from the bedside altogether."
+        }
+      ]
+    },
+    "the-drug-round": {
+      "situation": "The constraint is real and nobody is pretending otherwise.\n\nIndividual sign-on is a username, a password and a six-digit code from an authenticator app on a separate device. The go-live report measured it at a thirty-eight second median. The tablet locks after two minutes of inactivity, which on a drug round is most of the time between residents. Hands are gloved, then washed, then gloved again.\n\nThe same report contains a timed pilot: the identical thirty-four bed round took two hours fifty-five under individual sign-on, against one hour forty-five with a unit account. Two nurses in that pilot stopped recording at the bedside and entered their administrations at the end.\n\nThe medicines policy requires the record to be made at the point of administration.",
+      "prompt": "What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Open the medication record for this morning's round on this unit.",
+          "quality": "best",
+          "next": "the-record",
+          "consequence": "Thirty-four residents, sixty-one administrations between 07:52 and 09:37, every one signed MDW-U3. The nine o'clock insulin is signed MDW-U3, and the unit's allocation sheet puts that resident on a different nurse's list. The controlled drug at 08:20 is signed MDW-U3 in the administered-by field and MDW-U3 in the witnessed-by field.",
+          "why": "The round is the event; the record is what the organisation will be judged on. Reading it while you can still reconstruct who was on the unit is what converts an access-control observation anybody walking past the trolley could make into a statement about the clinical record — that the medication chart for these thirty-four residents names a device, not a person. It also gives you the segregation failure in its sharpest form. The second-person check exists precisely so that one person cannot complete a controlled drug administration unaided, and the system accepted the same identity in both halves of it. That is a different finding, with a different owner and a different consequence."
+        },
+        {
+          "key": "B",
+          "text": "Evidence the operational cost properly, so the constraint is measured rather than asserted.",
+          "quality": "defensible",
+          "next": "the-record",
+          "consequence": "You obtain the go-live timing report, the pilot dataset behind it, and the two nurses' free-text comments about recording retrospectively. The report is dated, signed by the clinical lead and contemporaneous with the pilot.",
+          "why": "Exactly the right instinct, and this evidence is what will keep your recommendation alive at clearance — an auditor who cannot state the operational cost of the control being bypassed will have it stated to him, in a meeting, by someone who can. What it does not yet do is put anything on the other side of the scale. A well-evidenced constraint with no exposure attached to it is management's case, assembled by you."
+        },
+        {
+          "key": "C",
+          "text": "Establish who authorised the unit accounts and on what basis.",
+          "quality": "defensible",
+          "next": "the-record",
+          "consequence": "The go-live board minute from 2023 records the decision, the clinical rationale and an action to revisit it once devices permit faster authentication. The action has no owner and no date. It has not been revisited in three years.",
+          "why": "A documented decision with an unowned follow-up is a genuinely useful fact, and it removes \"nobody realised\" from the list of things you can be told later. It is evidence about governance rather than about exposure, though. It establishes that the organisation knew, which sharpens whatever finding you eventually write and is not itself that finding."
+        },
+        {
+          "key": "D",
+          "text": "Accept that the shared account is a clinical necessity and move on to the device estate.",
+          "quality": "poor",
+          "next": "the-estate",
+          "consequence": "You record the arrangement as an operational decision with a stated clinical rationale, note the pilot timings alongside it, and turn to the tablets themselves.",
+          "why": "Taking a clinician's operational reality seriously is not the fault most auditors have, and the constraint you accepted is real. What went with it is the question the constraint does not answer. A necessity explains why a control is absent; it says nothing about what its absence costs. Until you have opened the medication record and seen what it actually names — including in the witnessed-by field on a controlled drug — \"clinical necessity\" is a reason with nothing weighed against it, and a reason unopposed becomes a paragraph of context rather than a finding."
+        }
+      ]
+    },
+    "the-record": {
+      "situation": "You extract the administration records for the group, ninety days.\n\nFour hundred and twelve thousand administration events across sixty-three units. Every one signed by a unit account. Sixty-three distinct identities in a record covering one thousand eight hundred and forty registered nurses and senior carers.\n\nThe audit trail itself is faultless. Immutable, timestamped to the second, and it records precisely the identity presented to it.\n\nNine thousand three hundred of those events are controlled drugs, which the medicines policy requires a second person to check. The system has a witnessed-by field for exactly that. In all 9,300, the witnessed-by field holds the same unit account as the administered-by field.",
+      "prompt": "What do you do with this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish whether an administration can be attributed to a person from any other record the group holds.",
+          "quality": "best",
+          "next": "the-estate",
+          "consequence": "The duty roster names who was on shift, which on a late shift is three people. The record carries no device identifier. The tablets hold no per-user state. Medicines governance gives you three medication error investigations from the last fourteen months: in two, the report states the administering nurse could not be established from the record and was identified from the roster. In one of those two, neither of the nurses on shift could be excluded.",
+          "why": "The finding is not that a unit shares a login. It is that no record anywhere in this organisation attributes a dose to a person, and that sentence is only available to you once you have looked in the other places it could have come from and found nothing. It also settles in advance the answer you will otherwise be handed at clearance — that the roster covers it — with the organisation's own investigations, which have already tried the roster and reported what it gave them."
+        },
+        {
+          "key": "B",
+          "text": "Extend the extract to a full year to establish the population properly.",
+          "quality": "defensible",
+          "next": "the-estate",
+          "consequence": "One point six four million administrations, sixty-three accounts, and no other identity anywhere in the data. The pattern is identical in every month.",
+          "why": "Sound technique, and the year is a better number than the quarter for a committee paper. The ninety days had already established the thing that matters: the record cannot name a person. Nine more months cannot make that more true, and precision on a fact already proved is the cheapest kind of work to do next. What the extra weeks did not buy is the negative test — whether attribution exists anywhere else — which is the first thing you will be asked."
+        },
+        {
+          "key": "C",
+          "text": "Go to the controlled drugs, where the second-person check is the specific control that has failed.",
+          "quality": "defensible",
+          "next": "the-estate",
+          "consequence": "Each treatment room holds a paper controlled drugs register with wet signatures. You reconcile three homes' registers against the system for a fortnight each. Two reconcile completely. At Larchwood, eleven system administrations have no register entry, and four register entries carry one signature where the policy requires two.",
+          "why": "Right to go to the sharpest control, and testing the paper register rather than accepting it described is more than most would do. Two limits. The register covers controlled drugs, which are about two per cent of administrations, so a finding framed around it gets a remediation framed around it too. And it is a separate record from the one the organisation presents as authoritative — the system is the medication chart, and where the two disagree, as at Larchwood, the disagreement is a further finding rather than a comfort."
+        },
+        {
+          "key": "D",
+          "text": "Conclude the audit trail is inadequate and ask the supplier to add a device identifier to every record.",
+          "quality": "poor",
+          "next": "the-estate",
+          "consequence": "The supplier confirms it can be included in the next release at no cost. The digital care lead adds it to the roadmap and the point is minuted as agreed.",
+          "why": "An audit trail that cannot tell you who did something looks like an audit trail problem, and the fix was free, which is why it closed so easily. The trail did exactly what it was built to do: it recorded the identity presented to it. A device identifier tells you which trolley, and eleven people use the trolley, so it adds a fact with no attributive value at all. The decision that produced this was a configuration choice made by the client at go-live, and taking it to the supplier moves an accountable choice to the one party in the arrangement that cannot make it."
+        }
+      ]
+    },
+    "the-estate": {
+      "situation": "You turn to the devices themselves.\n\nTwo hundred and forty tablets are on the group's asset list. The mobile device management console shows 219 records: 193 of the tablets on the list, and 26 devices retired years ago and never removed. Policy compliance in the console reads 100%.\n\nThe other 47 tablets on the asset list are in daily use on units and have never been enrolled: no enforced passcode, no encryption attestation, no application control, no remote wipe, and no record of where any of them is.\n\nYou ask the home managers to physically locate every tablet. Over three days, 238 are found and photographed.\n\nTwo are not. One at Homefield, which a family think may have gone out in a discharge bag in June. One at Larchwood, last recorded in a treatment room in March.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish whether the two missing tablets are among the 47.",
+          "quality": "best",
+          "next": "the-network",
+          "consequence": "They are. Neither has a management record, so there is no last-seen location, no passcode attestation, no wipe capability, and no way to establish whether either was locked when it left. Both were bought locally in 2024 on a home's purchasing card to replace broken devices.",
+          "why": "The two you cannot find and the forty-seven you can are one finding, and the direction of the dependency is the whole of it. Enrolment is what would have told you what a lost device held and let you do something about it, so the devices you cannot answer for are, necessarily, the ones nobody could answer for. Establishing the overlap before anyone acts is also what stops the two being handled as an incident and the forty-seven as an inventory tidy-up, which is how they will otherwise be split."
+        },
+        {
+          "key": "B",
+          "text": "Take the two missing devices to the group's data protection officer today. The clock on a notifiable incident does not wait for your fieldwork.",
+          "quality": "defensible",
+          "next": "the-network",
+          "consequence": "She opens a record the same morning and asks two questions: what was on them, and were they encrypted. You cannot answer either yet. Both are entered as unknown.",
+          "why": "She is the right person, the obligation is hers rather than yours, and the clock is genuinely running — nothing about this is wrong, and taking it to her rather than running the response yourself is the correct side of the line. The cost is only ordering, and it is within a single day. An incident record opened with unknown against both questions is one that gets closed as no evidence of harm, and the two answers were an hour's work away: the enrolment status determines whether either question is answerable at all. Establish it, then notify, and the notification carries facts where the gaps would have been."
+        },
+        {
+          "key": "C",
+          "text": "Establish how forty-seven devices came to be outside enrolment in the first place.",
+          "quality": "defensible",
+          "next": "the-network",
+          "consequence": "The provider enrolled the original rollout. Since 2024, replacements have been bought locally by home managers on the group purchasing card and never sent for enrolment. There is no build standard and no process that has to complete before a device is issued. The provider's contract commits it to enrol devices presented to it.",
+          "why": "Root cause, properly established, and the contract clause deserves its own sentence in the report. The provider is doing exactly what it is paid to do, which means nobody in the arrangement is accountable for the devices it is never given — the task was outsourced and the responsibility for the residents' records was not, and could not have been. Where this stops short is that it explains how the population arose without establishing what the population is exposed to, and the exposure is what determines how urgently anyone acts on the explanation."
+        },
+        {
+          "key": "D",
+          "text": "Build the finding on the two missing devices. They are the only confirmed loss; forty-seven present devices are a policy gap rather than an exposure.",
+          "quality": "poor",
+          "next": "the-network",
+          "consequence": "You draft it that way. The chief operating officer's response is that two devices in two years is a reasonable loss rate across a mobile estate of 240, that both are probably in a cupboard, and that no family has complained.",
+          "why": "Understandable, because a lost device holding health records is the concrete reportable event and forty-seven tablets sitting on the trolleys where they belong feel like paperwork. It inverts the exposure. The two are finite and already gone; the forty-seven are in daily use, on a network you have not looked at yet, with no passcode enforcement, no encryption attestation and no wipe, and every one of them is a future missing device with exactly the same answer. It also picks the one argument you cannot win — whether a specific loss caused harm — and hands him the ground to fight it on."
+        }
+      ]
+    },
+    "the-network": {
+      "situation": "The tablets connect to the home's guest wireless network. So do the residents' families.\n\nAt Meadowview the passphrase is printed on a card at reception and on a laminated notice in each lounge. It has not changed since the network went in in 2021. The guest access points are the only radios that reach the bedroom corridors: corporate wireless was installed for the offices and nurses' stations, and in eight of the twenty-two homes it stops at the office door. Guest was the network that reached the residents, which is why the tablets were put on it at go-live.\n\nWireless client isolation is enabled at nine homes and not at the other thirteen.\n\nThe medication system is a browser-delivered service over TLS, and the supplier's security documentation is thorough on that point.",
+      "prompt": "What do you establish?",
+      "options": [
+        {
+          "key": "A",
+          "text": "What the application keeps on the device itself, and under what protection.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "It is a progressive web app, and it holds a rolling fourteen-day copy of the unit's medication records in the browser's own offline store so a round can continue when the wireless drops, which in the older buildings it does most days. That store is unencrypted at rest; on enrolled devices it sits behind the enforced device passcode and nothing else. The supplier confirms in writing that the application applies no protection of its own and relies on the device policy. Two of the six unenrolled tablets you inspect have no passcode set at all. Fourteen days on this unit is roughly two thousand administration entries, and the current medicines list, date of birth and room number for all thirty-four residents.",
+          "why": "On a mobile estate the instinct is to reason about the network, because that is where the traffic is and the traffic here is genuinely well protected. The copy at rest on the device is the part that inherits none of the platform's controls: the supplier's certifications, the TLS, the access model and the immutable audit trail all stop at the edge of the service. It is also the only line of enquiry that connects the two missing tablets to a quantity of resident data, which is what turns a device count into an exposure."
+        },
+        {
+          "key": "B",
+          "text": "Ask the managed service provider to demonstrate what a device on the guest network can reach.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "They set it up at Larchwood, where client isolation is off. A laptop joined with the passphrase from the lounge notice can reach the tablets' addresses, and finds the supplier's remote support agent listening on one of them.",
+          "why": "Properly done — their network, their equipment, your observation, and none of it run by you — and it produces the most vivid fact in the report. Two things about where it sits. It establishes a segregation failure against a device that is mostly a TLS client, so it is the exposure you can see rather than necessarily the largest one, and the fourteen days of records sitting on that device is still unexamined. Vividness and magnitude are different properties, and the committee will remember the laptop."
+        },
+        {
+          "key": "C",
+          "text": "Recommend the tablets be moved onto the corporate wireless network.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The provider prices it: a survey and new access points to carry corporate into the bedroom corridors across all twenty-two homes, £68,000 and two quarters. The chief operating officer asks whether this is the finding.",
+          "why": "The correct network answer, offered before the finding is written, which is what his question is really about. Separating the clinical devices from the family network is right and it addresses one limb of three: it does nothing about fourteen days of records on an unmanaged tablet, and nothing about who signed for the medicine. There is also a reporting effect worth watching. A sixty-eight thousand pound capital ask, tabled early, becomes what the finding is about, and the limbs that cost almost nothing get lost behind it."
+        },
+        {
+          "key": "D",
+          "text": "Conclude the network is not the exposure. The service is TLS and the tablets are clients.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "You record transport protection as adequate and turn to the reporting. At clearance the provider's account director quotes the note back to you when the guest network is raised.",
+          "why": "The transport genuinely is protected, and that is a statement about data in motion between two endpoints. It says nothing about one of those endpoints sitting in the same broadcast domain as sixty visitors' phones, or about the support agent listening on it, or about the copy the application keeps locally on a device nobody manages. \"Encrypted in transit\" is the most readily accepted answer in this whole field, and it is almost always an answer to a question that was not asked."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "Clearance. The chief operating officer, the director of nursing, the group's digital care lead, and the managed service provider's account director.\n\nTheir position is coherent and mostly true. The unit accounts were a documented implementation decision, minuted at the go-live board with the clinical rationale attached — a policy choice, not a policy breach. No resident is known to have come to harm. The paper controlled drugs register carries wet signatures. The provider enrols every device presented to it, as its contract requires.\n\nMedicines governance's own June reconciliation of those registers against the system is on the table too. It could not match every entry at three of the twenty-two homes, and sits open as a records-quality action.\n\nAnd there is a device refresh in next year's capital plan. Two hundred and forty tablets, funded, dated.\n\nThe chief operating officer asks that the finding be written as an interim arrangement, closing on the refresh.",
+      "prompt": "How do you frame the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Read the capital paper and establish what the refresh actually changes before agreeing to anything about it.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "It funds hardware on a four-year cycle and enrols every new device in management. It says nothing about sign-on, and the medication system's configuration carries across unchanged. You say so in the room. The chief operating officer does not raise the framing again, and asks what would change it.",
+          "why": "They offered a real programme, with real money and a real date, and it genuinely fixes one of your three limbs. The reason to read it before accepting it is that a finding tied to a remediation closes on that remediation, whether or not the remediation touched the thing the finding was about. Verifying the fix is part of writing the finding, not a courtesy extended to management — and here reading it converted the refresh from a way of closing the finding into the vehicle for actually fixing it."
+        },
+        {
+          "key": "B",
+          "text": "Accept the framing. There is a funded, dated programme, and describing a gap as transitional when management has committed to fixing it is ordinary practice.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "taint": "framed-as-interim",
+          "consequence": "The wording is agreed without difficulty. The report records the unit accounts as an interim arrangement pending the device refresh, and the audit committee logs the finding as timed remediation with a completion date.",
+          "why": "Nobody in that room was being dishonest and neither were you. The refresh exists, it is funded, it is dated, and describing a control gap as transitional against a committed programme is what reports do every day.\n\nTwo things make this one unrecoverable. The first is that you wrote a statement about the future you had not tested — the capital paper was on the table, it replaces hardware and enrols it, and it does not touch how a nurse signs. The second is what the wording does after you leave. \"Interim, pending X\" makes X the remediation, and when X completes the finding closes on the evidence of X, in front of a committee with no reason to reread it. You omitted nothing. You dated it, and the date did the omitting."
+        },
+        {
+          "key": "C",
+          "text": "Accept the paper controlled drugs register as a compensating control and confine the attribution finding to the other ninety-eight per cent.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The medicines lead is satisfied and the wording is settled quickly. The finding covers routine administrations; controlled drugs are recorded as adequately attributed by the wet-signature register.",
+          "why": "You are right that a wet signature in a treatment room is a real control, and right that controlled drugs are where the second-person requirement bites hardest. Two costs. It removes from the finding the two per cent of administrations where a wrong name does the most damage, and where the system's witnessed-by field is unattributable in exactly the same way as the administered-by field. And it accepts as complete a register the group's own June reconciliation could not match at three homes — a paper book kept in the treatment room, by the two people whose act it records, with nothing outside that room corroborating either name. A compensating control is usually offered over the highest-risk slice precisely because that is where it does most to reduce the perceived severity of everything else."
+        },
+        {
+          "key": "D",
+          "text": "Report it as a medicines management and clinical governance matter, since the failure shows up in the medication record.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The director of nursing takes ownership readily and it goes to the clinical governance committee as a records-quality item. All three limbs are in the report, and clinical governance is named as accountable owner for all three. The digital care lead is not named in any action.",
+          "why": "It does show up in the medication record and she is the right person to care about it, which is what makes this the comfortable answer. You have handed a systems configuration problem to the one function that cannot change the configuration, and she will accept it because the harm is hers. It also splits the mechanism: attribution, device management and network placement all came out of the same go-live decisions, and a clinical committee has no lever on two of them. Naming the wrong owner is a quieter way of losing a finding than leaving it out — nothing is missing from the report, and nothing in it can be acted on by the person who reads it."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The audit committee wants a recommendation with an owner and a date.\n\nThe constraint has not moved. Individual sign-on is a password plus a six-digit code from an app on a separate device, at a thirty-eight second median, on a tablet that locks after two minutes. The go-live pilot timed the same round at two hours fifty-five against one hour forty-five, and two nurses in that pilot stopped recording at the bedside. The medicines policy requires the record to be made at the point of administration.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Individual named accounts on every tablet, and unit accounts prohibited across the group.",
+          "quality": "poor",
+          "next": "end-worked-around",
+          "consequence": "It is accepted as policy within the month. The director of nursing asks how the round is to be completed and is told the homes will need to manage it locally.",
+          "why": "Everything about this is correct in general. Shared credentials are indefensible, individual accountability is the base requirement, and you would recommend precisely this in any other environment you will ever audit.\n\nWhat makes it wrong here is where you attached it. The control objective is attribution of a clinical act, and you have hung it on the device session — the one place the constraint actually bites. A control that cannot be operated is not a control; it is a finding restated as an instruction, and the organisation had already run the experiment and written down what happens. Two nurses in the pilot moved the record away from the bedside. The evidence that this would not work was in the go-live report before you wrote the recommendation."
+        },
+        {
+          "key": "B",
+          "text": "Separate the device session from the clinical identity: a persistent unit session on the tablet, with every administration signed by the individual through a badge tap and a four-digit PIN — plus enrolment before any device is issued, and the tablets off the family network.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The supplier's clinician sign-off module already exists. It was descoped at implementation because it needed a reader on each tablet and a second credential per user, and the project was late. The licence is £4.10 per user per month; the readers are £24 a tablet. Timed on the Meadowview unit: 1.9 seconds a signature, and a round at one hour forty-eight. The director of nursing asks why nobody had ever offered it to her.",
+          "why": "The best control here is the one that takes the constraint seriously instead of overruling it. The unit account is an answer to a real question — the record has to be made at the bedside, and the sign-on cost made that impossible — and any recommendation that ignores the question gets answered by a workaround rather than by compliance.\n\nSeparating the two identities is what makes both requirements satisfiable at once. The device holds a session; the record holds a person. One credential had been doing two jobs with opposite requirements, speed and attribution, and it could only ever satisfy one of them.\n\nNote also what you did and did not do. You established that a means of meeting the control objective exists, that it fits inside the round, and what it costs. Whether to buy it is the group's decision, taken by the people who have to run the round. Recommending a specific control is inside the role; installing one is not.\n\nThe general form is worth carrying out of here. When a control is being bypassed for an operational reason, the bypass is usually telling you the control was placed at the wrong layer. Ask what it is actually protecting, then ask whether that can be delivered somewhere else, before deciding the operation is wrong."
+        },
+        {
+          "key": "C",
+          "text": "Reconcile administrations monthly against the duty roster, reconcile the paper controlled drugs register weekly, and count the device estate quarterly.",
+          "quality": "defensible",
+          "next": "end-reconciled",
+          "consequence": "All three are accepted at the meeting and the first reconciliation runs the following month at one home: 6,200 administrations, eleven hours of work, and 68% resolved to a single name.",
+          "why": "Three real controls, cheap to start, running immediately, and the first is your own test made permanent, which is usually a good instinct. Here it is prevent-first inverted. Something could have stopped the event — a name captured at the moment of administration, from a module already on the supplier's price list — and you have recommended three ways of describing it afterwards.\n\nThere is a sharper problem inside the first one. An attribution reconstructed from a roster is an inference presented as a record, and it is weaker evidence than an honestly stated gap precisely because it looks like a record. In a safeguarding investigation or an inquest, that distinction is the whole of it."
+        },
+        {
+          "key": "D",
+          "text": "Fix the device and network limbs now — enrolment before issue, corporate wireless, the guest passphrase rotated — and refer the attribution question to a clinical systems working group to design something that fits the round.",
+          "quality": "defensible",
+          "next": "end-managed-estate",
+          "consequence": "The provider takes the device work and schedules it across two quarters. The working group is constituted with the director of nursing, the digital care lead and two home managers, and is asked to report back within six months.",
+          "why": "Sensible on its face, and it does something most recommendations here do not: it refuses to design a clinical process from an audit room, and puts the question to the people who administer medicines. The two limbs you kept are the ones with a clear owner, a purchase order and no dispute — which is also why they were never the hard part.\n\nWhat you have referred is the limb that requires somebody to change how a nurse works, to a forum with no budget and no deadline that binds it. Deferring to management on the design is right; deferring on the owner and the date is not, and those were the two things the committee asked you for. Findings that need a change of practice are not closed by procurement, and a working group is the most respectable way to defer one."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "A name in every record",
+      "verdict": "strong",
+      "narrative": "Readers go onto all 240 tablets and the signing module is licensed for 1,840 staff. Rollout takes two quarters. Round times settle two to four minutes longer than before, and no home asks for an exception. Every administration now carries a named clinician, and the witnessed-by field will not accept the same credential as the administered-by field.\n\nIn the first month the signing data shows four units where the same two badges appear as giver and witness on every controlled drug, and one where a badge is being tapped at times its owner was not on shift. Both are dealt with as practice issues, and both are visible only because there is now something to see.\n\nEnrolment becomes a gate: no device is issued until it appears in the console, the 26 stale records are cleared, and the local purchasing route is closed. Six weeks after the 47 are enrolled, a tablet goes missing at Rosewood. It is wiped remotely within four hours and the group can state on one page what it held.\n\nThe network fix is not the £68,000 survey. The guest access points are already the radios covering the bedroom corridors, so the tablets get a second SSID on the same hardware, on its own VLAN, isolated from guest. £4,100 and five weeks. The two tablets that were never found are reported as an exposure the group cannot quantify, and the report says so in those words.",
+      "why": "Three limbs, one mechanism. The go-live project made a single credential do two different jobs — hold a device session and identify a clinician — and those jobs have opposite requirements. Speed wanted the credential to persist; attribution wanted it to be a person. It could not be both, so it became the device, and everything else followed: a record that names a trolley, an estate nobody had to enrol because nobody had to sign, and a network chosen because it reached the bedrooms.\n\nThe part that transfers is what to do when you find a control being bypassed for an operational reason. The bypass is evidence about the control's placement, not about the people doing it. Ask what the control was protecting, then ask whether that protection can be delivered at a different layer — and be suspicious of any recommendation that requires the operation to get slower, because the organisation has already priced that and will pay the price in workarounds instead.\n\nThe two units caught in the first month are what a working control buys you. Nobody was looking for them, and under the old arrangement nobody could have been."
+    },
+    "end-reconciled": {
+      "title": "Two thirds of the time, a month later",
+      "verdict": "acceptable",
+      "narrative": "All three reconciliations are implemented and all three run. The controlled drugs reconciliation finds eleven missing register entries at Larchwood in its first month and a further seven across the group in its second. The quarterly device count catches nine tablets bought locally and never enrolled.\n\nThe roster reconciliation is the one that struggles. Eleven hours for one home, 68% resolved to a single name, and across twenty-two homes it consumes the better part of two full-time posts. After eight months it is quietly reduced to a sample of one home a quarter.\n\nFourteen months later a safeguarding referral requires the group to say who administered a particular dose on a particular evening. The reconstruction produces two names and a note explaining the method.",
+      "why": "The recommendation improved the evidence and left the exposure where it was. The controlled drugs and device controls are genuinely good — they detect, they run, and they found things. The attribution control is the one that mattered, and detection was the wrong shape for it.\n\nThis was not a cost decision, and it is worth being clear about that. Two reconciliation posts and a signing licence for eighteen hundred staff sit in the same order of magnitude. What separates them is what they produce. A name captured at the moment of administration is a fact. A name reconstructed from a roster a month later is an inference, correct about two times in three, and the danger is that it presents as the same kind of thing. In front of a coroner or a safeguarding panel, \"we believe it was one of these two\" is worse than an honest gap, because it invites a conclusion the record cannot support.\n\nDetective controls earn their place where prevention is genuinely unavailable. Here prevention was on the supplier's price list, and had been since implementation."
+    },
+    "end-managed-estate": {
+      "title": "Every device accounted for",
+      "verdict": "acceptable",
+      "narrative": "The device work lands cleanly. All 240 tablets enrolled, the stale console records cleared, a build standard in front of local purchasing, corporate wireless extended into the bedroom corridors, client isolation everywhere, the guest passphrase on a rotation. The console reports full policy compliance and this time it is telling the truth. A tablet lost at Homefield the following spring is wiped in three hours.\n\nThe working group meets twice. It concludes, correctly, that the signing module should be procured, and the licence cost misses the budget cycle by five weeks. It is carried to the following year.\n\nTwenty months after your report, the record still names a unit. Two medication investigations in that period identify the nurse from the duty roster, one of them to within two people.",
+      "why": "Two limbs of three, and they are the two that were always going to be done, because they had an owner, a supplier and a price. That is not nothing — a lost device is now a three-hour problem instead of an unanswerable one, and protection finally follows the data onto the thing carrying it.\n\nThe third limb was the finding. It was also the only one that required somebody to change how a nurse works during a drug round, which is why it went to a forum rather than to a person with a date. The working group did nothing wrong; it had no budget line and no authority to create one, and the thing it recommended was already sitting on the supplier's price list while you were in the building.\n\nThe general shape is worth remembering. Given three recommendations, an organisation completes the ones that can be bought and defers the one that changes practice. Leaving the design to management is right. Leaving the owner and the date to management is how the design never gets made."
+    },
+    "end-worked-around": {
+      "title": "One hour forty-five, on paper",
+      "verdict": "weak",
+      "narrative": "Individual accounts are enforced across the group over a quarter and the unit accounts are disabled. The policy is unambiguous and compliance with it is complete.\n\nWithin two months, evening rounds are running fifty to seventy minutes long at eleven homes. A medicines spot audit finds that on nine units administrations are being written on printed sheets and entered in a batch at the end of the shift — sometimes by whichever nurse is still at the station, under her own account.\n\nTwo homes agree a local exception and are issued with a device account under a new name.\n\nEighteen months later a medication error investigation is able, for the first time, to name the nurse in the record immediately. She was on a break at the time of the administration and had entered eleven doses from a colleague's sheet at the end of the shift.",
+      "why": "The instinct was right everywhere except here, and it is worth being precise about what went wrong, because \"eliminate shared accounts\" is not a rule you should come away distrusting.\n\nThe control objective was attribution of a clinical act. You attached it to the device session, which is the one component the round could not afford to slow down. The organisation had already measured what that costs and written it in the go-live report: two hours fifty-five, and two nurses recording away from the bedside. The evidence that the recommendation would be worked around existed before the recommendation did.\n\nWhat the workaround produced is the part that stings. The record now names a person, and the person it names was not always there. An honestly vague record invites investigation; a confidently wrong one is believed. Compliance went up, and the medication chart got less true."
+    },
+    "end-closed-by-a-refresh": {
+      "title": "Interim, pending the refresh",
+      "verdict": "failed",
+      "narrative": "The report is issued and every sentence in it is accurate. The unit accounts are described as an interim arrangement pending the device refresh, and the committee logs the finding with a completion date.\n\nThe refresh delivers on time and delivers well. Two hundred and forty new tablets, every one enrolled before issue, management console at full compliance, the local purchasing route closed. The device limb of your finding is genuinely fixed, by people who did what they said they would.\n\nThe medication system's configuration is carried across unchanged. Sixty-three unit accounts, and the laminated cards move to the new trolleys. The finding is closed at the tracking meeting on the evidence of the refresh completion certificate.\n\nTwo years later an inquest into a fatal medication error asks the group to state who administered a dose on a particular night. The record names a unit. The roster names three people. Among the documents disclosed is an internal audit report describing the arrangement as interim, pending a refresh that has since completed.",
+      "why": "This is the failure that does not feel like one while it is happening. The refresh was real, funded and dated. Management proposed it in good faith and delivered it in full. Describing a gap as transitional against a committed programme is ordinary reporting practice and you have written it a hundred times.\n\nWhat makes it unrecoverable is that the sentence was about the future and you had not tested it. The capital paper was on the table and it buys hardware and enrols it; it says nothing about how a nurse signs. You wrote a characterisation of a remediation you had not read, into a report that outlives the meeting.\n\nAnd the wording does work after you leave. \"Interim, pending X\" makes X the remediation. When X completes, the finding closes on X's evidence, in front of people with no reason to reread the original words. Nothing was suppressed and nothing was untrue at the time; the finding was dated, and the date did the omitting.\n\nA closed finding is worse than a finding never raised. An absent finding leaves a gap somebody might still walk into. A closed one is documentary evidence that the organisation looked, and resolved it."
+    }
+  }
+}

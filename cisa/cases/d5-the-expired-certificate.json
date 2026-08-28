@@ -1,0 +1,356 @@
+{
+  "id": "d5-the-expired-certificate",
+  "title": "The Expired Certificate",
+  "domain": "5",
+  "section": "A",
+  "topics": [
+    "Public Key Infrastructure",
+    "Data Encryption",
+    "Security Monitoring Tools and Techniques",
+    "Network and End-Point Security"
+  ],
+  "principles": [
+    "prevent-first",
+    "accountability-stays",
+    "evidence-quality",
+    "remove-single-points",
+    "auditor-role"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this study system. Not adapted from ISACA materials, the QAE, or any prep-course content.",
+  "opening": "You are the IS audit lead in a four-person internal audit function at a payment service provider. The company sits between 1,140 merchants and four acquiring banks and routes about 2.4 million card authorisations a day. It holds no card numbers of its own; it holds tokens, and the token vault is the most protected thing in the building.\n\nAt 23:59 UTC on Saturday 11 July the token vault's server certificate reached its expiry. The eight authorisation nodes talk to the vault over mutual TLS, both ends presenting certificates issued by the company's own certificate authority, and from that second every handshake failed. Every authorisation the company routes returned a technical decline. Service came back at 06:07 the following morning: 341,000 declined authorisations, £4.1m of merchant volume, and a written explanation owed to the largest acquirer.\n\nThe audit committee has asked for a review. You have the post-incident review, which is two pages. Its root cause line reads \"certificate expired — monitoring gap\". Its single action reads \"implement certificate expiry monitoring — completed 24 July\".\n\nYou also have the change record for the replacement certificate. It was issued at 06:04 on Sunday 12 July, and it is valid until July 2036.",
+  "taints": {
+    "assurance-lent": "end-attested"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Tuesday 25 August, forty-five days after the outage. The platform is stable, the monitoring action is closed, and nobody is expecting a difficult review.\n\nThe head of platform engineering is your main contact. The certificate itself was issued, and reissued, by the principal network engineer, who has been with the company nine years and is on site three days a week.",
+      "prompt": "Where do you begin?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what the expired certificate actually was: what it authenticated, which key signed it, and what else that key vouches for.",
+          "quality": "best",
+          "next": "the-ca-under-the-desk",
+          "consequence": "The vault's certificate is one of many. All internal TLS in the payment estate chains to a single root the company issued to itself in March 2016, and that root certificate is installed in the trust store of every endpoint the company owns. You ask where the certificate authority runs. The head of platform engineering does not know. The network engineer says he will show you on Thursday.",
+          "why": "The outage names one certificate. A certificate is only a statement signed by a key, so the question that survives past this incident is what else the key vouches for and who holds it. That is an afternoon's work, and it is the step that turns an availability incident into a key management review — which is what this is, and which nothing in the post-incident review would have told you."
+        },
+        {
+          "key": "B",
+          "text": "Test the one action the post-incident review claims to have completed: does the expiry monitoring exist, and does it work?",
+          "quality": "defensible",
+          "next": "the-ca-under-the-desk",
+          "consequence": "It does. A check was added to the monitoring platform on 24 July, alerts thirty days before expiry, and was proven with a deliberately short-lived test certificate. It watches eleven certificates, taken from a spreadsheet the network engineer wrote from memory the week after the outage.",
+          "why": "The right instinct applied to the right object: a completed action is a claim, you tested it rather than accepting it, and the answer is a genuine finding — the check works and its coverage is a list somebody remembered. What keeps it below A is where it starts you. The monitoring gap is the post-incident review's own conclusion, and testing management's conclusion first tends to leave you working inside it."
+        },
+        {
+          "key": "C",
+          "text": "Size it: establish what the six hours cost and what the same failure would cost at a worse moment.",
+          "quality": "defensible",
+          "next": "the-ca-under-the-desk",
+          "consequence": "Four merchants have invoked service credits. The largest acquirer wants a written explanation and a remediation plan by the end of September, and has asked whether the company intends to answer its annual due-diligence pack early. Six hours across a Saturday evening rather than a Sunday dawn would have been roughly three times the volume.",
+          "why": "Impact work buys you attention and you are going to need it, and the acquirer's deadline is a genuinely useful lever. The limit is what you have sized. Everything you now know is about a six-hour outage, and the condition underneath it can produce something that is not an outage at all. A credential nobody can withdraw is a confidentiality exposure, and it does not announce itself with declines."
+        },
+        {
+          "key": "D",
+          "text": "Request the certificate and key management standards and assess the outage against them.",
+          "quality": "poor",
+          "next": "the-ca-under-the-desk",
+          "consequence": "There is no certificate or key management standard. The information security policy contains one sentence on the subject: cryptographic keys shall be generated, stored and retired securely. The head of platform engineering agrees that a standard should probably come out of your review, and offers to have one drafted.",
+          "why": "The absence of a standard is real and it belongs in your report, and starting here costs you twice. It is a finding about paper and it is answered with paper — you have been handed the remediation before you have the finding, and it is that somebody writes a document. It also tells you nothing about what exists. The condition in this building is a machine, a key file and 640 trust stores, and none of that is visible from a policy library."
+        }
+      ]
+    },
+    "the-ca-under-the-desk": {
+      "situation": "Whichever way you came at it, the same question has to be answered in person, and the answer is on the second floor of the London office. Thursday 27 August.\n\nThe certificate authority is a mid-tower desktop under the network engineer's desk. It is not in the data centre, not on the asset register, not backed up, and sits on the office LAN.\n\nIt runs OpenSSL, driven by a shell script he wrote. There is one tier: the 2016 root signs end-entity certificates directly, which means the root private key has to be online and unlocked for every issuance. The root is RSA 2048, self-signed on 14 March 2016 for twenty years, and its certificate has been pushed into the trust stores of about 640 workstations and servers and baked into 31 container base images by a configuration-management script.\n\nHe is completely open about all of it. He built it in a weekend in 2016 because commercial certificates cost £900 each and would not cover internal hostnames anyway. He volunteers, before you ask, that the machine's disk failed in 2019, so there is a copy of the root key in a folder in his laptop's home directory and another on an unlabelled USB stick in his desk drawer. The passphrase is one he chose and has never written down.\n\nHe is not being defensive. He thinks this is a story about being resourceful, and in 2016 it was.",
+      "prompt": "What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish where the key exists and what depends on it, from the machine and the endpoints rather than from his account.",
+          "quality": "best",
+          "next": "the-inventory",
+          "consequence": "You go through it with him at the keyboard and the file listings on screen. Three copies of the key file: the laptop and USB copies both stamped within an hour of each other in November 2019. The laptop copy sits inside a folder that the corporate file-sync client has been replicating to cloud storage since it was installed. In the configuration-management repository, the task that installs the root certificate into trust stores has no corresponding task that removes one.",
+          "why": "You now have the two facts that decide everything downstream, and you have them as observations rather than as recollection. One key, held by one person, in three places, two of which nobody manages — and a trust anchor that 640 endpoints will believe, distributed by a mechanism that can only add. That last detail is the quiet one: it means the root cannot be replaced quickly, whatever happens to it, and it is why the length of every certificate underneath it matters more here than it would elsewhere."
+        },
+        {
+          "key": "B",
+          "text": "Establish who else can issue or renew a certificate if he is unavailable.",
+          "quality": "defensible",
+          "next": "the-inventory",
+          "consequence": "Nobody. The head of platform engineering did not know the certificate authority was a physical machine. The passphrase is not in the password vault and is not in the operations safe. There is no written procedure for issuing a certificate, and the script has never been run by anyone else.",
+          "why": "The single most productive question you can ask by inquiry, and it comes back with a complete answer that management cannot argue with. It is one dimension short of best. Everything it establishes is about availability — what happens when the one person is not there — and the three copies of the key are a different problem in the opposite direction, which is what happens when the one person is not the only one who has it."
+        },
+        {
+          "key": "C",
+          "text": "Ask for the authority's issuance records: the index of everything the root key has signed.",
+          "quality": "defensible",
+          "next": "the-inventory",
+          "consequence": "The script maintains a flat index file. It holds 38 entries. He confirms without prompting that the file was recreated by hand after a disk migration in November 2021, and that nothing issued before that date is in it.",
+          "why": "The right question, and the answer is already a finding: the record of what a key has vouched for was retyped from whatever could be reconstructed five years into its life. Keep clear about what kind of evidence it is. An issuance log is the issuer's account of its own past, and this one has been rebuilt once. It also only records what the script was used to sign, and the script is not the only way to run OpenSSL on that machine. A certificate's existence is evidenced where it is used, not where it was signed."
+        },
+        {
+          "key": "D",
+          "text": "Ask him to demonstrate that the key is under his control by unlocking it and issuing a certificate.",
+          "quality": "poor",
+          "next": "the-inventory",
+          "consequence": "He plugs the USB stick into the machine, types the passphrase, and asks what name you want. Forty seconds later a certificate for a hostname you invented exists, signed by the 2016 root, trusted by every endpoint in the estate, valid until 2036.",
+          "why": "Direct demonstration, and it is the finding performed at your request. Custody is evidenced by where the key file sits and who knows the passphrase, both of which you could see without the key ever being unlocked; what the demonstration adds is a live production credential for a host that does not exist, and a root key unlocked on an office-LAN machine because the auditor asked.\n\nHold that certificate in mind. Later in this review you establish what this company can do about a credential it wants back, and the answer is going to apply to yours."
+        }
+      ]
+    },
+    "the-inventory": {
+      "situation": "There are three accounts of what this authority has issued and none of them agree.\n\nThe index file holds 38 entries and starts in November 2021. The engineer's spreadsheet holds 11 and is what the new monitoring watches. Nobody has ever counted what is actually deployed.",
+      "prompt": "How do you establish the population?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish it where the certificates are used: a discovery scan of the internal ranges, specified by you, run by the platform team with you observing, reconciled to the index file and the spreadsheet.",
+          "quality": "best",
+          "next": "the-two-nodes",
+          "consequence": "The scan runs on Tuesday 1 September and takes forty minutes. Sixty-three certificates issued by the 2016 root are in use. Thirty-eight are in the index file, of which eight are deployed nowhere. Eleven are monitored. The union of all three sources is 71. Nine of the 63 expire within ninety days, and two of those sit on merchant-facing services.",
+          "why": "The certificates that matter are the ones something is relying on, and the only source that knows which those are is the network. Everything else in this building is a list of what somebody believes was issued.\n\nThe reconciliation is what makes it usable. Sixty-three in use, thirty-eight in the issuance record, eleven monitored is a finding nobody can close with a spreadsheet, because it names three populations and the distance between them. Note also that you had the scan authorised and run by the platform team on a live payment network rather than running it yourself — the evidence is no weaker for it and the authority question never arises."
+        },
+        {
+          "key": "B",
+          "text": "Reconcile the index file to the spreadsheet and work the difference.",
+          "quality": "defensible",
+          "next": "the-two-nodes",
+          "consequence": "Twenty-nine certificates are in the index file and not in the monitoring spreadsheet. Two that the monitoring watches are in neither the index file nor anything else written down. You have a number by lunchtime.",
+          "why": "Fast, tidy and it produces a real gap in the monitoring coverage, which you will report — and the two certificates that appear in no issuance record at all are worth more than the twenty-nine, because they show the index is not a complete record of what the key has signed. What the method cannot do is find anything on neither list, and the shape of this authority — no request process, no owner, a script anyone with the passphrase can run — says the interesting certificates are precisely the ones that were never written down. Reconciling two incomplete records to each other tests them against each other and against nothing else."
+        },
+        {
+          "key": "C",
+          "text": "Ask each application team to declare the certificates their service uses, with a deadline.",
+          "quality": "defensible",
+          "next": "the-two-nodes",
+          "consequence": "Twenty-two teams are asked. Nineteen respond within the week. Fifty-seven certificates are declared, some of them issued by commercial authorities and outside your scope, and three teams say they are not sure what their service presents.",
+          "why": "A reasonable route to a population that has no register, and the three honest 'not sure' answers are worth having on the record. It is inquiry conducted at scale, though, so its completeness is the diligence of nineteen people answering a question about something they have never had to think about — and the certificate nobody remembers is the one that takes the gateway down. It also costs a week you did not need to spend."
+        },
+        {
+          "key": "D",
+          "text": "Record that the population is unknown. That absence is itself the finding.",
+          "quality": "poor",
+          "next": "the-ten-year-certificate",
+          "consequence": "You draft it that way. The head of platform engineering reads the draft and has the spreadsheet extended to nineteen entries by the following afternoon, with owners against each one, and asks whether that closes the point.\n\nThe nineteen go into your working papers and you move on to the replacement certificate. Nobody offers you the platform team's configuration repository and you have no reason to ask for it.",
+          "why": "The absence of an inventory is a real finding and you are right that it is one. Stating it without measuring it is what makes it arguable, and you have just watched how: a finding that says 'you do not know what you have' is answered with a list, and the list arrives faster than you can object to it.\n\nSixty-three in use against thirty-eight recorded and eleven monitored cannot be answered that way, and it was a forty-minute scan away.\n\nThere is a second cost, and it is the one you will never see from where you are standing. Measuring a population means going to where the certificates are used, and where they are used is the configuration the platform team holds for the eight authorisation nodes. Two of those nodes have not been verifying the token vault's certificate since 12 July, and they carry a quarter of authorisation volume. That is the largest live finding in this review, it was three questions past the scan, and stating the population instead of measuring it is the reason nobody in this engagement ever opens the file it is sitting in."
+        }
+      ]
+    },
+    "the-two-nodes": {
+      "situation": "You have a count of certificates now, whichever way you arrived at it, and a count is only worth what the certificates are doing. You ask the platform team for the TLS configuration of the eight authorisation nodes, from the configuration-management repository that is the source of truth for all eight.\n\nSix of them verify the token vault's certificate against the 2016 root. Two do not. Certificate verification on those two is switched off, and the commit that switched it off is timestamped 03:41 on 12 July with the message \"temp - restore auth path, revert after cert fix\". It was the workaround that was running when the replacement certificate arrived two hours later, and it was never reverted.\n\nBecause the setting is in the repository, it is reapplied on every rebuild. The traffic on those two nodes is still encrypted; the vault is simply no longer authenticated to them, so any host that can take that address on the segment can present any certificate at all and be believed, and will receive everything those two nodes send to the vault. They carry about a quarter of authorisation volume, and have done for fifty-two days.\n\nIt is Wednesday 2 September. A three-week change freeze starts on Friday: the platform is in the card scheme's October release test window, and nothing goes to production until it closes.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Capture the evidence as it stands, then escalate the same day in writing to the head of platform engineering and your chief audit executive.",
+          "quality": "best",
+          "next": "the-ten-year-certificate",
+          "consequence": "You export the commit with its author and timestamp and pull the running configuration from both nodes, then send all of it at 16:20 with a note that this is a live condition and not a report-day matter. An emergency change restores verification on both nodes on Thursday morning, a day before the freeze. You are asked first whether you have everything you need.",
+          "why": "Two moves in the right order. Evidence first because a live control failure has a short life: the moment you report it the configuration changes, and the condition you found stops existing. Escalate the same day because the decision about whether to carry a quarter of authorisation volume over an unauthenticated path into the token vault for another three weeks is not yours to make — and the freeze means somebody has to make it by Friday.\n\nNote what is absent. You did not switch it back on and you did not tell anyone what the fix should be. Being the person who finds it and the person who fixes it are different jobs, and here they are eighteen hours apart and belong to different people."
+        },
+        {
+          "key": "B",
+          "text": "Escalate immediately, before capturing anything. A live exposure outranks your working papers.",
+          "quality": "defensible",
+          "next": "the-ten-year-certificate",
+          "consequence": "You are at the head of platform engineering's desk at 11:05. Both nodes are corrected and the commit reverted by 14:00. Your record of the condition is your own notes and his recollection of what you showed him on screen.",
+          "why": "The priority is defensible and a competent auditor could argue it in any room: five minutes of evidence-gathering against a quarter of authorisation volume is not an obvious trade. It is worth seeing what it cost. A condition that ran for fifty-two days is now evidenced by your notes, and the reason this stays defensible rather than poor is that the repository keeps its history, so the commit is still recoverable — which is true, and which you did not know when you decided."
+        },
+        {
+          "key": "C",
+          "text": "Ask the engineer to correct both nodes now, while you watch, so the exposure is closed before you leave the room.",
+          "quality": "poor",
+          "next": "the-unapproved-change",
+          "consequence": "He edits both files and commits inside ten minutes. You witness it. By the time you are back at your desk the two nodes are verifying again, and the repository shows a change made during a test window, outside the change process, at your request.",
+          "why": "The instinct is humane and the outcome looks like the best one — the hole is closed, and closed faster. What you have done is decide the remediation, decide its timing, and have it executed by the engineer whose configuration you are reviewing, which makes you the author of a change you will report on. It also went to production inside a scheme test window with no emergency change behind it, which is a second finding you have now caused.\n\nAnd it removed the condition before anyone with authority knew it existed. Management cannot accept, escalate or investigate a risk that was fixed for them in ten minutes, and someone will want to know who else could reach that segment during those fifty-two days."
+        },
+        {
+          "key": "D",
+          "text": "Record it and raise it in the report with the rest. It has been like that for seven weeks; another fortnight changes little.",
+          "quality": "poor",
+          "next": "the-ten-year-certificate",
+          "consequence": "You log it with a screenshot and carry on with the fieldwork. The report is issued nineteen days later. Verification is restored the following week, once the freeze lifts, under normal change.",
+          "why": "\"Another fortnight changes little\" is a statement about the probability of an event you have not sized, on a segment whose access you have not tested, made by the only person in the building who knows the condition exists. You may well be right, and that is not the point.\n\nThe reason to escalate is not that the loss is imminent. It is that deciding what risk the company carries between now and the report belongs to management, and by holding the fact you have made that decision on their behalf, quietly, with no one able to disagree with you. The freeze is the sharpest version of it: a decision that had to be taken by Friday was taken by your silence."
+        }
+      ]
+    },
+    "the-unapproved-change": {
+      "situation": "Friday 4 September. The freeze started this morning.\n\nBoth nodes verify again, and the commit that turned verification back on is in the repository with Wednesday's date and the engineer's name on it. The weekly change report lists it as a production configuration change with no change record, applied inside the scheme test window. The change manager has emailed the head of platform engineering asking which incident it relates to, and has copied you, because your review is the only thing happening on that platform this month. The engineer has not replied.\n\nThe other thing on your desk is the working paper. A condition that ran on two of the eight authorisation nodes for fifty-two days is evidenced by the repository history — the workaround commit of 12 July and its reversal on 2 September — and by your note of what was on the screen. You never pulled the running configuration from either node while it was still wrong.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Write to the change manager the same day stating that the change was made at your request during the review, and give your chief audit executive the same account.",
+          "quality": "best",
+          "next": "the-ten-year-certificate",
+          "consequence": "You send it before lunch. A retrospective emergency change is raised with you recorded as the requester and the head of platform engineering as approver, and it closes on Monday. Your chief audit executive asks for the working paper and the dates. The head of platform engineering asks whether anything else in the review has been actioned in the room.",
+          "why": "You cannot unmake the change, so the only things still in your gift are that the record of it is true and that it is true quickly. Both matter for the same reason. The record now names the person who actually caused the change, which means the engineer is not carrying a control breach for something an auditor asked him to do; and your chief audit executive hears it from you rather than from a change report, which is the whole difference between an error that was self-reported and one that was found.\n\nThe question about what else has been actioned in the room is the bill, and it is a fair one. You will be answering it for the rest of the engagement, and the honest answer is that this was the only time."
+        },
+        {
+          "key": "B",
+          "text": "Reconstruct the evidence first — export the workaround commit, its author and timestamp, and the fifty-two days of history — then answer the change manager when he asks you directly.",
+          "quality": "defensible",
+          "next": "the-ten-year-certificate",
+          "consequence": "You spend the morning on the export and the finding is properly supported by the afternoon. The engineer replies to the change manager on Monday saying the auditor asked him to make the change. It is recorded as unapproved with him as author and a note that internal audit requested it. The head of platform engineering hears about it from the change manager.",
+          "why": "The evidence work is right and had to happen. You were correct that the repository keeps its history, and the export is what saves a finding you closed before you recorded it.\n\nWhat the ordering costs is the account. The same facts reach the same people, three days later, as the engineer's explanation of an instruction he was given rather than as your statement of what you did. Nothing in them changes; everyone who reads them learns it from somebody other than you, and that is the step at which a recoverable error turns into a question about the auditor.\n\nIt stays defensible because the trade is not obviously wrong. An unevidenced finding is a worse outcome than an awkward email, and the email would still have been there on Monday."
+        },
+        {
+          "key": "C",
+          "text": "Leave it to the engineer. It is his repository and his commit, and the change closed a real exposure.",
+          "quality": "poor",
+          "next": "the-ten-year-certificate",
+          "consequence": "He explains it on Monday. The change is recorded against his name as an unapproved production change inside the test window and goes into the platform team's quarterly change-compliance count. Nobody asks you about it. The head of platform engineering mentions in passing that the engineer has had a rough quarter.",
+          "why": "It was his commit in the sense that his hands were on the keyboard, and that is the only sense in which it was his. You chose the remediation, you chose the timing, and you asked for it during a test window, and he did it because the auditor asked.\n\nWhat is left standing is a record saying an engineer bypassed change control, which will be read by people who count those, about a change he made for you — and the exposure it closed does not appear in that record anywhere. Accountability for the change stayed with you whether or not the record says so. Declining to put it there does not move it; it only means the record is wrong, about the one person in the building with no way to correct it himself."
+        }
+      ]
+    },
+    "the-ten-year-certificate": {
+      "situation": "You ask where the ten years came from.\n\nNobody chose it. The issuance script has carried a default validity of 3,650 days since the weekend it was written in 2016, and every certificate that has ever come out of it has that lifetime unless someone typed otherwise. Nobody ever has. The certificate that expired in July was issued on 13 July 2016 with the same default and ran every one of its days.\n\nThe replacement runs to 9 July 2036. The root that signed it expires on 9 March 2036, four months earlier, so the vault's certificate is already scheduled to outlive the only thing that makes anyone believe it.\n\nThen you look at revocation. The certificates name a CRL distribution point at an internal hostname that was decommissioned in 2021. The last CRL was published in November 2019. Nothing in the estate is configured to check revocation at all.\n\nSo a certificate issued by this authority stops being trusted on its expiry date and on no other occasion, by any mechanism.",
+      "prompt": "How do you treat the ten-year certificate?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report the validity period as the consequence of the revocation gap: expiry is the only mechanism this company has for withdrawing a credential, and the July fix extended it to 2036 on the vault.",
+          "quality": "best",
+          "next": "the-attestation",
+          "consequence": "The head of platform engineering follows it immediately. He is quiet for a moment, then asks what they would do if a private key were exposed tomorrow. Neither he nor the engineer has an answer, and the engineer says so. The engineer then works out on the whiteboard what happens in March 2036 and stops halfway.",
+          "why": "The ten years is not the finding. It is the visible end of one, and stating it as a bad setting invites a better setting as the remedy.\n\nWhat is actually true here is that validity period is doing the entire job of credential retirement, because the control that is supposed to do that job has not worked since 2019 and nothing was ever configured to consult it. Under those conditions extending a lifetime to 2036 is not a hygiene lapse; it is a decision, taken by a default, that the platform's most sensitive internal credential cannot be withdrawn for a decade. The root's own expiry four months earlier is the same mechanism seen from the other end: the same unchosen number that made the credential unwithdrawable also scheduled a second cliff, and that one takes the whole estate at once rather than one service.\n\nThe habit worth taking away: when you find a setting that looks wrong, establish what work it is doing before you say what it should be."
+        },
+        {
+          "key": "B",
+          "text": "Recommend the certificate be reissued with a short validity and the script's default changed.",
+          "quality": "defensible",
+          "next": "the-attestation",
+          "consequence": "Done inside a week. The vault certificate is reissued for one year and the script default is changed to 397 days, the number he remembers from public certificates. The engineer points out, cheerfully, that this means he will be running the script about sixty times a year instead of six.",
+          "why": "The right direction, accepted immediately, and short lifetimes are genuinely where this should end up. His remark is the reason it is not the best answer. Every renewal is a manual run of a script by the one person who holds the passphrase, so shortening validity without automating issuance multiplies the number of occasions on which the whole estate depends on him being available — and each of those occasions is the exact failure mode that produced the July outage. Shorter certificates are safe when renewal is automatic and hazardous when it is a person.\n\nThe 397 is worth noticing too. It is the ceiling the public certificate authorities used to work to, copied across to a private authority that is not bound by it and where the number should follow whatever the renewal mechanism can sustain. He has replaced one unchosen default with another."
+        },
+        {
+          "key": "C",
+          "text": "Test revocation directly: have a certificate revoked and establish whether anything in the estate rejects it.",
+          "quality": "defensible",
+          "next": "the-attestation",
+          "consequence": "The engineer unlocks the root key, revokes the certificate of a service decommissioned last year and republishes the CRL to a path nothing reads. You then connect a test client and present the revoked certificate. It is accepted, exactly as before.",
+          "why": "Direct evidence that a control does not operate, obtained by observation, which is close to the strongest thing you can put in a file. Two costs keep it below A. The configuration already establishes the answer — a distribution point that has not resolved since 2021 and no client configured to check it cannot produce a rejection — so the test confirms rather than discovers. And to run it you had the root private key unlocked, at your request, on the machine whose key custody is your central finding."
+        },
+        {
+          "key": "D",
+          "text": "Report the ten-year certificate as a departure from good practice and recommend a maximum validity standard of twelve months.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "Accepted without argument. A cryptographic standard is drafted, published in October and referenced in the management response, which describes the maximum validity requirement as addressing the certificate lifecycle findings.\n\nOn Monday 14 September the largest acquirer's annual due-diligence pack goes out. Two of its questions ask whether cryptographic keys are managed under documented procedures with dual control, and whether key management has been independently reviewed in the last twelve months. The CTO's office answers both from the remediation plan. Nobody asks you, and you read the answers in October.",
+          "why": "You had a systemic finding and you converted it into a parameter, and the response converted the parameter into a document. Both conversions lose something.\n\nA maximum validity standard is unenforceable while issuance is one script with one default run by one person with no request or approval step, because the only thing standing between the standard and a ten-year certificate is somebody remembering to type a different number. And it is silent on the two facts that make validity matter at all: that nothing can be revoked, and that the key signing all of it is in three places.\n\nThe pack is the part you did not watch happen. Two questions about key management were answered from your work, to a regulated counterparty, in the week you were still in the building, and nobody thought to put them in front of you. That is what a hygiene finding buys: a validity parameter and a draft standard read as housekeeping, and nobody consults the auditor before repeating housekeeping back to a customer. How you frame a finding decides more than what goes in the report. It decides whether anyone thinks to ask you."
+        }
+      ]
+    },
+    "the-attestation": {
+      "situation": "Thursday 10 September, afternoon. The CTO asks you into a room.\n\nThe largest acquirer's annual due-diligence pack is due Monday. Two of its questions are: are cryptographic keys managed under documented procedures with dual control, and has key management been subject to independent review in the last twelve months?\n\nHis proposal is that the second is answered yes, naming your review and its dates, and the first is answered yes with a footnote that procedures are being formalised — since a standard is being drafted and dual control is in the remediation plan. He is not asking you to hide the outage; the acquirer already knows about the outage. He explains that a no on either question triggers a formal remediation plan with the acquirer and quarterly reporting, and he would rather present the plan he already has.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree that your review can be cited as the independent review, since it plainly is one, and leave the first answer to him.",
+          "quality": "poor",
+          "next": "the-report",
+          "taint": "assurance-lent",
+          "consequence": "The pack goes out on Monday. Your name, your function and the engagement dates appear against the independent-review question. The answer immediately above it reads yes, with a footnote. The acquirer acknowledges receipt and files it.",
+          "why": "You said yes to the one that was true, and that is precisely the mechanism. Your review is not finished, not reported and not concluded, and its central finding is that key management operates under no documented procedure, without dual control, with the root private key in three locations held by one person. Cited next to a yes, a true answer about a review becomes the thing that makes the false answer readable.\n\nThe reader is a regulated counterparty taking a credit and risk decision, and what \"independently reviewed\" buys them is the belief that someone with no stake checked the answers around it. That is not a courtesy you can lend and take back. Once your function is on the record supporting a state you have documented does not exist, every page you write afterwards is evidence about your own representation rather than about their controls.\n\nNotice what it buys you at clearance. Whatever argument you were braced for, the thing he needed from your function has already been given, and the report has stopped being where any of it is decided. A clearance meeting that goes easily after a request like that is not a sign the finding landed."
+        },
+        {
+          "key": "B",
+          "text": "Decline both in writing: the review is not complete or reported and cannot be cited, and dual control does not exist today. What he submits is his call; what it says about your function is yours. Copy your chief audit executive.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "The CTO is unhappy and says so. The pack goes out answering no to both questions with the remediation plan attached. The acquirer schedules a review call for October. Your chief audit executive reads the email the same evening and asks to be told if he raises it again.",
+          "why": "Name what he is right about first, because he is right about a good deal of it: the plan is real, the direction is correct, and the acquirer will read a no alongside a credible plan rather than a no on its own. What he is asking for is not a wording concession. It is your independence used as a credential for a control state that does not exist yet.\n\nNotice how narrow the refusal is. You did not write his answers or decide what the company submits — that stayed his, as it has to. You declined the two things that were actually yours: whether your function is cited, and whether a factual statement about your own work is allowed to stand next to something you know to be untrue.\n\nThe copy to the chief audit executive is not a formality. Settling this alone with the person the answer reflects on is what turns a declined request into a private negotiation, and the request itself is information she needs whether or not you handled it well."
+        },
+        {
+          "key": "C",
+          "text": "Decline to be cited, but offer to read the completed pack for factual accuracy before it goes.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "He accepts. You read it on Friday. The first answer is changed to no with the plan attached; the second says an internal audit review is in progress and will be reported to the audit committee in September. The pack goes out in that form.",
+          "why": "The substance is protected and the outcome is very close to B's, and refusing to be cited was the load-bearing part.\n\nTwo costs, and the larger is the one that is easy to miss. Nobody outside that room knows the request was made. A chief audit executive whose function has just been asked to lend its name to an external submission needs to know that, independently of how well you handled it, because she is the one who deals with it when it happens again to someone more junior or in a worse week. Handling it competently and alone leaves the organisation with an unrecorded near miss.\n\nThe second is a boundary rather than an outcome. You have taken a part in preparing an external representation, and next time it will be easier to ask you to draft rather than read. That is survivable once, with the limits of your role written down in the same email; it is how functions drift into owning the answers they are meant to review."
+        },
+        {
+          "key": "D",
+          "text": "Tell him you cannot be cited, and leave it there. What he puts in the pack is a matter for him.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "He does not raise it again. The pack goes out on Monday. You do not see it and nobody mentions it to you, and you learn in October what the two answers said.",
+          "why": "The instinct is clean and half of it is correct: what the company submits is genuinely his decision, and you were right not to try to take it. Declining to be quoted is not the same as objecting, though, and you had just been told, by the person sending it, what the pack was going to claim about a control you had spent three weeks establishing does not exist.\n\nThe chief audit executive is the one person who could have raised it at the level where it would have been changed, and the only reason she did not is that you decided this was his business. Accountability for the answer stays with the company either way; what you gave up was the chance for the company to give a true one."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "Clearance. The CTO's position is coherent and he holds it calmly.\n\nThe outage is understood and the monitoring is in. The engineer has been there nine years, is trusted by everyone in the room, and the authority he built has issued certificates for a decade without a single security incident. There is no evidence that any key has been misused. In his view this is a finding about certificate lifecycle management, and he would like it reported as one.",
+      "prompt": "How do you frame it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "As certificate lifecycle management: a certificate expired for want of monitoring, and the replacement was issued with an inappropriate validity period.",
+          "quality": "poor",
+          "next": "end-symptom",
+          "consequence": "Agreed in the room in under ten minutes. The management response commits to a twelve-month maximum validity, a renewal calendar and expiry alerting, all before the end of the quarter. The audit committee notes the outage as addressed.",
+          "why": "Every word of it is true and it is the version of events that was already in the post-incident review before you arrived. You have spent three weeks and confirmed management's own conclusion.\n\nWhat the framing leaves out is everything that is not about dates: a root private key in three uncontrolled locations under one passphrase held by one person, an issuance process with no request and no approval, no working revocation, and 640 trust stores that can only be added to. A finding about lifecycle is answered with a calendar, and a calendar does not change who can sign."
+        },
+        {
+          "key": "B",
+          "text": "As three linked conditions: the population of issued certificates is unknown, no certificate can be withdrawn before expiry, and the key that signs all of them is held in three places by one person — with the ten-year certificate as the consequence of the second, not a cause of anything.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The CTO takes the room through it twice and then asks the engineer directly what would happen if the USB stick were missing tomorrow. The finding goes to the audit committee in that form, and the acquirer's October call is moved forward to the following week at the company's request.",
+          "why": "It concedes what he is right about — nine years without an incident, no evidence of misuse, a trusted engineer — and states what survives all of it, which is that none of those facts is a control.\n\nThe three limbs explain each other, which is why they hold together in a room. You cannot protect certificates you have not enumerated; enumeration is only useful if you can withdraw one; and withdrawal is meaningless while the signing key sits in three places under one person's passphrase, because the thing you would most need to withdraw is the root itself. The outage was the symptom, the script's default was the mechanism, and the custody of the key is the condition. Reporting it in that order is what makes the remediation about the key rather than about the calendar."
+        },
+        {
+          "key": "C",
+          "text": "As a monitoring and register finding: build a complete certificate register from the scan, assign owners, and extend the expiry alerting to cover all of it.",
+          "quality": "defensible",
+          "next": "end-monitored",
+          "consequence": "Accepted enthusiastically and implemented in six weeks. The register carries all 63 certificates with named owners and renewal dates, the monitoring covers every one, and a quarterly reconciliation against a repeat scan is added to the platform team's calendar.",
+          "why": "A real improvement, properly evidenced, and the reconciliation against a repeat scan is a better control than most registers ever get. It is also the whole of your finding pointed at the one limb that was easiest to accept.\n\nA register tells you when a certificate will expire. It does not tell you who may issue one, how one is withdrawn, or where the key that signs them sleeps at night, and none of those three had an answer. Detection shortens an exposure; here it removes the version of the exposure that announces itself with an outage, and leaves untouched the version that does not."
+        },
+        {
+          "key": "D",
+          "text": "As a sourcing finding: the internal authority should be retired and certificates obtained from a commercial certificate authority with proper key protection.",
+          "quality": "defensible",
+          "next": "end-outsourced",
+          "consequence": "Procurement is engaged and a managed certificate service is contracted in November. Twelve services migrate over five months, each reissued under the provider's chain, with the provider's key protection attested in its own assurance report.",
+          "why": "A serious recommendation that fixes the hardest part — nobody at this company should be custodian of a root key on a desktop — and buying that capability is often exactly right.\n\nTwo things it does not do, and they are the same thing twice. Obligations do not move with the work: the company still has to know what has been issued in its name and still has to be able to withdraw it, and a provider's assurance report is evidence about the provider, not about the 63 certificates already in the estate. And adding an issuer does not remove one. The 2016 root remains trusted by 640 endpoints and 31 images with its key in three places, and nothing in your recommendation asks anyone to take it out."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The key nobody could replace",
+      "verdict": "strong",
+      "narrative": "The audit committee takes the three findings together. The remediation is costed at £74,000 and seven months: a two-tier hierarchy with the root generated inside a hardware security module under dual control and kept offline, an issuing authority for routine work, issuance automated with ninety-day certificates that renew without a person, and the inventory rebuilt from a monthly network scan rather than maintained by hand. The expiry monitoring is kept, described in the plan as a backstop rather than as the control.\n\nRetiring the 2016 root turns out to be the long pole. Removing it from 640 trust stores and 31 base images takes until March, and for four months both roots are trusted, which the plan states plainly and the committee accepts with a date.\n\nWhen the desktop is finally imaged before disposal, the shell history shows two certificates issued in 2023 for hostnames belonging to a supplier's test environment, as a favour, on a Friday — typed straight into OpenSSL rather than through the script, so the index file never saw them. Both are valid until 2033. Both are trusted by every endpoint the company owns. Neither appears in the index file, the spreadsheet, or the scan, because neither was ever deployed anywhere the company can see.",
+      "why": "Three mechanisms, and not one of them required anybody to have been careless.\n\nThe first is that the outage was the symptom of a default. A number typed once in 2016 decided the lifetime of every credential the company has issued since, and it came due on a Saturday night ten years later. Wherever a control parameter has never been chosen, it has still been decided — by whoever wrote the tool.\n\nThe second is the one that generalises furthest. Ask what has to happen for a credential to stop being trusted, and who is able to make that happen. Here the answer was that expiry was the only mechanism and no other existed, which turns validity period from a hygiene setting into the entirety of credential lifetime control — and makes a ten-year certificate a decision to be unable to respond for a decade. Revocation that nothing consults is not a weak control; it is an absent one wearing the name of a present one.\n\nThe third is concentration. One key, one holder, one passphrase, one machine, three copies, and 640 trust stores that could only be added to. Every part of that is a single point, and the last part is why the others could not be fixed quickly: a trust anchor distributed by hand has to be withdrawn by hand, so the company's ability to recover from a key compromise was measured in months before anything had gone wrong.\n\nThe two supplier certificates are what a finding written at that level buys you. They were issued outside the one process that keeps a record, which is why no register built from that record could ever have contained them, and they were never going to appear in an outage or a scan either. Nobody was looking for them."
+    },
+    "end-monitored": {
+      "title": "Thirty days' warning",
+      "verdict": "acceptable",
+      "narrative": "The register is built and the monitoring covers all 63 certificates within six weeks. The quarterly reconciliation against a repeat scan works, and finds four more certificates in its first run. There is no expiry outage in the following year, and the acquirer closes its action.\n\nThe root private key stays on the desktop, on the laptop and on the USB stick. The 2036 certificate on the token vault stands. Issuance remains one script, one passphrase, one person.\n\nIn May the engineer takes four weeks' leave and a new merchant's onboarding waits three weeks for a client certificate that nobody else can produce. In November an external penetration test reports that a copy of the root private key was recoverable from the engineer's previous laptop, replaced in the autumn hardware refresh and held unwiped in the IT store, and that the key's passphrase was cracked offline in under a day.",
+      "why": "You reported the limb that management could act on, and they acted on it well. The register is better than most and the reconciliation is a genuinely good control.\n\nWhat it addresses is detection of an expiry, which is the failure mode that announces itself. Detection shortens an exposure that is already running; it never removes one. The failure modes left untouched were the ones with no alert attached: nobody else can issue, nothing can be withdrawn, and the key is in three places.\n\nThe penetration test result is the shape of the problem. It was true on the day of the outage, it was true the day you were in the building, and no amount of expiry monitoring would ever have surfaced it, because a compromised key does not expire early — it works perfectly, for exactly as long as the certificate says, which here is 2036."
+    },
+    "end-symptom": {
+      "title": "An outage with a calendar reminder",
+      "verdict": "weak",
+      "narrative": "The report is issued on certificate lifecycle management. A twelve-month maximum validity is adopted, the vault certificate is reissued for a year, renewal dates go into the platform team's calendar and the expiry alerting is kept. The audit committee marks the July outage closed.\n\nThe engineer leaves for another employer in February. Nobody asks for the passphrase until April, when a certificate needs reissuing; it is recovered because he answers his phone and is willing to help. The USB stick is still in the drawer of a desk that now belongs to somebody in networks who does not know what is on it.\n\nIn September, fourteen months after the first outage, a certificate that was never added to the calendar expires on a service the register does not cover. The gateway is down for three hours. The post-incident review's root cause line reads \"certificate expired — process gap\".",
+      "why": "You reported the event rather than the condition, and the event was already understood by everyone in the room before you started.\n\nShortening validity to twelve months without changing who can issue was the specific trap. It multiplies by ten the number of occasions on which the company needs one particular person to be available and one passphrase to be remembered, and that dependency was the actual cause of everything you were looking at. Making the renewals more frequent while leaving them manual converted a decade-scale exposure into an annual one and left the single point exactly where it was — which is why the second outage arrived faster than the first.\n\nThe telephone call to a former employee in April is the whole finding in one sentence, and it is not in any report."
+    },
+    "end-outsourced": {
+      "title": "A new issuer, the old trust",
+      "verdict": "weak",
+      "narrative": "The managed certificate service is contracted and twelve services migrate over five months. The provider's key protection is genuinely strong, and its assurance report is filed with the acquirer's pack the following year.\n\nThe 2016 root is not decommissioned, because nothing asked for it to be. Its certificate remains installed in 640 trust stores and 31 base images, its key remains on the desktop, the laptop and the USB stick, and the 63 certificates it issued remain valid, the newest of them until 2036.\n\nIn February a penetration test recovers the root key file from the cloud-synced folder in the engineer's home directory, cracks the passphrase overnight, issues itself a certificate for the token vault's hostname and presents it to an authorisation node. It is accepted without a warning by every endpoint tested. The report notes that the company had recently migrated to a commercial certificate authority.",
+      "why": "The recommendation solved the right problem at the wrong end and left the harder half of it in place.\n\nTwo mistakes, and they are the same mistake seen from two sides. The obligation did not move with the work: contracting an issuer transfers the activity of signing, not the requirement to know what has been issued in the company's name or the ability to withdraw it, and a provider's assurance report is evidence about the provider's estate rather than about the 63 certificates already deployed in yours.\n\nAnd trust is not replaced by addition. A trust anchor is trusted because it is present in a store, so adding a better one to 640 endpoints leaves 640 endpoints trusting both. The step that had to be in the report was the removal of the old root, which was the slowest and least satisfying part of the work and the only part that would have made the penetration test fail."
+    },
+    "end-attested": {
+      "title": "Your name on the answer",
+      "verdict": "failed",
+      "narrative": "The pack reaches the acquirer on Monday. Your report is issued in September and states that key management operates under no documented procedure, without dual control, with the root private key held in three locations by a single individual who is the only person able to issue or renew a certificate.\n\nIn October the acquirer's third-party risk team asks to see the review that supported the independent-review answer. The two documents are read side by side.\n\nThe company is placed on enhanced monitoring and its onboarding of new merchant portfolios is paused pending a remediation plan agreed with the acquirer. The chief audit executive withdraws the citation in writing; the correction reaches the acquirer eleven weeks after the answer did. The audit committee commissions an external firm to review internal audit's part in the submission.\n\nYour findings are not in dispute at any point. They are correct, they are well evidenced, and they are the reason the answer was false.",
+      "why": "He was not asking you to lie, and that is exactly what made it workable. The sentence you agreed to was true on its own terms — a review had taken place and you had conducted it.\n\nWhat an independent review is worth to the person reading a due-diligence pack is that it vouches for the answers around it. That is the only reason the question is on the form. Placing a true statement about your work beside an answer you had documented to be false lends it the one thing you have that the company cannot generate for itself, and it does so to a regulated counterparty making a decision on the strength of it.\n\nAccountability for the answer stayed with the company throughout; your name never made it true. What your name did was make it credible, and it made the failure jointly yours. Once your function is on the record supporting a control state you had established does not exist, the report you issue three weeks later stops being an assessment of their environment and becomes evidence about your own representation — which is why an accurate, well-evidenced set of findings ended up being read as the exhibit rather than as the work."
+    }
+  }
+}

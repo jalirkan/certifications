@@ -1,0 +1,351 @@
+{
+  "id": "d4-the-emergency-path",
+  "title": "The Emergency Path",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "IT Change, Configuration, and Patch Management",
+    "Problem and Incident Management",
+    "IT Asset Management",
+    "Operational Log Management"
+  ],
+  "principles": [
+    "timeliness",
+    "risk-first",
+    "authorization-first",
+    "root-cause",
+    "auditor-role",
+    "evidence-quality"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing change management at a regional airline that flies 34 aircraft out of four bases.\n\nGround operations runs its own small estate: baggage reconciliation, the handheld scanners the ramp crews carry, ramp rostering, de-icing scheduling, and the interface that feeds load figures to departure control. Nine engineers support all of it.\n\nThere are two ways to change any of it. The standard path goes to the change advisory board, which meets on Wednesdays; submissions close at 17:00 the Thursday before, the agenda is capped at twelve items, and every change needs a test evidence pack and a back-out plan. The emergency path exists for outages: verbal approval from the duty ground operations manager, and a retrospective change record completed within 48 hours.\n\nYou pull June. One hundred and seventy-eight changes. Sixty-one of them went through the emergency path.",
+  "taints": {
+    "restated-the-window": "end-restored"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Sixty-one of 178. The policy defines an emergency change as one required to restore or protect a service that is unavailable or degraded, and it is explicit that the path is not for work which could have waited for the board.\n\nThe change system records, for each of the 61, a named duty manager who gave verbal approval. The ground operations platform keeps its own configuration change log on a rolling 90-day retention.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish, for each of the 61, whether an incident record was open on the affected service at the time of the change.",
+          "quality": "best",
+          "next": "the-sixty-one",
+          "consequence": "The incident system exports cleanly and the join is by timestamp and service. Twelve of the 61 fall inside an open incident. Forty-nine do not.",
+          "why": "The policy defines an emergency by a condition in the world, not by a form. Verbal approval and a retrospective record are attributes of the paperwork, and the paperwork was produced by the people who chose the path. The trigger is the only attribute that settles whether the route was used for what it exists for, and it is testable against incident records opened by the service desk, on a call, minutes or hours before anybody decided what to change. Everything else you could test first tells you whether a process was followed by people who were choosing which process to follow."
+        },
+        {
+          "key": "B",
+          "text": "Ask the change manager why a third of the estate's changes are emergencies.",
+          "quality": "defensible",
+          "next": "the-sixty-one",
+          "consequence": "He is not defensive about it. \"Board is Wednesday, cutoff is the Thursday before. Miss it and you are looking at a fortnight. Ramp cannot hold a scanner rollout for a fortnight.\" He offers to walk you through the queue.",
+          "why": "He has told you the truth, and he has handed you the second half of this case in one sentence, which is worth having. The cost is order. You now carry an explanation before you carry a measurement, and everything you test afterwards you will read as confirming or contradicting his account. It is also an explanation that is true and exculpatory at once, which is the hardest kind to put down — the risk is not that he misled you but that you stop looking for the half he did not mention."
+        },
+        {
+          "key": "C",
+          "text": "Read the emergency change policy and the criteria the duty managers are given for granting verbal approval.",
+          "quality": "defensible",
+          "next": "the-sixty-one",
+          "consequence": "The policy is two pages and clear about what an emergency is. There is no guidance for duty managers at all: the approval is a field in the record, and the training note describes it as a confirmation that the requester considers the change urgent.",
+          "why": "Design evidence, and it turns up something real — the approver has no criteria, so the approval is a countersignature on the requester's own judgement. It is still design, and design tells you what should have happened. The 61 are a statement about what did. The finding here only becomes a finding once you have a population failing against it; arriving at it first, it goes into the papers as a general observation and you have spent your first move learning what the client already believes."
+        },
+        {
+          "key": "D",
+          "text": "The policy permits the emergency path and every one of the 61 carries an approval. Note the volume, and test the standard path, where the documented controls are.",
+          "quality": "poor",
+          "next": "the-expired-window",
+          "consequence": "You sample 30 changes from the board's approved list across the quarter. Every one has an evidence pack, a back-out plan and minuted approval. It is a clean sample and it takes eleven days. When you come back to the 61, the platform's rolling 90-day configuration log has moved on: 1 to 11 June have dropped out of it, and four of the 61 sit in that window. Of the 61, twelve turn out to have had an incident open.",
+          "why": "The reasoning is that controls live where the documentation lives, and it is exactly the wrong way round: the emergency path is defined by what it does not require, so a third of the estate's changes moved through the route with the least evidence and you sampled the other two thirds. The clean board sample is true, and what it describes is the path people used when they had time. The eleven days are the part you cannot buy back. A rolling retention window is a clock running against your evidence from the day fieldwork opens; four of the 61 can now never be reconciled to anything the platform recorded, and nothing in your planning told you the clock was there."
+        }
+      ]
+    },
+    "the-sixty-one": {
+      "situation": "Forty-nine emergency changes with no incident open on the affected service.\n\nThirty-eight of the 61 were implemented on a weekday between 08:00 and 18:00. The narratives on the 49 are not evasive: handheld scanner firmware, a rostering configuration change for the summer schedule, a printer driver rollout across two bases, a de-icing supplier code list.\n\nThe emergency path is carrying scheduled work, in office hours, described as such by the people who raised it.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reconcile the 61 records against the ground operations platform's own configuration change log, while June is still inside the 90-day window.",
+          "quality": "best",
+          "next": "the-batch",
+          "consequence": "The log holds every applied setting change with a timestamp and an operator. Fifty-eight of the 61 records have a matching log entry. Three have none. Seven log entries in June have no change record at all. On one record, the log entry shows two settings changed in the same session; the record describes one of them.",
+          "why": "The change records are the client's account of what happened, written by the people whose behaviour is in question. The platform log is the record of what the system actually did. Reconciling one to the other is the only step capable of finding a change nobody wrote down, and it is the only step with a clock on it — the earliest part of your sample month expires while you are deciding what to test. The seven undocumented entries and the one incomplete record are both things no amount of work inside the change system could have produced."
+        },
+        {
+          "key": "B",
+          "text": "Interview the four engineers who raised most of the 61.",
+          "quality": "defensible",
+          "next": "the-expired-window",
+          "consequence": "Consistent and unguarded answers. Two say the board is the bottleneck. One says his lead told him to raise scanner work as emergency because \"that is how it gets done\". One says he has never had a verbal approval refused, by anyone, ever.",
+          "why": "Four candid people telling you how the process really works is not nothing, and the never-refused line is the sharpest single sentence in the case. What it gives you is testimony about a pattern you can already count, at the point where you most need independent evidence rather than more accounts. Their explanations will also be in the room at clearance, restated by management as context. Take the interviews once the log has told you what happened, and they corroborate; take them instead, and they are what your finding rests on."
+        },
+        {
+          "key": "C",
+          "text": "Classify the 49 by work type and quantify each category.",
+          "quality": "defensible",
+          "next": "the-expired-window",
+          "consequence": "Firmware and driver rollouts, 22. Configuration for the summer schedule, 14. Reference data, 8. Five you cannot categorise from the narrative.",
+          "why": "Useful, and it is analysis the report will want. What it does is describe the population in the population's own words. Every category came from a free-text narrative written by the person who chose the path, so the classification inherits their framing — including on the record whose narrative describes one of the two things it did. A categorisation built from the subject's own descriptions is a summary of what they say, and you have not yet checked any of it against what the system says."
+        },
+        {
+          "key": "D",
+          "text": "Draft the 49 as unauthorised changes.",
+          "quality": "poor",
+          "next": "the-expired-window",
+          "consequence": "You circulate the draft as an interim. The change manager replies the next morning with the approval field populated for all 49 and the policy clause permitting verbal approval. He is polite and he is right on the point. The draft is withdrawn.",
+          "why": "The instinct is sound — work that was not an emergency should not have travelled a path built for emergencies — and the word is wrong. Every one of the 49 was authorised; a duty manager approved it, which is what the policy asks. What they were not is emergencies. Reaching for the strongest available word hands the client a correction they can make on the record early, and an early correction is worth more to them than the point it was about, because it establishes that your characterisations need checking."
+        }
+      ]
+    },
+    "the-expired-window": {
+      "situation": "You go back for the ground operations platform's own configuration change log — the record of what the systems actually did, as against what the change records say was done to them.\n\nRetention is 90 days and it rolls. The window has moved while you were working elsewhere. The first eleven days of June are gone: 1 to 11 June no longer exist in the log, and four of the 61 sit inside that gap, along with whatever else the platform did in those eleven days that nobody raised a record for.\n\nFifty-seven of the 61 are still inside the window. The window is still moving.",
+      "prompt": "What do you do about the reconciliation?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Reconcile the surviving 57 now, and record the four as untestable — a stated scope limitation rather than a quiet omission.",
+          "quality": "best",
+          "next": "the-batch",
+          "consequence": "A day and a half. Fifty-four of the 57 have a matching log entry; three have none. Six log entries in June carry no change record at all. On one record, the log entry shows two settings changed in the same session where the record describes one. The four expired records go into the papers as untestable, with the reason and the date the evidence ceased to exist.",
+          "why": "The window is still closing while you decide, so the first call is to take what is left before there is less of it. The second call is the one people skip. Four changes you cannot test are not four changes that leave the population; an untested item reported as untested is a statement about your evidence, and an untested item dropped is a population silently redefined as the one you happened to be able to test. What survives still earns its place — six log entries with no change record, and one record describing half of what its session did, are findings no amount of work inside the change system could have produced."
+        },
+        {
+          "key": "B",
+          "text": "Reconstruct the four expired records from incident tickets, vendor cases and the engineers' own notes before touching the rest.",
+          "quality": "defensible",
+          "next": "the-batch",
+          "consequence": "Two days. Two of the four tie to a vendor support case carrying a firmware version and a date; two leave no trace outside the change record itself. You then reconcile the surviving 57 and find three with no log entry, six log entries with no record, and one record whose session changed two settings where the narrative describes one.",
+          "why": "Chasing evidence that has expired is the instinct of someone who takes completeness seriously, and it recovers two of the four, which is not nothing. The order is what it costs. You spent two days on four records while fifty-seven sat in a window that was still moving, and what came back was a vendor's account of a firmware version rather than the platform's account of a setting. Substitute evidence is worth having once the primary evidence is gone. It is not worth having first, while the primary evidence is still there."
+        },
+        {
+          "key": "C",
+          "text": "Note the retention gap as a limitation and move on to the retrospective records — the change system is the system of record for changes.",
+          "quality": "poor",
+          "next": "the-batch",
+          "consequence": "The limitation goes into the working papers and you move to the retrospective documentation. The log stays unopened. June continues to leave it at a day a day.",
+          "why": "The change system is the system of record for changes that went through the change system, and the open question in front of you is whether some did not. The record and the log are not two sources for one fact — one is the client's account of what it did, the other is what the platform did — and only the second can show you a change nobody wrote down. There is also no such thing as reconciling this later: it is the only evidence in the engagement with an expiry date, and a limitation you have noted is not a limitation you have stopped."
+        }
+      ]
+    },
+    "the-batch": {
+      "situation": "The retrospective records exist. Fifty-five of the 61 carry raised and implemented dates inside the 48 hours the policy allows.\n\nThose are typed fields. The system also stamps the moment each record was created, and nobody looks at it. Forty-four of the 61 were created in three sittings: fourteen on 16 June, twenty-two on 30 June, eight on 14 July. All three are Tuesdays, the day before a board meeting. The twenty-two were entered by one engineer in eighty-four minutes.\n\nThe board is required to review emergency changes at its next meeting. The minutes of all four June meetings carry the same line: \"Emergency changes since last meeting: noted.\" No emergency change has been queried, reversed or reclassified in two years.\n\nThe 61 records name twenty-three different systems in free text. The asset register holds fourteen configuration items for ground operations. Six records name a host retired in March.",
+      "prompt": "What do you pursue?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test the review that is supposed to compensate for the deferred approval: read each of the 61 narratives against its log entry, the way a reviewer would have had to.",
+          "quality": "best",
+          "next": "the-flag",
+          "consequence": "You work through them. On EC-0417, 14 June, the narrative reads \"cleared queue backlog on baggage reconciliation during slowdown\". The log entry for that session changes two settings.",
+          "why": "An emergency path is not a path without approval; it is a path where approval moves to afterwards. Everything that makes it acceptable to change production on a verbal yes at three in the morning sits in the review that follows, which means the review is the control and the only thing here worth testing hard. Two years of \"noted\" is a strong hint and it is not a finding — the way to demonstrate that a review is nominal is not to observe that it is brief, but to put one thing in front of it that it should have caught and did not."
+        },
+        {
+          "key": "B",
+          "text": "Raise the batch-created records as a finding now.",
+          "quality": "defensible",
+          "next": "the-flag",
+          "consequence": "It is accepted the same week. The change manager commits to a 48-hour documentation SLA with automated reminders and a monthly compliance figure to the board. He is genuinely pleased with it.",
+          "why": "True, provable from a system field nobody thought about, and accepted without a fight — which is the part to notice. Documentation timeliness is the most closeable thing you have found and it is a symptom, not the reason. Records written in bulk on the Tuesday before the board are not late paperwork; they are paperwork produced to a deadline set by a reviewer who was never going to read it. Closing the symptom first is how the appetite for the cause gets spent, because everyone in the room now believes the emergency change issue has an agreed action."
+        },
+        {
+          "key": "C",
+          "text": "Reconcile the 61 records to the asset register and establish which systems were actually touched.",
+          "quality": "defensible",
+          "next": "the-flag",
+          "consequence": "Three days. Twenty-three names collapse to eleven registered items and two that are not on the register at all; the six references to the retired host are a naming habit for its replacement. Opening the log entries one at a time to do it, you reach EC-0417 on 14 June, where the log shows two settings changed and the record describes one.",
+          "why": "A real problem and an underrated one — a change record that cannot be tied to an identified asset cannot support any later question about that asset, including whether it is patched, backed up, or in scope for anything at all. It gets you to the same discrepancy three days later and sideways, because you were reading the log for a different purpose. Worth reporting. Not worth leading with, when the same log opened against the review standard answers the question you actually have."
+        },
+        {
+          "key": "D",
+          "text": "The approvals are all present and named. Record the emergency path as authorised in accordance with policy.",
+          "quality": "poor",
+          "next": "the-flag",
+          "consequence": "You mark the approval attribute tested and satisfied, and the working papers record the emergency path as compliant with policy on authorisation. Three days later, tying records to hosts for the asset register work, you open the log entry for EC-0417 on 14 June and find two settings changed where the record describes one.",
+          "why": "Every one of the 61 has an approver, and the approver has no criteria, no information beyond what a requester tells him at three in the morning, and no record of ever having refused. An approval that cannot be withheld is a field, not a control, and testing whether the field is populated is the audit equivalent of counting signatures. The policy is satisfied and that is the problem, not the answer. What it costs is not the three days: it is a tested-and-satisfied conclusion on authorisation sitting in your own working papers, which management will quote back the first time you argue that these changes should not have travelled this route. You found the discrepancy anyway, sideways, on the way to something else — which is a poor argument for the method."
+        }
+      ]
+    },
+    "the-flag": {
+      "situation": "EC-0417. 14 June, 03:10, during INC-2291 — baggage reconciliation queue latency, raised 02:38, closed 06:40. A genuine incident, a genuine emergency, verbal approval from the duty ground operations manager.\n\nThe record describes one change: a queue timeout raised from 30 seconds to 120. The log shows that setting, and one more in the same session at 03:24 — bagrecon.manual_writeoff.dual_auth, set from true to false. The incident notes say why: clearing the backlog meant writing off about four hundred stuck bag records by hand, and there was one person on shift.\n\nThe timeout went back to 30 the next day under a normal change. The flag did not.\n\nLast September's baggage audit found that a single ramp agent could close a manual write-off unilaterally, and recommended second-person authorisation. It was implemented on 18 November and reported to the audit committee as closed on 4 February.\n\nToday is 24 August. Since 14 June the log records 4,180 manual write-offs across four bases, none of them carrying a second authoriser.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report it to the head of ground operations and your audit sponsor today as a live control absence, state what has to be restored, and leave the mechanism and the authority to them.",
+          "quality": "best",
+          "next": "the-nineteen-days",
+          "consequence": "You send it at 11:40. The head of ground operations reads it inside the hour. By 13:30 the board chair has approved an out-of-cycle change by email, and the flag is true again at 15:00 — request to production in under four hours, on the standard path, with an evidence pack and a back-out plan. Nobody used the emergency route.",
+          "why": "Two separate things, and both of them are the point. A control that is off today is not fieldwork material; the window in which telling somebody changes the outcome is now, and the next write-off is in the next twenty minutes. And the restoration is not yours to arrange — you said what the exposure was, they chose the mechanism and carried the authority, which is what leaves you able to test the result and keeps your name out of your own population. The four hours you did not ask for are a finding on their own: the standard path can move in four hours when someone senior wants it to, and that is not a fact about the board's cadence."
+        },
+        {
+          "key": "B",
+          "text": "Complete the testing first. It has been off for seventy-one days; nine more will not change the shape of it, and the finding lands stronger complete.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "You finish the remaining work over nine days and raise it on 2 September. The standard path is covered inside that block, as one more area to clear rather than as a question you stop on. In that period the log records a further 530 manual write-offs. One becomes a claim in October, for a bag written off at Inverness with no second check.",
+          "why": "The reasoning is real. A finding raised complete is harder to argue with, and breaking off fieldwork to escalate one item can read as losing your nerve. It holds when the exposure is historical. This one is not: the control is off now, the activity it was meant to check runs continuously across four bases, and every day of carefully sequenced fieldwork is another day of it. Seventy-one days is not an argument for nine more — it is seventy-one days of somebody else's failure to notice, which you are now extending with a decision of your own.\n\nThere is a second cost, and it is quieter. Work you sequence in order to finish is work you stop asking questions of. The standard path went past you as an area to clear, so the forty-nine never got split into the ones that had a date nobody could have met and the ones that simply took the easy route — and a report that treats them as one population will ask for one remedy for two different problems."
+        },
+        {
+          "key": "C",
+          "text": "Ask the ramp systems engineer to set it back this evening so the exposure closes tonight.",
+          "quality": "poor",
+          "next": "the-nineteen-days",
+          "consequence": "He does it at 18:20 with verbal approval from the duty manager, because that is the route he uses. The retrospective record is created two days later. The requester field names you.",
+          "why": "The exposure did close tonight, and that is the part that felt responsible. What came with it is a production change made on your instruction, through the path you are auditing, without going near anyone holding the authority to permit it — and now recorded in the change system with your name on it. Your own change is inside the population you are testing, which means the June figures you report are no longer a set you stand outside. At clearance someone will observe, accurately, that the auditor's own change went through the emergency path on a verbal yes, and that observation will cost you more than the eight hours it bought. Saying what has to become true is your job. Deciding how and when it becomes true is theirs, and the distinction is the whole of your ability to report on the result."
+        },
+        {
+          "key": "D",
+          "text": "Go to the follow-up file and establish how last year's recommendation came to be reported as closed.",
+          "quality": "defensible",
+          "next": "the-nineteen-days",
+          "consequence": "The closure evidence is a screenshot of the setting, dated 20 November, supplied by the ground operations team. Nothing has tested it since. The February committee signed it off on that basis.",
+          "why": "A real finding, and one internal audit owns rather than reports — closure verified on a screenshot from the implementing team is not verification, and it is the reason nobody in the organisation knew the control had gone. It is also the wrong order today. The follow-up file will be exactly as damning on Monday. The write-offs are running now, and the first thing that has to happen to this finding is that somebody who can restore the control is told that it is off."
+        }
+      ]
+    },
+    "the-nineteen-days": {
+      "situation": "Now the other path.\n\nThe board meets Wednesdays at 14:00. Submissions close 17:00 the Thursday before. The agenda is capped at twelve items and the requester has to attend. Every change needs a test evidence pack and a back-out plan, whether it is handheld scanner firmware or a change to the load feed into departure control; there is no standard or pre-approved category. Over the last quarter the median elapsed time from raising a change to production was 19 days, and the ninetieth percentile was 41. About thirty items sit in the queue at any time. Two of the four bases have nobody on the board and route everything through the ramp systems lead.\n\nTwice this quarter the board has approved a change out of cycle, by email, without waiting for a meeting. Both were requested by a director. Both were approved inside two hours. Nothing in the change procedure describes that route, and no engineer has ever asked for it.",
+      "prompt": "How do you use this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the non-incident emergency changes and establish what the standard path would have cost each of them — whether any faced a date the 19-day median could not have met.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "Thirty-one of the 49 tie to a fixed external date: the summer schedule change on 1 July, or a scanner firmware recall with a vendor support cut-off of 30 June. Under the board's cadence and queue depth they would have missed both. Eleven were discretionary and could have waited. Seven you cannot determine.",
+          "why": "This is the difference between asserting that the standard path is slow and demonstrating that for thirty-one changes it was not capable of delivering on time. It also splits one population into two findings that need different answers: eleven people taking the easy route, and thirty-one changes for which no compliant route existed at all. Recommendations that treat those as a single problem fix the eleven and push the thirty-one somewhere with no record — and the reason to separate them is not fairness to the engineers, it is that a control aimed at the wrong half of a population is a control with a standing reason to be defeated."
+        },
+        {
+          "key": "B",
+          "text": "Benchmark the board's cadence against comparable operations and recommend it meet twice weekly.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The board chair is receptive and says he has wanted it for a year, subject to finding the people. He estimates twice-weekly would take the median to about eleven days.",
+          "why": "Cadence is genuinely part of this and eleven days is better than nineteen. It is also a recommendation drawn from what a change board is generally supposed to look like rather than from what this one cannot do — and what this one cannot do is tell a scanner firmware update apart from a change to the load feed. Meeting twice as often processes both twice as often at twice the cost. It does not make a two-week vendor window reachable, and it selects a control from a benchmark rather than from an exposure you have measured."
+        },
+        {
+          "key": "C",
+          "text": "Interview the ramp systems lead about how the two bases without representation get their changes made.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "He is candid. Everything from those two bases comes to him, he holds the standing admin rights on the ground operations platform, and he decides what is worth taking to the board. He calls the emergency path \"the only route that answers on the day\".",
+          "why": "You have found the place where both halves meet: a queue that half the bases cannot join, and one man with the rights to go round it. Strong colour, and it is one person's account of a system-wide pattern. The 49 are countable and dated; his description is neither, and a finding resting on what the ramp systems lead said is a finding he can later have meant differently. Worth having as the sentence that makes the numbers make sense — not as the evidence underneath them."
+        },
+        {
+          "key": "D",
+          "text": "The standard path is not what went wrong. Keep the report on misuse of the emergency route.",
+          "quality": "poor",
+          "next": "the-report",
+          "consequence": "The draft narrows cleanly and reads well. It covers the 49, the batch documentation, the board's nominal review and EC-0417.",
+          "why": "Everything in that draft is true, and together it describes a workforce taking a shortcut for no stated reason. The reason is the 19-day median, and it is not a mitigating detail to be fair about — it is half the mechanism. A report that tightens the emergency path without touching the queue removes the route people were using and hands thirty-one dated changes back to a path that could not deliver them on time. That is not a neutral omission. It converts a visible workaround, with records and approvers and timestamps, into an invisible one."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "The head of ground operations does not argue with the volume, the batch-created records or the board's \"noted\". He argues with one thing.\n\nEC-0417, he says, was made at 03:10 during a real incident by an engineer clearing a queue that was holding bags on four stands, working alone, with four hundred records to write off by hand. The record says the change was made for the duration of the slowdown. The intent was plainly temporary. Nobody decided to remove a control; somebody forgot to put a setting back on a bad night.\n\nHe asks that the report describe it the way the record does — temporarily disabled during a major incident, since restored — rather than as a control absent for seventy-one days. He makes the point without heat: the committee were told that recommendation was implemented, and the seventy-one-day framing makes it read as though the closure was false.",
+      "prompt": "How do you write it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Write what the log establishes: false from 03:24 on 14 June and still false when you found it on 24 August — seventy-one days, 4,180 manual write-offs, none with a second authoriser — and that the control the committee was told was in force was not in force for any of them.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "He does not contest the dates, because he cannot. He asks that the intent be recorded alongside them, and you agree; the finding carries both. Your head of internal audit is told the same afternoon that a recommendation reported closed in February has to be reopened.",
+          "why": "Intent and state are different facts, and only one of them is a control. What the engineer meant at 03:10 explains how it started and changes nothing about whether four thousand write-offs were checked, which the log settles to the minute without anyone's recollection. His point about the committee is real and it points the opposite way from where he aims it: the closure was false, the committee relied on it, and softening the duration to protect the closure protects the wrong thing. Recording his account of intent next to the dates costs you nothing, is simply true, and removes the only argument he had."
+        },
+        {
+          "key": "B",
+          "text": "Adopt the record's account. Describe it as a setting temporarily disabled during a major incident, since restored.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "The wording is agreed in the room and everybody leaves satisfied. EC-0417 appears in the report as an incomplete change record on one emergency change. The February closure stands in the follow-up register.",
+          "taint": "restated-the-window",
+          "why": "No sentence in it is false, and that is precisely what makes it available. The change was made during a major incident. The intent was temporary. The setting has been restored. What comes out is the only quantity in the finding — seventy-one days and 4,180 unchecked write-offs — and without a duration there is no control failure left, only an incomplete record.\n\nHe also told you why he wanted it, and that was the tell. The objection was not that the duration was wrong; it was that the duration would make a previous assurance to the committee read as false. That is a reason to test the closure, not a reason to soften the finding, and it was available to you in the room, in his own sentence, before you agreed to anything."
+        },
+        {
+          "key": "C",
+          "text": "Report the duration in full and accept his account of the cause: an individual error at 03:10 under pressure.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Agreed without difficulty. The finding records seventy-one days and attributes the cause to a manual step missed during incident response. Management's response is a briefing to the on-call engineers and a checklist item for changes made during incidents.",
+          "why": "You kept every fact and gave away the mechanism. It was one engineer at 03:10 — and the reason it lasted seventy-one days is that nothing in the emergency path was capable of noticing. The record described one of two changes, the board noted it, and the log that would have shown it was read for the first time by you, in August. A cause located in a person produces a remedy aimed at that person, and the next one will also be a bad night, at a different base, on a different setting."
+        },
+        {
+          "key": "D",
+          "text": "Report the duration, and put the reopening of last year's recommendation, and how it came to be reported closed, to the committee as a separate matter for internal audit.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Both papers go up. The second sets out that the November closure was signed off on a screenshot supplied by the implementing team and never retested. The committee spends most of its time on the follow-up process and asks the head of internal audit how many other closures rest on evidence of that kind.",
+          "why": "The follow-up point is real, it belongs to internal audit rather than to the client, and the question the committee asks back is a good one to have provoked. Splitting it costs something, though: the two are one fact. A control was recommended, implemented, reported closed, switched off inside a change nobody reviewed, and left off for seventy-one days — and that sequence is only visible when the pieces sit together. Across two papers each half reads as a process improvement, and the thing that makes either of them urgent is in the other one."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The finding is settled. What is left is what to ask for.\n\nSixty-one emergency changes in a month, twelve of them emergencies. A retrospective review that has noted everything and questioned nothing for two years. Forty-nine changes on the emergency path, thirty-one of which had a date the standard path could not have met. A board that meets weekly with a twelve-item cap, no pre-approved category, and no representation from half the bases — and that has twice this quarter approved a change out of cycle by email, inside two hours, when a director asked.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Gate the emergency path on an open incident record and give its retrospective review authority to reclassify and require reversal — and give the standard path a pre-approved category for recurring low-risk work with a published turnaround, plus an out-of-cycle route any requester can use.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The change manager objects that a pre-approved category means the board stops seeing scanner firmware. The board chair says that is the point, and that he would rather see twelve things properly. The head of ground operations asks who owns the out-of-cycle route at 03:00. It goes in with a named owner and a first review at the end of the winter schedule.",
+          "why": "The two halves are one mechanism. An emergency path with no gate and no consequence is the cheapest route available; a standard path that cannot deliver a two-week vendor window is not a route at all for thirty-one of these changes. Tighten only the first and the work goes into somebody's standing admin rights, where next year's sample will not find it.\n\nThe gate has to rest on a fact the requester cannot assert — an incident record exists or it does not — because the current gate is a judgement made by the person who wants the answer to be yes. The review has to be able to reverse something, because a review that has never reversed anything has never been tested by anything. And the out-of-cycle route has to be open to a requester rather than to a director, or you have documented the escalation the board already runs twice a quarter and called it a control. The objections in the room are the shape of a recommendation that will bite."
+        },
+        {
+          "key": "B",
+          "text": "Gate the emergency path on an open incident record, with the board given authority to reclassify and to require reversal.",
+          "quality": "defensible",
+          "next": "end-tightened",
+          "consequence": "Accepted in full and implemented by the end of October. Emergency changes fall from 34% of the monthly total to 6% inside two months, and the board reclassifies four changes in its first quarter.",
+          "why": "Correct, well specified, and it closes the half of the mechanism that did the damage. Now watch the other half. The 49 do not stop existing because the route did; thirty-one of them had a date attached, and those dates are still sitting in a queue with a 19-day median and a twelve-item cap. A control that removes the only route capable of meeting a deadline, without providing another, does not remove the pressure that produced the route — and the next place that pressure goes has no records, no approvers and no board line."
+        },
+        {
+          "key": "C",
+          "text": "Have the board re-review all 61 against the policy criteria, and identify and reverse any change that removed or weakened a control.",
+          "quality": "defensible",
+          "next": "end-tightened",
+          "consequence": "The re-review runs five weeks. Two further changes are found to have relaxed settings that were never restored: a scanner session timeout and a rostering approval threshold. Both are put back.",
+          "why": "Necessary work, and it finds two more than anybody expected, which is the answer to whether EC-0417 was a one-off. It is also the instances. Sixty-one records re-read by the same board that noted them the first time, against the same criteria, with the same absence of any consequence for getting it wrong — and when it finishes the path is exactly as easy as it was and the queue is exactly as long. Cleaning the population is what you do alongside fixing the mechanism, never instead of it."
+        },
+        {
+          "key": "D",
+          "text": "Require retrospective records within 48 hours, enforced by automated reminders, with monthly emergency change volumes reported to the board.",
+          "quality": "poor",
+          "next": "end-paperwork",
+          "consequence": "Accepted the same day and live in three weeks. Documentation compliance reaches 97% by November and the monthly volume figure appears on the board pack.",
+          "why": "It is the recommendation that gets implemented fastest, and it is aimed at the part of this you could count without argument. Records completed inside 48 hours by people who know nobody reads them are records completed inside 48 hours. A volume figure on a board pack is a number sitting next to twelve agenda items, presented to the body that has noted every emergency change for two years and is now being asked to act on a total.\n\nNeither of the two things that made this case — a gate that can be asserted rather than demonstrated, and a queue that gives people a reason to assert it — is touched by a reminder email, and both were in your evidence before you wrote this."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Two routes, one queue",
+      "verdict": "strong",
+      "narrative": "The emergency path is gated on an open incident record in the incident system. A requester can no longer assert an emergency, only point at one. The board's review of emergency changes acquires teeth: it can reclassify, and it can require a change to be reversed and resubmitted. In the first quarter it reverses two.\n\nThe standard path changes at the same time. A pre-approved category covers scanner firmware, driver rollouts and reference data against a published turnaround, taking about forty percent of the volume off the agenda. An out-of-cycle route with a named approver and a two-hour service level is written down and open to any requester, not only to a director who asks. Both unrepresented bases get a seat.\n\nEmergency changes settle at around 8% of the monthly total. The following summer's schedule work goes through the standard path and lands on time.\n\nEC-0417 is reported for what it was: a control the audit committee had been told was implemented, switched off inside a change nobody reviewed, absent for seventy-one days and 4,180 write-offs. The February closure is reopened, and closure evidence supplied by implementing teams is no longer accepted on its own.",
+      "why": "The emergency path did not carry a third of the changes because nine engineers were careless. It carried them because it was the only route that answered on the day, and because nothing at the far end of it ever asked a question. Those are two defects and the case only closes when both are addressed.\n\nThe gate matters for what it replaces. \"Is this an emergency?\" is a judgement made by the person who needs the answer to be yes, at three in the morning, put to a duty manager with no criteria and no record of ever refusing. \"Is there an open incident record?\" is a fact held in a system nobody in that conversation controls. Replacing a judgement with an observable condition is most of what turns a gate into a control.\n\nThe review matters because deferral is the entire point of an emergency path. Approval does not disappear; it moves to afterwards. Everything that makes it acceptable to change production on a verbal yes at 03:10 sits in the review that follows — so a review that has noted everything and reversed nothing for two years is not a weak control, it is the absence of the control the deferral was traded for. EC-0417 is what that absence looks like on the day it finally costs something.\n\nAnd the queue matters because a path people have a standing reason to avoid does not stay avoided in only one direction. Close the emergency route without opening a usable one and thirty-one dated changes go looking for the next lowest-friction way in, which here is one lead with standing admin rights and no record at all."
+    },
+    "end-tightened": {
+      "title": "The gate, and the queue behind it",
+      "verdict": "acceptable",
+      "narrative": "The emergency path is gated and the board gets authority to reclassify. Emergency changes fall from 34% to 6% in two months, and the re-review of the 61 turns up two more settings that were relaxed and never restored. It is a real improvement and the finding closes properly.\n\nThe standard path is untouched. The median holds at 19 days, the twelve-item cap holds, and two bases still have nobody on the board.\n\nIn March a scanner firmware recall arrives with a six-week vendor window. It is raised, queued, and deferred twice behind winter schedule work. It goes into the board on week seven, by which time the ramp systems lead has already applied it at two bases using his standing admin rights, because the bags were stacking up. There is no change record for either, and nobody reads the platform log.\n\nThe following year's audit samples the change system and finds 4% emergency changes and a clean population.",
+      "why": "The tightening was correct and it worked on exactly what it was aimed at. What it never asked was why sixty-one changes had gone that route, and the answer was already in your evidence: for thirty-one of the forty-nine there was a date the standard path could not reach.\n\nA control that removes the only route capable of meeting a deadline, without providing another, does not remove the pressure that created the route. It moves that pressure somewhere with less instrumentation. The emergency path was at least visible — records, named approvers, timestamps, a line in the minutes — and that visibility is how you found any of this. Standing admin rights have none of it, and next year's clean population is a measurement of where the work went rather than of whether it stopped.\n\nThe symmetry is the whole lesson. An emergency route that is too easy and a standard route that is too slow are one mechanism seen from either end, and closing one end reliably makes the other end worse."
+    },
+    "end-paperwork": {
+      "title": "Ninety-seven percent compliant",
+      "verdict": "weak",
+      "narrative": "The documentation SLA goes live in three weeks and works exactly as designed. Retrospective records are completed within 48 hours in 97% of cases by November, up from 71%. The monthly emergency change volume appears on the board pack as a single figure, and is noted.\n\nThe records are now written promptly, by people who know that the board's response to them has been \"noted\" for two years. Volume the following June is 33%.\n\nIn the winter a de-icing scheduling change made under the emergency path relaxes a validation on supplier codes and is not put back. It is found in April, during the next audit, in the platform log.",
+      "why": "The recommendation was accurate, cheap, quick, and aimed at the only part of this that could be counted without argument — which is why it was accepted the same day it was offered.\n\nWhat it treated as the finding was a symptom. Records written in bulk on the Tuesday before the board are not a discipline problem; they are the rational output of a process whose reader has never read one. Improving the punctuality of documentation nobody reviews produces punctual documentation nobody reviews, plus a compliance percentage on a board pack.\n\nBoth of the things that made this case — a gate that could be asserted rather than demonstrated, and a queue that gave people a reason to assert it — are untouched by a reminder email. The de-icing change in the winter is the same event as EC-0417, made through the same path, invisible to the same review, and found the same way: by an auditor reading a log that the organisation still does not read."
+    },
+    "end-restored": {
+      "title": "Temporarily disabled, since restored",
+      "verdict": "failed",
+      "narrative": "The report describes EC-0417 as a setting disabled during a major incident and subsequently restored, with a finding that the change record was incomplete. Every sentence is accurate and none of them carries a duration.\n\nThe February closure of last year's recommendation stands. The audit committee reads that change records are sometimes incomplete and that emergency change volume is high, and agrees an action on documentation.\n\nThe following February a passenger claim reaches the regulator over a bag written off at Inverness in July. The airline's response cites the second-person authorisation control implemented in November. The claimant's advisers ask for the write-off record. It has one name on it.\n\nThe review that follows establishes the seventy-one days from the platform log in about an hour, and establishes that the audit which reported an incomplete change record had been holding the same log.",
+      "why": "Nothing you wrote was false, and that is the trap closing. The change was made during a major incident. The intent was temporary. The setting has been restored. Every clause survives contact with the evidence, and the one thing that made this a control failure — seventy-one days and 4,180 unchecked write-offs — is the thing that came out.\n\nYou held two accounts of the same period. One was free text written by the man who made the change, describing what he meant to do. The other was a machine-generated log of what the system actually did, with timestamps to the minute. Where they differed you took the first, at the request of the person it protected, and the reason offered was that the second framing would embarrass a closure. That is a reason to test the closure, not to soften the finding.\n\nWhat cannot be walked back is not the wording. It is that the committee's record now says a recommendation was implemented and remains in force, and audit is the function that told them so twice — the second time while holding the log that disproved it. A finding you can reopen next year is recoverable. A closure the committee has relied on, reconfirmed by the auditor who had the evidence against it, is not. The tell was available at the time and it was in his own argument: when the objection to a duration is that the duration would make a previous assurance look wrong, the duration is the finding."
+    }
+  }
+}

@@ -1,0 +1,355 @@
+{
+  "id": "d4-the-immutable-copy",
+  "title": "The Immutable Copy",
+  "domain": "4",
+  "section": "B",
+  "topics": [
+    "Data Backup, Storage, and Restoration",
+    "System and Operational Resilience",
+    "Business Impact Analysis",
+    "Disaster Recovery Plans"
+  ],
+  "principles": [
+    "untested-unknown",
+    "remove-single-points",
+    "prevent-first",
+    "business-impact"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this study system. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are reviewing ransomware readiness at a specialist lender. Bridging and development finance, £2.4 billion of loans across about fourteen thousand borrowers, funded by a retail savings book and a warehouse facility with a clearing bank. Four hundred and ten staff on two floors of one office. No branches, two colocation sites.\n\nA competitor of similar size was encrypted four months ago and was quoting new business again after twenty-two days. The board asked one question at the following meeting: could that happen to us, and if it did, what would we do? The review is the answer.\n\nWhat management has given you is a one-page summary of the backup arrangements, and it is a confident page. Backups run nightly and complete. The backup repository replicates to the second site with a lag of under fifteen minutes. A monthly full goes to tape and leaves the building with a courier. Three copies, two media, one offsite.\n\nThe head of infrastructure has held the role eleven years and answers questions directly. Nothing in the summary is untrue.",
+  "taints": {
+    "attested-tested": "end-attested"
+  },
+  "nodes": {
+    "start": {
+      "situation": "You have the backup standard, ninety days of job history, the continuity plan and its Ransomware Recovery Annex, and access to whoever you want to talk to.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Confirm the backups are doing what the summary says: review ninety days of job history for failures and reruns.",
+          "quality": "defensible",
+          "next": "the-second-copy",
+          "consequence": "Two thousand six hundred and ninety-one jobs. Four failures, all on the same media agent, all rerun and completed the same night, each with a ticket. The success rate is 99.85 per cent.",
+          "why": "This tests the thing that fails most often in normal operation, and it is the right test for the risk of a job quietly stopping. That risk is real and you have now closed it.\n\nRansomware is not a job failure. Every one of those successes wrote a file to a share, and the question this engagement turns on is who else can write to that share. What you have established is that the process is healthy, not that the data is safe."
+        },
+        {
+          "key": "B",
+          "text": "Establish how many copies of the data exist, and which of them can be reached from a compromised production network.",
+          "quality": "best",
+          "next": "the-second-copy",
+          "consequence": "The head of infrastructure draws it on a whiteboard in about ten minutes: nightly backup to a disk repository in the first colocation, block-level replication of that repository to the second, monthly full to LTO-8 tape and out with the courier. He labels the arrows without being asked.",
+          "why": "Two questions, and the second one is the whole engagement. Counting copies is what the standard asks for; asking which of them an attacker holding production credentials can alter is what decides whether any of them is a backup.\n\nAsk it first because it reframes everything that follows. Once the diagram has reachability on it, the replication link and the tape stop being two ways of doing the same thing."
+        },
+        {
+          "key": "C",
+          "text": "Start from the documented objectives — what does the continuity plan say the recovery point and time objectives are?",
+          "quality": "defensible",
+          "next": "the-second-copy",
+          "consequence": "Fifteen minutes for the recovery point objective on the loan servicing platform, twenty-four hours for recovery time, both approved by the executive risk committee. One sentence under the table states that the point objective is met by continuous replication to the second site.",
+          "why": "The right benchmark to hold the arrangements against, and you now have the numbers you will need at the end. What comes with them is management's framing: that sentence names replication as the control that satisfies the objective, and it is the assumption the review exists to test.\n\nStarting from a documented objective is sound. Starting from the explanation attached to it means beginning inside the belief you are meant to be examining."
+        },
+        {
+          "key": "D",
+          "text": "Review the Ransomware Recovery Annex against good practice.",
+          "quality": "poor",
+          "next": "the-second-copy",
+          "consequence": "Six pages, written last year after the board question, referencing the right standard, approved by the executive risk committee. Roles are named, the call tree is current, the steps are numbered and in a plausible order.",
+          "why": "A competent document, competently assessed, and it tells you what the lender intends rather than what it can do. A recovery procedure only runs under conditions that have never obtained, so reading it can establish that it is well written and nothing at all about whether it works.\n\nThis annex is a particularly bad candidate for a documentary review: its most important sentence is step one, which reads as unremarkable prose and only becomes a finding when someone tries to perform it. It has to be walked, not read, and that is a different activity from checking it against a standard."
+        }
+      ]
+    },
+    "the-second-copy": {
+      "situation": "Three copies. The nightly backup runs from 22:00 to 03:00 into a disk repository in the first colocation. That repository replicates block by block to the second colocation, lag consistently under fifteen minutes. A monthly full is written to LTO-8 tape on the first weekend and collected by courier on the Tuesday.\n\nThe repository holds fourteen daily restore points before the oldest ages out.\n\nAlso in your papers is the incident response retainer's latest annual report, which the lender receives with the subscription. Median attacker dwell time before encryption: eleven days. Upper quartile: twenty-six.",
+      "prompt": "The design says three copies. What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask what the second site holds fifteen minutes after a file in the repository is encrypted.",
+          "quality": "best",
+          "next": "the-service-account",
+          "consequence": "The head of infrastructure answers immediately, and then stops. What replicates is the repository volume, not a set of independent restore points — so the second site holds the same encrypted file, fifteen minutes later. He says he has explained that link to auditors four times and has never been asked it in that direction.",
+          "why": "Replication is a copy of a state, not a copy of a history. It exists so that losing a building does not lose the data, and it does that well; it has no opinion about whether the state it is faithfully reproducing is one you want.\n\nThe phrasing matters. Asking whether replication protects against ransomware invites a debate about products. Asking what the second site holds fifteen minutes after a file is encrypted has one answer, the person who built it gives it to you, and the fifteen minutes management offered as reassurance becomes the measure of how fast the damage arrives."
+        },
+        {
+          "key": "B",
+          "text": "Check that the replication is monitored, with alerting on lag.",
+          "quality": "defensible",
+          "next": "the-service-account",
+          "consequence": "It is. Alerts fire above thirty minutes of lag; three fired in the past year, all traced to a circuit fault at the second site, all resolved inside a day and documented.",
+          "why": "Clean operational assurance, and what it establishes is that the replication works exactly as designed — which is the difficulty rather than the comfort. A control operating perfectly is only reassuring once you know what it is for.\n\nMonitoring lag answers the question 'is the second copy current'. In an encryption event, current is the property you least want it to have."
+        },
+        {
+          "key": "C",
+          "text": "Test the fourteen days of restore points against the dwell figures in the retainer's own report.",
+          "quality": "defensible",
+          "next": "the-service-account",
+          "consequence": "Fourteen restore points is fourteen days. It clears the median by three days and misses the upper quartile by twelve. The head of infrastructure confirms the depth was never set against anything: it is what fits on the array once the daily change rate is allowed for.",
+          "why": "A real finding, and it identifies retention depth as a control parameter rather than a capacity outcome — which is the useful half of it. On the retainer's own distribution, in roughly one intrusion in four every restore point the repository holds already post-dates the attacker.\n\nWhat it assumes is that the disk survives. Retention depth decides whether you can go back far enough; reachability decides whether there is anything to go back to. You have taken the second question first, which is the right question in the wrong order."
+        },
+        {
+          "key": "D",
+          "text": "Recommend the replication interval be shortened and a fourth copy added at a third site.",
+          "quality": "poor",
+          "next": "the-service-account",
+          "consequence": "The head of infrastructure is receptive and asks his account manager for pricing on a third target. A figure comes back within the week.",
+          "why": "Copies feel like the answer because the standard is written in copies, and adding one is the recommendation that is easiest to accept and easiest to fund.\n\nA fourth copy on the same replication topology is a fourth copy of whatever the third one holds, arriving faster. Shortening the interval shortens the time before the encrypted blocks land at the new site. Recommending before you have established the failure mode is how an audit funds the wrong thing, and the money is spent by the time anyone works out it was the wrong thing."
+        }
+      ]
+    },
+    "the-service-account": {
+      "situation": "The repository server is a domain-joined Windows host. The backup files sit on an SMB share.\n\nOne account does everything: it runs the backup console, the agent on every protected server, and the replication job. It is a member of Domain Admins. The password was last set in 2019, it does not expire, and it is excluded from the quarterly privileged access review on the grounds that it is a service account rather than a person.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Recommend the account be de-privileged to the minimum rights the backup software needs.",
+          "quality": "defensible",
+          "next": "the-closed-point",
+          "consequence": "Agreed in principle. The vendor's installation guide specifies local administrator on every protected server, so the change is a project rather than a setting, and the infrastructure lead wants a change window and a rollback plan.",
+          "why": "Necessary, correct, and you should recommend it regardless. It reduces the blast radius; it does not change its shape.\n\nWhatever rights the backup software genuinely needs, they include writing to and pruning the repository — that is what a backup application does. So the de-privileged account still deletes every restore point, and so does anyone who takes it. Least privilege makes the target smaller. It does not put anything out of reach, and out of reach is the property a backup needs."
+        },
+        {
+          "key": "B",
+          "text": "Establish whether any copy exists that a domain administrator credential cannot alter or delete.",
+          "quality": "best",
+          "next": "the-tape",
+          "consequence": "It takes the two of you twenty minutes to work through. The repository share: no. The replica: no — same account, same domain, same rights. The tape, once it is out of the drive and in the courier's vault: yes. Nothing on the network can touch it.\n\nOne copy. Written monthly.",
+          "why": "This is the question that separates a backup from a copy. Three copies, two media and one offsite is a rule built for fire, flood and a failed array, and every one of those events is indifferent to credentials. An adversary holding Domain Admin is not, and against that adversary the count of copies collapses to the count of copies outside the trust boundary.\n\nThe answer is one, and it arrives monthly. Everything else in the engagement is now about that one copy — whether it can be read, how far back it puts you, and whether anyone can get to the console to use it."
+        },
+        {
+          "key": "C",
+          "text": "Recommend privileged access monitoring and alerting on the backup account.",
+          "quality": "poor",
+          "next": "the-closed-point",
+          "consequence": "Accepted without argument and added to the security roadmap for the following quarter. The security lead notes the tooling is already licensed.",
+          "why": "Monitoring privileged accounts is good practice and this one plainly warrants it, so the instinct is sound. Applied here it buys you an alert saying that your restore points are being deleted, while they are being deleted, by an account entitled to delete them.\n\nDetection is worth having when it shortens an exposure you can act inside. This exposure ends when the last copy goes, in minutes, and what the detection tells you about is the loss of the means to recover. When a weakness can be closed outright by putting a copy where the credential does not reach, the monitoring answer is the responsible-sounding second best."
+        },
+        {
+          "key": "D",
+          "text": "Recommend multi-factor authentication on the backup console.",
+          "quality": "defensible",
+          "next": "the-closed-point",
+          "consequence": "Agreed and technically straightforward. The identity lead adds, in passing, that the console holds no accounts of its own — it federates to the lender's on-premises identity provider, so it will inherit whatever that platform enforces.",
+          "why": "The right control aimed slightly past the path in use. The account here is not typing at a console: it is an agent on a hundred servers and a job that writes to an SMB share, and a second factor sits in front of an interactive login rather than in front of a file share or a service credential.\n\nKeep the identity lead's remark. Everything the console does about authentication, it does somewhere else, and that sentence is going to be the engagement."
+        }
+      ]
+    },
+    "the-closed-point": {
+      "situation": "Your recommendation about the backup account has been accepted, with an owner and a date, and the room has moved on.\n\nWhatever the recommendation was — fewer rights, a second factor, an alert when the account is used — it is a control placed around a credential, and the IT director's line to the risk committee writes itself: internal audit reviewed privileged access on the backup platform and management has agreed remediation. The committee will accept it, because privileged access is a category the lender knows how to close.\n\nFour days of fieldwork left. Nobody has yet asked which of the three copies survives someone holding that account, and the finding as drafted does not require anyone to ask.\n\nThe head of infrastructure, wiping the whiteboard, mentions that the courier collects the monthly tape on a Tuesday, and asks whether you want anything out of the vault while he is booking it.",
+      "prompt": "What do you do with the days you have left?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Before anything else, establish whether any copy exists that a domain administrator credential cannot alter or delete.",
+          "quality": "best",
+          "next": "the-tape",
+          "consequence": "You ask him to put the diagram back up. It takes twenty minutes. The repository share: no. The replica: no — same account, same domain, same rights. The tape, once it is out of the drive and in the courier's vault: yes. Nothing on the network can touch it.\n\nOne copy. Written monthly. The remediation already agreed changes none of those three answers.",
+          "why": "This is the question that separates a backup from a copy, and you have got to it. Three copies, two media and one offsite is a rule built for fire, flood and a failed array, and every one of those events is indifferent to credentials. An adversary holding Domain Admin is not, and against that adversary the count of copies collapses to the count of copies outside the trust boundary.\n\nWhat the detour cost you is not the answer, it is the framing. The account is already drafted, agreed and dated as a privileged access point, and that is the shape it keeps in the report and in the committee's memory: a hygiene item, closed. Ask the reachability question first and the account is one line inside a finding about copies. Ask it after, and the finding about copies arrives late, against a point management believes it has already dealt with."
+        },
+        {
+          "key": "B",
+          "text": "Spend the remaining days walking the Ransomware Recovery Annex step by step with the recovery lead, rather than reading it.",
+          "quality": "defensible",
+          "next": "the-restore-path",
+          "consequence": "He clears Thursday afternoon and brings a printed copy. You do not go back to the copies: the tape cycle, the depth of the disk retention and the escrow of the tape encryption keys in the enterprise password manager stay as the one-page summary described them.",
+          "why": "Walking a plan rather than reading it is the strongest thing available to you in this engagement, and choosing it over another document review is why this is defensible rather than poor. It will find something, and what it finds will be real.\n\nWhat it leaves out is the other half. A recovery path is only worth the copy it reaches, and you have not established which copy — if any — is left standing when someone else holds the credential. You will be able to say precisely how the recovery fails to start. You will not be able to say what it would have restored, how far back it puts the loan book, or whether the one copy beyond reach has ever been read end to end. The plan and the copies are a single finding, and you have taken half of it."
+        },
+        {
+          "key": "C",
+          "text": "Treat backup as covered — the account is being dealt with and the arrangement meets three copies, two media, one offsite — and move to closing.",
+          "quality": "poor",
+          "next": "the-pushback",
+          "consequence": "You close the backup fieldwork and draft the section around the account. The IT director is pleased with the engagement's focus, and the closing meeting is brought forward a week.",
+          "why": "The account finding is real, it was yours, and management agreed it without argument, which is what makes stopping here feel like a finished piece of work rather than an abandoned one.\n\nWhat you have changed is the size of the blast radius and not its shape. Every restore point still sits on a share one credential can prune, the replica is still the same volume fifteen minutes later, the only copy beyond that credential still arrives monthly and has never been restored in full, and nobody has performed step one of the recovery plan. You are walking into a closing meeting holding a privileged access observation and a standard the lender genuinely meets, against a board question about an event that goes through both."
+        }
+      ]
+    },
+    "the-tape": {
+      "situation": "The tape is the only copy beyond reach, so it is now the whole recovery capability.\n\nThe loan servicing platform carries an approved recovery point objective of fifteen minutes and a recovery time objective of twenty-four hours.\n\nThe monthly full is written from the repository across about nine hours to a single LTO-8 drive in the rack at the first colocation. The cartridge stays in the library until the courier collects on the Tuesday. Twelve tapes are retained in the courier's vault. The tapes are hardware-encrypted; the key escrow is a record in the enterprise password manager.\n\nRestores from tape in the past twelve months: two, both for items older than the fourteen days the disk holds. A valuation pack deleted in March and wanted in July, and a borrower file requested by the ombudsman. Both file-level, both successful, forty minutes of restore each once the cartridge was back from the vault. No full restore has ever been performed or timed.\n\nThe IT director joins the meeting, hears the last part, and says: \"That's your restore test evidence. Two restores from tape, both clean.\" He mentions that the chief risk officer is finalising the operational resilience self-assessment this week and will cite your conclusion on backup and recovery.",
+      "prompt": "How do you establish whether the offline copy is a recovery capability?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask for a full restore of the loan servicing database from the most recent tape, timed end to end, during fieldwork.",
+          "quality": "best",
+          "next": "the-restore-path",
+          "consequence": "Not into production, which nobody will agree to, but into the test environment. It is negotiated down and scheduled for the following Thursday. The infrastructure lead asks you to sit with the engineer, because the runbook has not been followed by anyone since it was written.",
+          "why": "A capability that only runs under stress has unknown effectiveness until it is exercised, and the exercise is available to you this week. That last part is what makes it the answer rather than a recommendation — you are not asking the lender to find out next year, you are finding out during fieldwork, and what you learn becomes evidence rather than a commitment.\n\nNote who does what. The engineer restores and management owns the environment and the risk of running it; you specify the test, observe it and time it. The request also does something the paperwork cannot: it puts a person in front of the runbook with an auditor watching, which is the only reliable way to discover which steps have never been performed."
+        },
+        {
+          "key": "B",
+          "text": "Accept the two successful tape restores as evidence the offline copy restores, and confirm to the chief risk officer that it can be described as a tested recovery capability.",
+          "quality": "poor",
+          "next": "the-restore-path",
+          "consequence": "The chief risk officer is grateful for a quick answer. The self-assessment goes to the board on Friday and to the regulator the following month, stating that the lender maintains an offline backup copy with tested restoration.",
+          "taint": "attested-tested",
+          "why": "The two restores were real, from tape, successful, and the IT director's framing is honest — he is not trying to slip anything past you. That is what makes it work.\n\nWhat they demonstrate is that a cartridge can be read and a file retrieved, in a running environment, by a person already logged in, in forty minutes of drive time. A recovery is a full data set, restored to a rebuilt platform, in an environment where nothing is running and nobody is authenticated. The two share a medium and nothing else. Accepting a partial exercise as a full one is the standard way untested capability gets recorded as tested, and it is why the misapplication is written into the rule rather than left to judgement.\n\nThe reason this cannot be walked back is not the conclusion; it is where the conclusion went. An internal opinion is revisable. An attestation of tested restoration, cited in a self-assessment, minuted by the board and filed with a regulator, is a statement of fact by the lender about a test that did not happen — and every later correction is now an admission rather than a finding."
+        },
+        {
+          "key": "C",
+          "text": "Compute the restore duration from the drive's rated throughput and the size of the database.",
+          "quality": "defensible",
+          "next": "the-restore-path",
+          "consequence": "Six point two terabytes at the rated 360 MB/s is under five hours, comfortably inside the twenty-four-hour objective. The IT director asks you to put that in the report.",
+          "why": "Arithmetic is cheap and the number looks decisive, which is the problem with it. It is arithmetic about a data stream, and a recovery is not a data stream.\n\nRated throughput assumes a drive that streams without stopping to reposition, a source that keeps up, and a target that can absorb it; observed rates on a single drive restoring a database are routinely a third of that. More to the point, the five hours starts when the restore starts, and says nothing about recalling the cartridge from a vault, obtaining an authenticated session, bringing the database up afterwards, or whether the escrowed key that decrypts the cartridge can be retrieved. Every one of those is inside the twenty-four hours."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the annual disaster recovery test be extended to include a full restore from tape.",
+          "quality": "poor",
+          "next": "the-pushback",
+          "consequence": "The IT director agrees it would be sensible and adds it to the scope for next year's test. The test is eight months away. Nobody opens the runbook while you are on site.",
+          "why": "The right activity, recommended instead of performed. It is a reasonable thing to want and it hands the finding to someone else, eight months out, past your reporting date and past the board's question.\n\nThere is a second cost. The value of the test here is not the duration it produces; it is what an engineer discovers at step one, and you would have seen that this week for the price of asking. Recommending a future test converts something you could have established into something the lender has promised to look at, and a promise is not a finding."
+        }
+      ]
+    },
+    "the-restore-path": {
+      "situation": "The Ransomware Recovery Annex, walked step by step rather than read.\n\nStep 1: \"The recovery lead signs in to the backup console and selects the most recent clean restore point.\" The console holds no accounts of its own; it authenticates by SAML to the lender's on-premises identity provider, which reads from the production directory.\n\nStep 11: \"Restore the domain controllers.\"\n\nThe annex anticipates the problem. It names a break-glass local administrator account on the console, and records that its credential is held in the enterprise password manager. The password manager authenticates the same way.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report the identity platform as a single point of failure in the recovery path.",
+          "quality": "defensible",
+          "next": "the-pushback",
+          "consequence": "Raised and accepted without resistance. The identity lead proposes a second identity provider node and a standby domain controller at the second colocation, replicating continuously, so that a site loss cannot take the directory out. A change request is drafted the same afternoon.",
+          "why": "The right finding, and the remediation it attracts is the wrong one — which is why naming the exposure is not the same as mapping it.\n\nA standby node answers the loss of a building. It is a member of the same directory, reached by the same credentials, sharing the same replication and the same compromise; when the directory is encrypted the standby is a second encrypted copy of it, arriving on schedule. That is the same substitution you already found in the backup design, made again one layer up, because 'single point of failure' is a phrase most engineers hear as 'needs a second one'.\n\nThe dependency is not on a server. It is on a directory that shares the event."
+        },
+        {
+          "key": "B",
+          "text": "Sit with the recovery lead and establish concretely how the first authenticated session is obtained when the directory is unavailable.",
+          "quality": "best",
+          "next": "the-pushback",
+          "consequence": "It takes forty minutes and it does not resolve.\n\nThe break-glass credential is in the vault. The vault needs the identity provider. There is a nightly offline export of the vault, and it lands on a domain-joined file share. The recovery lead says he would call the vendor; the vendor's support portal requires a support PIN, which is in the vault. The tape encryption keys are escrowed in the vault.\n\nHe stops, looks at the diagram, and says he has run this plan through his head perhaps thirty times and always started at step two.",
+          "why": "The plan does not have a weak link, it has a closed loop, and a loop is only visible if you insist on the first step being performed rather than described. Everyone who reviewed this annex — the author, the executive risk committee, the regulator's own reading — began at step two, because step one reads like a formality.\n\nWhat that forty minutes buys you is the difference between a control weakness and an unrecoverable position. Identity rated as a single point of failure invites a second identity server. Identity as the thing that gates every route to every credential, including the key that decrypts the only copy an attacker cannot reach, invites the only recommendation that helps: an authentication path that does not run through production at all.\n\nThe vendor PIN and the key escrow are the confirmation. Once you find the loop you find it everywhere, because the vault was designed to be the one place that holds the secrets and it succeeded."
+        },
+        {
+          "key": "C",
+          "text": "Note that a break-glass account exists, so the plan has a manual fallback.",
+          "quality": "poor",
+          "next": "the-pushback",
+          "consequence": "Recorded as a compensating control against the identity dependency. The annex names it, the account exists, and the console configuration confirms it is enabled.",
+          "why": "Everything you verified is true, and you verified the existence of a control rather than the availability of one. The account is there. Nobody in the lender can currently obtain its password without the platform the account exists to work around.\n\nThis is the exact error the engagement is about, transposed. Three copies that exist and cannot be reached is the backup finding; a break-glass account that exists and cannot be used is the same sentence about a credential. When a whole review is about the distance between what is documented and what can be performed, 'it is named in the annex' is not evidence of anything except the annex."
+        },
+        {
+          "key": "D",
+          "text": "Recommend the break-glass credential be printed, sealed and held in the office safe.",
+          "quality": "defensible",
+          "next": "the-pushback",
+          "consequence": "Done inside the week, and done properly: two sealed envelopes, one at each site, entered in the safe register with a tamper check in the monthly facilities walk.",
+          "why": "The correct fix, arrived at one door into the corridor. It is cheap, it is fast, the lender implemented it immediately, and you should keep it.\n\nWhat it does not do is prompt anyone to ask what else lives behind that login. The tape encryption keys are escrowed in the same vault; so is the vendor support PIN; so is the offline export, on a domain-joined share. A sealed envelope containing a console password gets a recovery lead to a login prompt for a system whose cartridges he cannot decrypt.\n\nA remediation that lands before the analysis fixes the instance you happened to name. The class here is 'every secret required to recover is held behind the platform being recovered', and it takes the full walk to see it."
+        }
+      ]
+    },
+    "the-pushback": {
+      "situation": "The closing meeting. The IT director has read the draft and has a prepared answer.\n\n\"We hold three copies, on two media, with one offsite. That is the standard, we meet it, and we have met it for eleven years. Every scenario you have described is a scenario. None of it has happened, and the last time our backups were needed they worked.\"\n\nThe chief risk officer is in the room. The operational resilience self-assessment is on her desk.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree the standard is met, and establish with the business what a recovery to the last monthly tape would actually cost.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "You put it to the finance director, who works it out on the whiteboard. Interest collections for 9,400 monthly-pay borrowers are submitted to the sponsor bank three working days ahead; miss the window and there is no re-presentation inside the cycle, and every arrears flag that follows is wrong. Restoring to a monthly tape means the servicing database is missing up to thirty-one days of receipts, redemptions and drawdowns — so the ledger is not merely old, it disagrees with the bank.\n\nHe asks how long the lender would be down. You tell him nobody has measured it. He looks at the IT director, who confirms it.",
+          "why": "He is right about the standard, so concede it — the concession costs nothing and moves the conversation off ground he can hold.\n\nWhat replaces it is the only frame that outranks a technical standard in that room. Three copies is a control assertion; thirty-one days of missing receipts against an approved recovery point objective of fifteen minutes is a consequence, priced by the person who owns the consequence. Criticality and remediation sequence come from what the outage does to the business, and the finance director produced in four minutes a cost that no amount of arguing about replication topology would have produced.\n\nIt also changes who is asking. After that whiteboard the question is not the auditor's opinion of the backup design; it is the finance director wanting to know how long he is down, and nobody being able to tell him."
+        },
+        {
+          "key": "B",
+          "text": "Set out the arithmetic: an approved recovery point objective of fifteen minutes against a recoverable position of up to thirty-one days.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "He does not dispute it — he checks the tape cycle on his laptop and confirms the thirty-one. The meeting turns, constructively, to whether the tape run could move to weekly, and what that would cost in drive time and courier collections.",
+          "why": "The number is the finding and it is unarguable, which is why it is worth having. What happens next is instructive: presented as a technical shortfall, it attracts a technical response, and within a minute the room is optimising a tape schedule.\n\nWeekly tape is a real improvement and it is the smaller half of the finding. The gap is not one number; it is a recoverable position nobody has priced and a recovery nobody has timed. An exposure stated without a business cost attached gets answered at the cheapest layer that makes the number smaller."
+        },
+        {
+          "key": "C",
+          "text": "Ask the incident response retainer to review the recovery design and give an independent view.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "They will, for a fee, with a report in about six weeks. Their consultant offers one remark on the call: the design is one they see regularly, and the credential loop is the part clients are usually most surprised by.",
+          "why": "A reasonable move when you are outside your competence, and a costly one when you are not. You are holding the lender's own tape cycle against its own approved objective, established at first hand. Six weeks puts the answer past your reporting date, and what comes back is a second opinion on evidence you already hold.\n\nThere is a subtler cost. Commissioning an external review at the moment management pushes back signals that the conclusion needed shoring up, and the committee reads that. Your evidence is stronger than the retainer's opinion, because it is specific to this lender and you obtained it yourself."
+        },
+        {
+          "key": "D",
+          "text": "Accept it. The arrangement meets a recognised standard and has never failed; record the review as satisfactory with observations.",
+          "quality": "poor",
+          "next": "end-unproven",
+          "consequence": "The report concludes that backup and recovery arrangements are appropriately designed and operating, with observations on service account privilege and restore testing. The chief risk officer's self-assessment cites it. The IT director thanks you for a pragmatic engagement.",
+          "why": "He is genuinely right that the standard is met, and 'never failed in eleven years' is a real record, honestly offered. Both statements are also compatible with everything you found, which is the point at which agreeing with them becomes the mistake.\n\nThree copies, two media, one offsite was written for events that destroy media: fire, flood, a failed array, a lost building. Every one of those is indifferent to who holds which credential. It was not written for an adversary who arrives holding the account that manages all three copies, and against that adversary the count is one — the tape — arriving monthly, decryptable only by a key nobody can reach.\n\nEleven years without needing it is not evidence about ransomware. It is the reason nobody has looked."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The audit committee wants a recommendation it can hold someone to, with a date on it.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the backup service account be de-privileged and multi-factor authentication enforced on the backup console.",
+          "quality": "defensible",
+          "next": "end-hardened",
+          "consequence": "Accepted in full and delivered in eleven weeks, ahead of the committed date. The account loses Domain Admin, the console enforces a second factor, and the privileged access review is amended to include service accounts.",
+          "why": "Real hardening, properly implemented, and the lender is safer for it. It also leaves the topology exactly as you found it.\n\nBoth controls live inside the trust domain they are protecting. A de-privileged backup account still prunes the repository, because that is the job; the second factor is enforced by the identity provider, which is the platform the recovery cannot reach. The copies are still all reachable, the recovery path still starts inside a loop, and the full restore has still never been timed.\n\nSmaller blast radius, same blast."
+        },
+        {
+          "key": "B",
+          "text": "That at least one retained copy be immutable for longer than observed attacker dwell time and unalterable by any production credential; that the recovery path have an authentication route independent of the production directory; and that a full restore through that route be timed end to end within ninety days.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The committee takes the three together. The infrastructure lead objects that immutable object storage at the retention depth implied is roughly twice what the second colocation costs. The finance director, asked what the alternative looks like from his side, describes a ledger a month out of step with collections the sponsor bank has already taken, and says he would rather pay for the storage. The ninety-day restore is minuted with a named owner.",
+          "why": "Three parts, and each one closes a door the other two leave open.\n\nImmutability is the preventive control, and it is available here — a copy that no credential can alter removes the loss rather than shortening it, which is why it outranks every monitoring and alerting answer in the engagement. Tying the retention to the observed dwell distribution rather than to a round number is what makes it a control instead of a setting; fourteen days chosen by the size of an array was never going to hold against an upper quartile of twenty-six.\n\nThe independent authentication route is the part only this engagement could have found, and it is the part that makes the other two usable. A copy nobody can log in to retrieve is not a recovery capability.\n\nThe ninety-day timed restore is what converts the whole thing from design to evidence, and the date is what stops it becoming an intention. Everything in this case that was believed rather than known was believed because nobody had ever run the procedure to the end. Note also what the three recommendations do not do: they set the property required, not the product, and they leave management to choose how."
+        },
+        {
+          "key": "C",
+          "text": "That a third replication target be added at a further site so that no single site loss can take out the backups, and that the tape cycle move from monthly to weekly.",
+          "quality": "poor",
+          "next": "end-copies",
+          "consequence": "Both accepted, funded in the same quarter and delivered inside six months. The lender now holds four copies across three sites, with a weekly offline tape.",
+          "why": "The second half is a genuine improvement and worth keeping: weekly tape takes the worst recoverable position from thirty-one days to seven, and it does it cheaply.\n\nThe first half is the finding misread. A third replication target is a third copy of the same volume, held in the same domain, writable by the same credential — it protects against the loss of a site, which was never the risk in front of you, and it will be cited as the remediation because it is the expensive one. Nothing about who can delete the copies has changed, and nothing about how anyone obtains a first authenticated session has changed.\n\nThis is what happens when a recommendation is written in the vocabulary of the standard rather than the vocabulary of the failure. Four copies, three sites, one credential, one login nobody can perform."
+        },
+        {
+          "key": "D",
+          "text": "That the Ransomware Recovery Annex be rewritten and rehearsed twice a year, with the first rehearsal inside three months.",
+          "quality": "defensible",
+          "next": "end-hardened",
+          "consequence": "Accepted. The first rehearsal runs ten weeks later and is halted after thirty-five minutes, at step one, with the recovery team unable to obtain an authenticated session. The write-up is circulated widely and is the most-read document the resilience function produces that year.",
+          "why": "A rehearsal is the strongest form of evidence available and this one produces a genuinely persuasive artefact — a recovery that could not begin. Twice a year keeps it honest, and you were right to want it.\n\nWhat it does not do is change anything. The rehearsal demonstrates the loop you had already established, on the lender's own time, to an audience who will then have to decide what to do about it — and the decision that follows is the recommendation you did not make. Meanwhile every copy remains deletable by one credential, and rehearsing a restore does not create a copy worth restoring.\n\nTesting is how you find out. It is not, by itself, how you fix, and by this point in the engagement you were past finding out."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "One copy nobody can reach, and a way in to reach it",
+      "verdict": "strong",
+      "narrative": "The report carries three findings and one number. The number is thirty-one days against an approved recovery point objective of fifteen minutes.\n\nImmutable object storage goes in with a thirty-five-day lock, funded at the second attempt once the finance function had priced a month of unreconciled collections for the committee. A recovery identity path is built: a small separate directory at the second colocation with no trust to production, holding the console break-glass account, the tape key escrow and the vendor support PIN, with sealed physical copies in both safes as a backstop. The courier collection moves from Tuesday to Monday morning — the cheapest item in the report, and it closes the two days a month the only offline copy sat in a library the backup account could address.\n\nThe timed restore runs on day seventy-eight. The loan servicing database comes back from tape in nineteen hours and forty minutes, not the five the rated throughput suggested — the drive spends much of its time repositioning, and the database takes four hours to come up afterwards. The recovery time objective is twenty-four hours. It is met by four hours and twenty minutes, and everyone in the room now knows that, which is the first time anyone has known it.\n\nThe self-assessment is redrafted before it is filed.",
+      "why": "The lender's arrangements were correct against the standard they were measured by and gave no protection against the event the board asked about, and the gap between those two sentences is the whole case.\n\nThree copies, two media, one offsite was written for events that destroy media. It counts copies because fire does not care who holds which credential. An adversary holding the backup service account is not another way to lose a building — it is a single actor with authority over every copy at once, and against that actor the meaningful count is not how many copies exist but how many lie outside the credential's reach. Here, one, arriving monthly, encrypted with a key held inside the loop, and online in a library for two days of every month.\n\nReplication was the most misleading control in the estate precisely because it worked perfectly. It reproduces a state faithfully, within fifteen minutes, and has no view on whether that state is one you want; the fifteen minutes management offered as the measure of resilience was the measure of how fast the damage arrived. Continuous replication is not a backup, because it has no history — and this is the trap, since it satisfies a recovery point objective on paper and the objective is what gets approved.\n\nThe circular dependency was invisible for a structural reason worth carrying away. Everyone who read the annex — the author, the executive risk committee, the regulator — started at step two, because step one reads like a formality. It only fails when a person is asked to perform it with the directory gone, and nobody had ever been asked. A plan whose first step cannot be executed does not degrade gracefully; it does not start.\n\nAnd the fix was preventive because a preventive fix existed. Monitoring the backup account produces an alert about copies being deleted, by an account entitled to delete them, at a moment when the deletion is the loss. Immutability removes the event. When something can be put out of reach, putting a watch on it is the responsible-sounding second best."
+    },
+    "end-hardened": {
+      "title": "The account is fixed, the corridor is not",
+      "verdict": "acceptable",
+      "narrative": "Either the backup service account loses Domain Admin and the console gains a second factor, or the annex is rewritten and rehearsed and the rehearsal stops after thirty-five minutes with nobody able to log in. Both are real progress, both are delivered on time, and both are closed by the committee with genuine satisfaction.\n\nThe copies are unchanged. Every restore point still sits on an SMB share that a backup credential can prune, the replica is still the same volume fifteen minutes later, and the only copy outside the domain is still a monthly tape whose full restore has not been timed. The tape encryption keys are still escrowed in a vault behind the identity provider.\n\nFourteen months later the lender's operational resilience submission describes the arrangements as strengthened following internal audit review. It is accurate.",
+      "why": "You reduced the blast radius and left the topology intact, and the distinction between those two things is the lesson.\n\nBoth remediations operate inside the trust domain they are meant to protect. A de-privileged backup account still writes to and prunes the repository, because that is what the software does, so the copies remain deletable by whoever holds it; the second factor is enforced by the identity provider, which is the platform the recovery path cannot reach. Neither creates a copy beyond credential reach, and neither creates a route to a first authenticated session.\n\nThe rehearsal variant is the more seductive of the two, because its output is so vivid. A recovery halted at step one is the most persuasive evidence anyone could produce and it is evidence of something you had already established. Testing tells you where you stand; it does not move you. By the closing meeting you were past needing to find out.\n\nWhat both leave in place is the thirty-one days. That number was never a control weakness — it was the lender's actual recoverable position, and nothing here touched it."
+    },
+    "end-copies": {
+      "title": "Four copies, one credential",
+      "verdict": "weak",
+      "narrative": "The third replication target goes live in the second quarter, at a cost slightly above the second colocation. The tape cycle moves to weekly, which takes the worst recoverable position from thirty-one days to seven. The board minute records that the lender now maintains four copies across three geographically separate sites and that the ransomware finding is closed.\n\nThe three disk copies remain one domain, one service account and one SMB share apart. The Ransomware Recovery Annex is unamended; step one still requires a console login the console cannot service. The tape encryption keys are still in the vault.\n\nNineteen months on, the lender is encrypted over a weekend. The disk repository and both replicas are unusable within the hour. The most recent tape is five days old and readable, and it takes the recovery team thirty-four hours to obtain a session on the backup console — the last four of them by courier to the vendor's office with a passport and a signed director's letter. Total outage, eleven days.",
+      "why": "The recommendation was written in the vocabulary of the standard rather than the vocabulary of the failure, and the standard counts copies.\n\nA third replication target answers site loss. Site loss was never the risk in front of you, and it is the risk the lender was already best protected against — you funded redundancy against the event that was already covered, while the event the board asked about walked through all of it on one credential. Because it was the expensive item, it became the remediation of record, which is how a closed finding stops anyone looking again.\n\nWeekly tape was the useful half and it did what it was supposed to: five days of lost transactions instead of thirty-one. That improvement is why the eventual outage is eleven days rather than a solvency question, and it is worth noticing that the cheap recommendation carried the value.\n\nThe thirty-four hours to a login was the finding that was there to be made, and no quantity of copies addresses it. The class of error is treating 'not enough resilience' as 'not enough copies' — when the question that decides a ransomware recovery is not how many copies you hold, but how many of them the attacker's credential cannot touch, and whether anyone can authenticate to fetch one."
+    },
+    "end-unproven": {
+      "title": "Compliant with the standard",
+      "verdict": "weak",
+      "narrative": "The review concludes that backup and recovery arrangements are appropriately designed and operating effectively, with two observations: that the backup service account carries privileges beyond those required, and that restore testing should be extended in scope. Both are agreed with management dates.\n\nThe chief risk officer's operational resilience self-assessment cites the conclusion. The board records that the question it asked has been answered.\n\nThe recovery point objective of fifteen minutes remains approved and unchallenged. The actual recoverable position, in the event the review was commissioned to consider, is a tape written on the first weekend of the month, decryptable with a key held in a vault that authenticates through a directory the recovery is trying to restore. Nobody has timed a full restore. Nobody has performed step one.",
+      "why": "Every word of the report is accurate and the reader finishes it believing something false, which is the specific failure mode of auditing against a standard rather than against a risk.\n\nThree copies, two media, one offsite is a sound rule and it is a rule about surviving the loss of a copy. It counts because fire, flood and a failed array do not hold credentials. The event the board asked about is a single actor with authority over all three copies simultaneously, and the rule has nothing to say about that, so meeting it is not evidence and cannot be reported as though it were.\n\n'Never failed in eleven years' was offered honestly and is equally beside the point. Backups fail at the moment of need, under conditions that have never obtained, and eleven quiet years is a description of how long it has been possible to avoid finding out.\n\nThe two observations are the tell. Service account privilege and restore testing scope are both real, both agreed, and both sized as housekeeping — which is what a finding looks like when it has been separated from the consequence that made it a finding. The consequence was on a whiteboard four minutes away, in the finance director's office, and it was never asked for."
+    },
+    "end-attested": {
+      "title": "Tested restoration",
+      "verdict": "failed",
+      "narrative": "The self-assessment goes to the board on the Friday and to the regulator four weeks later. It states that the lender maintains an offline backup copy and that restoration from it has been tested. Internal audit is cited as the source.\n\nYour fieldwork continues and gets steadily better. You find the loop, you map it, you price the thirty-one days with the finance director, and your report — genuinely a strong report — recommends immutable storage, an independent recovery identity path and a timed restore within ninety days.\n\nThe committee reads it carefully and asks the obvious question. If the offline copy is a tested recovery capability, as internal audit confirmed six weeks ago and as the board has told its regulator, what has changed?\n\nNothing has changed. The chief risk officer asks whether the attestation should be withdrawn, which means a corrective notification and a conversation about how it came to be made. The IT director points out, correctly, that he described the two tape restores accurately and it was internal audit that characterised them as a test. The recommendations are agreed, and the engagement's remaining months are spent on the attestation.\n\nThe head of internal audit's next report to the committee is about internal audit.",
+      "why": "You were asked a narrow question under time pressure, the facts you were given were true, and the person asking was not trying to mislead you. That is what makes this the version worth studying — nothing about it feels like a bad decision at the time.\n\nTwo file-level restores from tape, both successful, forty minutes of drive time each, are evidence that a cartridge can be read and a file retrieved by someone already authenticated in a running environment. A restoration test is a full data set returned to a rebuilt platform in an environment where nothing is running and nobody is logged in. The two share a medium. Treating the partial exercise as the full one is written into the rule as the standard misapplication, precisely because it is so easy to do in a meeting.\n\nWhat makes it unrecoverable is the destination, not the judgement. An opinion in a working paper is revisable; that is what fieldwork is for. An attestation of tested restoration, cited in a board-approved self-assessment and filed with a regulator, is a statement of fact by the lender about a test that never took place — and once it is filed, every correction is a notification rather than a finding, and the subject becomes internal audit's evidence rather than the lender's exposure.\n\nThere is a role point underneath it. The chief risk officer's self-assessment is management's document and management's assertion to make; the moment internal audit supplies the conclusion inside it, the independent check on that assertion has been spent. The practical rule is short. Nothing goes into an external attestation that fieldwork has not finished establishing, however narrow the question and however tight the deadline, because the deadline is always someone else's and the signature is always yours. If an answer is needed on Friday, the answer is that testing is not complete."
+    }
+  }
+}

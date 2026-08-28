@@ -1,0 +1,349 @@
+{
+  "id": "d5-the-suppressed-alert",
+  "title": "The Suppressed Alert",
+  "domain": "5",
+  "section": "B",
+  "topics": [
+    "Security Monitoring Tools and Techniques",
+    "Security Incident Response Management",
+    "Information System Attack Methods and Techniques",
+    "Evidence Collection and Forensics"
+  ],
+  "principles": [
+    "contain-first",
+    "timeliness",
+    "root-cause",
+    "auditor-role",
+    "evidence-quality",
+    "coverage-limits"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this study system. Not adapted from ISACA materials, the QAE, or any prep-course case.",
+  "opening": "You are eight days into a review of security monitoring at an online retail brokerage. One point nine million funded accounts, a securities licence, and a supervisory examination that starts in October.\n\nThe security operations centre is well regarded inside the firm. Six analysts, twenty-four hour cover, a SIEM carrying 140 correlation rules, and a monthly detection report to the risk committee stating how many of those rules are deployed. The answer has been 140 for two years.\n\nYou ask for the rule inventory. Nobody has asked for it before, and it exports with a column the monthly report does not have: suppression state.",
+  "taints": {
+    "understated": "end-understated"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Twenty-three of the 140 rules carry an active suppression.\n\nOne of them is AUTH-114, impossible travel on interactive and remote-access logons: a successful authentication from two locations too far apart for the time between them.\n\nThe suppression was created eleven months ago by a tier-2 analyst. The comment field reads \"high FP volume during VPN migration - revisit\". The expiry field is empty; it is optional in the console. There is no ticket, no approval, and no record that anyone has looked at it since.\n\nThe rule is not disabled. It still evaluates. The matches are dropped before they reach the analyst queue. The authentication logs behind it are retained for thirteen months, which covers the whole of the suppression.",
+      "prompt": "Where do you take this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Re-run the rule's logic over the retained authentication logs for the suppression window, to establish what the mute actually swallowed.",
+          "quality": "best",
+          "next": "the-matches",
+          "consequence": "The SIEM will replay rule logic against the cold tier. It takes you most of an afternoon to reconstruct the correlation and scope it to the eleven months. The job returns 31 matches.",
+          "why": "A suppression with no expiry and no review is a governance defect the moment you see it, and you can write that finding from the console screenshot alone. The question you cannot answer from the console is whether it is only a governance defect.\n\nA muted rule is a control that has been off for a measurable period over a population that still exists. Thirteen months of retention against eleven months of muting is the case handing you a testable population, and the replay costs an afternoon. Until you run it, the difference between a process weakness and an undetected intrusion is a query nobody has executed."
+        },
+        {
+          "key": "B",
+          "text": "Pull the full suppression inventory first: how many rules are muted, by whom, with what approval and what expiry.",
+          "quality": "defensible",
+          "next": "the-matches",
+          "consequence": "Twenty-three active suppressions. Nine older than six months, four with no expiry at all, none with an approval record. Two were created by analysts who have since left the firm. You then replay the AUTH-114 logic over the retained logs and get 31 matches.",
+          "why": "Sound audit instinct and the right population. One suppression is an anecdote; twenty-three with no approval and no expiry is a control that does not exist, and you will need this table later regardless.\n\nWhat it establishes is the size of the process weakness. It says nothing about whether anything is currently wrong, and it spends the afternoon on breadth at a point where one of the twenty-three is already in your hands, already eleven months old, and already sitting on top of retained logs you can replay. Breadth first is a reasonable order; it is a notch below going at the muted rule you can test today."
+        },
+        {
+          "key": "C",
+          "text": "Ask the SOC manager why AUTH-114 was muted and whether anything was missed.",
+          "quality": "defensible",
+          "next": "the-matches",
+          "consequence": "He is open about it and unhurried. The VPN concentrator migration last autumn generated impossible-travel matches by the dozen, the rule was drowning the queue, and muting it was the pragmatic call. He adds that the identity provider computes its own sign-in risk score, so anything real would surface there anyway. He does not think anything was missed. You replay the rule logic over the retained logs the same afternoon and get 31 matches.",
+          "why": "Worth doing, and it gives you two things: the reason, which is genuine, and the compensating-control argument, which is the thing you now have to test. Inquiry is how you find out what to test.\n\nIt is not how you find out what happened. He is telling you what he believes about a queue he stopped receiving eleven months ago, and belief about a suppressed detection is exactly the evidence a suppressed detection destroys. His compensating control is the first thing to test rather than accept: the identity provider scores interactive sign-ins federated through it, and what sits in those logs is a service account authenticating to a concentrator, which is the population it does not see."
+        },
+        {
+          "key": "D",
+          "text": "Ask the SOC manager to re-enable the rule now and record the exception as remediated during fieldwork.",
+          "quality": "poor",
+          "next": "the-re-enabled-rule",
+          "consequence": "He agrees readily, re-enables it before lunch, and asks you to note the exception as remediated during fieldwork.",
+          "why": "The fix looks free and the client is willing, so it feels like a finding closed on the day it was raised. Two things go wrong.\n\nThe rule was muted because it was noisy and nothing about the noise has changed, so switching it on without tuning it re-proves the analyst's original point and hands the SOC a documented reason to keep it off. You have made your own recommendation harder to land before you have written it.\n\nAnd re-enabling a detection is not retrospective. It does nothing about the eleven months already elapsed, and it is the eleven months that hold whatever the mute was covering. A remediation applied before the measurement usually closes the wrong thing."
+        }
+      ]
+    },
+    "the-re-enabled-rule": {
+      "situation": "AUTH-114 is back in the queue by lunch. By six it has produced nine impossible-travel alerts, every one of them a member of staff whose egress moved to the second concentrator in the migration that started this month.\n\nThe SOC manager mutes it again at 18:20. This time there is a ticket, an approver, and a note: \"Rule unusable in current form. Re-suppressed following audit-requested re-enablement. Recommend audit point closed as remediated; tuning raised with detection engineering.\"\n\nHe asks whether he can record your exception as closed.",
+      "prompt": "How do you leave it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Keep the exception open, and replay the rule's logic over the retained authentication logs for the eleven months it was muted.",
+          "quality": "best",
+          "next": "the-matches",
+          "consequence": "You tell him the exception stays open until you know what eleven months of muting dropped. Reconstructing the correlation and scoping it to the window takes the rest of the evening. The job returns 31 matches.",
+          "why": "You have just watched the rule fail in front of you, which makes the analyst's original judgement look right and your re-enablement look hasty. Both of those can be true and neither one answers the question.\n\nWhat the rule does under this month's migration says nothing about what it dropped over the eleven months it was muted, and that population is still sitting in retained logs. Keeping the exception open is the other half of it: an exception closed on the auditee's note is closed on the auditee's account of the condition."
+        },
+        {
+          "key": "B",
+          "text": "Accept the note. The rule is demonstrably unusable as written, so recast the point as a tuning recommendation to detection engineering.",
+          "quality": "poor",
+          "next": "the-matches",
+          "consequence": "You agree the exception has become a detection-engineering point and it goes into the draft that way. That evening, working down the suppression inventory for the table, you replay AUTH-114's logic over the retained logs out of completeness. It returns 31 matches.",
+          "why": "The note is technically accurate — the rule is unusable as written and you have just proved it — and a tuning recommendation is a real one. It also lets the person the finding reflects on decide what the finding is about.\n\nThe finding was never that AUTH-114 was noisy. It was that a detection could be switched off for eleven months by one analyst with no approval and no expiry, and that nobody knew what came off with it. You reached the replay that evening by working down a list, not because you had decided the eleven months needed measuring, and an intrusion found by completeness is an intrusion you can miss by being slightly less thorough."
+        },
+        {
+          "key": "C",
+          "text": "Agree the rule needs tuning, but require the new suppression to carry an expiry and an approval, and keep the exception open.",
+          "quality": "defensible",
+          "next": "the-matches",
+          "consequence": "He sets a thirty-day expiry and attaches the ticket without argument. The exception stays open. You replay the rule's logic over the retained logs the same evening and get 31 matches.",
+          "why": "You fixed what was in front of you and it is worth having. Tonight's mute is dated and owned, which is more than the other twenty-two can say, and it cost him nothing to agree.\n\nIt is all forward-looking. A thirty-day expiry on tonight's suppression does nothing about the eleven months already elapsed, and those are the months with something in them. Correcting the going-forward condition before measuring the historical one is the same error as re-enabling the rule, taken one step later."
+        }
+      ]
+    },
+    "the-matches": {
+      "situation": "Thirty-one matches over eleven months.\n\nTwenty-seven of them are one thing: staff whose VPN egress moved to a Frankfurt concentrator while their home broadband stayed in Manchester, all inside a six-week window last autumn. The analyst was right. That was noise.\n\nFour are not. They are the same account, svc-mktdata-recon, which exists to run the overnight position reconciliation from two named hosts inside the data centre. Each of the four is a successful remote-access logon with that account's credential, from a residential ISP range in one country and then from a hosting provider in another, forty minutes apart. 2 April. 27 May. 19 August. 25 August. Service accounts are exempt from multi-factor authentication.\n\nThe concentrator's session table shows that account connected since 25 August at 03:12. Three days. The session is open now.\n\nThe account has read access to the position-keeping database.\n\nYour engagement manager is at another client today. The SOC's shift lead is on the floor, two doors from the audit room.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Stop querying. Tell the SOC shift lead and your engagement manager now, hand over the query and the four timestamps, and state plainly that the session is open.",
+          "quality": "best",
+          "next": "the-response",
+          "consequence": "You walk two doors and email your engagement manager from the corridor. The shift lead has the concentrator session on screen inside four minutes and declares an incident within twenty. He asks you to send the replay query and to touch nothing further.",
+          "why": "You know containment comes first, and it does. The principle is scoped by who you are: containment is the responder's first move, and yours is the phone. The fastest containment available to you is the person two doors away who has the authority, the tooling and the accountability to decide whether to kill the session or watch it.\n\nNotifying both sides at once is the other half. The client gets the response started; your own management gets the escalation on the record in the same minute, which is what stops this becoming a conversation about what you did on your own initiative."
+        },
+        {
+          "key": "B",
+          "text": "Call your engagement manager first and let her decide how this gets escalated into the client.",
+          "quality": "defensible",
+          "next": "the-response",
+          "consequence": "She is with another client and calls back fifty minutes later. She agrees immediately, telephones the head of security operations, and the SOC has it about fifteen minutes after that. The session is still open when they get to it.",
+          "why": "Escalating through your own management is correct in general, and for a reportable finding it is exactly right. Your manager owns the reporting route and the relationship, and going around her is how auditors create problems for themselves.\n\nThe constraint here is not a reporting-route question. It is a live session on a privileged account, which makes it a timeliness question, and the answer to a timeliness question is never a callback. Notifying both in the same minute costs nothing, loses no control over the reporting route, and does not spend fifty minutes of an open connection on your voicemail."
+        },
+        {
+          "key": "C",
+          "text": "Reconstruct what the account did before you escalate, so the SOC gets a complete picture rather than four timestamps.",
+          "quality": "poor",
+          "next": "the-response",
+          "consequence": "Two hours of querying. You establish that the account read from the position-keeping database on the 19th and the 25th, outside its scheduled window, and you have the row counts. You call the shift lead at the end of it and hand over both the matches and the analysis.",
+          "why": "The instinct is generous and the analysis is genuinely useful. Handing a responder four raw timestamps feels like handing over homework.\n\nIt is two hours of an open session, and every one of those minutes belonged to someone with the authority to close it. It is also the responder's work: scoping an intrusion is the incident team's task, done with their tooling and their chain of custody, and you performed it from a read-only audit account whose queries now sit in the same logs they are about to treat as evidence. A partial escalation delivered now beats a complete one delivered at the end of the afternoon, every time."
+        },
+        {
+          "key": "D",
+          "text": "Ask the identity and access team to disable the account and drop the session immediately.",
+          "quality": "poor",
+          "next": "you-acted",
+          "consequence": "They action it within ten minutes; the request comes from audit and nobody asks who authorised it. The session drops. At 02:00 the overnight position reconciliation fails, the operations desk raises a P1, and at 08:40 the SOC shift lead calls you asking who requested the change and why.",
+          "why": "The instinct is right and it is the responder's instinct. Something is live, containment comes first, and the shift lead would very likely have done something similar within the hour.\n\nHe would have done it having first decided whether the live session was worth more watched than killed, which is a judgement that belongs to the person accountable for the incident. That session was the best evidence anyone was going to get about what the credential was being used for, and it is gone. You changed a production credential at a firm with settlement obligations, on your own authority, and that account exists to run the overnight reconciliation. And you are now an actor inside the incident you are going to have to audit."
+        }
+      ]
+    },
+    "you-acted": {
+      "situation": "08:40 the next morning. The account is disabled, the session is gone, the overnight reconciliation did not run, and a P1 is open with the operations desk treating it as a failed batch job.\n\nThe SOC shift lead knows only that a service account was disabled overnight at the request of someone in audit. Nobody has yet connected it to anything.",
+      "prompt": "He is on the phone. How do you handle it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Give him the whole thing in writing now: the four matches, the open session, the exact time you asked for the disable and precisely what you asked for, plus the replay query.",
+          "quality": "best",
+          "next": "the-response",
+          "consequence": "You send it inside fifteen minutes. He declares an incident by 09:15 and folds your account into the timeline, marking the session termination as an audit-initiated action so the forensic work does not chase it. The P1 is reclassified the same morning.",
+          "why": "The unauthorised action has happened and cannot be undone. What is still in play is whether the responders can trust anything they are looking at.\n\nAn undocumented session termination inside an intrusion timeline is indistinguishable from the attacker disconnecting, and the difference decides how they read everything on either side of it. Volunteering the exact time and the exact instruction, unprompted and in writing, is the only thing that converts your footprint from contamination into a known fixed point. It also costs you the argument you would rather have, which is why people delay it."
+        },
+        {
+          "key": "B",
+          "text": "Answer the immediate question — the account was disabled at your request on security grounds — and keep the detail of what you found for the audit report.",
+          "quality": "poor",
+          "next": "end-unowned",
+          "consequence": "He accepts it without pressing. The P1 is closed as an access-management error, the account is re-enabled with a new password on Monday, and the batch runs. Your draft finding on suppression governance is issued five weeks later.",
+          "why": "It is not a lie and it answers what was asked, which is how this option gets chosen. Nothing you said was untrue.\n\nWhat you withheld was the only part that mattered: four unexplained authentications on a privileged account and a session that had been open for three days. You are the only person in the firm who knows, and the audit report is five weeks away, which means an active intrusion at a regulated broker gets five weeks of nobody looking. Concealment by omission is still concealment, and here it converts an authority error you could have survived into the reason the intrusion continued."
+        },
+        {
+          "key": "C",
+          "text": "Route it through your engagement manager first, so the disclosure of your own action is made at the right level.",
+          "quality": "defensible",
+          "next": "the-response",
+          "consequence": "You reach her mid-morning; she agrees the client must be told everything and calls the head of security operations herself just after midday. The SOC has the full picture by early afternoon and treats the P1 as an incident from that point.",
+          "why": "Correct instinct about your own exposure. You have taken an unauthorised action on a client system, your firm carries that, and your manager should hear it from you before she hears it from them.\n\nIt costs three hours during which the SOC is working the wrong problem with the wrong classification, and it is not an either-or: telling the shift lead now and your manager in the same breath protects the same interest without leaving the client's incident mis-triaged for a morning. When the choice is between fast and correctly routed, notify in parallel."
+        }
+      ]
+    },
+    "the-response": {
+      "situation": "The incident runs for two days and the picture assembles quickly.\n\nThe service account's password has not changed in four years. It sits in plaintext in a deployment repository whose read group was widened during a migration last September. Service accounts are outside the multi-factor policy. Access is being attributed to an external party.\n\nThe account read from the position-keeping database on the 19th and the 25th, outside its scheduled window, returning roughly 41,600 client position records. What left the network is still being established. First unexplained access is 2 April; the session found open began on 25 August. A hundred and forty-five days between them.\n\nThe incident manager wants the retrospective sweep — the same replay you ran on AUTH-114, run against the other twenty-two suppressions. Her analysts are on containment. You have the method and it took you an afternoon to build.\n\n\"Can you just run it?\"",
+      "prompt": "What is your position?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Hand over the query and the method so her team runs it, stay available for questions, and re-perform your own sweep separately as audit evidence once they are done.",
+          "quality": "best",
+          "next": "the-cause",
+          "consequence": "An analyst has it running within the hour. You take contemporaneous notes on what they find and run your own replay two days later against the same window, reconciling the two results.",
+          "why": "Maximum contribution, zero participation. The method is not confidential and withholding it would cost the client time for no principle; the running of it is response work, and response work belongs to the people accountable for the response.\n\nRe-performing it yourself afterwards is the part that is easy to skip. Their sweep is management's evidence about management's control, and you will be reporting on what it found. Doing your own gives you a result you obtained rather than one you were handed, and it takes an afternoon you have already spent once."
+        },
+        {
+          "key": "B",
+          "text": "Run it once with her analyst at the keyboard and you talking them through it, so the result is theirs and you have seen it produced.",
+          "quality": "defensible",
+          "next": "the-cause",
+          "consequence": "It takes two hours at a shared desk. The analyst drives, you dictate the correlation logic, and the output lands in the incident record under their name.",
+          "why": "A sensible middle. The output belongs to the client, you witnessed its production, and the knowledge transfers to the team that will need it next time — which is worth more than a query file emailed over.\n\nIt sits a notch below because a shared keyboard is a blurry line to have to describe later. If the sweep's completeness is ever challenged, the answer is that the auditor specified the logic and watched it run, and that is not the same sentence as the client ran it and the auditor re-performed it. The distinction costs nothing on the day and everything if it is tested."
+        },
+        {
+          "key": "C",
+          "text": "Take the sweep as your workstream and report the results into the incident calls; you built the method and the analysts are stretched.",
+          "quality": "poor",
+          "next": "the-cause",
+          "consequence": "You run all twenty-two over the following day and present the results on the evening call. The incident manager thanks you and starts routing detection questions to you by default.",
+          "why": "You are the fastest route to the answer and the client is under real pressure, so this feels like the only decent thing to do. It is also how auditors end up on incident calls with an action list.\n\nThe sweep is not a favour; it is the substantive test of whether the suppression process caused harm, and it is going into your report. Run by you as part of the response, it becomes evidence you produced while acting for management, about a control you will be opining on. You have not lost independence over the whole engagement, and it is recoverable — someone else re-performs it, or the report discloses how it was obtained — but you have lost it over the exact procedure the finding rests on, and you will now have to say so in writing."
+        },
+        {
+          "key": "D",
+          "text": "Decline. The sweep is incident work, you should not be inside the response at all, and you will do your own testing once it closes.",
+          "quality": "poor",
+          "next": "the-cause",
+          "consequence": "She accepts it without argument and puts an analyst on rebuilding the replay logic. It takes them nine days around the containment work. Two of the twenty-two are swept before the incident is closed; the rest are done in the fortnight after.",
+          "why": "The principle you are applying is the right one and you are applying it too far. Management decides and acts, the auditor evaluates — and that division has never stopped an auditor explaining a method, recommending an approach, or answering a question.\n\nWhat you withheld was a query file, not a decision. It cost nine days during which twenty suppressions of unknown effect stayed unexamined at a firm that had just found one intrusion inside one of them. Independence protects your opinion; it does not require you to make the client slower for its own sake, and an over-correction that leaves detection gaps open is not a neutral choice."
+        }
+      ]
+    },
+    "the-cause": {
+      "situation": "The sweep comes back. Two other suppressions have swallowed something: a rule on privileged group membership changes, muted seven months ago, holds three matches nobody reviewed. A rule on mass mailbox export holds one. The other nineteen are clean.\n\nThe mechanism is not in dispute and nobody is defensive about it. Any tier-2 analyst can create a suppression from the SIEM console. The expiry field is optional. There is no ticket, no approval, and no report anywhere of what is currently suppressed. Nine of the twenty-three are older than six months.\n\nAnd the monthly detection report to the risk committee counts a rule as deployed whether or not it is muted. For two years the committee has been told 140.",
+      "prompt": "The head of security operations asks what your recommendation is going to say.",
+      "options": [
+        {
+          "key": "A",
+          "text": "That AUTH-114 and the two other rules that swallowed events be tuned and re-enabled, and the four unreviewed matches investigated.",
+          "quality": "poor",
+          "next": "the-downgrade",
+          "consequence": "All three are tuned and back in the queue within a fortnight, and the four unreviewed matches are worked through and closed. The recommendation is closed at the first follow-up.",
+          "why": "Every item in it is necessary and the client does it quickly, which is what makes this the easiest recommendation in the room to write.\n\nIt fixes the three you found. The console that let one analyst mute a detection for eleven months with an optional expiry field and no approval is unchanged, and it produced twenty-three suppressions without anyone deciding to; it will produce more, and the next one will also be found by whoever happens to export a column nobody asks for. A finding is closed when the mechanism is gone, not when the instances are."
+        },
+        {
+          "key": "B",
+          "text": "That suppression require documented approval and a mandatory expiry, that the list of active suppressions go monthly to the same committee that receives the coverage report, and that the coverage figure stop counting muted rules as deployed.",
+          "quality": "best",
+          "next": "the-downgrade",
+          "consequence": "He accepts all three and says the third is the one he will have to explain, because he has presented the figure of 140 himself for two years. The instances are tuned and re-enabled alongside it as management's own action.",
+          "why": "Three parts, and each closes a different way this recurs. Approval means a suppression is a decision somebody owns; a mandatory expiry means the default state is on rather than off, so forgetting restores the control instead of extending the gap. Neither depends on anyone remembering to look.\n\nThe third part is what stops it happening silently. A rule that is deployed and muted is counted by the report as a working detection, so the committee's coverage number cannot move when coverage falls — which is why eleven months passed without a question. Correcting the figure costs nothing and is the only element that would surface the next gap without an auditor in the building."
+        },
+        {
+          "key": "C",
+          "text": "That the SOC manager review all active suppressions monthly and record the outcome.",
+          "quality": "defensible",
+          "next": "the-downgrade",
+          "consequence": "Implemented the following month. The first review clears fourteen of the twenty-three as no longer needed and re-justifies the rest in a two-page note.",
+          "why": "A real detective control with a real result, and a month is a reasonable cycle for a risk that moves at the speed of a rule change. Fourteen suppressions cleared at the first pass is evidence it works.\n\nIt leaves creation untouched, so a suppression is still made by one analyst with no approval and no expiry, and the longest possible gap is now bounded by the review rather than closed at source. The reviewer is also the manager of the team that creates them, which makes it self-review of a decision his own analysts made under his queue-volume pressure. Better than what exists, and a cycle behind the version that makes suppressions expire on their own."
+        },
+        {
+          "key": "D",
+          "text": "That every suppression carry a mandatory expiry of no more than ninety days, enforced in the console.",
+          "quality": "defensible",
+          "next": "the-downgrade",
+          "consequence": "The configuration change is raised the same week. Suppressions created after it cannot be saved without an expiry date, and the maximum is ninety days.",
+          "why": "The single most effective element of the fix, and you have identified it correctly: an expiry makes the safe state the default, and it is enforced by the platform rather than by anyone's diligence. If you only get one thing, get this.\n\nWhat it does not do is make anyone accountable for the decision at the point it is taken, and it does not touch the number the risk committee reads. A ninety-day gap in a detection is still ninety days, taken by one analyst under queue pressure with nobody's name on it, and reported to the board as a deployed rule throughout."
+        }
+      ]
+    },
+    "the-downgrade": {
+      "situation": "Three weeks on. The incident is closed: credential rotated, repository permissions corrected, service accounts on a ninety-day plan to come under the multi-factor policy, the regulator notified, client notification under legal advice. Security operations has already rewritten the suppression process ahead of your report.\n\nClearance meeting. The head of security operations is straightforward about every part of it, and then makes one request.\n\n\"Everything in your draft is already fixed. We found it with you, we moved the same day, the process is different now. Can this go in as a management observation, closed, rather than a high-rated finding? We are examined in October. A monitoring report that says our detection was off for eleven months reads a lot worse than what actually happened.\"",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree. The weakness is genuinely remediated, the intrusion is reported through the incident process, and a closed observation reflects where things now stand.",
+          "quality": "poor",
+          "next": "the-remediation-claim",
+          "consequence": "He is visibly relieved and the meeting finishes early. The report records satisfactory detection coverage with one closed observation on suppression administration. The incident is reported separately as a credential exposure.",
+          "why": "The remediation is real, his account of it is honest, and nothing he asked for is dishonest on its face. That is what makes it work.\n\nA finding is rated on the condition that existed during the period under review, not on how fast it was fixed once an auditor was standing over it. Apply the other rule and the better management reacts, the less the organisation ever learns happened — and it is always the party the finding reflects on who proposes it.\n\nWhat disappears is the only place the two halves meet. The incident report says a credential was exposed. Your report says suppression administration has been tidied up. Neither says that a detection which would have caught this on day one had been switched off for eleven months by a decision nobody had to approve, and that is the entire lesson.",
+          "taint": "understated"
+        },
+        {
+          "key": "B",
+          "text": "The finding stands, rated on the condition that existed. Remediation goes in the management response, stated fully and with credit for the speed.",
+          "quality": "best",
+          "next": "the-remediation-claim",
+          "consequence": "The conversation is uncomfortable for ten minutes and then he accepts it. The response column he drafts is detailed and unusually candid, and he asks that the eleven-day remediation timeline be stated alongside the eleven-month gap.",
+          "why": "You have not taken anything away from him. Remediation during fieldwork belongs in the report and belongs there prominently; what it changes is the management response, not the condition, not the rating and not whether it is reported.\n\nThe reason the distinction is worth an uncomfortable meeting is what the report is for. An examination in October, or a board in two years, reads this to learn what the control environment was, and a finding rated by its aftermath tells them nothing about it. Refusing to renegotiate the rating with the party it concerns is not a stance about him; it is the only thing that makes any rating in the file mean something."
+        },
+        {
+          "key": "C",
+          "text": "Report the control finding in full, and cross-refer to the incident report for the detail of the intrusion rather than restating it.",
+          "quality": "defensible",
+          "next": "the-remediation-claim",
+          "consequence": "He accepts without difficulty. The finding carries the eleven months, the four matches and the rating; the 41,600 records and the attribution sit in the incident report with a reference to it.",
+          "why": "Legitimate reporting practice, and it keeps both documents in their lane. The finding stands at its rating, nothing is removed, and the incident detail lives where the incident detail belongs.\n\nThe risk is one you can manage but should see. Cross-references are read by fewer people than the sentence they replace, and the force of this finding comes from the join: a muted detection and a hundred and forty-five days of undetected access to client positions are one fact, not two. Keep enough of the consequence in the finding itself that a reader who never opens the other document still understands what the gap cost."
+        },
+        {
+          "key": "D",
+          "text": "Hold the finding but agree to rate it medium rather than high, on the basis that the exposure window is closed, provided the eleven months and the four matches are stated in full.",
+          "quality": "defensible",
+          "next": "the-remediation-claim",
+          "consequence": "He accepts immediately. The finding is issued at medium with the full narrative, the rating discussion is minuted, and the audit committee reads it in the routine pack rather than in the escalated items.",
+          "why": "The substance survives intact, which is the part that matters most, and rating is a judgement on which reasonable people differ. You did not trade away the facts.\n\nWhat you traded was the position the finding occupies. A medium goes into the routine pack and gets a routine response; high is what puts it in front of the committee members who ask the questions this needs. And you settled the rating across the table from the person it reflects on, in a meeting he opened by asking for exactly this — which makes the concession look like the thing he came for, whatever the merits."
+        }
+      ]
+    },
+    "the-remediation-claim": {
+      "situation": "Two days from issue. To support the remediation, security operations sends you three things: a screenshot of the SIEM console showing AUTH-114 enabled and alerting, the new one-page suppression standard signed by the head of security operations, and a statement that every active suppression now carries a documented approval and a ninety-day expiry.",
+      "prompt": "Your draft says the weakness was remediated during fieldwork. What supports that sentence?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept it. The standard is signed, the console shows the rule alerting, and the remediation is three weeks old.",
+          "quality": "poor",
+          "next": "end-unverified",
+          "consequence": "You attach the screenshot and the standard to the working papers and issue on schedule.",
+          "why": "It is the evidence they had and it is not nothing: a signed standard is a real management commitment, and the screenshot really does show one rule running.\n\nBoth are design evidence for a control that has barely started operating. The standard says what should happen from now on; the screenshot shows the single rule you complained about. Neither says anything about the twenty-two others or about the suppression created next week, and the assertion in your report is not about the standard, it is about the state of the estate. That is a table you can export in twenty minutes."
+        },
+        {
+          "key": "B",
+          "text": "Export the suppression table yourself and check every active suppression for an approver and an expiry — and ask whether the expiry is enforced by the console or by the standard.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "Eleven active suppressions. Nine carry an approver and an expiry date. Two, created eight days ago, have the expiry field blank: the field is still optional in the console and the ninety days live in the standard. Security operations raises the configuration change the same afternoon and it is in place before you issue.",
+          "why": "Two questions, and the second is the one that gets skipped. Exporting the table yourself is direct evidence about the whole population, obtained rather than supplied, and it takes about as long as reading the standard.\n\nAsking where the rule is enforced is what separates a control from a sentence. A ninety-day maximum that exists in a document depends on every analyst remembering it under exactly the queue pressure that produced the original suppression; the same rule in a mandatory console field cannot be forgotten. Eight days after a signed standard, two entries had already been created without an expiry — which is the answer to the question, arriving before you had to argue it."
+        },
+        {
+          "key": "C",
+          "text": "Ask for the first monthly active-suppression report when it is produced, and verify the remediation at the next quarterly follow-up.",
+          "quality": "defensible",
+          "next": "end-acceptable",
+          "consequence": "You issue on schedule with remediation recorded as management's representation, and put it on the follow-up schedule. The first monthly report arrives five weeks later and goes into the follow-up file.",
+          "why": "The follow-up process exists precisely for remediation that has not had time to operate, and the monthly report is the right artefact to test it with. Nothing here is careless.\n\nThe cost is that you issued a sentence you had not tested. A report asserting remediation carries the audit function's name in a way that a follow-up item does not, and the thing you would have found by exporting the table — two entries eight days old with no expiry, in a control described to you as operating — was available on the day and cheaper than the follow-up will be."
+        },
+        {
+          "key": "D",
+          "text": "Ask the head of security operations to confirm in writing that all active suppressions now carry an approval and an expiry.",
+          "quality": "poor",
+          "next": "end-unverified",
+          "consequence": "The confirmation comes back by email within the hour, unqualified and signed. You file it and issue.",
+          "why": "A written management representation is stronger than a verbal one and it puts the assertion on somebody's name, which is why this feels like diligence rather than a shortcut.\n\nIt is the party under review, describing their own control, over a record you could have pulled yourself in twenty minutes. He is not lying; he is reporting what the standard requires, because that is what he knows. The two entries created eight days ago with the expiry field blank are in the export and are not in his head, and no amount of signature converts a representation into the table it describes."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "What the mute was covering",
+      "verdict": "strong",
+      "narrative": "The report is issued with the finding rated on the condition that existed and management's remediation stated in full alongside it. Suppression now requires a named approver and an expiry the console will not let anyone leave blank; the active-suppression list goes monthly to the risk committee, and the coverage figure that committee has read as 140 for two years is restated the same month: 129 rules deployed and alerting, eleven suppressed, each with a name and a date against it.\n\nThe retrospective sweep across the other twenty-two suppressions is in the incident file: two more rules had been swallowing matches, four events that nobody had reviewed, all worked through.\n\nThe incident timeline puts first unexplained access on 2 April. A hundred and forty-five days, on a service account with a four-year-old password and no multi-factor, reading client positions outside its window. The detection that would have raised it on the first day had been switched off eleven months earlier by one analyst, under real queue pressure, with a comment ending in the word revisit.\n\nThe October examination asks how the intrusion was found. The answer is a column in a rule export.",
+      "why": "Four decisions, each small on the day.\n\nYou replayed the muted rule instead of writing it up. A suppression with no expiry is a governance finding you can draft from a screenshot, and the reason to run the query anyway is that a control which has been off for eleven months has a population behind it — retained, replayable, and holding the difference between a process weakness and an open intrusion.\n\nYou put the live session in front of the person with the authority to close it, in the same minute you put it in front of your own management. Containment does come first while something is live, and the principle is scoped by role: the responder contains, and the auditor's fastest route to containment is the person two doors away. Two hours spent building a complete picture, or fifty minutes spent waiting on a callback, are two hours and fifty minutes of somebody else's decision. And if you closed the session yourself, what saved it was owning that in writing the next morning — an undocumented termination inside an intrusion timeline reads exactly like the attacker disconnecting.\n\nThe recommendation that closes this points at the console, not at the three rules you found. Instances get fixed and recur; the mechanism here was an optional field, an absent approval, and a coverage metric that counted muted rules as deployed, so the number could not fall when the coverage did.\n\nAnd the remediation was tested from the record rather than from the representation, which is where the last two blank expiry fields turned up eight days into a control everyone believed was operating.\n\nWhat transfers: when you find a detection that was switched off, the first question is not who approved it. It is what it would have caught."
+    },
+    "end-acceptable": {
+      "title": "Right conclusions, remediation on trust",
+      "verdict": "acceptable",
+      "narrative": "The report is issued whole: the eleven months, the four matches, a hundred and forty-five days of undetected access, and a suppression process that now requires an approver and a date. The risk committee sees the active-suppression list and a corrected coverage figure for the first time.\n\nRemediation is recorded as management's representation and scheduled for follow-up. At the quarterly review you export the suppression table and find five entries with the expiry field blank, all created after the standard was signed, because the console never made the field mandatory. Security operations makes the configuration change then. The rule that started all of this is not among the five, but a second concentrator migration has produced a request to mute it again — this time with an approver and a date.",
+      "why": "The substance arrives intact. The mute was measured against the retained logs rather than written up from the console, the finding was not allowed to become an unrated observation because it had been fixed, and the committee is reading a coverage number that can now move.\n\nThe gap is at the end, and it is narrow. Your report asserted remediation, and the evidence for that assertion was a signed standard and an assurance from the people who wrote it. A ninety-day expiry enforced by a document and one enforced by a mandatory field are different controls with the same wording, and the difference was visible in a twenty-minute export on the day you issued rather than a quarter later.\n\nThe cost is a quarter of drift and a report carrying a sentence that was true in intention. Design evidence for an operating claim is the most common way a correct audit conclusion turns out to have been premature."
+    },
+    "end-unverified": {
+      "title": "Remediated, according to the people who remediated it",
+      "verdict": "weak",
+      "narrative": "The report is issued and the substance is all there: eleven months, four matches, a hundred and forty-five days of undetected access to client positions. The audit committee takes it seriously and the coverage figure is corrected.\n\nThe last paragraph says the weakness was remediated during fieldwork, and it rests on a screenshot of one rule and a signed page.\n\nSix weeks later the second concentrator migration generates the same flood of impossible-travel matches it generated last year. AUTH-114 is muted again. This time there is an approver, because the standard requires one. There is no expiry, because the field is still optional and the approver is working at eleven at night. The monthly active-suppression report that would have shown it is still being built; it was part of the same remediation you signed off.\n\nThe file says the control was fixed in August.",
+      "why": "You did the difficult things and then took the easy thing on trust, which is the ordinary shape of this failure. Nobody deceived you. The standard was real, the screenshot was real, the head of security operations believed every word of his confirmation.\n\nAll of it described what should happen. None of it was evidence about what the estate actually contained, and that was a table you could export yourself in twenty minutes without asking anyone. Evidence you obtain outranks evidence you are given, which outranks what the giver says about it, and you accepted the third tier for the one sentence in the report that carried your name rather than theirs.\n\nThe specific miss is worth keeping. A rule enforced in a document and the same rule enforced in a mandatory field are indistinguishable on paper and behave completely differently at eleven at night during a migration. When a remediation claims a control now exists, find out where it lives."
+    },
+    "end-understated": {
+      "title": "Fixed, therefore not a finding",
+      "verdict": "failed",
+      "narrative": "The monitoring report is issued with detection coverage assessed as satisfactory and one closed management observation on suppression administration. The intrusion is reported through the incident process as a credential exposure arising from a repository permissions change. Both documents are accurate. Neither contains the sentence that joins them.\n\nThe October examination reads both. The question it asks is why a detection built to catch exactly this pattern produced nothing for a hundred and forty-five days, and the answer takes the examiners about a day to find, because it is in your working papers: the replay, the thirty-one matches, the four on the service account, the eleven months, and the clearance note recording that the finding was downgraded to a closed observation because management had remediated it.\n\nThe firm's position is that internal audit found it, which is true. The examiners' position is that internal audit found it and then reported detection coverage as satisfactory.",
+      "why": "The reasoning was not cynical and it is worth naming honestly, because it is the version most people would accept. The remediation was genuine and fast. The intrusion was reported elsewhere. Rating a closed weakness as a high finding does feel like punishing a client for reacting well.\n\nA finding is rated on the condition that existed during the period, and management's response is the separate column where speed and candour are recognised. Collapse the two and you have built a reporting rule in which the quality of the reaction determines whether the failure is ever disclosed — so the organisation learns least about the gaps it closed fastest, and every future clearance meeting starts with the same request.\n\nNotice who proposed it. The rule that this was already fixed, therefore not reportable, was offered by the person it reflects on, in the month before an examination, with a reason about how it reads rather than about whether it is true. That the reason was stated openly rather than hidden does not change what agreeing to it did.\n\nAnd what was lost was not detail. Two accurate documents, neither of which says that a control the risk committee had been told was deployed had been switched off for eleven months by a decision nobody had to approve, and that this is why an intruder read client positions for five months. That sentence was the audit."
+    },
+    "end-unowned": {
+      "title": "Closed as a failed batch job",
+      "verdict": "failed",
+      "narrative": "The P1 is closed as an access-management error. The account is re-enabled on Monday with a fresh password, the reconciliation runs, and the operations desk records the cause as an unscheduled credential change. Nobody investigates the four authentications, because nobody outside the audit room knows they exist. The three days the session stood open are never explained.\n\nYour finding on suppression governance is issued five weeks later. It is a good finding, correctly reasoned, and it describes the eleven months and the thirty-one matches in full — at which point the head of security operations reads that four of them were on a live service account, works out what the August P1 actually was, and asks when you knew.\n\nThe authentication logs are still there; they are retained for thirteen months. Almost nothing else is. The session was dropped without capture, the position-keeping database keeps query logs for thirty days, and the questions the firm now has to answer for its regulator — what the credential did between April and August, and whether anything left — are being answered from what happens to have survived.",
+      "why": "Two separate failures, and the second is the one that cannot be walked back.\n\nThe first was disabling the account yourself. That was an authority error and a destroyed live session, and auditors survive those: a written account the next morning would have folded your action into the timeline as a known fixed point, cost you an uncomfortable month, and left the incident properly worked.\n\nThe second was answering the question you were asked and not the one that mattered. Nothing you said was untrue, and that is the shape this always takes. You held the only knowledge in the firm of four unexplained authentications on a privileged account with access to client positions, and you held it for five weeks in a draft, while the response that should have started that morning did not start at all.\n\nAn omission inside an incident timeline is indistinguishable from a concealment, and the person who made it is the one the firm relies on to say what happened. That is the specific thing the role cannot survive — not the wrong call under pressure, but the silence afterwards."
+    }
+  }
+}
