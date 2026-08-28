@@ -49,7 +49,12 @@
         "cisa-d5a-038",
         "cisa-d5b-002",
         "cisa-d5b-009",
-        "cisa-d5b-020"
+        "cisa-d5b-020",
+        "cisa-d4a-082",
+        "cisa-d4a-084",
+        "cisa-d4a-086",
+        "cisa-d4a-087",
+        "cisa-d4b-034"
       ]
     },
     {
@@ -75,7 +80,12 @@
         "cisa-d5a-016",
         "cisa-d5a-032",
         "cisa-d5b-004",
-        "cisa-d5b-005"
+        "cisa-d5b-005",
+        "cisa-d4a-068",
+        "cisa-d5a-063",
+        "cisa-d5a-068",
+        "cisa-d5a-082",
+        "cisa-d5a-084"
       ]
     },
     {
@@ -101,7 +111,12 @@
         "cisa-d4b-013",
         "cisa-d5a-029",
         "cisa-d5a-030",
-        "cisa-d5a-044"
+        "cisa-d5a-044",
+        "cisa-d4a-074",
+        "cisa-d4b-036",
+        "cisa-d5a-081",
+        "cisa-d5b-047",
+        "cisa-d5b-050"
       ]
     },
     {
@@ -125,7 +140,8 @@
         "cisa-d4b-014",
         "cisa-d5a-001",
         "cisa-d5a-010",
-        "cisa-d5b-014"
+        "cisa-d5b-014",
+        "cisa-d5a-070"
       ]
     },
     {
@@ -155,7 +171,18 @@
         "cisa-d5a-017",
         "cisa-d5a-034",
         "cisa-d5b-010",
-        "cisa-d5b-025"
+        "cisa-d5b-025",
+        "cisa-d4a-061",
+        "cisa-d4a-066",
+        "cisa-d4a-070",
+        "cisa-d4b-033",
+        "cisa-d4b-041",
+        "cisa-d4b-043",
+        "cisa-d4b-044",
+        "cisa-d5a-075",
+        "cisa-d5a-080",
+        "cisa-d5a-085",
+        "cisa-d5b-031"
       ]
     },
     {
@@ -221,7 +248,17 @@
         "cisa-d4a-048",
         "cisa-d4a-052",
         "cisa-d4a-x01",
-        "cisa-d5a-011"
+        "cisa-d5a-011",
+        "cisa-d4a-062",
+        "cisa-d4a-085",
+        "cisa-d4b-035",
+        "cisa-d5a-055",
+        "cisa-d5a-061",
+        "cisa-d5a-062",
+        "cisa-d5a-077",
+        "cisa-d5b-033",
+        "cisa-d5b-035",
+        "cisa-d5b-048"
       ]
     },
     {
@@ -248,7 +285,8 @@
         "cisa-d4b-023",
         "cisa-d4b-024",
         "cisa-d4b-x01",
-        "cisa-d5b-009"
+        "cisa-d5b-009",
+        "cisa-d4a-060"
       ]
     },
     {
@@ -286,7 +324,9 @@
         "cisa-d5a-049",
         "cisa-d5a-x03",
         "cisa-d5b-011",
-        "cisa-d5b-x01"
+        "cisa-d5b-x01",
+        "cisa-d4a-064",
+        "cisa-d4a-080"
       ]
     },
     {
@@ -330,7 +370,9 @@
         "cisa-d4a-038",
         "cisa-d4a-x02",
         "cisa-d5b-008",
-        "cisa-d5b-x04"
+        "cisa-d5b-x04",
+        "cisa-d4a-072",
+        "cisa-d5a-057"
       ]
     },
     {
@@ -361,7 +403,12 @@
         "cisa-d5a-008",
         "cisa-d5a-x04",
         "cisa-d5a-x05",
-        "cisa-d5b-014"
+        "cisa-d5b-014",
+        "cisa-d4a-075",
+        "cisa-d4a-076",
+        "cisa-d4b-046",
+        "cisa-d5b-042",
+        "cisa-d5b-045"
       ]
     },
     {
@@ -386,7 +433,15 @@
         "cisa-d5b-010",
         "cisa-d5b-012",
         "cisa-d5b-022",
-        "cisa-d5b-023"
+        "cisa-d5b-023",
+        "cisa-d4a-069",
+        "cisa-d4a-077",
+        "cisa-d4a-078",
+        "cisa-d4a-083",
+        "cisa-d5a-067",
+        "cisa-d5b-040",
+        "cisa-d5b-043",
+        "cisa-d5b-046"
       ]
     },
     {
@@ -407,7 +462,12 @@
         "cisa-d4a-027",
         "cisa-d4a-x03",
         "cisa-d5a-005",
-        "cisa-d5b-015"
+        "cisa-d5b-015",
+        "cisa-d4a-058",
+        "cisa-d5a-056",
+        "cisa-d5a-059",
+        "cisa-d5a-060",
+        "cisa-d5b-032"
       ]
     },
     {
@@ -446,7 +506,9 @@
         "cisa-d5b-021",
         "cisa-d5b-024",
         "cisa-d5b-030",
-        "cisa-d5b-x02"
+        "cisa-d5b-x02",
+        "cisa-d5a-079",
+        "cisa-d5b-041"
       ]
     },
     {
@@ -477,7 +539,9 @@
         "cisa-d5a-023",
         "cisa-d5a-027",
         "cisa-d5a-028",
-        "cisa-d5a-x02"
+        "cisa-d5a-x02",
+        "cisa-d4b-048",
+        "cisa-d5a-083"
       ]
     },
     {
@@ -516,7 +580,9 @@
         "cisa-d5b-001",
         "cisa-d5b-003",
         "cisa-d5b-019",
-        "cisa-d5b-x05"
+        "cisa-d5b-x05",
+        "cisa-d4a-079",
+        "cisa-d4b-045"
       ]
     },
     {
@@ -579,7 +645,14 @@
         "cisa-d5a-028",
         "cisa-d5a-031",
         "cisa-d5a-046",
-        "cisa-d5a-x04"
+        "cisa-d5a-x04",
+        "cisa-d4a-063",
+        "cisa-d4b-038",
+        "cisa-d4b-039",
+        "cisa-d4b-040",
+        "cisa-d4b-047",
+        "cisa-d4b-050",
+        "cisa-d5b-049"
       ]
     },
     {
@@ -610,7 +683,12 @@
         "cisa-d5a-003",
         "cisa-d5a-039",
         "cisa-d5b-026",
-        "cisa-d5b-028"
+        "cisa-d5b-028",
+        "cisa-d4b-032",
+        "cisa-d4b-049",
+        "cisa-d5a-051",
+        "cisa-d5a-064",
+        "cisa-d5a-069"
       ]
     },
     {
@@ -627,7 +705,11 @@
         "cisa-d4a-005",
         "cisa-d5a-032",
         "cisa-d5a-045",
-        "cisa-d5a-x01"
+        "cisa-d5a-x01",
+        "cisa-d4a-059",
+        "cisa-d4a-071",
+        "cisa-d4a-073",
+        "cisa-d4a-089"
       ]
     }
   ]

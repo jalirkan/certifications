@@ -1,0 +1,804 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "A",
+    "batch": "d5a-003",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Third D5 section A batch - depth for mock-exam headroom (CLAUDE.md §5). Drafted against existing coverage, adversarially reviewed item by item, then conservatively mapped to decision rules and confusable pairs. Topic values must match ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5a-050",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "A regional insurer is subject to a privacy regulation, payment card requirements, and a sector cybersecurity rule. To reduce duplicated effort, it has consolidated all three into a single common control framework so that each control is tested once and the result is mapped back to every source requirement. When reviewing this arrangement, which of the following is MOST important for the IS auditor to verify?",
+      "options": {
+        "A": "The common framework is based on the most widely adopted international security standard.",
+        "B": "The consolidation has measurably reduced the total number of controls the organization must operate.",
+        "C": "Every source requirement traces to a control of equivalent specificity, and the mapping is updated when any of the underlying obligations changes.",
+        "D": "A single compliance team has been made responsible for testing all controls in the framework."
+      },
+      "answer": "C",
+      "why_correct": "A test-once-map-to-many model is only as sound as the mapping itself. If a detailed regulatory requirement is mapped to a broader, looser control, one passing test silently vouches for an obligation that was never actually met, and the gap is invisible precisely because the dashboard shows green. Because each source regulation changes on its own cycle, an unmaintained mapping decays into false assurance across all of them at once.",
+      "why_wrong": {
+        "A": "Popularity of the base standard says nothing about whether this organization's specific obligations are faithfully represented in it. A well-known framework with a sloppy mapping gives worse assurance than an obscure one mapped rigorously.",
+        "B": "Fewer controls is the efficiency benefit the project was chasing, not evidence the model works. Judging success by control-count reduction actually rewards over-broad mappings, which is exactly the failure mode the auditor should be probing.",
+        "D": "Centralizing testing is an organizational choice that may improve consistency, but it does not address whether the tests performed actually cover each regulation's requirements. A single excellent team testing against a defective mapping still produces defective assurance."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-051",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing the security policy exception register at a national logistics company finds roughly 60 open exceptions. More than half were granted over three years ago, none carries an expiry date or a documented compensating control, and no exception has ever been re-reviewed. Which of the following should be the auditor's GREATEST concern?",
+      "options": {
+        "A": "The exceptions have become permanent, unexamined risk acceptances, so the organization's actual security posture has quietly diverged from what its policy claims and the aggregate exposure is unknown.",
+        "B": "The exceptions were approved by the chief information security officer rather than by the board of directors.",
+        "C": "The volume of exceptions demonstrates that the policy requirements are set too strictly.",
+        "D": "The register is maintained in a spreadsheet rather than in a governance, risk, and compliance platform."
+      },
+      "answer": "A",
+      "why_correct": "An exception is a time-boxed, risk-assessed deviation; without expiry, compensating controls, or re-review, each one is an open-ended hole in the policy that nobody is accountable for closing. Individually the exceptions may each have been defensible when granted, but three years on, the conditions that justified them are unverified and the combined effect has never been assessed, so management's picture of compliance with its own policy is fiction.",
+      "why_wrong": {
+        "B": "Exception approval is routinely and appropriately delegated to the CISO or a risk committee. Escalating every operational waiver to the board over-applies a governance principle that belongs to policy approval, not exception handling.",
+        "C": "A high exception count can signal an unrealistic policy, and that is a legitimate secondary question. But it is a possible interpretation to investigate, not the demonstrated control failure — which is that whatever their cause, the exceptions are unmanaged.",
+        "D": "Tooling is a convenience matter. A disciplined exception process run from a spreadsheet is sound; an undisciplined one in an expensive GRC platform is not."
+      }
+    },
+    {
+      "id": "cisa-d5a-052",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "A family-owned manufacturing firm has never adopted an external security framework, but it maintains board-approved security policies and supporting standards. An IS auditor is engaged to perform a compliance audit of the security program. The audit criteria should PRIMARILY be drawn from:",
+      "options": {
+        "A": "the current version of a widely adopted international security standard.",
+        "B": "the security practices observed at manufacturing firms of comparable size.",
+        "C": "the auditor's own professional judgment of leading practice.",
+        "D": "the organization's own approved policies and standards, supplemented by an external benchmark only where internal criteria are silent."
+      },
+      "answer": "D",
+      "why_correct": "A compliance audit tests conformity with obligations the organization has actually accepted, and here those are its own approved policies and standards. Findings framed as noncompliance with a framework the organization never adopted have no anchor: management can legitimately reply that it never committed to those requirements. External benchmarks earn their place where internal criteria are missing or plainly inadequate, and that gap itself becomes a finding.",
+      "why_wrong": {
+        "A": "Using an unadopted external standard as the compliance yardstick over-applies a good tool outside its scope. A gap assessment against such a standard is a legitimate separate engagement, but it is advisory work, not a compliance audit, and conflating the two produces findings management is entitled to reject.",
+        "B": "Peer practice reflects other firms' risk appetites, threat profiles, and budgets. It is context for recommendations, not criteria — an organization can match its peers exactly and still violate its own approved policy.",
+        "C": "Criteria must be objective and agreed in advance, or every finding becomes an argument about the auditor's taste. Professional judgment guides how criteria are applied and interpreted; it cannot substitute for the criteria themselves."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-053",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "A software-as-a-service provider advertises its ISO/IEC 27001 certification prominently to enterprise customers. Performing vendor due diligence for a client, an IS auditor obtains the certificate and finds its scope statement covers only the provider's corporate head-office IT environment; the customer-facing platform runs entirely in a public cloud and sits outside the certified scope. The auditor's GREATEST concern should be that:",
+      "options": {
+        "A": "the certificate was issued by a certification body accredited in a different country from the client.",
+        "B": "customers relying on the certification for assurance over the platform are taking comfort from a management system that does not cover the service they actually consume.",
+        "C": "the provider's statement of applicability excludes several Annex A controls.",
+        "D": "the certification is subject to surveillance audits only once per year."
+      },
+      "answer": "B",
+      "why_correct": "A certification attests only to what its scope statement says it covers, and here the scope excludes the one environment customers care about. The marketing creates an assurance illusion: due diligence processes across the customer base are ticking a box that answers a different question. The auditor's client is making a vendor risk decision on evidence that, read carefully, is silent about the platform.",
+      "why_wrong": {
+        "A": "Accreditation is mutually recognized across most jurisdictions, and the issuing body's country has no bearing on the real problem, which is what the certificate covers rather than who issued it.",
+        "C": "Excluding Annex A controls through the statement of applicability is exactly how the standard is designed to work, provided the exclusions are risk-justified. It is a feature of the mechanism, not a red flag.",
+        "D": "Annual surveillance with a three-year recertification cycle is the standard cadence for this certification. Flagging it would be a finding against normal practice."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-054",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "medium",
+      "stem": "A mid-sized credit union has completed a migration of its core systems to software-as-a-service providers and now grants remote access through a zero trust access broker. Its information security policy, last revised six years ago, still mandates perimeter firewalls as the primary safeguard and prohibits storing member data outside the credit union's own premises. The PRIMARY risk of this situation is that:",
+      "options": {
+        "A": "security standards, procedures, and day-to-day control decisions lack valid approved direction, because the policy governs an environment that no longer exists.",
+        "B": "the annual staff acknowledgment campaign is collecting attestations to requirements that no longer apply.",
+        "C": "regulatory examiners are likely to cite the gap between the approved policy and actual practice at the next examination.",
+        "D": "continued expenditure on the mandated perimeter firewalls is wasted on controls that no longer protect the core systems."
+      },
+      "answer": "A",
+      "why_correct": "Policy sits at the top of the control hierarchy: standards, procedures, and control decisions inherit their authority from it. With the environment migrated and the policy frozen, everything actually deployed — the SaaS controls, the zero trust broker — operates without approved direction, while the policy formally prohibits the architecture the business runs on. Neither the old world nor the new one is genuinely governed, and every other consequence in the option set flows from that vacuum.",
+      "why_wrong": {
+        "B": "The acknowledgment problem is real but derivative — a symptom of the stale policy. Fixing the campaign without fixing the policy would simply have staff attesting to the same obsolete requirements.",
+        "C": "An examination citation is a downstream consequence that depends on an examiner noticing. The primary risk — an ungoverned cloud estate — exists and does damage whether or not it is ever cited.",
+        "D": "Spending on controls the policy mandates but the architecture no longer needs is an efficiency concern. Wasted firewall budget is recoverable; operating core member-data systems with no valid policy foundation is the governance failure."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-055",
+      "domain": "5",
+      "section": "A",
+      "topic": "Information Asset Security Frameworks, Standards, and Guidelines",
+      "difficulty": "hard",
+      "stem": "At a regional payment processor, server build configurations are defined only in a document titled \"Server Hardening Guidelines,\" which its own document control section describes as advisory. An IS auditor finds that build teams deviate from the document routinely, and the security manager asks the auditor to report every deviation as a compliance exception. The auditor's MOST appropriate course of action is to:",
+      "options": {
+        "A": "report each deviation as a compliance exception, since the guidelines are the only configuration criteria the organization has.",
+        "B": "raise no finding, because deviations from an advisory document cannot constitute noncompliance.",
+        "C": "report as the principal finding that no mandatory configuration standard exists, and assess the highest-risk deviations on their security merits rather than as policy violations.",
+        "D": "test the servers against the vendor's default security baseline and report deviations from that instead."
+      },
+      "answer": "C",
+      "why_correct": "The root condition is that a payment processor has made secure configuration optional: the document hierarchy has a hole where a mandatory standard should be. Reporting that gap targets the cause rather than the symptoms, and the individual deviations still get addressed — evaluated as security exposures in their own right, which is a characterization management cannot rebut by pointing at the word \"guidelines.\"",
+      "why_wrong": {
+        "A": "Framing deviations from an advisory document as compliance exceptions rests on criteria that cannot support the findings: each exception collapses the moment a build team replies that the document itself makes conformance optional, and the auditor's report loses credibility with it.",
+        "B": "The rule is applied correctly and ridden to the wrong conclusion. It is true that no noncompliance exists; it does not follow that no finding exists. The absence of any binding requirement at a payment processor is itself the reportable weakness.",
+        "D": "Substituting the vendor's defaults invents criteria the organization never adopted — the same flaw as auditing against an unadopted framework — and vendor defaults are a floor the organization's own risk assessment should exceed, not an audit yardstick."
+      }
+    },
+    {
+      "id": "cisa-d5a-056",
+      "domain": "5",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "easy",
+      "stem": "A hospital group's on-premises server room sits directly beneath a floor housing kitchens and restrooms, and domestic water pipes run through the ceiling void above the equipment racks. Which of the following controls BEST mitigates the resulting risk?",
+      "options": {
+        "A": "A gaseous fire suppression system covering the server room.",
+        "B": "Water detection sensors in the ceiling void and under the raised floor, connected to a continuously monitored alarm.",
+        "C": "More frequent facilities inspections of the plumbing on the floor above.",
+        "D": "Property insurance covering water damage to the equipment."
+      },
+      "answer": "B",
+      "why_correct": "The hazard is water intrusion from above, and a leak that goes unnoticed overnight is the difference between a mop-up and a destroyed room. Sensors placed where water will first appear, tied to an alarm someone is always watching, turn a slow silent failure into an event that gets a response while the damage is still containable.",
+      "why_wrong": {
+        "A": "Fire suppression addresses a different hazard entirely. It is a control the room should have, but it does nothing about the specific exposure the siting creates.",
+        "C": "Periodic inspection is detective at the wrong cadence: pipes fail between inspections, and a leak needs to be caught in minutes, not weeks. It supplements continuous detection; it cannot replace it.",
+        "D": "Insurance transfers the financial loss and does nothing for the clinical systems' availability, which for a hospital is the consequence that matters most."
+      }
+    },
+    {
+      "id": "cisa-d5a-057",
+      "domain": "5",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "An IS auditor visits the colocation facility hosting a hospital group's clinical systems. At reception the auditor presents only a business card, is issued a visitor badge, and is escorted directly to the hospital's equipment cage without any check against a list of individuals the hospital has authorized. Which of the following should be of GREATEST concern to the auditor?",
+      "options": {
+        "A": "The visitor badge issued at reception did not include a photograph.",
+        "B": "The reception desk records visitor arrivals in a paper logbook rather than an electronic system.",
+        "C": "The facility hosts equipment belonging to other customers in the same data hall.",
+        "D": "Physical access to the hospital's equipment was granted without verifying the visitor against an access list authorized by the hospital."
+      },
+      "answer": "D",
+      "why_correct": "The auditor has just performed an unintentional penetration test and succeeded: a business card and a confident manner were sufficient to reach the cage of systems holding clinical data. Authorization for access to a customer's equipment belongs to the customer, and a provider that skips that verification has replaced the control with the visitor's own honesty — the escort supervises the visit but never established that the visit should be happening.",
+      "why_wrong": {
+        "A": "A photograph on a temporary visitor badge adds little, since the badge was issued moments earlier to whoever presented themselves. The failure occurred before the badge was printed.",
+        "B": "The medium of the visitor log is an administrative detail. A pristine electronic log would faithfully record visits that were never authorized in the first place — logging quality cannot compensate for a missing authorization check.",
+        "C": "Multi-tenancy is the colocation business model, and cages, cabinets, and escort procedures are the standard controls for it. Shared occupancy is a design fact, not a finding."
+      }
+    },
+    {
+      "id": "cisa-d5a-058",
+      "domain": "5",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "During a data center walkthrough at a regional payment processor, an IS auditor notes that the emergency power-off button beside the main door is uncovered, carries no warning of its effect, is not alarmed or monitored, and sits within arm's reach of the doorway used by delivery and maintenance staff. The GREATEST risk arising from this observation is that:",
+      "options": {
+        "A": "accidental or malicious activation would instantly cut power to the entire data center, including UPS-fed circuits, causing an outage the power resilience design cannot prevent.",
+        "B": "the button may fail to operate when a genuine emergency requires it.",
+        "C": "the configuration breaches the local fire code and could attract penalties.",
+        "D": "delivery staff could use the doorway to tailgate into the data hall."
+      },
+      "answer": "A",
+      "why_correct": "An emergency power-off is designed to kill everything in the room at once, deliberately bypassing the UPS and generator transfer path, because its purpose is protecting life during an electrical or fire emergency. That is precisely why it needs a protective cover, clear labeling, and activation alarming: a knocked elbow or a malicious press produces a total, unbufferable outage of the payment processing environment, defeating every layer of the power resilience investment in one motion.",
+      "why_wrong": {
+        "B": "Operability of emergency controls is a legitimate testing question, but nothing observed here bears on it. The observations — no cover, no label, no monitoring, high-traffic location — all point toward unintended activation, not failure to activate.",
+        "C": "Code compliance cuts the other way: fire codes require the button to be accessible, which is why the mitigation is a cover and an alarm rather than relocation. The exposure is operational, and a fine is trivial next to the outage.",
+        "D": "Tailgating is a real concern for any data hall door but is a separate control question. It is not the risk created by an unprotected emergency power-off button."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-059",
+      "domain": "5",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "A national retailer operates unstaffed network rooms in 300 stores. Twice in the past year, store systems failed after air-conditioning faults raised room temperatures over several days, and each failure was discovered only when the point-of-sale systems stopped working. Which recommendation BEST addresses these incidents?",
+      "options": {
+        "A": "Schedule quarterly physical inspections of every store network room.",
+        "B": "Configure the store servers to shut themselves down automatically when internal temperatures exceed a threshold.",
+        "C": "Upgrade the hardware maintenance contract to guarantee four-hour on-site response.",
+        "D": "Deploy remote temperature and humidity sensors in each room, reporting to a centrally monitored platform that alerts on threshold breaches."
+      },
+      "answer": "D",
+      "why_correct": "Both failures followed the same pattern: days of visible-in-principle temperature drift with nobody positioned to see it. Remote sensors with central alerting convert that drift into an actionable signal on day one, while the store still trades, which is the only approach among these that prevents the outage rather than managing it. At 300 unstaffed sites, instrumentation is the substitute for the people who are not there.",
+      "why_wrong": {
+        "A": "Quarterly inspection against a failure mode that develops over days is a cadence mismatch of roughly ninety to one. Both incidents would have run their full course between visits.",
+        "B": "Thermal shutdown protects the hardware by causing the exact outage the business is trying to avoid, and it does so without warning anyone. It is a sensible last line of defense behind monitoring, not an answer to it.",
+        "C": "Fast response only helps once someone knows to make the call, and the incidents show nobody did until the tills stopped. It optimizes the recovery step while leaving the detection gap untouched."
+      }
+    },
+    {
+      "id": "cisa-d5a-060",
+      "domain": "5",
+      "section": "A",
+      "topic": "Physical and Environmental Controls",
+      "difficulty": "medium",
+      "stem": "During fieldwork at a claims-processing firm, an IS auditor finds the data center door propped open with portable fans running in the corridor. The facilities team explains that the only computer-room air-conditioning unit failed, replacement parts are three weeks away, and the open door is keeping temperatures survivable. The badge reader and door alarm are consequently bypassed around the clock. What should the auditor do FIRST?",
+      "options": {
+        "A": "Recommend that the organization procure redundant cooling capacity for the data center.",
+        "B": "Report the exposure to senior management so that compensating controls can be implemented promptly.",
+        "C": "Determine the period over which badge logs are incomplete and whether unauthorized access has occurred.",
+        "D": "Document the condition in the workpapers for inclusion in the final audit report."
+      },
+      "answer": "B",
+      "why_correct": "For as long as the repair takes, anyone who finds the corridor can walk into the data center and no log will record it. ISACA's standards require the auditor to communicate significant exposures to the appropriate level of management on a timely basis rather than hold them for the reporting cycle — and because the facilities staff who created the workaround are the ones running it, escalation must go above them. Senior management can act the same day with compensating controls such as a stationed guard, a monitored temporary barrier, or camera coverage while the cooling repair runs its course. The auditor's escalation does not fix anything itself; it puts the people who can fix it in possession of the facts now.",
+      "why_wrong": {
+        "A": "Redundant cooling is the correct root-cause recommendation and belongs in the report, but drafting it does nothing about the door standing open tonight. This trap mistakes the eventual fix for the urgent one.",
+        "C": "Scoping the logging gap and investigating possible past access is a legitimate later step, but the exposure is already fully evidenced by direct observation and facilities' own account. Investigating first extends the very window the auditor should be trying to close.",
+        "D": "Routine documentation treats a standing physical security breach like an ordinary observation. By the time a final report circulates, the organization will have run exposed for weeks that prompt escalation could have prevented."
+      }
+    },
+    {
+      "id": "cisa-d5a-061",
+      "domain": "5",
+      "section": "A",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "At a retail bank, an IS auditor finds that long-serving employees who have moved between branches and head-office departments still hold the combined system access of every role they have ever occupied. Quarterly access reviews exist, but current line managers routinely approve entitlements they do not recognize because the entitlements relate to departments they never managed. Which recommendation BEST addresses the root cause?",
+      "options": {
+        "A": "Increase the frequency of the access reviews from quarterly to monthly.",
+        "B": "Require the internal transfer process to remove all existing access on the transfer date and re-provision only the approved access profile for the new role.",
+        "C": "Implement automated monitoring for toxic combinations of entitlements that violate segregation of duties rules.",
+        "D": "Provide reviewers with training on the principle of least privilege before the next review cycle."
+      },
+      "answer": "B",
+      "why_correct": "The accumulation happens at the moment of transfer, so the fix belongs in the mover process: strip and re-provision against the new role's approved profile, and legacy access can never build up in the first place. This is a preventive control at the point of failure, whereas the reviews are a detective backstop that is demonstrably failing because reviewers cannot judge entitlements from departments outside their knowledge.",
+      "why_wrong": {
+        "A": "Running a failing control more often produces the same failure more often. The reviews miss legacy access because reviewers cannot recognize it, and monthly frequency does nothing to change what they can recognize.",
+        "C": "Segregation-of-duties monitoring catches only the subset of accumulated access that forms a defined toxic pair. Excess access that violates least privilege without matching an SoD rule — most of it — remains untouched, so this treats one symptom rather than the cause.",
+        "D": "Training does not solve the reviewers' actual problem, which is that they are being asked to certify entitlements belonging to functions they have never managed. Better-informed reviewers still lack the knowledge the certification requires."
+      }
+    },
+    {
+      "id": "cisa-d5a-062",
+      "domain": "5",
+      "section": "A",
+      "topic": "Identity and Access Management",
+      "difficulty": "medium",
+      "stem": "A professional services firm authenticates remote access with a password plus a push notification that users approve with a single tap. The security team reports several incidents in which attackers holding phished passwords sent repeated push prompts late at night until the user approved one, and one such incident led to a compromise. Which control change would BEST reduce the risk of recurrence?",
+      "options": {
+        "A": "Lock the account automatically after three denied push prompts within an hour.",
+        "B": "Retrain users to deny any authentication prompt they did not initiate.",
+        "C": "Shorten session lifetimes so that users re-authenticate more frequently.",
+        "D": "Replace one-tap approval with number matching that requires a code shown on the genuine login screen, or with phishing-resistant device-bound passkeys."
+      },
+      "answer": "D",
+      "why_correct": "The attack works because approving requires no knowledge of the login attempt: a tired user can end the annoyance with one tap. Number matching forces the approver to enter a code displayed on the actual login screen — a screen the attacker, not the user, is viewing — so an unsolicited prompt cannot be completed blindly. Device-bound passkeys go further, removing both the phishable password and the approvable prompt and providing genuine phishing resistance. Both changes break the mechanism of the attack rather than asking users to resist it.",
+      "why_wrong": {
+        "A": "Lockout after denials punishes the user who is doing the right thing and hands the attacker a denial-of-service lever against any account whose password they hold. It also does nothing when the user approves the first prompt, which is how the successful compromise occurred.",
+        "B": "Training targets exactly the human judgment the attack is designed to wear down. The incidents show users approving under fatigue and pressure despite knowing better, so relying harder on the failing element is not a fix.",
+        "C": "More frequent re-authentication multiplies the number of legitimate prompts users see, which deepens the habituation that makes one more prompt easy to approve. It moves the risk in the wrong direction."
+      }
+    },
+    {
+      "id": "cisa-d5a-063",
+      "domain": "5",
+      "section": "A",
+      "topic": "Network and End-Point Security",
+      "difficulty": "medium",
+      "stem": "During fieldwork at a logistics company, an IS auditor connects a test laptop to a network socket in a meeting room and immediately receives an address with reachability to internal application servers. Staff confirm that visiting contractors routinely plug personal laptops into the same sockets. Which control would BEST address this exposure?",
+      "options": {
+        "A": "Network access control that authenticates each device before granting access, placing unrecognized devices on a restricted segment with no internal reachability.",
+        "B": "Disabling all network sockets that are not currently assigned to a corporate device.",
+        "C": "An intrusion detection sensor configured to alert on scanning activity from unknown devices.",
+        "D": "A requirement for contractors to sign the acceptable use policy before connecting equipment."
+      },
+      "answer": "A",
+      "why_correct": "The weakness is that physical reach to a socket equals network access. Port-based network access control moves the decision from the cable to an authentication check, so a corporate device proves its identity and posture while an unknown laptop lands in a quarantine segment. It addresses both the auditor's test and the contractor practice with one preventive mechanism.",
+      "why_wrong": {
+        "B": "Disabling unused sockets does nothing about the sockets in active use, which is where the contractors are connecting. It is also operationally brittle, because every desk move requires a change, and the control silently erodes as exceptions accumulate.",
+        "C": "A detection sensor fires after the unknown device already has internal reachability, and only if the device behaves noisily. A quiet attacker who connects and targets one known server may never trigger a scanning signature at all.",
+        "D": "A signed policy is an administrative control that depends entirely on voluntary compliance. It gives the organization recourse after an incident but places nothing between an untrusted device and the internal network."
+      }
+    },
+    {
+      "id": "cisa-d5a-064",
+      "domain": "5",
+      "section": "A",
+      "topic": "Network and End-Point Security",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing the firewall estate of a regional payment processor finds dozens of rules named \"temp\" that were added during incident troubleshooting up to four years ago. Change tickets exist for every addition, but no rule records an owner or business justification, and no process exists to remove or revalidate rules. Which recommendation BEST addresses the weakness?",
+      "options": {
+        "A": "Analyze traffic logs and delete every rule that has not matched any traffic in the past six months.",
+        "B": "Require senior management approval for all future firewall rule additions.",
+        "C": "Establish periodic recertification of every rule against a documented owner and business justification, with mandatory expiry dates on rules created as temporary.",
+        "D": "Replace the firewalls with a next-generation platform that supports application-aware policies."
+      },
+      "answer": "C",
+      "why_correct": "The change process controls how rules enter the rule base but nothing governs how they leave, so the rule base can only grow more permissive over time. Recertification forces every rule to re-earn its place against a named owner and justification, and expiry dates make temporary rules self-terminating instead of permanent by default. This converts a one-way accumulation into a managed lifecycle.",
+      "why_wrong": {
+        "A": "Usage-based deletion is a tempting one-off cleanup, but a rule with no recent matches may exist for failover, year-end processing or disaster recovery, and deleting it without an owner to consult is how outages happen. It also fixes today's rule base while leaving the accumulation process intact.",
+        "B": "Raising the approval bar on additions strengthens the front door of a process whose failure is at the back door. The problematic rules all passed change control when added; the weakness is that nothing ever removes them.",
+        "D": "A platform migration transplants the same unowned, unjustified rules onto newer hardware. The weakness is in the rule lifecycle process, and no product feature substitutes for it."
+      }
+    },
+    {
+      "id": "cisa-d5a-065",
+      "domain": "5",
+      "section": "A",
+      "topic": "Network and End-Point Security",
+      "difficulty": "easy",
+      "stem": "A marketing agency grants every employee local administrator rights on their laptop to reduce help desk tickets for software installation. From a security perspective, the GREATEST risk of this practice is that:",
+      "options": {
+        "A": "employees may install unlicensed software, exposing the agency to compliance claims.",
+        "B": "malicious code executed by a user runs with administrative privileges, allowing it to disable endpoint protections and entrench itself on the device.",
+        "C": "the help desk loses an accurate picture of which software versions are installed.",
+        "D": "laptop configurations will drift from the standard build, increasing support effort."
+      },
+      "answer": "B",
+      "why_correct": "Malware inherits the privileges of the user who runs it. With local administrator rights, a single phishing click gives the payload the power to switch off the endpoint agent, tamper with logging, install persistence mechanisms and harvest credentials — the difference between an infection that is contained and one that becomes a foothold. Removing standing admin rights is among the highest-value endpoint hardening measures for exactly this reason.",
+      "why_wrong": {
+        "A": "License compliance exposure is a genuine legal and financial matter, but it is bounded and remediable in a way that a privileged malware infection is not.",
+        "C": "Software inventory accuracy is an operational visibility problem. It complicates patching and support without itself handing an attacker anything.",
+        "D": "Configuration drift raises support cost and inconsistency. It is the productivity argument against local admin rights, not the security one, and the question asks about security risk."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-066",
+      "domain": "5",
+      "section": "A",
+      "topic": "Network and End-Point Security",
+      "difficulty": "hard",
+      "stem": "At a hospital group, an IS auditor observes that domain administrators open remote sessions to the domain controllers using privileged credentials from the same workstations on which they read external email and browse the web all day. Which of the following should be the auditor's GREATEST concern?",
+      "options": {
+        "A": "The remote sessions rely on the platform's native protocol encryption rather than being wrapped in a VPN.",
+        "B": "The same individuals both administer servers and perform ordinary user activities, violating segregation of duties.",
+        "C": "Privileged sessions initiated from these workstations are not recorded for subsequent review.",
+        "D": "Privileged credentials are entered and cached on endpoints routinely exposed to phishing and hostile web content."
+      },
+      "answer": "D",
+      "why_correct": "The workstation is the highest-exposure device in the estate because it processes hostile email and web content all day, and domain administrator credentials are typed into it and cached in its memory. A single commodity endpoint compromise therefore yields credentials that control the entire domain — the standard escalation path in real ransomware intrusions. This violates the clean-source principle; the remedy is dedicated privileged access workstations or hardened jump hosts that never touch email or the web.",
+      "why_wrong": {
+        "A": "Network-encryption trap: protocol encryption protects the session against interception in transit, which is not the exposure here. The attacker's position is on the endpoint itself, where credentials are captured before they ever enter the encrypted channel.",
+        "B": "Segregation-of-duties trap: SoD concerns conflicting responsibilities held by one person. The same person may legitimately administer servers and read email; the defect is that both activities occur on the same device, not within the same role.",
+        "C": "Detective-control trap: session recording documents what happened after credentials are already stolen and used. It is secondary to the exposure that lets a commodity infection harvest domain-level credentials in the first place."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-067",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "An engineering firm discovers that staff have been pasting proprietary design specifications and source code into public generative AI assistants to speed up their work. The firm's data loss prevention coverage is limited to the email gateway and removable media. Which recommendation BEST addresses the leakage?",
+      "options": {
+        "A": "Extend data loss prevention to the web channel to inspect uploads and paste actions toward unsanctioned AI services, and provide a sanctioned enterprise AI tool covered by contractual data protections.",
+        "B": "Block all generative AI domains at the web proxy.",
+        "C": "Amend the acceptable use policy to prohibit entering company data into external AI tools.",
+        "D": "Require staff to enable the data retention opt-out offered by the AI providers they use."
+      },
+      "answer": "A",
+      "why_correct": "The data is leaving over a channel the DLP deployment cannot see, so coverage has to follow the data to the browser. Pairing enforcement with a sanctioned alternative addresses the demand side: staff are using these tools because they deliver real productivity, and a governed enterprise offering removes the incentive to route around the control. Enforcement without an alternative pushes the same behavior to personal devices where the organization has no visibility at all.",
+      "why_wrong": {
+        "B": "A domain blocklist is the right instinct over-applied. New AI services appear faster than any list can track, blocking wholesale forfeits legitimate business value, and determined users shift to personal phones and home machines, converting a visible risk into an invisible one.",
+        "C": "The behavior is already contrary to any reasonable reading of existing confidentiality policy, and it is happening anyway. A policy amendment without a technical enforcement point changes the words, not the data flows.",
+        "D": "This leaves protection of the firm's intellectual property to configuration settings inside consumer services the firm does not control and cannot verify, applied or not at each employee's discretion. It is not a control the organization can rely on or audit."
+      }
+    },
+    {
+      "id": "cisa-d5a-068",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing a health insurer's cloud collaboration platform finds thousands of documents, including files containing member health data, shared through links that grant access to anyone who possesses the URL. Which control would BEST reduce this exposure?",
+      "options": {
+        "A": "A quarterly report of externally shared files sent to each data owner for review and remediation.",
+        "B": "Awareness training walking staff through the sharing options in the platform's dialog.",
+        "C": "Tenant-level sharing policies that default links to named internal recipients and block external sharing of files carrying a sensitive classification label.",
+        "D": "Disabling all external sharing on the collaboration platform."
+      },
+      "answer": "C",
+      "why_correct": "Preventive configuration at the tenant level changes what is possible rather than what is advised: the risky option stops being the default for everyone, and files labelled sensitive cannot be shared outward regardless of user intent. Tying enforcement to classification labels also means the control scales with the data itself instead of depending on each user's judgment at each sharing decision.",
+      "why_wrong": {
+        "A": "Owner review is detective and after the fact — the member data is already exposed when the report is generated. At thousands of files per quarter the review also becomes a rubber stamp, repeating the pattern seen wherever bulk certifications are used as the primary control.",
+        "B": "Training reaches the staff who attend and persists until the next deadline-driven shortcut. When the risky choice remains one click away as a default, education loses to convenience at scale.",
+        "D": "Prohibiting external sharing outright ignores the legitimate collaboration the platform exists to support. Staff facing a genuine business need will fall back to personal email or unsanctioned file transfer services, moving the same data to channels with no logging or control at all."
+      }
+    },
+    {
+      "id": "cisa-d5a-069",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Loss Prevention",
+      "difficulty": "medium",
+      "stem": "A manufacturer's data loss prevention solution blocks outbound transfers of files classified as confidential. Reviewing the configuration, an IS auditor finds more than 200 exception entries granted over three years — several covering entire departments — none of which carries an expiry date or has ever been re-reviewed. Roughly 40% of staff are now covered by an exception. Which of the following should be the auditor's GREATEST concern?",
+      "options": {
+        "A": "Exception requests require only line manager approval rather than approval by the security function.",
+        "B": "The exceptions have accumulated until the control no longer applies to a large share of the population it was designed to cover, and no process revalidates whether any business need persists.",
+        "C": "The exception register is maintained in a spreadsheet rather than within the DLP console.",
+        "D": "Exceptions have been granted disproportionately to senior staff, indicating inconsistent treatment across grades."
+      },
+      "answer": "B",
+      "why_correct": "Each exception was a bounded decision, but without expiry or re-review the decisions only ever accumulate, and at 40% coverage the tool now enforces against a minority of users while management still believes the control operates. A control eroded by permanent exceptions is more dangerous than an absent one, because the assurance it appears to provide is being relied on.",
+      "why_wrong": {
+        "A": "The approval route is a governance refinement worth raising, but escalating who approves does not touch the structural problem: even well-approved exceptions become permanent when nothing ever re-validates or retires them.",
+        "C": "Where the register lives is a record-keeping observation. Moving the same unexpiring exceptions into the console would document the erosion more tidily without reducing it.",
+        "D": "The seniority pattern is worth noting — senior staff often handle the most sensitive data, so the pattern arguably worsens the exposure — but it describes who holds the exceptions, not the failure that lets exceptions swallow the control indefinitely."
+      }
+    },
+    {
+      "id": "cisa-d5a-070",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Loss Prevention",
+      "difficulty": "hard",
+      "stem": "An IS auditor at a regional insurer needs assurance that the data loss prevention solution actually detects and blocks the categories of sensitive data it is configured to protect. Which of the following provides the BEST evidence?",
+      "options": {
+        "A": "A configuration export showing detection policies enabled for every defined sensitive data category across all covered channels.",
+        "B": "Console statistics showing a consistently high monthly volume of alerts and blocked transmissions.",
+        "C": "Vendor documentation confirming that the product detects the file types and data patterns the insurer uses.",
+        "D": "Controlled test transmissions of seeded sample files for each sensitive data category through each covered channel, with actual outcomes compared against expected detection and blocking."
+      },
+      "answer": "D",
+      "why_correct": "The question a false negative poses is invisible in every record the tool produces: data it fails to recognize generates no alert, no block and no log entry. Only injecting known sensitive content and observing whether the control catches it tests the outcome directly, and doing so per category and per channel localizes any failure to the specific rule or interception point that missed. This is the DLP equivalent of testing a control by executing it rather than reading about it.",
+      "why_wrong": {
+        "A": "A configuration export is design evidence: it shows what the tool is instructed to do, not what it accomplishes. Policies can be enabled yet defeated in practice by unparseable formats, encoding, channel gaps or pattern definitions that do not match the real data.",
+        "B": "Alert volume proves the tool fires on something, not that it fires on what matters. A busy console is fully consistent with systematic false negatives, since the transmissions that escape detection are precisely the ones that appear nowhere in the statistics.",
+        "C": "Vendor documentation describes capability under the vendor's test conditions, not effectiveness against this insurer's data in this configuration. It is a claim by an interested party, not audit evidence of operation."
+      }
+    },
+    {
+      "id": "cisa-d5a-071",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "easy",
+      "stem": "A law firm's IT manager states that full-disk encryption on all laptops protects client files against both device theft and malware infections. Which of the following is the IS auditor's MOST accurate observation?",
+      "options": {
+        "A": "The encryption protects data only until a user authenticates; on a running system, data is decrypted transparently for any executing process.",
+        "B": "The claim is insufficient because the encryption algorithm in use may have been deprecated.",
+        "C": "The claim is valid provided the encryption keys meet the minimum length in the firm's cryptographic standard.",
+        "D": "Full-disk encryption should be replaced with file-level encryption, which protects against both threats."
+      },
+      "answer": "A",
+      "why_correct": "Full-disk encryption addresses one threat well: physical loss or theft of a powered-down or unauthenticated device. Once the user logs in, the operating system decrypts everything transparently for every running process — including malicious ones — so the control contributes nothing against the malware scenario. The auditor's role is to match the control to the threats it actually mitigates rather than accept its claimed scope.",
+      "why_wrong": {
+        "B": "Algorithm currency is a legitimate check but a different one. Even flawless, current cryptography cannot protect a running system, because the design decrypts on behalf of whatever executes in the user's session.",
+        "C": "Key length defends against brute-force attack on the stored ciphertext. Malware does not attack the ciphertext; it operates inside the authenticated session where the data is already in the clear.",
+        "D": "File-level encryption suffers a version of the same limitation: files must be decrypted for the user to work on them, and malware running in the user's context reaches whatever the user can. The right prescription is layering endpoint and anti-malware controls alongside encryption, not swapping encryption types."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-072",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "A pension administrator enables transparent database encryption on its member database and reports to its regulator that database administrators are no longer able to view member personal data. Which of the following is the MOST accurate assessment of this assertion?",
+      "options": {
+        "A": "The assertion holds provided the encryption keys are stored in a hardware security module.",
+        "B": "The assertion holds because transparent encryption protects both the data files and the database backups.",
+        "C": "The assertion is incorrect: transparent encryption decrypts data automatically for any authenticated database session, so it protects storage media and backup files but does nothing to prevent privileged users from querying data in the clear.",
+        "D": "The assertion holds only if the role that manages the encryption keys is separated from the database administrator role."
+      },
+      "answer": "C",
+      "why_correct": "Transparent encryption operates below the query layer: the engine decrypts pages as it reads them, for every authenticated session equally, which is precisely what makes it transparent. A database administrator's queries return plaintext exactly as before. Limiting what privileged users can see requires controls at or above the query layer — application-level encryption, masking, or restricting and monitoring privileged access — so the representation made to the regulator is wrong in a way the auditor must report.",
+      "why_wrong": {
+        "A": "A hardware security module protects the keys from extraction; it does not change what an authenticated session receives. The DBA never needs the keys, because the engine performs the decryption for them.",
+        "B": "This is an accurate description of what transparent encryption does protect, attached to the wrong conclusion. Coverage of files and backups addresses stolen media, not privileged queries against the live database.",
+        "D": "Separating key custody from database administration is sound key management practice, but it constrains who controls the keys, not what a query returns. The DBA's access to plaintext flows through the engine's transparent decryption, which key custody does not touch."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-073",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "hard",
+      "stem": "A fintech company is subject to a regulatory requirement that its cloud service provider must be technically unable to access customer transaction data in plaintext. Which approach BEST satisfies the requirement?",
+      "options": {
+        "A": "Encrypt the data before it leaves the company's environment, using keys generated and held in a key management system entirely outside the provider's control.",
+        "B": "Use the provider's customer-managed key feature, holding the encryption keys in the provider's native key management service.",
+        "C": "Include a contractual clause prohibiting provider access to customer data, supported by audit rights.",
+        "D": "Enforce TLS for all data in transit and enable the provider's default encryption at rest."
+      },
+      "answer": "A",
+      "why_correct": "The requirement is about technical capability, not permission, so plaintext and the means of producing it must never coexist within the provider's reach. Client-side encryption with externally held keys achieves that: the provider stores and processes only ciphertext and possesses no path to the keys. It also carries the real cost that provider-side features which need plaintext — indexing, search, in-service processing — stop working, which is exactly the trade the requirement demands.",
+      "why_wrong": {
+        "B": "The label \"customer-managed\" describes who administers the key policy, not who can reach the key. The key lives in the provider's own KMS and the provider's services decrypt data with it during normal operation, so the provider demonstrably retains the technical ability to access plaintext — the precise thing the requirement prohibits.",
+        "C": "A contract governs what the provider may do, not what it can do. The requirement as stated is about technical inability, and no clause or audit right alters the provider's capabilities.",
+        "D": "Transit and at-rest encryption protect against network interception and stolen media, but the provider terminates the TLS sessions and holds the at-rest keys. This is the standard baseline the requirement was written to go beyond."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-074",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "A media company is designing retention controls for customer personal data that must be irrecoverable once its retention period expires, knowing that copies will exist across immutable backups, storage replicas and offsite archives throughout the data's life. Which approach BEST achieves reliable destruction?",
+      "options": {
+        "A": "Overwrite the data with multiple passes at every location where a copy resides.",
+        "B": "Physically destroy each backup media set when it reaches the end of its rotation cycle.",
+        "C": "Delete the index and catalog entries so the expired data can no longer be located or restored.",
+        "D": "Encrypt each dataset under its own unique key at creation, and destroy that key when the retention period expires."
+      },
+      "answer": "D",
+      "why_correct": "When copies are dispersed across media the organization cannot selectively erase — immutable backups by design, replicas and archives in practice — the only destruction that reaches every copy at once is cryptographic: destroy the key and all ciphertext everywhere becomes permanently unreadable. This is why destruction has to be designed in at creation time, with key granularity matching the retention obligation; it cannot be bolted on when the deadline arrives.",
+      "why_wrong": {
+        "A": "Overwriting requires write access to every copy, and immutable backups exist precisely to refuse writes. It also presumes a complete, accurate map of every replica and cache, which dispersed cloud storage rarely allows, so the approach fails exactly where the problem is hardest.",
+        "B": "Waiting for rotation leaves expired data recoverable until each media set happens to age out, which may exceed the legal deadline, and destroying whole sets also destroys other data still under retention. The obligation is selective; media destruction is not.",
+        "C": "Removing catalog entries makes data harder to find, not impossible to recover — the blocks remain intact and readable by forensic tools or a rebuilt index. This is deletion of pointers dressed up as destruction, and it would not withstand regulatory scrutiny."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-075",
+      "domain": "5",
+      "section": "A",
+      "topic": "Data Encryption",
+      "difficulty": "medium",
+      "stem": "A penetration test at a regional bank identifies several internal applications still negotiating deprecated protocol versions and signing certificates with a retired hash algorithm. Management proposes remediating the identified systems and closing the finding. What should the IS auditor recommend be done FIRST?",
+      "options": {
+        "A": "Upgrade the identified systems immediately, since their weaknesses are confirmed and exploitable.",
+        "B": "Compile an inventory of cryptographic usage across the estate — protocols, algorithms, key lengths, certificates and embedded libraries — and drive remediation from it in risk order.",
+        "C": "Update the bank's cryptographic standard to prohibit the deprecated algorithms.",
+        "D": "Commission a wider penetration test covering additional systems."
+      },
+      "answer": "B",
+      "why_correct": "A penetration test samples: it found deprecated cryptography on the systems it happened to touch, which is evidence of a population problem, not its full extent. An inventory converts the unknown into a managed backlog, lets remediation be sequenced by data sensitivity and exposure rather than by discovery order, and is the same capability the bank will need for every future algorithm migration. Fixing only the named systems closes the finding while leaving the condition.",
+      "why_wrong": {
+        "A": "The identified systems should indeed be fixed, but doing so first and closing the finding treats the sample as the population. The systems the testers never touched remain in an unknown state, and management's proposal converts a systemic weakness into a short task list.",
+        "C": "The algorithms in question are deprecated precisely because current standards already prohibit them, so the instances found represent a failure to apply the standard, not a gap in it. Amending a document locates no instance and remediates nothing.",
+        "D": "More penetration testing is more sampling: broader, still point-in-time, still shaped by where the testers look. Configuration analysis and discovery scanning against an asset inventory enumerate cryptographic usage systematically at far lower cost than exploitation-led testing."
+      }
+    },
+    {
+      "id": "cisa-d5a-076",
+      "domain": "5",
+      "section": "A",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "easy",
+      "stem": "An IS auditor has been engaged to review the internal certificate authority operated by a national retail bank. Before designing test procedures, the auditor wants to understand how the authority verifies subscriber identity, protects its keys, and handles revocation requests. Which document should the auditor review FIRST?",
+      "options": {
+        "A": "The certification practice statement.",
+        "B": "The most recently published certificate revocation list.",
+        "C": "The root certificate authority's own X.509 certificate.",
+        "D": "The organization's information security policy."
+      },
+      "answer": "A",
+      "why_correct": "The certification practice statement is the authority's own description of how it operates: the identity verification it performs, the key protection it applies, and the revocation procedures it follows. It is the stated design of the control environment, which is exactly what the auditor needs before deciding what to test operations against.",
+      "why_wrong": {
+        "B": "A revocation list is an operational output — a snapshot of which certificates are currently revoked. It shows results of the revocation process, not how identity verification, key protection, or any process is supposed to work.",
+        "C": "The root certificate contains the public key, validity dates, and signature, none of which describes operating procedures. Reading the certificate tells the auditor what the authority asserts, not how it decides to assert it.",
+        "D": "The security policy is too high a level of abstraction. It may require a PKI to be operated securely, but it will not specify the issuance, verification, and revocation practices the auditor must understand to design tests."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-077",
+      "domain": "5",
+      "section": "A",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "A regional insurer has experienced two outages of its customer-facing portals within a year, each caused by a TLS certificate expiring unnoticed. Certificates are requested by individual application teams and tracked in spreadsheets maintained separately by each team. Which recommendation would BEST address the root cause?",
+      "options": {
+        "A": "Negotiate with the issuing authority for certificates with a five-year validity period to reduce the frequency of renewals.",
+        "B": "Require each application team to review and update its certificate spreadsheet at the end of every month.",
+        "C": "Establish a centralized certificate inventory covering the whole estate, with automated expiry monitoring, alerting, and renewal wherever the platform supports it.",
+        "D": "Consolidate all certificate purchases with a single commercial certificate authority to simplify vendor management."
+      },
+      "answer": "C",
+      "why_correct": "The root cause is that no one function can see the whole certificate population, so expiries surprise the organization. A central inventory creates the complete population, automated monitoring removes the dependence on individual diligence, and automated renewal eliminates the manual step that keeps failing. This directly targets why the outages occur rather than how often renewals come due.",
+      "why_wrong": {
+        "A": "Longer validity reduces how often the failure can occur while leaving the failure mode intact, and it moves against the industry direction of progressively shorter certificate lifetimes. It also extends the exposure window if a certificate's key is compromised.",
+        "B": "This doubles down on the fragmented manual process that has already failed twice. More frequent updates to disconnected spreadsheets still depend on the same individual diligence and still give no one a view of the whole estate.",
+        "D": "Vendor consolidation simplifies purchasing, but the outages were not caused by having multiple issuers. Certificates from a single authority expire just as silently when nobody is tracking them."
+      }
+    },
+    {
+      "id": "cisa-d5a-078",
+      "domain": "5",
+      "section": "A",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "medium",
+      "stem": "A brokerage firm escrows copies of all employee private keys, including the keys used to digitally sign trade confirmations sent to counterparties, on the rationale that business must be able to continue if an employee leaves unexpectedly. Which of the following should be the IS auditor's GREATEST concern?",
+      "options": {
+        "A": "The escrow repository itself becomes a concentrated target that must be protected to the highest standard.",
+        "B": "Because signing keys exist outside the signers' sole control, a signature on a trade confirmation can no longer be uniquely attributed to the named employee, undermining nonrepudiation.",
+        "C": "Escrowed encryption keys could be lost or corrupted, making archived encrypted records unrecoverable.",
+        "D": "Employees may object to the escrow arrangement on personal privacy grounds."
+      },
+      "answer": "B",
+      "why_correct": "Nonrepudiation rests entirely on the private key existing nowhere but with its owner. The moment a signing key is copied into escrow, anyone with access to the repository could produce a signature indistinguishable from the employee's, and a counterparty dispute over a trade can no longer be settled by the signature. The business continuity rationale is legitimate for encryption keys, where data would otherwise be lost, but it has been over-applied to signing keys, where nothing is lost by simply issuing a leaver's successor a new key pair.",
+      "why_wrong": {
+        "A": "Concentration risk in the escrow repository is real and must be managed, but it is a consequence of doing escrow at all. It applies equally to a properly scoped escrow of encryption keys only, so it is not what distinguishes this arrangement as defective.",
+        "C": "This inverts the mechanism: escrow is the control that protects against unrecoverable encrypted data, not a cause of it. Loss of the escrow copy leaves the organization no worse off than having no escrow.",
+        "D": "Employee sentiment is a change management consideration. It does not bear on whether the control design destroys a security property the business depends on."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5a-079",
+      "domain": "5",
+      "section": "A",
+      "topic": "Public Key Infrastructure",
+      "difficulty": "hard",
+      "stem": "A banking group has established a new internal root certificate authority that will anchor trust for all of its subsidiaries. Which of the following would give an IS auditor the STRONGEST assurance that no single individual could have obtained or used the root private key?",
+      "options": {
+        "A": "Signed confidentiality and acceptable use agreements, renewed annually, from every administrator with physical or logical access to the certificate authority.",
+        "B": "A penetration test of the certificate authority servers and supporting network completed shortly after go-live, with no significant findings reported.",
+        "C": "Publication of the root certificate's fingerprint on the corporate intranet so that relying parties throughout the group can verify the certificate they hold.",
+        "D": "Records of an independently witnessed key generation ceremony showing the key was created inside a hardware security module, with activation material split among custodians under an m-of-n scheme."
+      },
+      "answer": "D",
+      "why_correct": "The question is whether any one person could ever have held or exercised the key, and only the circumstances of its generation and custody can answer that. A witnessed ceremony evidences that the key came into existence under observation inside hardware it cannot leave, and split activation material means no individual custodian can use it alone from that moment forward. This is dual control designed into the key's entire life, not asserted after the fact.",
+      "why_wrong": {
+        "A": "Agreements are administrative controls governing behavior. They create accountability if misuse is discovered, but they neither prevent a single administrator from acting alone nor evidence that sole access was ever impossible.",
+        "B": "A penetration test assesses the network-facing attack surface at a point in time. It says nothing about what happened at key generation or about whether an authorized insider could exercise the key unilaterally — the two paths the question is actually about.",
+        "C": "A published fingerprint lets relying parties confirm they hold the genuine certificate. It protects the integrity of the public certificate's distribution and is silent on the secrecy and custody of the private key."
+      }
+    },
+    {
+      "id": "cisa-d5a-080",
+      "domain": "5",
+      "section": "A",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "While auditing a professional services firm, an IS auditor reconciles corporate card expense data against the IT asset register and identifies more than sixty software-as-a-service subscriptions purchased directly by business units, none of which is known to the IT or security functions. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "Corporate and client data is being processed in services that were never risk-assessed and that sit outside the firm's identity management and leaver deprovisioning processes.",
+        "B": "The firm is paying for overlapping subscriptions whose functionality duplicates collaboration and analysis tools it already licenses centrally.",
+        "C": "The purchases contravene the firm's procurement policy, which requires IT review and approval of all software acquisitions before any commitment is made.",
+        "D": "Each additional service adds another set of credentials for staff to manage, increasing the likelihood of password reuse across services."
+      },
+      "answer": "A",
+      "why_correct": "Every protection the organization relies on — vendor due diligence, contractual security terms reviewed rather than click-through, single sign-on, joiner-mover-leaver deprovisioning, monitoring, and inclusion in incident response — assumes the service is known. These sixty services have all of the data exposure and none of the controls, and departed employees plausibly still hold live access to client data in them. That is a systemic gap in the control perimeter, not an administrative untidiness.",
+      "why_wrong": {
+        "B": "Duplicate spend is a cost efficiency observation. It may strengthen the business case for consolidation but involves no exposure of data or access.",
+        "C": "The policy breach is a description of the same condition the auditor has already found, not the risk arising from it. Reporting the noncompliance without articulating the exposure understates why it matters.",
+        "D": "Password reuse is one narrow symptom of the services sitting outside corporate identity management. It is a subset of the broader risk, not a competitor to it."
+      }
+    },
+    {
+      "id": "cisa-d5a-081",
+      "domain": "5",
+      "section": "A",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "medium",
+      "stem": "A hospital group is about to sign a contract migrating its clinical scheduling system to a software-as-a-service provider, and an IS auditor is reviewing the draft agreement. Which of the following findings should be of GREATEST concern?",
+      "options": {
+        "A": "The agreement does not include tiered volume discounts as usage grows.",
+        "B": "The availability commitment is 99.5 percent rather than the 99.9 percent originally requested.",
+        "C": "The provider declines on-site audits by customers but commits to providing an annual independent service auditor's report.",
+        "D": "The agreement contains no provisions governing the return of the hospital's data in a usable format, or its verified deletion, when the contract ends."
+      },
+      "answer": "D",
+      "why_correct": "Termination terms can only be negotiated from strength before signature; once the provider holds the only copy of years of scheduling data, the hospital has no leverage. Without a contractual right to receive its data in a usable format and evidence of deletion, the organization faces vendor lock-in on exit and an open-ended exposure of patient-related data retained by a former supplier. Exit provisions are precisely the clauses that seem theoretical at signing and become decisive later.",
+      "why_wrong": {
+        "A": "Discount structure is a commercial optimization with no control implication. Its absence costs money, not assurance.",
+        "B": "The availability gap is a negotiable service level judgment for a scheduling system, and the business can assess whether 99.5 percent is tolerable. It is a known, bounded exposure rather than a missing right.",
+        "C": "Declining customer on-site audits while providing an independent service auditor's report is normal practice for multi-tenant providers, and the report is a recognized alternative source of assurance. Treating the on-site right as indispensable over-applies the right-to-audit expectation to a context where a standard substitute exists."
+      }
+    },
+    {
+      "id": "cisa-d5a-082",
+      "domain": "5",
+      "section": "A",
+      "topic": "Cloud and Virtualized Environments",
+      "difficulty": "hard",
+      "stem": "An online retailer has suffered three incidents in a year in which development teams left cloud object storage containing customer data publicly accessible, each discovered weeks later by outside researchers. The security team has responded with monthly configuration scans and refresher training. Which further measure would MOST effectively prevent recurrence?",
+      "options": {
+        "A": "Increase the frequency of the configuration scans from monthly to weekly.",
+        "B": "Enforce platform-level policy guardrails that technically block public storage exposure across every account in the tenancy, with a documented exception process for the rare legitimate case.",
+        "C": "Deliver targeted secure-configuration training to the development teams involved in the three incidents.",
+        "D": "Require a manager to review and approve the configuration of each deployment before it goes live."
+      },
+      "answer": "B",
+      "why_correct": "Three recurrences show this is a systemic failure mode, and the pattern — exposure created, then found weeks later by outsiders — is exactly what detective controls produce. Cloud platforms allow the prohibition to be enforced above the account level, so a developer's misconfiguration simply cannot take effect regardless of skill, attention, or workload. The exception process preserves the rare legitimate use while keeping the default technically impossible to violate, which is what prevention means.",
+      "why_wrong": {
+        "A": "Weekly scanning shrinks the exposure window from weeks to days but leaves the window open. The organization is still relying on finding the mistake after customer data has been public, which is the failure pattern it is trying to escape.",
+        "C": "Training has already been tried and addresses capability, but these incidents recur because humans err under delivery pressure, not because the teams do not know the rule. A control that depends on nobody ever slipping has failed three times.",
+        "D": "A manual approval gate slows every deployment, and the approver is reviewing configurations by inspection — a human check that misses what humans miss. It converts an engineering problem into a bottleneck without technically preventing the exposure."
+      }
+    },
+    {
+      "id": "cisa-d5a-083",
+      "domain": "5",
+      "section": "A",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "easy",
+      "stem": "Employees at a logistics company report seeing a wireless network in their office with the same name as the corporate network that intermittently prompts them to re-enter their credentials. Which control would BEST enable the organization to detect unauthorized access points impersonating its network?",
+      "options": {
+        "A": "Requiring a longer and more complex wireless passphrase.",
+        "B": "Disabling broadcast of the corporate network name.",
+        "C": "A wireless intrusion detection capability that continuously monitors the radio environment and compares observed access points against the authorized inventory.",
+        "D": "A quarterly physical walk-through of the premises to look for unfamiliar networking equipment."
+      },
+      "answer": "C",
+      "why_correct": "An impersonating access point exists in the radio spectrum, so it can only be found by watching the radio spectrum. Continuous wireless monitoring compares every access point seen on the air against the known authorized set and alerts on the imposter as soon as it appears, which addresses both the detection requirement and the intermittent nature of the reported behavior.",
+      "why_wrong": {
+        "A": "A stronger passphrase hardens the legitimate network. The attacker is not joining the corporate network but running a counterfeit one, so nothing about the real network's credential affects the imposter.",
+        "B": "The attacker chooses the name their rogue network broadcasts, so hiding the legitimate name does not stop the imitation. Name suppression is also trivially defeated and provides no detection of anything.",
+        "D": "A rogue access point can be a pocket-sized device or a laptop, present only when the attacker chooses. A quarterly point-in-time inspection is the wrong cadence and the wrong sense for a threat that is intermittent and invisible to the eye."
+      }
+    },
+    {
+      "id": "cisa-d5a-084",
+      "domain": "5",
+      "section": "A",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "A pharmaceutical company's mobile device management reporting shows that jailbroken and rooted devices are successfully synchronizing corporate email, although policy prohibits their use and every user has signed an attestation of compliance. Which control would BEST address this exposure?",
+      "options": {
+        "A": "Integrate device compliance status into conditional access, so that a device assessed as jailbroken or otherwise noncompliant is technically denied access before any corporate resource is reached.",
+        "B": "Reissue the policy with an explicit statement that violations will result in disciplinary action.",
+        "C": "Require longer device passcodes and shorter automatic lock timeouts on all enrolled devices.",
+        "D": "Have the security team review the mobile device management compliance report each week and follow up on flagged devices."
+      },
+      "answer": "A",
+      "why_correct": "The organization already knows which devices are compromised — the reporting shows it — yet access continues because nothing connects that knowledge to the access decision. Conditional access closes that loop: posture is evaluated at every access attempt and a noncompliant device never reaches the mailbox, converting a policy statement into a technically enforced precondition. A jailbroken device cannot be trusted to enforce any of its own controls, so the only sound enforcement point is outside the device.",
+      "why_wrong": {
+        "B": "Users have already attested compliance and the violations continue, so the failure is not awareness of the rule. A sterner restatement is the same administrative control that is currently not working.",
+        "C": "Passcode and lock settings are enforced by the operating system, and on a jailbroken device the operating system's enforcement is exactly what can no longer be relied on. This hardens a foundation the exposure has already undermined.",
+        "D": "Weekly review is detective and lagging: the compromised device holds corporate mail for up to a week before anyone acts. It also consumes analyst effort to do manually what the access platform can do automatically at every connection."
+      }
+    },
+    {
+      "id": "cisa-d5a-085",
+      "domain": "5",
+      "section": "A",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "During an audit at a university hospital, an IS auditor learns that the facilities department has for several years connected smart HVAC controllers, networked door actuators, and IP cameras to the corporate network without involving IT, and no one can say how many such devices exist or where they are. What should the auditor recommend be done FIRST?",
+      "options": {
+        "A": "Move all identified building-systems devices onto a dedicated, filtered network segment.",
+        "B": "Issue a policy requiring IT approval before any device is connected to the corporate network.",
+        "C": "Conduct network discovery to identify and inventory every connected device, establishing the actual population and its owners.",
+        "D": "Require the facilities department to apply current firmware to all of its connected devices."
+      },
+      "answer": "C",
+      "why_correct": "Every subsequent control — segmentation, patching, ownership, monitoring — operates on a population, and here the population is unknown. Discovery and inventory establish what exists, where it sits, and who answers for it, which is the precondition for scoping any remediation and for knowing when remediation is complete. The devices that pose the greatest risk are precisely the ones nobody knows about, and only discovery finds those.",
+      "why_wrong": {
+        "A": "Segmentation is very likely the right destination, but it can only be applied to devices that have been found. Segmenting the known devices while an unknown number remain on the flat network gives the appearance of remediation without its substance — the right control at the wrong time.",
+        "B": "A policy governs future connections and does nothing about several years of accumulated, unmanaged devices already on the network. It is a paper answer to a live exposure.",
+        "D": "Firmware currency cannot be managed, verified, or even scoped for an unknown population, and many building-systems devices will prove unpatchable in any case. This skips the step that would tell the organization what it is dealing with."
+      }
+    },
+    {
+      "id": "cisa-d5a-086",
+      "domain": "5",
+      "section": "A",
+      "topic": "Mobile, Wireless, and Internet-of-Things Devices",
+      "difficulty": "medium",
+      "stem": "A retail bank's mobile application authorizes high-value transfers using the customer's password plus a one-time code delivered by SMS. In assessing this design, which of the following should the IS auditor identify as the GREATEST weakness?",
+      "options": {
+        "A": "Customers travelling in areas without mobile coverage will be unable to authorize transfers.",
+        "B": "An attacker who takes over the customer's mobile number through the carrier's porting or SIM-replacement process will receive the one-time codes.",
+        "C": "Six-digit codes are short enough that an attacker could guess one before it expires.",
+        "D": "Delivered codes remain stored in the customer's message history, where they could be read later."
+      },
+      "answer": "B",
+      "why_correct": "SMS delivery makes the second factor possession of a phone number rather than possession of a device, and phone numbers are reassigned through carrier customer-service processes the bank neither operates nor monitors. Number-porting and SIM-swap fraud attack exactly this seam, need only social engineering against the carrier rather than access to the victim, and are the reason authentication standards such as NIST SP 800-63B restrict SMS as an out-of-band authenticator. For high-value transfers, the control's strength is capped by the weakest process it depends on — and that process belongs to someone else.",
+      "why_wrong": {
+        "A": "Coverage gaps are an availability inconvenience for the customer, not a security weakness. The auditor's question is whether an unauthorized party can pass the control, not whether an authorized one occasionally cannot.",
+        "C": "Guessing is defeated by the combination of short validity, attempt limits, and the code space — standard protections in any reasonable implementation. It is a tempting technical objection that does not survive the arithmetic.",
+        "D": "Codes in message history have already been used or expired by the time they could be read, so they confer nothing. The dangerous copy of the code is the one delivered to an attacker in real time, which is the porting scenario."
+      },
+      "no_principle": true
+    }
+  ]
+}

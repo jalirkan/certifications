@@ -1,0 +1,506 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "5",
+    "section": "B",
+    "batch": "d5b-003",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Third D5 section B batch - depth for mock-exam headroom (CLAUDE.md §5). Drafted against existing coverage, adversarially reviewed item by item, then conservatively mapped to decision rules and confusable pairs. Topic values must match ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d5b-031",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "easy",
+      "stem": "A regional insurance group requires all employees to complete annual security awareness training and reports 98% completion to the board. An IS auditor finds that long-term contractors and an outsourced claims-processing team, all of whom hold network accounts and access claims data daily, are excluded from the program. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "The completion figure reported to the board overstates the program's true coverage.",
+        "B": "The training platform license may not permit enrollment of non-employees.",
+        "C": "Personnel with the same access and threat exposure as employees are operating with no awareness preparation.",
+        "D": "Contractor onboarding documentation does not reference the security policy."
+      },
+      "answer": "C",
+      "why_correct": "Attackers target access, not employment status. A contractor with a network account and daily access to claims data presents the identical attack surface as an employee in the same seat, so excluding that population leaves the easiest route into the organization completely unprepared — an attacker simply targets the untrained accounts instead. The control has a hole shaped exactly like the accounts an adversary would choose.",
+      "why_wrong": {
+        "A": "The misleading metric is real and worth reporting, but it is a reporting accuracy problem that flows from the coverage gap. Fixing the number without fixing the gap changes nothing about the exposure.",
+        "B": "Licensing is a procurement detail that is trivially resolved once the requirement is set. Treating it as the concern mistakes an implementation obstacle for the risk itself.",
+        "D": "A documentation reference would record that contractors were told a policy exists. It builds no recognition capability and is a far weaker control than the training whose absence is the finding."
+      }
+    },
+    {
+      "id": "cisa-d5b-032",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "easy",
+      "stem": "A hospital group activates new clinical staff members' access to the electronic health record system on their first day. The mandatory security and privacy awareness module must be completed within 90 days of hire. Which recommendation by the IS auditor is MOST appropriate?",
+      "options": {
+        "A": "Require a concise onboarding version of the awareness training, covering phishing recognition, credential handling and patient data obligations, to be completed before access is activated, with the full module following.",
+        "B": "Shorten the completion window from 90 days to 60 days.",
+        "C": "Require line supervisors to brief new starters verbally on security expectations during their first week.",
+        "D": "Withhold electronic health record access until the full 90-day module has been completed."
+      },
+      "answer": "A",
+      "why_correct": "The exposure exists from the moment access is granted, so at least the essential behaviors must be in place by then. A short, focused onboarding module closes the window during which untrained staff hold sensitive access, without delaying the clinical access the role genuinely requires, and the comprehensive training still follows.",
+      "why_wrong": {
+        "B": "A shorter window is the same design with a smaller number. New staff still spend weeks handling patient data with credentials and no preparation, and the period immediately after hire is precisely when they are most susceptible.",
+        "C": "Informal supervisor briefings are inconsistent, unverifiable and dependent on each supervisor's own understanding. They leave the organization unable to demonstrate that any particular starter was ever prepared.",
+        "D": "Blocking clinicians from patient records for up to 90 days over-applies the principle. Access is clinically necessary from day one, and a control that obstructs care will be bypassed through shared credentials, which is worse than the original gap."
+      }
+    },
+    {
+      "id": "cisa-d5b-033",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviews the security awareness program at a precision manufacturer. Completion rates are high and the modules are professionally produced, but the content has not changed in three years: it covers email attachments and password hygiene, while the organization's own recent incidents involved voice cloning of a director, QR-code phishing in the car park, and employees approving unexpected authentication prompts. Which recommendation is MOST appropriate?",
+      "options": {
+        "A": "Increase delivery from annual to semiannual so the existing material is reinforced more often.",
+        "B": "Add a scored assessment to each module with a mandatory pass mark.",
+        "C": "Replace the current training vendor with one offering a larger content library.",
+        "D": "Establish a defined cycle that refreshes training content from current threat intelligence and the organization's own incident experience."
+      },
+      "answer": "D",
+      "why_correct": "The program is training people for the attacks of three years ago while its own incident record shows what is actually arriving. Content currency is a process property, not a one-time fix, so the recommendation must create a standing mechanism that feeds threat intelligence and the organization's incident data into the curriculum on a defined cycle. That mechanism keeps the program relevant after this refresh as well.",
+      "why_wrong": {
+        "A": "Doubling the frequency of obsolete content reinforces the wrong lessons twice as often. Frequency is not the deficiency; relevance is.",
+        "B": "An assessment measures recall of the material presented. Testing staff more rigorously on threats that are no longer the ones attacking them improves the score, not the defense.",
+        "C": "Swapping vendors might incidentally deliver fresher content once, but without a refresh process tied to the organization's actual threat picture the new library goes stale on the same schedule the old one did."
+      }
+    },
+    {
+      "id": "cisa-d5b-034",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Awareness Training and Programs",
+      "difficulty": "hard",
+      "stem": "A retail bank introduced a disciplinary policy for phishing simulations: an employee who clicks in three simulations within a year receives a formal warning on their personnel record. Click rates have fallen sharply since the policy took effect, and management cites this as evidence of success. Which consequence of this approach should concern the IS auditor MOST?",
+      "options": {
+        "A": "An employee who realizes they have clicked a genuinely malicious link now has a strong incentive to stay silent, so real compromises will go unreported during the hours when a fast response matters most.",
+        "B": "Click rates may be falling because staff have learned to recognize the hallmarks of the simulation platform rather than of real attacks.",
+        "C": "The disciplinary policy may conflict with labor agreements and expose the bank to employment grievances.",
+        "D": "Staff in roles that process high volumes of external email face more simulations and therefore more disciplinary exposure than other roles."
+      },
+      "answer": "A",
+      "why_correct": "Punishing clicking teaches concealment, and self-reporting by the person who clicked is often the only early warning an organization gets of a live compromise. A policy that makes admitting a mistake carry career consequences converts the fastest detection channel into a silence incentive, so the bank trades a visible metric improvement for longer attacker dwell time on real incidents. The measured behavior improved while the behavior that protects the organization was actively suppressed.",
+      "why_wrong": {
+        "B": "Simulation-recognition gaming is a genuine threat to the metric's validity, but it exists in any simulation program and does not depend on the disciplinary policy. The distinctive harm this policy adds is the suppression of reporting.",
+        "C": "Employment law exposure is a matter for human resources and counsel. It is a cost of the policy rather than the security consequence the auditor is assessing.",
+        "D": "Uneven exposure across roles is a fairness defect in the policy's design. It argues for adjusting the threshold, not for identifying the mechanism by which the policy damages detection."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-035",
+      "domain": "5",
+      "section": "B",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "At a logistics company using push-notification multifactor authentication, an attacker who had obtained an employee's password triggered repeated authentication prompts to the employee's phone late at night until, exhausted, the employee approved one. Which control would BEST prevent a recurrence?",
+      "options": {
+        "A": "Requiring passwords to be changed every 60 days.",
+        "B": "Replacing simple push approval with number matching or a phishing-resistant authentication method.",
+        "C": "Training employees to deny authentication prompts they did not initiate.",
+        "D": "Locking accounts after five consecutive failed login attempts."
+      },
+      "answer": "B",
+      "why_correct": "The attack works because approval is a single tap that requires no knowledge of the login attempt, so persistence alone eventually wins. Number matching forces the approver to enter a code displayed on the attacker's login screen, which the victim never sees, and phishing-resistant methods bind authentication to the legitimate session cryptographically. Either removes the mechanism the attack depends on rather than asking a tired human to keep resisting it.",
+      "why_wrong": {
+        "A": "Rotation shortens how long a stolen password stays valid but the attacker here already had a working password, and the fatigue attack would succeed identically against the next one. It addresses a different link in the chain, and weakly.",
+        "C": "Training is worth doing and is exactly what the attack is engineered to defeat: the attacker's strategy is to outlast human patience at three in the morning. A control that depends on the victim never tiring is not a preventive control.",
+        "D": "Lockout counts failed authentications, and nothing here is failing. The password is correct on every attempt and each push prompt is a legitimately generated challenge, so the threshold never trips."
+      }
+    },
+    {
+      "id": "cisa-d5b-036",
+      "domain": "5",
+      "section": "B",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "An online retailer's customer portal experiences a surge of login attempts spread across thousands of source addresses. Most attempts use a valid username with a valid password on the first try, many customers subsequently report unauthorized orders, and forensic review finds no breach of the retailer's own systems or credential store. The IS auditor should conclude that the attack method was MOST likely:",
+      "options": {
+        "A": "credential stuffing, replaying username and password pairs harvested from breaches of unrelated services where customers reused the same credentials.",
+        "B": "brute-force guessing directed at weaknesses in the portal's password policy.",
+        "C": "an undetected compromise of the retailer's own customer credential database.",
+        "D": "session hijacking using authentication cookies stolen from customers' browsers."
+      },
+      "answer": "A",
+      "why_correct": "First-attempt success with valid pairs, at scale, distributed across thousands of addresses, is the signature of replaying credentials that were already known to be correct somewhere else. Password reuse means a breach of any unrelated service yields working credentials for this portal, which is why the retailer's own systems show no compromise: the credentials were never stolen from the retailer.",
+      "why_wrong": {
+        "B": "Brute forcing produces a high volume of failures per account before any success. The observed pattern is the opposite, with correct passwords arriving on the first attempt.",
+        "C": "An internal breach would explain valid pairs, but the stem states forensic review found none, and credential stuffing explains every observation without contradicting that evidence. Choosing this answer overrides the evidence in favor of the more dramatic theory.",
+        "D": "Hijacked session cookies bypass login entirely; the attacker rides an existing authenticated session. The observed activity consists of fresh password logins, which is precisely what cookie theft renders unnecessary."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-037",
+      "domain": "5",
+      "section": "B",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "medium",
+      "stem": "An IS auditor is evaluating an industrial manufacturer's ability to detect intrusions in which attackers avoid malware entirely, instead using the operating system's own signed administrative utilities, remote management framework and scripting engine to move through the network. Which capability would BEST position the organization to detect this technique?",
+      "options": {
+        "A": "Signature-based anti-malware with daily definition updates on every endpoint.",
+        "B": "Analytics that baseline normal administrative activity and alert on anomalous use of built-in tools, such as unusual accounts, source systems or hours.",
+        "C": "Removal of scripting engines and remote administration tools from all servers and workstations.",
+        "D": "An increase in the frequency of authenticated vulnerability scanning."
+      },
+      "answer": "B",
+      "why_correct": "When the attacker's tooling is identical to the administrators' tooling, no artifact distinguishes them; only context does. A finance workstation invoking remote management against a domain controller at 3 a.m. under a service account is unremarkable as a binary and glaring as a behavior. Detection therefore has to rest on a baseline of who legitimately does what, from where and when, with alerting on departures from it.",
+      "why_wrong": {
+        "A": "Signature matching requires a malicious file to match, and this technique is defined by not introducing one. Every executable involved is legitimately signed by the operating system vendor, which is exactly why attackers favor the approach.",
+        "C": "Stripping out administrative tooling breaks the administration the business depends on, and an attacker with sufficient privilege reintroduces equivalent tooling anyway. It is a blanket prohibition applied to capabilities the organization cannot function without.",
+        "D": "Vulnerability scanning finds missing patches and misconfigurations. This technique typically proceeds on valid credentials and intended functionality, so there is no vulnerability for the scan to surface, and scanning is not a detection control for activity in progress."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-038",
+      "domain": "5",
+      "section": "B",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "hard",
+      "stem": "After a board-level review of ransomware risk, a payment processor implemented immutable, offline backups with quarterly full restoration tests, all of which have succeeded. The chief information security officer asserts that ransomware risk is now adequately mitigated. Which residual exposure should the IS auditor identify as the GREATEST concern?",
+      "options": {
+        "A": "The immutable retention period may be shorter than the time attackers typically dwell in a network before encrypting.",
+        "B": "The restoration tests may not have been performed at full production scale.",
+        "C": "Modern ransomware operations exfiltrate data before encrypting, and the ability to restore operations does nothing to mitigate extortion over threatened publication of stolen cardholder data.",
+        "D": "Attackers may target the credentials of backup platform administrators."
+      },
+      "answer": "C",
+      "why_correct": "The backup investment addresses availability, and current ransomware operations are built on a second lever: steal the data first, then extort over its publication regardless of whether the victim can restore. For a payment processor holding cardholder data, the exfiltration side carries regulatory notification, card brand consequences and customer harm that no restoration capability touches. The organization has mitigated half of the modern attack and declared the whole risk closed.",
+      "why_wrong": {
+        "A": "Dwell time exceeding the retention window is a real design parameter worth checking, but it is a sizing refinement within the availability control. Even a perfectly sized window leaves the exfiltration exposure untouched.",
+        "B": "The stem states quarterly full restoration tests have succeeded, so this concern argues against the given facts, and like A it questions the quality of the recovery capability rather than identifying what recovery cannot address.",
+        "D": "Credential attacks on backup administrators are precisely the threat immutability is designed to defeat, since even a compromised administrator cannot alter or delete immutable copies within the retention period. The control described already answers this."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-039",
+      "domain": "5",
+      "section": "B",
+      "topic": "Information System Attack Methods and Techniques",
+      "difficulty": "hard",
+      "stem": "An electricity utility's asset-management platform receives software updates directly from its vendor; each update is digitally signed and applied automatically after signature verification. Which control would BEST limit the impact if an attacker compromised the vendor's build pipeline so that a malicious update arrived carrying a valid signature?",
+      "options": {
+        "A": "Verifying the digital signature of every update before installation.",
+        "B": "Contractually requiring the vendor to provide annual attestations over its secure development practices.",
+        "C": "Holding each update in a test environment for 30 days before production deployment.",
+        "D": "Running the platform under least privilege, with network egress restricted to an allowlist and alerting on unexpected outbound connections."
+      },
+      "answer": "D",
+      "why_correct": "When the compromise happens upstream of signing, everything that trusts the signature is defeated by design, so the surviving controls are the ones that constrain what the software can do after it is running. Least privilege bounds what a malicious update can reach, and an egress allowlist both blocks and reveals the command-and-control or exfiltration connection the implant must eventually attempt. These operate regardless of how the malicious code arrived, which is what makes them robust against this scenario.",
+      "why_wrong": {
+        "A": "Signature verification is exactly the control the scenario defeats: the update is validly signed because the attacker compromised the pipeline before signing. Recommending it restates the assumption the attack has already broken.",
+        "B": "Attestations may marginally reduce the likelihood of the vendor being compromised, but they are periodic paperwork about process. They neither prevent a determined pipeline compromise nor limit what a malicious update does inside the utility.",
+        "C": "Staged deployment is sound hygiene and is unreliable against this technique, since sophisticated implants remain dormant or benign-looking through observation periods precisely to survive them. It delays impact rather than bounding it."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-040",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A digital media company runs authenticated vulnerability scans monthly, remediates findings within defined timescales, and presents a consistently green dashboard. The IS auditor learns that the scan targets are a static list of network ranges compiled in 2023, while product teams have since created numerous cloud accounts and workloads outside those ranges. Which of the following is the GREATEST limitation of the assurance the dashboard provides?",
+      "options": {
+        "A": "Monthly scanning is too infrequent for dynamic cloud environments.",
+        "B": "Scan coverage is defined by an outdated asset inventory that excludes the newer cloud workloads entirely.",
+        "C": "The remediation timescales are not differentiated by asset criticality.",
+        "D": "The dashboard reports raw finding counts rather than risk-weighted metrics."
+      },
+      "answer": "B",
+      "why_correct": "A scanning program can only make statements about the population it scans, and this population was frozen in 2023 while the estate kept growing. The workloads created outside the list are the ones spun up without central oversight, which makes them simultaneously the most likely to be misconfigured and the only ones invisible to the program. The green dashboard is accurate about a population that no longer describes the organization.",
+      "why_wrong": {
+        "A": "Frequency governs how quickly known assets are re-examined. Scanning the stale list weekly, or hourly, would still tell the company nothing about the assets that are not on it.",
+        "C": "Risk-tiered remediation timescales would sharpen prioritization among the findings the program produces. It refines the handling of results from an incomplete population without touching the incompleteness.",
+        "D": "Metric presentation affects how well management understands the results. Better-weighted reporting of the same partial coverage is a more sophisticated version of the same blind spot."
+      }
+    },
+    {
+      "id": "cisa-d5b-041",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A penetration test at a credit union identified four critical findings. Six months later, management reports all four as closed. The tracking system shows each was closed on the basis of an email from the responsible system owner stating the issue was fixed, with no other evidence attached. What is the MOST appropriate action for the IS auditor?",
+      "options": {
+        "A": "Accept the closures, since system owners are accountable for their platforms and their attestations are management representations.",
+        "B": "Obtain evidence that the fixes were implemented and have the four findings retested to confirm they are no longer exploitable before treating them as closed.",
+        "C": "Commission a full new penetration test of the entire environment.",
+        "D": "Report the findings as closed while noting that closure relied on management assertion."
+      },
+      "answer": "B",
+      "why_correct": "A finding demonstrated by exploitation should be closed by demonstrating the exploitation no longer works, and an owner's email is an assertion, not evidence. Retesting the specific findings is quick, targeted and settles the question; fixes that were partial, applied to the wrong host, or later regressed are common enough that verification is the point of the exercise. The auditor's conclusion must rest on what was verified, not on what was stated.",
+      "why_wrong": {
+        "A": "Accountability for a system and evidence about a specific technical condition are different things. Owners frequently believe in good faith that a fix worked when it was incomplete, and accepting assertion as closure removes the verification step that catches exactly that.",
+        "C": "A full retest of the whole environment is the right instrument for a new assurance cycle, not for validating four known findings. It answers a much larger question at a much larger cost, months later, when a targeted retest resolves the actual issue now.",
+        "D": "A caveat does not repair the deficiency in the evidence; it documents it. Reporting critical exposures as closed on a basis the auditor knows is inadequate transfers a false comfort to the reader with a footnote attached."
+      }
+    },
+    {
+      "id": "cisa-d5b-042",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "The board of a brokerage firm is not asking whether vulnerabilities exist; it wants to know whether the firm's security operations center would actually detect and respond to a skilled intruder before material damage occurred. Which testing approach BEST answers the board's question?",
+      "options": {
+        "A": "An announced penetration test conducted while the security operations center monitors closely for the testers' activity.",
+        "B": "An expanded vulnerability scanning program with shortened remediation timescales.",
+        "C": "A covert, objective-based red team engagement authorized in writing by a small control group, conducted without the security operations center's prior knowledge.",
+        "D": "A tabletop exercise in which security operations leadership walks through an intrusion scenario."
+      },
+      "answer": "C",
+      "why_correct": "The question under test is the defenders' real-world performance, and that can only be measured when the defenders do not know the test is running. A covert engagement pursuing defined objectives produces direct evidence of what was detected, when, and how the response unfolded, while the informed control group keeps the exercise authorized and safe. It is the only option that observes the capability the board asked about.",
+      "why_wrong": {
+        "A": "Announcing the test changes the thing being measured: a team watching for known testers on known dates demonstrates heightened vigilance, not everyday detection. The result flatters the capability precisely because the condition being tested has been removed.",
+        "B": "Scanning measures the presence of known weaknesses and the speed of patching. It produces no evidence about whether human defenders notice and respond to an intruder, which is the board's actual question.",
+        "D": "A tabletop tests decision-making, roles and communication in discussion form, and is valuable for exactly that. Nothing in a conference room exercises the live detection stack or proves an alert would ever have fired."
+      }
+    },
+    {
+      "id": "cisa-d5b-043",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Testing Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A fintech's customer-facing application is built predominantly from open-source components, with a thin layer of custom code. Security testing consists of static analysis of the custom code and an annual penetration test. A critical vulnerability disclosed in a widely used library remained in production unnoticed for months until it was exploited. Which addition to the testing program would BEST address this gap?",
+      "options": {
+        "A": "Increasing penetration testing from annual to quarterly.",
+        "B": "Extending the static analysis tool with additional custom rule sets.",
+        "C": "Monthly dynamic scanning of the production application.",
+        "D": "Software composition analysis in the build pipeline, maintaining an inventory of components and alerting when a new advisory affects anything already shipped."
+      },
+      "answer": "D",
+      "why_correct": "The application is mostly other people's code, so the dominant risk is a known vulnerability disclosed in a component after it shipped, and the gap is the absence of any process that connects new advisories to what is actually deployed. Composition analysis builds the component inventory and, critically, keeps watching it, so the day a library acquires a critical advisory the organization knows it is exposed rather than discovering it at the next scheduled test or from an attacker.",
+      "why_wrong": {
+        "A": "Quarterly testing shrinks the exposure window from up to a year to up to three months, at four times the cost, and remains point-in-time. A vulnerability disclosed the week after a test still sits unnoticed until the next one.",
+        "B": "Static analysis examines the code the team writes, and the vulnerability was in code the team imports. Sharper rules over the thin custom layer improve coverage of the smallest part of the attack surface.",
+        "C": "Dynamic scanning exercises the running application from outside and only surfaces a library flaw if it happens to manifest in a reachable, recognizable way. It is an indirect and unreliable detector for a class of issue that an advisory-matched inventory identifies directly and immediately."
+      }
+    },
+    {
+      "id": "cisa-d5b-044",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "easy",
+      "stem": "During an incident investigation at a logistics company, responders find that timestamps in the firewall, server and application logs differ from one another by several minutes because the systems are not synchronized to a common time source. Which of the following is the GREATEST consequence of this condition?",
+      "options": {
+        "A": "Log retention periods will be applied inconsistently across the estate.",
+        "B": "Storage consumption will increase because overlapping entries cannot be deduplicated.",
+        "C": "Events from different systems cannot be reliably sequenced into a single timeline of the attack.",
+        "D": "Alerts will display the wrong local time to analysts working in other time zones."
+      },
+      "answer": "C",
+      "why_correct": "Correlation across systems depends on placing events from different sources on one timeline. When clocks drift by minutes, the investigator cannot tell whether the firewall connection preceded the server logon or followed it, so the causal chain of the intrusion becomes guesswork. The same defect weakens the logs as evidence, because the sequence they describe cannot be defended.",
+      "why_wrong": {
+        "A": "Retention is calculated from when a record was written relative to the purge date, and a few minutes of drift is immaterial over a retention period measured in months. This confuses two unrelated properties of log management.",
+        "B": "Deduplication is not how security logs from distinct systems are managed, and drift has no meaningful effect on volume. It is a storage-administration concern misapplied to an evidential problem.",
+        "D": "Time-zone display is a presentation setting that any competent platform normalizes to a standard reference. It is superficially about time but has nothing to do with clock synchronization between sources."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-045",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A financial services firm's security operations center maintains 300 detection use cases documented as covering common attack techniques. An IS auditor wants assurance that the monitoring would actually detect the techniques it claims to cover. Which of the following provides the BEST evidence?",
+      "options": {
+        "A": "Results of controlled attack simulation exercises in which the techniques were executed in the environment and the resulting alerts were traced through to analyst response.",
+        "B": "The mapping document showing each detection rule aligned to a recognized attack technique framework.",
+        "C": "Confirmation from the platform vendor that detection content is updated automatically as new techniques emerge.",
+        "D": "A report showing the number of alerts each detection rule generated during the past quarter."
+      },
+      "answer": "A",
+      "why_correct": "The question is whether detection works, and the only way to know is to exercise it: perform the technique in a controlled way and confirm the alert fires, reaches an analyst, and is acted on. This tests the whole chain — telemetry collection, rule logic, and human response — end to end, which no document about the rules can do.",
+      "why_wrong": {
+        "B": "The mapping is design evidence. It shows what the rules are intended to detect and says nothing about whether the required telemetry arrives, the logic is correct, or the alert would be noticed — the same gap as accepting a control's description in place of testing it.",
+        "C": "Vendor content updates address currency of the rule library, not effectiveness in this environment. Rules that depend on log sources the firm does not collect will never fire no matter how current they are.",
+        "D": "Alert counts show that rules fire, not that they fire on the technique. A rule can generate thousands of alerts on benign activity and still miss the behavior it was written for, so volume is closer to noise measurement than coverage evidence."
+      }
+    },
+    {
+      "id": "cisa-d5b-046",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "medium",
+      "stem": "A hospital group's security monitoring relies primarily on endpoint detection and response agents. An IS auditor notes that several thousand connected medical and building-automation devices cannot run the agent and therefore generate no endpoint telemetry. Which recommendation BEST addresses the resulting monitoring gap?",
+      "options": {
+        "A": "Require vendors to certify each device as free of malware before it is deployed.",
+        "B": "Raise the agent deployment target to 100 percent of conventional workstations and servers.",
+        "C": "Accept the gap, since special-purpose devices are not exposed to conventional malware.",
+        "D": "Implement network-based monitoring of the device segments, alerting on deviations from baselined communications."
+      },
+      "answer": "D",
+      "why_correct": "When the endpoint cannot observe itself, the network is the remaining vantage point. Special-purpose devices have narrow, predictable communication patterns, which makes traffic baselining unusually effective: an infusion pump suddenly scanning the server estate or reaching the internet is an unmistakable anomaly. This restores visibility over the devices without requiring anything to be installed on them.",
+      "why_wrong": {
+        "A": "Vendor certification is a point-in-time procurement assurance about the device as shipped. It provides no detection capability at all once the device is operating, which is when compromise occurs.",
+        "B": "This perfects the control where it already works and does nothing where it does not. The unmonitored devices remain unmonitored regardless of how complete agent coverage becomes elsewhere.",
+        "C": "The premise is false — unmanaged devices are attractive precisely because they are unmonitored, and attackers use them as footholds and pivot points. Accepting the gap on this reasoning accepts the estate's blindest spot."
+      }
+    },
+    {
+      "id": "cisa-d5b-047",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Monitoring Tools and Techniques",
+      "difficulty": "hard",
+      "stem": "A retailer outsources 24/7 security monitoring to a managed provider and relies solely on the provider's monthly reports, which show every service level met. Over 99 percent of alerts are closed as false positives by the provider's first line without escalation, and the retailer performs no review or sampling of these closed alerts. Which of the following should be the IS auditor's GREATEST concern?",
+      "options": {
+        "A": "The provider's analysts may lack sufficient knowledge of the retailer's environment and business context.",
+        "B": "A genuine incident dismissed at first line would be invisible to the retailer, and reported performance cannot be independently verified.",
+        "C": "The service level agreement does not include financial penalties for missed detections.",
+        "D": "A false-positive rate above 99 percent indicates the detection rules require tuning."
+      },
+      "answer": "B",
+      "why_correct": "Nearly every detection decision this organization depends on is made outside it, with no independent check on any of them. The reports describe only the provider's own view of its performance, and a wrongly dismissed true positive produces no signal anywhere the retailer can see — the arrangement is unauditable as operated. Sampling closed alerts and quality-reviewing the provider's dispositions is the oversight that outsourced monitoring requires.",
+      "why_wrong": {
+        "A": "Missing context is a plausible contributing cause of poor triage decisions, but it is a hypothesis about why errors might occur. The structural concern is that nobody could detect such errors if they did occur.",
+        "C": "Penalties presuppose that missed detections can be identified and attributed, which is exactly what this arrangement cannot do. A contractual remedy for an unmeasurable failure adds paper, not assurance.",
+        "D": "High false-positive rates are common and tuning is a routine operational improvement. It is tempting because it is true, but it answers an efficiency question — the governance question is that no one in the retailer can verify that any of the 99 percent were actually false."
+      }
+    },
+    {
+      "id": "cisa-d5b-048",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "Over the past year, a manufacturing company competently contained and closed four separate incidents in which attackers exploited the same unpatched remote-access service. An IS auditor reviewing the incident records should identify the absence of which activity as the PRIMARY cause of the recurrence?",
+      "options": {
+        "A": "Automated vulnerability scanning of internet-facing services.",
+        "B": "Post-incident reviews that establish root cause and track corrective actions through to completion.",
+        "C": "A more aggressive containment strategy during each of the four responses.",
+        "D": "Escalation of the incidents to board level after the second occurrence."
+      },
+      "answer": "B",
+      "why_correct": "The root cause was not hidden — the same service was identified in four investigations — yet nothing converted that knowledge into a fix. Post-incident review is the mechanism that closes the loop: it names the root cause, assigns a corrective action with an owner, and follows it until it is done. Its absence is why an organization can respond well four times to a problem it should only have had once.",
+      "why_wrong": {
+        "A": "Scanning might have found the weakness independently, but the organization did not need a scanner to find it — four incidents already had. Recommending a new discovery control ignores that discovery happened and remediation did not.",
+        "C": "Containment was described as competent, and the failure occurred after each incident closed, not during response. Sharpening containment addresses a phase that was not the problem.",
+        "D": "Escalation raises visibility and may have prompted action, but it is a pressure mechanism, not the process gap. The incident lifecycle itself is supposed to produce and track the corrective action regardless of board involvement."
+      },
+      "asks": "evidence"
+    },
+    {
+      "id": "cisa-d5b-049",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "While evaluating a logistics provider's ransomware playbook, an IS auditor notes that it directs responders to coordinate through the corporate email and chat platforms and to retrieve the contact roster from the corporate intranet. Which recommendation is MOST appropriate?",
+      "options": {
+        "A": "Store printed copies of the playbook and roster at each responder's desk.",
+        "B": "Encrypt the contact roster so that attackers who breach the intranet cannot read responder details.",
+        "C": "Migrate email and chat to a major software-as-a-service provider so the platforms remain available during an incident.",
+        "D": "Establish an out-of-band communication channel with independently accessible copies of the playbook and roster, and exercise it periodically."
+      },
+      "answer": "D",
+      "why_correct": "The exact scenario the playbook exists for — ransomware encrypting the corporate estate — is the scenario in which every tool the playbook depends on is unavailable or attacker-readable. Response coordination must survive the loss of the environment being responded to, which means channels and documents that live outside it, and exercising them is what keeps the roster current and proves responders can actually reach them under pressure.",
+      "why_wrong": {
+        "A": "Printed copies address document availability in the crudest way but go stale within weeks, and they provide no communication channel at all — the responders can read the plan and still have no way to coordinate.",
+        "B": "This optimizes for confidentiality when the failure mode is availability. Encrypting a roster stored on systems the ransomware will encrypt anyway protects nothing the responders can reach.",
+        "C": "Cloud hosting makes the platforms more likely to survive on-premises encryption, but the attacker typically holds the identity provider or privileged credentials, which means the tenant may be inaccessible — or worse, readable by the attacker while responders use it to coordinate against them."
+      }
+    },
+    {
+      "id": "cisa-d5b-050",
+      "domain": "5",
+      "section": "B",
+      "topic": "Security Incident Response Management",
+      "difficulty": "medium",
+      "stem": "A benefits administrator that holds employee data in a payroll software-as-a-service platform is notified by the provider that unauthorized access to customer data has occurred and that the provider's investigation is under way. The administrator's incident response plan covers only incidents on its own infrastructure. What should the organization do FIRST?",
+      "options": {
+        "A": "Activate its own incident response process to assess its exposure, its notification obligations, and the risk to its integration credentials.",
+        "B": "Await the provider's final investigation report, since only the provider can establish the facts of the breach.",
+        "C": "Serve notice of termination and begin migrating to an alternative payroll provider.",
+        "D": "Commission a review of the vendor due diligence performed when the contract was signed."
+      },
+      "answer": "A",
+      "why_correct": "A breach at the processor is an incident for the data owner: the regulatory notification clocks, the duty to affected employees, and the exposure all belong to the organization whose data it is, and none of them wait for the vendor's report. Activating its own process now lets the organization scope its exposure from its side, meet its own deadlines, and cut off avenues the attacker could use against it, such as compromised integration credentials.",
+      "why_wrong": {
+        "B": "This treats the incident as the vendor's alone. The provider will establish the technical facts, but the organization's legal obligations run on its own clock from the moment it knew, and waiting converts the vendor's breach into the organization's compliance failure.",
+        "C": "Exiting the relationship may eventually be justified, but starting a migration mid-incident diverts the people needed for response and severs cooperation with the party holding the evidence. It is a decision for after the facts are known.",
+        "D": "Reviewing due diligence is a legitimate lessons-learned exercise — conducted now, it looks backward while live obligations and live risk go unaddressed. It is the right activity at the wrong time."
+      }
+    },
+    {
+      "id": "cisa-d5b-051",
+      "domain": "5",
+      "section": "B",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "medium",
+      "stem": "A compromised virtual machine is discovered in an online retailer's infrastructure-as-a-service environment. The machine belongs to an auto-scaling group and could be terminated and replaced automatically at any time. Legal counsel advises that evidence must be preserved. Which course of action is BEST?",
+      "options": {
+        "A": "Follow the standard forensic procedure of attaching a hardware write blocker to the machine's disk before imaging it.",
+        "B": "Terminate the instance immediately so that the compromise is contained while the team plans its next step.",
+        "C": "Detach the instance from the auto-scaling group, isolate it at the network layer without powering it off, snapshot its volumes and capture memory where supported, and export the platform's control-plane and flow logs before they age out.",
+        "D": "Request that the cloud provider perform a forensic acquisition of the physical host on which the instance runs."
+      },
+      "answer": "C",
+      "why_correct": "Cloud evidence has two clocks running against it: the platform's own automation, which may destroy the instance, and log retention windows on control-plane and network records that exist only with the provider. Removing the machine from automation stops the platform deleting the evidence, live isolation preserves volatile state, snapshots stand in for disk images, and the platform logs are the record of how the attacker used the cloud account itself — often the most important evidence in a cloud intrusion.",
+      "why_wrong": {
+        "A": "A write blocker is the right discipline applied outside its scope — there is no physical disk to attach it to. Insisting on the on-premises procedure delays preservation while the auto-scaler may be deleting the evidence.",
+        "B": "Termination is the one action guaranteed to destroy the instance's disk and memory, and in an auto-scaling group it also triggers a replacement. It confuses destroying the evidence with containing the threat, when network isolation achieves containment without the loss.",
+        "D": "This misreads the shared responsibility model: the guest instance is the customer's to acquire, and the provider will not image a multi-tenant physical host for one customer's incident. The request consumes critical time and will be declined."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-052",
+      "domain": "5",
+      "section": "B",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "easy",
+      "stem": "An insurance company's examiner acquires a forensic image of a suspect drive, verifies it by hash, and then begins keyword searching and file carving directly against that image — the only copy held. Which of the following is the GREATEST concern with this practice?",
+      "options": {
+        "A": "Keyword searching should not begin until a second examiner has peer-reviewed the acquisition.",
+        "B": "The analysis should have been performed on the original physical drive rather than on an image.",
+        "C": "Hash values should be recomputed at the end of each day of analysis.",
+        "D": "If the analysis alters or corrupts the image, no pristine verified copy remains, and the ability to demonstrate the evidence is intact cannot be recovered."
+      },
+      "answer": "D",
+      "why_correct": "The verified image is the evidential master, and examination belongs on a working copy made from it. Analysis tools can write, crash mid-operation, or corrupt what they touch, and with only one copy any such event is unrecoverable — the hash will no longer verify and there is nothing to re-derive a clean copy from. Copies are cheap; the moment after the master is damaged, they are unobtainable.",
+      "why_wrong": {
+        "A": "Peer review strengthens the credibility of conclusions but is not a precondition for beginning examination, and it does nothing to protect the master copy — the actual exposure here.",
+        "B": "This is exactly backwards. The entire purpose of imaging is that the original media is preserved untouched; analyzing the original directly is the classic error the procedure exists to prevent.",
+        "C": "Recomputing hashes tells the examiner whether the image has changed — it cannot prevent the change or undo it. On the only copy, a failed verification is not a safeguard; it is the notification that the evidence has been lost."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d5b-053",
+      "domain": "5",
+      "section": "B",
+      "topic": "Evidence Collection and Forensics",
+      "difficulty": "hard",
+      "stem": "A software company receives a litigation hold notice concerning a former administrator suspected of sabotage. The IS auditor learns that the centralized log platform automatically purges records older than 90 days, in line with approved policy, and that the purge has continued running since the notice was received. Which of the following should be of GREATEST concern to the IS auditor?",
+      "options": {
+        "A": "Potentially relevant records are being irreversibly destroyed after the duty to preserve arose, exposing the organization to spoliation sanctions or adverse inference regardless of intent.",
+        "B": "The continued purging indicates the log platform is not operating in accordance with the approved retention policy.",
+        "C": "The 90-day window prevents the organization from trending security events over longer periods.",
+        "D": "Legal counsel has not yet identified which specific records are relevant to the matter."
+      },
+      "answer": "A",
+      "why_correct": "A litigation hold overrides routine retention from the moment the duty to preserve arises, and automated destruction that continues past that point destroys evidence just as surely as a person deleting it — courts do not require intent to find spoliation. The administrator's activity records are precisely what the matter will turn on, and each day the purge runs, another day of them becomes unrecoverable. Suspending automated destruction for material within a hold's scope is the first operational step of any preservation obligation.",
+      "why_wrong": {
+        "B": "The platform is following the approved policy faithfully — that is the trap. A hold does not reveal a policy violation; it supersedes the policy, and compliance with the retention schedule is no defense once the duty to preserve exists.",
+        "C": "Trending is an operational reporting limitation that existed before the notice and is unrelated to it. It mistakes a monitoring convenience for a legal obligation.",
+        "D": "This inverts the sequence. Preservation is applied broadly first and scoped down later with counsel; waiting for a precise relevance determination while the purge runs guarantees that some of what counsel would have identified no longer exists."
+      },
+      "no_principle": true
+    }
+  ]
+}

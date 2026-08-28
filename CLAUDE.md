@@ -30,16 +30,16 @@ lose data.
 
 | | |
 |---|---|
-| Question bank | **386 original questions**, all 5 domains, all 60 outline topics covered |
-| Per domain | 67 for D1/D2, 68 for D3, 95 for D4, 89 for D5 |
-| Answer keys | spread A 25% / B 24% / C 26% / D 24% — no positional pattern to exploit |
-| Difficulty bands | easy 52 / medium 243 / hard 51 / expert 40; selectable and strict |
+| Question bank | **501 original questions**, all 5 domains, all 60 outline topics covered |
+| Per domain | 67 for D1/D2, 68 for D3, 150 for D4, 149 for D5 |
+| Answer keys | spread A 26% / B 25% / C 25% / D 24% — no positional pattern to exploit |
+| Difficulty bands | easy 69 / medium 320 / hard 72 / expert 40; selectable and strict |
 | Detection report card | `DETECTION.md` — the diagnostics scored against planted weaknesses |
-| Decision rules | 23 documented, 308 of 386 questions mapped, every rule spans ≥2 domains |
-| Confusable pairs | 29 documented, 69 questions mapped, **no gaps** |
+| Decision rules | 23 documented, 390 of 501 questions mapped, every rule spans ≥2 domains |
+| Confusable pairs | 29 documented, 79 questions mapped, **no gaps** |
 | Study guides | **all five domains**, same depth |
 | Branching cases | 19 written (~35 needed), blueprint-weighted; 52 of 60 topics, all 23 rules |
-| Tests | **483, all passing** — `python run_tests.py` |
+| Tests | **491, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`); certs switchable in the browser via `X-Cert`, dark/light themes |
 | Sibling cert | `cpa-aud/` stood up 2026-08-27: verified Jan-2026 AUD blueprint outline, 60-question reviewed seed bank, own format (78 MCQ / 120 min / 0–99, pass 75) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
@@ -74,7 +74,7 @@ certifications/
     outline.json            ISACA exam content outline — the source of truth for topic tags
     principles.json         23 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
-    questions/              386 questions, one file per domain-section
+    questions/              501 questions, one file per domain-section
     cases/                  branching audit cases + SCHEMA.md (19 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
@@ -217,10 +217,21 @@ data, which is worse than leaving it alone.
 4. ~~**Look at the 16 judgment-worded questions that map to no decision rule**~~ — **done.** Three
    were testing a rule the taxonomy lacked, now principle 23 `protection-follows-data`. The other 13
    are genuinely recall and carry an explicit `no_principle: true` flag.
-5. **Deepen the bank, and do it where the blueprint bites.** Not "more questions" generally — a
-   150-question mock draws 39 from Domain 5's 55-question pool, so the second mock exam is already
-   re-serving remembered questions. D4 and D5 need roughly +60 and +65 to reach the headroom D3
-   already has. `items` flags badly-behaved questions on top of that.
+5. **Deepen the bank, and do it where the blueprint bites** — **D4/D5 done 2026-08-28.** D4 went
+   95 → 150 and D5 89 → 149 (115 new questions, every one adversarially reviewed before entering
+   the bank, then conservatively mapped: 82 to decision rules, 10 to confusable pairs, the rest
+   carrying explicit no_principle after review). Both domains now hold ~3.8× their 39-question mock
+   draw, the headroom D3 already had, so back-to-back mocks stop re-serving questions. The sweep
+   anchor in test_simulation moved 600 → 1200 with the measurement recorded in its docstring, and
+   detection.json + DETECTION.md were re-swept against the 501-question bank.
+   **The re-sweep found a real cost of bank growth**: check 7 (confident-and-wrong) went from
+   holding at ~1000 answers to never reaching the bar inside the swept sizes — the same answers
+   spread over 30% more questions, so calibration evidence accumulates more slowly. This is
+   recorded, not fixed: the honest options are sweeping larger sizes to find the new threshold, or
+   accepting that the calibration diagnostic needs more volume on a deeper bank. Do not restore the
+   old number by loosening the check's evidence bar — that is the exact bug §4's item-discrimination
+   entry warns about. Still open here: `items` review of badly-behaved questions once real attempts
+   accumulate on the new items.
 6. **Build the synthetic learner harness** — `SIMULATION-BRIEF.md`. Plant a known weakness in a
    generated study history and score whether the diagnostics find it, with a negative control and a
    sample-size sweep. This is what lets the project make claims about itself.
@@ -262,4 +273,4 @@ stem. Vary the answer key.
 **Ask before**: changing the question schema, altering the honesty rules in §3, clearing any results
 file, or adding a dependency to `drillkit/`.
 
-Last updated: 2026-08-27
+Last updated: 2026-08-28

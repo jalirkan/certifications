@@ -1,0 +1,436 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "B",
+    "batch": "d4b-003",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Third D4 section B batch - depth for mock-exam headroom (CLAUDE.md §5). Drafted against existing coverage, adversarially reviewed item by item, then conservatively mapped to decision rules and confusable pairs. Topic values must match ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4b-031",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "stem": "An online retailer earns roughly 40% of its annual revenue in the six weeks before year-end. Its business impact analysis quantified outage impact for the order management platform using average daily revenue across the year. Which of the following is the GREATEST weakness in the analysis?",
+      "options": {
+        "A": "Impact was expressed only in financial terms, omitting reputational and regulatory consequences.",
+        "B": "The analysis was not formally approved by the chief financial officer.",
+        "C": "The revenue figures were drawn from the prior financial year rather than current forecasts.",
+        "D": "The use of annual averages understates the impact of an outage during the peak trading period."
+      },
+      "answer": "D",
+      "why_correct": "Impact depends on when an outage occurs, not only how long it lasts, and averaging erases exactly that variation. With 40% of revenue concentrated in six weeks, an outage during peak trading is several times more damaging than the average-day figure suggests, so recovery objectives derived from the average may be inadequate precisely when disruption matters most. The analysis should assess impact at the worst plausible time.",
+      "why_wrong": {
+        "A": "Broader impact categories would enrich the analysis, but the financial quantification that was performed is already structurally distorted; adding reputational ratings on top of an averaged revenue base does not repair it.",
+        "B": "Approval level is a governance formality here; a CFO signature on objectives derived from averaged figures produces a well-approved wrong number.",
+        "C": "Prior-year data is a minor currency issue; year-on-year drift is small compared with the severalfold swing between an average day and peak trading. This trap mistakes staleness for the structural flaw."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4b-032",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Impact Analysis",
+      "difficulty": "hard",
+      "stem": "A hospital group's business impact analysis established a maximum tolerable downtime of 24 hours for its pharmacy dispensing system. The recovery strategy selected on cost grounds restores the system in approximately 36 hours, and the IT operations manager documented acceptance of the shortfall to remain within budget. Which of the following should concern the IS auditor MOST?",
+      "options": {
+        "A": "Acceptance of a recovery capability that exceeds the maximum tolerable downtime was made without appropriate business authority.",
+        "B": "The organization did not select the recovery strategy with the shortest achievable restoration time.",
+        "C": "The maximum tolerable downtime was not updated to align with the selected recovery strategy.",
+        "D": "The 36-hour restoration estimate has not been validated by a recovery test."
+      },
+      "answer": "A",
+      "why_correct": "The maximum tolerable downtime is the business's own statement of where harm becomes unacceptable — for a pharmacy system, plausibly a patient-safety boundary. A strategy that overshoots it by twelve hours builds intolerable harm into the plan, and an IT operations manager has no authority to accept that consequence on the business's behalf. The gap may legitimately be accepted or funded away, but only by executives who own the impact.",
+      "why_wrong": {
+        "B": "This over-applies a speed rule that does not exist: the requirement is to recover within tolerance, not as fast as possible. The flaw is the unauthorized acceptance, not a failure to maximize speed.",
+        "C": "This runs the derivation backwards — capability would be setting the requirement. Relabeling 36 hours as tolerable does not make the harm at hour 30 smaller; it removes the evidence that anyone knew about it.",
+        "D": "Testing is the right activity aimed at the wrong problem: a test could only confirm the strategy achieves 36 hours, a number that is inadequate even if perfectly accurate."
+      }
+    },
+    {
+      "id": "cisa-d4b-033",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Impact Analysis",
+      "difficulty": "medium",
+      "stem": "The continuity team at a professional services firm performed the business impact analysis by working through the IT department's application inventory and assigning an impact rating to each application. Which of the following is the GREATEST limitation of this approach?",
+      "options": {
+        "A": "Impact ratings assigned by different reviewers are likely to be inconsistent across the inventory.",
+        "B": "Business processes that depend on resources outside the IT inventory are excluded from the analysis.",
+        "C": "The inventory may contain retired applications that no longer require assessment.",
+        "D": "The analysis should have been performed by the business continuity steering committee."
+      },
+      "answer": "B",
+      "why_correct": "A business impact analysis starts from business processes and traces downward to whatever they depend on; starting from an IT-held inventory inverts that and silently bounds the analysis to IT's field of view. Dependencies such as departmental SaaS subscriptions, third-party services, and manual activities never enter the assessment, so a critical process can appear fully covered while the platform it actually runs on appears nowhere.",
+      "why_wrong": {
+        "A": "Rating inconsistency is a real quality issue but is correctable by moderating the ratings as a set; it affects precision of what was assessed rather than excluding whole dependencies from assessment.",
+        "C": "Retired entries waste effort and produce harmless surplus ratings; the dangerous error is what the inventory omits, not what it needlessly includes.",
+        "D": "This is an authority trap: reassigning the same inventory-driven method to a more senior body reproduces the same blind spot with better signatures. The flaw is the starting point, not the performer."
+      }
+    },
+    {
+      "id": "cisa-d4b-034",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Impact Analysis",
+      "difficulty": "easy",
+      "stem": "A regional insurer has completed its business impact analysis, and executive management has approved the resulting recovery objectives. Which of the following should the organization do NEXT?",
+      "options": {
+        "A": "Develop and document detailed recovery procedures for each critical system.",
+        "B": "Conduct a tabletop exercise to validate the recovery objectives.",
+        "C": "Identify and evaluate recovery strategies capable of meeting the approved objectives at acceptable cost.",
+        "D": "Contract with a cloud provider for replicated standby capacity."
+      },
+      "answer": "C",
+      "why_correct": "The impact analysis produces requirements; the next step is deciding how those requirements will be met. Strategy evaluation compares candidate approaches against the approved objectives and cost constraints, and everything downstream — contracts, procedures, plans, tests — expresses whichever strategy is chosen.",
+      "why_wrong": {
+        "A": "Procedures document how a chosen strategy is executed. Writing them now means documenting decisions that have not been made, and rewriting them once they are.",
+        "B": "There is nothing to exercise yet. A tabletop tests a plan built on a strategy, and validation of the objectives themselves was the analysis and approval just completed.",
+        "D": "Contracting commits to one solution before alternatives have been evaluated against the objectives. Replicated cloud standby may be the answer, but reaching for it first is procurement leading strategy."
+      }
+    },
+    {
+      "id": "cisa-d4b-035",
+      "domain": "4",
+      "section": "B",
+      "topic": "System and Operational Resilience",
+      "difficulty": "medium",
+      "stem": "A regional payment processor deploys its firewalls and load balancers in redundant pairs. During an audit walkthrough, one firewall in a pair is found to have failed three months earlier; traffic passed through its partner and no one noticed. Which conclusion by the IS auditor is MOST appropriate?",
+      "options": {
+        "A": "Failures of redundant components are not detected, so single points of failure can persist unnoticed.",
+        "B": "The exposure is fully resolved once the failed firewall is replaced.",
+        "C": "The redundant design operated as intended because no service outage occurred.",
+        "D": "The level of redundancy is insufficient and a third device is needed in each pair."
+      },
+      "answer": "A",
+      "why_correct": "Redundancy provides resilience only while both components are actually alive; for three months this pair was a single point of failure that everyone believed was redundant. The specific firewall is a symptom — the finding is that nothing alerts when standby capacity is lost, so any pair in the estate may already be in the same state, and the organization's believed resilience overstates what exists.",
+      "why_wrong": {
+        "B": "Replacing the unit fixes the instance and leaves the cause untouched; the next silent failure in this or any other pair will follow the same three-month script.",
+        "C": "This mistakes a lucky outcome for a working control: the design absorbed one failure and was then one further failure away from an outage for a quarter of a year, precisely the condition redundancy exists to avoid.",
+        "D": "More unmonitored redundancy degrades just as silently — it merely takes one failure longer. Adding hardware treats the visible gap while missing the detection gap that created it."
+      }
+    },
+    {
+      "id": "cisa-d4b-036",
+      "domain": "4",
+      "section": "B",
+      "topic": "System and Operational Resilience",
+      "difficulty": "medium",
+      "stem": "A logistics company runs its dispatch operations on a SaaS platform. The business continuity plan excludes the platform, noting that the vendor advertises 99.95% availability across multiple regions and manages its own disaster recovery. Which of the following should be of GREATEST concern to the IS auditor?",
+      "options": {
+        "A": "The advertised availability figure has not been benchmarked against competing platforms.",
+        "B": "The vendor's regional architecture may not include the geography where the company operates.",
+        "C": "The company has not defined recovery objectives for the dispatch process or a tested workaround for a prolonged platform outage.",
+        "D": "The contract does not grant the company a right to audit the vendor's data centers."
+      },
+      "answer": "C",
+      "why_correct": "The vendor's disaster recovery restores the vendor's service, on the vendor's timeline, against the vendor's chosen failure modes; it does nothing for vendor-level events such as a security incident, insolvency, or a botched platform change, and the customer has no say in recovery sequencing when it is invoked. Continuity of the dispatch business process remains the company's obligation and cannot be delegated to a supplier's marketing figure — the plan must contain the process's own RTO/RPO and a workaround the company controls.",
+      "why_wrong": {
+        "A": "Benchmarking is a procurement exercise about vendor selection; whichever vendor wins, the absence of a customer-side continuity plan for the process remains untouched.",
+        "B": "Region placement is a design detail affecting latency and data residency; even perfectly located regions leave the customer exposed to every failure mode that takes the platform down as a whole.",
+        "D": "Audit rights are a useful governance lever over the vendor's control environment, but their absence does not stop dispatch operating during an outage — the missing workaround does."
+      }
+    },
+    {
+      "id": "cisa-d4b-037",
+      "domain": "4",
+      "section": "B",
+      "topic": "System and Operational Resilience",
+      "difficulty": "hard",
+      "stem": "Following a ransomware near-miss, a manufacturer implemented synchronous replication of its production estate to a second data center with automatic failover, and management asserts that its ransomware exposure is now resolved. Which response by the IS auditor is MOST appropriate?",
+      "options": {
+        "A": "Agree, because the second site holds a continuously current copy of production that a primary-site failure cannot affect.",
+        "B": "Point out that the replication would propagate malicious encryption to the second site, so point-in-time recoverable backups are still required.",
+        "C": "Recommend converting the replication to asynchronous so that corruption reaches the second site more slowly.",
+        "D": "Verify that the automatic failover has been tested under load before concluding the exposure is addressed."
+      },
+      "answer": "B",
+      "why_correct": "Replication is a fidelity mechanism: whatever happens to production is reproduced at the second site, and synchronous replication reproduces it within seconds — including the attacker's encryption and deletion commands. The investment defends against infrastructure loss, not data poisoning; ransomware recovery depends on immutable, point-in-time copies the attacker cannot alter, which this architecture does not provide, so management's assertion is unfounded.",
+      "why_wrong": {
+        "A": "This accepts the very assumption the auditor must challenge: the second site's currency is exactly what makes it useless once the current state is encrypted.",
+        "C": "Slower arrival of the corruption is a delay, not a defense — ransomware operators commonly dwell for weeks before detonating, so replication lag changes nothing about the outcome.",
+        "D": "Testing failover validates the mechanism against the threat it was designed for; a flawless failover during a ransomware event simply delivers users to a faithfully encrypted copy of their data."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4b-038",
+      "domain": "4",
+      "section": "B",
+      "topic": "System and Operational Resilience",
+      "difficulty": "easy",
+      "stem": "At a utility company, failover of the outage-management platform can only be executed by the senior engineer who wrote the failover scripts. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "The engineer could make unauthorized modifications to the scripts without detection.",
+        "B": "The scripts may not comply with the organization's coding standards.",
+        "C": "Cross-training additional staff on the procedure would increase operational costs.",
+        "D": "Failover of a critical platform cannot be performed if the engineer is unavailable during an incident."
+      },
+      "answer": "D",
+      "why_correct": "Resilience is a property of people and procedures as much as of technology, and this arrangement makes the availability of a critical platform depend on the availability of one person — a single point of failure no redundant hardware compensates for. Incidents do not schedule themselves around one engineer's leave, illness, or resignation; the exposure is closed by documented, rehearsed procedures that at least one alternate can execute.",
+      "why_wrong": {
+        "A": "Unauthorized change is a real integrity concern addressed by change control and review, but it is a different risk from the availability exposure the scenario describes — and it exists whether or not anyone else can run the scripts.",
+        "B": "Standards compliance is a code-quality observation; non-conforming scripts that work and can be executed by several people are a far better position than perfect scripts only one person can run.",
+        "C": "Cost is the price of removing the exposure, not a risk of the current arrangement — treating the remediation's cost as the concern inverts the analysis."
+      }
+    },
+    {
+      "id": "cisa-d4b-039",
+      "domain": "4",
+      "section": "B",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "While assessing ransomware readiness at a hospital group, an IS auditor finds that the backup infrastructure is joined to the same directory domain as production and is administered using the same privileged accounts. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "Backup jobs will fail whenever the directory service is unavailable.",
+        "B": "An attacker who compromises production domain credentials can also reach and destroy the backups.",
+        "C": "Having one team administer both production and backups violates segregation of duties.",
+        "D": "Shared privileged accounts prevent backup actions from being attributed to individuals in the logs."
+      },
+      "answer": "B",
+      "why_correct": "Backups are the control the organization falls back on when everything else has failed, so they must not share a failure mode — or a credential domain — with what they protect. Compromising production domain credentials is the standard opening move of a ransomware intrusion, and modern operators deliberately locate and delete backups before encrypting production; a backup platform that trusts production's directory hands them that capability with credentials they already hold. Separate authentication and immutable or logically air-gapped copies keep the recovery path alive through a full domain compromise.",
+      "why_wrong": {
+        "A": "Directory dependency is an operational availability nuisance: missed jobs are visible, recoverable, and bounded, and do not hand an adversary the means to erase the recovery capability.",
+        "C": "This over-applies segregation of duties — small teams administering both is common and manageable, and the shared-credential exposure persists even if two separate teams use accounts from the same domain.",
+        "D": "Attribution matters for accountability and forensics, but it is an after-the-fact concern; knowing which stolen account deleted the backups is little comfort once they are gone."
+      }
+    },
+    {
+      "id": "cisa-d4b-040",
+      "domain": "4",
+      "section": "B",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "A fintech company encrypts all backups, and the decryption keys are held in a key management service that runs only in the primary data center. Which of the following is the MOST significant risk?",
+      "options": {
+        "A": "An event that destroys the primary site would leave the offsite backups intact but permanently unrecoverable.",
+        "B": "Encrypting the data will lengthen backup jobs and cause backup windows to be exceeded.",
+        "C": "Administrators of the key management service are able to decrypt and read backup contents.",
+        "D": "The encryption keys are not being rotated at the frequency required by the cryptographic standard."
+      },
+      "answer": "A",
+      "why_correct": "The backups and the means of reading them form a single recovery capability, and co-locating the only copy of the keys with the primary site creates a circular dependency: the scenario that forces a restore from offsite media is the same scenario that destroys the keys. Every backup control can operate flawlessly and the organization still cannot recover, so key material must be escrowed or replicated with the same geographic separation as the backups themselves.",
+      "why_wrong": {
+        "B": "Window pressure is an operational tuning problem, visible in daily job reports and solvable with capacity; it does not silently zero out the recovery capability.",
+        "C": "Administrator access to keys is a confidentiality and privileged-access concern managed through dual control and monitoring — and it exists wherever the KMS runs, so it does not follow from the single-site condition the stem describes.",
+        "D": "Rotation cadence is cryptographic hygiene applied out of context: perfectly rotated keys stored only at the primary site are destroyed on schedule along with everything else."
+      }
+    },
+    {
+      "id": "cisa-d4b-041",
+      "domain": "4",
+      "section": "B",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "A software company provisions new production systems daily through infrastructure-as-code, and enrollment of each system into the backup service is a separate manual step. Which of the following would give the IS auditor the BEST evidence that all systems requiring backup are actually protected?",
+      "options": {
+        "A": "Twelve months of backup job reports showing a near-perfect completion rate.",
+        "B": "Observation of a successful full restore of a critical database, verified by the business.",
+        "C": "Confirmation that the backup policy requires every production system to be backed up.",
+        "D": "A reconciliation of the systems present in the backup catalog against an authoritative inventory of production systems, with differences investigated."
+      },
+      "answer": "D",
+      "why_correct": "The question at issue is coverage, and coverage can only be evidenced by comparing what is protected against an independent record of what exists. When provisioning is automated and enrollment is manual, the gap grows daily and every system that slipped through produces no failed job, no alert, and no evidence of its own absence. Only reconciliation makes the omissions visible.",
+      "why_wrong": {
+        "A": "Job reports describe the population that was enrolled. A system never added to the backup service generates no jobs to fail, so a spotless completion rate is fully consistent with widening gaps in coverage.",
+        "B": "A verified restore is ordinarily the strongest backup evidence there is, which is exactly what makes it tempting here — but it demonstrates recoverability of an enrolled system, and the risk in this scenario is systems that were never enrolled. Right control, wrong assertion.",
+        "C": "Policy states the intent that the manual step is failing to deliver. Citing the requirement as evidence of the outcome is design evidence standing in for operating evidence."
+      }
+    },
+    {
+      "id": "cisa-d4b-042",
+      "domain": "4",
+      "section": "B",
+      "topic": "Data Backup, Storage, and Restoration",
+      "difficulty": "medium",
+      "stem": "A regional bank retains its month-end backup sets for ten years to satisfy record-retention obligations and has decommissioned its former archive platform. Which of the following should be of GREATEST concern to the IS auditor?",
+      "options": {
+        "A": "Retaining ten years of backup sets consumes significant storage capacity.",
+        "B": "The ten-year retention period greatly exceeds the recovery point objective.",
+        "C": "Individual records may not be retrievable from aged backup sets because the software versions, data formats, and encryption keys required to read them may no longer exist.",
+        "D": "Regulators and auditors will be unable to access retained records without IT assistance."
+      },
+      "answer": "C",
+      "why_correct": "Backup and archival serve different purposes and are engineered differently: a backup restores a whole system to a recent state, while an archive preserves individual records in retrievable, format-stable form for years. A month-end backup set from a decade ago may depend on a database version, an application stack, and key material that no longer exist anywhere in the estate, and routine operations will never surface that gap until a regulator or court requests a specific record. By decommissioning the archive platform and relying on backups, the bank has replaced a retention capability with a retention assertion — the obligation appears satisfied on paper while retrieval may be impractical or impossible.",
+      "why_wrong": {
+        "A": "The cost trap: storage consumption is a commercial observation, and long-retention storage is inexpensive. Paying to keep data that cannot be read back is a symptom; the unreadability is the audit concern, not the bill.",
+        "B": "The metric-confusion trap: the recovery point objective bounds tolerable data loss in a disruption, while retention is driven by legal and regulatory obligation. The two measure different things, so retention exceeding RPO is inevitable and meaningless as a comparison.",
+        "D": "The inconvenience trap: needing IT to perform retrievals is common to virtually all archival arrangements and is operationally acceptable. The concern is whether retrieval is possible at all, not who operates it."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4b-043",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "A regional insurer's business continuity plan has been exercised annually for five years against a data-center-loss scenario, with recovery to a continuously replicated standby environment. Reviewing the plan, an IS auditor notes that every invocation scenario and every recovery strategy assumes the loss of a facility. Which of the following should be the auditor's GREATEST concern?",
+      "options": {
+        "A": "The annual exercise frequency is insufficient for an organization in a regulated industry.",
+        "B": "The standby environment may be within the impact radius of the same regional disaster as the primary site.",
+        "C": "The plan does not address disruptions, such as ransomware, that leave facilities intact while replication propagates the damage to the standby environment.",
+        "D": "Repeating the same scenario every year has reduced the training value of the exercises for participants."
+      },
+      "answer": "C",
+      "why_correct": "The plan's recovery logic rests on two assumptions: that a disruption means losing a facility, and that an intact copy of the environment exists elsewhere. Ransomware violates both — no site is lost, and continuous replication corrupts the standby copy within seconds of the primary. Five years of successful exercises have validated the plan only against the scenario family it was built for, leaving a highly probable modern threat with no planned response at all, which outweighs any refinement of the covered scenario.",
+      "why_wrong": {
+        "A": "Frequency rule-of-thumb trap. Annual exercising is a generally accepted baseline, and exercising the wrong scenario more often would not close the uncovered threat class.",
+        "B": "Refinement-of-the-covered-case trap. Site separation is a legitimate check within the facility-loss scenario the plan already handles, and the stem gives no indication the sites are co-located.",
+        "D": "Test-quality trap. Scenario repetition limits learning at the margin, but it is a weakness inside a covered scenario, not an entire class of disruption the plan cannot respond to."
+      }
+    },
+    {
+      "id": "cisa-d4b-044",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "While auditing business continuity at a national logistics company, an IS auditor compares the process inventory in the business impact analysis with the scope of the continuity plan. Several processes the business now describes as critical — carrier booking, customs declarations, customer notifications — run on SaaS applications that operating units subscribed to directly over the past three years, and neither the analysis nor the plan mentions them. Which observation is MOST significant?",
+      "options": {
+        "A": "Critical processes depend on providers whose recovery capabilities have never been assessed and fall entirely outside the continuity program.",
+        "B": "The SaaS providers' security certifications and audit reports have not been collected by the vendor management team.",
+        "C": "The operating units bypassed procurement policy when they subscribed to the applications without central approval.",
+        "D": "The business impact analysis has missed its scheduled refresh and should be updated in line with the annual review cycle."
+      },
+      "answer": "A",
+      "why_correct": "A continuity program can only protect what it knows about, and the organization's dependency profile has drifted out from under it. For each of these critical processes there is no assessed provider capability, no recovery objective, no workaround and no plan section — the organization would improvise its response to losing a critical process, which is the exact condition continuity planning exists to prevent. Scope completeness is the foundation every other program element stands on.",
+      "why_wrong": {
+        "B": "Paper-assurance trap. Certifications and reports describe the providers' general posture; they would not tell the organization what to do when a critical SaaS application is down, and they treat a continuity gap as a document-gathering task.",
+        "C": "Cause-versus-risk trap. The procurement breach explains how the gap arose rather than describing the exposure it creates; retroactive enforcement does nothing for the processes already unprotected.",
+        "D": "Process-formality trap. A refresh is the mechanism that would have caught the gap, but the significant observation is what the gap means — critical processes with no continuity provision — not that a review date slipped."
+      }
+    },
+    {
+      "id": "cisa-d4b-045",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Continuity Plan",
+      "difficulty": "hard",
+      "stem": "A hospital group exercises its business continuity plan every year, and each exercise report identifies gaps. Reviewing three years of reports, an IS auditor finds the same gaps recurring in each one — offline patient registration forms unavailable at the wards, delegated clinical authorities unclear — with no record of remediation between exercises. Management cites the unbroken record of annual exercises as evidence of a mature program. Which conclusion by the auditor is MOST appropriate?",
+      "options": {
+        "A": "The program is operating effectively, because the plan is exercised on schedule and the exercises demonstrably succeed in identifying weaknesses.",
+        "B": "The exercises should be made more challenging, since repeating a scenario that finds the same gaps suggests the scenario is exhausted.",
+        "C": "The auditor should independently re-perform the most recent exercise to confirm the reported gaps are genuine before reporting.",
+        "D": "Exercise findings are not remediated, so known weaknesses have persisted for three years and the plan is no more viable than when the gaps were first identified."
+      },
+      "answer": "D",
+      "why_correct": "Exercising is only the detection half of a corrective loop, and this organization has been running detection without correction — the missing element is a tracked remediation process with owners and deadlines. The recurring gaps are not abstract: registration forms and delegated clinical authorities are precisely what fails in the first hour of a real event, and they have been known and unfixed for three years. Maturity is measured by whether findings change the plan, not by whether the exercise calendar is kept.",
+      "why_wrong": {
+        "A": "Activity-as-assurance trap — the exact claim management is making. An exercise program that finds the same weaknesses every year without fixing them is evidence the corrective loop is broken, not that it works.",
+        "B": "Misdiagnosis trap. The scenario is still finding real, unremediated gaps; harder exercises would generate a longer findings list feeding the same non-existent remediation process.",
+        "C": "Misdirected-effort trap. Three consecutive reports agreeing on the same gaps is already strong evidence they are genuine; the auditor's effort belongs on why findings go nowhere, not on producing them a fourth time."
+      }
+    },
+    {
+      "id": "cisa-d4b-046",
+      "domain": "4",
+      "section": "B",
+      "topic": "Business Continuity Plan",
+      "difficulty": "medium",
+      "stem": "A retail bank has outsourced card personalization and dispatch to a specialist provider. The bank's business continuity plan states that, in a disruption affecting the provider, the provider will continue the service under its own continuity arrangements. Which of the following would give the IS auditor the GREATEST assurance that this reliance is justified?",
+      "options": {
+        "A": "The outsourcing contract obliges the provider to maintain and periodically update a business continuity plan for the service.",
+        "B": "Recent test results demonstrate that the provider can recover the service within timeframes that meet the bank's recovery requirements.",
+        "C": "The provider holds a current ISO 22301 certification covering the operations that deliver the bank's service.",
+        "D": "The bank has identified an alternative provider that could take over card personalization if the incumbent fails."
+      },
+      "answer": "B",
+      "why_correct": "The bank's plan has delegated continuity for this process to someone else, so the assurance question becomes whether that party can actually deliver it — and to the bank's timescales, not just its own. Test evidence, whether shared results or a joint exercise, is what separates a capability from a document, and the alignment check matters independently: a provider that recovers flawlessly in five days still fails a bank that needs cards moving in two.",
+      "why_wrong": {
+        "A": "Paper-obligation trap. A contractual requirement to maintain a plan produces a plan, not a capability, and says nothing about whether it works or whether its objectives match the bank's needs.",
+        "C": "Certification-substitution trap. ISO 22301 confirms a conforming continuity management system but does not demonstrate recovery of this specific service within this bank's required timeframe.",
+        "D": "Unvalidated-alternative trap. Card personalization involves secure facilities, key ceremonies and card stock, so switching providers is a months-long project, not a recovery strategy — and it abandons the stated reliance rather than assuring it."
+      }
+    },
+    {
+      "id": "cisa-d4b-047",
+      "domain": "4",
+      "section": "B",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "A manufacturer's disaster recovery tests have succeeded for four consecutive years. Observing the most recent test, an IS auditor notes that the same senior infrastructure engineer led every test, performed the critical restoration steps from memory and personal notes, and that the documented recovery procedures have not kept pace with changes to the environment. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "The organization may be unable to recover from a real disaster if this individual is unavailable when it occurs.",
+        "B": "The engineer may make an error during a future test that causes it to fail.",
+        "C": "The previous test results are invalid, and the organization should be treated as never having tested its recovery capability.",
+        "D": "Assigning the same person to lead every test breaches the principle that sensitive duties should be periodically rotated."
+      },
+      "answer": "A",
+      "why_correct": "The tests genuinely succeeded, but what they proved is narrower than what everyone believes: the organization can recover if one specific person is present and functioning. Four years of tests have validated one person's knowledge rather than a documented, transferable capability. Disasters do not schedule themselves around key staff — the individual may be unreachable, incapacitated by the same event, or simply gone — and the team would then inherit procedures describing an environment that no longer exists.",
+      "why_wrong": {
+        "B": "Contained-failure trap. An error in a test is exactly what tests exist to absorb, in a controlled setting — a far smaller exposure than a real recovery attempted without the only person who knows how to perform it.",
+        "C": "Over-conclusion trap. The tests are real evidence that recovery is achievable under specific conditions; the finding concerns the fragility of those conditions, not the validity of the results.",
+        "D": "Misapplied-control trap. Rotation of duties addresses fraud and error concealment, not dependency — and rotating the test lead without first fixing the documentation would simply make the next test fail without addressing why."
+      }
+    },
+    {
+      "id": "cisa-d4b-048",
+      "domain": "4",
+      "section": "B",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "hard",
+      "stem": "A payment processor's disaster recovery strategy for its core platform is synchronous replication to a fully equipped hot site, giving a near-zero recovery point, and failover has been validated through regular testing. Considering the organization's ransomware exposure, which of the following is the MOST significant limitation of this strategy?",
+      "options": {
+        "A": "Synchronous replication constrains the distance between the two sites, so a large regional event could affect both.",
+        "B": "Replication faithfully copies whatever happens to production, so malicious encryption or destruction of data reaches the hot site within seconds; recovering from such an event requires point-in-time, immutable copies that this strategy does not provide.",
+        "C": "Failover testing should be replaced with full interruption testing to provide stronger assurance that the hot site works.",
+        "D": "A hot site with synchronous replication is more capability than the platform's recovery time objective requires, so the strategy is not cost-justified."
+      },
+      "answer": "B",
+      "why_correct": "Replication is a fidelity mechanism, and fidelity is exactly the problem when the event is data destruction rather than site loss: the hot site holds a perfect, seconds-old copy of the encrypted data. The strategy protects against losing a place while the stem's stated threat destroys the data in both places at once, and the failover tests validate a capability that is irrelevant to that scenario. Recovery from ransomware requires the ability to go back in time to a copy the attacker could not touch, which is a different mechanism the strategy lacks.",
+      "why_wrong": {
+        "A": "Distance constraint is the textbook limitation of synchronous replication and it is real — for regional physical events. The stem directs attention to ransomware, against which even perfectly separated sites fail together because the corruption travels over the replication link, not the weather.",
+        "C": "This reaches for the test-type ranking when testing is not the weakness. A full interruption test would only demonstrate more convincingly that failover works, and failover working is precisely what does not help in the scenario asked about.",
+        "D": "Cost-justification runs backwards here. The finding is that the expensive strategy covers too little of the threat model, not too much of the requirement — and nothing in the stem establishes the recovery objectives needed to call it excessive."
+      }
+    },
+    {
+      "id": "cisa-d4b-049",
+      "domain": "4",
+      "section": "B",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "medium",
+      "stem": "Following a nine-hour outage of its settlement platform, a regional payment processor asks an IS auditor to review the disaster recovery response. The technical failover, once initiated, completed in seventy minutes as designed. The preceding six hours were consumed by managers debating whether the situation warranted invoking the recovery plan and who was empowered to make that call. Which improvement should the auditor recommend FIRST?",
+      "options": {
+        "A": "Automate the failover so that it triggers on defined technical conditions without waiting for a human decision.",
+        "B": "Streamline the technical failover procedure to recover the time lost during the decision period.",
+        "C": "Reserve the authority to declare a disaster to the chief executive, so that future invocations carry unambiguous authority.",
+        "D": "Define objective declaration criteria tied to impact and elapsed time, and delegate invocation authority to named roles with alternates, so that the decision that consumed six hours takes minutes."
+      },
+      "answer": "D",
+      "why_correct": "The outage decomposes cleanly: seventy minutes of execution and six hours of hesitation. The plan worked; the trigger did not exist. Predefined thresholds convert an open-ended judgment made under pressure into a check against criteria decided calmly in advance, and delegation to named roles with alternates ensures someone present is always empowered to act. This addresses the component that caused six of the nine hours.",
+      "why_wrong": {
+        "A": "Automation is the tempting technical fix for a governance failure, and full disaster declaration is a consequential, sometimes irreversible business decision — automating it risks unnecessary invocations with their own outages and costs. Clear human authority with objective criteria achieves the speed without surrendering the judgment.",
+        "B": "This optimizes the part of the response that performed well. Even reducing the failover to zero would have left an outage of six-plus hours, because the delay was upstream of the procedure entirely.",
+        "C": "Concentrating declaration in a single named executive replaces ambiguity with a bottleneck: the decision now waits on one person's reachability at 3 a.m. or mid-flight. Authority needs to be defined, delegated and deputized — not elevated."
+      }
+    },
+    {
+      "id": "cisa-d4b-050",
+      "domain": "4",
+      "section": "B",
+      "topic": "Disaster Recovery Plans",
+      "difficulty": "easy",
+      "stem": "During a hospital group's disaster recovery test, the recovery team restored the systems in scope within the recovery time objective, but had to deviate from the documented procedures at several points because the written steps no longer matched the current environment. What should the IS auditor recommend as the NEXT step?",
+      "options": {
+        "A": "Classify the test as failed, because recovery was not achieved by following the approved plan.",
+        "B": "Repeat the test immediately, this time following the documented procedures exactly as written.",
+        "C": "Analyze the deviations and update the recovery procedures to reflect the steps that actually worked, before the team's improvised knowledge is lost.",
+        "D": "Restrict future tests to team members experienced enough to improvise when the documentation falls short."
+      },
+      "answer": "C",
+      "why_correct": "The test succeeded and, more valuably, it revealed exactly where the documentation has drifted from reality. The improvised steps exist right now only in the memories of the people who performed them, and a real disaster may not be staffed by those people. Capturing the working procedure while it is fresh is what converts a fortunate outcome into a repeatable capability.",
+      "why_wrong": {
+        "A": "This over-applies compliance thinking to a test whose purpose is learning. The objective was met and the deviations are findings to act on, not grounds to void a recovery that demonstrably worked.",
+        "B": "Repeating the test against procedures already known to be wrong guarantees a failure that teaches nothing new. It sequences the retest before the correction that would make retesting meaningful.",
+        "D": "This institutionalizes the workaround instead of fixing the plan, deepening dependence on particular individuals. A recovery plan exists precisely so that recovery does not require the people who happen to know where the documentation is wrong."
+      }
+    }
+  ]
+}

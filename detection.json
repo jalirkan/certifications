@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-15T23:30:18-04:00",
+  "generated": "2026-08-28T01:32:09-04:00",
   "seeds": 200,
   "sizes": [
     100,
@@ -8,7 +8,7 @@
     3000
   ],
   "bank": {
-    "questions": 386,
+    "questions": 501,
     "rules": 23
   },
   "thresholds": {
@@ -29,18 +29,18 @@
           "check": "1",
           "attempts": 100,
           "detection": {
-            "hits": 147,
+            "hits": 132,
             "runs": 200,
-            "rate": 0.735,
-            "low": 0.6698229773344888,
-            "high": 0.7913193998839003
+            "rate": 0.66,
+            "low": 0.5918836703220929,
+            "high": 0.7220856077840445
           },
           "false_positive": {
-            "hits": 24,
+            "hits": 36,
             "runs": 200,
-            "rate": 0.12,
-            "low": 0.08197935023887545,
-            "high": 0.17234361425904846
+            "rate": 0.18,
+            "low": 0.13294550662534108,
+            "high": 0.2391159371623843
           },
           "trustworthy": false
         },
@@ -48,18 +48,18 @@
           "check": "1",
           "attempts": 300,
           "detection": {
-            "hits": 197,
+            "hits": 192,
             "runs": 200,
-            "rate": 0.985,
-            "low": 0.9568335194437211,
-            "high": 0.9948858548155076
+            "rate": 0.96,
+            "low": 0.9230670617058012,
+            "high": 0.9795946128493436
           },
           "false_positive": {
-            "hits": 19,
+            "hits": 18,
             "runs": 200,
-            "rate": 0.095,
-            "low": 0.06166261364986359,
-            "high": 0.14360265114397636
+            "rate": 0.09,
+            "low": 0.05768697871453362,
+            "high": 0.13776674613848952
           },
           "trustworthy": true
         },
@@ -74,11 +74,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 16,
+            "hits": 26,
             "runs": 200,
-            "rate": 0.08,
-            "low": 0.04984015517626642,
-            "high": 0.12599048979512317
+            "rate": 0.13,
+            "low": 0.09028141365225628,
+            "high": 0.18366463072730121
           },
           "trustworthy": true
         },
@@ -93,11 +93,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 25,
+            "hits": 24,
             "runs": 200,
-            "rate": 0.125,
-            "low": 0.0861191515921568,
-            "high": 0.1780153528465839
+            "rate": 0.12,
+            "low": 0.08197935023887545,
+            "high": 0.17234361425904846
           },
           "trustworthy": true
         }
@@ -116,11 +116,30 @@
           "check": "2",
           "attempts": 100,
           "detection": {
-            "hits": 43,
+            "hits": 49,
             "runs": 200,
-            "rate": 0.215,
-            "low": 0.16371792563672208,
-            "high": 0.2770242977367209
+            "rate": 0.245,
+            "low": 0.19056777914685893,
+            "high": 0.3090436838714848
+          },
+          "false_positive": {
+            "hits": 3,
+            "runs": 200,
+            "rate": 0.015,
+            "low": 0.005114145184492387,
+            "high": 0.043166480556278884
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "2",
+          "attempts": 300,
+          "detection": {
+            "hits": 125,
+            "runs": 200,
+            "rate": 0.625,
+            "low": 0.5561417515728713,
+            "high": 0.6891467469475485
           },
           "false_positive": {
             "hits": 4,
@@ -133,39 +152,20 @@
         },
         {
           "check": "2",
-          "attempts": 300,
-          "detection": {
-            "hits": 126,
-            "runs": 200,
-            "rate": 0.63,
-            "low": 0.5612250134987606,
-            "high": 0.6938750249624759
-          },
-          "false_positive": {
-            "hits": 2,
-            "runs": 200,
-            "rate": 0.01,
-            "low": 0.0027466006037749346,
-            "high": 0.03572248519617954
-          },
-          "trustworthy": false
-        },
-        {
-          "check": "2",
           "attempts": 1000,
           "detection": {
-            "hits": 199,
+            "hits": 200,
             "runs": 200,
-            "rate": 0.995,
-            "low": 0.9722256001302286,
-            "high": 0.999116854010634
+            "rate": 1.0,
+            "low": 0.9811539940816791,
+            "high": 1.0
           },
           "false_positive": {
-            "hits": 1,
+            "hits": 4,
             "runs": 200,
-            "rate": 0.005,
-            "low": 0.0008831459893662054,
-            "high": 0.02777439986977148
+            "rate": 0.02,
+            "low": 0.007804300176394188,
+            "high": 0.050287865505193874
           },
           "trustworthy": true
         },
@@ -180,11 +180,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 0,
+            "hits": 4,
             "runs": 200,
-            "rate": 0.0,
-            "low": 0.0,
-            "high": 0.018846005918320894
+            "rate": 0.02,
+            "low": 0.007804300176394188,
+            "high": 0.050287865505193874
           },
           "trustworthy": true
         }
@@ -203,18 +203,18 @@
           "check": "3",
           "attempts": 100,
           "detection": {
-            "hits": 77,
+            "hits": 50,
             "runs": 200,
-            "rate": 0.385,
-            "low": 0.3203319691791383,
-            "high": 0.4540026121820756
+            "rate": 0.25,
+            "low": 0.19508076816296532,
+            "high": 0.3143422347961952
           },
           "false_positive": {
-            "hits": 16,
+            "hits": 28,
             "runs": 200,
-            "rate": 0.08,
-            "low": 0.04984015517626642,
-            "high": 0.12599048979512317
+            "rate": 0.14,
+            "low": 0.09866918625271481,
+            "high": 0.19489993800847627
           },
           "trustworthy": false
         },
@@ -222,18 +222,18 @@
           "check": "3",
           "attempts": 300,
           "detection": {
-            "hits": 36,
+            "hits": 64,
             "runs": 200,
-            "rate": 0.18,
-            "low": 0.13294550662534108,
-            "high": 0.2391159371623843
+            "rate": 0.32,
+            "low": 0.2592642960770526,
+            "high": 0.38752026605354306
           },
           "false_positive": {
-            "hits": 13,
+            "hits": 17,
             "runs": 200,
-            "rate": 0.065,
-            "low": 0.03837598764975976,
-            "high": 0.10802003749917945
+            "rate": 0.085,
+            "low": 0.05374529946985246,
+            "high": 0.13189688544235392
           },
           "trustworthy": false
         },
@@ -241,18 +241,18 @@
           "check": "3",
           "attempts": 1000,
           "detection": {
-            "hits": 5,
+            "hits": 8,
             "runs": 200,
-            "rate": 0.025,
-            "low": 0.010724561470787711,
-            "high": 0.05717914415161715
+            "rate": 0.04,
+            "low": 0.02040538715065641,
+            "high": 0.07693293829419882
           },
           "false_positive": {
-            "hits": 13,
+            "hits": 19,
             "runs": 200,
-            "rate": 0.065,
-            "low": 0.03837598764975976,
-            "high": 0.10802003749917945
+            "rate": 0.095,
+            "low": 0.06166261364986359,
+            "high": 0.14360265114397636
           },
           "trustworthy": false
         },
@@ -267,11 +267,11 @@
             "high": 0.018846005918320894
           },
           "false_positive": {
-            "hits": 22,
+            "hits": 20,
             "runs": 200,
-            "rate": 0.11,
-            "low": 0.07377190160716048,
-            "high": 0.16092798300912986
+            "rate": 0.1,
+            "low": 0.06566994117157123,
+            "high": 0.14940686356308552
           },
           "trustworthy": false
         }
@@ -290,18 +290,18 @@
           "check": "3a",
           "attempts": 100,
           "detection": {
-            "hits": 147,
+            "hits": 132,
             "runs": 200,
-            "rate": 0.735,
-            "low": 0.6698229773344888,
-            "high": 0.7913193998839003
+            "rate": 0.66,
+            "low": 0.5918836703220929,
+            "high": 0.7220856077840445
           },
           "false_positive": {
-            "hits": 24,
+            "hits": 36,
             "runs": 200,
-            "rate": 0.12,
-            "low": 0.08197935023887545,
-            "high": 0.17234361425904846
+            "rate": 0.18,
+            "low": 0.13294550662534108,
+            "high": 0.2391159371623843
           },
           "trustworthy": false
         },
@@ -309,18 +309,18 @@
           "check": "3a",
           "attempts": 300,
           "detection": {
-            "hits": 197,
+            "hits": 192,
             "runs": 200,
-            "rate": 0.985,
-            "low": 0.9568335194437211,
-            "high": 0.9948858548155076
+            "rate": 0.96,
+            "low": 0.9230670617058012,
+            "high": 0.9795946128493436
           },
           "false_positive": {
-            "hits": 19,
+            "hits": 18,
             "runs": 200,
-            "rate": 0.095,
-            "low": 0.06166261364986359,
-            "high": 0.14360265114397636
+            "rate": 0.09,
+            "low": 0.05768697871453362,
+            "high": 0.13776674613848952
           },
           "trustworthy": true
         },
@@ -335,11 +335,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 16,
+            "hits": 26,
             "runs": 200,
-            "rate": 0.08,
-            "low": 0.04984015517626642,
-            "high": 0.12599048979512317
+            "rate": 0.13,
+            "low": 0.09028141365225628,
+            "high": 0.18366463072730121
           },
           "trustworthy": true
         },
@@ -354,11 +354,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 25,
+            "hits": 24,
             "runs": 200,
-            "rate": 0.125,
-            "low": 0.0861191515921568,
-            "high": 0.1780153528465839
+            "rate": 0.12,
+            "low": 0.08197935023887545,
+            "high": 0.17234361425904846
           },
           "trustworthy": true
         }
@@ -377,18 +377,18 @@
           "check": "3b",
           "attempts": 100,
           "detection": {
-            "hits": 116,
+            "hits": 102,
             "runs": 200,
-            "rate": 0.58,
-            "low": 0.5107194625547862,
-            "high": 0.6462651764982825
+            "rate": 0.51,
+            "low": 0.441184632709161,
+            "high": 0.5784384471724727
           },
           "false_positive": {
-            "hits": 153,
+            "hits": 166,
             "runs": 200,
-            "rate": 0.765,
-            "low": 0.7015850701327535,
-            "high": 0.8184265467305365
+            "rate": 0.83,
+            "low": 0.7718399896049648,
+            "high": 0.8757216464889435
           },
           "trustworthy": false
         },
@@ -396,18 +396,18 @@
           "check": "3b",
           "attempts": 300,
           "detection": {
-            "hits": 38,
+            "hits": 72,
             "runs": 200,
-            "rate": 0.19,
-            "low": 0.14167093792456506,
-            "high": 0.250013585744794
+            "rate": 0.36,
+            "low": 0.29669087731339805,
+            "high": 0.42858600434373184
           },
           "false_positive": {
-            "hits": 147,
+            "hits": 159,
             "runs": 200,
-            "rate": 0.735,
-            "low": 0.6698229773344888,
-            "high": 0.7913193998839003
+            "rate": 0.795,
+            "low": 0.7337418048192546,
+            "high": 0.8451390516889363
           },
           "trustworthy": false
         },
@@ -415,18 +415,18 @@
           "check": "3b",
           "attempts": 1000,
           "detection": {
-            "hits": 5,
+            "hits": 8,
             "runs": 200,
-            "rate": 0.025,
-            "low": 0.010724561470787711,
-            "high": 0.05717914415161715
+            "rate": 0.04,
+            "low": 0.02040538715065641,
+            "high": 0.07693293829419882
           },
           "false_positive": {
-            "hits": 158,
+            "hits": 149,
             "runs": 200,
-            "rate": 0.79,
-            "low": 0.7283526118460081,
-            "high": 0.8407167047213658
+            "rate": 0.745,
+            "low": 0.6803694869280502,
+            "high": 0.8003959701719726
           },
           "trustworthy": false
         },
@@ -441,11 +441,11 @@
             "high": 0.018846005918320894
           },
           "false_positive": {
-            "hits": 153,
+            "hits": 163,
             "runs": 200,
-            "rate": 0.765,
-            "low": 0.7015850701327535,
-            "high": 0.8184265467305365
+            "rate": 0.815,
+            "low": 0.7554281794988185,
+            "high": 0.8626988367726394
           },
           "trustworthy": false
         }
@@ -483,11 +483,11 @@
           "check": "4",
           "attempts": 300,
           "detection": {
-            "hits": 7,
+            "hits": 4,
             "runs": 200,
-            "rate": 0.035,
-            "low": 0.017055324637357105,
-            "high": 0.07047146086668134
+            "rate": 0.02,
+            "low": 0.007804300176394188,
+            "high": 0.050287865505193874
           },
           "false_positive": {
             "hits": 0,
@@ -502,18 +502,18 @@
           "check": "4",
           "attempts": 1000,
           "detection": {
-            "hits": 14,
+            "hits": 19,
             "runs": 200,
-            "rate": 0.07,
-            "low": 0.04215178292291873,
-            "high": 0.11405578216683726
+            "rate": 0.095,
+            "low": 0.06166261364986359,
+            "high": 0.14360265114397636
           },
           "false_positive": {
-            "hits": 2,
+            "hits": 1,
             "runs": 200,
-            "rate": 0.01,
-            "low": 0.0027466006037749346,
-            "high": 0.03572248519617954
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
           },
           "trustworthy": false
         },
@@ -521,18 +521,18 @@
           "check": "4",
           "attempts": 3000,
           "detection": {
-            "hits": 20,
+            "hits": 13,
             "runs": 200,
-            "rate": 0.1,
-            "low": 0.06566994117157123,
-            "high": 0.14940686356308552
+            "rate": 0.065,
+            "low": 0.03837598764975976,
+            "high": 0.10802003749917945
           },
           "false_positive": {
-            "hits": 0,
+            "hits": 1,
             "runs": 200,
-            "rate": 0.0,
-            "low": 0.0,
-            "high": 0.018846005918320894
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
           },
           "trustworthy": false
         }
@@ -551,11 +551,11 @@
           "check": "5",
           "attempts": 100,
           "detection": {
-            "hits": 7,
+            "hits": 1,
             "runs": 200,
-            "rate": 0.035,
-            "low": 0.017055324637357105,
-            "high": 0.07047146086668134
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
           },
           "false_positive": {
             "hits": 0,
@@ -570,11 +570,11 @@
           "check": "5",
           "attempts": 300,
           "detection": {
-            "hits": 36,
+            "hits": 31,
             "runs": 200,
-            "rate": 0.18,
-            "low": 0.13294550662534108,
-            "high": 0.2391159371623843
+            "rate": 0.155,
+            "low": 0.11139568514638545,
+            "high": 0.211608058937256
           },
           "false_positive": {
             "hits": 1,
@@ -589,18 +589,18 @@
           "check": "5",
           "attempts": 1000,
           "detection": {
-            "hits": 141,
+            "hits": 118,
             "runs": 200,
-            "rate": 0.705,
-            "low": 0.6384115802925058,
-            "high": 0.7638615572809827
+            "rate": 0.59,
+            "low": 0.5207633107255152,
+            "high": 0.655844408209187
           },
           "false_positive": {
-            "hits": 0,
+            "hits": 3,
             "runs": 200,
-            "rate": 0.0,
-            "low": 0.0,
-            "high": 0.018846005918320894
+            "rate": 0.015,
+            "low": 0.005114145184492387,
+            "high": 0.043166480556278884
           },
           "trustworthy": false
         },
@@ -608,18 +608,18 @@
           "check": "5",
           "attempts": 3000,
           "detection": {
-            "hits": 197,
+            "hits": 194,
             "runs": 200,
-            "rate": 0.985,
-            "low": 0.9568335194437211,
-            "high": 0.9948858548155076
+            "rate": 0.97,
+            "low": 0.9361048802675267,
+            "high": 0.9861798741692518
           },
           "false_positive": {
-            "hits": 1,
+            "hits": 0,
             "runs": 200,
-            "rate": 0.005,
-            "low": 0.0008831459893662054,
-            "high": 0.02777439986977148
+            "rate": 0.0,
+            "low": 0.0,
+            "high": 0.018846005918320894
           },
           "trustworthy": true
         }
@@ -657,30 +657,11 @@
           "check": "6",
           "attempts": 300,
           "detection": {
-            "hits": 26,
+            "hits": 13,
             "runs": 200,
-            "rate": 0.13,
-            "low": 0.09028141365225628,
-            "high": 0.18366463072730121
-          },
-          "false_positive": {
-            "hits": 1,
-            "runs": 200,
-            "rate": 0.005,
-            "low": 0.0008831459893662054,
-            "high": 0.02777439986977148
-          },
-          "trustworthy": false
-        },
-        {
-          "check": "6",
-          "attempts": 1000,
-          "detection": {
-            "hits": 184,
-            "runs": 200,
-            "rate": 0.92,
-            "low": 0.8740095102048769,
-            "high": 0.9501598448237337
+            "rate": 0.065,
+            "low": 0.03837598764975976,
+            "high": 0.10802003749917945
           },
           "false_positive": {
             "hits": 0,
@@ -688,6 +669,25 @@
             "rate": 0.0,
             "low": 0.0,
             "high": 0.018846005918320894
+          },
+          "trustworthy": false
+        },
+        {
+          "check": "6",
+          "attempts": 1000,
+          "detection": {
+            "hits": 182,
+            "runs": 200,
+            "rate": 0.91,
+            "low": 0.8622332538615105,
+            "high": 0.9423130212854665
+          },
+          "false_positive": {
+            "hits": 1,
+            "runs": 200,
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
           },
           "trustworthy": true
         },
@@ -702,11 +702,11 @@
             "high": 1.0
           },
           "false_positive": {
-            "hits": 0,
+            "hits": 1,
             "runs": 200,
-            "rate": 0.0,
-            "low": 0.0,
-            "high": 0.018846005918320894
+            "rate": 0.005,
+            "low": 0.0008831459893662054,
+            "high": 0.02777439986977148
           },
           "trustworthy": true
         }
@@ -719,17 +719,17 @@
       "diagnostic": "calibration.dangerous()",
       "note": "",
       "component": false,
-      "trustworthy_from": 1000,
+      "trustworthy_from": null,
       "cells": [
         {
           "check": "7",
           "attempts": 100,
           "detection": {
-            "hits": 78,
+            "hits": 71,
             "runs": 200,
-            "rate": 0.39,
-            "low": 0.325082297194914,
-            "high": 0.45906382410711677
+            "rate": 0.355,
+            "low": 0.29198518653239286,
+            "high": 0.4234801551839203
           },
           "false_positive": {
             "hits": 0,
@@ -744,11 +744,11 @@
           "check": "7",
           "attempts": 300,
           "detection": {
-            "hits": 162,
+            "hits": 138,
             "runs": 200,
-            "rate": 0.81,
-            "low": 0.7499864142552062,
-            "high": 0.8583290620754351
+            "rate": 0.69,
+            "low": 0.622826945087378,
+            "high": 0.75001157266366
           },
           "false_positive": {
             "hits": 0,
@@ -763,11 +763,11 @@
           "check": "7",
           "attempts": 1000,
           "detection": {
-            "hits": 174,
+            "hits": 155,
             "runs": 200,
-            "rate": 0.87,
-            "low": 0.8163353692726989,
-            "high": 0.9097185863477437
+            "rate": 0.775,
+            "low": 0.7122575346140798,
+            "high": 0.8273771621308439
           },
           "false_positive": {
             "hits": 0,
@@ -776,17 +776,17 @@
             "low": 0.0,
             "high": 0.018846005918320894
           },
-          "trustworthy": true
+          "trustworthy": false
         },
         {
           "check": "7",
           "attempts": 3000,
           "detection": {
-            "hits": 193,
+            "hits": 165,
             "runs": 200,
-            "rate": 0.965,
-            "low": 0.9295285391333187,
-            "high": 0.9829446753626429
+            "rate": 0.825,
+            "low": 0.7663545078991807,
+            "high": 0.8713955882539106
           },
           "false_positive": {
             "hits": 0,
@@ -795,7 +795,7 @@
             "low": 0.0,
             "high": 0.018846005918320894
           },
-          "trustworthy": true
+          "trustworthy": false
         }
       ]
     }
@@ -807,31 +807,32 @@
       "points": [
         {
           "attempts": 100,
-          "mean": 0.13590803207385352,
+          "mean": 0.10651868765452938,
           "runs": 200
         },
         {
           "attempts": 300,
-          "mean": 0.23167243062324197,
+          "mean": 0.17345376134444074,
           "runs": 200
         },
         {
           "attempts": 1000,
-          "mean": 0.35166827229847003,
+          "mean": 0.2958141235913707,
           "runs": 200
         },
         {
           "attempts": 3000,
-          "mean": 0.41847853260949114,
+          "mean": 0.38164165929245336,
           "runs": 200
         }
       ]
     }
   ],
   "findings": [
-    "**What holds up.** *Weak decision rule is surfaced* from about **300 answers**; *Weak topic is surfaced* from about **1000 answers**; *A miskeyed question is flagged* from about **3000 answers**; *Persistent misses come back sooner* from about **1000 answers**; *Confident-and-wrong answers are surfaced* from about **1000 answers**.",
-    "**Rule axis finds what the topic axis hides (check 3) does not hold.** It detects only 0% of planted cases at 3000 answers. Detection *falls* as history grows - 0% at 3000 answers against 38% at 100, which is the signature of a claim that is wrong rather than one that is merely under-powered.",
-    "**A question that measures nothing is flagged (check 4) does not hold.** It detects only 10% of planted cases at 3000 answers.",
+    "**What holds up.** *Weak decision rule is surfaced* from about **300 answers**; *Weak topic is surfaced* from about **1000 answers**; *A miskeyed question is flagged* from about **3000 answers**; *Persistent misses come back sooner* from about **1000 answers**.",
+    "**Rule axis finds what the topic axis hides (check 3) does not hold.** It detects only 0% of planted cases at 3000 answers. Detection *falls* as history grows - 0% at 3000 answers against 25% at 100, which is the signature of a claim that is wrong rather than one that is merely under-powered.",
+    "**A question that measures nothing is flagged (check 4) does not hold.** It detects only 6% of planted cases at 3000 answers.",
+    "**Confident-and-wrong answers are surfaced (check 7) does not hold.** It never reached the bar inside the sizes swept.",
     "**On the asymmetry claim specifically.** The rule axis finds a planted rule weakness 100% of the time at 3000 answers. The topic axis *also* finds it: the weakest topic is one of the rule's own topics in 100% of runs. The claim that a rule-level weakness hides from a topic report does not reproduce against this bank. The reason is visible in the data rather than mysterious - rules are not spread evenly over topics here, and the median rule has some topic where most of the questions are governed by it, so a rule weakness drags that topic down far enough to rank it worst. The rule axis is still the more useful readout, because it names one transferable cause instead of one affected subject, but that is a different and weaker claim than the one currently written down.",
     "**A caution about what is *not* modelled.** These learners do not improve: a missed question is missed at the same rate next time. Real learners read the explanation and get better, which sharpens the repeat-driven checks and blurs the ability ones. Questions are also treated as independent, which they are not. Treat the sample sizes above as the right order of magnitude, not as precise thresholds."
   ]
