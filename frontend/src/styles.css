@@ -12,6 +12,8 @@
    ------------------------------------------------------------------ */
 
 :root {
+  color-scheme: dark;
+
   --bg:        #0b0f14;
   --surface:   #121820;
   --surface-2: #171f29;
@@ -23,34 +25,108 @@
   --text-dim:  #9fb0c3;
   --text-mute: #6b7c90;
 
-  --accent:      #4dd0c7;
-  --accent-dim:  #2b8a85;
-  --accent-glow: rgba(77, 208, 199, 0.14);
+  --accent:       #4dd0c7;
+  --accent-dim:   #2b8a85;
+  --accent-glow:  rgba(77, 208, 199, 0.14);
+  --accent-ink:   #06231f;   /* text sitting ON an accent fill */
+  --accent-hover: #5fdcd3;
 
   --good:      #46c46a;
   --good-bg:   rgba(70, 196, 106, 0.10);
+  --good-ink:  #04220e;
   --bad:       #f2615a;
   --bad-bg:    rgba(242, 97, 90, 0.10);
+  --bad-ink:   #2b0705;
   --warn:      #e0a33a;
   --warn-bg:   rgba(224, 163, 58, 0.10);
 
-  /* Charts. Restrained on purpose: five domains, one hue each, no rainbow. */
-  --d1: #4dd0c7;
-  --d2: #6f9bea;
-  --d3: #a888e0;
-  --d4: #e08fb4;
-  --d5: #e0b062;
+  /* Charts. Restrained on purpose: five domains, one hue each, no rainbow.
+     Both theme steps validated (lightness band, chroma floor, adjacent-pair
+     CVD separation, normal-vision floor, surface contrast) - the previous
+     set failed deutan separation on D2/D3 at dE 2.1. Keep the order fixed;
+     if a hue changes, re-validate the set, not the one hue. */
+  --d1: #199e70;
+  --d2: #d95926;
+  --d3: #3987e5;
+  --d4: #c98500;
+  --d5: #d55181;
   --grid: #1f2936;
   --band: rgba(159, 176, 195, 0.16);
+
+  --veil:  rgba(11, 15, 20, 0.93);  /* sticky bars over content */
+  --scrim: rgba(6, 9, 13, 0.62);    /* modal backdrop */
 
   --radius: 10px;
   --radius-lg: 14px;
   --rail: 232px;
 
-  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: "SF Mono", "Cascadia Mono", Consolas, "Roboto Mono", ui-monospace, monospace;
+  --sans: "IBM Plex Sans Variable", "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SF Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
 
   --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+}
+
+/* Light is a designed sibling, not an inversion: same hues re-stepped for a
+   white surface and re-validated there. Dark remains the default identity. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --bg:        #f4f6f8;
+  --surface:   #ffffff;
+  --surface-2: #f0f3f6;
+  --raised:    #e7ecf1;
+  --line:      #d3dce4;
+  --line-soft: #e2e8ee;
+
+  --text:      #16212c;
+  --text-dim:  #46586a;
+  --text-mute: #6e7f8f;
+
+  --accent:       #0c837b;
+  --accent-dim:   #0a6a64;
+  --accent-glow:  rgba(12, 131, 123, 0.12);
+  --accent-ink:   #ffffff;
+  --accent-hover: #0f9d93;
+
+  --good:      #1a8c46;
+  --good-bg:   rgba(26, 140, 70, 0.10);
+  --good-ink:  #ffffff;
+  --bad:       #c73831;
+  --bad-bg:    rgba(199, 56, 49, 0.10);
+  --bad-ink:   #ffffff;
+  --warn:      #8f6206;
+  --warn-bg:   rgba(163, 112, 10, 0.12);
+
+  --d1: #1baf7a;
+  --d2: #eb6834;
+  --d3: #2a78d6;
+  --d4: #d89200;
+  --d5: #e87ba4;
+  --grid: #e4e9ee;
+  --band: rgba(70, 88, 106, 0.14);
+
+  --veil:  rgba(244, 246, 248, 0.93);
+  --scrim: rgba(22, 33, 44, 0.38);
+
+  --shadow: 0 1px 2px rgba(16,24,32,.10), 0 8px 24px rgba(16,24,32,.08);
+}
+
+/* Each certification keeps its own accent, so the room you are studying in is
+   legible at a glance: CISA teal, CPA AUD violet. Domain hues stay shared -
+   they encode chart series, not certs. */
+:root[data-cert="cpa-aud"] {
+  --accent:       #a08ff2;
+  --accent-dim:   #6b5cc4;
+  --accent-glow:  rgba(160, 143, 242, 0.15);
+  --accent-ink:   #14102e;
+  --accent-hover: #b4a6f6;
+}
+:root[data-theme="light"][data-cert="cpa-aud"] {
+  --accent:       #5646bd;
+  --accent-dim:   #453699;
+  --accent-glow:  rgba(86, 70, 189, 0.12);
+  --accent-ink:   #ffffff;
+  --accent-hover: #6a59d6;
 }
 
 * { box-sizing: border-box; }
@@ -80,7 +156,7 @@ button { font-family: inherit; font-size: inherit; }
 
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 100;
-  background: var(--accent); color: #06231f; padding: 10px 16px;
+  background: var(--accent); color: var(--accent-ink); padding: 10px 16px;
   border-radius: 0 0 8px 0; font-size: 13.5px; font-weight: 600;
 }
 .skip-link:focus { left: 0; }
@@ -203,8 +279,8 @@ h2.section .hint { text-transform: none; letter-spacing: 0; color: var(--text-mu
   transition: background .13s, border-color .13s, color .13s;
 }
 .btn:hover:not(:disabled) { background: var(--surface-2); border-color: var(--accent-dim); }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: #06231f; }
-.btn.primary:hover:not(:disabled) { background: #5fdcd3; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover:not(:disabled) { background: var(--accent-hover); }
 .btn.ghost { background: transparent; }
 .btn.danger:hover:not(:disabled) { border-color: var(--bad); color: var(--bad); }
 .btn:disabled { opacity: .4; cursor: not-allowed; }
@@ -291,7 +367,7 @@ button.chip { cursor: pointer; }
 
 .runner-top {
   position: sticky; top: 0; z-index: 5;
-  background: rgba(11,15,20,.93); backdrop-filter: blur(8px);
+  background: var(--veil); backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
   padding: 13px 34px;
   display: flex; align-items: center; gap: 16px;
@@ -333,9 +409,9 @@ button.chip { cursor: pointer; }
 .opt .body { font-size: 14.5px; line-height: 1.55; min-width: 0; }
 
 .opt.correct { border-color: var(--good); background: var(--good-bg); }
-.opt.correct .key { background: var(--good); border-color: var(--good); color: #04220e; font-weight: 700; }
+.opt.correct .key { background: var(--good); border-color: var(--good); color: var(--good-ink); font-weight: 700; }
 .opt.chosen-wrong { border-color: var(--bad); background: var(--bad-bg); }
-.opt.chosen-wrong .key { background: var(--bad); border-color: var(--bad); color: #2b0705; font-weight: 700; }
+.opt.chosen-wrong .key { background: var(--bad); border-color: var(--bad); color: var(--bad-ink); font-weight: 700; }
 .opt.selected { border-color: var(--accent); background: var(--accent-glow); }
 .opt.dimmed { opacity: .62; }
 
@@ -385,7 +461,7 @@ kbd {
   transition: transform .08s, border-color .13s;
 }
 .pal:hover { transform: scale(1.09); border-color: var(--accent-dim); }
-.pal.answered { background: var(--accent-dim); border-color: var(--accent-dim); color: #04211e; }
+.pal.answered { background: var(--accent-dim); border-color: var(--accent-dim); color: var(--accent-ink); }
 .pal.flagged::after {
   content: ""; position: absolute; top: 2px; right: 2px;
   width: 5px; height: 5px; border-radius: 50%; background: var(--warn);
@@ -533,7 +609,7 @@ details.pair .trap b { color: var(--warn); }
   display: grid; place-items: center;
   font-family: var(--mono); font-size: 11.5px; color: var(--text-dim);
 }
-.conf-btn.on .k { background: var(--accent); border-color: var(--accent); color: #06231f; }
+.conf-btn.on .k { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .conf-btn .t { font-size: 14px; font-weight: 500; }
 .conf-btn .g { font-size: 12px; color: var(--text-mute); grid-column: 2; }
 .confidence.compact .conf-btn { flex: 0 1 auto; grid-template-columns: 22px auto; }
@@ -764,7 +840,7 @@ details.pair .trap b { color: var(--warn); }
 
 .palette-scrim {
   position: fixed; inset: 0; z-index: 90;
-  background: rgba(6, 9, 13, .62);
+  background: var(--scrim);
   display: flex; justify-content: center; align-items: flex-start;
   padding: 12vh 20px 20px;
   animation: fade .12s ease both;

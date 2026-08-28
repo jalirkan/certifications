@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "1",
+    "batch": "aud-a1-x01",
+    "created": "2026-08-27",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area I (Ethics, Professional Responsibilities and General Principles) seed batch. Every item was drafted against the January 2026 AUD blueprint and adversarially reviewed before entering the bank: the reviewer argued each distractor's case, checked standards currency, and verified tags against cpa-aud/outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d1a-01",
+      "domain": "1",
+      "section": "A",
+      "topic": "AICPA Code of Professional Conduct",
+      "difficulty": "medium",
+      "stem": "During fieldwork on the audit of a privately held distributor of commercial kitchen equipment, the audit senior receives an unsolicited email from the client's controller inviting the senior to interview for the client's assistant controller position. The senior has not decided whether to pursue the opportunity. Under the AICPA Code of Professional Conduct, which action must the senior take FIRST?",
+      "options": {
+        "A": "Evaluate whether the assistant controller role is a key position with respect to the financial statements, and continue on the engagement if it is not.",
+        "B": "Take no action beyond continuing to work, because the invitation was unsolicited and the senior has neither applied for nor accepted the position.",
+        "C": "Complete the current engagement before scheduling any interview, so that the discussions do not overlap with attest work already released.",
+        "D": "Promptly report the invitation to the appropriate person in the firm and cease participation in the engagement until the offer is rejected or employment is no longer being sought."
+      },
+      "answer": "D",
+      "why_correct": "Because the senior is still considering the opportunity, the senior is treated as seeking employment with an attest client while participating on the engagement. The Code resolves the self-interest threat with a two-part response: notify the firm and come off the engagement until the possibility of employment is rejected or otherwise resolved. Removal is required even though nothing has been applied for or accepted, because objectivity is threatened the moment the member is weighing the client's offer while auditing the client.",
+      "why_wrong": {
+        "A": "The key-position analysis is a real concept, but it governs situations such as a covered member's immediate family being employed by the attest client, and the evaluation of a member who has already left the firm. It does not permit a current engagement team member to keep auditing while personally considering employment with the client.",
+        "B": "The unsolicited nature of the offer only matters if the member promptly rejects it. Because the senior has not decided, the senior is effectively considering employment, and the self-interest threat exists now; silence and continued participation are exactly what the Code prohibits.",
+        "C": "Deferring the interview does not cure the threat, because the senior's judgment is at risk during the remaining fieldwork while the offer is open. The impairment concern attaches to participation while the offer is being considered, not to the calendar timing of the interview itself."
+      }
+    },
+    {
+      "id": "cpa-aud-d1a-02",
+      "domain": "1",
+      "section": "A",
+      "topic": "Requirements of the Securities and Exchange Commission and the Public Company Accounting Oversight Board",
+      "difficulty": "medium",
+      "stem": "A firm audits an issuer that manufactures agricultural drones. The audit committee has preapproved the firm to provide routine corporate tax compliance services to the issuer. The CFO now asks the firm's tax practice to prepare the CFO's personal income tax returns and offers to have the audit committee preapprove that arrangement as well. Which response is MOST consistent with SEC and PCAOB independence requirements?",
+      "options": {
+        "A": "Accept the engagement, because personal tax services for client executives become permissible once the issuer's audit committee has specifically preapproved them.",
+        "B": "Decline the engagement, because providing tax services to a person in a financial reporting oversight role at the audit client impairs independence regardless of audit committee preapproval.",
+        "C": "Accept the engagement, provided the fee is fixed rather than contingent and the returns do not rely on aggressive or confidential tax positions.",
+        "D": "Decline the engagement, because a registered firm may not provide tax services of any kind to an issuer audit client or to any of its officers or employees."
+      },
+      "answer": "B",
+      "why_correct": "PCAOB independence rules prohibit the auditor of an issuer from providing tax services to individuals who serve in a financial reporting oversight role at the client, and the CFO is the paradigm example. Audit committee preapproval is a gate for otherwise-permissible services; it cannot authorize a service the rules flatly prohibit. The firm's permissible corporate tax compliance work for the issuer is unaffected, but the CFO's personal returns must be declined.",
+      "why_wrong": {
+        "A": "This treats preapproval as a cure-all. Preapproval is necessary for permissible non-audit services, but it cannot legitimize a categorically prohibited one, and tax services for a financial reporting oversight person are categorically prohibited.",
+        "C": "Contingent fees and aggressive or confidential transactions are genuine prohibitions under the PCAOB tax-services rules, but avoiding them is not sufficient here. The service fails on a separate ground, the recipient's financial reporting oversight role, before fee structure is ever reached.",
+        "D": "This is over-broad. Registered firms may provide tax compliance and certain other tax services to the issuer itself with audit committee preapproval, and to client employees who are not in financial reporting oversight roles; the prohibition is targeted, not total."
+      }
+    },
+    {
+      "id": "cpa-aud-d1a-03",
+      "domain": "1",
+      "section": "A",
+      "topic": "Requirements of the Government Accountability Office and the Department of Labor",
+      "difficulty": "medium",
+      "stem": "A firm is engaged under Government Auditing Standards to audit a county transit authority. The authority's finance director asks the firm to also prepare the authority's draft financial statements and note disclosures from a trial balance the authority will provide. Under the Yellow Book, what should the engagement partner do FIRST, before agreeing to provide this additional service?",
+      "options": {
+        "A": "Decline the request, because under GAGAS an auditor who prepares the financial statements it will audit is never independent.",
+        "B": "Agree without further analysis, because statement preparation from a management-provided trial balance is a routine service that does not threaten independence.",
+        "C": "Determine that management will assume responsibility for the service and has designated an individual with suitable skill, knowledge, and experience to oversee it, then evaluate the significant threat created and document the safeguards applied.",
+        "D": "Obtain approval from the cognizant federal oversight agency to combine the preparation service with the audit engagement."
+      },
+      "answer": "C",
+      "why_correct": "GAGAS permits the auditor to prepare an audited entity's financial statements, but it identifies that service as a significant threat to independence in every case. Before agreeing, the auditor must establish the preconditions for any nonaudit service, including management's assumption of responsibility and its designation of someone with suitable skill, knowledge, and experience to oversee the work, and must then evaluate the significant threat and apply and document safeguards that reduce it to an acceptable level. Only if safeguards cannot do so must the firm decline.",
+      "why_wrong": {
+        "A": "This imports the strict SEC posture for issuers into the Yellow Book. GAGAS deliberately takes a threats-and-safeguards approach: preparing the statements is a significant threat, not an automatic impairment, so an outright refusal without analysis over-applies a rule from a different regime.",
+        "B": "Starting from a client trial balance does not make the service benign. The 2018 and 2024 Yellow Book revisions specifically call out preparing financial statements in their entirety as a significant threat requiring evaluation and documented safeguards, so treating it as routine understates the analysis required.",
+        "D": "No federal agency approval mechanism exists for this decision. The option sounds plausibly governmental, but the independence evaluation belongs to the firm under the GAGAS conceptual framework, not to a cognizant agency."
+      }
+    },
+    {
+      "id": "cpa-aud-d1b-01",
+      "domain": "1",
+      "section": "B",
+      "topic": "Professional skepticism and professional judgment",
+      "difficulty": "hard",
+      "stem": "During the audit of a regional homebuilder, the team obtains management's analysis supporting collectibility of a large receivable from an affiliated land developer. The analysis is internally consistent, and the controller answers every follow-up question convincingly. Late in fieldwork, a staff accountant finds a county filing indicating the developer has stopped paying property taxes on the parcels securing the receivable. The reporting deadline is one week away, and management describes the filing as an administrative dispute. Which response BEST reflects professional skepticism?",
+      "options": {
+        "A": "Treat the filing as evidence that contradicts management's analysis, and perform additional procedures to obtain corroboration independent of management about the developer's ability to pay, revising the timetable if necessary.",
+        "B": "Accept management's explanation, because the controller has been forthcoming and reliable in prior audits and the collectibility analysis is internally consistent with the other information management provided.",
+        "C": "Request that management add a specific representation about the receivable's collectibility to the written representation letter before the report is released.",
+        "D": "Carry the receivable's estimated exposure to the summary of uncorrected misstatements and evaluate it against materiality when concluding on the audit."
+      },
+      "answer": "A",
+      "why_correct": "Professional skepticism requires the auditor to weigh evidence that contradicts other evidence obtained and to resist letting a deadline or a fluent explanation truncate the inquiry. A public record suggesting the debtor cannot service basic obligations directly contradicts management's collectibility case, so the auditor needs corroboration from sources independent of the party whose assertion is in question, even at the cost of the timetable. Convenience never justifies accepting less persuasive evidence.",
+      "why_wrong": {
+        "B": "Past reliability and internal consistency are seductive, but both the analysis and the answers come from the same interested source. Skepticism specifically warns against allowing trust built in prior periods to substitute for evidence when new contradictory information surfaces.",
+        "C": "Written representations complement other evidence; they cannot replace it. Adding a representation converts an unresolved evidence contradiction into a signature, which is precisely the substitution the standards prohibit.",
+        "D": "The summary of uncorrected misstatements is for identified misstatements, but at this point the auditor does not yet know whether a misstatement exists. Routing an open evidence question into the aggregation-and-evaluation step skips the additional procedures the contradiction demands."
+      }
+    },
+    {
+      "id": "cpa-aud-d1c-01",
+      "domain": "1",
+      "section": "C",
+      "topic": "Audit engagements",
+      "difficulty": "easy",
+      "stem": "The owner of a family-held vineyard, which engaged a firm for a first-year audit to satisfy its lender, tells the partner, \"For this fee, I expect you to guarantee the statements contain no errors at all.\" Which response BEST describes the assurance a financial statement audit provides?",
+      "options": {
+        "A": "The audit provides absolute assurance for material account balances and reasonable assurance for the remaining, less significant balances.",
+        "B": "The audit provides reasonable assurance, a high but not absolute level, because the inherent limitations of an audit leave some risk that a material misstatement goes undetected.",
+        "C": "The audit guarantees detection of material errors but cannot address fraud, because fraud is intentionally concealed from the auditor.",
+        "D": "The level of assurance is negotiated in the engagement letter based on the specific procedures the lender wants performed."
+      },
+      "answer": "B",
+      "why_correct": "The auditor's objective is reasonable assurance about whether the statements as a whole are free of material misstatement, whether due to fraud or error. Reasonable assurance is high but never absolute, because evidence is generally persuasive rather than conclusive, much of the audit rests on judgment and sampling, and well-concealed collusion can defeat properly performed procedures. Explaining that boundary at acceptance manages the expectation gap the owner has just voiced.",
+      "why_wrong": {
+        "A": "There is no tier of absolute assurance for any balance. Materiality shapes where effort is directed, but even the most significant balances receive reasonable assurance only, because the inherent limitations apply to everything the auditor tests.",
+        "C": "This reverses the standard's structure. Reasonable assurance covers material misstatement from both error and fraud; the auditor plans and performs the audit to address fraud risks, and no category of material misstatement carries a guarantee.",
+        "D": "Assurance levels in an audit are set by the standards, not by bargaining. Tailoring procedures to a user's wish list describes an agreed-upon procedures engagement, which provides no opinion and no audit-level assurance."
+      }
+    },
+    {
+      "id": "cpa-aud-d1c-02",
+      "domain": "1",
+      "section": "C",
+      "topic": "Engagements conducted under Government Accountability Office Government Auditing Standards",
+      "difficulty": "medium",
+      "stem": "A firm that historically served only commercial clients accepts its first financial statement audit of a municipal water district, to be performed under both GAAS and Government Auditing Standards. In planning the reporting phase, a manager asks the engagement partner what the Yellow Book requires BEYOND the opinion on the financial statements. Which is the BEST answer?",
+      "options": {
+        "A": "An opinion on the effectiveness of internal control over financial reporting, comparable to the opinion issued in an integrated audit of an issuer.",
+        "B": "An opinion on the district's compliance with all laws and regulations that apply to its operations during the period audited.",
+        "C": "A separate report on internal control and compliance, but only for periods in which significant deficiencies or instances of noncompliance were actually identified.",
+        "D": "A written report on internal control over financial reporting and on compliance with provisions of laws, regulations, contracts, and grant agreements, describing the scope of the auditor's testing and any findings, without expressing an opinion unless engaged to do so."
+      },
+      "answer": "D",
+      "why_correct": "In every GAGAS financial audit, the auditor must issue a written report on internal control over financial reporting and on compliance, describing the scope of the testing performed as part of the audit and reporting significant deficiencies, material weaknesses, and material instances of noncompliance identified. Critically, this is a report on testing performed, not an opinion on control effectiveness or on compliance; opinions are added only if the auditor is separately engaged to provide them. The report is required whether or not any findings exist.",
+      "why_wrong": {
+        "A": "This imports the PCAOB integrated audit model. AS 2201 opinions on ICFR effectiveness belong to issuer audits; the Yellow Book requires describing the control testing performed for the financial audit, and explicitly not an effectiveness opinion absent a separate engagement.",
+        "B": "Opining on all applicable laws and regulations would be an unbounded undertaking no standard requires. GAGAS requires reporting on compliance testing relevant to the financial statements and on findings, not an opinion on total legal compliance; compliance opinions on major programs arise under single audit requirements, and even those are program-specific.",
+        "C": "The report is unconditional. Making it contingent on findings inverts the requirement, because a report describing scope and stating that no reportable findings were identified must still be issued when the testing surfaces nothing."
+      }
+    },
+    {
+      "id": "cpa-aud-d1d-01",
+      "domain": "1",
+      "section": "D",
+      "topic": "Preconditions for an engagement",
+      "difficulty": "medium",
+      "stem": "During acceptance procedures for a proposed first-year audit of a seafood wholesaler, the owner tells the partner the firm may not contact any customers to confirm receivables and may not observe the year-end physical inventory count, because \"the prior auditors upset everyone.\" Receivables and inventory make up most of the company's assets, and the partner concludes that no alternative procedures could provide sufficient appropriate evidence about them. Which course of action is MOST appropriate?",
+      "options": {
+        "A": "Decline the engagement, because management has imposed a limitation on scope that the partner expects will result in a disclaimer of opinion on the financial statements.",
+        "B": "Accept the engagement and design alternative procedures, such as examining subsequent cash receipts and testing perpetual inventory records, to compensate for the restricted procedures.",
+        "C": "Accept the engagement and plan to issue a qualified opinion whose basis paragraph describes the procedures management would not permit.",
+        "D": "Accept the engagement only after the owner signs an engagement letter provision acknowledging responsibility for the restriction and its consequences for the report."
+      },
+      "answer": "A",
+      "why_correct": "When, before acceptance, management imposes a scope limitation that the auditor believes will result in disclaiming an opinion on the financial statements as a whole, the auditor should not accept the engagement unless required by law or regulation to do so. Here the restriction covers the bulk of the assets and the partner has already concluded alternatives cannot fill the gap, so a disclaimer is the expected outcome and the precondition for an audit fails. Accepting an engagement the auditor cannot meaningfully perform serves no one.",
+      "why_wrong": {
+        "B": "Alternative procedures are the right instinct when a restriction is narrow or imposed by circumstances, but the stem forecloses it: the partner has concluded no alternatives can provide sufficient appropriate evidence. Accepting anyway commits the firm to an audit it already knows it cannot complete.",
+        "C": "A qualified opinion fits a material but not pervasive limitation. Restrictions covering most of the entity's assets are pervasive, pointing to a disclaimer, and an engagement expected from the outset to end in a disclaimer should not be accepted at all.",
+        "D": "An engagement letter documents the terms of an acceptable engagement; it cannot convert an unacceptable one. Management acknowledging the restriction in writing changes nothing about the auditor's inability to obtain evidence."
+      }
+    },
+    {
+      "id": "cpa-aud-d1d-02",
+      "domain": "1",
+      "section": "D",
+      "topic": "Terms of engagement and the engagement letter",
+      "difficulty": "medium",
+      "stem": "Midway through the audit of a nonissuer tooling manufacturer, the auditor has been unable to obtain sufficient evidence about a material equity-method investment in a foreign affiliate and has told management that expanded procedures will be necessary. Management then asks the auditor to change the engagement to a review, noting that the company's new lender has said it will accept a review report. What is the auditor's MOST appropriate course of action?",
+      "options": {
+        "A": "Agree to the change, because a lender's willingness to accept a lower level of service is a change in circumstances that constitutes reasonable justification.",
+        "B": "Agree to the change, and refer in the review report to the original audit engagement and to the audit procedures performed before the change.",
+        "C": "Decline to agree, because the request follows the auditor's inability to obtain evidence and appears intended to avoid a modified opinion; if management will not permit the audit to continue, withdraw and communicate the circumstances to those charged with governance.",
+        "D": "Complete the audit as originally agreed and issue a disclaimer of opinion, because the terms of an engagement cannot be changed once fieldwork has begun."
+      },
+      "answer": "C",
+      "why_correct": "A change in the terms of engagement requires reasonable justification, and a request that arises after the auditor encounters an evidence problem is presumptively an attempt to escape the scope limitation's reporting consequences rather than a genuine change in needs. The auditor should evaluate the request in light of the unresolved investment issue, decline to step down, and, if not permitted to complete the audit, withdraw and inform those charged with governance, considering any obligations to regulators or other parties. The lender's flexibility does not cleanse the timing.",
+      "why_wrong": {
+        "A": "A changed user requirement can justify a step-down in the abstract, and that is what makes this tempting. But justification is evaluated in context, and here the request arrived only after the auditor flagged an evidence gap, which points to avoidance rather than a bona fide change in circumstances.",
+        "B": "Even when a change is properly justified, the resulting review report must not refer to the original engagement or the audit procedures performed, because such references would confuse users about the level of assurance. This option fails on both the acceptance of the change and the reporting mechanics.",
+        "D": "Terms can be changed mid-engagement when reasonable justification exists, so the categorical premise is wrong. And the auditor cannot force completion of an audit management refuses to support; the remedy for an impasse is withdrawal and communication, not a unilaterally issued disclaimer."
+      }
+    },
+    {
+      "id": "cpa-aud-d1e-01",
+      "domain": "1",
+      "section": "E",
+      "topic": "Requirements for engagement documentation",
+      "difficulty": "easy",
+      "stem": "A quality reviewer inspecting the file for a completed audit of an auto parts distributor cannot determine how the team resolved a confirmation exception in accounts receivable. The in-charge accountant says, \"I remember it clearly — we tied it to a subsequent payment. I can walk you through it.\" Which statement BEST describes the documentation requirement that applies?",
+      "options": {
+        "A": "The file itself must enable an experienced auditor with no previous connection to the audit to understand the procedures performed, the evidence obtained, and the conclusions reached; oral explanation may clarify the documentation but cannot substitute for it.",
+        "B": "Oral explanation is an acceptable supplement so long as the in-charge remains available to the firm throughout the required document retention period.",
+        "C": "The resolution did not need to be documented, because the exception was resolved without any adjustment to the financial statements.",
+        "D": "The documentation is sufficient, because the standards require documenting only significant findings and issues, and a resolved confirmation exception does not rise to that level."
+      },
+      "answer": "A",
+      "why_correct": "The benchmark for sufficiency is the experienced auditor test: someone with relevant competence but no prior involvement must be able to understand from the file what was done, what was found, and what was concluded, including how exceptions were resolved. Memory is not documentation; oral explanations may illuminate what is written, but the record must stand on its own because personnel leave, memories fade, and the file is the evidence of the audit's performance.",
+      "why_wrong": {
+        "B": "Conditioning sufficiency on an individual's continued availability defeats the purpose of the file, which must support inspection, quality reviews, and successor use long after the team disperses. The standard makes the written record, not the person, the durable source.",
+        "C": "Whether an exception results in an adjustment is irrelevant to whether its investigation must be documented. The procedures performed on the exception and the basis for concluding it was not a misstatement are exactly what the file must show.",
+        "D": "Significant findings do require specific documentation, but the general requirement is broader: the nature, timing, extent, and results of procedures performed must be documented well enough to pass the experienced auditor test, and an unexplained exception fails that test regardless of how it is labeled."
+      }
+    },
+    {
+      "id": "cpa-aud-d1f-01",
+      "domain": "1",
+      "section": "F",
+      "topic": "Planned scope and timing of an engagement",
+      "difficulty": "medium",
+      "stem": "Before fieldwork on the audit of a nonissuer hospital system, the audit committee chair asks the engagement partner to provide the specific sites, dates, and selection thresholds for the team's planned unannounced procedures over pharmacy inventory, \"so the committee can make sure each location is ready for you.\" Which response by the partner is MOST appropriate?",
+      "options": {
+        "A": "Provide the full detail requested, because the required communication of planned scope and timing to those charged with governance takes precedence over the confidentiality of the audit plan.",
+        "B": "Decline to discuss planned scope and timing with the committee at all, in order to preserve the element of unpredictability across the audit.",
+        "C": "Communicate an overview of the planned scope and timing, including significant risks identified, while withholding specifics — such as the sites and dates of unannounced procedures — whose disclosure would make the procedures predictable and compromise their effectiveness.",
+        "D": "Obtain management's consent to the level of detail before communicating any element of the planned scope to the audit committee."
+      },
+      "answer": "C",
+      "why_correct": "The auditor is required to communicate an overview of planned scope and timing to those charged with governance, and that dialogue helps both sides. But the standards caution that the communication must not compromise the effectiveness of the audit by making procedures too predictable, and unannounced counts lose their value the moment locations know the schedule. The partner should give the committee a meaningful overview, including significant risks and the planned approach, while keeping the specifics of unpredictable procedures confidential.",
+      "why_wrong": {
+        "A": "This treats a required communication as unlimited in depth. The requirement is for an overview, and the same standard expressly warns that detail which telegraphs the timing and nature of procedures undermines the audit; governance oversight does not extend to pre-clearing surprise procedures.",
+        "B": "This over-corrects. Refusing all scope-and-timing communication breaches an explicit requirement; the standard asks the auditor to balance transparency with unpredictability, not to abandon the communication.",
+        "D": "Communication with those charged with governance is the auditor's direct obligation and does not run through management's approval. Making it contingent on management consent inverts the governance relationship the communication exists to serve."
+      }
+    },
+    {
+      "id": "cpa-aud-d1f-02",
+      "domain": "1",
+      "section": "F",
+      "topic": "Internal control related matters",
+      "difficulty": "medium",
+      "stem": "At the request of its lender, the board of a nonissuer beverage bottler asks the auditor to include in the internal control communication a written statement that no significant deficiencies were identified during the audit. The auditor in fact identified no significant deficiencies and no material weaknesses. Which response is MOST consistent with professional standards?",
+      "options": {
+        "A": "Issue the requested statement, because it is factually accurate for this audit and responsive to a legitimate user request.",
+        "B": "Decline to state in writing that no significant deficiencies were identified, because such a statement could be misinterpreted given that the audit was not designed to identify all deficiencies; the auditor may, however, issue a written communication stating that no material weaknesses were identified.",
+        "C": "Issue a combined statement covering both matters, indicating that neither significant deficiencies nor material weaknesses were identified, since both happen to be true.",
+        "D": "Decline to issue any written statement about internal control, because the auditor provides no assurance on internal control in a financial statement audit."
+      },
+      "answer": "B",
+      "why_correct": "The standards prohibit the auditor from issuing a written communication stating that no significant deficiencies were identified, because users could mistake it for assurance that none exist, when the audit's control work is designed only to support the financial statement opinion. The standards draw the line differently for material weaknesses: a written statement that none were identified during the audit is expressly permitted, and is sometimes requested by lenders and governmental bodies. The auditor's answer is therefore a targeted no on significant deficiencies and a permitted alternative on material weaknesses.",
+      "why_wrong": {
+        "A": "Factual accuracy is the trap. The prohibition does not depend on whether the statement is true for this audit; it exists because readers would over-rely on a communication the audit's scope cannot support.",
+        "C": "Half of the combined statement is expressly prohibited, and bundling it with the permitted half does not launder it. The distinction between the two statements is precisely what the standard turns on.",
+        "D": "This over-extends the no-assurance concept. While the auditor gives no opinion on control effectiveness, the standards specifically contemplate and permit a written statement that no material weaknesses were identified, so refusing all written communication forgoes an option the standards provide."
+      }
+    },
+    {
+      "id": "cpa-aud-d1g-01",
+      "domain": "1",
+      "section": "G",
+      "topic": "Audit and assurance quality",
+      "difficulty": "hard",
+      "stem": "Monitoring activities under a firm's quality management system designed in accordance with SQMS No. 1 reveal that four of nine inspected audit engagements failed to complete assembly of the final engagement file by the firm's documentation deadline. The failures span three offices and four different engagement partners. The managing partner proposes immediately reprimanding the in-charge accountants on those engagements. Which response is MOST consistent with the quality management standards?",
+      "options": {
+        "A": "Proceed with the reprimands and require remedial training for the individuals involved, because the findings trace to identifiable personnel on specific engagements.",
+        "B": "Communicate the assembly failures to those charged with governance of each affected audit client, since engagement-level deficiencies must be reported to the entities involved.",
+        "C": "Lengthen the firm's assembly deadline in its policies so that engagement teams can realistically meet it going forward.",
+        "D": "Investigate the root cause of the findings, evaluate their severity and pervasiveness to determine whether they indicate a deficiency in the design or operation of the system of quality management, and design remedial actions responsive to that root cause."
+      },
+      "answer": "D",
+      "why_correct": "SQMS No. 1 requires the firm to evaluate findings from monitoring, determine whether deficiencies exist by assessing their severity and pervasiveness, and investigate root causes before designing remediation. A pattern spanning multiple offices and partners signals a systemic condition, perhaps resource allocation, unclear policy, or scheduling pressure, rather than four coincidental individual lapses. Remediation designed before the root cause is understood treats symptoms and leaves the quality risk unaddressed.",
+      "why_wrong": {
+        "A": "Punishing the nearest individuals is the classic person-level response to a system-level signal. Accountability has a place in a quality management system, but acting before root cause analysis assumes the cause is individual effort, which the cross-office, cross-partner pattern contradicts.",
+        "B": "There is no requirement to report internal quality monitoring findings of this kind to audit clients' governance bodies. This confuses the firm's internal monitoring-and-remediation process with the auditor's engagement-level communication responsibilities, which concern matters such as control deficiencies at the client, not the firm's own file assembly.",
+        "C": "Relaxing the standard so the failures disappear treats the policy as the problem without evidence that it is. The deadline may in fact be a root cause, but that conclusion must come out of the investigation; changing the objective to fit the failure before analysis inverts the remedial process."
+      }
+    }
+  ]
+}

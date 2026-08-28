@@ -23,6 +23,14 @@ export function setProfile(profile: string): void {
   currentProfile = profile || ''
 }
 
+/** Selected certification (folder id, e.g. "cisa" or "cpa-aud"). Empty means
+ *  the server's own default; the header is only sent when a choice exists. */
+let currentCert = ''
+
+export function setCert(cert: string): void {
+  currentCert = cert || ''
+}
+
 export class ApiError extends Error {
   status: number
   constructor(message: string, status: number) {
@@ -34,6 +42,7 @@ export class ApiError extends Error {
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = { 'X-Profile': currentProfile }
+  if (currentCert) headers['X-Cert'] = currentCert
   if (init?.body) headers['Content-Type'] = 'application/json'
 
   let res: Response

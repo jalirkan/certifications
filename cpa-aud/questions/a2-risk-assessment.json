@@ -1,0 +1,390 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "2",
+    "batch": "aud-a2-x01",
+    "created": "2026-08-27",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area II (Assessing Risk and Developing a Planned Response) seed batch. Every item was drafted against the January 2026 AUD blueprint and adversarially reviewed before entering the bank: the reviewer argued each distractor's case, checked standards currency, and verified tags against cpa-aud/outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d2a-01",
+      "domain": "2",
+      "section": "A",
+      "topic": "Overall engagement strategy",
+      "difficulty": "medium",
+      "stem": "An engagement partner is beginning a first-year audit of a manufacturer of industrial fasteners with three plants in different states and a February 15 group reporting deadline. She is drafting the overall audit strategy before the detailed audit plan is developed. Which of the following matters is MOST appropriately addressed in the overall audit strategy?",
+      "options": {
+        "A": "The nature and extent of resources to deploy, including whether component auditors will be used at the outlying plants and how much work will be shifted to an interim date to meet the deadline.",
+        "B": "The specific substantive procedures to be performed over inventory existence at each of the three plants.",
+        "C": "The sample sizes to be used in tests of controls over the revenue process.",
+        "D": "The nature, timing, and extent of the risk assessment procedures to be performed over the purchasing process."
+      },
+      "answer": "A",
+      "why_correct": "The overall audit strategy sets the scope, timing, and direction of the audit and guides development of the audit plan. Decisions about the deployment of resources — which locations get attention, whether other auditors are involved, and how work is timed against the reporting deadline — are exactly the strategy-level judgments made first, from which the detailed plan then flows.",
+      "why_wrong": {
+        "B": "Tempting because inventory at multiple plants is clearly a planning concern, but the specific substantive procedures for an assertion are audit-plan detail developed after the strategy establishes direction. The trap is collapsing the strategy/plan distinction because the subject matter sounds important.",
+        "C": "Sample sizes are among the most granular decisions in the audit plan. A candidate may pick this because control testing decisions feel strategic, but the strategy addresses whether and where a controls approach will be taken, not the sizes of individual samples.",
+        "D": "This quotes the definition of the audit plan almost verbatim — the plan describes the nature, timing, and extent of planned risk assessment procedures and further procedures. It is the classic reversed-definition distractor."
+      }
+    },
+    {
+      "id": "cpa-aud-d2a-02",
+      "domain": "2",
+      "section": "A",
+      "topic": "Engagement plan",
+      "difficulty": "medium",
+      "stem": "An auditor planned a controls-reliance approach for a distributor's accounts payable, expecting to test an automated three-way-match control at interim and limit year-end substantive work. During interim fieldwork, the auditor learns the entity converted to a new ERP system at midyear and that the data conversion was never reconciled or tested by management. Which action should the auditor take FIRST?",
+      "options": {
+        "A": "Communicate a material weakness in internal control to those charged with governance before performing any further testing.",
+        "B": "Continue executing the original audit plan through year-end, since the plan was approved at the start of the engagement.",
+        "C": "Revise the risk assessment for the affected assertions and modify the planned nature, timing, and extent of further audit procedures accordingly.",
+        "D": "Arrange for the internal audit function to reperform the conversion reconciliations so the original reliance strategy can be preserved."
+      },
+      "answer": "C",
+      "why_correct": "Planning is iterative, not a one-time phase. When new information contradicts the basis for the original risk assessment — here, an untested midyear conversion undermines the integrity of data the automated control depends on — the auditor must update the assessment and revise the planned procedures, likely reducing reliance and expanding substantive testing.",
+      "why_wrong": {
+        "A": "Deficiency communication is a real obligation, but it is not the first step, and the auditor has not yet evaluated the severity of the deficiency. The trap is jumping to a reporting duty before completing the risk assessment work that determines what to report.",
+        "B": "Treats the audit plan as a fixed contract. An approved plan carries no authority once circumstances change; following it in the face of contradictory information is the opposite of a risk-based audit.",
+        "D": "Appealing because it 'rescues' the efficient strategy, but it puts preserving the planned approach ahead of responding to risk, and having internal audit backfill management's missing conversion controls after the fact does not restore the auditor's basis for period-long reliance."
+      }
+    },
+    {
+      "id": "cpa-aud-d2b-01",
+      "domain": "2",
+      "section": "B",
+      "topic": "External factors",
+      "difficulty": "medium",
+      "stem": "An auditor is updating the understanding of a regional homebuilder's environment. During the year, mortgage rates rose sharply, buyer cancellations doubled, and competitors began offering steep price incentives on completed homes. In assessing how these external developments translate into risks of material misstatement, which assertion is MOST directly affected?",
+      "options": {
+        "A": "Existence of homes and land under development recorded in inventory.",
+        "B": "Valuation of homes and land under development recorded in inventory.",
+        "C": "Completeness of accounts payable to subcontractors.",
+        "D": "Rights to parcels held under land option agreements."
+      },
+      "answer": "B",
+      "why_correct": "Falling demand, rising cancellations, and competitor discounting all point toward net realizable value or impairment problems: completed and in-process homes may no longer be recoverable at recorded cost. Linking identified external conditions to the specific assertions they threaten is the core purpose of understanding the environment, and every fact in this pattern presses on valuation.",
+      "why_wrong": {
+        "A": "Tempting because inventory is the account in play, but nothing in the fact pattern suggests recorded homes do not physically exist. The trap is grabbing the familiar inventory assertion pair and picking the wrong half.",
+        "C": "Completeness of payables is a legitimate recurring risk in construction, but it is a generic risk not driven by any of the external facts given. The trap is choosing a defensible-sounding risk that ignores the scenario.",
+        "D": "Option agreements make 'rights' sound relevant, but market deterioration threatens the value of options (the builder may walk away and forfeit deposits), not the entity's legal rights under them. This distractor rewards pattern-matching on 'option' rather than reasoning."
+      }
+    },
+    {
+      "id": "cpa-aud-d2b-02",
+      "domain": "2",
+      "section": "B",
+      "topic": "Internal factors",
+      "difficulty": "easy",
+      "stem": "While obtaining an understanding of a software company, the auditor gathers several facts. Which of the following is an INTERNAL factor that MOST increases the risk of material misstatement in revenue?",
+      "options": {
+        "A": "A new state privacy regulation now applies to customer data the company hosts.",
+        "B": "Consolidation among competitors has driven market prices for comparable products down.",
+        "C": "The company shifted its business model to multiyear bundled contracts that require allocating the transaction price among software, hosting, and support.",
+        "D": "Rising interest rates have increased the cost of the company's revolving credit facility."
+      },
+      "answer": "C",
+      "why_correct": "The entity's own business model and the complexity of its transactions are internal factors, and the shift to bundled multiyear arrangements introduces allocation and timing judgments that directly elevate inherent risk in revenue — complexity and subjectivity are inherent risk factors under SAS 145. The other choices describe conditions outside the entity.",
+      "why_wrong": {
+        "A": "A regulation is an external factor even though it affects the company's operations. It may create compliance risk, but it is not an internal factor and its link to revenue misstatement is indirect.",
+        "B": "Competitor behavior and market pricing are textbook external (industry) factors. The trap is that pricing pressure genuinely can create revenue risk, but the question asks for an internal factor.",
+        "D": "Interest rates are a macroeconomic external factor. Higher borrowing costs pressure liquidity, not the measurement of revenue, so this fails on both the internal/external split and the assertion linkage."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-01",
+      "domain": "2",
+      "section": "C",
+      "topic": "COSO Internal Control - Integrated Framework",
+      "difficulty": "medium",
+      "stem": "At a beverage distributor, the auditor finds that reconciliations, credit checks, and user-access reviews are properly designed and are being performed. However, no one in the organization evaluates whether these controls continue to operate as intended: system exception reports accumulate unread, there is no internal audit function, and no self-assessment or follow-up process exists. Under the COSO framework, this deficiency relates MOST directly to which component of internal control?",
+      "options": {
+        "A": "Control activities.",
+        "B": "Control environment.",
+        "C": "Information and communication.",
+        "D": "Monitoring activities."
+      },
+      "answer": "D",
+      "why_correct": "Monitoring activities are the ongoing and separate evaluations that determine whether the other components are present and functioning over time, including timely evaluation and communication of deficiencies. The entity performs its controls but has no mechanism to assess them or act on exceptions — a failure of monitoring, not of the controls themselves.",
+      "why_wrong": {
+        "A": "The scenario is about controls, so this feels right, but the control activities are explicitly described as designed and performed. The trap is not distinguishing between doing controls and evaluating whether they keep working.",
+        "B": "A weak oversight culture can sound like tone at the top, but the control environment concerns integrity, governance, competence, and accountability structures generally. The specific missing element here is the evaluation function COSO assigns to monitoring.",
+        "C": "Unread exception reports make 'information and communication' tempting. But the reports are being produced and available — the failure is that no one evaluates and acts on them, which is the monitoring component's job."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-02",
+      "domain": "2",
+      "section": "C",
+      "topic": "Control environment, entity-level controls and IT general controls",
+      "difficulty": "medium",
+      "stem": "In an audit of a parts wholesaler, an automated control blocks payment of any vendor invoice that fails a three-way match. The auditor tested one instance of the control at an interim date and found it operated effectively. Subsequent ITGC testing reveals that application programmers can migrate their own code changes into production without independent approval, and change logs are not retained. Which conclusion is MOST appropriate?",
+      "options": {
+        "A": "The auditor cannot assume the automated control operated consistently throughout the period and should reassess control risk and revise the planned reliance and substantive procedures.",
+        "B": "The automated control can be relied on for the full period because it was directly tested and functioned as designed on the date tested.",
+        "C": "Substantive procedures over accounts payable may be omitted because the application control was effective when tested.",
+        "D": "The ITGC deficiency is by definition a material weakness that must be communicated in writing before further testing proceeds."
+      },
+      "answer": "A",
+      "why_correct": "Testing a single instance of an automated control is sufficient only when effective ITGCs — particularly change management — provide assurance that the control continued to function unchanged. With unapproved, unlogged code migrations, the auditor has no basis to extend the point-in-time result across the period, so control risk must be reassessed and the audit response expanded.",
+      "why_wrong": {
+        "B": "This is the benchmarking logic applied without its precondition. The 'test of one' shortcut for automated controls is only valid when ITGCs over program changes are effective; here that foundation is exactly what failed.",
+        "C": "Even fully effective controls only reduce, and never eliminate, substantive work — some substantive procedures are required for each relevant assertion of each significant account. This doubles the error by also ignoring the ITGC failure.",
+        "D": "An ITGC deficiency raises risk, but severity is a separate evaluation: a deficiency is not automatically a material weakness, and the classification depends on likelihood and magnitude of potential misstatement. The trap is converting an elevated risk directly into the most severe reporting label."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-03",
+      "domain": "2",
+      "section": "C",
+      "topic": "Business processes and the design of internal controls, including the IT environment",
+      "difficulty": "easy",
+      "stem": "An auditor is obtaining an understanding of a wholesaler's order-to-cash process. The controller describes in detail how credit limits are set in the ERP system, how orders exceeding limits are held for approval, and how shipping documents trigger billing. To conclude whether these controls are suitably designed and have been implemented, the auditor should NEXT do which of the following?",
+      "options": {
+        "A": "Perform tests of the controls' operating effectiveness over the full period.",
+        "B": "Corroborate the controller's description by observing the process and inspecting relevant documents, such as walking a transaction through the system from order entry to billing.",
+        "C": "Document the controller's description and conclude on design, since the controller is the person most knowledgeable about the process.",
+        "D": "Confirm outstanding receivable balances with a sample of customers."
+      },
+      "answer": "B",
+      "why_correct": "Evaluating design and determining implementation requires procedures beyond inquiry — inquiry alone is never sufficient for this purpose. Observation, inspection, and tracing a transaction through the process (a walkthrough) corroborate that the described controls actually exist and have been placed in operation.",
+      "why_wrong": {
+        "A": "Skips a step: operating-effectiveness testing is performed only if the auditor plans to rely on controls, and only after concluding the controls are suitably designed and implemented. Testing effectiveness of a control that may not even be implemented wastes effort.",
+        "C": "The classic inquiry-alone trap. However knowledgeable the source, management inquiry by itself does not provide sufficient evidence about design and implementation.",
+        "D": "Confirmations are a substantive procedure directed at account balances, not a procedure for understanding or evaluating the design of the process's controls. It answers a different question than the one being asked."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-04",
+      "domain": "2",
+      "section": "C",
+      "topic": "Implications of an entity using a service organization",
+      "difficulty": "hard",
+      "stem": "A staffing company outsources payroll processing to a service organization and the auditor plans to rely on the service organization's controls. The auditor obtains a SOC 1 Type 2 report covering ten months of the period with an unmodified service auditor's opinion. The report's description lists complementary user entity controls — including review of payroll registers and control of the file-transfer approval step — that the service organization assumed would be in place. Which action is MOST appropriate before relying on the report?",
+      "options": {
+        "A": "Rely on the report as obtained, because the service auditor's unmodified Type 2 opinion covers the controls relevant to payroll.",
+        "B": "Request that the service organization instead provide a Type 1 report with an as-of date closer to year-end.",
+        "C": "Treat payroll as a low-risk area requiring minimal work, since processing is performed outside the entity.",
+        "D": "Evaluate whether the complementary user entity controls relevant to the assessed risks are implemented and operating effectively at the staffing company, and address the two-month gap in the report's coverage."
+      },
+      "answer": "D",
+      "why_correct": "A service auditor's opinion is conditioned on the complementary user entity controls operating at the user entity; if the staffing company has not implemented them, the report's conclusions do not hold for this user. The auditor must test the CUECs at the client and also bridge the untested two months, for example through inquiry about changes or additional procedures.",
+      "why_wrong": {
+        "A": "The tempting shortcut: an unmodified Type 2 opinion looks like a finished answer. But that opinion explicitly assumes the CUECs are in place at the user entity — relying without evaluating them applies the report outside its own stated conditions, and ignores the coverage gap.",
+        "B": "Backwards on two counts: a Type 1 report speaks only to design and implementation as of a date and provides no evidence of operating effectiveness, so it supports less reliance than the Type 2 already obtained, not more.",
+        "C": "Outsourcing transfers processing, not responsibility or risk. The service organization's system is part of the entity's information system relevant to reporting, and the user auditor's risk assessment obligations apply to it fully."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-05",
+      "domain": "2",
+      "section": "C",
+      "topic": "Limitations of controls and risk of management override",
+      "difficulty": "easy",
+      "stem": "On the audit of a chain of garden-supply stores, controls over the financial close were tested and found effective, and the control environment is strong. An assistant proposes omitting the planned testing of journal entries and other adjustments to save time. Which response by the in-charge auditor is MOST appropriate?",
+      "options": {
+        "A": "Agree, provided the control testing covered the entire period under audit rather than only an interim date.",
+        "B": "Agree, but document the rationale for the scope reduction in the audit plan.",
+        "C": "Disagree, because management's ability to override controls exists in every entity, and procedures addressing journal entries and other adjustments are required in every audit regardless of assessed control risk.",
+        "D": "Disagree, because journal-entry testing may be omitted only after the team documents that no fraud risks have been identified anywhere in the audit."
+      },
+      "answer": "C",
+      "why_correct": "The risk of management override of controls is present in all entities and is treated as a fraud risk in every audit. Because of this inherent limitation of internal control, the auditor must in every audit examine journal entries and other adjustments, review estimates for bias, and evaluate significant unusual transactions — effective controls do not remove the requirement.",
+      "why_wrong": {
+        "A": "Extends a legitimate rule — reliance requires coverage of the period — to a procedure that cannot be waived at all. Full-period control effectiveness still cannot address override, because override is the act of circumventing those very controls.",
+        "B": "Documentation cannot cure an impermissible scope reduction. The trap is treating a mandatory procedure as a judgment call that becomes acceptable if the reasoning is written down.",
+        "D": "Inverts the presumption: override is itself a presumed fraud risk that cannot be rebutted by concluding no fraud risks exist. The journal-entry requirement is unconditional, not contingent on other identified risks."
+      }
+    },
+    {
+      "id": "cpa-aud-d2d-01",
+      "domain": "2",
+      "section": "D",
+      "topic": "For the financial statements as a whole",
+      "difficulty": "medium",
+      "stem": "An auditor is determining materiality for the financial statements as a whole for a capital-intensive freight carrier. Pretax results swung from modest income in prior years to a small loss this year, driven by a one-time legal settlement, and the primary users focus on operating performance and debt covenants. Which approach is MOST appropriate?",
+      "options": {
+        "A": "Normalize the benchmark — for example, average pretax income over recent periods or pretax income adjusted for the unusual settlement — or select a more stable benchmark relevant to users' focus.",
+        "B": "Apply the firm's customary percentage to the current-year pretax loss, because materiality should reflect the actual reported result.",
+        "C": "Defer determining materiality until final year-end results are available, so the computation is not based on estimates.",
+        "D": "Compute performance materiality for significant accounts first and derive overall materiality from the sum of those amounts."
+      },
+      "answer": "A",
+      "why_correct": "Choosing a benchmark is a judgment driven by the entity's circumstances and users' needs, and an income measure distorted by a one-time item near breakeven produces a materiality that misrepresents what would influence users. Normalizing the benchmark or moving to a more stable measure keeps materiality anchored to user perception rather than to an anomaly.",
+      "why_wrong": {
+        "B": "The mechanical trap: applying the standard percentage to a near-zero loss yields an absurdly low materiality and treats the guideline percentage as a rule rather than an aid to judgment about what influences users.",
+        "C": "Materiality must be determined during planning because it drives the scope of the work — risk assessment, performance materiality, and procedure design all depend on it. Waiting for final results makes planning impossible; instead, planning uses estimates and materiality is revised if needed.",
+        "D": "Reverses the hierarchy. Performance materiality is set as an amount below overall materiality to reduce aggregation risk; it is derived from overall materiality, never aggregated upward to create it."
+      }
+    },
+    {
+      "id": "cpa-aud-d2d-02",
+      "domain": "2",
+      "section": "D",
+      "topic": "Tolerable misstatement and performance materiality",
+      "difficulty": "medium",
+      "stem": "In planning a recurring audit of a discount retailer, the auditor notes that the prior two audits each identified numerous individually immaterial misstatements in inventory and accrued liabilities, most of which management declined to correct. Overall materiality for the current year is unchanged from the prior year. How should this history MOST appropriately affect planning?",
+      "options": {
+        "A": "Increase overall materiality, since none of the prior misstatements was individually material to the financial statements.",
+        "B": "Set performance materiality equal to overall materiality to avoid overauditing accounts that have already been examined in prior years.",
+        "C": "Eliminate performance materiality for inventory and accruals and evaluate each misstatement found only against overall materiality.",
+        "D": "Set performance materiality at a lower percentage of overall materiality, reducing the risk that uncorrected and undetected misstatements in the aggregate exceed materiality for the financial statements as a whole."
+      },
+      "answer": "D",
+      "why_correct": "Performance materiality exists precisely to manage aggregation risk — the probability that many individually small misstatements sum to a material amount. A history of frequent, uncorrected misstatements is direct evidence that aggregation risk is elevated, which argues for a larger haircut from overall materiality, driving more extensive testing in the affected areas.",
+      "why_wrong": {
+        "A": "Reads the history exactly backwards. That misstatements keep occurring is a reason for more audit sensitivity, not less; and overall materiality is driven by users' needs and the benchmark, not by how comfortable the auditor is with past findings.",
+        "B": "Setting performance materiality at overall materiality would leave no margin for undetected or uncorrected misstatements at all — the auditor would tolerate a known misstatement pattern right up to the material threshold. The 'overauditing' framing makes an impermissible choice sound efficient.",
+        "C": "Abandons the aggregation safeguard entirely in the very accounts where it matters most. Evaluating each misstatement only against overall materiality guarantees that a swarm of small errors is individually waved through."
+      }
+    },
+    {
+      "id": "cpa-aud-d2e-01",
+      "domain": "2",
+      "section": "E",
+      "topic": "Assessing and responding to risks of material misstatement, whether due to fraud or error",
+      "difficulty": "medium",
+      "stem": "An auditor has identified a significant risk that a fastener distributor recognized revenue on bill-and-hold arrangements near year-end that do not meet the recognition criteria. The current audit plan addresses revenue with substantive analytical procedures comparing monthly revenue to the prior year and to budget. Which revision to the plan is MOST necessary?",
+      "options": {
+        "A": "No revision is necessary if the analytical results are corroborated through inquiry of sales management.",
+        "B": "Add tests of details specifically responsive to the risk, such as examining contract terms, customer acceptance, and shipping and warehouse records for arrangements recorded near year-end.",
+        "C": "Defer detailed revenue testing to the following year's audit and describe the risk in the summary of uncorrected misstatements.",
+        "D": "Carry forward the prior year's tests of controls over revenue as the basis for reduced substantive work in the current year."
+      },
+      "answer": "B",
+      "why_correct": "When substantive procedures alone are used to address a significant risk, they must include tests of details — high-level analytics are not sufficiently precise to detect whether specific year-end arrangements met the recognition criteria. Procedures must be linked to the reasons for the risk, which here live in individual contract terms and physical delivery evidence.",
+      "why_wrong": {
+        "A": "Layering inquiry over analytics adds the least reliable form of evidence, from the very personnel with the incentive at issue. The trap is treating corroborated inquiry as a substitute for the tests of details a significant risk requires.",
+        "C": "A significant risk in the current period must be responded to in the current period; deferral is never a response. Referencing the misstatement summary also confuses evaluating known misstatements with detecting suspected ones.",
+        "D": "For significant risks, if the auditor intends to rely on controls, those controls must be tested in the current period — rotating prior-year control evidence forward is prohibited for significant risks, and this option compounds that by using it to shrink substantive work."
+      }
+    },
+    {
+      "id": "cpa-aud-d2e-02",
+      "domain": "2",
+      "section": "E",
+      "topic": "Assessing and responding to risks of material misstatement, whether due to fraud or error",
+      "difficulty": "hard",
+      "stem": "Late in planning, the auditor of a building-products importer concludes that the control environment is ineffective: the CFO resigned midyear, the remaining accounting staff are inexperienced, and the CEO has recorded unilateral adjustments to reserves without review. The engagement team's proposed response is to increase sample sizes in the accounts where prior-year misstatements occurred. Why is this response, by itself, MOST likely insufficient?",
+      "options": {
+        "A": "The deficiency is pervasive and creates risk at the financial statement level, which calls for overall responses - such as assigning more experienced personnel, heightening supervision, and incorporating unpredictability - not only assertion-level changes in selected accounts.",
+        "B": "Sample sizes are determined by tolerable misstatement and expected misstatement, so the assessed risks of material misstatement should have no bearing on the planned extent of testing in those accounts.",
+        "C": "The auditor should instead withdraw from the engagement, because an ineffective control environment prevents the auditor from obtaining sufficient appropriate audit evidence about any assertion.",
+        "D": "Increasing the extent of testing is a response available only for tests of controls, so the team should have proposed modifying the nature and timing of its substantive procedures instead."
+      },
+      "answer": "A",
+      "why_correct": "An ineffective control environment does not map to particular assertions - it degrades the reliability of the financial statements pervasively, including in accounts with no misstatement history. Financial-statement-level risks demand overall responses that change who does the work, how closely it is supervised, and how predictable the procedures are; assertion-level tweaks in a few accounts leave the pervasive exposure unaddressed.",
+      "why_wrong": {
+        "B": "Half-true and therefore dangerous: tolerable and expected misstatement do drive sample sizes, but higher assessed risk lowers acceptable sampling risk and raises the assurance required from the procedure, which increases extent. The reasoning is wrong even though the conclusion (samples alone are not enough) points the right way.",
+        "C": "Withdrawal is a last resort reserved for situations such as management integrity concerns that make evidence unobtainable. A weak control environment is common, and the standards prescribe responding to it with a modified audit approach - typically more substantive emphasis - not abandonment.",
+        "D": "Extent is a lever for both tests of controls and substantive procedures, and nature and timing are levers too. This invents a scope boundary that does not exist and distracts from the real defect in the team's proposal - its assertion-level narrowness."
+      }
+    },
+    {
+      "id": "cpa-aud-d2f-01",
+      "domain": "2",
+      "section": "F",
+      "topic": "Planning for and using the work of others",
+      "difficulty": "hard",
+      "stem": "The internal audit director of a regulated water utility offers internal audit staff to provide direct assistance on the external audit. The external auditor has evaluated the function and concluded the staff are competent and their objectivity is adequately supported. For which task is the use of direct assistance MOST appropriate?",
+      "options": {
+        "A": "Evaluating the reasonableness of the significant assumptions in management's asset-decommissioning cost estimate, which the auditor has identified as a significant risk.",
+        "B": "Performing and documenting the assessment of the risks of material misstatement for revenue.",
+        "C": "Determining whether the evidence obtained over the utility's derivative valuations is sufficient and appropriate to support a conclusion.",
+        "D": "Testing the operating effectiveness of controls over routine meter-to-cash billing reconciliations, with the work directed, supervised, and reviewed by the external auditor."
+      },
+      "answer": "D",
+      "why_correct": "Direct assistance is appropriate for lower-judgment work in lower-risk areas, performed under the external auditor's direction, supervision, and review. Testing routine, well-defined reconciliation controls fits squarely within that boundary, whereas significant judgments and areas of higher assessed risk must remain with the engagement team.",
+      "why_wrong": {
+        "A": "The competence-and-objectivity conclusion tempts candidates to open the door wide, but the amount of judgment involved and the assessed risk limit what may be assigned regardless of that conclusion. Evaluating significant assumptions in an estimate that is a significant risk is on the wrong side of both limits.",
+        "B": "Risk assessment is a significant judgment that defines the audit itself; it cannot be delegated to internal auditors under any evaluation outcome. The trap is treating direct assistance as staffing rather than as a bounded evidence-gathering aid.",
+        "C": "Concluding on the sufficiency and appropriateness of evidence is among the judgments the standards explicitly reserve to the auditor. Assigning it to client personnel — however capable — would have the entity effectively auditing itself."
+      }
+    },
+    {
+      "id": "cpa-aud-d2g-01",
+      "domain": "2",
+      "section": "G",
+      "topic": "An entity's compliance with laws and regulations",
+      "difficulty": "medium",
+      "stem": "During the audit of a long-haul freight carrier, the auditor reads a news report that a federal regulator has opened an investigation into the company for systematic hours-of-service violations. Management confirms the investigation exists but states that no accrual or disclosure is necessary because the outcome is uncertain. Which response by the auditor is MOST appropriate?",
+      "options": {
+        "A": "Perform no further procedures, because safety regulations have only an indirect effect on the financial statements and are outside the auditor's responsibility.",
+        "B": "Report the suspected violations directly to the regulator to avoid being associated with noncompliance.",
+        "C": "Obtain an understanding of the matter and its circumstances, and evaluate the possible effect on the financial statements, including potential fines, penalties, and the need to disclose or accrue a loss contingency.",
+        "D": "Ask the entity's external counsel to conclude on whether the company violated the regulations before performing any further audit procedures."
+      },
+      "answer": "C",
+      "why_correct": "The auditor has no obligation to design procedures to detect noncompliance with indirect-effect laws, but once information about possible noncompliance comes to the auditor's attention, the auditor must obtain an understanding of the nature and circumstances of the act and evaluate the potential financial statement effects — here, contingent liabilities for fines and the adequacy of disclosure.",
+      "why_wrong": {
+        "A": "Overextends a true scope limit. The reduced detection responsibility for indirect-effect laws ends the moment possible noncompliance surfaces; ignoring information already in hand is never permitted.",
+        "B": "The auditor generally has no right or duty to notify regulators directly — confidentiality applies, and external reporting occurs only in specific circumstances (such as legal requirements or successor-auditor inquiries). The trap is converting an internal escalation duty into an external one.",
+        "D": "Legal determinations may eventually inform the contingency evaluation, but the auditor cannot outsource the threshold step of understanding the matter, and audit procedures are not suspended pending counsel's verdict on guilt — guilt is not the question; financial statement effect is."
+      }
+    },
+    {
+      "id": "cpa-aud-d2g-02",
+      "domain": "2",
+      "section": "G",
+      "topic": "Accounting estimates",
+      "difficulty": "medium",
+      "stem": "A manufacturer of power tools reduced its warranty accrual rate from 2.1% of sales to 1.4%, while actual warranty claims paid during the year rose 18%. Management attributes the lower rate to \"improved product quality.\" Which procedure MOST directly addresses the risk of management bias in this estimate?",
+      "options": {
+        "A": "Perform a retrospective review comparing prior warranty estimates with subsequent actual claims, and evaluate whether the changed assumption is supported by evidence such as claims trends and defect-rate data.",
+        "B": "Recompute the warranty accrual using management's revised rate to verify its mathematical accuracy.",
+        "C": "Obtain a written representation from management confirming that the revised rate reflects its best estimate of future claims.",
+        "D": "Compare the accrual with the prior-year balance and investigate further only if the accrual increased."
+      },
+      "answer": "A",
+      "why_correct": "Bias shows itself in the relationship between assumptions and outcomes: a retrospective review reveals whether management's warranty estimates have historically tracked actual claims, and testing the new assumption against contradictory operational data (claims up, rate down) confronts the inconsistency directly. The auditor must evaluate whether changes in estimates arise from new information or from bias.",
+      "why_wrong": {
+        "B": "Recomputation confirms only that the wrong assumption was applied correctly. The risk here is in the assumption itself, so arithmetic accuracy provides no evidence about the thing that matters.",
+        "C": "Representations are complementary evidence and can never substitute for substantive procedures — asking management to confirm its own contested assumption adds essentially nothing where bias is the concern.",
+        "D": "A one-directional trigger is itself a form of bias: an accrual falling while claims rise is precisely the pattern that warrants investigation, and this procedure is designed never to catch it."
+      }
+    },
+    {
+      "id": "cpa-aud-d2g-03",
+      "domain": "2",
+      "section": "G",
+      "topic": "Related parties and related party transactions",
+      "difficulty": "hard",
+      "stem": "A nonissuer property developer sold construction equipment to a leasing company controlled by one of its board members. Management's draft footnote states that the sale was made \"on terms equivalent to those that prevail in arm's-length transactions.\" An independent appraisal obtained by the auditor shows a wide range of possible values for the equipment. Which response BEST discharges the auditor's responsibility for this assertion?",
+      "options": {
+        "A": "Accept the disclosure, because the transaction was reviewed and approved by the disinterested members of the board.",
+        "B": "Accept the disclosure without corroboration, because related party disclosures are representations of management, whose responsibility they remain.",
+        "C": "Request that management engage a valuation specialist, whose report will resolve the assertion for audit purposes.",
+        "D": "Obtain sufficient appropriate evidence supporting the arm's-length-equivalence assertion, and if unable to substantiate it, evaluate the implications for the auditor's opinion."
+      },
+      "answer": "D",
+      "why_correct": "When management makes an assertion that a related party transaction was on arm's-length-equivalent terms, the auditor must obtain sufficient appropriate evidence about that assertion — and such assertions are notoriously difficult to substantiate because comparable independent transactions rarely exist. If the evidence cannot support the claim, the unsubstantiated disclosure is a misstatement the auditor must address in forming the opinion.",
+      "why_wrong": {
+        "A": "Governance approval addresses authorization, not pricing equivalence. A disinterested board can approve a transaction that is still not on market terms, so approval is relevant evidence about the process but cannot carry the specific assertion in the footnote.",
+        "B": "Confuses whose statements the financial statements are with the auditor's evidence obligation. Every material disclosure is management's representation, yet all of them require sufficient appropriate evidence — related party assertions receive more scrutiny, not less.",
+        "C": "A specialist's valuation is potentially useful evidence, but it does not by itself resolve the assertion — here the appraisal's wide range illustrates why. The auditor still must evaluate the specialist's work and conclude whether the assertion is supportable; the responsibility cannot be handed off."
+      }
+    },
+    {
+      "id": "cpa-aud-d2g-04",
+      "domain": "2",
+      "section": "G",
+      "topic": "Uniform Guidance for single audits",
+      "difficulty": "medium",
+      "stem": "A not-for-profit workforce agency expends federal awards under six programs and is subject to a single audit under the Uniform Guidance. The engagement team proposes identifying the programs to test for compliance by ranking them in descending order of federal expenditures and selecting from the top until the required percentage of coverage is reached. What is the PRIMARY reason this approach is deficient?",
+      "options": {
+        "A": "Because the Uniform Guidance requires compliance testing of all programs under which any federal awards were expended during the year.",
+        "B": "Because major programs must be identified using the risk-based approach in the Uniform Guidance, which overlays risk assessment on expenditure thresholds rather than relying on dollar size alone.",
+        "C": "Because the selection of programs to test is made each year by the federal awarding agency, not by the auditor.",
+        "D": "Because compliance testing under the Uniform Guidance is limited to programs that had audit findings in the prior year."
+      },
+      "answer": "B",
+      "why_correct": "The Uniform Guidance prescribes a four-step risk-based approach to major program determination: expenditure thresholds establish which programs are Type A, but risk assessment — considering factors such as prior audit findings, results of federal oversight, changes in personnel or systems, and the inherent risk of the program — then determines which Type A programs qualify as low risk and which higher-risk Type B programs must be added. The percentage-of-coverage rule is a floor applied after that determination, not a selection method, so a pure dollar ranking would test large low-risk programs while skipping smaller programs with elevated compliance risk.",
+      "why_wrong": {
+        "A": "Overshoots in the compliant-sounding direction. The single audit deliberately concentrates compliance testing on major programs; testing every program regardless of size or risk is neither required nor consistent with the framework's design.",
+        "C": "Federal agencies and pass-through entities have oversight roles, and a cognizant or oversight agency exists, but major program determination is the auditor's responsibility applying the prescribed criteria. The trap is misassigning a defined auditor duty to the government.",
+        "D": "Prior findings are one input that raises a program's risk; they are not a gate that excludes programs without findings. This reads a single risk factor as the entire selection rule."
+      }
+    }
+  ]
+}

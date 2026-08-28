@@ -1,0 +1,453 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "3",
+    "batch": "aud-a3-x01",
+    "created": "2026-08-27",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area III (Performing Further Procedures and Obtaining Evidence) seed batch. Every item was drafted against the January 2026 AUD blueprint and adversarially reviewed before entering the bank: the reviewer argued each distractor's case, checked standards currency, and verified tags against cpa-aud/outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d3a-01",
+      "domain": "3",
+      "section": "A",
+      "topic": "Requesting, preparing and transforming data",
+      "difficulty": "medium",
+      "stem": "An auditor of a wholesale food distributor plans to run audit data analytics over the full-year sales transaction file. Client IT personnel extract the file from the ERP system using query parameters they wrote themselves and deliver it to the engagement team. Which action should the auditor take FIRST before using the file?",
+      "options": {
+        "A": "Remove customer names and other identifying fields from the file so the audit analytics environment does not retain personal data.",
+        "B": "Run the planned analytic routines on a pilot subset of the file to confirm the audit software processes the records without errors.",
+        "C": "Reconcile record counts and dollar totals of the extract to the general ledger and evaluate the query parameters used to generate it.",
+        "D": "Obtain a written representation from management that the extracted file is complete and accurately reflects the sales journal."
+      },
+      "answer": "C",
+      "why_correct": "Before information produced by the entity can serve as audit evidence, the auditor must obtain evidence about its completeness and accuracy. Because client personnel wrote the extraction query, the population the auditor receives is only as good as those parameters, so reconciling totals and counts to the ledger and understanding the query logic addresses the risk that transactions were omitted or filtered out before any analytic runs.",
+      "why_wrong": {
+        "A": "Data-protection hygiene is a legitimate practice consideration, but it is not the step that determines whether the file can serve as evidence. A perfectly anonymized file that is missing a month of transactions is still useless, so privacy handling cannot come before establishing completeness and accuracy.",
+        "B": "Piloting the routine tests whether the audit software works, not whether the data is right. A candidate can confuse tool validation with data validation; even flawless processing of an incomplete extract produces unreliable results.",
+        "D": "Written representations complement other evidence but cannot substitute for procedures the auditor could perform. Accepting a representation about the very population the auditor is about to test would base the analytics on unverified, management-asserted data."
+      }
+    },
+    {
+      "id": "cpa-aud-d3a-02",
+      "domain": "3",
+      "section": "A",
+      "topic": "Reliability of data and information",
+      "difficulty": "medium",
+      "stem": "To test the aging used in the allowance for credit losses, an auditor obtains a system-generated accounts receivable aging report from a client whose IT general controls the auditor has evaluated but not tested for operating effectiveness. Which course of action BEST addresses the reliability of the report?",
+      "options": {
+        "A": "Accept the report as reliable because management relies on the same aging when preparing the financial statements.",
+        "B": "Test the accuracy and completeness of the report directly, such as by tracing a selection of invoices into the correct aging categories and reconciling the report total to the ledger.",
+        "C": "Foot the report and agree its grand total to the general ledger, which demonstrates that the aging categories are reliable.",
+        "D": "Treat the report as reliable because it comes from the same ERP system whose recorded transactions the auditor tests substantively elsewhere in the audit."
+      },
+      "answer": "B",
+      "why_correct": "When the auditor has not tested controls over the production of a system-generated report, reliability must be established by directly testing the information's accuracy and completeness. Tracing individual invoices into the proper aging buckets tests the report's categorization logic, and reconciling the total addresses completeness, which together make the report usable as evidence for the allowance.",
+      "why_wrong": {
+        "A": "Management's own reliance on a report says nothing about its reliability for audit purposes; management may be relying on flawed information, which is exactly what the allowance testing is meant to detect. This distractor tempts by treating the client's comfort as the auditor's evidence.",
+        "C": "Agreeing the grand total verifies that the report captures the full receivable balance but does nothing to verify the aging itself. A report can tie to the ledger perfectly while placing invoices in the wrong buckets, which is the attribute the allowance calculation actually depends on.",
+        "D": "Substantive testing of transactions elsewhere addresses the assertions on those transactions, not the logic of this report. The trap is assuming that trust in a system's data implies trust in every report the system generates, when report-writer parameters and date logic are separate sources of error."
+      }
+    },
+    {
+      "id": "cpa-aud-d3a-03",
+      "domain": "3",
+      "section": "A",
+      "topic": "Data analytics",
+      "difficulty": "hard",
+      "stem": "An auditor applies a data analytic to the entire population of 700,000 revenue transactions of a subscription software company, and the routine flags 9,400 transactions as inconsistent with the auditor's expectation. The reporting deadline is close. Which response is MOST appropriate?",
+      "options": {
+        "A": "Group the flagged items by common characteristics, evaluate and refine the criteria that produced them, and design further procedures directed at the groups that remain unexplained.",
+        "B": "Select a random sample of the flagged items and, if no misstatements are found in the sample, conclude that the remaining flagged items are acceptable.",
+        "C": "Treat all 9,400 flagged items as misstatements and compare their combined recorded amount to performance materiality to decide whether adjustment is needed.",
+        "D": "Set the analytic aside and perform a traditional sample of the population, because the volume of exceptions demonstrates the analytic was not suited to this population."
+      },
+      "answer": "A",
+      "why_correct": "A large volume of notable items from a full-population analytic typically reflects imprecise criteria as much as potential misstatement. The disciplined response is to sort the items into groups sharing a plausible common explanation, refine or re-evaluate the filters, resolve entire groups where the explanation can be corroborated, and target further procedures at what cannot be explained. This preserves the evidence the analytic generated while making the follow-up feasible.",
+      "why_wrong": {
+        "B": "Sampling the exceptions and extending a clean result to the rest ignores that the flagged items are, by construction, not homogeneous with each other; a clean sample provides no basis for clearing unexamined groups with different characteristics. It is the time-pressure shortcut a candidate reaches for, but it abandons the items without a rationale.",
+        "C": "A flagged item is a notable item, not a misstatement; treating the whole set as misstated confuses an indicator with a conclusion and would grossly distort the evaluation. The trap is the false rigor of quantifying something that has not yet been investigated.",
+        "D": "Discarding the analytic because its results are inconvenient walks away from evidence already obtained; the exceptions may signal a real pattern of misstatement that a small traditional sample would likely miss. The auditor cannot un-know what the procedure surfaced."
+      }
+    },
+    {
+      "id": "cpa-aud-d3b-01",
+      "domain": "3",
+      "section": "B",
+      "topic": "Sufficient appropriate evidence",
+      "difficulty": "easy",
+      "stem": "While testing additions to construction equipment, a staff auditor obtains a large volume of client-prepared purchase requisitions supporting a single significant addition, with no documentation from outside the entity. The staff auditor argues that the sheer quantity of internal documents makes the evidence both sufficient and appropriate. Which statement BEST evaluates that position?",
+      "options": {
+        "A": "The position is acceptable because sufficiency, which the quantity of documents provides, is the primary driver of how persuasive evidence is.",
+        "B": "The position is acceptable if the documents are consistent with one another, because internal consistency establishes reliability.",
+        "C": "The position is unacceptable because internally generated evidence can never support an account balance unless it is confirmed externally.",
+        "D": "The position is unacceptable because obtaining a greater quantity of lower-quality evidence does not compensate for its limited reliability; appropriateness cannot be cured by volume."
+      },
+      "answer": "D",
+      "why_correct": "Sufficiency measures quantity and appropriateness measures quality, and the two are not interchangeable: more evidence of low reliability remains low-quality evidence. Client-prepared requisitions all originate from the same source subject to the same management influence, so multiplying them adds little persuasiveness for a significant addition, which likely calls for evidence such as vendor invoices, payment records, or physical inspection.",
+      "why_wrong": {
+        "A": "This inverts the relationship: quantity cannot offset a quality deficiency. The trap is the intuitive feeling that a thick file is a well-supported file, when persuasiveness depends first on relevance and reliability.",
+        "B": "Internal consistency among documents produced by the same entity under the same influence is weak comfort; a fabricated transaction would generate an internally consistent paper trail. Consistency across independent sources is what strengthens evidence, not consistency within one source.",
+        "C": "This overstates the rule into an absolute. Internal evidence can be appropriate, particularly when controls over its preparation are effective; the flaw here is relying on it exclusively for a significant item, not that internal evidence is categorically invalid."
+      }
+    },
+    {
+      "id": "cpa-aud-d3b-02",
+      "domain": "3",
+      "section": "B",
+      "topic": "Sufficient appropriate evidence",
+      "difficulty": "medium",
+      "stem": "An auditor's substantive analytical procedure indicates that a building-products distributor's gross margin is materially higher than the auditor's expectation, while tests of details on a sample of sales invoices detected no misstatements. Which response is MOST appropriate?",
+      "options": {
+        "A": "Rely on the tests of details, because evidence obtained from inspection of documents is more reliable than evidence from analytical procedures.",
+        "B": "Rely on the analytical procedure, because it covered the entire year's activity while the tests of details covered only a sample of invoices.",
+        "C": "Determine what additional procedures are necessary to resolve the inconsistency before reaching a conclusion, because evidence from different sources is contradictory.",
+        "D": "Ask management to explain the margin improvement and document that explanation as resolving the difference between the two results."
+      },
+      "answer": "C",
+      "why_correct": "When evidence from one source is inconsistent with evidence from another, the auditor cannot simply pick the more convenient result; the standards require determining what modifications or additions to procedures are needed to resolve the matter. The clean sample and the anomalous margin may both be true and point to a problem the sample did not reach, such as unrecorded cost of sales or cutoff manipulation, so the inconsistency itself is a finding to be run to ground.",
+      "why_wrong": {
+        "A": "Invoking the evidence hierarchy to dismiss the contradiction is the classic trap: reliability rankings help when choosing procedures, not when explaining away conflicting results. A clean invoice sample does not address why the margin departs from a well-built expectation.",
+        "B": "This is the same error in the other direction. Full-population coverage does not automatically outrank detail testing, and choosing a winner still leaves the contradiction unexplained; the requirement is to resolve it, not to referee it.",
+        "D": "Management inquiry is a legitimate starting point, but an uncorroborated explanation does not constitute resolution. Under time pressure candidates accept a plausible narrative as evidence; the standards require corroborating explanations for significant unexpected differences."
+      }
+    },
+    {
+      "id": "cpa-aud-d3c-01",
+      "domain": "3",
+      "section": "C",
+      "topic": "Sampling techniques",
+      "difficulty": "medium",
+      "stem": "In an attributes sample of 75 shipping documents testing a three-way-match control at a valve manufacturer, the auditor finds two deviations, a sample deviation rate below the tolerable deviation rate of 5 percent. Before concluding that the control operated effectively, the auditor should be MOST concerned with whether:",
+      "options": {
+        "A": "the two deviations resulted in misstatements of the related revenue and receivable balances.",
+        "B": "the sample deviation rate plus an appropriate allowance for sampling risk exceeds the tolerable deviation rate.",
+        "C": "the sample deviation rate is below the expected population deviation rate that was used when determining the sample size.",
+        "D": "management agrees to correct the conditions that caused the deviations before the end of the year under audit."
+      },
+      "answer": "B",
+      "why_correct": "A sample deviation rate below the tolerable rate is not, by itself, support for reliance, because the sample may understate the population's true deviation rate. The conclusion turns on the achieved upper deviation limit: the sample rate plus the allowance for sampling risk. If that combined figure exceeds the tolerable rate, the sample does not support the planned assessed level of control risk even though the raw sample rate looks acceptable.",
+      "why_wrong": {
+        "A": "Whether the tested items happened to be misstated addresses a different question. A control deviation matters because it signals the control may fail to prevent or detect misstatements generally; the absence of misstatement in two specific items does not restore reliance. This confuses tests of controls with tests of details.",
+        "C": "Comparing the result to the planning-stage expected rate is tempting because that number drove the sample size, but the operating conclusion is drawn against the tolerable rate with sampling risk considered, not against the planning estimate. Beating the expected rate proves nothing about whether reliance is supported.",
+        "D": "Prospective remediation cannot change the conclusion about how the control operated during the period tested. Candidates are drawn to it because it feels constructive, but the reliance decision concerns the period covered by the sample, not the client's future intentions."
+      }
+    },
+    {
+      "id": "cpa-aud-d3c-02",
+      "domain": "3",
+      "section": "C",
+      "topic": "Sampling techniques",
+      "difficulty": "hard",
+      "stem": "In a nonstatistical test of details over inventory pricing at an electronics assembler, the auditor finds an $8,000 overstatement in a sample drawn from a $6.4 million population. The client investigates, attributes the errors to one buyer's keying mistakes, and records a correcting entry for the $8,000. Tolerable misstatement is $250,000. What should the auditor do NEXT?",
+      "options": {
+        "A": "Conclude the population is fairly stated, because the identified misstatement was corrected and is far below tolerable misstatement.",
+        "B": "Treat the misstatement as an anomaly not representative of the population, because management identified a specific, isolated cause.",
+        "C": "Expand the sample and continue testing additional items until no further misstatements are found.",
+        "D": "Project the misstatement to the population, compare the projected amount, considering sampling risk, to tolerable misstatement, and evaluate whether the keying-error explanation is corroborated and truly confined."
+      },
+      "answer": "D",
+      "why_correct": "Misstatements found in a sample must be projected to the population; the sample result is the best available estimate of misstatement in the untested items, and correcting only the identified amount leaves the projected remainder unaddressed. The auditor must then judge whether the projected misstatement, with an allowance for sampling risk, leaves an acceptable margin below tolerable misstatement, and must independently corroborate any claim that the cause is isolated before narrowing the conclusion.",
+      "why_wrong": {
+        "A": "Correcting the identified $8,000 does nothing about the misstatement the sample implies exists in the items not examined. The trap is anchoring on the small found amount instead of the projected amount, which on a $6.4 million population could approach or exceed tolerable misstatement depending on the sample's coverage.",
+        "B": "An anomaly conclusion requires the auditor to obtain a high degree of certainty that the misstatement is not representative, through the auditor's own additional procedures, and such situations are rare. Accepting management's characterization of its own error as isolated is precisely the shortcut the anomaly concept is written to prevent.",
+        "C": "Testing until no further errors appear has no statistical or logical stopping rule and biases the conclusion toward acceptance. Expansion of testing may ultimately be appropriate, but only after projection shows the planned precision was not achieved, not as a substitute for projection."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-01",
+      "domain": "3",
+      "section": "D",
+      "topic": "Test of controls and test of details",
+      "difficulty": "easy",
+      "stem": "During interim testing at a fastener manufacturer, a senior finds that a required credit-approval control was not performed for 2 of 40 sales orders tested, although both orders were billed and collected at correct amounts. The senior proposes no follow-up because no misstatement resulted. Which response by the engagement manager is BEST?",
+      "options": {
+        "A": "The deviations must still be evaluated, because the test addresses whether the control operated effectively, and deviations increase control risk even when the tested items contain no misstatement.",
+        "B": "The senior is correct; the absence of misstatement in the tested items demonstrates that the control achieved its objective for the period.",
+        "C": "The deviations matter only if they were intentional, so the senior should first establish whether fraud was involved before doing further work.",
+        "D": "The control should be abandoned as a source of reliance and replaced entirely with substantive procedures, because a control with any deviations cannot be relied on."
+      },
+      "answer": "A",
+      "why_correct": "A test of controls asks whether the control operated as designed, not whether the specific items were misstated. Deviations mean the control failed to operate on those occasions, which bears directly on the assessed level of control risk and the planned reliance; the auditor must understand the nature and cause of the deviations and their implications for the sampling conclusion and the substantive strategy.",
+      "why_wrong": {
+        "B": "This is the fundamental confusion between deviations and misstatements. Correct billing on two orders may be luck or the product of other processes; it says nothing about the many untested orders processed while the control was not operating.",
+        "C": "Intent affects the severity evaluation and fraud-risk response, but a control deviation is relevant whether it arises from error or fraud. Making fraud a precondition for follow-up would leave ordinary breakdowns, the most common kind, unevaluated.",
+        "D": "Zero tolerance is not the standard; the auditor evaluates the deviation rate against the tolerable rate and may still support some level of reliance, or may revise the strategy. Reflexively discarding the control work overcorrects and wastes evidence already obtained."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-02",
+      "domain": "3",
+      "section": "D",
+      "topic": "Test of controls and test of details",
+      "difficulty": "hard",
+      "stem": "A regional electric utility bills customer usage through a fully automated process: smart-meter data flows directly into the billing system, rates are applied by system logic, and no documentation or human review exists outside the system. The engagement partner, seeking to avoid IT testing, proposes an entirely substantive strategy for revenue. Which response is MOST appropriate?",
+      "options": {
+        "A": "Proceed fully substantively by confirming a large sample of customer account balances, because confirmations provide highly reliable external evidence about revenue.",
+        "B": "Test the relevant automated application controls and supporting IT general controls, because when routine transactions are initiated, processed and recorded only in electronic form, substantive procedures alone cannot provide sufficient appropriate evidence.",
+        "C": "Accept the partner's strategy but increase substantive sample sizes significantly to compensate for the absence of control testing.",
+        "D": "Perform a substantive analytical procedure comparing recorded revenue to megawatt-hours delivered, which addresses the entire population and therefore removes the need to test controls."
+      },
+      "answer": "B",
+      "why_correct": "When the risk assessment identifies that transactions exist only electronically, with no audit trail outside the system, the standards recognize that substantive procedures by themselves cannot reduce detection risk to an acceptable level, because the substantive evidence itself depends on the integrity of the system. The auditor must obtain evidence about the operating effectiveness of the automated controls and the IT general controls that support their consistent operation.",
+      "why_wrong": {
+        "A": "Confirmations address existence and, to a degree, accuracy of selected balances, but the risk here spans completeness and the systematic application of rates across millions of transactions, which balance confirmations do not reach. The trap is treating the most reliable form of evidence as automatically the most relevant.",
+        "C": "This is quantity offered as a cure for a structural limitation. Larger samples of system-generated output still rest on the same untested system; if the rate logic is wrong, every sampled item reflects the same flaw and larger samples merely repeat it.",
+        "D": "The analytic is a sensible corroborating procedure, but the usage data feeding it comes from the same automated environment, so the procedure is not independent of the system it is meant to check. Full-population coverage does not exempt the auditor from the requirement to test controls in a no-paper-trail environment."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-03",
+      "domain": "3",
+      "section": "D",
+      "topic": "Analytical procedures",
+      "difficulty": "medium",
+      "stem": "As the principal substantive evidence over payroll expense of a stable 400-employee insurer, an auditor develops an expectation using monthly headcount and average pay rates. The recorded amount exceeds the expectation by more than the auditor's predetermined threshold. The controller attributes the difference to higher overtime in the claims department. Which action should the auditor take NEXT?",
+      "options": {
+        "A": "Accept the explanation and document it, because it is consistent with the direction and general size of the difference.",
+        "B": "Widen the investigation threshold, since payroll at a stable company is inherently a low-risk balance and the original threshold was likely too tight.",
+        "C": "Corroborate the explanation, for example by examining approved overtime records in the claims department, and quantify whether overtime accounts for the difference.",
+        "D": "Abandon the analytical procedure and instead perform detailed recalculation of payroll for a sample of employees across the year."
+      },
+      "answer": "C",
+      "why_correct": "When a substantive analytical procedure produces a difference above the threshold, management's explanation must be corroborated with other evidence and shown to quantitatively account for the difference. Examining overtime authorizations and hours in the department cited both tests the explanation's truth and measures whether it is large enough to close the gap; any unexplained residual requires further procedures.",
+      "why_wrong": {
+        "A": "Directional plausibility is the seduction here: an explanation that points the right way feels like evidence. Uncorroborated management inquiry cannot resolve a significant difference in a procedure serving as the principal substantive evidence for the balance.",
+        "B": "Loosening the threshold after seeing the result reverse-engineers the conclusion; the threshold was set based on materiality and desired precision before testing, and relaxing it now to avoid follow-up is a form of rationalizing away an exception.",
+        "D": "Scrapping a well-designed procedure at the first exception is an overreaction that discards the expectation's diagnostic value. Detailed recalculation may eventually be needed if the difference cannot be explained, but the required next step is investigating the difference, not abandoning the approach."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-04",
+      "domain": "3",
+      "section": "D",
+      "topic": "External confirmations",
+      "difficulty": "medium",
+      "stem": "While planning receivable confirmations for a machine-tool manufacturer, the CFO asks the auditor not to send a confirmation to the company's largest customer, explaining that a pricing dispute with that customer is at a delicate stage of negotiation. Which response is MOST appropriate?",
+      "options": {
+        "A": "Evaluate whether the request has a reasonable basis and obtain evidence about its validity; if the basis is reasonable, perform alternative procedures on that balance, and consider fraud-risk implications if it is not.",
+        "B": "Honor the request without further work, because the selection of confirmation recipients is negotiated with management as part of maintaining the client relationship.",
+        "C": "Refuse the request in all cases, because failing to confirm the largest customer's balance is a scope limitation that requires a qualified opinion.",
+        "D": "Honor the request and instead obtain a written representation from the CFO that the customer's balance is valid, accurately recorded and collectible."
+      },
+      "answer": "A",
+      "why_correct": "When management asks the auditor not to confirm a specific balance, the auditor must assess whether the refusal is reasonable and obtain evidence supporting the stated basis, such as correspondence evidencing the dispute. If the basis is valid, alternative procedures, for example examining subsequent cash receipts and shipping documentation, can provide the needed evidence; if the basis appears invalid, the auditor must consider the implications for fraud risk and for the audit as a whole, communicating with those charged with governance as appropriate.",
+      "why_wrong": {
+        "B": "Confirmation scope is the auditor's decision, not a negotiated accommodation. Accepting the restriction without evaluating it surrenders exactly the balance most likely to matter, and a candidate's instinct toward client service makes this trap attractive.",
+        "C": "Treating every such request as an automatic reporting problem skips the required evaluation. A genuinely reasonable request satisfied by effective alternative procedures produces sufficient evidence with no scope limitation, so a qualified opinion is not a foregone conclusion.",
+        "D": "A representation letter cannot substitute for evidence obtainable through other procedures, and substituting management's written word for third-party evidence on the very balance management asked to shield inverts the reliability the confirmation was meant to provide."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-01",
+      "domain": "3",
+      "section": "E",
+      "topic": "Accounting estimates",
+      "difficulty": "medium",
+      "stem": "An auditor develops a range of $1.8 million to $2.4 million for an appliance manufacturer's warranty accrual, having concluded that only outcomes within that range are supported by the audit evidence. Management's recorded estimate is $1.5 million, and management declines to adjust. Which conclusion about the difference is MOST appropriate?",
+      "options": {
+        "A": "Conclude no misstatement exists, because $1.5 million lies within a reasonable distance of the auditor's range given the estimation uncertainty involved.",
+        "B": "Conclude a misstatement of $600,000 exists, measured from the recorded amount to the midpoint of the auditor's range.",
+        "C": "Conclude a misstatement of $900,000 exists, measured to the top of the range because warranty obligations should be estimated conservatively.",
+        "D": "Conclude a misstatement of at least $300,000 exists, measured from the recorded amount to the nearest point of the auditor's range, and accumulate it with other identified misstatements."
+      },
+      "answer": "D",
+      "why_correct": "When the auditor's range contains only amounts supported by the evidence and management's point estimate falls outside it, the recorded amount is misstated by no less than the distance to the closest end of the range. That $300,000 difference is accumulated with other misstatements and evaluated for its effect on the financial statements; the true misstatement could be larger, but the nearest-point measure is the minimum supportable amount.",
+      "why_wrong": {
+        "A": "Estimation uncertainty is already built into the width of the auditor's range; it does not create a grace zone outside the range. Once the auditor has concluded only in-range outcomes are supported, an out-of-range recorded amount cannot be reasonable, and this option rewards vague deference to uncertainty.",
+        "B": "The midpoint feels statistically fair, but the auditor has not concluded the midpoint is the right answer, only that the range bounds the supportable outcomes. Measuring to the midpoint overstates the minimum misstatement the evidence actually demonstrates.",
+        "C": "Conservatism is not a measurement principle in auditing; deliberately biasing toward the largest accrual is itself a form of misstatement. The evidence supports the range, not its most punitive endpoint."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-02",
+      "domain": "3",
+      "section": "E",
+      "topic": "Investments in securities",
+      "difficulty": "medium",
+      "stem": "An insurer holds private-placement debt securities classified as Level 3 fair value measurements, priced by management using a discounted cash flow model. The securities are held by an independent custodian, which the auditor plans to confirm. Which statement BEST describes what the confirmation accomplishes?",
+      "options": {
+        "A": "It provides evidence over both existence and valuation, because the custodian independently reports the securities held and their period-end values.",
+        "B": "It provides evidence primarily about existence and rights; the auditor must separately evaluate the valuation model's method, significant assumptions and underlying data.",
+        "C": "It removes the need to test valuation, because supporting Level 3 measurements is management's responsibility rather than a matter for audit procedures.",
+        "D": "It is unnecessary, because vouching the original purchase documentation already establishes that the insurer holds the securities at period end."
+      },
+      "answer": "B",
+      "why_correct": "A custodian confirmation tells the auditor the securities exist and are held for the entity, addressing existence and rights. It says nothing about whether management's discounted cash flow model is appropriate, whether the discount rate and cash flow assumptions are reasonable, or whether the inputs are reliable; for Level 3 measurements those questions require separate procedures, such as testing the model, developing an independent estimate, or using a specialist.",
+      "why_wrong": {
+        "A": "Custodians report positions and sometimes indicative prices, but for unobservable Level 3 measurements any custodian-listed value typically traces back to management's own pricing or a stale input. Treating the confirmation as valuation evidence assigns it relevance it does not have, which is the core trap.",
+        "C": "Management's responsibility to support its estimates never relieves the auditor of the obligation to obtain evidence about them; valuation of hard-to-value securities is normally a significant risk demanding more attention, not less. This answer flips the burden entirely.",
+        "D": "Purchase documentation establishes acquisition at a past date, not continued ownership at period end; securities can be sold, lent or pledged after purchase. The confirmation addresses the current holding, which vouching cannot."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-03",
+      "domain": "3",
+      "section": "E",
+      "topic": "Inventory and inventory held by others",
+      "difficulty": "easy",
+      "stem": "A significant portion of a beverage importer's inventory, material to the financial statements, is stored at a bonded third-party warehouse. Which combination of procedures is MOST appropriate for this inventory?",
+      "options": {
+        "A": "Rely on the warehouse receipts held by the client, which constitute documentary evidence created by an external party.",
+        "B": "Confirm quantities with the warehouse operator; because the operator is independent of the client, no further procedures are necessary regardless of the inventory's significance.",
+        "C": "Confirm quantities with the warehouse operator and, given the inventory's significance, perform additional procedures such as observing a physical count at the warehouse or obtaining a report on the custodian's controls over the goods.",
+        "D": "Observe the client's year-end count procedures at company-operated facilities only, since the auditor has no practical means of auditing goods at third-party sites."
+      },
+      "answer": "C",
+      "why_correct": "When inventory under the custody of a third party is significant, confirmation with the custodian is the baseline, and the standards direct the auditor to consider further procedures, such as attending the custodian's count, arranging for another auditor to do so, or obtaining a service auditor's report on the custodian's controls. Significance is what elevates the response beyond confirmation alone.",
+      "why_wrong": {
+        "A": "Warehouse receipts in the client's possession were obtained and retained by the client and can be altered or fabricated; they are weaker than direct communication with the custodian and clearly insufficient alone for a material balance. The external origin of the paper tempts candidates into overrating it.",
+        "B": "Confirmation alone can be adequate when third-party inventory is not significant, but the qualifier 'regardless of significance' is the flaw: for material amounts the auditor should consider procedures beyond the custodian's own assertion, since the confirmation is only as good as the custodian's records.",
+        "D": "Restricting observation to company sites simply omits a material portion of inventory from physical procedures. Practical difficulty does not eliminate the requirement; the standards provide alternatives precisely because the auditor cannot ignore off-site goods."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-04",
+      "domain": "3",
+      "section": "E",
+      "topic": "Litigation, claims and assessments",
+      "difficulty": "medium",
+      "stem": "A chemical processor faces a significant environmental claim. Management prepares a letter of inquiry, but the company's external counsel refuses to respond in any form, citing firm policy, and management is unable to provide the information through other means. Which conclusion by the auditor is MOST appropriate?",
+      "options": {
+        "A": "Treat counsel's refusal as a limitation on the scope of the audit and assess whether a qualified opinion or a disclaimer of opinion is required.",
+        "B": "Rely on management's written representation about litigation, claims and assessments, since management bears primary responsibility for the completeness of loss contingencies.",
+        "C": "Develop an independent estimate of the probable loss from publicly available information about similar environmental claims and propose an accrual based on it.",
+        "D": "Conclude the matter is likely remote, because counsel's unwillingness to comment suggests the claim has not required substantive attention."
+      },
+      "answer": "A",
+      "why_correct": "The letter of inquiry to external counsel is the auditor's primary means of corroborating management's assertions about litigation, and an outright refusal by counsel to furnish the requested information, where the evidence cannot be obtained otherwise, is a scope limitation. The auditor evaluates its significance, and for a matter of this magnitude the outcome is ordinarily a qualified opinion or disclaimer.",
+      "why_wrong": {
+        "B": "Management's representation is exactly what the lawyer's response is meant to corroborate; substituting the representation for the corroboration makes the procedure circular. The appeal is that a representation will be obtained anyway, but it cannot replace evidence the auditor sought and was denied.",
+        "C": "The auditor may develop expectations, but constructing an accrual for a specific legal claim from generic public data is neither reliable evidence about this claim nor the auditor's role; it manufactures a number to paper over an evidence gap rather than confronting the scope problem.",
+        "D": "Reading silence as good news treats the absence of evidence as favorable evidence. Counsel's refusal is procedural, not a probability assessment, and a significant claim already identified cannot be dismissed as remote on that basis."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-05",
+      "domain": "3",
+      "section": "E",
+      "topic": "An entity's ability to continue as a going concern",
+      "difficulty": "hard",
+      "stem": "Conditions raise substantial doubt about a shipping subsidiary's ability to continue as a going concern for a reasonable period of time. Management's plans rest chiefly on a letter from the foreign parent committing to provide funding as needed. In evaluating whether the plans alleviate the substantial doubt, which procedure is MOST important?",
+      "options": {
+        "A": "Obtain a written representation from subsidiary management confirming its intention to request the funds from the parent when needed.",
+        "B": "Obtain evidence of the parent's intent to provide the support and of its financial ability to do so, such as audited financial information demonstrating the parent's capacity to fund the commitment.",
+        "C": "Verify that the support letter is signed by an authorized officer of the parent and explicitly covers the period under audit, which establishes the commitment's enforceability.",
+        "D": "Include a paragraph in the auditor's report describing the support arrangement, since transparent disclosure of the plan resolves the doubt for users."
+      },
+      "answer": "B",
+      "why_correct": "When management's plans depend on financial support from a third party, the auditor must evaluate both the supporting party's intent and its ability to provide the funds. A commitment from a parent that itself lacks liquidity alleviates nothing, so evidence about the parent's financial capacity, such as its audited financial statements or other reliable financial information, is the substance of the evaluation; the letter alone is a promise, not proof it can be kept.",
+      "why_wrong": {
+        "A": "A representation about the subsidiary's intent to ask says nothing about whether the parent will, or can, answer. It is the weakest link in the chain dressed up as a procedure, and it comes from the party whose survival is in question.",
+        "C": "Proper signature and period coverage address the form of the commitment, and candidates gravitate to verifiable formalities. But an impeccably executed letter from a parent without resources is worthless; enforceability of an unfundable promise does not alleviate doubt.",
+        "D": "Report content is the consequence of the evaluation, not a substitute for it, and under current standards going concern matters appear in a separate going-concern section rather than resolving the doubt through disclosure. Disclosure by the auditor cannot make an unsupported plan effective."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-06",
+      "domain": "3",
+      "section": "E",
+      "topic": "Uniform Guidance for single audits",
+      "difficulty": "medium",
+      "stem": "An auditor performs a single audit of a county workforce agency that expended federal awards under several programs during the year. After applying the risk-based approach to identify major programs, which statement BEST describes the auditor's compliance-testing objective?",
+      "options": {
+        "A": "Test compliance with every requirement in the OMB Compliance Supplement for each federal program from which any funds were expended during the year.",
+        "B": "Test compliance only for programs the agency administers for the first time this year, since recurring programs were addressed in prior single audits.",
+        "C": "Test the same compliance matters covered in the financial statement audit, since the single audit builds on that work without expressing any separate opinion on compliance.",
+        "D": "For each major program, test compliance with the requirements that are direct and material to that program and express an opinion on compliance at the major-program level."
+      },
+      "answer": "D",
+      "why_correct": "Under the Uniform Guidance, the auditor identifies major programs through the prescribed risk-based approach and then tests the types of compliance requirements that are direct and material to each major program, culminating in an opinion on compliance for each major program. Focusing effort on major programs and on direct and material requirements is the structural core of the single audit.",
+      "why_wrong": {
+        "A": "Testing every requirement of every program ignores both the major-program concept and the direct-and-material filter; it is the maximal-effort answer that feels safe but misstates the framework, which deliberately concentrates testing where federal exposure is greatest.",
+        "B": "Program history influences risk assessment, and low-risk designations exist, but there is no rule confining testing to first-year programs; recurring high-expenditure programs are frequently major every year. This trap converts one risk factor into the entire selection rule.",
+        "C": "The single audit adds a distinct compliance opinion at the major-program level and a report on internal control over compliance; it is not merely an extension of the financial statement audit. This answer erases the defining deliverable of the engagement."
+      }
+    },
+    {
+      "id": "cpa-aud-d3f-01",
+      "domain": "3",
+      "section": "F",
+      "topic": "Misstatements and internal control deficiencies",
+      "difficulty": "medium",
+      "stem": "Near the end of the audit of a specialty retailer, the summary of uncorrected misstatements totals well below performance materiality. However, one uncorrected $85,000 item, if adjusted, would cause the company to violate the minimum net income covenant in its principal credit agreement. Which evaluation of the $85,000 item is MOST appropriate?",
+      "options": {
+        "A": "The item may be material despite its size, because a misstatement that determines covenant compliance could influence users' judgments; the auditor should evaluate it qualitatively rather than rely solely on the quantitative comparison.",
+        "B": "The item is immaterial, because the aggregate of uncorrected misstatements is below performance materiality, which was set specifically to absorb items of this kind.",
+        "C": "The item must be corrected, because any misstatement the auditor identifies and communicates to management cannot remain uncorrected in issued financial statements.",
+        "D": "The item should be evaluated only in combination with the other uncorrected misstatements, because individually small items cannot be individually material."
+      },
+      "answer": "A",
+      "why_correct": "Materiality has both quantitative and qualitative dimensions, and a misstatement that masks a debt covenant violation is a classic circumstance in which a quantitatively small amount can be material, because covenant status directly affects lender and investor decisions and the classification of the related debt. The auditor must weigh those qualitative considerations before concluding on the uncorrected item.",
+      "why_wrong": {
+        "B": "Performance materiality is a planning device to reduce the risk that undetected misstatements aggregate to a material amount; it is not a clearance threshold for evaluating known misstatements, and no quantitative screen disposes of an item with covenant consequences. This is the mechanical-comparison trap.",
+        "C": "Management may decline to correct misstatements, and the auditor's job is then to evaluate the uncorrected items' effect; there is no rule compelling correction of every communicated item. The absolutism sounds disciplined but misstates the process.",
+        "D": "Aggregation is required, but so is individual evaluation, and qualitative factors can make a single small item material on its own. Restricting the analysis to the aggregate would bury precisely the item whose individual effect matters."
+      }
+    },
+    {
+      "id": "cpa-aud-d3f-02",
+      "domain": "3",
+      "section": "F",
+      "topic": "Misstatements and internal control deficiencies",
+      "difficulty": "medium",
+      "stem": "Testing at a medical-device distributor reveals that the monthly reconciliation of the inventory subledger to the general ledger was not performed for four consecutive months. No material misstatement of inventory was identified. The controller argues no reportable deficiency exists because nothing went wrong. In evaluating the severity of the deficiency, which consideration is MOST relevant?",
+      "options": {
+        "A": "Whether a material misstatement of inventory actually occurred during the months the reconciliations were not performed.",
+        "B": "Whether management resumed performing the reconciliations promptly after the auditor raised the matter, demonstrating the failure was temporary.",
+        "C": "Whether there is a reasonable possibility that a misstatement of a magnitude up to material could occur and not be prevented or detected on a timely basis, considering any compensating controls.",
+        "D": "Whether the failure to reconcile was intentional, since only deliberate control failures can rise to the level of a material weakness."
+      },
+      "answer": "C",
+      "why_correct": "The severity of a control deficiency is evaluated on the magnitude of potential misstatement and whether there is a reasonable possibility that controls will fail to prevent or detect it, not on whether a misstatement actually occurred. The auditor considers the volume of activity flowing through inventory, the exposure during the four unreconciled months, and whether other controls compensate; a material weakness can exist even when the financial statements happen to be correct.",
+      "why_wrong": {
+        "A": "This is the controller's own argument restated, and it is the central trap: actual misstatement is explicitly not required for a deficiency to be severe. Conditioning severity on realized errors would mean a broken control is fine until the year it finally costs something.",
+        "B": "Subsequent remediation may inform the communication and management's response, but the evaluation concerns the period under audit, during which the control did not operate. Prompt resumption after being caught does not shrink the exposure that existed.",
+        "D": "Intent bears on fraud considerations, not on the deficiency-severity framework; material weaknesses arise from unintentional breakdowns constantly. Making intent the gate would exclude nearly all real deficiencies from ever being material weaknesses."
+      }
+    },
+    {
+      "id": "cpa-aud-d3g-01",
+      "domain": "3",
+      "section": "G",
+      "topic": "Written representations",
+      "difficulty": "medium",
+      "stem": "At the conclusion of the audit of a logistics company, the chief executive signs the representation letter but strikes out the paragraphs acknowledging responsibility for internal control and stating that all known instances of fraud have been disclosed, calling them legal overreach. Discussions with the CEO and the board do not change this position. Which course of action is MOST appropriate?",
+      "options": {
+        "A": "Issue an unmodified opinion and document the discussions, because the remaining representations were provided and the auditor's own procedures detected no fraud.",
+        "B": "Disclaim an opinion or withdraw from the engagement, because refusal to provide the required written representations is a restriction on the audit that also casts doubt on the reliability of the representations that were given.",
+        "C": "Qualify the opinion for a scope limitation confined to fraud-related assertions, since the refusal affects only those specific areas of the audit.",
+        "D": "Accept an oral representation from the CEO, delivered in the presence of the audit committee, as an equivalent substitute for the deleted written paragraphs."
+      },
+      "answer": "B",
+      "why_correct": "The stricken paragraphs are among the representations the standards require in every audit. Management's refusal to provide them is not an isolated evidence gap; it undermines confidence in management's good faith and therefore in all other representations and evidence obtained. The prescribed response to refusal of required representations of this nature is to disclaim an opinion or withdraw, because the doubt is pervasive.",
+      "why_wrong": {
+        "A": "Clean procedures do not cure the problem, because the representations address matters, such as undisclosed fraud known to management, that audit procedures cannot fully reach. The trap is treating the letter as a formality whose absence the fieldwork can offset.",
+        "C": "A qualified opinion fits a limitation whose effects are confined and not pervasive, but refusal of foundational representations contaminates the auditor's ability to rely on everything management provided. Fencing the doubt into one area understates its reach.",
+        "D": "The standards require these representations in writing precisely because oral statements lack the same evidential force and accountability; witnesses do not convert an oral statement into the required written form. This tempts by offering a practical-seeming compromise the standards rule out."
+      }
+    },
+    {
+      "id": "cpa-aud-d3h-01",
+      "domain": "3",
+      "section": "H",
+      "topic": "Subsequent events and subsequently discovered facts",
+      "difficulty": "medium",
+      "stem": "During the subsequent events review for a calendar-year metal stamping company, before the report release date, the auditor learns of two February events: a customer owing a large receivable at December 31 filed for bankruptcy after its financial condition had deteriorated throughout the year under audit, and an uninsured finished-goods warehouse was destroyed by a flood. Which treatment of the two events is MOST appropriate?",
+      "options": {
+        "A": "Adjust the financial statements for both events, since both became known before the report release date and both amounts are determinable.",
+        "B": "Disclose both events in the notes without adjustment, since both occurred after the balance sheet date.",
+        "C": "Adjust for the flood loss because its amount is objectively measurable, and disclose the customer bankruptcy because collectibility estimates involve judgment.",
+        "D": "Adjust the allowance for the customer receivable because the bankruptcy evidences a condition that existed at year-end, and disclose the flood loss because it arose from conditions that came into existence after year-end."
+      },
+      "answer": "D",
+      "why_correct": "The distinction turns on when the underlying condition arose, not when the auditor learned of the event. The customer's year-long deterioration means its inability to pay existed at the balance sheet date, so the bankruptcy provides evidence requiring adjustment of the allowance. The flood is a new condition arising entirely after year-end; if material, it is disclosed so the statements are not misleading, but it does not adjust year-end amounts.",
+      "why_wrong": {
+        "A": "Timing of discovery is the wrong test; recognizing the flood loss at December 31 would record a loss for an asset that was intact at the balance sheet date. The trap is treating everything learned before release as an adjustment matter.",
+        "B": "This applies the disclosure rule uniformly and misses that recognized subsequent events exist: evidence about conditions existing at year-end must be pushed into the year-end measurements. Leaving the receivable unadjusted overstates assets the entity already could not collect.",
+        "C": "Measurability is a seductive but irrelevant criterion; classification depends on when the condition arose, not on how precisely the loss can be quantified. This option reverses the correct treatment of both events."
+      }
+    }
+  ]
+}

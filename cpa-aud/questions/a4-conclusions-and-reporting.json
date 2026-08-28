@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "4",
+    "batch": "aud-a4-x01",
+    "created": "2026-08-27",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area IV (Forming Conclusions and Reporting) seed batch. Every item was drafted against the January 2026 AUD blueprint and adversarially reviewed before entering the bank: the reviewer argued each distractor's case, checked standards currency, and verified tags against cpa-aud/outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d4a-01",
+      "domain": "4",
+      "section": "A",
+      "topic": "Reporting on audit engagements",
+      "difficulty": "medium",
+      "stem": "The auditor of a nonissuer regional freight carrier concludes that conditions raise substantial doubt about the entity's ability to continue as a going concern for a reasonable period of time and, after evaluating management's plans to refinance its fleet debt, that substantial doubt remains. The notes to the financial statements adequately describe the conditions and management's plans. Which reporting outcome is MOST appropriate?",
+      "options": {
+        "A": "An unmodified opinion with a separate section titled \"Substantial Doubt About the Entity's Ability to Continue as a Going Concern.\"",
+        "B": "A qualified opinion, because an unresolved material uncertainty prevents the auditor from expressing an opinion without reservation.",
+        "C": "A disclaimer of opinion, because the outcome of the refinancing cannot be known at the report date.",
+        "D": "An unmodified opinion with no reference to going concern, because the disclosures are adequate and highlighting the doubt could itself precipitate the entity's failure."
+      },
+      "answer": "A",
+      "why_correct": "When substantial doubt remains after considering management's plans but the related disclosures are adequate, the financial statements are not misstated, so the opinion stays unmodified. The auditor's obligation is instead to draw attention to the matter in a separate going-concern section of the report, as required for nonissuer reports issued under the SAS 134 reporting model. Opinion modification enters the analysis only if disclosure is inadequate or the going-concern basis of accounting is inappropriate.",
+      "why_wrong": {
+        "B": "This confuses an uncertainty with a misstatement. A qualified opinion responds to inadequate disclosure or a departure from the framework; here the disclosures are adequate, so there is nothing in the statements to qualify over, and the doubt is communicated through the separate section instead.",
+        "C": "A disclaimer responds to the auditor's inability to obtain sufficient appropriate evidence, not to the inherent unpredictability of future events. The auditor has the evidence needed to evaluate the conditions and management's plans; uncertainty about the outcome is precisely what the going-concern section is designed to communicate.",
+        "D": "The self-fulfilling-prophecy concern is a real practice pressure, which makes this tempting, but adequate disclosure does not relieve the auditor of the reporting requirement. Once substantial doubt remains unalleviated, the separate going-concern section is required, not optional."
+      }
+    },
+    {
+      "id": "cpa-aud-d4b-01",
+      "domain": "4",
+      "section": "B",
+      "topic": "Agreed-upon procedures engagements",
+      "difficulty": "medium",
+      "stem": "A practitioner completes an agreed-upon procedures engagement under the SSAEs on a franchisee's schedule of gross sales used to compute royalty payments. The procedures produced no exceptions. Before the report is released, the franchisor, which is the engaging party, asks the practitioner to add a sentence stating that the schedule is fairly stated in all material respects. Which response is MOST appropriate?",
+      "options": {
+        "A": "Add the requested sentence, because the absence of exceptions provides a reasonable basis for the statement.",
+        "B": "Explain that an agreed-upon procedures report is limited to describing the procedures performed and the related findings, and that the requested statement would require an examination engagement.",
+        "C": "Substitute negative assurance, stating that nothing came to the practitioner's attention indicating the schedule is misstated.",
+        "D": "Withdraw from the engagement, because the request indicates the engaging party intends to misuse the report."
+      },
+      "answer": "B",
+      "why_correct": "An agreed-upon procedures engagement does not contemplate obtaining sufficient appropriate evidence to support an opinion or conclusion, so the report is confined to procedures and findings. A statement that the schedule is fairly stated is an examination-level opinion; the practitioner can offer to perform an examination as a separate engagement if that level of assurance is what the franchisor needs. Explaining the boundary and the alternative is the professionally appropriate response.",
+      "why_wrong": {
+        "A": "Clean findings feel like support for a positive statement, but the procedures were designed by agreement, not to gather the evidence an opinion requires. Findings without exceptions are still only findings; they cannot be upgraded into an opinion the engagement was never scoped to support.",
+        "C": "Negative assurance is the product of a review-level engagement, and expressing it in an agreed-upon procedures report is specifically prohibited. Swapping one impermissible form of assurance for another does not solve the problem.",
+        "D": "Withdrawal is an overreaction. A client asking for more assurance than the engagement provides is a common misunderstanding to be corrected, not evidence of bad faith; the practitioner's duty is to explain the limits of the report and offer the appropriate engagement type."
+      }
+    },
+    {
+      "id": "cpa-aud-d4c-01",
+      "domain": "4",
+      "section": "C",
+      "topic": "Compilation engagements",
+      "difficulty": "easy",
+      "stem": "A CPA's spouse holds a direct financial interest in a nonissuer catering company. The company asks the CPA to compile its annual financial statements and issue a compilation report for its bank. Under SSARS, which course of action is MOST appropriate?",
+      "options": {
+        "A": "Decline the engagement, because independence is required whenever the accountant issues a report on financial statements.",
+        "B": "Perform the compilation and omit any reference to independence in the report, because a compilation provides no assurance.",
+        "C": "Perform a preparation engagement instead, because an accountant who is not independent may provide only nonreporting services.",
+        "D": "Perform the compilation and include a statement in the compilation report that the CPA is not independent."
+      },
+      "answer": "D",
+      "why_correct": "A compilation under AR-C section 80 is the one reporting service an accountant may perform without being independent, provided the lack of independence is disclosed in the final paragraph of the report. The spouse's direct financial interest impairs independence, but that impairment changes the report's content, not the accountant's ability to accept the engagement.",
+      "why_wrong": {
+        "A": "This over-applies the independence rule that governs audits and reviews. A compilation report expresses no assurance, so independence is not a precondition; the safeguard is disclosure, not declination.",
+        "B": "It is true that a compilation provides no assurance, but that fact drives the disclosure requirement rather than eliminating it. Silence about a known impairment would mislead the bank into assuming the accountant is independent.",
+        "C": "A preparation engagement is available, but nothing limits a non-independent accountant to nonreporting services. Steering the client away from the reporting service it actually needs, when the standards expressly permit it with disclosure, is not the best answer."
+      }
+    },
+    {
+      "id": "cpa-aud-d4c-02",
+      "domain": "4",
+      "section": "C",
+      "topic": "Review engagements",
+      "difficulty": "medium",
+      "stem": "During a SSARS review of a nonissuer wholesale plumbing distributor, the accountant's analytical procedures show gross margin rising from 24 percent to 38 percent while comparable distributors' margins were flat. Management attributes the change to \"better purchasing\" but can provide no detail about supplier terms, pricing, or product mix to support that explanation. What should the accountant do NEXT?",
+      "options": {
+        "A": "Accept management's explanation, because review evidence is limited to inquiry and analytical procedures and corroboration of responses is not contemplated.",
+        "B": "Withdraw from the engagement, because management's inability to support its explanation constitutes a scope limitation.",
+        "C": "Perform additional procedures sufficient to determine whether the margin increase indicates the financial statements may be materially misstated.",
+        "D": "Issue a review report modified to describe the unexplained margin increase as a departure from the applicable framework."
+      },
+      "answer": "C",
+      "why_correct": "When an accountant performing a review becomes aware of information suggesting the financial statements may be materially misstated, AR-C section 90 requires additional procedures sufficient to provide a basis for the limited-assurance conclusion. An unexplained, industry-defying margin swing coupled with an unsupported management response is exactly that trigger. The engagement cannot conclude until the matter is either resolved or shown to be a misstatement.",
+      "why_wrong": {
+        "A": "Inquiry and analytics are the primary review procedures, but that ceiling disappears once results appear implausible. Accepting an answer management cannot support abandons the professional skepticism the limited-assurance conclusion depends on.",
+        "B": "Withdrawal may eventually become necessary if management obstructs the additional procedures, but jumping there now skips the required step of investigating. An unsupported explanation is a lead to pursue, not yet a refusal of access.",
+        "D": "Modifying the report is premature and mislabels the problem. The accountant has not yet concluded that a misstatement exists, and an unexplained fluctuation is not itself a framework departure; the report can only be modified after additional procedures establish what is actually wrong."
+      }
+    },
+    {
+      "id": "cpa-aud-d4d-01",
+      "domain": "4",
+      "section": "D",
+      "topic": "Reporting on compliance",
+      "difficulty": "hard",
+      "stem": "A nonissuer borrower's loan agreement requires it to deliver audited financial statements each year together with its auditor's written statement regarding compliance with the agreement's financial covenants. This year the auditor disclaimed an opinion on the financial statements because a flood destroyed records supporting a pervasive portion of the accounts. The lender, noting that the covenant calculations draw on accounts unaffected by the flood, still insists on the compliance statement. What is the auditor's MOST appropriate course?",
+      "options": {
+        "A": "Provide the negative assurance on covenant compliance, because the covenant-related accounts were unaffected by the matter giving rise to the disclaimer.",
+        "B": "Provide the compliance statement but restrict the report's use to the lender and the borrower.",
+        "C": "Decline to provide negative assurance on compliance, because such assurance may not be given when the auditor has disclaimed an opinion on the related financial statements.",
+        "D": "Issue the compliance statement with an added paragraph describing the scope limitation, so the lender can weigh its significance."
+      },
+      "answer": "C",
+      "why_correct": "Negative assurance on contractual compliance given in connection with an audit derives its credibility from the audit itself. When the auditor has disclaimed an opinion (or expressed an adverse opinion) on the financial statements to which the covenants relate, that foundation is gone, and the standards prohibit issuing the assurance regardless of how the covenant accounts themselves fared. The lender's commercial need cannot override the scope boundary.",
+      "why_wrong": {
+        "A": "This is the most seductive trap because the lender's logic is commercially reasonable: the flood did not touch the covenant accounts. But the negative assurance is defined as a byproduct of the audit as a whole, and a disclaimed audit provides no whole to build on; the prohibition is not a matter of tracing which accounts were affected.",
+        "B": "Restricted use is already a standing requirement for this type of compliance report, so restricting it accomplishes nothing new. Limiting distribution does not cure the absence of the audit foundation the assurance requires.",
+        "D": "Disclosure of the limitation feels like transparency, but it converts a prohibited report into a prohibited report with a caveat. The standards bar the assurance outright in a disclaimer situation; they do not offer a describe-and-issue alternative."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-01",
+      "domain": "4",
+      "section": "E",
+      "topic": "Comparative statements and consistency between periods",
+      "difficulty": "medium",
+      "stem": "A successor auditor is engaged to audit the year 2 financial statements of a nonissuer equipment lessor, which will be presented comparatively with year 1. The predecessor firm, which issued an unmodified opinion on year 1, has since dissolved and cannot reissue its report. Management does not want to pay for a reaudit of year 1. Which reporting approach is MOST appropriate?",
+      "options": {
+        "A": "Express an opinion covering both years, because presenting comparative statements obligates the reporting auditor to opine on every period presented.",
+        "B": "State in an other-matter paragraph that the year 1 statements were audited by a predecessor auditor, the type of opinion the predecessor expressed, and the date of that report.",
+        "C": "Label the year 1 columns \"unaudited,\" because no currently existing firm stands behind that period.",
+        "D": "Decline to report on the comparative presentation unless year 1 is reaudited, because a report that omits an opinion on a presented period is incomplete."
+      },
+      "answer": "B",
+      "why_correct": "When the predecessor's report on the prior period is not reissued, the successor reports only on the current period and adds an other-matter paragraph describing the predecessor's involvement: that the prior statements were audited by a predecessor, the opinion type, the reasons for any modification, the nature of any emphasis-of-matter or other-matter paragraph, and the report date. This gives users the prior-period audit context without the successor taking responsibility for work it did not perform.",
+      "why_wrong": {
+        "A": "Comparative presentation does not transfer audit responsibility. Opining on year 1 without having audited it would assert assurance the successor never obtained; the standards provide the other-matter mechanism precisely to avoid forcing that choice.",
+        "C": "Year 1 was audited; the firm's later dissolution does not retroactively strip that period of its audited status. Labeling it unaudited would misdescribe the work actually performed and understate the credibility the prior statements legitimately carry.",
+        "D": "A reaudit is an available option, not a requirement. Insisting on it when the standards expressly permit reporting on the current period alone with predecessor disclosure imposes unnecessary cost and treats a permitted reporting path as a deficiency."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-02",
+      "domain": "4",
+      "section": "E",
+      "topic": "Other information in documents with audited statements",
+      "difficulty": "medium",
+      "stem": "While reading the glossy annual report that will contain a nonissuer utility cooperative's audited financial statements, the auditor notices the general manager's letter states that operating revenue grew 40 percent, while the audited statements show 12 percent growth. The auditor requests a correction, and management refuses, saying the letter is \"marketing, not accounting.\" What should the auditor do NEXT?",
+      "options": {
+        "A": "Communicate the uncorrected material inconsistency to those charged with governance and request that the letter be revised.",
+        "B": "Withhold the auditor's report until management corrects the letter.",
+        "C": "Add language to the report disclaiming any opinion on the general manager's letter.",
+        "D": "Withdraw from the engagement, because management's refusal indicates a lack of integrity that undermines all representations."
+      },
+      "answer": "A",
+      "why_correct": "The auditor's responsibility for other information is to read it, identify material inconsistencies with the audited statements, and seek correction. When management refuses, the escalation path runs through those charged with governance, who may compel the revision. Only if the inconsistency remains after that communication does the auditor move to further responses such as describing the matter in the report's other-information section, withholding the report, or withdrawing.",
+      "why_wrong": {
+        "B": "Withholding the report is one of the ultimate responses available, but reaching for it now skips a required escalation step. Governance may resolve the matter, making the drastic remedy unnecessary; the sequence matters.",
+        "C": "The report's other-information section already states that the auditor expresses no opinion on the other information, so a disclaimer adds nothing. Worse, it leaves a known material inconsistency standing unaddressed, which is the actual problem the standards require the auditor to pursue.",
+        "D": "Withdrawal is the last resort, and a dispute over a marketing letter, before governance has even been informed, does not yet justify abandoning the engagement. Treating the first refusal as proof of pervasive dishonesty collapses a graduated response framework into a single step."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-03",
+      "domain": "4",
+      "section": "E",
+      "topic": "Additional reporting requirements under Government Accountability Office Government Auditing Standards",
+      "difficulty": "medium",
+      "stem": "An auditor completes the financial statement audit of a county transit authority that is required to be performed under both GAAS and Government Auditing Standards. No material weaknesses or instances of noncompliance were identified. In addition to the opinion on the financial statements, which report does GAGAS ALWAYS require the auditor to provide?",
+      "options": {
+        "A": "An opinion on the effectiveness of the authority's internal control over financial reporting.",
+        "B": "A report on internal control over financial reporting and on compliance, but only in years when material weaknesses, significant deficiencies, or noncompliance are actually identified.",
+        "C": "An opinion on the authority's compliance with the laws, regulations, contracts, and grant agreements applicable to it.",
+        "D": "A report describing the scope of the auditor's testing of internal control over financial reporting and of compliance and the results of that testing, without expressing an opinion on either."
+      },
+      "answer": "D",
+      "why_correct": "Government Auditing Standards layer a distinct reporting obligation onto a GAAS financial audit: a report on internal control over financial reporting and on compliance with provisions of laws, regulations, contracts, and grant agreements. That report describes the scope of the testing performed as part of the financial audit and the results, and it is required every year, clean findings or not. Because the control and compliance work was performed to support the financial statement opinion rather than as a separate examination, no opinion is expressed on either subject.",
+      "why_wrong": {
+        "A": "An opinion on control effectiveness requires an examination-level engagement, such as an integrated audit; it is not what GAGAS demands of a standard financial audit. This over-applies the issuer ICFR model to a government context where only scope-of-testing reporting is required.",
+        "B": "The report is required regardless of findings; a year with nothing to report still produces the report, which then states that no reportable matters were identified. Conditioning the report on bad news is exactly the assumption GAGAS reporting is designed to prevent.",
+        "C": "A compliance opinion belongs to a separate compliance examination or a single audit's major-program opinion, not to the baseline GAGAS report. The financial audit's compliance testing is scoped to support the financial statement opinion and cannot carry an opinion of its own."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-04",
+      "domain": "4",
+      "section": "E",
+      "topic": "Special-purpose frameworks",
+      "difficulty": "hard",
+      "stem": "A nonissuer real estate developer prepares financial statements on a basis of accounting specified in its joint venture agreement, which departs from GAAP in how development costs are capitalized. The auditor is engaged to audit these contractual-basis statements, which will be distributed only to the venture partners. In addition to the opinion, which combination of report elements is MOST appropriate?",
+      "options": {
+        "A": "An emphasis-of-matter paragraph describing the basis of accounting, with no restriction on use, consistent with the treatment of cash- and tax-basis statements.",
+        "B": "An adverse opinion, because financial statements prepared under a private agreement cannot present fairly in accordance with GAAP.",
+        "C": "An emphasis-of-matter paragraph alerting readers that the statements are prepared under a special-purpose framework, and an other-matter paragraph restricting use of the report to the parties to the joint venture agreement.",
+        "D": "An opinion addressing whether the statements are fairly presented under both the contractual basis and GAAP, so that any reader who obtains the report is protected."
+      },
+      "answer": "C",
+      "why_correct": "Contractual-basis statements require the auditor to alert readers, through an emphasis-of-matter paragraph, that the statements follow a special-purpose framework and may not be suitable for other purposes. Because a contractual basis is meaningful only to the parties who negotiated it, the report must also be restricted to those parties through an other-matter paragraph. The two elements answer different questions, one about the framework and one about the audience, and a contractual basis requires both.",
+      "why_wrong": {
+        "A": "This over-applies the cash- and tax-basis rule, where the emphasis-of-matter alert suffices and no restriction is required because those frameworks are broadly understood. A contractual basis has no meaning outside the agreement that created it, which is why the restriction is added for contractual-basis reports.",
+        "B": "This gets the framework question backwards. The statements are not asserting GAAP compliance, so their departures from GAAP are not misstatements; the opinion addresses fair presentation in accordance with the contractual basis, and an unmodified opinion is available if they achieve it.",
+        "D": "A dual opinion on both the special-purpose framework and GAAP is the response reserved for regulatory-basis statements intended for general use. Importing it here misreads the scope boundary: these statements are restricted-use contractual-basis statements, and the protection for outside readers is the use restriction, not a second opinion."
+      }
+    }
+  ]
+}
