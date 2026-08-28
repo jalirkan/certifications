@@ -31,10 +31,26 @@ export function ExamHome() {
   const { boot, epoch, toast } = useApp()
   const nav = useNavigate()
   const list = useAsync(() => api.examList(), [epoch])
-  const [n, setN] = useState(boot.exam?.questions ?? 150)
-  const [minutes, setMinutes] = useState(boot.exam?.minutes ?? 240)
+  const fullN = boot.exam?.questions ?? 150
+  const fullMinutes = boot.exam?.minutes ?? 240
+  const [n, setN] = useState(fullN)
+  const [minutes, setMinutes] = useState(fullMinutes)
   const [domain, setDomain] = useState('')
   const [busy, setBusy] = useState(false)
+
+  // Certs declare different formats; follow the active one when it changes.
+  useEffect(() => {
+    setN(fullN)
+    setMinutes(fullMinutes)
+    setDomain('')
+  }, [boot.cert, fullN, fullMinutes])
+
+  // The full declared format first, then shorter sittings scaled from it.
+  const nChoices = [...new Set([fullN, 100, 75, 50, 25].filter((v) => v <= fullN))]
+  const minuteChoices = [...new Set([fullMinutes,
+    Math.round(fullMinutes * 2 / 3), Math.round(fullMinutes / 2),
+    Math.round(fullMinutes / 3), Math.round(fullMinutes / 6),
+  ])]
 
   const start = async () => {
     setBusy(true)
@@ -52,24 +68,30 @@ export function ExamHome() {
       <div className="page-head">
         <h1>Mock exam</h1>
         <p>
-          Blueprint-weighted, timed, no feedback until you submit. The real thing is{' '}
-          {boot.exam?.questions ?? 150} questions in {boot.exam?.minutes ?? 240} minutes
+          Blueprint-weighted, timed, no feedback until you submit. A full mock here is{' '}
+          {fullN} questions in {fullMinutes} minutes
           {boot.exam?.verified_on ? ` (format verified ${boot.exam.verified_on})` : ''}.
         </p>
       </div>
+
+      {boot.exam?.note ? (
+        <div style={{ marginBottom: 14 }}>
+          <Callout><p>{boot.exam.note}</p></Callout>
+        </div>
+      ) : null}
 
       <Card>
         <div className="grid c3">
           <div className="field">
             <label htmlFor="e-n">Questions</label>
             <select id="e-n" value={n} onChange={(e) => setN(Number(e.target.value))}>
-              {[150, 100, 75, 50, 25].map((v) => <option key={v} value={v}>{v}</option>)}
+              {nChoices.map((v) => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
           <div className="field">
             <label htmlFor="e-min">Minutes</label>
             <select id="e-min" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))}>
-              {[240, 160, 120, 80, 40].map((v) => <option key={v} value={v}>{v}</option>)}
+              {minuteChoices.map((v) => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
           <div className="field">
@@ -488,10 +510,11 @@ export function ExamResultScreen() {
         <div style={{ marginTop: 16 }}>
           <Callout>
             <p>
-              <b>This is an approximation, not ISACA's number.</b> ISACA scales raw scores with an
-              undisclosed psychometric process and the raw threshold moves between exam forms. The
-              pass mark is {r.pass_mark}; treat anything within about 50 points of it as too close
-              to call. It is not a prediction of your result.
+              <b>This is an approximation, not an official score.</b> The certifying body scales
+              raw scores with an undisclosed psychometric process and the raw threshold moves
+              between exam forms. The pass mark is {r.pass_mark} on a {r.scale?.[0] ?? 200}
+              –{r.scale?.[1] ?? 800} scale; treat anything near it as too close to call. It is
+              not a prediction of your result.
             </p>
           </Callout>
         </div>

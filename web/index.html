@@ -3,14 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="dark">
-<title>CISA Study System</title>
+<meta name="color-scheme" content="dark light">
+<title>Certification Study System</title>
 <!-- Inline data URI: the app must work with the network cable unplugged. -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230e1419'/><path d='M9 17l4.5 4.5L23 12' stroke='%234dd0c7' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
-  <script type="module" crossorigin src="./assets/index-BzZs3HKc.js"></script>
+<script>
+// Stamp theme and cert before first paint so there is no flash of the wrong
+// theme. Mirrors the logic in AppProvider, which takes over after mount.
+try {
+  var t = localStorage.getItem('study.theme') || 'dark'
+  if (t === 'auto') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
+  document.documentElement.dataset.theme = t
+  var c = localStorage.getItem('study.cert')
+  if (c) document.documentElement.dataset.cert = c
+} catch (e) { /* storage may be unavailable; the default theme is fine */ }
+</script>
+  <script type="module" crossorigin src="./assets/index-DFOC7l2E.js"></script>
   <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-hePW80VL.js">
   <link rel="modulepreload" crossorigin href="./assets/charts-DaXFLWVw.js">
-  <link rel="stylesheet" crossorigin href="./assets/index-DYHWHWDd.css">
+  <link rel="stylesheet" crossorigin href="./assets/index-CPG6nIkC.css">
 </head>
 <body>
 <div id="root"></div>

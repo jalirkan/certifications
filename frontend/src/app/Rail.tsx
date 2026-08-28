@@ -1,7 +1,7 @@
-/** Left navigation rail with the profile switcher. */
+/** Left navigation rail with the certification, profile and theme switchers. */
 
 import { NavLink } from 'react-router-dom'
-import { useApp } from './AppProvider'
+import { useApp, type ThemeSetting } from './AppProvider'
 
 const ICONS = {
   dashboard: 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z',
@@ -29,6 +29,12 @@ const LINKS: { to: string; key: keyof typeof ICONS; label: string }[] = [
   { to: '/bank', key: 'bank', label: 'Question bank' },
 ]
 
+const THEMES: { value: ThemeSetting; label: string }[] = [
+  { value: 'dark', label: 'Dark' },
+  { value: 'light', label: 'Light' },
+  { value: 'auto', label: 'Auto' },
+]
+
 function Icon({ d }: { d: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"
@@ -39,21 +45,38 @@ function Icon({ d }: { d: string }) {
 }
 
 export function Rail() {
-  const { boot, profile, switchProfile } = useApp()
+  const { boot, profile, switchProfile, cert, switchCert, theme, setTheme } = useApp()
 
   const names = [...boot.profiles]
   if (profile && !names.includes(profile)) names.push(profile)
+
+  const activeId = cert || boot.certs.find((c) => c.cert === boot.cert)?.id || ''
+  const multiCert = boot.certs.length > 1
 
   return (
     <aside className="rail">
       <div className="brand">
         <svg viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="7" fill="#0e1419" />
+          <rect width="32" height="32" rx="7" fill="var(--surface-2)" />
           <path d="M9 17l4.5 4.5L23 12" stroke="var(--accent)" strokeWidth="3" fill="none"
                 strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <div>
-          <strong>{boot.cert}</strong>
+        <div className="brand-body">
+          {multiCert ? (
+            <select
+              className="brand-select"
+              aria-label="Certification"
+              value={activeId}
+              title={boot.cert_name}
+              onChange={(e) => switchCert(e.target.value)}
+            >
+              {boot.certs.map((c) => (
+                <option key={c.id} value={c.id}>{c.cert}</option>
+              ))}
+            </select>
+          ) : (
+            <strong>{boot.cert}</strong>
+          )}
           <span>{boot.questions} questions</span>
         </div>
       </div>
@@ -94,8 +117,21 @@ export function Rail() {
           </button>
         </div>
         <p className="rail-note">
-          Results are kept separate per person. The question bank is shared.
+          Results are kept separate per person{multiCert ? ' and per certification' : ''}.
+          The question bank is shared.
         </p>
+        <div className="theme-row" role="group" aria-label="Theme">
+          {THEMES.map((t) => (
+            <button
+              key={t.value}
+              className={theme === t.value ? 'on' : ''}
+              aria-pressed={theme === t.value}
+              onClick={() => setTheme(t.value)}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
       </div>
     </aside>
   )

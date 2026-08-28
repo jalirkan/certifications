@@ -76,6 +76,9 @@ export interface ExamFormat {
   passing_score: number
   format: string
   verified_on: string
+  /** Honesty caveat for certs this tool only partially models (e.g. CPA AUD
+   *  is MCQ + task-based simulations; the mock covers the MCQ half only). */
+  note?: string
 }
 
 export interface BootPrinciple {
@@ -100,6 +103,9 @@ export interface Pair {
 
 export interface Bootstrap {
   cert: string
+  cert_name: string
+  /** Every certification folder the server discovered, switchable via X-Cert. */
+  certs: { id: string; cert: string; name: string }[]
   profile: string
   profiles: string[]
   questions: number
@@ -353,6 +359,8 @@ export interface ExamResult {
   elapsed: number
   duration: number
   pass_mark: number
+  /** [low, high] of the scale the estimate was graded on. */
+  scale: [number, number]
   by_domain: ExamDomainResult[]
   waterfall: Waterfall
   timing: Timing
