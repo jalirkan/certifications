@@ -1,0 +1,327 @@
+{
+  "id": "d4-the-headroom",
+  "title": "The Headroom",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "Systems Availability and Capacity Management",
+    "IT Service Level Management",
+    "Problem and Incident Management",
+    "IT Components"
+  ],
+  "principles": [
+    "business-impact",
+    "outcome-over-activity",
+    "understand-before-acting",
+    "root-cause",
+    "explicit-and-owned",
+    "auditor-role"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing platform operations at a live-events ticketing company. Eleven million tickets a year, nine hundred venues, and a business whose entire year turns on about forty mornings.\n\nThe booking platform moved to public cloud twenty months ago. The migration is regarded internally as a success and by most measures it was: releases went from monthly to daily, infrastructure cost fell by a third, and the overnight capacity crunches that used to precede a stadium on-sale stopped happening. Capacity management went with it. The three-person function that produced a quarterly forecast and a headroom report was closed at the migration, and the business case said why in one line: elastic infrastructure removes the need for capacity planning.\n\nTicketing operations publishes an on-sale calendar six weeks ahead. Date, time, venue, and an expected-concurrency figure precise enough that they buy waiting-room capacity against it.\n\nAvailability since migration is reported at 99.97%, against a contractual floor of 99.9% in the three largest promoter agreements. No breach in twenty months.\n\nIn the last four months there have been three brownouts: mornings when the site stayed up and the checkout did not finish. Each was raised, diagnosed, actioned and closed.",
+  "taints": {
+    "endorsed-the-number": "end-the-number"
+  },
+  "nodes": {
+    "start": {
+      "situation": "INC-40218, 24 April, 09:04 to 09:26. Cause recorded: transient provider network degradation. Resolution: recovered without intervention.\n\nINC-41533, 19 June, 09:02 to 09:24. Cause recorded: database connection exhaustion. Resolution: application nodes restarted.\n\nINC-42911, 14 August, 09:03 to 09:41. Cause recorded: scaling lag. Resolution: instances pre-warmed ahead of future on-sales.\n\nThree incidents, three causes, three closures, every one inside the P2 response target. No problem record exists for any of them.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Lay the three incident records against the on-sale calendar.",
+          "quality": "best",
+          "next": "the-timeline",
+          "consequence": "All three began within six minutes of a scheduled on-sale. They were the three largest on-sales of the period by expected concurrency: 214,000, 240,000 and 268,000. The fourth largest, 96,000 on 7 July, passed without incident.",
+          "why": "Two documents, twenty minutes, and it converts three unrelated technical stories into one pattern with a trigger. The incident records describe what the platform did; the calendar describes what was asked of it, and nobody had put the two side by side because the people who hold them sit in different functions.\n\nIt also gets you there before anyone characterises the incidents for you. The characterisations already exist, they are written in the cause field of three closed records, and each of them is individually plausible. Arriving already holding three plausible explanations is the expensive way to start."
+        },
+        {
+          "key": "B",
+          "text": "Ask the platform engineering lead what happened on those three mornings.",
+          "quality": "defensible",
+          "next": "the-timeline",
+          "consequence": "He does not need to look anything up. \"Three unrelated things. A provider blip, a connection leak we fixed, and a scaling lag we now pre-warm for.\" He offers you read access to the dashboards and the incident queue.",
+          "why": "Fast, cooperative, and everything he tells you is what the records say, because he is the person who signed them off. The cost is one of sequence. His account is reasonable and it is the thing in dispute, so everything you look at afterwards you are checking against it rather than reading fresh.\n\nHe is also the wrong person to ask this particular question. He can tell you what each incident was diagnosed as; he cannot tell you that they were all the same thing, because if he could see that they would not be three records."
+        },
+        {
+          "key": "C",
+          "text": "Recompute the reported availability figure from the raw monitoring data.",
+          "quality": "defensible",
+          "next": "the-timeline",
+          "consequence": "The arithmetic is correct. The figure comes from a synthetic check every thirty seconds against /health from three regions. It returned 200 through all three brownout windows, so the periods are recorded as available.",
+          "why": "A proper test of the reported number, and it lands on something real: the measure returned exactly what it was built to return, and what it was built to return has almost nothing to do with whether anyone could buy a ticket. That is worth knowing and you will use it later.\n\nWhat it does not do is tell you why the three mornings happened. You have established that the availability figure cannot see the problem, which is a finding about the measure. The problem is still sitting in three closed records."
+        },
+        {
+          "key": "D",
+          "text": "Report that capacity management was disbanded twenty months ago with no documented risk acceptance and no capacity plan since.",
+          "quality": "poor",
+          "next": "the-drift",
+          "consequence": "You raise it as a governance observation. Management responds within the week that autoscaling is the compensating control, undertakes to document the rationale, and asks the platform lead to write a half-page note for the risk register. The note is written. You move on to the disaster recovery review.",
+          "why": "It is true, it is a real gap, and it is the version of the finding that can be closed with a document. Disbanding a function without a risk acceptance is a process observation; whether the platform can carry an on-sale is a question about the platform, and only one of those two was going to survive contact with a management response.\n\nThe three brownouts were on the desk in front of you. Reaching past specific evidence of the thing going wrong for the governance statement about it is how an audit produces a finding that everybody agrees with and nothing changes."
+        }
+      ]
+    },
+    "the-drift": {
+      "situation": "Six weeks later the commercial director asks to see you.\n\nThe promoter behind the 14 August stadium on-sale has written asking for a technical explanation of that morning. Their next three tours are out to tender. She has been told by IT that availability that day was 100% and that the platform scales automatically, and she is about to put that in writing.\n\nShe wants to know whether it is true.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Go back to the three incident records and lay them against the on-sale calendar before you answer her.",
+          "quality": "best",
+          "next": "the-timeline",
+          "consequence": "All three brownouts began within six minutes of a scheduled on-sale, and they were the three largest on-sales of the period by expected concurrency: 214,000, 240,000 and 268,000. The fourth largest, 96,000 on 7 July, passed without incident.",
+          "why": "She has handed you a date, a customer consequence and a reason to move, which is considerably more than you had six weeks ago. Taking that back to the operational record rather than answering from what you were told is the whole move, and it lands on the pattern that was available to you at the start.\n\nWorth sitting with: the trigger for looking properly came from the commercial side, not from anything in IT. Every signal inside IT said the three incidents were closed."
+        },
+        {
+          "key": "B",
+          "text": "Tell her the availability figure is accurate. 99.97% over twenty months, no contractual breach.",
+          "quality": "poor",
+          "next": "the-ceiling",
+          "consequence": "She puts it in the reply. The promoter's own engineers respond with client-side timings they captured on the morning: checkout responses averaging twenty-six seconds between 09:03 and 09:41, and a 31% basket abandonment rate against their usual 4%. The letter is copied to her chief executive.",
+          "why": "The figure is accurate, it is the number the organisation reports, it has been through the monthly service review for twenty months, and you did not invent it. Repeating it is the answer that looks conservative.\n\nIt is also a metric passed on as though it were evidence, by one of the few people in the building positioned to ask what it measures. A synthetic check on a health endpoint reports that a process is running; the promoter measured whether a customer could buy a ticket, and those two things diverged for thirty-eight minutes.\n\nThe damage is not only the letter. You have put the company's assurance function behind a number in a commercial dispute, before establishing what the number covers."
+        },
+        {
+          "key": "C",
+          "text": "Suggest her team quantify what the three windows cost commercially.",
+          "quality": "defensible",
+          "next": "the-ceiling",
+          "consequence": "It takes them eleven days. Across the three mornings, 71,000 checkout attempts were abandoned after a wait of more than fifteen seconds, and the 14 August event sold out four hours later than planned against a marketing spend booked around the first hour.",
+          "why": "The right analysis, and it produces the number that will make the finding land at the audit committee. Business impact is genuinely the business's to quantify, so asking them is not a dodge.\n\nWhat it is, is eleven days of their work spent while the platform question stays open, and the autumn calendar keeps arriving. Commissioning the impact study and starting the technical work are not alternatives, and treating them as alternatives is how the impact number turns up beautifully evidenced and four weeks late."
+        },
+        {
+          "key": "D",
+          "text": "Ask IT to show you how the figure for that day is produced, before you tell her anything.",
+          "quality": "defensible",
+          "next": "the-timeline",
+          "consequence": "The service delivery manager walks you through it in an hour: a thirty-second synthetic GET on /health from three regions, returning 200 whenever the process is running. It does not touch the reservation path or the database. He says nobody has asked before, and that he had assumed the promoters wanted uptime.",
+          "why": "You declined to repeat a number you had not tested, which is the instinct that keeps an assurance function worth having, and it lands on something real: the measure cannot observe the service it is named after.\n\nWhat she asked was what happened on 14 August, and you have come back with a statement about a probe. Telling a commercial colleague that the figure she was given does not mean what she thinks, while still unable to say what did happen, leaves her unable to write the letter and with nothing to put in it. The measurement finding and the platform question are both yours, and only one of them answers her."
+        }
+      ]
+    },
+    "the-timeline": {
+      "situation": "Three brownouts, three cause codes, three closures, no problem record.\n\nThe three windows sit on the three largest on-sales of the period by expected concurrency: 214,000, 240,000 and 268,000. The fourth largest, 96,000 on 7 July, ran clean.\n\nThe incident process opens a problem record when three incidents share a cause code inside ninety days. These carry three different cause codes, assigned at closure by three different on-call engineers, none of whom handled more than one of them.",
+      "prompt": "What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ask the incident manager why no problem record was raised.",
+          "quality": "defensible",
+          "next": "the-ceiling",
+          "consequence": "He shows you the correlation query. It groups on cause code and service, over ninety days, threshold three. It has never fired for the booking platform. He also confirms that no cause code has been amended after closure in the two years he has run the process.",
+          "why": "You have found the mechanism by which three instances of one thing stayed three things, and it is a real defect with a real query behind it. The correlation logic keys on the field that is filled in last, under time pressure, by whoever happened to be on call, and nothing ever goes back to correct it.\n\nWhat it gives you is an explanation of why nobody noticed. It is not an explanation of what they failed to notice, and if you stop here the recommendation will be about ticket hygiene."
+        },
+        {
+          "key": "B",
+          "text": "Take one window and establish minute by minute what the platform actually did, from the scaling group's activity history and the database metrics.",
+          "quality": "best",
+          "next": "the-ceiling",
+          "consequence": "14 August. 09:00, the waiting room begins releasing. 09:02, the web tier starts scaling from eight instances. 09:04, it reaches forty and stops. 09:05, database connections stand at 4,780. 09:06, checkout response time goes from 380 milliseconds to twenty-six seconds and stays there for thirty-eight minutes.\n\nThe scaling group never requested a forty-first instance. Web tier CPU across the window averages 34%.",
+          "why": "The incident records are three people's interpretations written at speed; the activity history is what the platform did. Reading one window properly costs an afternoon and produces facts nobody can reinterpret.\n\nTwo numbers carry it, and neither appears anywhere in the closure notes. It stopped at forty — exactly forty, a round number, which is not where a scaling algorithm settles but is where a configured maximum sits. And it stopped with the tier at 34% CPU while checkout took twenty-six seconds, which means those instances were not working but waiting on something further down the path. One number tells you there is a ceiling. The other tells you the ceiling is not the whole story."
+        },
+        {
+          "key": "C",
+          "text": "Recommend the availability measure be re-based on completed transactions rather than a health endpoint.",
+          "quality": "defensible",
+          "next": "the-ceiling",
+          "consequence": "The service delivery manager agrees without argument that the check is shallow. He asks two questions: what number he should be reporting instead, and whether the last twenty months will need restating.",
+          "why": "The correct instinct arriving early, and his second question is why it was early. You have recommended a change to a contractual measure before establishing what the measure would have shown, which means you cannot yet answer the only question anybody will ask about it.\n\nIt is also a recommendation offered in place of a diagnosis. The measure being blind is why nobody saw the brownouts; it is not why the brownouts happened, and those are two findings with different owners."
+        },
+        {
+          "key": "D",
+          "text": "Accept the three closures. Each was raised, diagnosed, actioned and closed inside the response target.",
+          "quality": "poor",
+          "next": "the-ceiling",
+          "consequence": "You record incident handling as effective, supported by response times and closure evidence, and turn to the change management sample. Three weeks later the autumn on-sale calendar is published: nine on-sales above 200,000 expected concurrency, four of them in the same week in October. You are still in the field.",
+          "why": "Every one of those records is a complete, competent piece of incident management, and the response times are genuinely good. That is a statement about how quickly the organisation reacts, which is an activity measure, and it is satisfied identically by three unrelated faults and by one fault occurring three times.\n\nThe tell was there and you had it: three incidents inside four months, on the three biggest mornings of those four months, on a platform that had none in the preceding sixteen. Closure quality cannot see recurrence, because closure is per record and recurrence is a property of the set."
+        }
+      ]
+    },
+    "the-ceiling": {
+      "situation": "It takes an afternoon in the infrastructure repository. The web tier's scaling group has a maximum of forty instances.\n\nThe number was committed nineteen months ago during the migration, with the message \"cap group at 40 pending cost review\". The engineer who wrote it left fourteen months ago. There is no change record and no cost review. Nobody currently on the team knows the line is there.\n\nEvery on-sale above 150,000 expected concurrency in the period has reached forty instances inside five minutes.\n\nSeparately, the cloud account's regional quota for that instance family permits forty-seven of them alongside the rest of production. Quota increases go through the provider's support queue with a stated turnaround of two to three business days.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Recommend the ceiling be raised before the autumn calendar. It is arbitrary, undocumented and demonstrably binding.",
+          "quality": "poor",
+          "next": "the-database",
+          "consequence": "The platform lead agrees on the spot that a number nobody can account for should not be governing the platform, and asks what it ought to be instead. Would 120 cover the October week, or should they go to 200 and stop thinking about it.",
+          "why": "Everything in the finding points this way. The number is undocumented, its author has left, no process authorised it and it binds on every large on-sale. Recommending its removal feels like the only honest thing to do with it.\n\nHis question is the reason to wait. You do not know what the platform can carry, so you have no basis for any number, and the tier that stops at forty is one component of a path with several. Prescribing a limit before diagnosing what the limit is protecting is the move that looks most decisive and carries the most risk, because unlike most audit recommendations this one changes the behaviour of a production system under load."
+        },
+        {
+          "key": "B",
+          "text": "Establish what happens to the rest of the reservation path when the web tier is at forty instances.",
+          "quality": "best",
+          "next": "the-database",
+          "consequence": "The database engineer pulls the connection graph without being asked twice. Each web instance holds a pool of 120 connections. Forty instances is 4,800 against a configured limit of 5,000. She has raised a ticket asking for the pool size to be reviewed twice since March; both are open.",
+          "why": "A ceiling is only interesting in relation to what sits behind it, and the question of what forty instances does to everything downstream is the one nobody asked when the forty was written and nobody has asked since.\n\nIt also matters that you asked before recommending. The web tier stopping at forty is a fact about the web tier; whether that is a constraint to remove or a constraint that is holding something else together is a different question, and the answer here is not the one the finding was pointing at."
+        },
+        {
+          "key": "C",
+          "text": "Ask who owns the ceiling and what process would have changed it.",
+          "quality": "defensible",
+          "next": "the-database",
+          "consequence": "Nobody owns it. Infrastructure code goes through pull request review; both reviewers on that commit have left; the current team treat the file as inherited configuration. The lead says he would have raised the number months ago had he known it existed.",
+          "why": "The ownership question is the general form of the finding and you will need it in the report, because a limit nobody owns is a limit nobody reviews, and that is the sentence the whole case comes down to.\n\nAsked at this point it produces a governance answer to an operational question. You still do not know whether forty is too low, and \"he would have raised it had he known\" is precisely the reflex you are about to discover is dangerous."
+        },
+        {
+          "key": "D",
+          "text": "Ask the cloud provider's account team for the full quota position on the account.",
+          "quality": "defensible",
+          "next": "the-database",
+          "consequence": "They return it the same day: sixty-one service limits, nine of them above 80% utilisation, including load balancer rules and concurrent connections per gateway. Nobody at the company has opened that console since the account was created.",
+          "why": "Genuinely valuable and it generalises the finding in one move. Every one of those sixty-one is a hard ceiling that nobody set, nobody reviews and nobody monitors — the class of constraint the migration introduced and the disbanded capacity function used to be the analogue of.\n\nWhat it does not do is tell you which of them is about to matter. Sixty-one limits with no demand figure to compare them against is an inventory, and an inventory that cannot be ranked will be handed back with a request to prioritise it."
+        }
+      ]
+    },
+    "the-database": {
+      "situation": "The reservation path writes to a single relational primary. Three read replicas serve browse and search; every seat hold, every basket and every payment write goes to the one instance. It is already the largest size in its family, and the next step up is a different family requiring a version upgrade and a maintenance window.\n\nIts connection limit is 5,000. Forty web instances at a pool of 120 is 4,800.\n\nNobody has ever set those two numbers down next to each other.",
+      "prompt": "How do you establish what this platform can actually carry?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Build the constraint set for the whole reservation path: every limit on it, its value, its owner, and whether it has ever been measured against demand.",
+          "quality": "best",
+          "next": "the-number",
+          "consequence": "Five limits. Scaling group maximum, forty, no owner, never reviewed. Account quota, forty-seven instances' worth, no owner, never opened. Database connections, 5,000, running at 96% at peak, owned by the database engineer, raised twice. Payment gateway contracted request rate, 900 per second, agreed in 2021 against a business half this size, never tested against an on-sale. Waiting room release rate, 4,000 per minute, set per event by the on-sale manager from experience.\n\nThree of the five sit below what the October calendar implies. Two of the five, nobody in the room could name without looking.",
+          "why": "The defect was never the forty. It is that the platform's capacity is the minimum of a set of fixed limits, and no artefact anywhere in the company lists that set — so each limit is discovered when it binds, by an incident, and closed as the cause of that incident.\n\nWriting the set down is cheap and it reframes everything. It shows that the payment gateway and the waiting room are the same finding as the scaling group, which means the recommendation can be about how limits are held rather than about which limits to change. And it produces the comparison nobody has ever made: the constraints on one side, a demand figure the business publishes six weeks ahead on the other."
+        },
+        {
+          "key": "B",
+          "text": "Quantify the database headroom precisely. How far past forty instances can it go.",
+          "quality": "defensible",
+          "next": "the-number",
+          "consequence": "The database engineer models it in an afternoon. At the current pool size, forty-one instances is the practical ceiling. A connection proxy would cut the per-instance pool to forty and roughly triple that. The vertical step needs a version upgrade and a two-hour window, and buys perhaps 35%.",
+          "why": "A real number for the component that binds hardest, produced by the person who knows it best, and it is the number that stops the ceiling being raised into an outage. Nothing here is wasted.\n\nIt is one component. The reason this case exists is that the platform's capacity is set by whichever limit binds first, and measuring the one you have found tells you nothing about the payment gateway's contracted rate or the release rate the waiting room is configured to. Precision on one constraint reads as thoroughness and leaves the shape of the problem exactly as it was."
+        },
+        {
+          "key": "C",
+          "text": "Ask ticketing operations what governs the waiting room's release rate.",
+          "quality": "defensible",
+          "next": "the-number",
+          "consequence": "The on-sale manager sets it per event, by judgement, from how previous events of similar size behaved. There is no reference to any platform figure and nobody in engineering has ever given her one. She is surprised to hear the platform has a ceiling at all, and says she would have set the rate differently for August had anyone told her.",
+          "why": "You have found the admission control that already exists, in the hands of someone who did not know she was operating one, and her reaction is the finding said out loud by the business. The rate at which demand is allowed into the platform is being set by experience, and the capacity it is being let into is a number nobody holds.\n\nAs a next step it goes wide before the middle is established. You now know one more limit is unowned, which strengthens the pattern, and you still cannot say what the platform carries — so when she asks you what the rate should be, and she will, you have nothing to give her."
+        },
+        {
+          "key": "D",
+          "text": "Recommend the reservation path be re-architected so writes scale horizontally.",
+          "quality": "poor",
+          "next": "the-number",
+          "consequence": "The platform lead takes it seriously and comes back with a sizing: sharding the reservation path is an eighteen-month programme, needs a business case nobody has written, and would be the largest engineering commitment since the migration. The October calendar is six weeks away.",
+          "why": "The single writer genuinely is the structural limit, and in the long run something will have to be done about it, so this is not wrong about the architecture.\n\nIt is wrong about what an audit finding is for. You have converted a live exposure with a date attached into a programme with no sponsor, and everything between now and the eighteen months is unaddressed. It is also design advice rather than a control requirement: you have told them what to build, on a question where they know more than you, and the effect is that the recommendation is discussed rather than actioned."
+        }
+      ]
+    },
+    "the-number": {
+      "situation": "The service delivery manager brings you the availability pack himself.\n\nThe measure is a thirty-second synthetic GET on /health from three regions. It returns 200 whenever the process is running and does not touch the reservation path or the database. Reported availability since migration: 99.97%.\n\nThe three promoter agreements define availability differently: the booking service, during published on-sale windows, measured from the customer's side. Measured that way, the eighty-two lost minutes fall in 4,920 minutes of on-sale window and the period comes out at 98.3%. The floor is 99.9%, with service credits below it.\n\nHe is not defensive. He will fix the probe. He asks whether your report can describe the measurement as an improvement to make going forward, rather than as a misstatement of what has been reported — because restating twenty months triggers credit claims on three contracts, and the largest of the three is already out to tender. Nobody, he points out, was ever told the check was shallow.",
+      "prompt": "How do you handle it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Agree to the forward-looking framing. The fix is what matters, and whether to restate is a commercial decision, not an audit one.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "consequence": "He is relieved and says so. The finding is drafted as a recommendation to strengthen availability measurement. The pack for the period goes to the audit committee and to the three promoters unchanged, and the probe is rewritten within the month.",
+          "taint": "endorsed-the-number",
+          "why": "Nothing about this feels like suppression, which is exactly why it works. He volunteered the defect, he is fixing it, the restatement really is a commercial decision, and the wording he is asking for is a wording you could defend in isolation.\n\nWhat you agreed to is that a figure you know does not measure the service will continue to be reported to the three customers who rely on it, described as a thing to improve rather than a thing that is wrong. The framing is not a presentational detail here: it is the only route by which the people who own those contracts would learn there is a decision to take. Calling it a commercial decision while agreeing to language that keeps it off their desk is the part that cannot be walked back.\n\nAnd the trade was offered because it was worth something. Anything worth trading for is worth reporting."
+        },
+        {
+          "key": "B",
+          "text": "Report both: the measure does not observe the service it claims to measure, and the figures reported for the period are therefore unsupported. Put the restatement decision, with the numbers, in front of whoever owns the promoter contracts.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "The commercial director hears it for the first time and is markedly less exercised about the credits than about the tender. The service delivery manager reissues the period alongside a reservation-path measure; two of the three contracts fall below floor. He tells you afterwards he had expected worse.",
+          "why": "Two separable things and both have to be said. The measure is defective going forward, and the numbers already reported on the strength of it are not supported — the second does not follow automatically from the first in anyone's mind unless you write it down.\n\nRouting the restatement to the contract owner rather than deciding it is the part that keeps you in your lane. Whether to restate, when, and what to tell the promoters is genuinely a commercial judgement, and it is theirs. Your obligation is that they get to make it knowing what you know, which is the difference between deferring to management and letting management's preference decide what gets reported."
+        },
+        {
+          "key": "C",
+          "text": "Report the measurement defect and state that the reported figures for the period cannot be relied upon, without quantifying the shortfall.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Accepted without argument and recorded in those terms. The commercial team asks what the real figure was; you tell them the raw data exists and the computation is theirs. Six weeks later nobody has run it.",
+          "why": "Correct as far as it goes, and it discharges the honesty of the thing. You have said the numbers are unsupported and you have not softened it.\n\nThe cost is that an unquantified statement is easy to agree with and easy to leave. You already had eighty-two minutes, 4,920 window minutes and a contractual definition; the number was one line of arithmetic away, and a finding that arrives with 98.3% attached forces a decision, while one that says the figures cannot be relied upon invites an action owner and a date."
+        },
+        {
+          "key": "D",
+          "text": "Report it as a monitoring gap. Recommend the synthetic checks exercise the reservation path end to end.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "Accepted immediately and implemented in three weeks. The checks now place and cancel a seat hold every sixty seconds from each region, and the first week's data shows two dips nobody had seen. The pack for the period goes out unremarked.",
+          "why": "A real control, cheaply built, and it will catch the next one — an end-to-end probe on the transaction that matters is the right answer to the question of what to monitor.\n\nIt answers what to build in place of saying what was wrong, and the twenty months of reported figures pass without comment. That is a different failure from agreeing to a framing you know misstates them; here nobody asked you to keep quiet and nobody traded anything. But the effect on the pack going to three promoters is the same, and the reason it happened is that fixing the probe is more satisfying than restating a number."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "Clearance. The head of platform engineering has disputed nothing and makes a fair point.\n\n\"We moved to cloud so we would not have to do this. And it did scale. It went from eight instances to forty in four minutes, which is more than the old estate managed in a quarter. The scaling worked, the incidents were handled, the monitoring reported what it was built to report. I am not being difficult. I want to know what the finding is called.\"",
+      "prompt": "What do you tell him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the scaling ceiling is arbitrary and must be raised, along with the account quota, before the October calendar.",
+          "quality": "poor",
+          "next": "end-uncapped",
+          "consequence": "Agreed in the room and done inside a fortnight. The scaling group's maximum goes to 120 and the provider lifts the account quota to 400 instances. The change goes through the change board with a named sponsor and a recorded owner.",
+          "why": "The reasoning is sound at every step. The number was undocumented, its author has left, nothing authorised it, and it bound on all three brownouts. Every instinct that told you to remove it was trained by cases where the finding is exactly that.\n\nWhat the evidence in front of you also said is that forty web instances is 4,800 connections against a limit of 5,000, and that the ceiling nobody remembers setting is the only reason the three events were brownouts instead of outages. Diagnosis is not a stage you finish; it is what tells you which direction a limit should move. This recommendation is the finding — nobody knows where the limits are — carried out rather than reported."
+        },
+        {
+          "key": "B",
+          "text": "That the platform's capacity is the minimum of five fixed limits, none of them owned, three of them never measured, and none of them ever compared against a demand figure the business publishes six weeks in advance — and that elasticity moved where the ceiling sits without removing anyone's need to know where it is.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He works through it and then asks how many of the sixty-one account limits he ought to be able to name. The autumn calendar goes onto the platform engineering standing agenda that week, and the on-sale manager is invited.",
+          "why": "It concedes everything he is right about. The scaling did work, the incidents were handled properly, the monitoring reported what it was built to report, and nobody made a mistake — and what is left after all of those concessions is a platform whose capacity is a number no one in the company can state, against a demand figure the company has known for six weeks.\n\nThe second half is what makes it a finding about the migration rather than about a config line. Elasticity removed the failure mode where you run out of machines and replaced it with a set of hard limits that are invisible until they bind, which is a harder problem than the one capacity management used to solve, and it was the reason given for disbanding the function that would have solved it. His question back is the sign it landed: he has stopped thinking about forty."
+        },
+        {
+          "key": "C",
+          "text": "That the three brownouts were one problem the incident process could not see, because correlation keys on a cause code assigned at closure. Recommend problem management be strengthened.",
+          "quality": "poor",
+          "next": "end-process",
+          "consequence": "Accepted readily. Correlation is rebuilt to group on affected service and time proximity as well as cause code, the three incidents are merged retrospectively into a problem record, and the on-call population is retrained on cause coding.",
+          "why": "It is true, the correlation logic really is broken, and rebuilding it is worth doing — of everything you could have said in that room, this is the one that is hardest to argue with.\n\nIt is a recommendation about how the organisation notices, delivered by someone who has already noticed. You know the ceiling is forty, you know the connection limit is 5,000, you know three of five limits sit below the October demand, and none of that is in the recommendation. Better correlation would have surfaced this in June instead of August; it does not raise a limit, name an owner, or put a demand figure in front of anyone. The mechanism that produced three brownouts is unowned capacity, and problem management is the smoke alarm rather than the wiring."
+        },
+        {
+          "key": "D",
+          "text": "That the waiting room's release rate be set from the measured capacity of the reservation path, so demand entering the platform cannot exceed what it can carry.",
+          "quality": "defensible",
+          "next": "end-limits",
+          "consequence": "Agreed, and the on-sale manager is glad to have a number for the first time. The reservation path is measured at 3,100 concurrent holds, the release rate is derived from it, and the October week runs with a queue rather than a brownout.",
+          "why": "Real admission control, aimed at the binding constraint, delivered in time for the calendar that was coming. It is the single most effective thing available in six weeks and the platform stops falling over.\n\nWhat it does is make the constraint safe without making it visible. The scaling maximum is still forty, the quota still forty-seven, the payment gateway's contracted rate is still untested, and the number the release rate is derived from will age quietly as the estate changes. It also moves the cost from an outage the company can see to a queue the customer experiences, which is a better outcome and a quieter one — nobody will raise an incident about a queue, so nothing will prompt anyone to ask whether the constraint is where the business needs it to be."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "The minimum of five numbers",
+      "verdict": "strong",
+      "narrative": "The constraint register goes live before the autumn calendar: every fixed limit on the reservation path, its value, its owner, the date it was last measured, and the demand figure it was measured against. It runs to eleven entries, not five. Two of the six new ones come from the sixty-one account quotas nobody had opened.\n\nThe on-sale calendar becomes a standing input to platform engineering. The largest published concurrency figure in the next six weeks is the sizing target, and the change board will not pass a platform change without it.\n\nThe scaling maximum is raised to ninety, after the connection proxy cuts the per-instance pool to forty and after the quota is lifted in advance rather than during. The payment gateway's contracted rate turns out to bind at 62% of the October peak; it is renegotiated in three weeks, having sat unexamined since 2021.\n\nThe availability measure is re-based on completed checkouts and the period is reissued on that basis, at a cost of credits on two contracts. The promoter that went to tender stays, and says the restatement is the reason.\n\nThe October week runs nine on-sales, four above 200,000, with no incident.",
+      "why": "Nobody in this case did anything wrong. An engineer wrote a sensible cost guardrail during a migration and left. Three on-call engineers diagnosed three incidents correctly on the evidence in front of each of them. A monitoring check reported honestly what it was built to check. A business case argued that elastic infrastructure removes the need for capacity planning, and it was half right.\n\nThe half it got wrong is the whole finding. Elasticity removes the failure mode where demand exceeds the machines you bought and replaces it with a set of fixed limits — scaling maxima, account quotas, connection ceilings, contracted request rates — that are invisible until they bind, and that bind instantly and completely rather than degrading. That is a harder capacity problem than the one that was being solved, not an easier one, and the discipline it needs is the same discipline: know the demand, know the limits, know the gap, and have somebody own it.\n\nThree things made it undiscoverable from inside. The limits lived in five different places with no owner between them, so each was found by the incident that hit it and closed as the cause of that incident. The correlation rule keyed on a field filled in at closure, so recurrence never registered. And the availability measure observed a health endpoint rather than the service, so the customer-facing consequence never entered any report — which is why the first person to see the whole thing was a promoter with their own timings.\n\nWhat generalises: when a platform scales automatically, ask what it stops at and who chose that number. And when a capacity function is closed on the grounds that the technology handles it, the question is never whether the technology scales — it is which limit binds first, and who is watching it."
+    },
+    "end-limits": {
+      "title": "A queue instead of a brownout",
+      "verdict": "acceptable",
+      "narrative": "Admission control lands and it works. The reservation path is measured, the waiting room's release rate is derived from it, and the October week runs nine on-sales without a single brownout. The 3 October arena tour takes three hours and forty minutes to sell out where it would once have taken forty, and nobody raises an incident about it, because it is not one.\n\nThe scaling group's maximum is still forty. The account quota is still forty-seven. The payment gateway's contracted rate has still never been tested against an on-sale.\n\nIn the spring the company moves to a new payment provider with a lower burst allowance, negotiated by procurement against price. The reservation path's measured capacity is not in the tender pack, because it is not written anywhere a procurement team would look.",
+      "why": "The work was sound and it protected the calendar that was coming, which was the urgent thing. Throttling demand to the measured constraint is a genuine control and often the right one.\n\nWhat it did not do is make the constraint visible. The platform's capacity is still the minimum of a set of limits nobody has written down; the difference now is that the set is enforced at the door rather than discovered by an outage. That is a better failure mode and a quieter one, and quiet is the problem. An outage summons a post-incident review. A queue summons nothing, however long it gets, and nothing about it tells procurement that the next payment contract has a capacity figure attached to it.\n\nThe test of a capacity finding is not whether the platform stops falling over. It is whether anybody can now say what the platform carries, who owns that number, and what happens to it when a supplier changes."
+    },
+    "end-uncapped": {
+      "title": "One hundred and eighteen instances",
+      "verdict": "weak",
+      "narrative": "3 October, arena tour, 310,000 expected concurrency.\n\n09:00, the waiting room begins releasing. 09:02, the scaling group starts from eight. 09:03, it passes forty for the first time in the platform's history. 09:04, at forty-two instances, database connections reach 5,000 and the primary begins refusing them.\n\nEvery instance launched after that comes up unable to fill a pool and returns errors on everything it is handed. The scaling group reads the error rate and the queue depth as load and keeps adding capacity. By 09:11 there are a hundred and eighteen instances, all of them passing the load balancer's health check, none of them able to place a seat hold. The reservation service loses its own connections on a routine recycle at 09:19 and cannot get them back.\n\nThe waiting room keeps releasing into it. The on-sale is stopped manually at 09:55.\n\nFifty-one minutes, the company's first full outage in three years, on its largest on-sale of the year. The post-incident review identifies the change that raised the maximum, and the audit report recommending it is attached as the change's justification.\n\nThe finding was right about everything except which way the number should move.",
+      "why": "The reasoning that got here is good reasoning, which is what makes it worth carrying. An undocumented limit, set by someone who has left, authorised by nothing, binding on every large on-sale, is a genuine finding and its removal is the obvious remedy.\n\nThe evidence for why not was in your hands: forty instances is 4,800 connections against a limit of 5,000, so the forty-second instance is the one that breaks it, and the single writer does not scale horizontally at all. The ceiling nobody remembered setting was, by accident, the only thing converting an outage into a brownout. Removing a constraint before establishing what it protects is the same error as accepting one because it has always been there — both skip the step where you find out what the number is doing.\n\nThere is a second thing here that is easy to miss. The finding was that nobody knows where this platform's limits are. Raising one of them, quickly, on your recommendation, is that finding being demonstrated rather than reported — and an auditor whose recommendation caused the outage has spent the standing that would have carried the rest of the report."
+    },
+    "end-process": {
+      "title": "One problem, three cause codes",
+      "verdict": "weak",
+      "narrative": "The correlation rule is rebuilt properly and the retraining is well received. The three incidents merge retrospectively into a problem record, and the incident manager tells the audit committee it is the most useful change to the process in two years.\n\nThe scaling maximum is still forty. The quota is still forty-seven. The database still has one writer at 96% of its connection limit, and the on-sale calendar still does not reach anyone who sizes anything.\n\nThe October week produces two more brownouts, on 3 and 6 October. They correlate within the hour and open a problem record automatically, which is exactly what the new rule was built to do. The problem investigation reaches the scaling ceiling in nine days.\n\nYou reached it in August.",
+      "why": "The correlation defect was real and the fix was well executed, and there is a version of this case where it is the finding. It is not this one, and the reason is worth being precise about.\n\nProblem management is how an organisation notices that incidents share a cause. You had already noticed. Recommending a better detection mechanism when you are holding the thing it would have detected converts a live exposure into a process improvement, and process improvements are accepted quickly and warmly because they cost nothing anyone is defending.\n\nThe distinction to keep is between the mechanism that produced the failures and the mechanism that failed to spot them. Unowned, unmeasured, uncompared capacity limits produced three brownouts; cause-code correlation is why they were closed three times. Fixing the second means the fourth and fifth brownouts are correlated promptly, which is a real improvement in the speed of finding out, and the platform is exactly as able to carry an on-sale as it was in April."
+    },
+    "end-the-number": {
+      "title": "Ninety-nine point nine seven",
+      "verdict": "failed",
+      "narrative": "The probe is rewritten inside the month, exactly as he promised. The report records a recommendation to strengthen availability measurement, and the pack for the period goes to the audit committee and to the three promoters unchanged.\n\nIn November the promoter that went to tender runs technical due diligence and asks for on-sale-window availability evidence. The company supplies the pack. The promoter's engineers put their own client-side timings from the three mornings alongside it, and the difference is not a rounding matter — 99.97% against thirty-eight minutes of failed checkouts on a morning the pack records as fully available.\n\nThe question goes to their legal team, then to the company's, and then to internal audit's file. The file shows that you established the check did not exercise the reservation path, that you did not compute what the contractual measure would have produced, and that the wording was agreed at the service delivery manager's request for the reason he gave.\n\nCredits are paid on two contracts. The tender is lost. The engagement's other findings, every one of which was right, are read in the light of that file.",
+      "why": "The intent was reasonable and the reasoning was almost sound. He disclosed it himself, he fixed it immediately, and whether to restate twenty months of a contractual metric genuinely is a commercial decision that belongs to the business rather than to you.\n\nThe move that cannot be walked back is smaller than it looked. You did not decide the restatement — you agreed to language that kept the decision from reaching the people entitled to make it. Once the report describes a known misstatement as an improvement opportunity, nobody downstream has any reason to ask a question, and the commercial director learns about it from a promoter's lawyer instead of from you. Deferring a decision to its proper owner and agreeing to wording that hides it from that owner are opposite acts that feel identical in the room.\n\nThe tell was in the offer. He was asking for a framing because the framing was worth something — service credits on three contracts and a tender in progress — and a wording that is worth money to the party being audited is a wording the audit cannot supply. That is the whole test, and it is available before you know anything about who is right.\n\nWhat makes this unrecoverable rather than merely poor is where it lands. Nothing else in the engagement is protected from it. The finding on the scaling ceiling was correct, the constraint set was excellent work, and all of it is now filed behind a decision about a number, which is the only part anyone will remember."
+    }
+  }
+}

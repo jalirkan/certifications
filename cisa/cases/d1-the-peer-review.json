@@ -1,0 +1,310 @@
+{
+  "id": "d1-the-peer-review",
+  "title": "The Peer Review",
+  "domain": "1",
+  "section": "B",
+  "topics": [
+    "Quality Assurance and Improvement of Audit Process",
+    "IS Audit Standards, Guidelines, and Codes of Ethics",
+    "Audit Testing and Sampling Methodology",
+    "Audit Evidence Collection Techniques",
+    "Reporting and Communication Techniques"
+  ],
+  "principles": [
+    "evidence-quality",
+    "independent-population",
+    "segregation",
+    "understand-before-acting",
+    "accountability-stays",
+    "explicit-and-owned"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this study system. Not adapted from ISACA materials, the QAE, or any prep-course content.",
+  "opening": "A regional water utility. Nineteen hundred staff, an economic regulator, and an internal audit function of eleven people plus a co-source contract with an external firm for peak capacity.\n\nThe head of internal audit has been on secondment to the regulator since February and returns in January. The audit manager acting in her place has held the chair since. You are the next most senior auditor in the function, and you were on none of the engagements closed this year.\n\nYou have been asked to perform this year's internal quality review: three of the fourteen engagements closed in the year, read against the standards the function says it works to. It is the ongoing monitoring part of the quality assurance and improvement programme, and the five-yearly external assessment is due next spring.\n\nThe second file you open is Payment Authorisation and Release. The report is dated 27 March. It went to the April audit committee with a substantial assurance conclusion — controls over the authorisation and release of payments operated effectively throughout the year.\n\nIt is August. Management closed both agreed actions last month.",
+  "taints": {
+    "repapered": "end-repapered"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Two things in the file do not sit right.\n\nThe sample of 40 payment batches was drawn from a spreadsheet exported by the accounts payable team — 1,247 batches for the year. Nothing records that anyone established the export was complete, and no workpaper reconciles it to anything.\n\nAnd workpaper PA-07, the only test covering manual and off-cycle payments, carries the same initials in the prepared-by and reviewed-by boxes: the co-source senior, the most experienced person on the engagement. Twelve items, no exceptions, and the twelve came from a list emailed by the accounts payable supervisor.\n\nThe engagement was managed by the acting head of internal audit.",
+      "prompt": "It is Tuesday morning. What do you do first?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Read the report's conclusion against what the file actually supports, and establish where that conclusion has already been used.",
+          "quality": "best",
+          "next": "the-reliance",
+          "consequence": "You spend the day on both. The conclusion says the controls operated effectively throughout the year; the file supports two authorisers on 40 scheduled batches drawn from a list nobody reconciled. By late afternoon you have the April committee minutes, the annual opinion to the board, and the external auditor's interim planning memo on the desk.",
+          "why": "A quality finding about how an engagement was performed can wait for the annual report. One about a conclusion already issued and in use cannot, and the only way to know which you are holding is to ask both questions at once. What does the file support, and who is standing on it.\n\nEither alone produces the wrong response. The first gives you an accurate observation with no urgency attached; the second gives you urgency with nothing to say. Neither question takes long, and asking them on Tuesday is the difference between a finding with a clock on it and one without."
+        },
+        {
+          "key": "B",
+          "text": "Raise it with the acting head. He managed the engagement and will know what the file was meant to contain.",
+          "quality": "defensible",
+          "next": "the-acting-head",
+          "consequence": "You put it to him on Tuesday afternoon. He is not defensive. He asks you to keep it out of the quality file until he has read the papers himself, and says he will come back to you on Friday.",
+          "why": "The normal channel, and a reasonable first move — the manager knows things a file does not record, and going to him before writing anything is ordinary professional courtesy.\n\nWhat it overlooks is that you have handed the response timetable to the person whose work is in question. He is acting head because the head is on secondment, so inside internal audit there is nobody above him to hold the other end of it. The quality programme exists precisely so the assessment of an engagement does not depend on the goodwill of whoever ran it, and three days is his to spend, not yours."
+        },
+        {
+          "key": "C",
+          "text": "Pull the other two engagements the same team closed this year and see whether the pattern repeats before acting on this one.",
+          "quality": "defensible",
+          "next": "the-reliance",
+          "consequence": "Four days. One file has its population reconciled properly. The other has the same co-source senior in both signature boxes on three workpapers. It is now the following Tuesday.",
+          "why": "The pattern question is real, and you will need the answer for the quality report — a defect that recurs across a team is a different recommendation from one that does not.\n\nIt is the second question. A defect in a conclusion already relied upon has a clock on it that a pattern does not, and the week spent proving the problem is systemic is a week the reliance runs. You can establish the pattern after you know whether anything has to be said this month."
+        },
+        {
+          "key": "D",
+          "text": "Log both as quality observations against the engagement and carry on with the rest of your sample. The quality report goes to the committee in December.",
+          "quality": "poor",
+          "next": "the-reliance",
+          "consequence": "You write them up and move to the third file. Three weeks later the external auditor's interim memo reaches you in routine circulation, recording planned reliance on internal audit's payments testing.",
+          "why": "This is what the quality programme normally does, and normally it is right. Process findings aggregate, and nothing turns on any one of them arriving in August rather than December.\n\nThe exception is a defect that undermines a conclusion still in use. Then it is not an observation about how an audit was performed; it is a question about whether something the committee was told is true. Filing that as an observation does not make it one — it just means the question is asked four months later by someone else."
+        }
+      ]
+    },
+    "the-acting-head": {
+      "situation": "Friday. He has read PA-07 and the sampling workpaper.\n\nHe agrees the sampling paper is thin. On the review signature he explains that the co-source senior was the most experienced person on the job, that he himself reviewed the summary memo and the closing meeting deck, and that the initials in the reviewed-by box are an administrative oversight rather than an absence of supervision.\n\nWhat he proposes: the senior documents the basis for the population now, the review signature is recorded as an administrative point, and the quality review reports the engagement as conforming with one minor observation.",
+      "prompt": "It is the answer most managers would give. What do you do with it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Decline the characterisation, and establish this week what the conclusion actually rests on and who has already acted on it.",
+          "quality": "best",
+          "next": "the-reliance",
+          "consequence": "He does not obstruct it. He makes one point in return: that you are treating a paperwork gap as though the conclusion were wrong, and that you do not yet know it is. On Monday you start on the committee papers and the finance director's assurance map.",
+          "why": "His account may well be true, and it cannot do the work he needs it to do. Supervision that leaves no record cannot be demonstrated to anyone outside the room, and reviewing the summary memo is a statement about the summary — not about the twelve items, their source, or what they covered. He is also right that you do not know the conclusion is wrong, which is a reason to go and find out rather than a reason to write a minor observation.\n\nThe part worth noticing is what his proposal does to the file. Documenting the basis for the population now, five months after the report date, is the same act as any other retrospective completion, however innocently it is offered."
+        },
+        {
+          "key": "B",
+          "text": "Ask him to take it to the audit committee chair himself, by the end of next week, as the manager of the engagement and acting head of the function.",
+          "quality": "defensible",
+          "next": "the-reliance",
+          "consequence": "He agrees without hesitation. What reaches the chair ten days later is a note describing a documentation weakness identified by the quality programme and a plan to strengthen sampling guidance. The conclusion is not mentioned.",
+          "why": "Right that the response belongs to the function's leadership rather than to you, and the wrong week to apply it. Asking a manager to characterise his own defect to the chair puts him somewhere nobody handles well, and the note that arrives is not dishonest — it is what the defect honestly looks like from inside the engagement.\n\nEscalating through the accountable person is the norm and should stay the norm. It stops working at exactly one point: when the accountable person is the subject. That is the situation a quality programme exists for, and it is the situation you are in."
+        },
+        {
+          "key": "C",
+          "text": "Accept the administrative characterisation for now and revisit it once you have finished the other two files.",
+          "quality": "poor",
+          "next": "the-reliance",
+          "consequence": "You move on to the third file. Nine days later he forwards you a new sampling workpaper for the payments engagement, prepared by the co-source senior this week, and asks whether the quality file wants a copy.",
+          "why": "A plausible reading — most mismatched signature boxes really are administrative, and treating every one as a scandal would make you useless.\n\nThe difficulty is that you settled the question on the account of the person who benefits from it being settled, before looking at anything he could be wrong about. Nine days is nothing in a quality review and a long time when what you have not looked at is who is currently acting on the conclusion — and when the file has started moving in the interval."
+        }
+      ]
+    },
+    "the-reliance": {
+      "situation": "The conclusion turns up in four places.\n\nThe April committee minutes record it, and record the committee removing payment authorisation from its areas of focus for the year.\n\nThe head of internal audit's annual opinion to the board, issued in May, cites the engagement among the sources supporting an unqualified view of the financial control environment.\n\nThe external auditor's interim memo, June, records planned reliance on internal audit's payments testing and a corresponding reduction in their own substantive work over the payments cycle. Their year-end fieldwork begins in October.\n\nThe finance director's assurance map cites it. Both agreed actions are closed.",
+      "prompt": "The file does not support the conclusion. Whether the conclusion is wrong is a different question, and you cannot yet answer it. What do you do about that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Perform one targeted procedure yourself: reconcile the population the audit sampled from to treasury's payment transmission log. Nothing beyond that.",
+          "quality": "best",
+          "next": "the-reconciliation",
+          "consequence": "Treasury sends the log the next morning. Two days later you have the comparison, and it does not match.",
+          "why": "The committee needs the difference between a conclusion that is unsupported and a conclusion that is wrong, and no amount of conformance review supplies it — only evidence about the population does. One reconciliation against a record held outside accounts payable is the cheapest procedure that separates the two, and it is finished before anyone has to act on the answer.\n\nThe restraint matters as much as the procedure. You are establishing whether the file's defects are consequential, not testing payments. The line is between sizing a defect and re-performing an audit, and the moment quality assurance crosses it the work becomes something people will quote as an audit without a scope anyone agreed."
+        },
+        {
+          "key": "B",
+          "text": "Report it as it stands — the conclusion is unsupported. Quality assurance assesses conformance with the standards, not the subject matter, and re-performing the testing is not your role.",
+          "quality": "defensible",
+          "next": "the-reconciliation",
+          "consequence": "You draft the finding on that basis. The first question back, from the acting head and then from the chair's office, is whether the payments were actually authorised. Nobody can answer it. Two weeks later the acting head asks treasury for the transmission log himself, and the comparison comes to you.",
+          "why": "The rule is correct in general and it is doing too much work here. Quality assurance reviews how engagements are conducted, and stepping into the subject matter as a habit would make you the second auditor of everything.\n\nBut a conformance finding on its own hands a committee a technical problem and no way to size it, and the first question it provokes is one you chose not to answer. The two weeks somebody else took to answer it were two weeks in which nobody could decide anything — including the external auditor, whose deadline was not moving."
+        },
+        {
+          "key": "C",
+          "text": "Propose a full re-performance of the engagement by a team independent of the original, and hold the quality finding until it reports.",
+          "quality": "poor",
+          "next": "the-reconciliation",
+          "consequence": "The acting head agrees to put it to the committee. Scoping and resourcing take three weeks and the work is booked to start in October, after the external auditor's fieldwork opens. Its first procedure is the population reconciliation, and the numbers reach you then.",
+          "why": "Wanting to hand a committee a finished answer rather than an alarm is the instinct of a careful reviewer, and re-performance is where a conclusion in this state may well end up.\n\nHolding the finding until it reports is what does the damage. What triggers notification is not the re-test; it is knowing the file never supported the sentence, and you knew that in August. Re-performance takes weeks to stand up and reports in October — every one of those weeks is spent by people who think the payments question is closed, and the external auditor's plan is fixed before your re-test performs its first procedure."
+        },
+        {
+          "key": "D",
+          "text": "Ask the accounts payable team how the payment population report is generated and what it includes.",
+          "quality": "poor",
+          "next": "the-reconciliation",
+          "consequence": "A two-page note comes back the next day. The report covers scheduled batch runs raised in the payments module; manual payments made directly through the banking portal are not in it. By Friday the finance director's office has asked the acting head why quality assurance is re-opening the payments audit.",
+          "why": "Fast, and it tells you the shape of the problem, which is what inquiry is for. What it cannot do is establish the size of the gap, because the answer comes from the team whose list is the thing in doubt — the same source the engagement relied on, asked a second time and believed on the same basis.\n\nThe other cost is who you asked. Accounts payable is not the subject of your review; internal audit is. You have gone outside the engagement under review to discuss a defect in a conclusion the audit committee has not yet been told about, and the auditee now knows before the committee does. Sequence is not a courtesy question when the finding concerns a report already issued."
+        }
+      ]
+    },
+    "the-reconciliation": {
+      "situation": "The reconciliation is done. Treasury's transmission log records 1,310 outbound payment instructions for the year. The audit's population was 1,247.\n\nThe 63 missing are manual off-cycle payments made through the banking portal, £2.34m in total. Twenty-one of them are above the £50,000 dual-authorisation threshold, the largest £410,000. The other 42 required one approval and sit outside the control the conclusion turns on.\n\nThey are the payments the control is most exposed on, and the only workpaper that reached them is PA-07. You trace its twelve items to the log: nine are among the 63, and the other three are scheduled batch payments already tested elsewhere. Two of the nine are above the threshold.\n\nSo the coverage of the 63 is nine items chosen by the accounts payable supervisor and reviewed by the person who tested them. The coverage of the 21 that mattered is two.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the engagement's conclusion is not supported: the population excluded the payments the control is most exposed on, and the only test that reached them was neither independently sourced nor independently reviewed.",
+          "quality": "best",
+          "next": "the-offer",
+          "consequence": "You write it in those terms — the conclusion first, the two defects beneath it as the basis. The acting head reads it without comment and asks for a meeting the following morning.",
+          "why": "The finding is about the conclusion, because the conclusion is the thing that left the building. Population completeness and supervisory review are the reasons it cannot stand; they are not the finding.\n\nThe distinction decides what happens next. A report led by the reasons invites a response addressed to the reasons — a reconciliation step added to the methodology, a second signature enforced by the template. Both of those are good, both will be offered, and the sentence the committee acted on stays exactly where it is."
+        },
+        {
+          "key": "B",
+          "text": "Two workpaper deficiencies: the population was not reconciled, and a review signature is missing. Both are correctable.",
+          "quality": "poor",
+          "next": "the-offer",
+          "consequence": "You write it up as documentation. The acting head agrees at once and proposes a file remediation plan with dates.",
+          "why": "Both statements are true, and the speed of the agreement is the warning.\n\nA missing signature is a defect in a file. Nine items chosen by the supervisor of the process under test, reviewed by the person who tested them, covering the only payments outside the sampled population, is the absence of a test. The first can be corrected. The second means the conclusion was never evidenced, and the gap between those two is the difference between a file being tidied and a committee being told."
+        },
+        {
+          "key": "C",
+          "text": "That payments totalling £2.34m were released without dual authorisation.",
+          "quality": "poor",
+          "next": "the-offer",
+          "consequence": "You draft it that way. The treasury manager asks which of the 63 you mean. You cannot name one.",
+          "why": "Right that the untested payments are the serious part, and the sentence asserts two things you have not established. Not one of the 63 has been examined — what you found is that nobody looked, which is harder to say and worse to have to say. And £2.34m is the wrong number regardless: 42 of the 63 were below the threshold and never required a second approval, so the figure sweeps in payments the control does not apply to.\n\nOverstating hands the acting head an accurate correction to make. Once he has made it, the room is discussing the reliability of your finding rather than the standing of his conclusion."
+        },
+        {
+          "key": "D",
+          "text": "Test a sample of the 63 yourself before writing anything, so the finding can say what actually happened.",
+          "quality": "defensible",
+          "next": "the-offer",
+          "consequence": "You test fifteen over four days: twelve below the threshold, three above. All three above-threshold items carry two approvals. The quality report is a week later than it would have been.",
+          "why": "Hard to argue with wanting the answer, and fifteen items do not produce one. Three clean items out of the 21 that matter leaves eighteen untested, and a clean result there is the most misleading outcome available — it reads like reassurance and evidences nothing. The week it cost came out of the external auditor's planning window.\n\nThe subtler cost is that quality assurance has started performing the audit. If the conclusion needs re-testing, it needs re-testing by people who can be held to it, on a scope somebody agreed, with a date of its own. Fifteen items in a quality file is none of that, and it will be quoted as though it were."
+        }
+      ]
+    },
+    "the-offer": {
+      "situation": "The meeting is short and he is not defensive.\n\nHis proposal: the co-source firm redraws the population from the transmission log, tests all 63, and completes the review of PA-07 — at the firm's cost, inside three weeks. The file is brought up to standard. If the testing finds nothing, the March conclusion stands and the quality review records the engagement as conforming after file completion. If it finds something, the committee is told everything at once.\n\nHis argument is not a bad one. Nothing is concealed, the work is done properly, the committee gets a finished answer in September rather than an alarm in August, and it costs the utility nothing.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Accept. It is the fastest route to a complete answer, and a complete answer is what the committee needs.",
+          "quality": "poor",
+          "next": "the-report",
+          "taint": "repapered",
+          "consequence": "The population is redrawn and all 63 are tested against the accounts payable approval log: no exceptions. A co-source manager's initials go into the reviewed-by box of PA-07, and the sampling workpaper is replaced with one containing the transmission log reconciliation. The file is complete on 14 September. Your quality review records the engagement as conforming following file completion, and the March conclusion stands.",
+          "why": "He is right that the work gets done and right that nothing is being hidden, and the file still ends up asserting something untrue. A signature in the reviewed-by box says a review happened. One added in September to a workpaper in a file reported in March says a review happened, and the face of the workpaper does not distinguish the two.\n\nThe dates are the smaller half. Testing performed in September cannot make a conclusion supported in March. At the moment the committee was told the controls operated effectively, the basis for that sentence was 40 batches from a list nobody checked and nine items chosen by the auditee. That stays true whatever the re-test finds — and a re-test that finds nothing buries it most thoroughly of all, because it removes every reason anyone would ask again."
+        },
+        {
+          "key": "B",
+          "text": "Decline the file completion. The re-testing is new work with a new date, the closed file stays as it is, and the quality finding goes forward on the facts as they stand.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "He accepts it more readily than you expected. He asks who tells the chair and when, and asks to see the finding before it goes anywhere. You tell him he will have it on Thursday.",
+          "why": "Two decisions in one sentence and both are load-bearing. A closed audit file is a record of what was done and when; the moment it becomes a record of what was subsequently done, it can no longer support anything, including the engagements it did not touch. Re-testing is welcome and belongs in a new engagement with its own scope, date and conclusion, sitting alongside the original rather than inside it.\n\nThe second is that the finding travels on the facts you already have. You know the conclusion was unsupported when it was issued. That fact is complete, it does not improve with waiting, and the people relying on the conclusion are relying on it now."
+        },
+        {
+          "key": "C",
+          "text": "Accept the re-testing but require it be performed by people independent of the original engagement, and refuse any change to the closed file.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "The co-source firm is stood down from the work. Two of your own auditors come off another engagement to do it, and it is scheduled to report in mid-October — three weeks after the external auditor's year-end fieldwork opens.",
+          "why": "Both instincts are correct. The people who produced the defect cannot be the ones who resolve it, and a closed file is not a working document.\n\nThe cost is the clock and the temptation that comes with it. Once a re-test has a date, every question about when to tell anyone gets answered with that date, and mid-October is after the external auditor has started work on a plan that assumes internal audit tested payments. Independence bought properly and reported six weeks late still leaves the reliance running for six weeks. Re-testing and notification are separable; treat them as one thing and the slower of the two sets the date for both."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "The quality finding is written. The programme's reporting route is the annual quality report to the audit committee in December, alongside next year's plan. Your terms of reference put the results of the review in front of the committee and nobody has ever questioned that they do.\n\nWhat the terms of reference do not say is what you do with one finding between reports.\n\nThe committee meets in three weeks. The external auditor's year-end fieldwork begins in October, on a plan that reduced their substantive testing over payments because internal audit had tested it.",
+      "prompt": "Who do you tell, and when?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Write to the audit committee chair this week, copying the acting head — what the engagement supports, what it does not, what you recommend, and the fact that the external auditor's reliance has an October deadline of its own. The full finding goes to the September meeting.",
+          "quality": "best",
+          "next": "the-committee",
+          "consequence": "The chair replies the same afternoon and puts it on the September agenda as a substantive item. He asks the acting head to tell the external auditor's engagement partner that week. The partner asks for the reconciliation and returns the payments cycle to their own substantive plan before fieldwork opens.",
+          "why": "Two parties relied and both had to be reached inside their own timetables. The external auditor is the one that gets left out, every time: their reliance was a decision taken on the strength of your function's work, only your function can tell them the basis has changed, and their window to act on it shuts when fieldwork starts. Naming that deadline in the letter is what makes it happen — a chair cannot act on a clock nobody has shown him.\n\nWriting to him before the meeting rather than at it is not going around anyone, which is what the copy to the acting head settles. It leaves the chair the choice of how his committee handles it, which is his to make, and it stops the first he hears of a defect in a conclusion he acted on being a paper in the pack."
+        },
+        {
+          "key": "B",
+          "text": "Take it to the September committee in the ordinary way, with a recommendation that the conclusion be withdrawn.",
+          "quality": "defensible",
+          "next": "the-committee",
+          "consequence": "The paper goes in the pack. In the three weeks before the meeting the external auditor signs off their year-end plan, and payments stay out of scope for their substantive testing.",
+          "why": "The proper forum and the right recommendation, and three weeks in which the only thing that changes is who is committed to what.\n\nSeptember is soon. The external plan being signed in the interval is the cost, and it was foreseeable from a memo you had already read and a date printed on it. When a defect is time-critical the question is not which meeting it belongs at; it is whether any of the people relying on it have a deadline before that meeting."
+        },
+        {
+          "key": "C",
+          "text": "Report it in December with the rest of the quality review. The programme has a reporting route and this is what it is for.",
+          "quality": "poor",
+          "next": "end-annual-report",
+          "consequence": "You finish your sample and write the annual report. It sets the payments engagement out fully and accurately and goes to the committee on 9 December. The external auditor's fieldwork ran to the reduced plan in October and November.",
+          "why": "The route is correct and it is built for a different kind of finding. Periodic reporting suits observations that aggregate — how sampling is documented across engagements tells you something about the function, and nothing turns on it being read in August rather than December.\n\nA conclusion that is in use is not that kind of finding. Every week it stands, somebody makes a decision on it: a committee's focus list, an external auditor's scope, a director's assurance map. Following the route was never the question. What was true in the four months while you followed it is."
+        },
+        {
+          "key": "D",
+          "text": "Report it to the chair as a co-source quality failure — the firm's senior tested his own work and signed it off, the firm has accepted it and is remediating at its own cost.",
+          "quality": "poor",
+          "next": "end-vendor",
+          "consequence": "The chair is reassured by the speed of the supplier's response and asks for the co-source arrangement to be reviewed in December. The March conclusion is not discussed.",
+          "why": "Every fact in it is true, and the frame does the damage. The engagement was internal audit's. The scope, the conclusion and the report to the committee were internal audit's, and the contract bought people rather than a transfer of the opinion. Nothing the firm accepts, credits or remediates reaches the fact that the committee is holding an assurance conclusion nobody can support.\n\nIt is easy to reach for because it produces something closeable — an accepted failing, an owner, a remedy — where the honest frame produces a problem with none of those. A committee handed something closeable will close it, and you will have chosen the frame that let it."
+        }
+      ]
+    },
+    "the-committee": {
+      "situation": "September. The chair has read it. He is not looking for anyone to blame and he has one question.\n\nHis committee took the March conclusion, removed payment authorisation from its areas of focus, and the annual opinion to the board cited it. He asks you what he should do about it.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the conclusion be formally withdrawn and superseded, the area recorded as unassured until re-tested, and re-testing commissioned from a team independent of the original — and leave the decision with him.",
+          "quality": "best",
+          "next": "end-withdrawn",
+          "consequence": "The committee withdraws the conclusion at the meeting and minutes payment authorisation as unassured. Re-testing is commissioned for November. The chair asks the acting head to write to the external auditor confirming what has changed.",
+          "why": "The recommendation is unambiguous and the decision stays his, and both halves carry weight. A reviewer who says only that it is a matter for the committee has left a committee to work out the significance of a technical finding unaided; one who withdraws the conclusion himself has taken a decision belonging to the function's leadership and its committee.\n\nWithdrawn and superseded rather than corrected is the right mechanism, because what is wrong is not a detail in the report. There is no version of the sentence that survives a correction — the evidence for it was never obtained, and no rewording supplies evidence."
+        },
+        {
+          "key": "B",
+          "text": "That a supplementary note be issued narrowing the conclusion to scheduled batch payments, which were tested properly, with off-cycle payments recorded as not covered.",
+          "quality": "defensible",
+          "next": "end-supplemented",
+          "consequence": "The note is drafted and issues in October. Payment authorisation returns to the committee's areas of focus with off-cycle payments named. The external auditor learns of it in November, three weeks into fieldwork, and extends its own testing at additional cost.",
+          "why": "Accurate, proportionate, and forty batches genuinely were tested properly — so this is a narrower answer rather than a soft one, and a reviewer who reaches for it is being fair to work that was done.\n\nWhat it underrates is how a supplementary note behaves. It attaches to a report five months old, fewer people read it than read the original, and the sentence it narrows has already done its work in the minutes, the annual opinion and the assurance map. A withdrawal makes every holder of a conclusion notice. A note asks them to."
+        },
+        {
+          "key": "C",
+          "text": "That the conclusion stand until the re-testing reports, and that the committee be told the outcome in December.",
+          "quality": "poor",
+          "next": "end-left-standing",
+          "consequence": "The chair accepts it. Payment authorisation stays off the areas of focus, the item is scheduled for December, and the external auditor's fieldwork proceeds on the reduced plan.",
+          "why": "The reasoning is that it would be unfair to withdraw a conclusion that may turn out to have been right, and that is a real consideration — for a conclusion not yet issued. This one was issued in March and has been in use since.\n\nLeaving it standing is not the neutral option. It is a fresh decision, taken in September in full knowledge, that the committee should carry on relying on something you have told them was never evidenced. The re-test can establish whether the payments were authorised. It cannot make the March sentence supported, because you already know what that sentence rested on."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-withdrawn": {
+      "title": "Withdrawn and superseded",
+      "verdict": "strong",
+      "narrative": "The September committee withdraws the substantial assurance conclusion and records payment authorisation as unassured pending re-testing. The external auditor restores payments to its substantive plan before fieldwork opens in October.\n\nThe re-testing reports in November, working from treasury's records rather than accounts payable's. Of the 21 off-cycle payments above the £50,000 threshold, four were released on a single approval: £188,000, £96,000, £71,000 and £64,000, all to established suppliers, none of them misappropriated. The control was not operating for the payments that were never in the population — which is the thing the file could not have told anyone either way.\n\nThe external quality assessment the following spring reads the sequence: an unsupported conclusion found, withdrawn, and re-tested. It cites the episode as evidence the programme does what a quality programme is for.",
+      "why": "The defects were easy to see. Almost any reviewer opening that file would have found them, and finding them is not what this case is about. It turns on the two questions that come after: what does the conclusion rest on, and who is standing on it.\n\nA quality finding about an engagement in progress is a process observation and belongs in a periodic report. The same finding about a conclusion already issued and relied upon is a different object, and the difference is not severity — it is that other people have taken decisions you now know were taken on nothing. The committee stopped watching the area. The external auditor cut its own testing. Neither can revisit a decision they do not know was defective, so telling them is not escalation on top of the correction; it is the correction.\n\nThe trap in the middle is the retrospective completion of the file, and it is offered in good faith by someone trying to give the committee a finished answer. Work done properly in September does not make a March conclusion supported, and a file carrying a September review on a workpaper reported in March costs the function every conformance statement it has ever made."
+    },
+    "end-supplemented": {
+      "title": "A note attached to an old report",
+      "verdict": "acceptable",
+      "narrative": "A supplementary note issues in October, narrowing the conclusion to scheduled batch payments and recording off-cycle payments as outside the tested population. Payment authorisation returns to the committee's areas of focus.\n\nThe external auditor learns of it three weeks into fieldwork. They extend their payments testing at additional cost, and note in their management letter that internal audit's scope had been narrower than they were given to understand.\n\nThe re-testing, when it is finally commissioned the following year, finds four of the 21 above-threshold off-cycle payments released on a single approval.",
+      "why": "The committee ends up correctly informed and the correction is honest, which is why this is not a failure. The cost sits in two places.\n\nA supplementary note depends on its readers going back. The sentence it narrows has already been minuted, cited in an annual opinion and entered on an assurance map, and none of those update themselves. Withdrawal forces the holders of a conclusion to notice; a note invites them to, and only the ones who read it.\n\nThe second is the reader nobody chased. External audit's reliance was a decision recorded in a memo you had already read, with a date you knew. Telling the audit committee is necessary and it is not the same as telling everyone who relied — and reliance placed by another assurance provider is the kind that quietly widens the consequences of a sentence being wrong."
+    },
+    "end-left-standing": {
+      "title": "Left standing on purpose",
+      "verdict": "weak",
+      "narrative": "The committee is told in September and leaves the March conclusion in place. Payment authorisation stays off the areas of focus. The external auditor, never told anything has changed, runs year-end fieldwork in October and November on the reduced plan.\n\nThe re-testing reports in November. Of the 21 off-cycle payments above the £50,000 threshold, four were released on a single approval: £188,000, £96,000, £71,000 and £64,000. Nothing was misappropriated.\n\nThe conclusion is withdrawn in December, eight months after it was issued and three months after the committee was told it could not be supported. The September minutes are the awkward part of the file, because they record a decision rather than an oversight.",
+      "why": "This is the weak ending hardest to defend, because it was chosen rather than drifted into. Through August the reliance ran because nobody knew. From the September meeting onwards it ran because the committee, correctly informed by you, decided that it should.\n\nThe reasoning was fair-minded: do not withdraw a conclusion that may yet turn out to have been right. That applies to a conclusion not yet issued. Once a sentence sits in minutes, in an annual opinion to the board and on an assurance map, leaving it there is not neutrality — it is a fresh decision that other people should carry on relying on evidence you know was never obtained.\n\nThe recommendation is where this was lost, and it is worth being precise about why. The chair asked what he should do. An answer of wait responds to a question about whether the payments were authorised, which nobody had asked him to decide, and not to the question about what the file supports, which was the one on the table."
+    },
+    "end-annual-report": {
+      "title": "Reported on the calendar",
+      "verdict": "weak",
+      "narrative": "The finding appears in the December quality report, complete and accurate, with both defects set out and a recommendation on population reconciliation accepted by the function.\n\nThe external auditor's year-end fieldwork ran in October and November on the reduced plan.\n\nRe-testing is commissioned at that December meeting. In February it establishes that four of the 21 above-threshold off-cycle payments were released on a single approval. The audit committee chair reads the December report again and asks when internal audit first knew that the payment audit's conclusion was unsupported. The answer is August.",
+      "why": "Nothing was concealed and everything went through the route the programme prescribes. The chair's question is not about honesty. It is about the four months.\n\nPeriodic reporting is right for findings that aggregate into a picture of the function. It is wrong for a finding whose subject is still in use, because the reporting calendar was designed around the convenience of the reader, not around the decisions other people are making in the meantime.\n\nThe test is short enough to apply in the room: is anyone acting on this now. If they are, the calendar governs when the rest of the report goes, not when you speak."
+    },
+    "end-vendor": {
+      "title": "The supplier accepted it",
+      "verdict": "weak",
+      "narrative": "The committee minutes record a quality deficiency in co-sourced fieldwork, the provider's acceptance of it, a credit note, and a change of resource on the account. The co-source arrangement goes on the December agenda for review.\n\nThe March conclusion is not revisited. Payment authorisation stays off the areas of focus, the annual opinion to the board is not amended, and the external auditor's reduced plan is undisturbed.\n\nThe following spring the external quality assessment asks what the function did about the conclusion once it knew the file did not support it. There is no answer in the file.",
+      "why": "The supplier failing is real and had to be raised — a senior signing off his own testing is a matter for the firm as well as for you. The error is in what the frame let the committee do with it.\n\nContracting fieldwork moves the work. It does not move the opinion. The report went to the committee over internal audit's name, the conclusion was internal audit's to give, and no acceptance, credit note or resource change by a provider reaches the fact that the committee holds an assurance conclusion nobody can support.\n\nThe frame is comfortable because it produces something with an owner, an apology and a remedy. That is exactly why it closes, and why the sentence that started the problem never comes up again."
+    },
+    "end-repapered": {
+      "title": "The file that was finished afterwards",
+      "verdict": "failed",
+      "narrative": "The file is complete on 14 September. The population workpaper carries the treasury reconciliation. All 63 off-cycle payments are tested against the accounts payable approval log and none shows an exception. A co-source manager's initials sit in the reviewed-by box of PA-07. The quality review records the engagement as conforming following file completion, and the March conclusion stands.\n\nFor a year nothing happens. The committee is satisfied and the external auditor completes on the reduced plan.\n\nThe external quality assessment arrives in the spring and does what such assessments do — takes a closed engagement and reads the file against the report. The audit management system's sign-off history dates PA-07's review to 11 September and the sampling workpaper's replacement to the same day. The face of each workpaper shows neither. The assessor's question is not whether the payments were authorised; it is what the file is a record of.\n\nThe finding lands on the programme rather than the engagement. Every conformance statement the quality review made that year rests on one reviewer's judgement, and the single case where that judgement can be tested is this one. The committee is advised it cannot rely on the function's quality record for the period, and the external auditor, which had reduced its own testing partly on the strength of that programme, reopens two years of reliance decisions.\n\nThe following year's payments audit, working from treasury's records, finds four of the 21 above-threshold off-cycle payments released on a single approval.",
+      "why": "This is the option with the best argument behind it, which is why it is the one worth being able to refuse. The work gets done. It gets done properly, by competent people, at no cost, faster than any alternative. Nothing is hidden from anyone, and the re-test comes back clean.\n\nIt comes back clean because the firm that produced the defect re-tested against the same accounts payable records that produced it. That is the second lesson and it is not the main one, because the outcome would be a failure even if the re-test had been perfect.\n\nWhat changes is what the file says. A closed audit file is usable by people outside the function precisely because it is not editable after the fact. A signature added, a workpaper replaced, a procedure performed in September inserted into a file reported in March — each is small and well meant, and together they make the record assert a sequence of events that did not occur. A modern audit system timestamps every one of them, so the repapering is not even concealed; it is simply invisible to anyone who reads the workpaper rather than its history, which is everyone except the assessor.\n\nThe conclusion is the deeper part. In March the committee was told the controls operated effectively, and the basis for that sentence at the moment it was given was 40 batches from a list nobody checked and nine items chosen by the auditee. Testing in September cannot reach back and support it. Testing that finds nothing is the worst available outcome, because it makes an unsupported conclusion look correct and removes every reason anyone would ask again.\n\nThe way out was available all afternoon and was not difficult: let the file stand as the record of what was done, run the re-testing as new work with its own date and its own people, and tell the people relying on the old sentence that it was never evidenced."
+    }
+  }
+}

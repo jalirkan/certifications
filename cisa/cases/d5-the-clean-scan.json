@@ -1,0 +1,348 @@
+{
+  "id": "d5-the-clean-scan",
+  "title": "The Clean Scan",
+  "domain": "5",
+  "section": "B",
+  "topics": [
+    "Security Testing Tools and Techniques",
+    "Network and End-Point Security",
+    "Information Asset Security Frameworks, Standards, and Guidelines",
+    "Cloud and Virtualized Environments"
+  ],
+  "principles": [
+    "coverage-limits",
+    "untested-unknown",
+    "evidence-quality",
+    "completeness"
+  ],
+  "minutes": 13,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing security testing at a medical devices manufacturer — infusion pumps, patient monitors, and the software that puts them on hospital networks. Three plants, one data centre, 2,600 staff, and a customer base that audits it constantly.\n\nThe control in scope is patch management and the audit period is the four quarters to 30 June. The evidence offered is unusually tidy: four consecutive quarterly vulnerability scans of the production estate — September, December, March, June — every one reporting zero critical findings.\n\nThe security operations manager hands you the pack himself, in order, summary pages tabbed. He is not defensive about it. Nobody in the room has any reason to be.\n\nThe four reports are accurate. Everything printed in them is true.",
+  "taints": {
+    "substituted-the-period": "end-substituted"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Four reports, four quarters, zero criticals on every summary page. The pack is used in three places: the quarterly security update to the audit committee, the annual management review under the information security standard, and the security questionnaires hospital customers send before they buy anything.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what the scan actually did — the target list, the scan configuration, the credentials — before looking at what it found.",
+          "quality": "best",
+          "next": "the-scope-file",
+          "consequence": "The security operations manager gives you read access to the scanner the same afternoon, along with the four raw job records. The job is called PROD-QTRLY, it has run on the same schedule since 2024, and its target list is a plain text file.",
+          "why": "A scan result is the output of a procedure, and every property that decides what the result can mean lives in the procedure rather than in the output. Zero criticals is a number produced by a configuration, and until you know the configuration it is not evidence of anything about the estate.\n\nThe ordering is the part that transfers. Anything you notice in the reports — a collapse in finding counts, a host total that never moves — is uninterpretable until you can say what the test was pointed at and what it could see, so those observations send you here anyway. And the reverse case should settle it: had this scan been misconfigured from the first quarter rather than the second, the four reports would agree with each other perfectly and there would be nothing in them to notice. Reading the output first only works when the defect happens to have a date."
+        },
+        {
+          "key": "B",
+          "text": "Reconcile the hosts the scan reports against the asset inventory.",
+          "quality": "defensible",
+          "next": "the-scope-file",
+          "consequence": "The inventory holds 2,006 addressable assets. The June scan reports 1,486 hosts discovered. Nobody has put the two figures side by side before, and the security operations manager's first reaction is that the difference is probably the plant floor.",
+          "why": "The completeness question asked first, and it lands on a 520-asset gap in an afternoon. That is a good instinct and a real result.\n\nIt arrives before you know how the scan targets anything, which means you cannot yet separate an exclusion the organisation decided on from one that happened to it — and 340 of the 520 turn out to be a documented, signed exclusion whose reasoning you will end up agreeing with. Reconciliation is the right instrument. It cuts more cleanly once you can say what the population was supposed to be and who decided that."
+        },
+        {
+          "key": "C",
+          "text": "Read the four reports against each other, line by line, for what changed.",
+          "quality": "defensible",
+          "next": "the-scope-file",
+          "consequence": "September reports 3,100 findings in total. The three that follow report 240, 244 and 238. Host counts are within nine of each other and the scanner version is unchanged, while the inventory has grown by 189 over the same year. The critical count is zero on all four, and the critical count is what the summary page carries.",
+          "why": "Comparison against the entity's own prior output is among the cheapest analytical procedures available, and here it surfaces the most alarming fact in the engagement inside an hour: total findings fell by ninety-two per cent across a growing estate, with no explanation anywhere in the pack.\n\nWhat it hands you is an anomaly, not a cause. A collapse like that could be a remediation programme, a scanner upgrade, a tuning change or a broken test, and the four reports cannot tell those apart. Noticing it is right, and it sends you to the configuration to find out why — which is where the answer was."
+        },
+        {
+          "key": "D",
+          "text": "Test the remediation workflow instead. The scans are clean, so the useful question is whether findings that do arise get fixed inside the service level.",
+          "quality": "poor",
+          "next": "the-ticket-sample",
+          "consequence": "You request the patch ticket population for the last two years and start tracing tickets to change records and closure evidence. The file builds quickly.",
+          "why": "Reasonable on its face — if the scans are clean, the interesting question is what happens when they are not — and it draws a sample from the one population the problem guarantees will be clean. There have been no scan-driven criticals to remediate, so a test of how criticals are remediated has nothing in it that could fail.\n\nThe habit worth naming: when a result is suspiciously good, testing the process downstream of it accepts the result. The suspicious thing is always upstream."
+        }
+      ]
+    },
+    "the-ticket-sample": {
+      "situation": "Two hundred and ten tickets in two years. Every one closed inside the fourteen-day critical or thirty-day high target, every one with an approval and a change record. It is a well-run process and the evidence is good.\n\nNot one of the 210 references a scan finding. Every ticket traces to the operating system vendor's monthly bulletin, picked up by the infrastructure team and pushed through the deployment tool.\n\nThe procedure explains why. A scan critical raises a ticket; everything below critical goes to a quarterly review meeting. No scan has produced a critical, so the scanner has raised no work in two years, and nobody found that strange.",
+      "prompt": "What do you take from that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Turn around. Two years of no output from a detection control is a fact about the control, not about the estate.",
+          "quality": "best",
+          "next": "the-scope-file",
+          "consequence": "You leave the ticket testing where it is and ask for the scan job configuration. It has run unchanged since 2024. The target list is a plain text file.",
+          "why": "The absence of output is the finding, and you have reached it from the downstream side, which is a legitimate route — the nil contribution from the scanner is only visible because you went looking at what the scanner should have been feeding.\n\nThe part that takes discipline is abandoning a line of testing that is producing clean results. Two hundred and ten well-handled tickets is a comfortable place to be, the evidence is already in the file, and it is genuinely good work by someone. Walking away from it costs you the easiest paragraph in the report."
+        },
+        {
+          "key": "B",
+          "text": "Test the bulletin-driven process instead. If that is what actually patches things, that is the control.",
+          "quality": "defensible",
+          "next": "the-scope-file",
+          "consequence": "The deployment tool's console reports 96.4% compliance across 940 devices, with a clean trend for eighteen months. The infrastructure lead has it on a dashboard. The inventory holds 2,006 assets.",
+          "why": "Correct instinct — follow the system that applies patches rather than the system that reports on them — and it produces a number carrying exactly the defect you came in to test. Compliance is calculated across devices with the deployment agent installed, so 96.4% describes the enrolled population and is silent about the other 1,066.\n\nThere is a second limit worth carrying. The bulletin process covers what the operating system vendor publishes. Runtimes, database engines, libraries and device firmware are not in that stream, and the scanner was the only thing that would ever have seen them.\n\nTwo self-reported figures, both accurate, both measuring their own denominator. The second one has a percentage sign, which makes it more convincing and no more complete."
+        },
+        {
+          "key": "C",
+          "text": "Report the remediation workflow as effective. Two hundred and ten of 210 inside target is a strong result and it belongs in the report.",
+          "quality": "poor",
+          "next": "the-scope-file",
+          "consequence": "You draft it as a positive assurance paragraph and circulate the section. Six weeks pass while it is reviewed. The September scan runs in the meantime, reports zero criticals, and its summary page goes out with the quarter's customer questionnaire responses.",
+          "why": "The result is real and the paragraph is true, and it gives assurance over a control that has never been handed anything to do. In a report it reads as confirmation that vulnerability management works here, because no reader separates findings are remediated promptly from findings are found.\n\nPositive assurance is the most expensive thing an audit report gives away. It costs nothing to write and it is the sentence people quote back at you, which is why the evidential standard for it is higher than the standard for a finding rather than lower."
+        }
+      ]
+    },
+    "the-scope-file": {
+      "situation": "The scan job targets a file. Fourteen address ranges, plain text, last modified 12 August 2024 — two years ago to the week. It is edited by hand by whoever happens to be running the scan.\n\nAgainst the current network address plan, the fourteen ranges cover the three plants' office networks and the data centre. Two things sit outside them.\n\nThe plant-floor device networks — 340 assets — are excluded under a memo signed in 2023: no internet route, passive monitoring by a tool suited to the equipment, active scanning judged to carry an unacceptable risk to line controllers. The reasoning holds up and the exclusion is on the record.\n\nThe second is a cloud tenancy stood up in November 2025 for the device telemetry platform, the service that receives operating data from pumps and monitors in the field. One hundred and eighty instances. It is not in the file, and there is no memo.",
+      "prompt": "How do you size it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Quantify the split: what the scan reaches, what the estate holds, what is excluded by agreement, and what is excluded by nobody.",
+          "quality": "best",
+          "next": "the-footnote",
+          "consequence": "1,486 hosts scanned. 2,006 assets in the inventory. 340 excluded on the record. 180 excluded by omission — the platform ingesting telemetry from roughly forty thousand deployed pumps. Across the four quarters the scanned host count has moved by nine while the inventory has grown by 189.",
+          "why": "The four-way split is what makes the finding usable, because it separates the exclusion the organisation chose from the exclusion that happened to it. Those need different responses: the first is a risk acceptance to re-examine, the second is a control that does not know its own population.\n\nThe host count is the detail that generalises. A scan discovering the same number of hosts quarter after quarter, in an estate that demonstrably grew by 189 over the same four quarters, is reporting the size of its target list rather than the size of the estate — and there is no line anywhere in the report that would let a reader tell which of the two they are looking at."
+        },
+        {
+          "key": "B",
+          "text": "Establish who owns the scope file and how a new subnet is supposed to get into it.",
+          "quality": "defensible",
+          "next": "the-footnote",
+          "consequence": "There is no owner. Ranges are added by whoever is running the scan when somebody asks. The cloud tenancy was provisioned through a change record with eleven approval steps; none mentions vulnerability scanning, and no build process anywhere touches the file.",
+          "why": "The governance answer, established exactly: the file has a way in that depends on somebody remembering, and no way of noticing when nobody did. It belongs in the report and it is the thing that stops the gap recurring.\n\nWhat it lacks is a size. A finding that the scope file has no owner gets remediated by appointing an owner, and the 180 instances holding field telemetry from deployed medical devices are the reason anyone should care who owns it. Sized, the finding survives the remediation meeting. Unsized, it becomes a process improvement queued behind other process improvements."
+        },
+        {
+          "key": "C",
+          "text": "Ask whether the cloud environment is covered by something else.",
+          "quality": "defensible",
+          "next": "the-footnote",
+          "consequence": "The platform team scans container images in the build pipeline and blocks a build on a critical finding. The images running in production were built at go-live in November 2025 and have not been rebuilt. Nothing scans the running fleet.",
+          "why": "The right question, and the answer is more interesting than a straight gap. Build-time image scanning is a real control doing exactly what it was designed to do. The defect is that it makes a statement about an artefact at the moment of build, and everyone downstream reads it as a statement about the fleet.\n\nThat gap widens by a day every day and nothing announces it. A vulnerability disclosed the morning after a build is invisible to a control that only inspects builds, and this fleet has been on the far side of that for nine months."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the cloud tenancy be added to the scan scope.",
+          "quality": "poor",
+          "next": "the-footnote",
+          "consequence": "The security operations manager adds the ranges that afternoon and is glad to have had it pointed out. Nothing else about the scan changes. The next run discovers 1,666 hosts.",
+          "why": "The gap you found, closed the day you found it, which feels like the fastest result available and is exactly why the rest goes unexamined. The 180 instances are now inside a scan that cannot authenticate to anything, so they will be discovered, banner-checked and reported clean alongside the other 1,486.\n\nAdding targets to a broken test increases the number of assets it fails to assess. It also converts a finding into a remediation before anyone has established what the finding was, and the report that results says the scope was incomplete and has been corrected — a smaller and different statement than the true one."
+        }
+      ]
+    },
+    "the-footnote": {
+      "situation": "Page 19 of 21. Appendix C, headed Scan Diagnostics. The reports are generated by the scanner and mailed automatically to a distribution list.\n\nOne line: Credentialed checks completed: 74 of 1,486 hosts.\n\nThe same line, the same number, in December, March and June. In the September report the same line reads 1,402 of 1,477.\n\nThe 74 are the internet-facing Linux servers, which the scanner reaches with a key pair. Everything else authenticates with a domain service account.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what an unauthenticated scan can detect, and therefore what a zero-critical result from one actually asserts.",
+          "quality": "best",
+          "next": "the-offer",
+          "consequence": "The product documentation is unambiguous and the security operations manager confirms it without argument. Missing patches on Windows and Linux hosts are established by reading installed package and build versions, which requires a session on the host. Without one the scanner has open ports, service banners and certificates — enough to raise a critical against an exposed service that advertises its version, and nothing at all against a workstation, a file server or a domain controller.\n\nYou run the numbers off the June job. Of the 1,412 hosts checked without credentials, 1,398 present no version-bearing service of any kind.",
+          "why": "This is the case in one procedure. The reports are accurate — the scan genuinely found no critical findings. What no page in the pack says is that on all but fourteen of the hosts it looked at, it had no mechanism by which a critical finding could have arisen.\n\nA clean result from a test with no detection capability is not weak evidence that the control operates. It is not evidence about the control at all; it is evidence about the test. Those two readings are identical on the page, and telling them apart is what decides whether four quarters of assurance are worth anything.\n\nCarry the symmetry into the report. The same fact that stops the pack proving the estate is patched also stops it proving the estate is unpatched."
+        },
+        {
+          "key": "B",
+          "text": "Establish when the credential stopped working and which reports are affected.",
+          "quality": "defensible",
+          "next": "the-offer",
+          "consequence": "The service account's password was rotated on 9 December 2025, during a privileged-access cleanup the security team ran themselves. Eleven systems were updated with the new password. The scanner's stored credential was not on the list. The December scan ran three days later.\n\nThe diagnostic line went from 1,402 to 74 between one quarterly report and the next, and both reports sat in the same mailbox.",
+          "why": "Precise, dated and checkable against management's own change record, and it surfaces the most uncomfortable fact in the engagement: the change that broke the scanner was a security improvement executed correctly by the security team. Nothing was neglected. An undocumented dependency simply existed.\n\nWhere it stops short is meaning, and the date was the half you already had. Appendix C prints 1,402 in September and 74 in December, so the timing is on the page; what is on no page is what a scan without that credential can and cannot see. Until you have established that, an expired credential reads as a defect of degree — a scan that got less thorough — rather than a defect of kind, and it is the kind that decides whether three quarters of assurance mean anything."
+        },
+        {
+          "key": "C",
+          "text": "Establish who receives the report and what they read.",
+          "quality": "defensible",
+          "next": "the-offer",
+          "consequence": "Nine names on the distribution list, including the CIO. The report is a scanner-generated PDF, mailed the morning after the job completes. Everyone you ask reads the summary page. Two of the nine did not know there were appendices. The security operations manager reads to page four.",
+          "why": "It answers the question every meeting from here will open with — how did nobody see it — and the answer turns out to be structural rather than personal. The diagnostic that determines whether the whole report means anything is printed fifteen pages behind the number it qualifies, in an appendix, in a layout chosen by a tool.\n\nThe general form: a caveat is only a caveat if it reaches the reader before the conclusion does. Printed after it, it documents the defect instead of controlling it, and it mostly protects the party that printed it.\n\nWhat it does not settle is what the caveat means, which is the fact the engagement turns on."
+        },
+        {
+          "key": "D",
+          "text": "Flag the credential as an operational fault for the security team to correct, and carry on testing the service level.",
+          "quality": "poor",
+          "next": "the-late-scan",
+          "consequence": "It is fixed inside the week — new password, stored, verified against a test host. You return to the remediation timings. The security operations manager mentions in passing that he will re-run the scan once things have settled.",
+          "why": "Treating it as a fault to be fixed is the natural reflex, and it is the single response that makes the finding disappear before it has been written. Once the credential works, the condition is historical, and a historical condition that has already been corrected is very hard to get into a report at the weight it deserves.\n\nThe fault is not that a password expired. It is that a detection control lost its detection capability, reported the resulting silence as a clean result for three consecutive quarters, and had that result read as assurance internally and sent to customers. Every part of that remains true after the password is fixed."
+        }
+      ]
+    },
+    "the-offer": {
+      "situation": "The security operations manager comes to find you. He is not managing you; he is moving.\n\nThe credential is fixed. The cloud ranges are in the file. He wants three weeks: re-run the scan properly across the full scope, remediate whatever comes back, and then the report can say the patching control operates — which, he points out, and he is right, it may well do. September was a real credentialed scan of 1,402 hosts and September was clean.\n\nThe audit period is the four quarters to 30 June.",
+      "prompt": "How do you handle the offer?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Welcome the fix, keep it outside the period conclusion, and ask for the first credentialed run to reach you raw, before anyone remediates.",
+          "quality": "best",
+          "next": "the-test",
+          "consequence": "He agrees, and asks that the unremediated output not circulate while he works through it. You agree that it goes to you and to the CIO on the same day. The first run is scheduled for the following Tuesday's maintenance window.",
+          "why": "Two things have to stay apart and the offer merges them. The audit period is a closed stretch of time and the evidence for it is whatever existed then; a scan run in August cannot speak to March. Separately, the current condition of the estate is genuinely unknown and there is now a working scanner, so the engagement has an opportunity it did not have last week.\n\nAsking for it raw and pre-remediation is what makes it worth anything. A scan taken after the fixing measures the fixing. The condition you want to observe is the one the four clean quarters were sitting on top of, and it exists only until somebody starts patching.\n\nAgreeing that it reaches you and the CIO together is the small protective step, and it protects him as much as you. Evidence held by one party while they work through it is evidence with a version number."
+        },
+        {
+          "key": "B",
+          "text": "Take the three weeks, and report both: the period on the evidence that exists for it, and the remediated position as a subsequent event.",
+          "quality": "defensible",
+          "next": "the-late-scan",
+          "consequence": "Three weeks becomes seven. Around 1,100 findings are closed across the estate, including on the cloud fleet, whose images are rebuilt for the first time since go-live. The credentialed scan that reaches you is the one taken afterwards.",
+          "why": "Correctly labelled and honestly reported. Subsequent events belong in a report when they change what a reader should do, and 1,100 closures is a better outcome for the organisation than anything the audit produces by itself.\n\nThe cost is that sequencing your fieldwork behind their remediation leaves you with only the post-remediation view. You can describe what was fixed from their records; you cannot independently describe what was there. The condition persisted for roughly nine weeks after you found it, and a maintenance window was available in the first of them.\n\nThe eleven hundred closures also stay an anecdote rather than a measurement, because nobody counted the population before it was reduced."
+        },
+        {
+          "key": "C",
+          "text": "Take the offer. Once the re-run comes back clean, the control can be reported as operating and the credential becomes a historical issue that has been corrected.",
+          "quality": "poor",
+          "next": "the-report",
+          "taint": "substituted-the-period",
+          "consequence": "He is visibly relieved and works hard. Three weeks later a credentialed scan across the extended scope returns zero criticals and eleven highs, each with a remediation date. You draft the patching control as operating effectively, with a note that a scanner credential issue arose during the period and was corrected.",
+          "why": "The instinct is a good one. You are being offered a better-evidenced, more current, more complete test than anything in the pack — properly credentialed, run across a wider scope — and refusing better evidence feels perverse.\n\nBut it is not better evidence about the audit period. It is evidence about a different period. Your conclusion will read that the patching control operated effectively for the four quarters to 30 June, and the test supporting it was performed in August, after you told them what was broken and after they remediated what it found. Nothing in the report will say that, and the report is what survives.\n\nUnderneath sits a second problem. The four clean reports have already left the building. Reporting the period as effective retrospectively endorses the assurance they carried, which nobody has yet established was true for a single day of it."
+        },
+        {
+          "key": "D",
+          "text": "Before answering him, copy everything: the scan job configuration, the scope file, the credential store record and all four raw outputs.",
+          "quality": "defensible",
+          "next": "the-test",
+          "consequence": "You take the copies on the Friday. By Monday the scope file carries six new ranges and today's modification date, the credential record shows an August rotation, and the scan job has been edited. Your copies are the only record of how the control was configured during the period.",
+          "why": "Exactly right, and almost nobody does it in time. The evidence for a configuration finding is the configuration, and a configuration is not a document — it is a live object that the finding itself gives someone a reason to change, usually within days and usually in good faith. Once it changes, the period gets reconstructed from your notes, and your notes become the only source, which is a weaker position than the one you held on Thursday.\n\nWhat it does not do is answer him. Preservation runs alongside a decision about the offer rather than instead of one, and the offer is about what your conclusion will rest on."
+        }
+      ]
+    },
+    "the-test": {
+      "situation": "What the engagement can now say: for three of the four quarters the scan ran without credentials on all but 74 of the 1,486 hosts it reached, and an unauthenticated check cannot read the installed patch level of a workstation, a file server or a domain controller. It covered 1,486 of 2,006 assets against a target list frozen two years ago.\n\nWhat it cannot say is anything about the estate. A clean result from a blind test is not evidence the patching control works, and it is not evidence it fails. September was a genuine credentialed scan of 1,402 hosts and it was genuinely clean, so the control demonstrably operated at least once.\n\nThe credential now works. The infrastructure lead has offered a maintenance window.",
+      "prompt": "How do you establish the actual condition?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Take the window. An agreed sample, credentialed, run through the normal job, raw output to you before anyone remediates.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "Forty hosts, agreed with the infrastructure lead: data centre servers, corporate workstations and a slice of the cloud fleet, no plant-floor devices. The job runs in the standard window and the output reaches you at 06:00.\n\n1,340 findings. Sixty-eight distinct critical vulnerabilities across 31 of the 40 hosts. On the on-premises hosts every critical is for a vulnerability disclosed after 30 September, and most are runtimes, database engines and device firmware — none of which the vendor bulletin process covers. Two file servers holding manufacturing quality records, the records supporting device conformity, are missing a February patch for the database engine underneath them. Every one of the twelve cloud instances in the sample carries the same nineteen criticals, the oldest disclosed in 2023, in a base image built at go-live and never rebuilt.",
+          "why": "Re-performance through the client's own tooling, scoped by you, executed under their change process, with the output reaching you unfiltered. It is the strongest evidence available in this engagement and it costs one night.\n\nThe design choices are what to carry away. Agreeing the sample means nobody can say you scanned something you should not have. Excluding the plant-floor devices respects an exclusion you examined and accepted, and keeps an active scan off equipment that runs production lines. Taking the output before remediation is what makes it a measurement of the condition rather than of the response to your visit.\n\nThe result maps onto the blackout exactly, and that is what makes it evidence rather than a scare. Nothing critical on the on-premises hosts predates the September scan, which is consistent with September having been a real test; everything critical postdates it, in the categories the bulletin process was never going to reach. The nineteen identical criticals across all twelve cloud instances are worth more than their severity — a fleet-wide fact obtained from twelve machines, visible only because the sample crossed environments."
+        },
+        {
+          "key": "B",
+          "text": "Work from the deployment tool's compliance console — it is the system that actually applies patches.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "96.4% compliant across 940 devices, on a clean eighteen-month trend. The 940 are the devices with the agent installed. The inventory holds 2,006: 340 plant-floor controllers that will never take an agent, the 180 cloud instances, and 546 ordinary Windows servers and workstations that simply do not have one — including 61 data centre servers that predate the current build standard.",
+          "why": "Sensible and cheap, and it goes to the system of record for the thing being tested rather than the system that reports on it. The 546 unenrolled servers and workstations are a real finding you would not have located anywhere else.\n\nWhat it produces is the third self-reported number in a case about self-reported numbers, with the same shape as the other two. Ninety-six per cent of the enrolled population is silent about enrolment, exactly as zero criticals across the scanned population was silent about scope. Console compliance is also a statement about what the tool believes it deployed — a record of an instruction rather than an observation of a machine — and it says nothing at all about the runtimes and firmware that sit outside the bulletin stream.\n\nUseful corroboration. It cannot be the primary evidence, because its denominator is set by the same process the finding is about."
+        },
+        {
+          "key": "C",
+          "text": "Rebuild the position analytically: the September credentialed baseline, plus every vendor-critical patch published since, against the deployment records.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "Sixty-one operating system patches rated critical by their vendors since September. The deployment tool shows 44 of them deployed across the Windows estate. For 17 there is no deployment record at all, and four of those are for the platform the telemetry service runs on.",
+          "why": "Real work against real records, seventeen named gaps, and it costs only time. As an analytical procedure it is well built: a known starting position, a defined population of things that should have happened, and the entity's own record of what did.\n\nTwo limits, and the second is the larger. A deployment record says an instruction was issued to a machine; it does not say the machine took it — and the difference between an instruction and its effect is precisely what went wrong with the control you are testing. Beyond that, the population you built it from is the operating system vendors' bulletins, which is the same population the bulletin process already works to, so the procedure is blind in exactly the place the estate turns out to be exposed.\n\nA strong second procedure, and much stronger next to forty hosts somebody actually looked at."
+        },
+        {
+          "key": "D",
+          "text": "Stop here. The coverage conclusion stands on its own, and the estate's condition is management's to establish.",
+          "quality": "poor",
+          "next": "the-late-scan",
+          "consequence": "You decline the window and close fieldwork on the scan evidence. The draft states that the pack cannot support the assertion made from it and makes no statement about the condition of the estate.",
+          "why": "The reasoning is sound and half the conclusion is right. You genuinely cannot say the control failed, and asserting it would be the mistake this case is built to punish. Declining to overreach is correct.\n\nDeclining an available measurement is a separate decision, and it got taken at the same moment as if it were the same one. A working credential, an agreed scope and an offered maintenance window were all sitting there. The gap between the evidence does not support the assertion and sixty-eight criticals on thirty-one of forty hosts, nineteen of them baked into a cloud image nobody has rebuilt, is not a difference in correctness. It is the difference between a finding that gets scheduled and a finding that gets funded.\n\nThe general form: when the reason you cannot conclude is that nobody has tested, and testing is available to you, the answer is to test."
+        }
+      ]
+    },
+    "the-late-scan": {
+      "situation": "The credentialed scan of the full scope does happen. You did not specify it and you were not there for it.\n\nIt runs after the period has closed: after the credential was replaced, after the cloud ranges went into the scope file, and after the security team worked through everything the first credentialed run handed back. Sixteen hundred and sixty-six hosts, no criticals outstanding, eleven highs each with a remediation date. Around eleven hundred findings were closed on the way to it, and that figure comes from their ticket records, because nobody counted the population before it was reduced.\n\nThe security operations manager has done a great deal of real work in a short time and none of it was performed for your benefit. He would like the report to say the patching control operates.\n\nThe audit period is the four quarters to 30 June, and for three of those quarters the diagnostic line still reads 74 of 1,486.",
+      "prompt": "The only credentialed scan of the estate was run after the remediation it prompted. What does your conclusion rest on?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conclude on the period from the evidence that existed during it, and report the re-run and the closures as a subsequent event — a measurement of the remediation rather than of the control.",
+          "quality": "best",
+          "next": "the-report",
+          "consequence": "You draft the two separately: the period conclusion on the four reports, the diagnostic line and the scope file; and a subsequent-events paragraph recording the re-run, the eleven hundred closures, and where both sets of figures came from. The security operations manager reads it twice and disputes neither half. The CIO asks whether the subsequent-events paragraph could move to the front.",
+          "why": "A period is a closed stretch of time and the evidence for it is whatever existed then — here four reports, one appendix line and a target list last edited in 2024. That is thin, and thin evidence honestly labelled still carries a conclusion: the assurance given for those quarters cannot be supported by the thing it was drawn from.\n\nThe re-run belongs in the report and it belongs where you put it. Subsequent events earn their place when they change what a reader should do, and eleven hundred closures change a great deal. What they cannot do is speak to the four quarters, because the estate they describe was patched after you started asking questions.\n\nSay plainly in the file what you are giving up. Every number in that paragraph is management's, taken from management's records, about a population nobody counted before reducing it. Attributing it is not a formality — it is the difference between reporting their remediation and vouching for it. The CIO's request to move the paragraph forward is the same instinct that produced the summary page, and it is worth declining for the same reason."
+        },
+        {
+          "key": "B",
+          "text": "Ask for the raw output of the first credentialed run and the ticket extract, and reconstruct what the four clean quarters were sitting on.",
+          "quality": "defensible",
+          "next": "the-report",
+          "consequence": "Both arrive within the day. The first credentialed run carried around eleven hundred findings, with criticals on roughly three quarters of the hosts it authenticated to, and the same nineteen on every cloud instance, the oldest disclosed in 2023. The two records reconcile to each other. Both were produced by the team that produced the remediation.",
+          "why": "The right instinct once the measurement itself has gone: if you cannot observe the condition, reconstruct it from whatever recorded it and label the source. It gives the finding a size, and the nineteen criticals common to every cloud instance is a fleet-wide fact no amount of coverage argument would have produced.\n\nThe limit is the one running through the whole case. Two records that reconcile to each other are not corroborated, they are consistent, and they share an author who already knew what you were looking for. Nothing suggests they are wrong. It means the most concrete part of your report rests on the auditee's own extract — which is precisely where you came in, with four accurate reports nobody had reason to doubt.\n\nThe same facts were first-hand evidence for the price of one maintenance window, at a moment when the window was still open."
+        },
+        {
+          "key": "C",
+          "text": "Take the re-run as the test of the control. It is credentialed, full-scope and clean, and every defect you found has been corrected.",
+          "quality": "poor",
+          "next": "the-report",
+          "taint": "substituted-the-period",
+          "consequence": "You file the output as the test of the patching control and draft the period conclusion on it, with a note that a scanner credential issue arose during the period and was corrected. The manager offers to have the infrastructure lead confirm the scan's provenance if that would help.",
+          "why": "Nobody offered you a trade and nothing was concealed, which makes this version of the decision harder than the one where somebody asks. The scan simply exists, it is the best-evidenced test in the file by a distance, and declining it leaves you concluding on four reports and a line in an appendix.\n\nBut the question a conclusion answers is not whether this estate is patched today. It is whether this control operated across the four quarters to 30 June, and the test you are filing was performed after those quarters ended, after you disclosed what was broken, and after management fixed what the test would otherwise have found. It measures the remediation — and the remediation happened because of the audit, which leaves the audit testing its own effect.\n\nWhat does not survive is what the four reports did while they were in circulation. Concluding that the control operated endorses, retrospectively, the assurance those reports carried to an audit committee, a certification body, fourteen hospital customers and a regulator. Nobody has established that it was true for a single day of it."
+        }
+      ]
+    },
+    "the-report": {
+      "situation": "Clearance, and one more fact has surfaced. The summary pages from the December, March and June reports were attached to security questionnaire responses for fourteen hospital customers, and a line citing four consecutive clean quarterly scans appears in the cybersecurity file supporting a regulatory submission for the next-generation pump. Nobody misrepresented anything. They quoted the report.\n\nThe CIO's position is calm and coherent. A service account password expired and a text file went stale. Both are fixed, remediation is running, and he would like it reported as what it is: a scanner configuration defect.",
+      "prompt": "How do you frame it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Three limbs: for three quarters the test had no mechanism to produce the finding it was cited as not having produced; its scope covered 1,486 of 2,006 assets and had not changed in two years; and the result was relied on internally and asserted externally as evidence that a control operates.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He accepts the first two immediately. The third takes an hour and a call to the head of regulatory affairs, who asks for the questionnaire responses and the submission file to be pulled the same day. The finding goes to the audit committee and to the management review under the information security standard, and regulatory affairs takes it into the quality system. The third limb is what both meetings spend their time on.",
+          "why": "It concedes everything he is right about — the password did expire, the file was stale, both are fixed — and states what survives all of it. Nothing in the finding is a criticism of anyone's competence, and it does not need one.\n\nThe first limb is the case: a clean result from a test with no detection capability is evidence about the test. The second gives it a size and separates the exclusion the organisation chose from the one it never knew about. The third is why this is a finding rather than an observation — an assurance artefact left the organisation and was relied on by customers and by a regulator, and no process anywhere would have caught a scan report making a claim its own appendix contradicted.\n\nStated together they explain each other, which is what stops the remediation being three unrelated fixes. Note also what the framing does not do: it does not tell the head of regulatory affairs what to do about the submission. It gives her the fact and she decides, which is the line between reporting a finding and taking over the decision."
+        },
+        {
+          "key": "B",
+          "text": "That every scan report must carry its coverage on the summary page — assets in the estate, hosts scanned, hosts credentialed — above any finding count, and that the scope file and the credential must have a named owner and be validated at every run.",
+          "quality": "defensible",
+          "next": "end-scoped",
+          "consequence": "Accepted in the room and implemented in six weeks. The next quarterly summary page opens with three numbers: 1,666 of 2,006 scanned, 340 excluded on the record, 1,594 credentialed — above a finding count of 4,900.",
+          "why": "The durable half of the answer, and the recommendation most likely to prevent a recurrence, because it makes the failure mode visible without anyone having to think of it. A credential that dies again appears on the front page of the next report instead of on page 19.\n\nWhat it leaves out is the period and the reliance. Framed purely forward, the finding says the reporting format should improve. It does not say that four quarters of assurance were worthless for three of them, and it does not reach fourteen customer questionnaire responses and a regulatory file that still assert the opposite. Those do not correct themselves when the format changes.\n\nStrong control design. Incomplete as a statement of what happened."
+        },
+        {
+          "key": "C",
+          "text": "That the scanner was misconfigured — an expired credential and a stale target list — and that both faults have been corrected.",
+          "quality": "poor",
+          "next": "end-technical",
+          "consequence": "Accepted without discussion and closed at the next tracking meeting on evidence of the new credential and the updated scope file. The finding is rated low. The pack of four reports stays in the customer questionnaire library.",
+          "why": "Factually accurate, and it is the framing management offered — usually a signal to examine rather than accept. Both statements are true and both describe causes.\n\nThe consequence is the finding. A misconfiguration is an IT hygiene item and it closes when the configuration is corrected. What happened here is that a control reported an absence of findings as an absence of vulnerabilities for three quarters, and that result was used to give assurance to an audit committee, a certification body, fourteen hospital customers and a regulator. None of that is repaired by a working password, and none of it appears in a report that calls the problem a misconfiguration.\n\nWriting the cause instead of the effect is the commonest way a serious finding is issued at the wrong severity, and it never feels like a compromise at the time."
+        },
+        {
+          "key": "D",
+          "text": "That the patching control has failed and the production estate is unpatched.",
+          "quality": "poor",
+          "next": "end-disputed",
+          "consequence": "He asks what it is based on. September was a credentialed scan of 1,402 hosts returning no criticals, and it is in your own working papers. The meeting runs long. The issued finding is reworded to say that scan coverage was not adequate to support the conclusions drawn from it.",
+          "why": "The frustration is legitimate — three quarters of nothing, an unscanned cloud fleet carrying device telemetry, and management wanting it called a configuration defect. The pull toward the strongest available sentence is strongest exactly here.\n\nIt is also the one claim the evidence does not carry, and the counter-evidence is a document you produced. September is a real credentialed test across most of the estate and it was clean, so the control has failed is refutable in a sentence — and being refuted on the headline makes everything behind it look loose, including the parts that were unanswerable.\n\nThe discipline this case is built on cuts both ways. A test that could not find anything tells you nothing about the estate. Nothing means nothing: not that it is clean, not that it is not."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Zero of nothing",
+      "verdict": "strong",
+      "narrative": "The credential and the scope file get named owners and a validation step that fails the scan job rather than footnoting it. Every quarterly report now opens with three numbers — assets in the estate, hosts scanned, hosts credentialed — printed above the finding count. The first report in the new format shows 1,666 of 2,006 scanned and 1,594 credentialed, over 4,900 findings and 214 criticals, and the audit committee's reaction to a report that finally has findings in it is the moment the point lands.\n\nThe fourteen customer questionnaire responses are reissued with a corrected statement. The regulatory submission's cybersecurity file is amended before the review closes, at the head of regulatory affairs' insistence and against some resistance; the alternative was a file whose supporting evidence the company knew to be void.\n\nThe cloud fleet's images are rebuilt and put on a rebuild cadence, and the build-pipeline scan is supplemented with a runtime scan of the running fleet, because the review establishes that a build-time gate had been read as continuous coverage since go-live.\n\nThe 2023 plant-floor exclusion is re-examined and re-signed unchanged. It was the one thing in the whole engagement that had been thought about.",
+      "why": "Nobody was careless and nothing was concealed. The four reports were accurate, the password rotation was correct practice, the plant-floor exclusion was well reasoned and documented, and the remediation workflow was disciplined and well evidenced. The failure ran underneath all of it.\n\nA detection control is bounded by what it can detect and by what it is pointed at, and both boundaries moved without anyone touching the control. A dependency broke when a password was rotated by the same team that owned the scanner. A subnet was built by a process that had no reason to know a text file existed. Neither event produced an error; both produced silence, and silence from a detection control is indistinguishable from good news.\n\nThat indistinguishability is what to carry out of here. A clean result has two possible causes — nothing was there, or nothing could be seen — and the report format made them look identical by printing the finding count on page one and the detection coverage on page nineteen. Any assurance measure that cannot fall when coverage falls will eventually be reporting coverage instead of condition, and it will read as reassurance the entire time it does.\n\nThe external assertions are what raised this from an internal reporting weakness to a finding with a regulator in it. An assurance artefact that leaves the organisation acquires readers who cannot see its appendices, and nothing in the process asked whether the artefact could support the claim being made from it."
+    },
+    "end-scoped": {
+      "title": "Three numbers on the front page",
+      "verdict": "acceptable",
+      "narrative": "The recommendation is implemented well and quickly. Scope and credentials get owners, the scan job fails loudly when authentication does not complete, and coverage figures appear above the finding count on every summary page.\n\nSix months later a firewall change stops host discovery reaching two data centre segments. The next report's front page shows the scanned count dropping by 190 and it is picked up inside the week. The control the recommendation created does exactly what it was designed to do.\n\nThe four reports stay in the customer questionnaire library. Nine further responses quote them before the library is next reviewed, and the regulatory file is never revisited. Two years on, a customer's own security team asks why a set of scans covering 1,486 hosts was cited as covering the production estate, and the company answers from a standing start, with no internal record that the point had ever been raised.",
+      "why": "A real control, correctly designed, and it will catch this class of failure again — the six-month firewall change is the proof. As forward-looking remediation it is close to the best available.\n\nWhat it does not do is state what happened. A recommendation is about the future and a finding is about a period, and only the second reaches things that have already left the building. Fourteen questionnaire responses and a regulatory file asserted something the organisation could not support, and no recommendation about report formatting reaches back to them. Somebody has to say that the assurance given was void, and that it was given to identifiable parties who relied on it.\n\nThe distinction is worth being precise about, because designing the fix is the satisfying part of the work and reporting the failure is the uncomfortable part. Fixing the mechanism is not the same as reporting what the mechanism did, and the second is nobody's job unless the auditor makes it theirs."
+    },
+    "end-technical": {
+      "title": "A password and a text file",
+      "verdict": "weak",
+      "narrative": "The finding is issued as a scanner configuration defect: an expired service account credential and a scope file that had not been maintained, both corrected during fieldwork. It is rated low, accepted without comment, and closed at the next tracking meeting on evidence of the fix.\n\nThe audit committee receives it in a table of eleven low-rated items. The pack of four clean reports stays in the customer questionnaire library and is attached to nine more responses that year. The regulatory file is not amended.\n\nFourteen months later the scanner stops authenticating again, after a certificate change on the domain controllers. The diagnostic line moves to 91 of 1,666 and sits in Appendix C for two quarters before anyone notices. The report format did not change, because the finding had been about a password.",
+      "why": "Every word of the issued finding is true, and it describes causes rather than what the causes produced. That distinction decides severity, and severity decides whether anything happens.\n\nA misconfiguration is remedied by correcting the configuration, so the finding closed the moment the password was updated — which had already happened before it was written. What the misconfiguration produced was three quarters in which a detection control reported silence as a clean result, and that result was used as assurance by an audit committee, a certification body, fourteen hospital customers and a regulator. None of that is repaired by a working password, and none of it is anywhere in the report.\n\nThe recurrence fourteen months later is the cost made visible. The remediation fixed one instance of the mechanism and left the mechanism standing, because the finding never named it: a control whose loss of capability is reported in an appendix behind the number it invalidates. Accepting management's framing is comfortable, and it is usually accepting their scoping of the consequence."
+    },
+    "end-disputed": {
+      "title": "Refuted by your own paper",
+      "verdict": "weak",
+      "narrative": "The clearance meeting turns on whether the estate can be called unpatched, and it turns against you, on the September scan in your own file. Three rounds of wording follow.\n\nThe issued finding reads that scan coverage was not adequate to support the conclusions drawn from it. Management accepts it, appoints an owner for the scope file, and closes it in four months.\n\nThe coverage ratio is not in the report. Neither is the fact that credentialed checks ran on 74 of 1,486 hosts for three consecutive quarters, nor the sixty-eight criticals, nor the fourteen questionnaire responses. The next quarterly report is issued in the old format with a working credential. It reports 4,900 findings and 214 criticals on page one, with no coverage figures anywhere, and the sudden appearance of two hundred criticals is explained in the covering mail as improved scanner tuning.",
+      "why": "The analysis was right and it was fired at the one claim the other side could refute, using a document you had produced yourself.\n\nSeptember was a genuine credentialed scan across 1,402 hosts and it genuinely found no criticals. That does not rescue the three quarters that followed, and it is enough to make the patching control has failed false as stated. Once the headline sentence is false, the meeting becomes about your reliability rather than their control, and the material you could not be argued with on leaves the report alongside the sentence you could.\n\nThe irony is exact. This case's own discipline is that a test which could not find anything tells you nothing — and that runs symmetrically. It does not license the conclusion that the estate is clean, and it does not license the conclusion that it is not. Stating the condition rather than the consequence — three quarters with no detection capability, 1,486 of 2,006 assets in scope, an assurance artefact sent to customers — required no assertion about the estate at all, and not one word of it was contestable."
+    },
+    "end-substituted": {
+      "title": "A conclusion about August",
+      "verdict": "failed",
+      "narrative": "The report concludes that the patching control operated effectively across the four quarters to 30 June, supported by a credentialed scan of the full estate returning zero critical findings. A note records that a scanner credential issue arose during the period and was corrected.\n\nThe scan cited was run after the period had closed: after the credential was fixed at your prompting, after the scope was extended at your prompting, and after a remediation programme carried out because you had told the security operations manager what you had found. Around eleven hundred findings were closed in that window. None of that appears in the report, and the working paper file does not record the sequence either, because the scan was filed as the test of the control rather than as a subsequent event.\n\nThe pack of four reports stays in the customer questionnaire library on the strength of an internal audit conclusion that the control operates. It is attached to nine more responses.\n\nEleven months later the finding is made by a customer's own assessor, who asks the question the audit did not: what did the credentialed check line say in each quarter. The company's answer triggers an internal review of how an audit that had identified the exact defect concluded the control was effective. The conclusion, the working papers and the sequence are read together, and it is the audit function's independence that the review is about, not the patching control.",
+      "why": "Nothing here was dishonest, and that is what makes it worth studying. Better evidence really was on offer — a wider scope, a working credential, a properly executed scan of the whole estate — and refusing better evidence feels like the wrong instinct. The manager's motives were good from beginning to end.\n\nThe error is that it is not better evidence about the same thing. A conclusion is made about a period, and the test has to speak to that period. A scan performed after the period, after the auditor disclosed the defect, and after management remediated what it found, measures the remediation — and the remediation happened because of the audit, which means the audit is testing its own effect.\n\nThat shape arrives disguised as cooperation every time. Management fixes the problem quickly and sincerely, offers to re-run the test, and the re-run is clean. Two questions separate it, and both have to be asked before the offer is accepted: what period does my conclusion cover, and when was this evidence created.\n\nThe unrecoverable part is not the wrong conclusion. It is that the report states the control operated across four quarters in which three had no detection capability at all; that a customer-facing assurance pack was left in circulation on the strength of that statement; and that the audit function held every fact needed to prevent both. A finding can be reissued. A conclusion that endorsed the very thing it had discovered cannot be walked back by anybody, because the file shows the auditor had it and signed anyway."
+    }
+  }
+}

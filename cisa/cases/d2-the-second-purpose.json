@@ -1,0 +1,355 @@
+{
+  "id": "d2-the-second-purpose",
+  "title": "The Second Purpose",
+  "domain": "2",
+  "section": "A",
+  "topics": [
+    "Privacy Program and Principles",
+    "Data Governance and Classification",
+    "Laws, Regulations, and Industry Standards",
+    "Enterprise Risk Management"
+  ],
+  "principles": [
+    "protection-follows-data",
+    "authorization-first",
+    "understand-before-acting",
+    "accountability-stays"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing data governance at a veterinary services group — 61 practices assembled by acquisition over six years, running on one practice management system since the 2024 migration. 411,000 active client records: owners, animals, appointments, clinical notes, invoices.\n\nThe engagement was planned around records management and classification. Three days in, the head of group analytics mentions in passing, and with some pride, the propensity model her team built to support the Wellness Plan.\n\nThe Wellness Plan is a monthly subscription — vaccinations, checkups, parasite treatment — and it is the group's stated commercial priority for the year. The model scores every client on their likelihood of taking one.\n\nWave one of the campaign went out eleven days ago: 39,600 emails and 8,200 texts. Wave two is scheduled for a fortnight's time.",
+  "taints": {
+    "timeline-restated": "end-restated"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The client privacy notice, given at registration and unchanged in four years, says the practice uses the information provided to deliver veterinary care to the animal, to contact the client about appointments and their animal's health, and to administer the account.\n\nThere is a separate tick box on the registration form: \"I would like to hear about practice news and offers.\" 156,000 of the 411,000 clients have ticked it.\n\nYour engagement letter covers records management and classification and names the chief executive as sponsor. It says nothing about models.\n\nThe head of analytics is happy to show you anything you ask for.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what the model was trained on — every field, and where each one came from.",
+          "quality": "best",
+          "next": "the-features",
+          "consequence": "You get the feature specification and the training script. Forty-one features. Thirty-two are contact, account and animal attributes. Nine are derived from appointment history, four of those from procedure-code groups. The training set is all 411,000 clients.",
+          "why": "The model is the artefact; the case turns on what went into it, because a purpose attaches to the data rather than to the algorithm. Establishing the feature list first means every conversation after it happens with you already knowing what the group computed from information clients handed over in a consulting room.\n\nIt is also the version nobody can revise. The training script is a record made at the time by people who had no reason to construct it for an auditor, which is a different class of evidence from anyone's account of what they thought they were doing."
+        },
+        {
+          "key": "B",
+          "text": "Ask the head of analytics how the model came to be built and who asked for it.",
+          "quality": "defensible",
+          "next": "the-features",
+          "consequence": "She is open about all of it. The marketing director asked for it in February, she was pleased to be asked, and her team took five weeks. When you ask what permission the data came with, she says it is the group's own data, and looks genuinely puzzled by the question.",
+          "why": "A good conversation with the most useful person in the building — candid, proud of the work, and the only one who knows how it was specified. What it gives you first is an account of intent, which is the least contested thing here; nobody disputes that the model was built to sell Wellness Plans.\n\nHer puzzlement at the permission question is worth more than her answer, and you would have heard it either way."
+        },
+        {
+          "key": "C",
+          "text": "Check who wave one was actually sent to, against the marketing tick box.",
+          "quality": "defensible",
+          "next": "the-features",
+          "consequence": "Every one of the 39,600 recipients had ticked the box. The suppression list was applied to both channels, and the marketing director tells you so before you have finished asking.",
+          "why": "The right check, and it comes back clean, which is the difficulty with leading on it. Who was mailed is the question the organisation will keep offering you, because it is the one where the answer is comfortable — nobody who said no was contacted.\n\nConsent to be sent offers is a permission about contact. It is not a permission about what the group may compute from an animal's clinical record, and opening here makes your first established fact the one that will be used to close the conversation."
+        },
+        {
+          "key": "D",
+          "text": "Tell the marketing director to hold wave two until you have looked at this.",
+          "quality": "poor",
+          "next": "the-features",
+          "consequence": "She asks on what basis. You say you do not know yet. She notes it, the schedule stands, and the commercial director asks the chief executive whether internal audit is able to stop campaigns.",
+          "why": "The instinct is right — something is running that may need to stop — and acting on it now is wrong twice over.\n\nYou cannot yet say what the exposure is, so when she asks on what basis you have nothing to give her, and an instruction you cannot support is one she is entitled to disregard. And the instruction was yours to give. Halting a live campaign is management's decision; the moment you take it, the question in front of the executive becomes whether audit can stop commercial activity rather than what happened to 411,000 client records.\n\nThe real cost lands later. In a fortnight you will know what the model was trained on and who it selected, and that is the week you need a request to carry weight — after you have already made one nobody could act on."
+        }
+      ]
+    },
+    "the-features": {
+      "situation": "Forty-one features. Thirty-two are contact, account and animal attributes. Nine are derived from appointment history, and four of those from procedure-code groups: vaccination cadence, dental work, chronic-disease rechecks, and end-of-life procedures.\n\nThe model was trained on all 411,000 clients and scores all 411,000. Wave one went to the highest-scoring 39,600 of the 156,000 who had ticked the box.",
+      "prompt": "The marketing director's position is that nobody who said no was contacted. What do you establish next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Where the training extract now lives, and who has had access to it.",
+          "quality": "best",
+          "next": "the-extract",
+          "consequence": "It is not in the practice management system. A scheduled reporting account pulls a monthly extract into a cloud notebook workspace the analytics team provisioned for themselves in 2024.",
+          "why": "Her position is about contact, and it is true. Yours has to be about the data, and the data has moved — a copy of 411,000 clinical histories now exists somewhere that was never designed to hold one.\n\nAsking where the data went is the question that keeps working no matter how the consent argument resolves. Even if the tick box covered everything the marketing director thinks it covers, the copy still has to carry the protections the original had, and the copy is where losses happen."
+        },
+        {
+          "key": "B",
+          "text": "Test whether the tick box, as worded, covers being profiled from a clinical record.",
+          "quality": "defensible",
+          "next": "the-extract",
+          "consequence": "The wording has not changed since 2019: \"I would like to hear about practice news and offers.\" It sits on the registration form directly beneath the consent to treatment. It says nothing about analysis, profiling, or the animal's clinical history.",
+          "why": "Exactly the argument you will need in the report, and you have found the two details that make it — the wording, and its placement under a consent to treat, which is not a neutral place to collect a marketing permission.\n\nTaken first, it puts you into a debate about the meaning of nine words with the function that wrote them, before you have established what physically happened to the data. Wording arguments are winnable when they are the second thing you say."
+        },
+        {
+          "key": "C",
+          "text": "Ask the clinical director what the procedure-code features actually contain.",
+          "quality": "defensible",
+          "next": "the-extract",
+          "consequence": "He has not heard of the model. He reads the four code groups, goes quiet, and asks who decided that end-of-life coding was a marketing variable.",
+          "why": "The right person and a question nobody else in the group can answer — procedure codes are a clinical vocabulary, and the marketing and analytics functions have been reading them as categorical variables. His question is now on the record, from the one person who owns the records.\n\nIt is a step toward the harm rather than toward the mechanism. You have established what the features mean before establishing where the data holding them now sits, and the meaning of a code is the half the group concedes readily — nobody is going to argue that a euthanasia code is an ordinary field."
+        },
+        {
+          "key": "D",
+          "text": "Accept that the data is the group's own and was pseudonymised for training, and move on to testing the campaign's unsubscribe handling.",
+          "quality": "poor",
+          "next": "the-segment",
+          "consequence": "You test the opt-out path. Every unsubscribe from wave one was applied within twenty-four hours and the suppression list is honoured across both email and SMS. You record the campaign controls as operating.",
+          "why": "\"It is our own data\" and \"it was pseudonymised\" are the two phrases that end most conversations about analytics, and both do less work than they appear to. Removing a name from a row does not remove the purpose the row was collected for, and the organisation holding the data is what creates the obligation, not what discharges it.\n\nThe unsubscribe test is real work on a control that is genuinely working. It establishes that the group honours a preference, at the moment when the open question is whether the preference was ever asked for.\n\nWhat it costs you is the copy. You never ask where the training extract went, so the notebook workspace and everything in it stays outside your report — and it is the part of this that a regulator would look at first."
+        }
+      ]
+    },
+    "the-extract": {
+      "situation": "The training extract is pulled monthly by a scheduled reporting account into a cloud notebook workspace the analytics team provisioned themselves in 2024. 411,000 rows.\n\nClient names are removed. Microchip number, mobile number and postcode are retained, because each monthly refresh has to join to the previous file.\n\nAlongside the structured features sits a free-text column of appointment notes, kept — the comment in the code says — in case we want to try text features later. Nobody has.\n\nA contractor data scientist whose engagement ended in May still has an active account on the workspace.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Compare the protections on the extract with the ones the same data carries in the practice system.",
+          "quality": "best",
+          "next": "the-segment",
+          "consequence": "In the practice system, clinical notes are restricted to clinical roles and every access is logged and retained for six years. In the workspace, the same notes sit in a folder readable by four accounts, access logging is retained for thirty days, and no retention limit is set on anything.",
+          "why": "This is the comparison that turns an untidy workspace into a finding. Classification is a property of the data, not of the system holding it, so a clinical note that is role-restricted and audited in the practice system does not become an ordinary file by being copied into a notebook — it becomes the same note with none of the controls.\n\nStating it as a difference between two places holding identical data is also what makes it undeniable. Nobody has to agree with you about how sensitive a clinical note is; the group already decided that, and then built a copy that ignores its own decision.\n\nAnd it survives the consent argument entirely. On the most generous reading of the tick box, nothing in nine words about news and offers says the record leaves the controls built for it."
+        },
+        {
+          "key": "B",
+          "text": "Get the contractor's account removed and the free-text column dropped.",
+          "quality": "defensible",
+          "next": "the-segment",
+          "consequence": "Both are done within the day. IT confirms the account is disabled and the analytics team deletes the column from the next refresh.",
+          "why": "Both should happen, and neither was yours to start.\n\nThe column is the sharper loss. A free-text field of appointment notes sitting in a marketing workspace is the plainest evidence you will ever have that the clinical record left the practice system — and once it is dropped from the refresh it becomes something you described rather than something anyone can look at. The account you closed before asking what it had been used for since May, which was a question with an answer.\n\nThe larger cost is the shape of the finding you can now write. A leaver's account and an unused text column are two housekeeping items with two owners and two quick fixes. What you were looking at was a copy of the clinical record living outside every control built for it, and that is a different report.\n\nThis is not the same mistake as ordering a campaign stopped. Nobody in the group would defend a live account belonging to a contractor who left in May, and disabling it costs them nothing. What it cost was evidence, not your independence."
+        },
+        {
+          "key": "C",
+          "text": "Check whether the extract route was approved by IT.",
+          "quality": "defensible",
+          "next": "the-segment",
+          "consequence": "It was. The reporting account was requested through the standard process and approved by the IT manager, who granted read-only access to the reporting views. He was not asked what the data would be used for, and there is no field on the form for it.",
+          "why": "Worth having, and the answer is the interesting half — the route was approved and the purpose was never asked. That is the same gap you are chasing everywhere else in this case, appearing in provisioning: an access request gets assessed on whether the account should be read-only, not on what the data will become.\n\nAs a first move it spends time confirming the extract was taken properly. The question in front of you is what it was taken for."
+        },
+        {
+          "key": "D",
+          "text": "Note the workspace for the infrastructure audit later in the year and stay on the model.",
+          "quality": "poor",
+          "next": "the-segment",
+          "consequence": "You add it to the planning file for the infrastructure engagement in November, with a note on the contractor account, and return to the feature specification.",
+          "why": "Deferring it treats the workspace as a hosting question. The workspace is where the data is.\n\nA copy of 411,000 clinical histories, joinable by microchip and mobile number, sitting outside the access model built for it, with no retention limit and a leaver's account still open, is not a matter for a later scope. It is the exposure in the engagement you are already running, and by November the contractor's account will have been open for six months."
+        }
+      ]
+    },
+    "the-segment": {
+      "situation": "You ask the head of analytics for the model's feature weights. She sends them the same morning.\n\nThe strongest single positive weight is a euthanasia procedure code in the preceding 90 days. The model has learned something true: clients who lose an animal register another one, at a median of seven months.\n\nAcross all 411,000 clients, 0.4 per cent carry a euthanasia code in the last 90 days. Among the 39,600 mailed in wave one, 5.4 per cent do — 2,140 people. The subject line was \"Start your new arrival right — Wellness Plan from £14 a month.\"\n\nEleven complaints have reached practices. One, from a client whose dog was put to sleep five weeks earlier, has been copied to head office. Wave two — 61,000 clients — goes in a fortnight.",
+      "prompt": "What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Set out what you have established, in writing, to the chief executive and the data protection lead the same day, and say plainly that the decision on wave two is theirs.",
+          "quality": "best",
+          "next": "the-authorisation",
+          "consequence": "You send it that afternoon: what the model was trained on, where the extract lives, the 0.4 against the 5.4, and the wave two date. The chief executive reads it that evening. Wave two is suspended the next morning by the commercial director, the finance director begins working out whether any of it is reportable, and you are asked to keep going.",
+          "why": "There are two jobs here and they pull in opposite directions unless you separate them cleanly. Something live may need to stop, and you are not the person who stops it.\n\nWriting it up the same day discharges the first: the people who can act now know what you know, in a form they cannot later say they did not have. Saying the decision is theirs discharges the second, and it costs nothing — the suspension happens anyway, faster, with the commercial director's name on it rather than yours. You keep the ability to give an opinion on how they responded, which is the next thing anyone will ask you.\n\nIt also settles your own authority to be here. Your engagement letter covers records management and says nothing about models; a memo to the sponsor setting out what you found and what you intend to examine next is how the extension becomes something he authorised rather than something you assumed.\n\nSpeed and role are not in tension. Confusing them is how auditors end up owning the decisions they were meant to assess."
+        },
+        {
+          "key": "B",
+          "text": "Instruct the marketing team to hold wave two until your work is complete.",
+          "quality": "poor",
+          "next": "the-mandate",
+          "consequence": "They hold it. Two days later the marketing director asks you when it can go, and the commercial director asks the same question in writing the following week.",
+          "why": "Every instinct says stop it, and the impulse is sound — 61,000 more people are two weeks away. What it costs is the decision itself.\n\nOnce you have suspended the campaign, somebody has to ask you when it can resume, which makes the resumption your judgment too. You now hold a control decision you will shortly be asked to give an independent opinion on, and you took it in the one situation where telling the chief executive would have produced the same suspension by the right route, sooner.\n\nThe scoped version of the rule matters here. Stopping harm first is right when you are the responder. You are not the responder; you are the only person who can tell the responder what is happening."
+        },
+        {
+          "key": "C",
+          "text": "Keep going. This is the centre of the finding and the report is three weeks away.",
+          "quality": "poor",
+          "next": "the-mandate",
+          "consequence": "You continue fieldwork. Wave two goes out on schedule to 61,000 clients, of whom 3,300 have a euthanasia code within 90 days. A complaint reaches the professional body through a practice partner, and the chief executive learns that the model exists from that complaint.",
+          "why": "The reasoning is not stupid: the report is the deliverable, three weeks is not long, and half a finding delivered in a corridor is worth less than a whole one delivered properly. It also treats a running process as a fact pattern.\n\nFieldwork can wait a fortnight. A scheduled send cannot, and on the day you learned this you were the only person in the group who knew it was coming. The report you eventually write is now also a report about a second wave you could see and did not mention, and the chief executive heard about the model from a complainant rather than from the assurance function.\n\nDeferring is the quiet failure mode of this profession: nothing is done wrongly, and the only thing that happens is that the information arrives after it could be used."
+        },
+        {
+          "key": "D",
+          "text": "Take it to the finance director as data protection lead and ask her how she wants to handle it.",
+          "quality": "defensible",
+          "next": "the-authorisation",
+          "consequence": "She is appalled and says she will raise it at the next commercial planning meeting, in nine days. You ask whether that is soon enough. She says she does not know.",
+          "why": "She is the accountable owner and going to her is the correct instinct about role. The difficulty is what the role is: two hours a month, no standing in the commercial meeting, and you have just asked a part-time appointee to stop the chief executive's revenue priority.\n\nHer answer — that she does not know whether nine days is soon enough — is the finding arriving early, and you should keep it. Accountability that sits with someone who cannot act on it is a structure to report, not a channel to route through when there is a send in a fortnight."
+        }
+      ]
+    },
+    "the-mandate": {
+      "situation": "The chief executive asks to see you, and he has heard about the model from someone other than you.\n\nWhat he wants, in this order: how long you have known, why the first account of it to reach him was not yours, and whether your engagement letter — records management and classification, signed by him in March — covers any of this at all.\n\nHe is not hostile. He has the commercial director's version of events and the marketing director's, and he does not yet have one from the assurance function.",
+      "prompt": "What do you give him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Set out what you have established in writing the same day, and ask him in the same note to extend the engagement to cover the model and the extract.",
+          "quality": "best",
+          "next": "the-authorisation",
+          "consequence": "You send it that afternoon: the forty-one features, the four procedure-code groups, the extract in the notebook workspace, the 0.4 per cent against the 5.4, and where wave two now stands. He signs the scope extension the next morning and tells the commercial director that campaign decisions are his own to take.",
+          "why": "Two things needed doing in that room and this does both. The sponsor gets the facts in a form nobody can later say he did not have, and your presence in material the engagement letter never mentions becomes something he authorised rather than something you assumed.\n\nIt also puts the campaign back where it belongs. Whatever the position of wave two when you walked in, the person deciding it is now the person who should have been deciding it from the start, and he is deciding it on your facts rather than on an account assembled from three other people.\n\nThe week it cost you does not come back. He formed his first understanding of this from people with an interest in how it sounded, so everything you tell him now is heard as a correction. The same note, sent on the day you found the euthanasia weight, would have been the first account instead of the second."
+        },
+        {
+          "key": "B",
+          "text": "Answer everything he asks, fully and in person, and tell him the written position will come with the report.",
+          "quality": "defensible",
+          "next": "the-authorisation",
+          "consequence": "The meeting runs an hour and he is satisfied when he leaves it. That afternoon he repeats parts of your account to the commercial director, in a form you would not have written, and asks nobody for anything on paper.",
+          "why": "Candour with the sponsor is the right instinct, and an hour of your undivided account is worth more to him than most memos are. He now knows, which is the thing that mattered most.\n\nWhat he does not have is a record. Everything in this case turns on what was known, by whom, and when — and you have just added the most significant item to that timeline in the one form that leaves no trace of itself. By the evening the version in circulation is his recollection of your account, relayed.\n\nYou also left without asking for anything. He raised the scope question himself, which is as open as that door gets, and you are still examining a model under an engagement letter about records management. The next person to ask by what authority will not be the chief executive."
+        },
+        {
+          "key": "C",
+          "text": "Apologise for the position he has been put in, and confirm you will keep the engagement to the scope he signed.",
+          "quality": "poor",
+          "next": "the-fix-offer",
+          "consequence": "He is visibly relieved and says he would rather this were handled by the people who own it. Marketing and analytics are asked to sort it out and report back to him. You return to records management and classification, and the model work stops where it stands.",
+          "why": "Understandable, and it concedes the wrong half. The scope was the thing that needed fixing. The work was not, and he was the one person who could have fixed the scope in a sentence.\n\nWhat you have given up is the decision. Nobody now asks where the authorisation for the model was, whether an impact assessment exists, what the processing register says, or what the minute of the commercial planning meeting records — and those are the only questions that explain how 411,000 client records acquired a second purpose without anyone noticing they were choosing one. Left with the model alone, the most you can write is that a model used features it should not have.\n\nThe group will remediate, probably well, and hand you the result. Giving assurance over a fix designed by the people who caused the gap, with no sight of how the gap was authorised, is a much narrower job than the one you had an hour ago."
+        }
+      ]
+    },
+    "the-authorisation": {
+      "situation": "You go looking for the decision.\n\nThere is no impact assessment for the model. There is no impact assessment template anywhere in the group. The processing register holds one entry for client data: purpose, \"provision of veterinary services and related client communications\"; owner, Group Finance Director; last reviewed two years ago.\n\nThe model was agreed at the monthly commercial planning meeting. The minute reads, in full: \"AOB — analytics to develop a propensity model from practice data to support Wellness Plan growth. Agreed.\" Present: marketing director, commercial director, head of analytics. Nobody from clinical. Nobody from data protection.\n\nThe finance director holds the data protection lead role because in 2023 the group needed a named person. She gets about two hours a month for it. In March she signed the annual data protection statement to the board, which says processing is limited to the purposes set out in the client privacy notice.",
+      "prompt": "What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Client data collected to deliver care was used for marketing analytics without permission for that purpose.",
+          "quality": "defensible",
+          "next": "the-fix-offer",
+          "consequence": "You draft it that way. Nobody contests it. The head of analytics reads it and asks you what she should have done differently.",
+          "why": "True, and it is a description of what happened rather than of how it could happen. Written this way, the recommendations that follow are consent and training, and both point at the analytics team — who used data the group holds, through an approved access route, for a purpose the group's commercial leadership asked them for.\n\nIt also invites the one argument the group can genuinely run: the clinical record belongs to the animal, so none of this is the client's health data. That happens to be right, and it is beside the point, because a purpose limit does not depend on the category of the data. A finding that opens on \"without permission\" spends its first meeting arguing about what kind of data it was.\n\nHer question is the tell. There is no good answer to \"what should I have done differently\" for someone who was asked to build a model from the company's own data and did, and a finding that cannot answer it is aimed at the wrong place."
+        },
+        {
+          "key": "B",
+          "text": "No step in the group's process requires a new use of client data to be tested against the purpose it was collected for, before the use begins.",
+          "quality": "best",
+          "next": "the-fix-offer",
+          "consequence": "You draft it that way. The commercial director reads it and says the meeting had no reason to think it was making a data protection decision. You write that down.",
+          "why": "This names the mechanism and takes the individuals out of it. A purpose decision was taken under AOB by three people, none of whom had any reason to think a purpose decision was in front of them, because nothing in the group's process makes such a decision visible as one. The privacy notice was not consulted — not because anyone chose to skip it, but because no step required anyone to open it.\n\nThe finance director's March statement is the same gap seen from the top. She attested that processing was limited to the purposes in the client notice at a point when she had no mechanism by which she could have known whether it was. That is not a false statement carelessly made; it is an accountability that was never given anything to stand on, and it sits with her and with the board whatever the analytics team did.\n\nFindings written at this level produce a fix that holds after the people involved have moved on. Findings written at the level of the instance produce a reminder."
+        },
+        {
+          "key": "C",
+          "text": "The data protection lead role is nominal and should become a properly resourced appointment.",
+          "quality": "defensible",
+          "next": "the-fix-offer",
+          "consequence": "You draft it that way. The finance director agrees with it more readily than anyone else in the group, and the chief executive asks what the market rate is.",
+          "why": "True on the facts, and the March statement makes it sharper than an ordinary resourcing point. It is also the recommendation the group will meet with the answer it has for everything: 61 practices, thin margins, and where does the money come from.\n\nCapacity is not what failed. A full-time privacy lead who is not in the commercial meeting when the next model is agreed under AOB does not see it either. What makes a named person effective is a step that cannot be completed without them; without that, resourcing the role buys a better-qualified person to be told about things afterwards."
+        },
+        {
+          "key": "D",
+          "text": "The privacy notice is out of date and should be updated to cover analytics and marketing.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "The marketing director agrees immediately and asks the group's solicitors to draft new wording. A revised notice is prepared within the week and goes live on the practice websites. Nobody brings you anything further, and the next thing in your diary is the risk and audit committee.",
+          "why": "Understandable — the notice does not describe what the group is doing, and the cheapest way to close a gap between a promise and a practice is to move the promise.\n\nIt is the wrong direction, and it cannot reach backwards. Nothing published this month alters what 411,000 clients were told at the moment they handed over their animal's history, and the 39,600 were mailed under the old notice regardless of what the new one says.\n\nThe notice was not out of date. It was accurate, and the processing had left it.\n\nThe cost you will not see until the committee is that a finding about wording gets a wording fix, and the fix arrives in a week. Nobody puts a remediation plan in front of you to weigh, nobody asks you what should be preserved before the model, the scored file and the extract are changed or deleted, and nobody asks you how the report should describe any of it. Framing the finding as a document defect is what decides whether you are consulted on the response at all."
+        }
+      ]
+    },
+    "the-fix-offer": {
+      "situation": "The head of analytics and the marketing director bring you a plan, and it is a good one. Retrain with every clinically derived feature removed. Score only clients who have ticked the box. Delete the current model, the scored file and the training extract. They can do it this week.\n\nThe chief executive asks you something else. The report goes to the risk and audit committee and to all 61 practice partners. He asks whether it can describe the campaign as paused for a privacy review — because, he says, eleven complaints out of forty thousand is not an incident, and the partners will read the word incident and reach for the phone.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Support the remediation, ask that the feature list, the scored segment counts and the recipient list are preserved before anything is deleted, and report the sequence as it happened.",
+          "quality": "best",
+          "next": "the-committee",
+          "consequence": "The three artefacts go to a read-only archive on Wednesday and the retrain starts on Thursday. Your report states that 39,600 clients were contacted using data collected to deliver care, that 2,140 of them were within 90 days of a euthanasia, and that the campaign stopped during the audit, after audit established what the model had been trained on.",
+          "why": "Three things at once, and none of them is in tension with the others.\n\nThe remediation should go as fast as they can make it go; nothing about writing a report requires the exposure to persist while you write. The evidence has to outlive the fix, because a deleted model is also a deleted record of what the model did, and the 2,140 is a number somebody will want to reproduce. And the sequence is the finding: a campaign that was stopped because the auditor asked what it was trained on is a different fact from a campaign the group reviewed and paused, and only one of them tells the reader whether this control environment works.\n\nOn his number — eleven is a measurement of how many people complained. 2,140 is a measurement of how many were affected. Substituting the first for the second is how findings get sized down to where nobody has to act."
+        },
+        {
+          "key": "B",
+          "text": "Agree to \"paused for a privacy review\". The remediation is real and the phrase is not untrue.",
+          "quality": "poor",
+          "next": "the-committee",
+          "taint": "timeline-restated",
+          "consequence": "The report describes a campaign paused for a privacy review and a model being rebuilt with clinical features removed. The committee accepts it without discussion. No partner phones. The remediation is completed in full and on time.",
+          "why": "He is right that eleven is a small number and wrong that it is the number, and he is right that the remediation is real. Neither of those makes the sentence a record of what happened.\n\n\"Paused for a privacy review\" describes an organisation that looked at its own processing and chose to stop. What occurred is that the group did not look, and stopped when somebody outside the process asked what a model was trained on. Both sentences are built from true words; only one of them is an account of events.\n\nThe report is the only thing here that outlives everyone involved, and its entire value is that it says what happened. Softening the tense is not softening a finding — it removes the reason the file exists, and it does so in the one document that a regulator, a professional body or a successor auditor would rely on precisely because it was written at the time."
+        },
+        {
+          "key": "C",
+          "text": "Ask them to delete the model, the scored file and the extract today — the data should stop existing.",
+          "quality": "poor",
+          "next": "the-committee",
+          "consequence": "It is done that afternoon. The feature list, the decile scores and the record of which clients fell into which segment go with them. What remains is the campaign platform's send log: 39,600 addresses, no scores, no reasons.",
+          "why": "The instinct is the right one about the data, and it is applied at the wrong moment to the wrong copy.\n\nYou have destroyed the evidence of the thing you are reporting. Your working papers carry the numbers and nothing else does: the 2,140 now rests on a count nobody can re-run, the feature weights survive as a table you typed, and if a complaint escalates the group cannot show which clients were affected or why — which is exactly what it will be asked.\n\nAnd the decision to delete was yours. Making evidence disappear is not a lesser version of ordering a campaign stopped; it is the same error with a longer tail, because in six months there is nothing left to check your own report against."
+        },
+        {
+          "key": "D",
+          "text": "Welcome the plan, but say the opt-in wording will not carry the weight they want to put on it.",
+          "quality": "defensible",
+          "next": "the-committee",
+          "consequence": "The marketing director asks whether that means the retrained model cannot be used at all. You say that is not your call. The plan proceeds with the question open, and she raises it again twice before the report is issued.",
+          "why": "The point is correct and it is the one thing in their plan that does not work: \"practice news and offers,\" collected under a consent to treat, is a permission about being contacted, and restricting scoring to those 156,000 does not make it a permission to profile them from an appointment history.\n\nIt belongs in the report, where it can be weighed by people who can decide it. Raised as a condition across a table it reads as audit specifying the remedy, and her follow-up question is the shape of that: she is now asking you to approve a model. This is the one place in the engagement where the line is genuinely fine, and the safe side of it is the written one."
+        }
+      ]
+    },
+    "the-committee": {
+      "situation": "The risk and audit committee: three practice partners, the chief executive, an independent chair.\n\nThe chair has read the report and has one question. The group is eight weeks from signing for a customer data platform — a system whose whole purpose is to bring practice, appointment and campaign data together and make it easier to act on.\n\n\"Is what you found a privacy problem or an analytics problem? I need to know before we sign.\"",
+      "prompt": "What do you tell her?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That it is a decision-rights problem, and the platform will make it faster.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "You describe it: three people in an AOB item chose a new purpose for 411,000 client records, and nothing in the group required that choice to be recognised as a choice. She asks what the gate should look like. You set out the test — any new use of client data assessed against the purpose it was collected for, before it starts, with a named person who can refuse — and she asks for it to go into the platform's business case as a condition of go-live.",
+          "why": "It answers the question she actually asked, which was about the platform rather than about the model. The finding generalises because it is about who decides and when, and a customer data platform is precisely a machine for making new uses of client data cheap, quick and configurable by people who will have no more reason than the commercial meeting had to think a purpose decision is in front of them.\n\nNote where the decision lands. You set out what a gate would have to do; she is the one who made it a condition of signing. That is the whole of the difference between recommending a control and imposing one, and it is available to you in a committee room in a way it never is across a desk.\n\nA decision-rights finding is also the only version of this that can be tested next year. \"Be more careful with client data\" cannot be audited. \"No new use goes live without a documented purpose assessment and a named person who can say no\" can be, and the first time the gate refuses something is the first evidence the group has that it exists."
+        },
+        {
+          "key": "B",
+          "text": "That it is a privacy problem, and the group should resource the data protection role properly before it signs.",
+          "quality": "defensible",
+          "next": "end-resourced",
+          "consequence": "The committee agrees without argument and authorises a part-time privacy manager. Recruitment opens the following month.",
+          "why": "The right thing to want, and what most organisations do after a case like this. The order is the problem, and she told you her constraint: eight weeks to signature.\n\nA recruitment takes four months. The platform and its first use cases will be configured before the person you recommended exists, and she will inherit them. From there she is effective to the extent that people show her things, which is the precise condition that produced the model."
+        },
+        {
+          "key": "C",
+          "text": "That it is an analytics problem: the model used features it should not have, and it has been rebuilt.",
+          "quality": "poor",
+          "next": "end-narrow",
+          "consequence": "The chair thanks you and says that is reassuring. The platform contract signs on schedule three weeks later.",
+          "why": "The most comfortable answer in the room, and the only one she can act on immediately, which is why it is tempting.\n\nThe features were the harm; they were not the cause. What made a euthanasia weight possible was not the presence of a procedure code in a feature list — it was that a use of client data was chosen by people who had no reason to think a choice was being made. A rebuilt model is a rebuilt model, and the system she is about to sign for exists to let marketing configure the next use without an analytics team in the way.\n\nYou answered the question she asked and not the one she needed answered, and she will not ask it again."
+        },
+        {
+          "key": "D",
+          "text": "That the group cannot rely on the consent it holds, and should go back to all 411,000 clients and ask properly.",
+          "quality": "defensible",
+          "next": "end-reconsented",
+          "consequence": "The committee backs it over the marketing director's objection. A re-consent mailing goes out in the autumn. Nine per cent respond, and the marketing list falls from 156,000 to 37,000.",
+          "why": "The most honest option on the table and the most expensive, and its real strength is that it accepts a smaller list rather than arguing nine words into covering more than they can bear.\n\nIt repairs the permission that was missing. It does not answer her question, which was whether to sign — a re-consent exercise says nothing about whether the platform will be used within the purposes the new consent describes. You will have collected 37,000 permissions and left in place the process that turned the last set into a training extract."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "A gate the meeting cannot skip",
+      "verdict": "strong",
+      "narrative": "The condition goes into the platform business case: no new use of client data goes live without a documented purpose assessment against the notice under which the data was collected, a named owner, and a person with authority to refuse. The group signs four months later with the gate built into the implementation plan.\n\nThe first thing the gate stops is a proposal to share aggregated parasite-incidence data with a pharmaceutical manufacturer. It is not refused; it is assessed, de-identified properly, put to clients as a separate opt-in, and goes ahead nine weeks later on terms the group can defend. That, rather than a refusal, is what convinces the commercial director the gate is not a brake.\n\nThe 2,140 clients receive a letter from their own practice partner, signed by name. Around three hundred reply, most of them kindly. Two do not, and the group answers both properly.\n\nThe assessments the gate generates turn out to be a job, which is how the group ends up recruiting a part-time privacy manager in the spring rather than arguing about the market rate for one. The finance director hands her the operational role and remains the board's accountable owner, which is the right way round. The retrained model, with every clinical feature removed, reaches sixty-eight per cent of the original lift — a number nobody expected to matter, and the one that ends the argument about whether the gate costs anything.",
+      "why": "Nobody in this case behaved badly. The analytics team used the group's own data through an approved route to build what the commercial leadership asked for. The model learned something true. The mailing list contained only people who had ticked a box. And 2,140 people were written to about a new arrival within ninety days of losing an animal.\n\nThe mechanism is that a permission is attached to a purpose, and neither the fact that the organisation holds the data nor the fact that a name has been stripped from a row detaches it. A client hands over an animal's history in a consulting room to get the animal treated. That is what makes the room work, and it is not a formality on a notice.\n\nThe governance failure was not a missing policy. It was a missing step: a purpose decision taken in AOB by three people who had no reason to recognise one, and attested to the board in March by a part-time appointee who had no mechanism by which she could have known. Accountability that has nothing to stand on is the structure to report, not the person to blame.\n\nWhat made the finding land was framing it as decision rights. It generalises to a system nobody had built yet, it is testable a year from now, and it survives everyone in the room changing jobs — which is the standard a governance finding has to meet."
+    },
+    "end-resourced": {
+      "title": "Someone whose job it is",
+      "verdict": "acceptable",
+      "narrative": "A part-time privacy manager is recruited and starts four months later. She is good. She writes an impact assessment template, builds a proper processing register, and finds two things in her first quarter that nobody else would have.\n\nThe platform contract signs six weeks before she starts. Its first two use cases — a lapsed-client win-back and a cross-practice spend segmentation — are configured during her notice period at her previous employer. She spends most of her first year unpicking them, and reaches an accommodation on both that is defensible rather than clean.\n\nThe gate exists in her calendar rather than in the process. She sees what she is shown, and she is shown a great deal, because the model is fresh in everyone's memory. Two years later a new commercial director arrives who was not there for any of it.",
+      "why": "A named, resourced person is a real improvement, and it is the second half of the answer rather than the first.\n\nCapacity was never the thing that failed. The model was agreed under AOB by three people who did not know they were making a purpose decision, and a full-time privacy manager who is not in that meeting does not know either. What makes a named person effective is a step that cannot be completed without them — after which the resourcing question answers itself, because the step generates the workload that justifies the role.\n\nThe timing compounded it. She was recommended eight weeks before a signature and arrived four months after it, so the platform's founding use cases were configured by the same process that produced the model, and she inherited them as facts rather than as decisions. Assurance that depends on an individual's attention decays at exactly the rate that people change jobs."
+    },
+    "end-reconsented": {
+      "title": "Thirty-seven thousand yeses",
+      "verdict": "acceptable",
+      "narrative": "The re-consent mailing runs in the autumn with plain wording, drafted with the clinical director's help, that says what the group wants to compute and from what. Nine per cent respond. The marketing list falls from 156,000 to 37,000, the Wellness Plan target is missed by a distance, and the marketing director spends a difficult six months.\n\nBy the following year the smaller number has become an asset in the group's own telling — a list where every name means something — and the campaign response rate per contact is the best the group has recorded.\n\nThe platform signs on schedule with no gate attached. Eighteen months on, a new head of analytics proposes scoring lapsed clients from appointment gaps rather than clinical codes. It is a sensible proposal from a capable person. Whether it is within what the 37,000 agreed to is a question nobody in the group asks, because there is still no point in the process at which it would be asked.",
+      "why": "Going back and asking is the most honest thing on the table, and the strongest part of it is that it accepts a smaller list rather than arguing nine words into carrying more than they can. It repairs the permission that was missing, at real cost, and the group is better off for it.\n\nWhat it does not do is build the step that would have caught the model. So the group now holds a cleaner list and the same process that turned the last one into a training extract, and the next use arrives from someone with no memory of any of this.\n\nA consent you have to collect twice is evidence that something upstream is not asking the question. Fixing the consent without fixing the question means you will collect it a third time."
+    },
+    "end-narrow": {
+      "title": "The features were the problem",
+      "verdict": "weak",
+      "narrative": "The model is rebuilt without clinical features, the campaign restarts in the spring, and the platform signs on schedule.\n\nNine months later the platform's segmentation is being configured by the marketing team directly, using recency and spend, with no clinical codes anywhere near it. The autumn win-back campaign goes to a segment defined as no appointment in six months, moderate historic spend, no active plan.\n\n4,900 of them no longer have an animal. A client with no appointments for six months and a client whose animal has died look identical when you cannot see the reason, and the absence of care is a clinical fact too.\n\nNobody chooses this. Nobody breaks a rule. The complaints, when they come, go to the practices.",
+      "why": "Removing the clinical features was worth doing and it addressed the visible harm, which is why it was so easy to accept in the room.\n\nThe euthanasia weight was a symptom. What produced it was a use of client data chosen by people who had no reason to think they were choosing, and that condition survives the retrain untouched. Take the codes away and the same process produces the same shape of problem out of appointment gaps — a cheaper, blunter version, configured by people with less training and no visibility of what an absence means.\n\nThe chair asked whether to sign, eight weeks out. Answering that the analytics were fixed is answering about the last use of the data on the eve of buying a system whose purpose is to make the next hundred uses trivial. Naming an analytics defect gets an analytics fix, and the gate stays unbuilt."
+    },
+    "end-restated": {
+      "title": "Paused for a privacy review",
+      "verdict": "failed",
+      "narrative": "The report describes a campaign paused for a privacy review and a model being rebuilt with clinical features removed. The committee accepts it in four minutes. No partner phones. The remediation is completed in full, on time, and to a higher standard than most things this group does.\n\nTwo years later a complaint about an unrelated mailing reaches the professional body, which asks the group to demonstrate how it governs client data and to disclose any previous issues. The file is produced and it answers well: a privacy review, a model rebuild, a processing register, a control environment that looks like one that noticed something and dealt with it.\n\nNothing in it records that 39,600 clients were contacted using data given for their animals' care. Nothing records that 2,140 were written to about a new arrival within ninety days of losing one. Nothing records that it stopped because an auditor asked what a model had been trained on.\n\nThe head of analytics, who wrote the training script and kept it, left the group in the spring. The workspace was deprovisioned with her account.",
+      "why": "Every word in the sentence is true and the record it leaves is false. \"Paused for a privacy review\" describes an organisation that looked and chose. This one did not look, and stopped when someone outside the process asked a question.\n\nThe remediation was real, and that is what makes the trade feel reasonable: nothing bad happens to anyone, the work still gets done, and a hundred partners are spared an alarming word. But the fix is not the record. The report is the only account of this that outlives the people in it, and by two years out it is the only account at all — which is precisely when its accuracy becomes the whole of its value.\n\nThe number was the other half. Eleven is a measurement of how many people complained; 2,140 is a measurement of how many were affected. Accepting the first in place of the second is how a finding gets sized down to the point where nobody has to act on it, and it is offered in good faith almost every time.\n\nAn auditor who agrees to have the timeline restated has not softened a finding. They have removed the reason the file exists, and they are the only person in the building whose job it was to keep it."
+    }
+  }
+}

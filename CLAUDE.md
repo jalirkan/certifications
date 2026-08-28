@@ -38,7 +38,7 @@ lose data.
 | Decision rules | 23 documented, 390 of 501 questions mapped, every rule spans ≥2 domains |
 | Confusable pairs | 29 documented, 79 questions mapped, **no gaps** |
 | Study guides | **all five domains**, same depth |
-| Branching cases | 19 written (~35 needed), blueprint-weighted; 52 of 60 topics, all 23 rules |
+| Branching cases | **34 written**, blueprint-weighted (6/6/4/9/9); **all 60 topics**, all 23 rules |
 | Tests | **491, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`); certs switchable in the browser via `X-Cert`, dark/light themes |
 | Sibling cert | `cpa-aud/` stood up 2026-08-27: verified Jan-2026 AUD blueprint outline, **100 reviewed questions**, own format (78 MCQ / 120 min / 0–99, pass 75) — a full mock draws with no shortfall |
@@ -75,7 +75,7 @@ certifications/
     principles.json         23 decision rules + the questions each decides
     confusable-pairs.json   29 confusions + discriminator + the trap + mapped questions
     questions/              501 questions, one file per domain-section
-    cases/                  branching audit cases + SCHEMA.md (19 written, ~35 needed)
+    cases/                  branching audit cases + SCHEMA.md (34 written, blueprint-weighted)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
   cpa-aud/            CPA AUD Core: verified outline + original seed bank
@@ -204,6 +204,18 @@ data, which is worse than leaving it alone.
 ---
 
 ## 5. What is next
+
+0. **Branching cases reached 34 on 2026-08-28** — the blueprint-weighted target (6/6/4/9/9), with
+   every one of the 60 outline topics now carried by at least one case and all 23 rules used more
+   than once. Worth knowing for the next batch: the first pass came back structurally valid and
+   *pedagogically wrong* — 81% of interior nodes were fully convergent (every option routing to the
+   same next node) against 60% in the original nineteen, which makes a case a series of MCQs with
+   narration. `validate` cannot see this; it was caught by measuring convergence against the
+   existing cases and fixed by a second re-wiring pass, landing the new fifteen at 52%. **Measure
+   convergence on any future batch** — a case whose interior nodes all converge has lost the one
+   thing the format exists for. Re-wiring also exposed a second class of defect worth a permanent
+   check: an option whose `next` already points at its own taint's ending, which makes the taint
+   decorative. `validate` now warns on it and three cases were fixed.
 
 1. ~~**Front end rebuild**~~ — **done 2026-07-31.** Vite + React + TypeScript + Recharts in
    `frontend/`, building to `web/`. `FRONTEND-BRIEF.md` remains as the spec it was built against.

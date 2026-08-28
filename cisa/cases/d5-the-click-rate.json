@@ -1,0 +1,317 @@
+{
+  "id": "d5-the-click-rate",
+  "title": "The Click Rate",
+  "domain": "5",
+  "section": "B",
+  "topics": [
+    "Security Awareness Training and Programs",
+    "Information System Attack Methods and Techniques",
+    "Security Monitoring Tools and Techniques"
+  ],
+  "principles": [
+    "outcome-over-activity",
+    "root-cause",
+    "read-the-verb",
+    "accountability-stays",
+    "evidence-quality"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing security awareness at a commercial law firm. Eleven hundred and eighty people across three offices, six hundred and twenty fee earners, and a client account through which several hundred million pounds of transaction money passes in a year.\n\nThe programme is well run and everybody says so. An annual module, quarterly phishing simulations, a Report Phishing button on every mail client, and a quarterly pack to the board and to a risk committee chaired by one of the corporate partners.\n\nFour campaigns, September to June. The click rate has fallen from 18.2% to 4.1%.\n\nThe July board paper puts the two figures side by side and draws the conclusion in one sentence: the firm's security culture has measurably improved. The Managing Partner quoted it to a client's general counsel three weeks ago.\n\nNobody in the building thinks this is the part of the audit that will take time.",
+  "taints": {
+    "named-the-individual": "end-named"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Four quarterly campaigns, a line that goes down, and a board paper that has already been presented.\n\nThe paper is one page. Every figure on it comes from the vendor's dashboard.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test whether the training was actually delivered: completion of the annual module, and the follow-up modules for people who clicked.",
+          "quality": "defensible",
+          "next": "the-templates",
+          "consequence": "Firm-wide completion is 99.4% inside the deadline, with the six outstanding all on long-term leave. You trace forty first-click modules: every one was assigned within five working days, thirty-eight were completed, and the two outstanding were assigned in the last fortnight.",
+          "why": "Proper operating-effectiveness testing on the delivery process, and it comes back clean because the team runs the programme well. What it establishes is real: the training was given to the people it was supposed to be given to, on time.\n\nDelivery is an activity and the board was told about an outcome. A completion rate can only ever go up, cannot fall when the programme stops working, and would read 99.4% in a firm where nobody remembered a word of it. The two numbers in the board paper are the only ones in the pack that claim to describe behaviour, and they are the ones nobody has examined."
+        },
+        {
+          "key": "B",
+          "text": "Re-perform the click-rate calculation from the platform's raw event data.",
+          "quality": "defensible",
+          "next": "the-templates",
+          "consequence": "Two days against the exported event log. Both figures are correct to the decimal. Repeat clicks by the same recipient are de-duplicated properly, the denominators reconcile to the recipient lists, and out-of-office recipients are excluded consistently in all four campaigns.",
+          "why": "Careful work, and it answers a question worth answering — the number is accurate, and you now know that rather than assuming it. It also means you will never be embarrassed at clearance by an arithmetic argument.\n\nThe board paper is not making a claim about arithmetic. It is using an accurate number as evidence of a proposition about staff behaviour, and accuracy and relevance are separate properties of the same figure. A perfectly calculated measurement of the wrong thing is still the wrong thing, calculated to a decimal place. The question asked was whether the culture improved; the question you answered was whether the number was right."
+        },
+        {
+          "key": "C",
+          "text": "Establish whether the four campaigns are comparable — same population, same conditions, same difficulty — before accepting the trend as a change in behaviour.",
+          "quality": "best",
+          "next": "the-templates",
+          "consequence": "You ask the platform administrator for the campaign packs rather than the dashboard. All four arrive by the end of the day: recipient lists, sending configuration, the templates themselves, and the vendor's own difficulty rating printed on the cover of each pack. He says nobody has ever asked for the packs before.",
+          "why": "A trend is a comparison, and a comparison only means anything if the thing being compared holds still. Four numbers produced by four different tests are four measurements of four different things, and the fall between them can belong to the staff or to the test with equal ease. Nothing you have been given yet establishes which.\n\nAsking for the packs rather than the dashboard is what makes it answerable. A dashboard reports the number; the pack contains the conditions that produced it, including a difficulty rating the vendor writes down itself and the client has never looked at."
+        },
+        {
+          "key": "D",
+          "text": "Record the fall from 18.2% to 4.1% as evidence that the awareness programme is operating effectively.",
+          "quality": "poor",
+          "next": "the-partner-question",
+          "consequence": "You note it as a positive indicator, supported by four consecutive campaigns and the vendor's quarterly report, and move on to the physical security walkthrough.",
+          "why": "It is four consecutive quarters moving the same way, which is exactly how a trend is supposed to look, and that is what makes it persuasive.\n\nA simulated click rate is a property of the test as much as of the person taking it. It moves with the template, with the sending domain, with whether the external-sender banner appeared, with the hour it was sent and with what the mail gateway filtered before delivery. None of those is culture, and all of them are under someone's control.\n\nIt also measures only the wrong behaviour. Awareness exists so that people notice attacks and say so. A click rate counts the ones who failed to notice; it has nothing at all to say about the ones who noticed, and no way of falling when they stop speaking up."
+        }
+      ]
+    },
+    "the-partner-question": {
+      "situation": "Seven weeks later you are sitting in on the risk committee. The chart goes up, the fall is described as a step change, and the partner who chairs the committee asks two questions in one breath.\n\n\"Four per cent. Did our people get better at this, or did the tests get easier? And when somebody does spot one — how many of them tell anybody?\"\n\nThe room is quiet. The Head of Information Security says he will come back to her.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Offer to break the click rate down by practice group and grade to see who is driving the improvement.",
+          "quality": "defensible",
+          "next": "the-templates",
+          "consequence": "Three days of analysis. Partners click at 9.1% against 3.4% for support staff, corporate is the highest-clicking practice group in all four campaigns, and the gap between grades has not narrowed at all across the year.",
+          "why": "Real analysis, and the flat grade gap is a genuinely interesting fact that argues against a firm-wide behaviour change. It will be useful and it belongs in the file.\n\nWhat it cannot reach is either half of what she asked. Decomposing a metric explains how its movement is distributed among the people it was measured on; her first question was whether the measuring instrument was the same one, and her second was about a behaviour the metric does not record at all. Both are outside the number, and no cut of the number gets to them."
+        },
+        {
+          "key": "B",
+          "text": "Take her two questions as the engagement's questions, and start with the first: whether the four campaigns were comparable tests.",
+          "quality": "best",
+          "next": "the-templates",
+          "consequence": "You tell her you will pick both up. Comparability turns out to be answerable from the campaign packs in a day, and the packs contain a column on the recipient list that nobody at the firm has ever asked about.",
+          "why": "She has asked, in eleven seconds, the two things the board paper cannot answer. Her first question is whether the instrument changed; her second is about the output the programme actually exists to produce, and neither has ever appeared in a pack.\n\nTaking both is the right move because they turn out to be the same finding from two ends. The order matters only in that the first is cheap and documentary, and holding a like-for-like series in your hand changes what the second one is allowed to mean."
+        },
+        {
+          "key": "C",
+          "text": "Answer that a falling click rate indicates the training is working.",
+          "quality": "poor",
+          "next": "the-reporting-rate",
+          "consequence": "The committee accepts it and moves on to professional indemnity renewal. The chart appears again in October, now with an internal audit reference beneath it.",
+          "why": "It is the answer the room was waiting for, it is what four quarters of data appear to say, and answering a partner's question promptly is what being useful in a committee feels like from the inside.\n\nYou answered her out of the same assumption she was querying, and you did it from the seat whose job is to test that assumption. The cost is not only the wrong answer. She is the only independent challenge this metric has ever had, she raised it unprompted in front of the people who produce it, and a partner told by internal audit that her instinct was mistaken does not raise that kind of question a second time. Your reference is now printed under the chart, which means the next person who doubts it has to get past you first.\n\nHer second question — how many of them tell anybody — went unanswered in the room and stayed unanswered."
+        }
+      ]
+    },
+    "the-templates": {
+      "situation": "The packs are on the table and they are not describing the same test.\n\nSeptember. Three templates: a matter-opening notification spoofing the display name of the firm's practice management system; a document-share request from a named partner's assistant to her own team; a billing query threading onto a real matter reference. The vendor rates them 4, 4 and 3 on its own five-point difficulty scale. All three were sent from a look-alike domain the mail gateway was configured to admit for the exercise, so no external-sender banner appeared on any of them.\n\nJune. Three templates: a parcel redelivery notice, a generic HR holiday-policy update, and a prize draw. Rated 2, 1 and 1. All three arrive from an external address with the yellow external banner across the top, and two contain spelling errors.\n\nClick rates, in order: 18.2%, 11.4%, 6.0%, 4.1%.\n\nOne other thing. Every recipient list has a column headed cell. In all four packs, about ninety per cent of names read campaign and a hundred and eighteen read benchmark. Nothing in the pack says what the benchmark names received.\n\nThe programme runs under a three-year managed awareness contract. The vendor selects the templates.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Find out what the benchmark cell was sent, and compute its click rate across all four campaigns.",
+          "quality": "best",
+          "next": "the-reporting-rate",
+          "consequence": "The benchmark cell receives one template, unchanged, rated 4, in every campaign the vendor delivers to any client — its cross-client industry report depends on holding one test constant. The benchmark series has never been surfaced on the firm's dashboard, which reports the two cells blended.\n\nSeptember 18.6%. December 17.8%. March 18.6%. June 16.9%.",
+          "why": "The column was on every recipient list you were handed, and it is the one thing in four packs that does not change. A like-for-like series is the only comparison that isolates behaviour from instrument, and the constant already existed — kept by the vendor for its own marketing, present in every campaign, blended away before the client ever saw it.\n\nOnce you have it, the reported fall stops being a result and becomes an artefact of template selection. Four points on the same test in ten months, on a hundred and eighteen people, moving 18.6 to 17.8 to 18.6 to 16.9, is not a step change in culture; it is inside the noise of a sample that size.\n\nNote where the constant lived. The firm outsourced the tests, the templates and the number, and the only comparable measurement in the programme was the one the vendor kept for itself."
+        },
+        {
+          "key": "B",
+          "text": "Read the twelve templates yourself and rate their difficulty.",
+          "quality": "defensible",
+          "next": "the-reporting-rate",
+          "consequence": "You work through all twelve and rate them. Your ratings track the vendor's closely and you are confident in them. The Head of Information Security reads your table and asks on what basis a parcel redelivery notice is easier than a billing query, given that the firm receives parcels.",
+          "why": "It reaches the right conclusion and it reaches it as your opinion, which is the weakest form the conclusion can take. Twelve subjective ratings by the auditor produce a finding nobody can re-perform, and it puts the argument onto whether you are qualified to grade phishing lures.\n\nTwo stronger sources were already in the pack. The vendor wrote its own difficulty ratings on the covers before it knew anyone would look — evidence produced by the tested party against its own interest. And the benchmark cell on every recipient list is a measurement rather than a judgement. Either beats a careful auditor's opinion, and the second one settles the question outright."
+        },
+        {
+          "key": "C",
+          "text": "Ask the vendor why the templates changed.",
+          "quality": "defensible",
+          "next": "the-reporting-rate",
+          "consequence": "The account manager is candid. Two practice groups complained in November that the September set was disruptive and unfair, and the firm asked for less operationally intrusive tests. She adds that template selection is also guided by the contract's programme success measure: simulated click rate below 5% by the end of year two, with a service credit attached and renewal review in January.",
+          "why": "One question, and it produces both the human reason and the commercial one — including a contract that pays the vendor for the number going down and lets the same vendor choose the tests that produce it. That last fact belongs in the report and you would not have had it otherwise.\n\nWhat it is not is a measurement. It is the tested party's account of its own selection decisions, offered helpfully, and it establishes motive rather than effect. A committee hearing that templates got easier because of a contract term will ask by how much, and the answer to that is in the packs, not in the explanation.\n\nThe deeper point survives either way: the activity was outsourced and the firm's accountability for what the board was told was not. The vendor selected the templates; the Managing Partner made the claim."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the simulations be made materially harder.",
+          "quality": "poor",
+          "next": "the-reporting-rate",
+          "consequence": "The Head of Information Security agrees at once and asks the vendor to raise difficulty from the September campaign. He then asks you how he should present the resulting increase to the board, since the number is going to go up and the paper has already said the culture improved.",
+          "why": "It is the obvious response to the thing you have just seen — the tests got easier, so make them harder — and it comes from someone who has read twelve templates and can tell which are which. The instinct is sound.\n\nHis question is the sound of it landing badly. You have committed the firm to a rising number without a single documented figure that would explain why it rose, and next quarter's rise will be read by the board as a deterioration in the very thing they were told had improved. The measurement that would have explained it was available and you spent the recommendation before taking it.\n\nThere is a role problem underneath the sequencing one. Choosing simulation difficulty is management's call about how to run its own programme; specifying it puts you in the position of having designed the control you are due to audit next year. Recommend the defect, not the setting.\n\nAnd difficulty is not the finding. It is the reason the reported number moved; it is not the reason the programme is failing, and you have not yet looked at the half of the programme that produces something useful."
+        }
+      ]
+    },
+    "the-reporting-rate": {
+      "situation": "The platform logs a second event type, and nobody has ever put it on a slide.\n\nEvery simulated message carries the Report Phishing button, and the platform records who presses it. Campaigns go out in the second week of September, December, March and June.\n\nProportion of recipients who reported the simulation: 34.1%, 31.6%, 12.3%, 7.2%.\n\nOf the people who clicked and then realised, the proportion who reported it themselves the same day: 61%, 58%, 9%, 5%.\n\nYou ask the security operations mailbox for its own figures. Staff reports about real mail averaged 43 a month in the year to December and 12 a month in the eight months since. Confirmed malicious among them: 71 in the first period, 9 in the second.",
+      "prompt": "What is the most useful thing to do next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Normalise the fall: express staff reports as a rate against the volume of malicious mail actually delivered in each period.",
+          "quality": "defensible",
+          "next": "the-consequence",
+          "consequence": "The gateway's count of delivered messages later confirmed malicious is close to flat: 112 a month before January, 108 a month after. Reports per hundred delivered malicious messages fall from 38 to 11.",
+          "why": "Exactly the right defensive move and it kills the obvious rebuttal before it is made — reports did not fall because there was less to report. Eleven per hundred against thirty-eight is a number that survives a clearance meeting.\n\nWhere it stops is that it sizes a collapse without explaining it, and an unexplained collapse is remediated with a campaign to encourage reporting. Posters, a lunchtime session, a message from the Managing Partner about speaking up — all layered on top of whatever is currently making people not speak up, which is still running."
+        },
+        {
+          "key": "B",
+          "text": "Interview a sample of staff across practice groups about why they no longer report.",
+          "quality": "defensible",
+          "next": "the-consequence",
+          "consequence": "Eleven interviews over two days. Nine of the eleven raise the same two-page document by name, unprompted, and two of them can quote its second-click provision from memory.",
+          "why": "The fastest route to the mechanism and the most human evidence in the file, and nine unprompted references to the same document is close to conclusive.\n\nIt is also self-reported evidence about a sensitive subject, gathered by the auditor, from people describing their own fear of a procedure that could still be applied to them. Management can answer it with people say all sorts of things, and the answer is not absurd. The document itself is documentary, dated and quotable; get that first and the interviews stop being the case and start being the corroboration, which is the shape they are strongest in."
+        },
+        {
+          "key": "C",
+          "text": "Establish what changed for an individual — a person who clicks, or a person who reports — between the December campaign and the March one.",
+          "quality": "best",
+          "next": "the-consequence",
+          "consequence": "You ask what happens now to somebody who clicks. The Head of Information Security hands you a two-page document you have not seen in any policy index, effective 1 January, and says the vendor supplied it as part of a behaviour change package.",
+          "why": "Two lines are moving in opposite directions, and one of them does not drift — it steps, between two campaigns, across the turn of a year. Thirty-two per cent to twelve, fifty-eight per cent to nine. Knowledge does not change over a Christmas break, and it does not make people stop speaking up. Something in the incentives did, and the dates tell you where to look.\n\nAsking what changed for the individual is what turns a pair of statistics into a mechanism, and a mechanism is the only thing that can be removed. Everything up to this point describes the size of the problem; this is the question whose answer determines whether next year's numbers are different, and the answer arrives across a desk in thirty seconds because the document was never hidden — it was simply never connected to the metric it was destroying."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that reporting rate be added to the board metrics alongside click rate.",
+          "quality": "poor",
+          "next": "the-consequence",
+          "consequence": "Agreed within a week and implemented for the October pack, which carries both lines. The Head of Information Security is pleased with it and says he had wanted a second measure for a while.",
+          "why": "It is the right measure, and identifying it from a platform log nobody had looked at is genuine work. The ease of agreement is the warning.\n\nNothing about adding a line to a report changes what is happening to the people the line counts. The mechanism is still running, so the reporting rate you have just installed will keep falling, on a board pack, with your name on the recommendation and no explanation attached to it. And there is a worse version: if anything ever does change the procedure, the line will recover, and the recovery will be read as evidence that putting the metric on the pack worked.\n\nA measurement is not a remedy. You have added a thermometer to a room that is still being heated."
+        }
+      ]
+    },
+    "the-consequence": {
+      "situation": "Phishing Behaviour Standard. Two pages, effective 1 January, drafted by the awareness vendor as part of its behaviour change package and approved by the Head of Information Security. It appears in no risk committee minute.\n\nFirst confirmed click: a twenty-minute module within five working days.\nSecond confirmed click within twelve months: a documented discussion with the supervising partner, recorded on the personnel file and referenced at the annual appraisal.\nThird: referral to the Risk Partner.\n\nThe Standard defines a confirmed click as any click on a phishing message, whether simulated or actual. It is silent on whether a click before 1 January counts toward the twelve months. For fee earners the annual appraisal feeds the bonus pool and the partnership track.\n\nThere is no corresponding provision for reporting. The Standard does not mention reporting at all.\n\nAnd one mechanical detail. A click on a real message becomes a confirmed click when it is investigated — and it is investigated because somebody reported it.",
+      "prompt": "What do you do next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish how the Standard was approved: what risk assessment was done, what governance route it took, who signed it.",
+          "quality": "defensible",
+          "next": "the-incident",
+          "consequence": "No risk assessment exists. The document is the vendor's template with the firm's name substituted and two amendments made by the Head of Information Security, both of which tighten it — the twelve-month window was originally twenty-four, and the personnel file reference was added. The risk committee's terms of reference require security policies affecting personnel to be tabled. It was not.",
+          "why": "A clean, documented governance finding, and the two amendments are the kind of detail that decides how a clearance meeting goes. It also explains the how: a control with an obvious and foreseeable side effect entered a firm of eleven hundred people without anyone being asked to weigh that side effect, because the route that would have asked was skipped.\n\nIt describes how the thing arrived rather than what it did. Governance findings are remediated by governance — the document gets tabled retrospectively, the committee ratifies it, and the procedure continues with a minute reference. The reporting rate is unaffected by any of that."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the loss of reporting has cost: how phishing is actually detected in this firm, and what has happened since the reports stopped.",
+          "quality": "best",
+          "next": "the-incident",
+          "consequence": "You ask the outsourced monitoring provider and the security team for every confirmed phishing incident over two years, with how each one was first detected. While it is being assembled, the Head of Information Security asks whether you have read the March file.",
+          "why": "You now hold the mechanism, and a mechanism argued in the abstract is a design opinion. The Standard's defenders have a real case — repeat-clicker procedures exist across the sector, clients ask for them in supplier questionnaires, and four ignored training rounds are a genuine risk. None of that can be argued down by pointing at a policy clause.\n\nWhat cannot be argued with is what the firm lost. Staff reporting is not a programme statistic; it is a detection control with a measurable contribution to incidents caught, and the way to show a control has been switched off is to show what it used to catch and no longer does. That converts a culture argument into a control finding, and it is the only version the Standard's defenders cannot meet on their own ground."
+        },
+        {
+          "key": "C",
+          "text": "Conclude that the click-rate metric is unreliable and write that finding up.",
+          "quality": "poor",
+          "next": "the-incident",
+          "consequence": "You draft it: template difficulty ratings, the benchmark series, the contract's success measure, a recommendation on comparable reporting. You put it to the Head of Information Security for early comment. He accepts it without argument, thanks you, and mentions in passing that the March matter is closed now and the insurers have paid most of it.\n\nYou had not heard about the March matter.",
+          "why": "The metric finding is true, fully evidenced and ready to write, and clearing a finding early with the person who has to accept it is normally good practice. It is also the smaller half, and the ease with which he takes it is the signal. A comparability defect is a reporting problem: fix the presentation, restate the trend, no one is at fault.\n\nYou had the mechanism in your hand. A two-page procedure that attaches a personnel record to a click, nothing to a report, and defines the click as confirmed by the act of reporting it, in a firm whose staff reports have fallen by four fifths. Writing up the instrument and putting down the cause is the version of this engagement that changes a chart.\n\nAnd the closing sentence is what a finding tabled too early costs. He now has an accepted audit position on the awareness programme, and it is the one that does not touch the March matter."
+        },
+        {
+          "key": "D",
+          "text": "Recommend that the Standard be withdrawn.",
+          "quality": "defensible",
+          "next": "the-incident",
+          "consequence": "The Head of Information Security does not accept it. Repeat-clicker consequences are common, he says, the module is proportionate, two of the firm's largest clients ask about exactly this in their annual security questionnaires, and the click rate fell in the quarter after the Standard took effect. He asks what harm you are alleging.",
+          "why": "The right recommendation, made at the point where you cannot support it, and his response is the reasonable one rather than a defensive one.\n\nEverything you have is a design objection to a management prerogative: this document has a foreseeable side effect. He has a policy his clients endorse and a metric that improved after it. Design objections lose to that, and losing this one once makes it harder to win later with better evidence.\n\nThe sequence is the whole difference. Harm first, mechanism second, recommendation third — and the harm is sitting in an incident list nobody has asked for."
+        }
+      ]
+    },
+    "the-incident": {
+      "situation": "The March matter is in the risk register, closed, with an insurance recovery noted against it.\n\nOn 12 March a message reached eleven people in the corporate team. It named a live share purchase, pretexted a counsel portal for the completion documents, and asked for a sign-in. Four signed in. The credentials were used the same evening to read one of those mailboxes and to send a revised payment instruction from it, on the firm's own domain, to the client.\n\nThree hundred and ten thousand pounds of completion money went to a substituted account. One hundred and ninety thousand was recovered.\n\nIt was found on 23 March, eleven days later, when the counterparty's solicitors queried the balance.\n\nOne of the four is a paralegal who realised what the portal was within the hour. She did not report it. She had clicked the December simulation.",
+      "prompt": "How do you use this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Write the March matter up as a case study to sit alongside the reporting data.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "It drafts well and it is genuinely arresting: eleven recipients, four sign-ins, a substituted payment instruction from the firm's own domain, eleven days, a hundred and twenty thousand pounds unrecovered.",
+          "why": "It will move a room, and a committee that reads it will remember it long after the percentages have gone. Keep it.\n\nA single incident is also the most absorbable thing you can put in front of management. The pretext was targeted and named a live matter; plenty of firms would have lost people to it; the money was mostly recovered; the file is closed and the insurer has paid. Every one of those is true and together they let the incident be read as bad luck rather than as an outcome.\n\nWhat cannot be read as bad luck is a two-year detection series with a break in it. Use the incident to illustrate a measured pattern; used as the pattern, it argues with a case that has already been made and settled."
+        },
+        {
+          "key": "B",
+          "text": "Record that the eleven-day delay was caused by a member of staff who identified the message and did not report it, and name the role and team in the finding.",
+          "quality": "poor",
+          "next": "the-clearance",
+          "consequence": "The draft goes to the Head of Information Security and, because it concerns an individual's conduct, to HR. The corporate team is eleven people and the paralegal is identified within a day. HR opens a discussion with her under the Standard.\n\nEvery sentence in the paragraph is factually correct.",
+          "why": "It is accurate, it is the proximate cause of the eleven days, and stating causes plainly is what the job is. That is the entire trap, and it closes because the paragraph is true.\n\nA role and a team in a firm of this size is a name. In an eleven-person team it is a name written down and passed to HR by the audit function.\n\nWhat you were engaged to report is that attaching a personnel consequence to phishing involvement destroys the reporting channel. You have now attached a personnel consequence to phishing involvement, in the most authoritative document the firm produces, to the one person in the March matter who recognised the attack. Every other person in the building will draw the correct conclusion about what happens to people who notice things.\n\nThere is no version of the next page that recovers this. The finding will be correct and the demonstration will be the thing people remember.",
+          "taint": "named-the-individual"
+        },
+        {
+          "key": "C",
+          "text": "Place the March matter in a measured series: how every confirmed phishing incident over two years was first detected, and what share began with a staff report.",
+          "quality": "best",
+          "next": "the-clearance",
+          "consequence": "Thirty-four confirmed incidents in the two years to June. Of the twenty-six up to 31 December, twenty-two were first detected by a member of staff reporting the message. Of the eight since 1 January, two were. The other six surfaced through the gateway's retrospective scan, the outsourced monitoring service, or — twice — a counterparty.\n\nMean time to detection across the two periods: under four hours, then six days.",
+          "why": "This is the sentence the engagement was always going to turn on, and it is the one that cannot be answered with a policy argument.\n\nStaff reporting was the first detection route for four incidents in five. It is not an awareness statistic or a cultural indicator; it is the highest-yield detection control the firm owns, it costs nothing, and it has been priced out by a two-page procedure that nobody assessed. Once that is measured, the Standard is not a personnel policy with an unfortunate side effect — it is a change that disabled a detection control, and it can be reported as one.\n\nState the limit of it as well, because he will: confirmed incidents are themselves a detected population, so the count after January is a floor rather than a total. That cuts your way. The route split and the jump in time to detection hold regardless, and if anything the incidents nobody found are still missing from the second column.\n\nIt is also evidence about a control rather than about a person, which is exactly what the next thing you write has to be."
+        },
+        {
+          "key": "D",
+          "text": "Interview the paralegal — with a written assurance from the Risk Partner, obtained first, that nothing she says will be used under the Standard, and framed explicitly as evidence about the control rather than her conduct.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "The Risk Partner gives the assurance in writing the same morning. She is straightforward. She read the Standard in January, she had done the December module, and she believed a second confirmed click would be recorded on her file before her first appraisal. She asked a colleague on the day, who told her the same thing. Nobody had told her whether the December click counted; the Standard does not say. She says she assumed the firm would find it another way.",
+          "why": "The most direct evidence of the mechanism that exists anywhere in the engagement — a person describing, in order, the reasoning the document was always going to produce — and the way you obtained it is what makes it usable. The assurance comes from the Risk Partner rather than from you, which is the right way round: an auditor cannot promise immunity from a procedure the auditor does not own.\n\nHer answer contains the sharpest point in the case, which is that the Standard may not even have applied to her. Nobody knew whether a December click counted, so she assumed the worse reading and stayed quiet. A chilling effect does not require the procedure to bite; it requires only that people cannot tell.\n\nIt is still one account, given under evident stress, by someone with an obvious interest in explaining herself. Corroborated by the Standard's text and the reporting series it is close to unanswerable. Standing alone it is an anecdote about an individual, and an anecdote about an individual is precisely the shape this finding must never take, because that shape is the failure."
+        }
+      ]
+    },
+    "the-clearance": {
+      "situation": "Clearance. The Head of Information Security has read the draft and his position is careful rather than defensive.\n\n\"The click rate is calculated correctly — that is your own testing. Training completion is 99.4%. The vendor is one of the two firms anybody uses. The Standard is proportionate, and two of our largest clients ask whether we have something like it. Nothing in the board paper is false.\n\n\"So what exactly is the finding?\"\n\nHe is right about all of it.",
+      "prompt": "How do you frame it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the security awareness programme is ineffective.",
+          "quality": "poor",
+          "next": "end-disputed",
+          "consequence": "He takes it apart in fifteen minutes using your own working papers: 99.4% completion, a metric you re-performed and confirmed, first-click modules assigned inside five days in forty of forty cases, a reputable vendor, a Standard clients ask for. The meeting runs long. The finding is reworded to say that awareness metrics should be reviewed for comparability, and he agrees to that readily.",
+          "why": "You have watched a detection control be switched off and the plain word for that is ineffective. The instinct to say so is right; the word is wrong.\n\nThe programme is not ineffective in any sense he is obliged to accept. It delivers training to 99.4% of the firm on time, it runs quarterly simulations, it is competently administered, and your own file says so in three places. Asserting ineffectiveness moves the argument onto the one piece of ground where he is completely right, and being right about it is enough to make everything else in the draft look like overreach. The ammunition was yours.\n\nThe cost is the substance. The reworded finding contains no reporting series, no Standard, no detection-route split and no incident, and a reader in a year cannot tell from it that staff reports fell by four fifths."
+        },
+        {
+          "key": "B",
+          "text": "That the reported metric moves with the difficulty of the tests rather than the behaviour of staff; that the programme's only detective output — staff reports — has fallen further and faster than the click rate, taking the firm's first detection route for four incidents in five with it; and that the mechanism is a Standard which attaches a personnel record to a click, nothing to a report, and makes reporting the act that creates the record.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "He does not contest any of the three. He says the third is the one he will find hardest to sit through, because he approved the Standard and wrote both amendments to it himself, and that the definition of a confirmed click had never once been read that way round in his presence.\n\nThe October board pack carries the benchmark series, the reporting rate and the detection-route split. The partner who chairs the risk committee asks that the reporting rate lead the page.",
+          "why": "It concedes everything he is right about — the arithmetic, the completion, the vendor, the sector practice, the truthfulness of every sentence in the board paper — and states what survives all of it.\n\nEach limb does work the others cannot. The first shows the reported improvement belongs to the templates, and the benchmark series makes that documentary rather than arguable. The second says what a security awareness programme is for: its output is reports, not low click rates, and reports are a detection control with a measured contribution that has now been measured going away. The third names a mechanism that can be removed, and removes the defence that this is culture, or complacency, or people not paying attention — it is a written procedure with a date on it, doing exactly what it was always going to do.\n\nThe definition is the sharpest point in the case and it is why nobody saw it. A real click becomes confirmed when it is investigated, and it is investigated because someone reported it. The firm made self-reporting the sole route by which a personnel record comes into existence, and then measured the silence as improvement."
+        },
+        {
+          "key": "C",
+          "text": "That the click-rate metric is not comparable across campaigns and must be reported at constant difficulty, alongside the reporting rate.",
+          "quality": "defensible",
+          "next": "end-comparable",
+          "consequence": "Accepted without difficulty and implemented for the October pack. The board is told the previous presentation overstated the change: the comparable series reads 18.6% to 16.9%. The reporting rate appears beneath it for the first time, at 7.2%.",
+          "why": "The measurement finding, correctly made and fully evidenced, and it undoes a false statement to the board — which matters, because the Managing Partner repeated it to a client.\n\nIt is also the half he can accept at no cost, which is why he accepts it at no cost. Restating a trend implicates a dashboard. Nothing in it touches the Standard, the definition of a confirmed click, or the detection route, so the reporting line you have just installed goes onto the board pack and continues doing what it has been doing for eight months, now in public and with an audit recommendation behind it."
+        },
+        {
+          "key": "D",
+          "text": "That the Standard be withdrawn and replaced with a no-fault reporting route: recognition for reports, support rather than record for repeat clickers, and no personnel consequence attached to involvement in a real incident.",
+          "quality": "defensible",
+          "next": "end-humane",
+          "consequence": "Withdrawn in September and replaced within the quarter. The firm writes to everyone confirming that no record made under the Standard will be referenced at appraisal. Simulation reporting recovers to 26.4% by the December campaign; the security mailbox takes 41 staff reports in the first month, against a monthly average of 12.",
+          "why": "It removes the mechanism, and the channel comes back inside a quarter — the largest single outcome available anywhere in this case, and the letter confirming the records will not be used is the part that makes it credible to the people who have to act on it.\n\nWhat it leaves standing is the instrument. The board still receives a blended click rate produced by templates a vendor selects under a contract that pays on that number falling, and the January renewal review is unchanged. The recovery in reporting is real and is not on the board pack, because nothing in the reporting has ever required it to be. The next time the click rate moves, for whatever reason, it will be presented the same way and nobody will be able to say whether the firm got safer."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "What the programme produces",
+      "verdict": "strong",
+      "narrative": "The board receives three numbers in October where it used to receive one. The comparable click series, between 17% and 19% all year. The reporting rate. And the detection-route split: what share of confirmed incidents in the last twelve months was first seen by a human being.\n\nThe Standard is withdrawn in September. Its replacement carries no personnel consequence for any click, simulated or real, and the firm writes to every member of staff confirming that no record made under it will be referenced at appraisal. Reporting a message you clicked is named in the new document as the single most useful thing anyone can do.\n\nSimulation reporting reaches 26.4% in December and 39.1% in March. The security mailbox takes 41 staff reports in the first month after the letter, and 380 across the following year. Forty-four of them are confirmed malicious.\n\nThe managed awareness contract is renegotiated ahead of the January renewal. The success measure becomes report rate and median time to first report, at constant template difficulty. The vendor's account manager says no other client has asked for that and that she expects several to.\n\nIn November a pretext close to the March one reaches nine people in real estate. The first report arrives eleven minutes after delivery, from someone who had already clicked it and said so. The mailboxes are locked at minute forty and no payment instruction ever leaves.\n\nThe paralegal from the March matter is not mentioned anywhere in the report.",
+      "why": "Nothing here was misconfigured and nobody was negligent. The training was delivered to 99.4% of the firm on time, the simulations ran every quarter, the click rate was calculated correctly to the decimal, and every sentence in the board paper was true. The Head of Information Security tightened the Standard because he thought tightening it would help.\n\nThree things had to be seen together.\n\nThe measure was a property of the test. A simulated click rate moves with the template, the sending domain, the banner and the hour, all of which were chosen by a vendor whose contract paid on the number going down. The activity was outsourced; the claim made to the board was not, and the only constant in the programme was the one the vendor kept for its own benchmarking while the client's dashboard blended it away. Activity reported as outcome does not merely fail to warn — it reassures, quarterly, in writing, to a board.\n\nThe programme's output was the wrong thing entirely. Security awareness exists so that people notice attacks and say so; its product is reports, and reports were this firm's first detection route for four incidents in five, at a mean time to detection of under four hours. Click rate counts the people who did not notice. It has no term for the people who did, and cannot fall when they go quiet — which is precisely what it did while they went quiet.\n\nAnd the cause was a mechanism, not a mood. A two-page procedure attached a personnel record to a click, nothing at all to a report, and defined a real click as confirmed once it was investigated — which happens because somebody reported it. Reporting your own mistake was the act that created the record. Nobody designed that; it fell out of two clauses written by different people for good reasons, and it took eight months to remove four fifths of a detection control.\n\nWhat generalises: for any control whose output is human reports, measure the output. Ask what the reported metric would do if the control were switched off — and if the answer is that it would improve, the metric is the risk. Then ask what the organisation has attached, anywhere, to the act of speaking up."
+    },
+    "end-comparable": {
+      "title": "A comparable number",
+      "verdict": "acceptable",
+      "narrative": "The October pack carries the benchmark series and the correction. The board is told plainly that the earlier presentation overstated the change and that the comparable click rate has moved from 18.6% to 16.9% in a year. The Managing Partner writes to the client's general counsel to correct what he said in July.\n\nThe reporting rate appears beneath the click rate for the first time, at 7.2%. In December it reads 4.9%. In March, 3.6%.\n\nThe Standard remains in force. The definition of a confirmed click is unchanged. The security mailbox receives 61 staff reports over the following year.\n\nFourteen months later a supplier-impersonation pretext reaches the property team. Two people recognise it on the day and neither reports it. It is found by the client's finance director nine days later, after a payment.\n\nThe metric on the board pack is accurate throughout.",
+      "why": "You corrected a false statement to a board, with documentary evidence, against a vendor contract that paid for it to stay uncorrected. That is real work and it should not be undersold.\n\nWhat it fixed was the instrument. The board asked whether the firm was safer; you answered whether the number was right — a different verb, a true answer, and not the one the engagement had the evidence to give. The reporting series and the Standard were both in your file.\n\nThe result is a board that now watches an accurate measure of a detection control being extinguished, quarter by quarter, with no explanation attached and nothing in the paper that would let anyone infer one. Making a failure visible is worth something. It is not the same as giving it a cause that somebody can be asked to remove, and a metric with no mechanism behind it gets remediated with a poster campaign."
+    },
+    "end-humane": {
+      "title": "The channel back, the instrument intact",
+      "verdict": "acceptable",
+      "narrative": "The Standard is withdrawn in September. Reporting recovers fast — 26.4% by December, and the security mailbox takes 41 reports in the first month against a monthly average of twelve. Two of them are the beginning of an incident that is contained the same afternoon.\n\nThe managed awareness contract renews in January on its existing terms, including the programme success measure: simulated click rate below 5%. The vendor proposes the autumn template set and the firm accepts it.\n\nThe December campaign clicks at 3.1%. The March campaign clicks at 2.8%. Both are presented to the board as continued improvement in security culture, and both are true statements about the tests that were sent.\n\nThe recovered reporting rate is in the platform. It is not in the board pack, because nothing in the reporting has ever required it to be there.\n\nEighteen months on, the firm moves to a new awareness vendor after a procurement exercise scored on price and on click-rate outcomes achieved at comparable clients.",
+      "why": "You found the mechanism and removed it, and the detection channel came back inside a quarter with a contained incident to show for it. That is the outcome that actually protects client money, and it is the largest single thing available in this case.\n\nWhat stayed is the instrument that hid the problem for a year. The board still measures the programme by a number the vendor's template choices control, under a contract that pays the vendor when it falls, with no constant-difficulty series and no reporting line beside it. Every condition that produced the original misstatement is intact; only the particular harm has been removed.\n\nThat is the difference between fixing a cause you found and fixing the thing that stops causes being found. The procurement exercise is the tell — the firm has just selected its next awareness provider on the metric that told it, for four consecutive quarters, that everything was improving while its detection control was being switched off."
+    },
+    "end-disputed": {
+      "title": "Nothing in the board paper is false",
+      "verdict": "weak",
+      "narrative": "The clearance meeting turns on whether a programme with 99.4% training completion, an accurately calculated metric and a reputable vendor can be called ineffective. It turns against you, on your own working papers.\n\nThe issued finding reads that awareness metrics should be reviewed for comparability. It is accepted without difficulty, assigned to the Head of Information Security, and closed seven months later on the evidence of a documented metric review.\n\nThe benchmark series is not in the report. Neither is the reporting rate, the Standard, the definition of a confirmed click, nor the detection-route split. The March matter appears in the risk register as an isolated incident with an insurance recovery against it.\n\nThe click rate is 2.9% by the following summer. Nobody asks again whether the tests got easier.",
+      "why": "The analysis was right and it was aimed at the single claim the other side could refute — using evidence you had produced yourself and put in the file.\n\nHe was not defending the reporting rate or the Standard, because you never made him. He was defending a programme that is administered well, and it is administered well. Conceding that costs nothing: completion high, arithmetic correct, vendor competent, sector practice followed, board paper truthful in every sentence. All of it can be true of a firm that has just lost four fifths of its detection capability, and saying so plainly is the only version of the finding that does not hand him the argument.\n\nWhat the overreach bought was a metric review, closed on schedule, over a mechanism that is still running. A finding reworded at clearance is a finding the organisation will never read again."
+    },
+    "end-named": {
+      "title": "Eleven people in the corporate team",
+      "verdict": "failed",
+      "narrative": "The paragraph is accurate and the identification takes a day. HR opens a discussion under the Standard; the paralegal is not dismissed, and the discussion is recorded.\n\nThe story is around the firm inside a fortnight, and it is told correctly: she spotted it, she stayed quiet, internal audit put it in the report, HR sent for her.\n\nThe December simulation reports at 2.1%. The security mailbox takes eleven staff reports in the following quarter. The Standard is not withdrawn, because nothing in the report asked for it to be — the report identified a failure to report and recommended reinforcement of the reporting obligation, and the firm reinforces it with a message from the Managing Partner about the duty to speak up.\n\nIn November a supplier-impersonation attempt reaches the banking team. Two people recognise it. Neither reports it. It is found by the bank eight days later, after a hundred and forty thousand pounds has moved.\n\nHer conduct record is reviewed by the audit committee's people and remuneration counterpart the following spring, in a paper that cites the internal audit report as its source. She leaves the firm in June.\n\nThe reporting series and the detection-route analysis are in the report. Both are correct. Neither is quoted by anybody.",
+      "why": "Every sentence in the paragraph was true, which is what made it possible to write, and none of that is the point.\n\nThe finding you were engaged to deliver is that attaching a personal consequence to phishing involvement destroys the reporting channel. You then attached a personal consequence to phishing involvement — publicly, permanently, in the most authoritative document the firm produces, to the one person in the March matter who recognised the attack. You did not fail to remove the mechanism. You operated it, harder than the Standard ever could, and demonstrated to eleven hundred people exactly what happens to someone who notices something.\n\nA role and a team is a name. In an eleven-person team it is a name with an audit reference attached, and once HR holds it the sequence runs by itself: a discussion, a record, a paper citing your report, a resignation. Nothing in that chain can be recalled by a later draft, a covering note, or a conversation with the Head of Information Security, which is what makes this the one decision in the engagement that fixes the outcome.\n\nThere was a route to the same evidence that cost nothing. Her account — taken under a written assurance from the Risk Partner that it would not be used against her, and framed as evidence about the control — corroborated by the Standard's own text and the reporting series, is stronger than the accusation and leaves her out of the finding entirely. The interview establishes why a rational person stayed quiet; the accusation establishes that staying quiet is punished, which is the thing you were supposed to be reporting.\n\nAnd the report says the firm must improve its reporting culture. It says so to a firm that has just watched what happened to the last person who could have reported."
+    }
+  }
+}

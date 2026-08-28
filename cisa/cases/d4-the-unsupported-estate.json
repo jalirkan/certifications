@@ -1,0 +1,342 @@
+{
+  "id": "d4-the-unsupported-estate",
+  "title": "The Unsupported Estate",
+  "domain": "4",
+  "section": "A",
+  "topics": [
+    "IT Asset Management",
+    "IT Components",
+    "IT Change, Configuration, and Patch Management",
+    "Database Management"
+  ],
+  "principles": [
+    "completeness",
+    "coverage-limits",
+    "business-impact",
+    "explicit-and-owned",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing IT asset management at a regional water and wastewater utility. One point one million customers, thirty-one treatment works, and a statutory obligation to report drinking water quality to the regulator every quarter — a return generated from system data and signed personally by the director of water quality.\n\nThe IT asset register lives in the service management platform and carries 1,900 server records. It is the population for most of what follows: the patch orchestrator builds its nightly target groups from it, the vulnerability scanner takes its authenticated scan list from it, support contract renewal and end-of-life tracking are driven from it, and when the estate was outsourced in April 2024 the managed service contract was priced and scoped against it.\n\nThe industrial control estate at the treatment works sits on a separate network with a separate register, managed by engineering, and is out of scope for this audit.\n\nIn the transition folder from the outsourcing you find something nobody has referred to since. The incoming supplier ran an authenticated discovery sweep across the corporate address ranges to build their own baseline. It returned 2,340 responders classed as servers.",
+  "taints": {
+    "accepted-the-acceptance": "end-accepted"
+  },
+  "nodes": {
+    "start": {
+      "situation": "Two counts of the same estate, taken eight weeks apart. The register carries 1,900. The supplier's sweep returned 2,340.\n\nThe variance is noted in Appendix F of the transition report, under the heading 'items for post-transition resolution'. There is no post-transition resolution log.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Work the 440 down, host by host. A raw discovery difference is not a finding until you know what is inside it.",
+          "quality": "defensible",
+          "next": "the-reconciliation",
+          "consequence": "Four days of matching. The difference is not 440 items. It is 524 responders with no register row and 84 register rows with nothing responding behind them, netting to 440.\n\nOf the 524: sixty-two are second interfaces on multi-homed hosts already counted. Fifty-one are out-of-band management controllers and network appliances the sweep classed as servers. A hundred and twenty are in the register already, under the naming convention inherited from the 2019 acquisition, and the match missed them.\n\nThat leaves 291.",
+          "why": "Exactly the right discipline, and it produces the number that will carry the finding. A variance quoted at 440 gets argued down in the closing meeting; a variance reconciled to 291, with the 233 explained line by line, does not. It also breaks the most convenient assumption in the appendix, which is that 440 was one quantity — a net difference concealing 524 in one direction and 84 in the other is a different problem from a shortfall of 440.\n\nWhat it is, though, is arithmetic. Two hundred and ninety-one is a total, and the natural remediation for a total is to create 291 records. Why the register came out this way — which class of asset it structurally cannot contain — is a separate question, and it is the one that decides whether the fix lasts."
+        },
+        {
+          "key": "B",
+          "text": "Establish how a server gets a row in the register. What has to happen before it exists?",
+          "quality": "best",
+          "next": "the-reconciliation",
+          "consequence": "The register is populated from a monthly feed out of the procurement system. A purchase order raised against the server hardware category creates the asset record; the build team completes the remaining fields when the host goes live. There is no other route in. The asset manager confirms it without hesitation: if nobody bought it as a server, it does not appear.",
+          "why": "The register is the population for patching, scanning, support and an outsourcing contract, so whatever boundary its construction imposes is inherited by every one of them. One conversation, and you have the shape of every row in it — and, far more usefully, the shape of everything that cannot be a row.\n\nA population built from purchase orders can only ever contain purchases. That is not an error rate to be sampled and extrapolated; it is an edge, and it predicts which assets are missing before you have counted a single one of them. Cloned virtual machines, appliances that arrive inside somebody else's package, servers that came with an acquired company — none of those is bought, and all of them are servers.\n\nThe count still has to be done. But you now know what you are counting toward, and when the number arrives you will be able to say why it is what it is."
+        },
+        {
+          "key": "C",
+          "text": "Ask which population the patch orchestrator and the vulnerability scanner actually target.",
+          "quality": "defensible",
+          "next": "the-reconciliation",
+          "consequence": "Both take the register. The patch tool rebuilds its target groups from it nightly; the scanner's authenticated scan list is the register's recorded addresses. July's patch compliance report reads 98.7%.",
+          "why": "Straight at the consequence, and it is the right consequence — a register nobody consumes is a bookkeeping problem, and this one is consumed by the two controls that matter most. You have found the thing that turns an inventory finding into an exposure, and you have found it in an afternoon.\n\nYou have found it before you have a population, though. Ninety-eight point seven per cent of what is unanswerable until the denominator is established, and the finding this supports is 'the metric excludes some servers' rather than 'the register cannot see an entire class of asset'. The first gets a footnote and a data quality action. The second is the audit."
+        },
+        {
+          "key": "D",
+          "text": "Set the sweep aside — discovery over-counts, and the supplier had a commercial interest in a large number at transition. Sample the register instead and confirm the rows are accurate.",
+          "quality": "poor",
+          "next": "the-reconciliation",
+          "consequence": "You draw sixty rows across sites and platforms. Fifty-eight are accurate on owner, location, operating system version and support status. Two are hosts decommissioned last year, still showing as live. The asset manager forwards the result to the audit sponsor as a measure of register quality.",
+          "why": "Two sound instincts, pulling in opposite directions. Scepticism about a number produced by the party who benefits from it is correct in general. So is testing a record before relying on it. Neither justifies dropping the only independent picture of the estate you are ever going to be handed.\n\nAccuracy and completeness are different properties, and no sample of the register can reach the second one. Every row you drew was a row that existed; the audit question is about servers that have no row, and those cannot appear in a sample of rows. What the test actually produced is a 97% accuracy figure now sitting in front of the sponsor, pointing away from the finding, and two weeks you did not spend on the 440.\n\nThe supplier's sweep is not evidence because the supplier is disinterested. It is evidence because it was taken from the wire rather than from the record, and that is the one property the register cannot have."
+        }
+      ]
+    },
+    "the-reconciliation": {
+      "situation": "The register is fed monthly from the procurement system. A purchase order raised against the server hardware category creates the record. Nothing else does.\n\nWorked through properly, the counts come apart. Five hundred and twenty-four responders have no register row; 84 register rows have nothing responding behind them. Of the 524, sixty-two are second interfaces on multi-homed hosts, fifty-one are management controllers and appliances the sweep misclassified, and a hundred and twenty are already in the register under the naming convention inherited from the 2019 acquisition of the neighbouring authority's billing operation.\n\nThat leaves 291 servers responding on the corporate ranges with no record anywhere in the register. A hundred and forty-three are virtual machines cloned from templates through the platform team's self-service portal. Seventy-one arrived with the 2019 acquisition. Forty-four came bundled inside supplier packages — appliances shipped as part of an application and never purchased as servers. Thirty-three were rebuilt during the 2021 data-centre consolidation, where the physical host's record was retired and no record was created for its replacement.\n\nThe real estate is 2,107 servers. The register describes 1,816 of them.",
+      "prompt": "What do you do with that?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Establish what else uses the register as its population.",
+          "quality": "best",
+          "next": "the-patch-report",
+          "consequence": "Four processes and a contract. The patch orchestrator rebuilds its nightly target groups from it. The vulnerability scanner's authenticated scan list is the register's addresses. Support contract renewal is driven from it. End-of-life and version tracking is driven from it. And the managed service agreement signed in April 2024 defines the estate the supplier manages as the assets recorded in the register on the transition date.",
+          "why": "The register is not a record. It is a distribution list, and every process that draws from it inherits its boundary — so one construction defect does not produce one gap, it produces the same 291 servers missing from four processes simultaneously, each of which then reports excellent results about the portion of the estate it can see.\n\nThe contract is the part worth pausing on. Patching and scanning are things the utility could begin tomorrow if it chose. A scope defined at signature is a commercial position with a renewal date attached, which means the 291 are not merely unpatched — they are, contractually, nobody's. That is a sentence the audit committee will act on, and it is a sentence the head of infrastructure cannot answer from his own budget. Both of those decide where the finding lands and who has to own it."
+        },
+        {
+          "key": "B",
+          "text": "Put the 291 to the asset manager now, so records start being created while you carry on testing.",
+          "quality": "defensible",
+          "next": "the-catch-up",
+          "consequence": "He agrees on the spot and starts the work. Records are created for 214 of them within a month. The remaining 77 stall, because nobody can establish who owns them.",
+          "why": "Raising it early and letting management get on with it is the right division of labour, and 214 records inside a month is real progress by anyone's measure. The 77 that stall are the more interesting half and worth following: an asset nobody will claim is, reliably, the one that has been outside every process the longest.\n\nWhat it does not touch is how the register fills. A catch-up performed against a feed that still comes from procurement produces a register that is accurate on the day it completes and drifting the morning after — along three known routes, because cloned VMs, bundled appliances and acquired estates will keep arriving and none of them will ever be bought.\n\nIt also spends your leverage early. The remediation is under way before anyone has established what the gap cost, which quietly sets the size of the finding at the size of the correction."
+        },
+        {
+          "key": "C",
+          "text": "Test the 84 rows with nothing behind them.",
+          "quality": "defensible",
+          "next": "the-patch-report",
+          "consequence": "All 84 are decommissioned hosts that were never retired from the register. Twenty-nine still carry live support contracts, at a combined sixty-one thousand a year. Four still hold enabled service accounts.",
+          "why": "A genuine finding that pays for itself twice over — the support spend is a number finance will act on inside a week, and four enabled service accounts belonging to hosts that no longer exist is a security issue standing on its own. It also explains why the patch tool's denominator looks tidier than the register does, which you will need shortly.\n\nIt is the harmless direction of the same defect, though. A row with no server behind it wastes money and leaves credentials lying about. A server with no row behind it is outside patching, scanning, support contracts and an outsourcing scope. Both are register failures; only one of them is something an attacker can stand on."
+        },
+        {
+          "key": "D",
+          "text": "Report the register as materially incomplete, with the count and the mechanism. It is clean, well evidenced and unarguable.",
+          "quality": "poor",
+          "next": "the-patch-report",
+          "consequence": "The finding is drafted and accepted without resistance. The asset manager is given twelve months and a reconciliation project. Six weeks later, testing a different control entirely, you open the monthly patch compliance report.",
+          "why": "It is correct, it is properly evidenced and it will be accepted immediately — which is exactly what makes it easy to stop here. Stated as a completeness defect, though, it reads as an administrative failing, and twelve months is a perfectly reasonable remediation period for an administrative failing.\n\nThe missing half is the cost. Nobody reading 'the asset register is materially incomplete' can tell whether it means the fixed asset note is understated by a few hundred thousand or that 291 servers have sat outside patching and scanning for two years. Until you have followed the register into the things that consume it, neither can you — and the remediation date will be set by whoever reads it the first way."
+        }
+      ]
+    },
+    "the-catch-up": {
+      "situation": "A month on, the asset manager has records for 214 of the 291. Each carries an owner, a location and a support status, reconstructed by the build team from what they could remember and what the hosts themselves report. It is careful work and it is visibly working.\n\nSeventy-seven have stalled. Nobody will claim them. They sit on a spreadsheet circulated weekly under the heading 'awaiting ownership confirmation', and the list has not changed in three weeks.\n\nThe monthly feed from the procurement system has run twice since you raised the point, unaltered. The audit sponsor has been told the gap is being remediated in flight, and the head of infrastructure has begun referring to it as closed.",
+      "prompt": "The correction is under way and nobody has established what the gap cost. What do you do?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Leave the catch-up to the asset manager and establish what took its population from the register while the 291 were missing.",
+          "quality": "best",
+          "next": "the-patch-report",
+          "consequence": "Four processes and a contract. The patch orchestrator rebuilds its nightly target groups from the register. The vulnerability scanner's authenticated scan list is the register's recorded addresses. Support contract renewal is driven from it, and so is end-of-life tracking.\n\nThe managed service agreement signed in April 2024 defines the estate the supplier manages as the assets recorded in the register on the transition date. The 214 records created this month are not assets recorded on the transition date.",
+          "why": "The catch-up is management's work and it is proceeding without you, which is the correct division of labour and also the reason it is dangerous to stand and watch. What a corrected register cannot tell you is what the absence cost, and until somebody establishes that, the size of the finding is set by the size of the correction: 291 records, one owner, twelve months.\n\nThe register was never a record. It was a distribution list, and four processes and a contract drew their population from it while the 291 were outside — each of them reporting excellent results about the portion of the estate it could see. The transition-date wording is the sentence to carry into the closing meeting. Records created this month do not retroactively enter a scope schedule that closed in April 2024, so the 291 remain contractually nobody's on the day the asset manager finishes. That is a finding he cannot fix and the audit committee has to."
+        },
+        {
+          "key": "B",
+          "text": "Work the seventy-seven that nobody will claim.",
+          "quality": "defensible",
+          "next": "the-patch-report",
+          "consequence": "Three weeks of asking. Thirty-one are development and test hosts whose builders have left the utility. Nineteen came with the 2019 acquisition and were never assigned to a directorate. Fourteen are appliances inside supplier packages, where the application has an owner and the server underneath it does not. Thirteen were built through the self-service portal by staff outside IT, five of them in operational directorates.\n\nSixty-eight acquire an owner. Nine are still on the spreadsheet. None of the seventy-seven had appeared in a patch orchestrator target group before a record was created for it this month.",
+          "why": "The residue is the right part to look at, and you were right that it is the interesting half. A host nobody will claim has been outside every process that depends on ownership for longer than anything else in the estate, and thirteen servers built through a self-service portal by staff outside IT is the route the register structurally cannot see, demonstrated rather than argued.\n\nIt is still counting, though, and it costs three weeks. The question in front of you was what the gap cost, and ownership is not cost — it is the condition that makes cost invisible. You finish with a better-described 291 and no measure at all of what they were outside, which is the number that decides whether this is remediated this quarter or next year."
+        },
+        {
+          "key": "C",
+          "text": "Record the gap and the remediation together and move on to the rest of the audit programme.",
+          "quality": "poor",
+          "next": "the-acceptance",
+          "consequence": "The finding is written as a completeness defect with a correction already 214 records into it, and the sponsor notes it as remediated in flight.\n\nTwo months later the water quality directorate answers the ownership spreadsheet. One of the outstanding hosts is theirs: an analyst built it in 2021, and it holds the drinking water quality sample results.",
+          "why": "Understandable, and it is what a co-operative auditee is supposed to produce. The gap was admitted, the work started immediately, and reporting a correction alongside the defect that caused it is honest reporting rather than a soft touch.\n\nThe difficulty is that a finding closed at the point of correction is a finding whose size was set by management. Nobody established what two years outside patching, scanning, support contracts and an outsourcing scope actually cost, so the report cannot say — and a remediation date gets set by whoever reads 'the register is incomplete' as an administrative failing, which is how it reads when nothing is attached to it.\n\nThe host now in front of you arrived through an ownership spreadsheet rather than through anything you did. That is luck, and it is worth naming what luck replaced. The 291 were never one risk, and the step that finds this one deliberately is asking what each of them does — a question the business service catalogue and the process owners can answer and a column headed 'awaiting ownership confirmation' cannot."
+        }
+      ]
+    },
+    "the-patch-report": {
+      "situation": "The patch orchestrator rebuilds its target groups nightly from the register. Hosts that do not answer are dropped from the group as unreachable, which silently removes the 84 empty rows, so July's report is measured against 1,816 targets: 98.7% at or above the current patch baseline. One thousand seven hundred and ninety-two compliant hosts.\n\nThe vulnerability scanner's authenticated scan list is the register's recorded addresses. A host not in the register is scanned only if it falls inside an unauthenticated sweep range, and three of the corporate ranges are excluded from those on performance grounds.\n\nThe 291 have never been targeted by either tool.",
+      "prompt": "What do you do next?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Have the security team run an authenticated scan across the 291.",
+          "quality": "defensible",
+          "next": "the-acceptance",
+          "consequence": "It takes a weekend to arrange and comes back with 4,180 missing patches, 312 of them rated critical. Eleven hosts are running operating systems past end of support.",
+          "why": "The exposure measured directly, by the people whose job it is to run the tool, and as a demonstration that the register gap has cost something it is unanswerable. Nobody argues with an authenticated scan of their own estate.\n\nWhat 4,180 cannot say is which of these matters. A critical patch missing on a forgotten test box and a critical patch missing on the server that produces a statutory return are the same row in that output, and the report will be read by people who have seen large patch numbers before and survived them. Severity counted per host is a technical answer to a question about consequence, and it will be received as a technical problem, with a technical owner and a technical remediation date."
+        },
+        {
+          "key": "B",
+          "text": "Ask the infrastructure team which of the 291 they regard as significant.",
+          "quality": "poor",
+          "next": "the-acceptance",
+          "consequence": "They work through the list carefully and identify eleven as production. The rest they describe as test, development and legacy. Two of the eleven turn out to be in the register already under different names.\n\nNothing on their list has anything to do with water quality reporting.",
+          "why": "The quickest route to a shortlist, and it asks the people with the deepest knowledge of the estate — which is precisely the difficulty, because their knowledge of the estate is the thing that defines the register's boundary. The 291 are, by construction, the servers this team does not know about. A host built by a directorate analyst on a self-service clone was never theirs to know.\n\nAn inventory gap cannot be sized by consulting the people whose picture has the gap in it. That is the same error as sampling the register to test completeness, committed one layer up. The population that can see what infrastructure cannot is the business service catalogue and the process owners, and it is one directorate away."
+        },
+        {
+          "key": "C",
+          "text": "Cross-reference the 291 against the business service catalogue. What does each of them actually do?",
+          "quality": "best",
+          "next": "the-acceptance",
+          "consequence": "Four days with the service owners. Two hundred and six are development, test or genuinely dead. Six support processes with a statutory or regulatory dimension: a telemetry gateway collecting readings from twelve treatment works, the sampling scheduler that issues field technicians their daily rounds, two servers in the trade effluent consent system, the out-of-hours callout database, and one that holds the drinking water quality sample results and generates the quarterly regulatory return.",
+          "why": "The 291 are not one risk. They are 291 assets of wildly differing consequence whose only common property is how they came to be missing, and sorting them by what they do is the step that turns a completeness finding into a prioritised one. It is also what produces the sentence the audit committee will respond to, which is not a patch count.\n\nIt gets the order right as well. Measuring exposure before establishing significance gives you a large number with nothing to anchor it; establishing significance first tells you which of the 291 to examine properly, and it turns out there are six. And it uses a population outside IT to size an IT gap, which is the only kind of population that can see past the register's edge."
+        },
+        {
+          "key": "D",
+          "text": "Establish what the 98.7% is a percentage of, and report the metric as unreliable.",
+          "quality": "defensible",
+          "next": "the-acceptance",
+          "consequence": "It is 1,792 compliant out of 1,816 targets. Measured against the 2,107 servers actually on the corporate ranges, the same figure is 85.0%. The head of infrastructure has been reporting 98.7% to the risk committee every month for two years, and the trend line has never moved more than half a point.",
+          "why": "The most quotable thing in the engagement, and it is the coverage point stated exactly: a tool reports on what is fed to it, so a compliance percentage is a statement about a target group long before it is a statement about an estate. Two years of monthly assurance has been measuring the wrong denominator, honestly and in good faith — and the flatness of the trend line is the tell, because a metric that never moves is usually measuring a list rather than a world.\n\nWhere it stops is at the metric. Eighty-five per cent is still an aggregate, and an aggregate cannot tell a committee whether to act this quarter or this year. That answer lives in what the unpatched hosts do, which is one further step and the one that produces a name."
+        }
+      ]
+    },
+    "the-acceptance": {
+      "situation": "However you came at the 291, the same host separates itself from the rest.\n\nWQ-RPT-01 holds the drinking water quality sample results. Every quarter the regulatory return is generated from it and signed by the director of water quality as a statutory declaration.\n\nIt is not in the asset register. It has never been targeted by the patch orchestrator, never authenticated-scanned, carries no support contract, and falls outside the managed service scope. It was built in 2021 by an analyst in the water quality directorate, on a virtual machine cloned from a template through the self-service portal.\n\nThe database engine is two major versions behind. The version it runs left vendor support in April 2024, twenty-six months ago, and the April 2024 release was the last security update it will ever receive.\n\nAnd there is a risk acceptance. It sits in the exception register, dated 9 March 2023: deferral of the database platform upgrade for water quality reporting, pending delivery of the Water Quality Systems Replacement Programme. Assessed rating: medium. Review date: 30 September 2023. Signed by the infrastructure delivery manager.",
+      "prompt": "What do you do with the acceptance?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Test it against the utility's own rules: who was entitled to sign it, who set the rating that decided that, and whether the basis it was granted on still holds.",
+          "quality": "best",
+          "next": "the-defence",
+          "consequence": "The information risk policy sets approval authority by rating — low at line manager, medium at head of function, high at the executive risk owner. An infrastructure delivery manager is neither of the last two. The rating field on the form was completed by the person requesting the deferral. The procedure requires open entries to be reviewed at their review date and annually after it; September 2023, 2024 and 2025 have all passed with no entry against it. The Water Quality Systems Replacement Programme was cancelled in November 2024 when its funding moved to the metering programme.\n\nThe infrastructure delivery manager left in January 2024. He now works for the managed service provider.",
+          "why": "A risk acceptance is a control artefact and it is testable like any other: authority, independence of the rating, and the bound. Testing all three at once is what stops the discussion collapsing into an argument about how dangerous the database really is, which is an argument about opinion and one you cannot win in a meeting.\n\nAll three fail, and how they fail is worth more than the fact that they did. The rating that determined who was allowed to sign was entered by the person who wanted the deferral, so the control governing authority was driven by the applicant. The basis on which it was granted stopped existing eighteen months ago and nothing in the process was capable of noticing. And the signatory has been on the supplier's side of the contract since January 2024, which means the only person who could explain the decision now has an employer with an interest in the answer.\n\nNone of the three requires you to hold a view on whether the risk should have been carried, which is the point of taking them in this order. Every one is settled on paper, against the organisation's own policy, before anybody's judgment is on the table."
+        },
+        {
+          "key": "B",
+          "text": "Establish the current technical exposure — what the unsupported engine leaves open, and who can reach it.",
+          "quality": "defensible",
+          "next": "the-defence",
+          "consequence": "Nine published vulnerabilities in that engine version with no available fix, three of them exploitable over the network. The host sits in a corporate range reachable from the standard user network. The application's service account holds database owner rights. The analyst who built it keeps the credentials in a spreadsheet on the directorate's shared drive.",
+          "why": "The severity, established properly, and the service account detail is worth more than the vulnerability count: a return the director signs as a statutory declaration is generated from a database that anyone reaching the host can rewrite. That is an integrity finding rather than an availability one, and it is the framing the water quality directorate will understand in a single sentence.\n\nWhat it does not do is answer the question the node asked, which was about the acceptance. It invites a technical remediation — upgrade it, firewall it, rotate the credentials — all correct, all about this one server, and none of them touching either reason it was in this state. It was outside the register, and a deferral was granted by someone who could not grant it. Keep the nine vulnerabilities in reserve for the moment somebody claims the risk was understood when it was accepted."
+        },
+        {
+          "key": "C",
+          "text": "Find out what happened to the replacement programme.",
+          "quality": "defensible",
+          "next": "the-defence",
+          "consequence": "Cancelled in November 2024, funding moved to metering after the regulatory determination. The programme board's closure paper lists eleven dependencies to be re-planned. The water quality reporting upgrade is not among them, because the deferral was recorded in the exception register rather than against the programme.",
+          "why": "One fact, and it removes the entire basis on which the deferral was granted. Something accepted 'pending' a thing that no longer exists has not been deferred; it has simply been left.\n\nThe closure paper is the mechanism and it generalises well past this case: an acceptance that depends on a project is a commitment held in two places, and when the project ends, the exception register is not one of the places anybody looks. That deserves a finding of its own. It is still one leg of three, and the weakest to lead with, because it can be answered by writing a new acceptance on current facts — which is exactly what will be offered."
+        },
+        {
+          "key": "D",
+          "text": "Record it as a documented, managed exception. The risk was identified and a decision was taken.",
+          "quality": "poor",
+          "next": "the-defence",
+          "consequence": "You note it in the working papers as an accepted risk, cross-referenced to the exception register entry, and move on to the register findings. When you take those to the director of corporate services, he has the exception register open before you have finished the first page.",
+          "why": "The instinct is sound and it is the one the exception register exists to reward. A risk that has been identified, written down and decided upon genuinely is in better shape than one nobody has ever noticed, and most of the time treating it as managed is correct.\n\nWhat 'documented' does not establish is any of the three things that make a documented decision into a decision. Nobody has asked whether the signatory was entitled to sign at that level, who set the rating that determined the level, or whether the reason it was granted still exists. A form that records an acceptance and a process that produces one are different objects, and only the first of them is in front of you.\n\nYou will get the chance to ask. You will be asking it across a table, though, from behind a working paper of your own that has already called the thing managed."
+        }
+      ]
+    },
+    "the-defence": {
+      "situation": "The director of corporate services owns IT and the exception register. He is not defensive, and he is not wrong about the general point.\n\n\"Risk acceptance is a legitimate treatment,\" he says. \"We are not obliged to fix everything we find. This one was assessed, documented, signed and filed, which is more than most organisations manage. Setting this utility's risk appetite is the executive's job, not internal audit's. So on what basis are you telling me that an accepted risk is a finding?\"\n\nThe information risk policy is on the table between you. Medium ratings are approved by a head of function, high ratings by the executive risk owner. The form was signed by an infrastructure delivery manager, on a rating he entered himself, with a review date that has now passed three times, pending a programme cancelled in November 2024.\n\nThe register holds 340 open entries. He has been at the utility eleven years, and the register was his idea.",
+      "prompt": "How do you answer him?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Concede the point. Accepted risk is management's prerogative, and substituting the auditor's appetite for the executive's is not the role. Report the register incompleteness; record the database as a documented accepted risk.",
+          "quality": "poor",
+          "next": "the-recommendation",
+          "taint": "accepted-the-acceptance",
+          "consequence": "The report carries a well-evidenced completeness finding on the asset register with a twelve-month remediation and a named owner, and notes the water quality reporting database as an exposure formally accepted by management in March 2023. The exception register entry is re-dated and given a fresh review date.",
+          "why": "He is right about the general point and you would defend the same principle against anyone else in the building. Auditors do not set risk appetite. An organisation that has looked at an exposure and decided to carry it has done something, and treating every entry in an exception register as a finding would make the register pointless.\n\nThe move that fails is taking the word 'accepted' as a description of a process when it is a description of a form. An acceptance is a decision, and a decision has three properties testable without going anywhere near appetite: it was taken by someone the organisation authorised to take it, on a rating set by someone other than the person who wanted the answer, within a bound that somebody was obliged to revisit. This one has none of the three. The signature is a level short, the rating was entered by the applicant, the review has lapsed three times, and the thing it was pending has not existed since November 2024. Reporting that is not overruling management. It is reporting that management's own control did not operate — which is the job he was invoking against you.\n\nWhat does not come back is the sentence. 'Formally accepted by management' is not a finding that can be sharpened next year; it is a characterisation that closes the question, and re-dating the entry hands it a fresh review date and the appearance of currency. A regulator reads accepted risks differently from unmanaged ones. So does the next auditor, and so does whoever is deciding what to fund."
+        },
+        {
+          "key": "B",
+          "text": "Concede the appetite point in full, then separate it from what you are actually asking: an acceptance is only a decision if it was taken by someone with authority for that rating, on a rating set independently, within a bound somebody was obliged to review. Tested on those three, the acceptance process is itself the finding.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "He concedes the authority point immediately — it is his policy and the signature is a level short of it. On the rating he argues for a while and then stops, because the form has one field for the assessed rating and it is completed by the requester.\n\nThen he asks how many of the 340 open entries would survive the same three tests. Nobody knows. The register has never been analysed that way.",
+          "why": "Giving him the appetite point costs nothing and removes his only argument, because you were never disputing appetite. What is left is a governance question with the organisation's own policy as the criterion — you are not asserting that this risk should have been treated differently, you are asserting that it was never validly accepted, and that is a statement about process which can be settled on paper. It also keeps you squarely inside the role he invoked: the executive decides, and what you are reporting is that the executive was never asked.\n\nHis question back is the finding growing to its proper size. One invalid acceptance on one unregistered server is an incident. A form whose rating field is completed by the applicant, whose review dates nothing enforces, and whose 340 open entries have never once been tested against the delegation, is a control that has been manufacturing unexamined exposures for as long as it has existed. He arrives there himself, which is the version that survives the closing meeting and the version that gets funded."
+        },
+        {
+          "key": "C",
+          "text": "Argue that the acceptance is stale. The programme it was pending was cancelled in November 2024, and the engine went out of support in April 2024. Whatever was accepted in March 2023, it was not this.",
+          "quality": "defensible",
+          "next": "the-re-assessment",
+          "consequence": "He accepts it with little resistance and instructs that the entry be reopened and re-assessed on current facts. The re-assessment is scheduled for the next meeting of the information security steering group.",
+          "why": "True, easy to demonstrate, and it produces movement inside the meeting, which is more than most challenges manage. An acceptance granted against facts that no longer hold is not an acceptance of the present exposure, and saying so is fair.\n\nWhat it concedes is the frame. You have argued that this acceptance rested on the wrong information, which invites a fresh one resting on the right information — and a re-assessment at the steering group, signed this time by somebody suitably senior, closes the matter with the database exactly where it stands. The defect was never that the facts had moved. It was that the process could not tell you who was entitled to decide on them, or make anyone look again when they did."
+        },
+        {
+          "key": "D",
+          "text": "Escalate: put the exposure and the policy breach to the executive risk owner, and ask him to take the decision the policy says is his.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The director of operations is the executive risk owner. He asks how long the database has been out of support, is told twenty-six months, and asks why this is the first he has heard of it. The upgrade is funded inside a fortnight and delivered the following quarter.",
+          "why": "Escalation to the person the policy names is squarely within the role — you are not taking the decision, you are putting it where it was always supposed to sit — and it produces the fastest and most complete fix to the exposure available anywhere in this case. A result like that is genuinely hard to argue with.\n\nWhat it spends is the process finding. The question that got answered was 'do you accept this database', and once he says no, the matter is closed and the meeting moves on. The question that needed asking was how an acceptance he was never shown came to sit under his own policy for three years, and there are 339 other entries behind it. Fixing the instance before naming the mechanism is how a systemic finding becomes a resolved item, and the next invalid acceptance in that register will be found the way this one was, which is by accident."
+        }
+      ]
+    },
+    "the-re-assessment": {
+      "situation": "The information security steering group takes the entry in three weeks, and takes it seriously. The programme is confirmed cancelled. The engine is confirmed unsupported since April 2024. The exposure is written up accurately for the first time.\n\nThe outcome is a fresh entry. Assessed rating: medium. Signed by the head of infrastructure, who is a head of function, which for a medium rating is exactly what the policy requires. Review date: twelve months out. The rating was entered on the form by the infrastructure delivery team, who requested the deferral, because the form has one field for it and always has.\n\nNothing about the database has changed. The version is the same, the service account still holds database owner rights, the server is still absent from the asset register, and the return will be generated from it and signed as a statutory declaration in each of the next four quarters. What has changed is that the exposure is now carried by a signature the policy accepts.\n\nBehind it sit 339 other open entries, approved through the same form.",
+      "prompt": "Your challenge has produced a compliant version of the same decision. What do you report?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report the acceptance process itself — a rating field completed by the requester, review dates nothing enforces, and 340 entries never tested against the delegation — with this entry as the illustration of what the process produces rather than as the finding.",
+          "quality": "best",
+          "next": "the-recommendation",
+          "consequence": "You ask the risk function how many of the 340 open entries were approved at the authority their recorded rating requires. There is no way to produce the answer: the rating and the approver are free-text fields, and no report has ever been written against them. The head of internal audit puts it to the committee as a control finding rather than an exposure.\n\nThe director of corporate services does not contest it. He points out that the re-assessment you prompted was itself produced by the process you are describing.",
+          "why": "The re-assessment is the most useful thing that could have happened to you, and only if you read it correctly. You challenged one entry on its facts, and the process absorbed the challenge and returned a document that is compliant, current and points at exactly the same unsupported database. That is not a failure of the challenge; it is the process demonstrating what it does, on demand, in front of you.\n\nWhat it demonstrates is that authority and currency were never the binding constraints. The rating decides who is allowed to sign, and the rating is set by the party who wants the deferral — so an applicant who writes 'medium' selects his own approver, and every signature that follows is valid. Nothing expires, so a review date is a note rather than a control. Neither defect requires you to hold a view on the database, which is what lets this be reported as a control finding rather than an argument about risk appetite.\n\nAnd the illustration is stronger for being remediated on paper. An entry that has just been re-assessed properly, and still carries a statutory reporting platform on an unsupported engine, is harder to dismiss than one nobody had looked at since 2023."
+        },
+        {
+          "key": "B",
+          "text": "Challenge the rating. A database twenty-six months out of vendor support, generating a return signed as a statutory declaration, was rated medium by the team that wanted the deferral. Put the rating to the risk function for an independent assessment.",
+          "quality": "defensible",
+          "next": "the-recommendation",
+          "consequence": "The risk function rates it high, on the integrity of a statutory return rather than on the availability of the system. Under the policy a high rating requires the executive risk owner, so the entry escalates for the first time in three years. He asks for costed options within a month.\n\nThe steering group's minute records the correction as a disagreement about rating methodology between two functions.",
+          "why": "It is the right observation and it moves the actual exposure, which is not nothing — an entry that has sat at medium for three years reaches the executive risk owner because you refused the number. The point about integrity rather than availability is the one that changed the rating, and it is worth keeping: what makes this database consequential is not that it might stop, but that a statutory declaration is generated from something anyone reaching the host can rewrite.\n\nThe cost is the frame. You have argued that this rating was wrong, and the answer to a wrong rating is a right rating — one entry, corrected, filed by a process that will assign the next one exactly as it assigned this one. The minute recording it as a methodology disagreement is the tell. A defect in who is entitled to set the rating has been received as a difference of professional opinion about a single number, and the other 339 entries are untouched by it."
+        },
+        {
+          "key": "C",
+          "text": "Accept the re-assessment as the remediation, and recommend the same treatment across the register: every open entry reopened and re-approved at the authority its rating requires.",
+          "quality": "poor",
+          "next": "end-reapproved",
+          "consequence": "The recommendation is accepted without amendment and completed inside three months. The water quality entry is escalated when a reviewer flags the statutory return, and signed by the executive risk owner, who carries it for a further twelve months on the basis that a replacement now sits in the capital plan. Every open entry in the register ends the year with a signature at the authority its recorded rating requires.",
+          "why": "You found a real defect and this closes it precisely. The signature on the March 2023 form was a level short of the policy, every signature in the register now sits where the policy puts it, and the utility has something it did not have before.\n\nWhat a correct signature does not do is make a decision sound. The rating still decides the approver and the requester still sets the rating, so the routing of every future deferral is chosen by the person asking for it. Nothing expires, so the next review still depends on somebody remembering — which is the mechanism that produced three lapsed review dates on the entry you started from.\n\nAnd re-approving an exposure escalates its standing. An unsupported database generating a statutory return is now something the executive risk owner has examined and consciously accepted, which is a stronger position than the utility held before you arrived and a much harder one to raise again. The server is still outside the asset register, so nothing anywhere is obliged to surface it when the twelve months run out."
+        }
+      ]
+    },
+    "the-recommendation": {
+      "situation": "The audit committee wants a recommendation with an owner and a date. Two threads are in front of them: a register that cannot contain a whole class of asset, and an exception register nobody has ever tested.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "That the register be reconciled against network discovery on a defined cycle, with every unmatched responder assigned a named owner inside five working days — and that no risk acceptance be valid unless the asset is in the register, the rating is set by someone other than the requester, and the approval matches the authority that rating requires, with expiry enforced at the review date.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The asset manager objects that discovery is noisy — ephemeral containers, test VMs that live for a day — and proposes a narrower version: full reconciliation quarterly, plus a daily diff of new responders in the server ranges with a five-day ownership clock. The exception register is rebuilt with the rating field locked to the risk function and expiry enforced by the platform.\n\nOf the 340 open entries, ninety-six expire in the first month because nobody re-approves them. Eleven are re-approved at a level above the one they originally carried.",
+          "why": "Two halves, and neither works alone. Continuous reconciliation makes the register a measured population instead of a by-product of purchasing, which is what all four downstream processes needed from it and never had. Enforced expiry with a locked rating field makes an acceptance a decision with a shelf life instead of a filing action.\n\nThe ownership clock is the detail doing the real work. A discovered host with nobody's name against it is the entire failure mode in one line — the 291 were never hidden, they were merely unclaimed — and a five-day clock on an unowned responder is the one part of this that next year's auditor can test without re-running the whole engagement.\n\nHis counter-proposal is better than the recommendation as written, and worth saying so. It also shows the division that held all the way through: you specified what the control has to achieve, and the man who knows what a day of discovery output looks like specified how."
+        },
+        {
+          "key": "B",
+          "text": "That the 291 be added to the register and brought under patching and the managed service contract, and that the water quality database be upgraded to a supported version.",
+          "quality": "defensible",
+          "next": "end-scoped",
+          "consequence": "Done over five months. The 291 become 287 after four are decommissioned outright. The supplier prices the scope extension and the contract is varied. The water quality database is migrated to a supported engine the following quarter and appears in the patch orchestrator's target group for the first time.",
+          "why": "Everything you found is closed, the exposure is gone, and 287 servers move out of nobody's remit and into somebody's — a materially safer utility than the one you walked into, delivered inside two quarters and without an argument. That is not a small thing.\n\nWhat is unchanged is where the register comes from. The feed is still the procurement system, so the next cloned VM, the next bundled appliance and the next acquired estate arrive outside it by exactly the routes the last 291 did. A catch-up performed against a generator nobody has altered is accurate on the day it finishes. And none of it touches the exception register, which is the control that let a server everybody could see sit unpatched for three years."
+        },
+        {
+          "key": "C",
+          "text": "That the managed service contract be varied so the supplier's scope is defined by monthly discovery output rather than by the register, making every host on the corporate ranges somebody's responsibility.",
+          "quality": "defensible",
+          "next": "end-scoped",
+          "consequence": "The commercial team like it, the supplier likes it rather less, and after six weeks a mechanism is agreed: monthly discovery output defines the managed estate, with a rate card for additions. Ownership of the 291 is settled inside two months.",
+          "why": "It solves the half of the problem that had no owner, and it does it with the only lever that reliably changes behaviour at an outsourcer, which is the scope schedule. Anything the sweep finds is now billable and therefore managed, and a commercial mechanism survives staff turnover in a way an internal procedure does not.\n\nIt also hands the completeness control to the party being measured by it, and leaves the utility's own register as the same purchasing by-product it always was. The supplier now understands the estate better than the utility does — which is the condition that let 291 servers go unnoticed for two years in the first place, now written into a contract with a rate card attached."
+        },
+        {
+          "key": "D",
+          "text": "That every open entry in the exception register be re-approved at the authority level its rating requires.",
+          "quality": "poor",
+          "next": "end-reapproved",
+          "consequence": "Accepted and completed inside three months. The water quality entry is escalated and signed by the executive risk owner, who accepts the deferral for a further twelve months on the basis that a replacement system now sits in the capital plan. The audit finding is closed on the evidence of a properly authorised acceptance.",
+          "why": "The authority defect was real, you found it, and this fixes it precisely — every signature now sits at the level the policy demands, which is more than the utility had before and exactly what you asked for.\n\nThe difficulty is what a correct signature does to the substance. Authority is what makes an acceptance valid; it was never what makes it right. Re-approving without touching the rating field or the expiry converts an irregular deferral into a regular one, and an unsupported database generating a statutory return is now something the executive risk owner has examined and consciously accepted. It has acquired a defence it did not previously have.\n\nAnd the asset is still not in the register, so nothing anywhere is obliged to raise it in twelve months. The review will depend on somebody remembering, which is the mechanism that produced three lapsed review dates already."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Counted, owned, and expiring",
+      "verdict": "strong",
+      "narrative": "The register is reconciled against discovery quarterly, with a daily diff of new responders in the server ranges and a five-working-day clock on ownership. The first full reconciliation brings in 291 servers — four of them decommissioned outright once an owner is finally found — and closes the 84 rows with nothing behind them, including twenty-nine still carrying live support contracts.\n\nThe exception register is rebuilt. The rating field is locked to the risk function, approval routes automatically by rating, and entries expire at their review date rather than waiting to be reviewed. Ninety-six of the 340 open entries expire in the first month because nobody re-approves them. Eleven are re-approved a level higher than they originally carried. Two go to the board.\n\nThe water quality reporting database is upgraded the following quarter and appears in the patch orchestrator's target group for the first time since it was built.\n\nThe managed service scope schedule is re-cut against the reconciled register at the annual review. The patch compliance figure reported to the risk committee drops from 98.7% to 85.0% in the first month of the new denominator, and the committee minute records that as the most useful number it has been given all year.",
+      "why": "The register carried 1,900 rows and the estate was 2,107 servers, and nobody had misrepresented anything. The register was fed from purchase orders and it contained, faithfully, every server the utility had bought as a server. A virtual machine cloned from a template is not bought. An appliance inside a supplier's package is not bought. A server that arrives with an acquired company is not bought. The population was not incomplete through carelessness; it was complete with respect to a boundary nobody had noticed was there, and the more diligently the feed ran the more confident the number looked.\n\nWhat made it expensive was that four processes and one contract took their population from it. A patch tool patches what it is given, a scanner scans what it is given, and a supplier manages what the schedule names — so one boundary defect propagated into four simultaneous coverage gaps, each of which reported excellent results about the part of the estate it could see. Ninety-eight point seven per cent was true. It was a fact about a target group that had been mistaken for a fact about an estate for two years.\n\nThe 291 were not one risk either. Two hundred and six were test, development or dead; six carried statutory processes. Sorting them by what they do rather than by how they came to be missing is what set the remediation order, and it took a population outside IT to do it — the service catalogue could see what the infrastructure team structurally could not.\n\nThe second thread cost more and looked more like governance working. There was a risk acceptance: written down, rated, signed, filed. It was signed a level below the authority its own rating required, on a rating entered by the person requesting the deferral, with a review date nothing enforced, pending a programme cancelled eighteen months before you arrived, by a manager who now works for the supplier that runs the estate. Every one of those is testable on paper, and not one of them is a question about risk appetite — which matters, because appetite is the executive's to set and was never yours to dispute.\n\nThe two threads are one thread. The acceptance survived because nothing reviewed it, and nothing reviewed it because the asset it concerned was absent from the register every review draws from.\n\nWhat generalises: when a population feeds more than one control, audit how it is constructed before you audit anything that consumes it. And when an exposure is met with 'that risk was accepted', do not argue about the risk. Ask who was entitled to accept it, who set the rating that decided that, and what was supposed to happen when the acceptance ran out."
+    },
+    "end-scoped": {
+      "title": "Two hundred and eighty-seven rows, added",
+      "verdict": "acceptable",
+      "narrative": "The 291 are reconciled, owned and patched — through the register, or through a contract schedule that makes every discovered host somebody's — and the water quality database moves to a supported engine. It is fast, competently managed, and completely effective against everything the audit found.\n\nThe register is still fed from the procurement system. The exception register still has one rating field, completed by whoever wants the deferral, and 339 other open entries nobody has tested.\n\nFourteen months later the utility completes the acquisition of a small private water supply operator serving nine thousand properties in the north of the county. Twenty-two servers come with it, including the operator's own sampling and reporting database, which holds two years of results that will be consolidated into the quarterly return.\n\nNothing was purchased, so nothing appears. They are found the year after that, by the supplier's annual discovery sweep, in an appendix.",
+      "why": "You corrected the population and left the mechanism that produces it running.\n\nThe distinction that matters is between a register that was wrong and a register that could not be right. The feed is a purchasing record, and a purchasing record can only ever hold purchases — so cloned VMs, bundled appliances and acquired estates arrive outside it every time, correctly, by a process working exactly as designed. A one-off catch-up is accurate on the day it completes and begins drifting the next morning, along the same three routes it drifted along before.\n\nThe contract variant is the stronger of the two and carries its own edge. Making the supplier's scope follow discovery does settle ownership of everything on the wire, permanently and commercially — and it puts the count in the hands of the party being measured on it. The utility ends with a better-managed estate and no independent picture of its own, which is the condition it was already in, now written into a schedule.\n\nThe second thread is untouched. An invalid acceptance was the reason a server everyone could have looked at was left alone for three years, and the register that produced it is still producing them at a rate nobody has measured."
+    },
+    "end-reapproved": {
+      "title": "Signed at the correct level",
+      "verdict": "weak",
+      "narrative": "Every open entry in the exception register is re-approved at the level its rating requires. It is a substantial piece of work, done thoroughly, and it closes inside three months.\n\nThe water quality entry is escalated and signed by the executive risk owner, who accepts a further twelve months on the basis that a replacement system now sits in the capital plan. The audit finding is closed on the evidence of a properly authorised acceptance, and the closure is cited at the next committee as an example of a governance gap identified and remediated within the quarter.\n\nThe database still runs an engine twenty-six months out of vendor support. It is still absent from the asset register, so it remains outside the patch orchestrator, the authenticated scan list, the support contracts and the managed service scope. The quarterly return is generated from it and signed as a statutory declaration in each of the following four quarters.\n\nEighteen months later the capital plan is re-prioritised.",
+      "why": "The authority defect was real and this addresses it exactly. The instinct — a decision taken by the wrong person should be retaken by the right one — is correct as far as it travels.\n\nWhere it stops is in treating authority as the whole test. Authority is what makes an acceptance valid; it is not what makes it sound, and it was only one of the three things that failed. The rating field is still completed by the requester, so the level a request routes to is still chosen by the person making it. Nothing expires, so the next review still depends on somebody remembering. Every entry now carries a correct signature obtained through a process that produced the wrong one.\n\nEscalating a deferral without asking whether the exposure should be carried at all also converts an irregular acceptance into a regular one, and the utility now holds an unsupported database generating a statutory return that the executive risk owner has examined and consciously accepted. That is a stronger position than the one it started from and considerably harder to raise again.\n\nAnd nothing changed about the asset. The server is not in the register, so no process anywhere is obliged to surface it in twelve months. A remediation whose entire output is a signature deserves a second look before it closes a finding."
+    },
+    "end-accepted": {
+      "title": "An accepted risk",
+      "verdict": "weak",
+      "narrative": "The report carries a well-evidenced completeness finding on the asset register, with a twelve-month remediation and a named owner. The water quality reporting database appears in it as an exposure formally accepted by management in March 2023. The exception register entry is re-dated and given a new review date.\n\nThe report is well received. The asset manager's reconciliation project runs for nine of its twelve months before the resource is moved to the billing migration.\n\nFourteen months later the inspectorate opens a routine data assurance review of the quarterly returns. It asks how the return is produced, which system holds the underlying sample results, and what protects their integrity. The answers are: a database nobody owned, on a server outside the asset register, running an engine three years out of vendor support, on which the application service account holds database owner rights and the build credentials sit in a spreadsheet on a directorate share.\n\nThe inspector's sharpest question is not about the database. It is about a document produced by internal audit that described the arrangement as an accepted risk, and about who accepted it. The signature on the form belongs to a man who has worked for the utility's outsourcing supplier since January 2024.",
+      "why": "The general principle is sound and you would defend it in any other week. Internal audit does not set the organisation's risk appetite; an exposure that has been identified and decided upon is in better order than one nobody has seen; and a director invoking his own exception register is invoking a control that exists precisely so decisions like this get written down. He was entitled to ask what you were measuring against.\n\nThe failure is in reading 'accepted' as a description of a process when it was a description of a form. An acceptance can be tested without approaching appetite at all. Authority: did the signatory hold it for that rating. Independence: who set the rating that determined the authority. Bound: what was supposed to happen at the review date, and did it. This one failed all three, and the third had been failing annually for three years with nothing in the process capable of noticing. Reporting that is not substituting your appetite for the executive's — it is reporting that the executive was never asked, which is the opposite.\n\nThe two threads turn out to be the same thread, which is the part worth carrying away. The acceptance survived because nothing reviewed it, and nothing reviewed it because the asset it concerned was not in the register that every review draws its population from. An exception raised against an unregistered asset is not a managed risk with a signature on it. It is an unmanaged risk with a signature on it, and the signature is the reason nobody looks.\n\nWhat makes it unrecoverable is the characterisation rather than the exposure. The database could have been upgraded at any point in the following year. 'Formally accepted by management' is a sentence in an audit report, and audit reports are read by regulators, by next year's auditor and by whoever decides what gets funded — none of whom will go behind it, because internal audit already has."
+    }
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "id": "d2-the-architecture-exception",
+  "title": "The Architecture Exception",
+  "domain": "2",
+  "section": "A",
+  "topics": [
+    "Enterprise Architecture and Considerations",
+    "Organizational Structure, IT Governance, and IT Strategy",
+    "IT Policies, Standards, Procedures and Practices",
+    "IT Vendor Management"
+  ],
+  "principles": [
+    "risk-first",
+    "earlier-is-cheaper",
+    "explicit-and-owned",
+    "prevent-first",
+    "root-cause",
+    "auditor-role"
+  ],
+  "minutes": 14,
+  "origin": "Original scenario written for this project. Not adapted from ISACA materials, the QAE, or any other exam bank.",
+  "opening": "You are auditing IT governance at a residential housing developer. Two thousand six hundred staff, 74 active developments across five regions.\n\nThe board approved a three-year IT strategy two years ago. Its second principle is one sentence: a single customer record, from reservation through completion to the end of the two-year defect period, held in the group customer platform. The group contract commits the business to 200 customer-facing seats at £77 each per month. Thirty-one are in use.\n\nSales does not use it. Eighteen months ago the sales division subscribed to a SaaS CRM of its own, 160 named users at £7,900 a month, and has run new-homes sales on it ever since.\n\nThe only trace of that in the governance record is one line in the architecture review board minutes of eighteen months ago. Item 6: \"Sales customer system. ARB discussed. Agreed sales may proceed for now, pending the strategic review.\"",
+  "taints": {
+    "backdated": "end-laundered"
+  },
+  "nodes": {
+    "start": {
+      "situation": "The architecture review board meets monthly. Seven members, chaired by the enterprise architect. Its minutes run to two pages and Item 6 is the whole of what it recorded.\n\nThe minute names no owner, sets no conditions, and gives no date by which anything happens. The strategic review it refers to has never been scheduled.\n\nThe architect who chaired that meeting left the business a year ago. The current enterprise architect joined seven months ago and had not seen the minute until you sent it to him.",
+      "prompt": "Where do you start?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Read what the architecture standard requires an exception to contain, then check the exception register against it.",
+          "quality": "best",
+          "next": "the-non-decision",
+          "consequence": "Section 7 of the standard is specific: a deviation from a strategic platform needs a written request, a risk assessment, a named accountable owner, stated conditions, an expiry no longer than twelve months, and an entry in the exception register. The register holds six entries, all from a data-centre programme, all closed. Nothing for sales.",
+          "why": "Everything you find after this is an anecdote until you have something to measure it against. Section 7 is that criterion, it is fixed, and it costs half a day; the register then tells you whether a decision meeting it was ever made. Getting both before you talk to anyone matters, because an eighteen-month-old verbal agreement acquires conditions and intentions the moment you ask about it. It also fixes what is under test. The control is the exception process, not the sales division's taste in software."
+        },
+        {
+          "key": "B",
+          "text": "Interview the sales director about why she bought a second CRM.",
+          "quality": "defensible",
+          "next": "the-non-decision",
+          "consequence": "She is entirely open about it. The group platform could not model plot-level reservation states across 74 developments, sales had a launch programme it could not delay, she raised it at the ARB and was told she could go ahead. She has no email and does not claim to.",
+          "why": "You get the story fast and her account turns out to be honest, so little is lost. What you carry away, though, is the version held by the person whose decision is in question, taken before you know what a proper decision would have looked like. Inquiry is for directing testing, not for concluding, and leading with it also quietly reframes the audit as whether sales did something wrong."
+        },
+        {
+          "key": "C",
+          "text": "Start with IT operations: ask what the sales CRM is connected to and who supports it.",
+          "quality": "defensible",
+          "next": "the-non-decision",
+          "consequence": "Operations has no record of the platform. It is not in the configuration database and nobody there has a support relationship with it. What they hand you instead is a puzzle of their own: a file arrives nightly on the finance SFTP server from a source they do not recognise, and they had assumed finance owned it.",
+          "why": "A good instinct, and it reaches the thing that turns out to carry live risk. The cost is what you can do with it on the day you have it. Operations cannot tell you what that interface is for or whether anyone ever agreed it should exist, and neither can you, because you have not yet established what agreement the standard required. An unexplained fact you cannot characterise pulls the engagement towards a technical review of one system, and you were sent to test a governance process."
+        },
+        {
+          "key": "D",
+          "text": "Take it straight to the CIO. A whole division is running outside the board-approved strategy.",
+          "quality": "poor",
+          "next": "the-tidied-record",
+          "consequence": "You brief him. He asks what the ARB actually decided, and what the system is connected to. You know neither yet, and say so. He suggests you come back when you do, and asks the enterprise architect to get the paperwork straight before your report lands.",
+          "why": "Escalation spends its own credibility when it arrives without the two facts that set the severity, and there is a second cost that outlasts the meeting: you have put management on notice to tidy the record before you have finished establishing what the record shows. The framing costs you as well. Raised this way, the strategy becomes the thing you are defending, and it is not your document. Management is entitled to deviate from its own strategy. Whether it decided to is your question, and you have not asked it yet."
+        }
+      ]
+    },
+    "the-tidied-record": {
+      "situation": "A fortnight later, the document you were looking for exists.\n\nThe enterprise architect sends you a bundle. An exception request for the sales CRM on the group template, signed by the sales director this week: the business need, a risk assessment, the sales director named as accountable owner, conditions covering customer data held outside the group platform, and a twelve-month expiry. A drafted seventh entry for the exception register. And a covering note recording that the ARB agreed the deviation at the time, and that the request formalises a decision already taken.\n\nMeasured against Section 7 the request is complete. Every element the standard requires is present and correct, and none of it existed a fortnight ago.\n\nHe asks whether your report can now describe the position as documented.",
+      "prompt": "What do you do with a document that exists because you asked for it?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Fix the record as it stood when you first asked for it — the register extract and Item 6, date-stamped — test that against Section 7, and report the bundle separately as remediation during fieldwork.",
+          "quality": "best",
+          "next": "the-nightly-file",
+          "consequence": "You keep both versions in the file, each dated, with a note of when you requested them. The architect does not argue; he asks only that the report record the exception as now in place, which it will.",
+          "why": "The control you were sent to test operated, or failed to operate, over the eighteen months before you arrived, and the only evidence of that is the record as it stood when you asked. A document written afterwards is evidence about the fortnight it was written in. Both belong in the report, in different sections, and the date-stamp is what keeps them apart — without it the file will read, to anyone picking it up in two years, as though the exception was there all along."
+        },
+        {
+          "key": "B",
+          "text": "Accept the bundle as remediation, and ask the architect what he relied on to complete it — who he asked, what he was told, what he did where nobody remembered.",
+          "quality": "defensible",
+          "next": "the-nightly-file",
+          "consequence": "He is candid. He wrote the conditions himself from what the sales division does now, the owner was agreed by phone this week, and the risk assessment is his own view. Nothing in the request came from eighteen months ago.",
+          "why": "A fair question, honestly answered, and his answer is worth having on file because it establishes that the bundle is a reconstruction rather than a discovery. What it costs is a fortnight spent examining the provenance of a document created for you, when the same fortnight would have told you what the standard required and what had been built underneath. Testing remediation is not testing the control; it is testing the thing that replaced it."
+        },
+        {
+          "key": "C",
+          "text": "Record that the exception is now documented and meets Section 7, and move on.",
+          "quality": "poor",
+          "next": "the-nightly-file",
+          "consequence": "The point closes in the draft as remediated during fieldwork. The bundle becomes the only document in your working papers that describes the sales exception, and it describes it as approved, owned and time-limited.",
+          "why": "The temptation is real, because the file now looks exactly like the file you wanted. But you asked for the paperwork, management produced the paperwork, and you have accepted the paperwork as the answer — which means the audit tested nothing. The eighteen months of operation on the strength of nobody objecting have left your report entirely, and the next person to read the register will find a properly constituted exception with no indication that the process ever failed to produce one."
+        }
+      ]
+    },
+    "the-non-decision": {
+      "situation": "The standard is clear about what an exception is. Nothing matching it exists for the sales CRM.\n\nThree of the seven members at that meeting have left the business. Of the four still here, two remember Item 6 and remember it differently. One recalls agreeing sales could run a pilot until the platform's next release. The other recalls agreeing it could stay until the strategic review, whenever that happened. Neither recalls anyone being asked to own it, and neither recalls a risk assessment.\n\nThe minute says \"discussed\" and \"agreed sales may proceed\". It records no vote.",
+      "prompt": "What do you do with the minute?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Conclude that the minute does not evidence an exception under the standard — what it records is an absence of objection — and turn to what has been built on the strength of it.",
+          "quality": "best",
+          "next": "the-nightly-file",
+          "consequence": "You write the position down in one line and move on: eighteen months of operation outside the strategic platform, with no exception request, no risk assessment, no owner, no conditions and no expiry.",
+          "why": "The distance between an exception and an absence of objection is the whole case, and you are entitled to state it because you tested the minute against the standard rather than against your own view of what the board meant. An exception has an owner who can be asked, conditions that can be checked and an end date that forces the question again. Nobody objecting has none of those, so it cannot be reviewed, cannot lapse and cannot be refused. It can only accumulate, and what has accumulated in eighteen months is the thing nobody has looked at."
+        },
+        {
+          "key": "B",
+          "text": "Ask the two ARB members to set down in writing what they understood was agreed, so there is a record.",
+          "quality": "defensible",
+          "next": "the-tidied-record",
+          "consequence": "Both write you a short note. The notes conflict on duration and neither mentions conditions. You file them as audit evidence.",
+          "why": "Reasonable, and you would want their recollection on file. Notice what it produces, though: you have gone looking for the best available memory of an agreement whose defect is that it was never written down, and if the two memories had happened to agree you would now be holding something that looks like the missing record. The gap is the finding. Filling it in eighteen months later is the auditor doing the ARB's work."
+        },
+        {
+          "key": "C",
+          "text": "Raise it now: the sales CRM has no valid exception, and one should be prepared and approved.",
+          "quality": "poor",
+          "next": "the-tidied-record",
+          "consequence": "You put it in the draft. Sales agrees within a day to submit an exception request, and the enterprise architect agrees to take it to the next ARB. He asks whether that closes the point.",
+          "why": "Everyone agrees immediately, and his question tells you why: you have named one missing document, and the fastest way to close that finding is to produce the document. Nothing in it asks why the process let a division run for eighteen months without one, and nothing in it reaches what was built underneath. Raise it at this level and it will be closed at this level."
+        },
+        {
+          "key": "D",
+          "text": "Read back through the ARB's minutes to see whether this is how the board usually decides.",
+          "quality": "defensible",
+          "next": "the-nightly-file",
+          "consequence": "Nineteen meetings. Four other items were \"noted\" or \"discussed\" with an outcome of the same shape and no register entry. Two of those concern systems that are live today.",
+          "why": "This is the right question and it will carry the finding later: one undocumented exception is an incident, five is how the board works. The reason it is not where you go next is that it is the half of the work that keeps. Nineteen sets of minutes are a folder on a shared drive and they will say the same thing in three weeks. What eighteen months of unreviewed operation has built underneath the sales CRM is running tonight, and nobody has looked at it once."
+        }
+      ]
+    },
+    "the-nightly-file": {
+      "situation": "At 23:40 the sales CRM writes a file of reservations, cancellations and deposit movements to the finance SFTP folder. At 01:15 a scheduled job loads it into the reservations staging table, which feeds the weekly sales report to the board and the reservations line in the monthly management accounts.\n\nThe job was written by a contractor engaged by the sales division whose engagement ended fourteen months ago. It is not on the operations team's monitored job list. There is no record-count reconciliation and no alert if the file does not arrive.\n\nThe finance systems manager understood sales owned it. The sales operations lead understood finance owned it.\n\nYou test 90 nights. The file was absent on nine of them. On three it arrived late and was picked up by the following night's run before the weekly report went out. On the other six the board report understated reservations, by between four and 31. Two were queried by a regional manager who thought his numbers looked light. The rest were never noticed.",
+      "prompt": "What do you do with this?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report it immediately as a separate finding, and ask the CIO to have an owner named for the interface this week.",
+          "quality": "best",
+          "next": "the-finding",
+          "consequence": "The CIO reads it the same afternoon. Within four days the interface has a named owner in finance, and operations has been asked to price monitoring for it.",
+          "why": "Two findings on two clocks. The governance point will take a quarter to argue and a year to fix; an unowned feed into board reporting is live tonight and has already produced six misstatements nobody caught. Splitting them stops the urgent one travelling at the speed of the slow one. Asking for an owner is recommending, which is yours to do; naming the owner, or choosing the monitoring, would not be."
+        },
+        {
+          "key": "B",
+          "text": "Fold it into the architecture finding as the clearest illustration of what an undocumented exception produces.",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "The draft gains a strong paragraph. The finding is scheduled for clearance in three weeks with the rest of the report.",
+          "why": "It is exactly that illustration, and the report is better for it. The price is timing. The feed keeps running unowned and unmonitored while the governance argument is had, and the argument is one people will want to have slowly. A finding whose remedy is urgent should not be bundled with one whose remedy is structural, however well the two explain each other."
+        },
+        {
+          "key": "C",
+          "text": "Ask IT operations to add the job to the monitored schedule and configure a missing-file alert.",
+          "quality": "poor",
+          "next": "the-orphan-alert",
+          "consequence": "Operations adds it within a fortnight. An alert now fires to the operations mailbox if no file has arrived by 02:00.",
+          "why": "You have bought detection for a problem whose cause is that nobody is accountable, and routed the alert to the one team already certain the feed belongs to somebody else. Monitoring an orphaned interface produces a notification nobody owns instead of a failure nobody sees. There is a quieter cost too: you specified the fix rather than reporting the gap and letting management design it, so the control now on the interface is partly yours, and the next auditor testing it will be testing your work."
+        },
+        {
+          "key": "D",
+          "text": "Quantify it properly first — work out what the missing files did to reported reservations.",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "Four days of work. The distortions reverse within the quarter and never reach the statutory accounts, though two weekly board reports were wrong by more than 20 reservations.",
+          "why": "Sizing an exposure is real audit work and this number belongs in the report. It did not need to come first. The severity of an unowned feed into board reporting does not depend on whether this quarter's errors happened to wash out, and four days spent proving they did are four days the interface still has no owner. Measure it after you have made somebody responsible for it."
+        }
+      ]
+    },
+    "the-orphan-alert": {
+      "situation": "Five weeks on. The job is on the monitored schedule and the alert has fired three times.\n\nAll three were closed with the same note: the file is external and not operations' to chase. On the second of them the file never arrived at all, and that week's board report went out understating reservations by nineteen.\n\nThe finance systems manager now describes the interface as monitored. So does the sales operations lead. Neither has changed his view about who owns it.\n\nThe alert is the only control on the interface, and it is in your working papers as something you specified.",
+      "prompt": "The interface is monitored and still unowned. What now?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Report the ownership gap as a finding in its own right, disclose that the monitoring was added at your request, and ask the CIO to have an owner named this week.",
+          "quality": "best",
+          "next": "the-finding",
+          "consequence": "An owner is named in finance within the week and asked to reconcile record counts nightly. Your working papers record that you specified the alert and are not relying on it as evidence of anything.",
+          "why": "Late, and recoverable, which is the useful part. The disclosure is what restores your position: a control you designed is not a control you can test, and saying so in the report is cheaper than having a reviewer find it. The finding itself has not changed in five weeks — an alert routed to a team that closes it as somebody else's is a notification, not an owner, and the nineteen-reservation night is the demonstration."
+        },
+        {
+          "key": "B",
+          "text": "Establish what the alert actually covers before saying anything about it.",
+          "quality": "defensible",
+          "next": "the-finding",
+          "consequence": "Two days. It fires on an absent file and on nothing else. Two files arrived in the period with truncated record counts and no alert, and one of them fed a board report.",
+          "why": "Worth knowing, and it sharpens the finding usefully — partial arrival was always the more likely failure and nothing was watching for it. The ownership question did not need the two days, though. It was answerable on the first morning, and every day it stays open is a day the feed runs with a control that belongs to the auditor."
+        },
+        {
+          "key": "C",
+          "text": "Record that monitoring is now in place and close the interface point.",
+          "quality": "poor",
+          "next": "the-finding",
+          "consequence": "The draft states that the interface is monitored. The ownership question does not appear in the report, and the alert continues to fire to the operations mailbox.",
+          "why": "You have closed a finding by citing your own remedy, which is the one piece of evidence in the engagement you cannot rely on. Worse, the sentence is true and misleading together: the interface is monitored, by a rule you wrote, watched by a team that has told you three times it is not theirs. The next auditor will test that control, find it configured, and conclude the interface is managed."
+        }
+      ]
+    },
+    "the-finding": {
+      "situation": "Two other divisions have gone the same way.\n\nLand acquisition subscribed to a deal-tracking platform eleven months ago, £2,300 a month. Customer care subscribed to a case-management tool six months ago, £4,100 a month, holding buyer contact details and defect records for occupied homes. Neither went to the ARB. Land acquisition mentioned it in a written update to the CIO; customer care did not raise it at all.\n\nBoth business cases carry the same sentence, near enough word for word: \"as agreed for Sales, this sits outside the group platform pending the strategic review\".\n\nThe three subscriptions have cost a little over £192,000 in eighteen months. The group platform's 200 committed seats continue to be paid for, 31 in use.",
+      "prompt": "You have to write this. What is the finding?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Three divisions are operating outside the board-approved IT strategy.",
+          "quality": "poor",
+          "next": "the-renewal",
+          "consequence": "You draft it that way. At the first read-through the sales director sets out, in some detail, why the group platform could not have run new-homes sales, and the customer care director says the group platform has no defect-management module at all.",
+          "why": "Understandable — the strategy is board-approved and three divisions are outside it. But the strategy is management's own instrument and management may deviate from it, so written this way the finding invites exactly the argument you just got: a debate on the architectural merits, conducted with management's evidence, that you are neither positioned nor required to win. The defect is not the deviation. It is that no one ever decided to deviate."
+        },
+        {
+          "key": "B",
+          "text": "The standard requires an exception to have an owner, conditions and an expiry, and the ARB has no outcome that produces one. It noted the sales system, and three divisions have relied on that as approval.",
+          "quality": "best",
+          "next": "the-renewal",
+          "consequence": "You put it to the enterprise architect in a sentence. He goes back to the minute, then to the other four noted items, and says that the board has no way of recording a refusal either.",
+          "why": "This names the mechanism, and it holds whether or not the sales CRM was a good buy. A deviation nobody decided has no owner to ask, no conditions to test and no date that forces the question again, so it cannot be reviewed, cannot lapse and cannot be refused — it can only be cited, and it was cited three times. Written at this level the finding survives every person involved moving on, and it points at a fix that is not a migration."
+        },
+        {
+          "key": "C",
+          "text": "The exception register is incomplete: five ARB items were noted rather than decided, and none appears in it.",
+          "quality": "defensible",
+          "next": "the-renewal",
+          "consequence": "You draft it that way. The architect accepts it without argument and proposes to backfill the register from the minutes.",
+          "why": "Accurate, cheap to accept, and it makes the register the subject when the register is only where the symptom shows. Backfilling produces a complete list of things nobody decided. The register is empty because the ARB has an outcome called noting, and until noting stops being an outcome the register will be incomplete again by the next audit."
+        },
+        {
+          "key": "D",
+          "text": "Extend the audit and test the two newer platforms properly before concluding.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "Two more weeks. The customer care tool holds buyer contact details and defect histories for occupied homes, with no entry in the record of processing activities and two shared administrator accounts.\n\nWhile you are testing, the notice date on the sales CRM contract passes and the three-year term begins. The enterprise architect takes a ratification paper to the ARB without you; the register entry is made in your absence, dated this month.",
+          "why": "Real findings, and the processing-record gap deserves raising on its own. What it costs is direction. You were sent to look at governance, the mechanism producing all three platforms is now visible, and that mechanism will produce new systems faster than you can review them one at a time. Testing the outputs is the slower way to reach the thing already in front of you.\n\nThe two weeks were not free either. Nobody told you the notice clause on the sales contract ran out in eight days, because nobody had read it, and a window you never opened is one you cannot argue you left open deliberately. Scope decisions are timing decisions in an engagement with a contract in it."
+        }
+      ]
+    },
+    "the-renewal": {
+      "situation": "The sales CRM contract auto-renews for a further three years in fourteen weeks. Notice must be served 90 days before renewal, so the window to decide anything closes in eight days.\n\nThe enterprise architect wants this settled before your report lands. He proposes to take a paper to Thursday's ARB ratifying the exception, with a named owner, conditions and a twelve-month expiry — and, since the ARB did agree it at the time, to enter it in the register under the date of the original meeting, so the record shows an unbroken decision.\n\nHe is not being sly about it. His argument is that a register showing eighteen months of unauthorised operation punishes sales for a failure of the board he now chairs.",
+      "prompt": "How do you respond?",
+      "options": [
+        {
+          "key": "A",
+          "text": "Support ratification on Thursday, dated when it is made, and put the eight-day notice deadline in front of the ARB as a decision it has to take.",
+          "quality": "best",
+          "next": "the-clearance",
+          "consequence": "The paper goes on Thursday. The register entry is dated this month, with the sales director as owner, a twelve-month expiry, and conditions covering the finance interface. Seeing the deadline, the ARB serves notice on the three-year term and takes a one-year rollover at the existing rate while the strategic review runs.",
+          "why": "Two things, and they do not conflict. Remediation should be as fast as it can be; the record should say what was true. Dating the entry this month is what preserves the finding's meaning, because the file has to show that this control failed once rather than that it has always worked. The deadline is the other half — you were the only person who had read the notice clause, and a decision window you can see and do not name is one you have helped close. Naming it is reporting, not deciding; the ARB still chose what to do with it."
+        },
+        {
+          "key": "B",
+          "text": "Agree to the original date. The ARB genuinely did discuss it, and dating it now punishes sales for a governance failure that was not theirs.",
+          "quality": "poor",
+          "next": "the-clearance",
+          "taint": "backdated",
+          "consequence": "The paper is approved on Thursday and the register shows an exception granted eighteen months ago, reviewed and confirmed. Your report describes the exception as documented, with an owner and an expiry.",
+          "why": "His motive is decent and that is what makes this hard to refuse. What you have agreed to is a register entry that is a true record of Thursday's vote and a false record of the control: nothing in it shows that a division ran outside the strategic platform for eighteen months on the strength of nobody objecting. This is also the register the fourth division will cite, and you have just made it cite something that looks like a decision."
+        },
+        {
+          "key": "C",
+          "text": "Decline to be drawn. The exception is management's to sort out, and you will report what you found.",
+          "quality": "poor",
+          "next": "the-clearance",
+          "consequence": "The architect reads it as a signal that ratifying now would look like management fixing the record ahead of the report, and holds the paper back. The notice date passes during fieldwork and the contract renews for three years.",
+          "why": "You were protecting your independence, and independence is about not owning the decision, not about withholding what you know. Nothing in your role required you to stay quiet about a contractual deadline you had read and they had not, and staying quiet cost the organisation the only cheap moment it had. The correction gets more expensive the longer it waits, which is the argument for speaking, not against it."
+        },
+        {
+          "key": "D",
+          "text": "Support ratification, and ask the ARB to defer the renewal until the strategic review reports.",
+          "quality": "defensible",
+          "next": "the-clearance",
+          "consequence": "You ask on Thursday. The board refers it to procurement, who come back on Monday with the clause: deferring is not available, and notice must be served within four days or the three-year term begins. Notice goes out on the last of them. The supplier, reading the same calendar, agrees a one-year extension at a nine per cent uplift.",
+          "why": "The instinct is right — do not lock in three years before deciding anything — and it lands somewhere workable. The option you asked for had already gone, because the decision that mattered was the notice date and not the renewal date, and establishing that spent four of the eight days you had. Nine per cent is the price of reaching a deadline from behind it rather than in front of it."
+        }
+      ]
+    },
+    "the-clearance": {
+      "situation": "Clearance, with the CIO and the enterprise architect.\n\nNeither disputes anything. The CIO's position is that the standard is perfectly good and the problem is discipline: the ARB should minute its decisions properly, and he will fund a board secretary to keep the register up to date.\n\nThe sales director's position, which he repeats sympathetically, is that she asked and was told yes.",
+      "prompt": "What do you recommend?",
+      "options": [
+        {
+          "key": "A",
+          "text": "A board secretary and a standard minuting template, so ARB decisions are recorded and registered properly.",
+          "quality": "poor",
+          "next": "end-minuted",
+          "consequence": "Welcomed on the spot. A secretary is appointed the following month and the register is backfilled from nineteen sets of minutes.",
+          "why": "He proposed it and you accepted it, and that pairing is the thing to examine rather than the recommendation. Better minuting records decisions more faithfully; it does not turn a non-decision into a decision. The ARB will go on noting things, the notes will now be written down accurately, and the fourth division will buy its platform without the ARB ever seeing it — because none of the first three reached the ARB by a route a secretary sits on."
+        },
+        {
+          "key": "B",
+          "text": "Make the register entry a precondition of the deviation rather than a record of it, remove noting as an ARB outcome, and put the trigger on the purchase rather than on the board.",
+          "quality": "best",
+          "next": "end-strong",
+          "consequence": "The CIO accepts the first two limbs immediately and argues about the third for an hour. The final position is that the SaaS purchase form gains two questions — does this hold customer records, does it send data to a finance system — and either answer routes the request to the ARB before procurement will raise the order.",
+          "why": "Three defaults, each testable next year in an afternoon. Requiring the entry before the deviation starts is what forces an owner, conditions and a twelve-month expiry to be written while anyone still cares about them; leaving the board only approved, refused or deferred-to-a-date makes it decide rather than not object; and moving the trigger to the purchase is what reaches divisions that never went to the ARB at all, which was all three of them. That last limb is the preventive one, and it is the one you had to argue for because it is the one that costs somebody something."
+        },
+        {
+          "key": "C",
+          "text": "Require all three platforms to be brought through the exception process now, each with an owner, conditions and an expiry.",
+          "quality": "defensible",
+          "next": "end-registered",
+          "consequence": "Agreed and done within the quarter. Three exceptions in the register, three named owners, three expiry dates, and the finance interface owned and reconciled.",
+          "why": "It cleans up everything you found and it is genuinely worth doing, so this is not a wasted recommendation. What it does not touch is why none of the three reached the process in the first place. The standard already required all of this; nothing enforced it at the moment a division signed a subscription. The fourth division is not in your report and will not be in the register either."
+        },
+        {
+          "key": "D",
+          "text": "Have the strategic review commissioned with a board reporting date, since every one of these deviations is justified by a review that does not exist.",
+          "quality": "defensible",
+          "next": "end-review",
+          "consequence": "The board commissions it with a decision date six months out. The phrase pending the strategic review stops appearing in business cases almost at once.",
+          "why": "A sharp catch. That phrase was load-bearing in three business cases and it referred to nothing, so removing it takes away the sentence people were writing instead of asking. It closes the excuse without closing the route. A division that wants a platform tomorrow can still buy one tomorrow, and the exception process will still not hear about it until an auditor reconciles something."
+        }
+      ]
+    }
+  },
+  "endings": {
+    "end-strong": {
+      "title": "Noting is not an outcome",
+      "verdict": "strong",
+      "narrative": "The standard is amended in one quarter. An exception must exist in the register before a deviation begins, carrying an owner, conditions and an expiry of no more than twelve months. The ARB's minutes template offers three outcomes and noting is not one of them. The SaaS purchase form asks two questions, and either answer routes the request to the ARB before an order can be raised.\n\nThe first expiry cycle runs eleven months later. The sales exception is re-approved on its merits, with the strategic review's finding attached: the group platform cannot model plot-level reservations and is not going to. The land acquisition exception lapses because nobody will own it, and the tool is retired. Customer care's is re-approved with a record of processing it did not previously have.\n\nIn the same period the purchase form catches two subscriptions before they were bought. One is approved. One is refused, which the ARB had never done before.",
+      "why": "The engagement turned on refusing to treat a duplicate platform as the finding. It might have been the right platform — the strategic review eventually said it was — and an auditor who argues the architecture is arguing management's case with management's evidence.\n\nWhat was wrong was that nobody decided. A minute recording that nobody objected has no owner, no conditions and no end, so it cannot be reviewed or refused, only cited, and three divisions cited it. Fixing that meant giving the board an outcome that forces a decision, giving every deviation an expiry, and putting the trigger where the deviations actually start, which was procurement rather than the ARB."
+    },
+    "end-registered": {
+      "title": "Three exceptions, properly recorded",
+      "verdict": "acceptable",
+      "narrative": "All three platforms go through the process. The register gains three entries with named owners, conditions and twelve-month expiries, and the finance interface gets an owner and a nightly record-count reconciliation. It is a visible, checkable improvement and the audit committee is pleased with it.\n\nFourteen months later a regional construction division subscribes to a site-inspection platform that holds plot handover records and pushes completion dates into the finance system. It was bought on a departmental card. The ARB hears about it when the next IT governance audit reconciles subscriptions to the register.",
+      "why": "You fixed everything you found, which is more than many reports achieve, and the three exceptions are real controls with real expiry dates.\n\nThe standard, though, had required exactly this all along. Nothing in your recommendation changed the moment at which a deviation becomes visible, and in all three of your cases that moment was a subscription being signed, not a paper reaching the ARB. Remediating the instances leaves the mechanism running, and a mechanism that produced three platforms in eighteen months will produce a fourth."
+    },
+    "end-review": {
+      "title": "The review that was always pending",
+      "verdict": "acceptable",
+      "narrative": "The strategic review is commissioned with a board reporting date and lands on time. It concludes that the group platform should remain the record for the customer and that new-homes sales is a genuine exception, which is written up properly and given an owner. The phrase pending the strategic review disappears from business cases.\n\nThe exception register is not changed, and the ARB continues to note things. Two divisions later buy platforms without an exception; neither cites the sales decision, because neither needed a justification that anybody was going to check.",
+      "why": "You spotted the load-bearing phrase, which most auditors would have read past. Three business cases were justified by a review that had never been scheduled, and commissioning it removed the sentence people were writing instead of asking a question.\n\nWhat it did not do is give the process a way to say no. The excuse was never the mechanism; it was the decoration on the mechanism. The route by which a division acquires a platform without the architecture board hearing about it was still open the day the review reported, and it did not need an excuse to stay open."
+    },
+    "end-minuted": {
+      "title": "A better record of nothing",
+      "verdict": "weak",
+      "narrative": "The secretary is appointed and the minutes improve immediately. The register is backfilled from nineteen meetings and now holds eleven entries, five of them descriptions of items the ARB noted without deciding. None carries an owner or an expiry, because there was never anything to record.\n\nTwo years later a group-wide review of technology spend counts nine customer-facing platforms across six divisions. Four cite the sales precedent. The ARB minutes for the period are exemplary.",
+      "why": "The recommendation was proposed by the person whose board had failed and accepted by the person who had just documented that it failed, and that is the combination to distrust: a remedy the auditee welcomes usually asks them to be more careful rather than to give something up.\n\nMinuting improves the record of decisions. The finding was that no decision was made. Better minutes of a non-decision are a more faithful account of nothing, and the register filled up with exactly that. The work behind the report was sound and the recommendation could not reach any part of it."
+    },
+    "end-laundered": {
+      "title": "An exception granted eighteen months ago",
+      "verdict": "failed",
+      "narrative": "The register shows an exception for the sales CRM granted eighteen months ago, with an owner, conditions and an expiry, reviewed and confirmed. Your report describes the position as documented and compliant with the standard. Nobody at the audit committee has a question.\n\nTwo years later the finance director asks why the business is running five customer platforms. The architect who ratified the entry has moved on. What the review team finds is a register showing that each deviation was properly approved at the time, starting with the sales exception, which every subsequent business case cites by its register number.\n\nThe only document that ever recorded what actually happened was the ARB minute for Item 6, and the register entry now supersedes it.",
+      "why": "He was right that the ARB had discussed it and right that sales was not to blame, and both of those things could have been said in the report. Neither of them required the date to be wrong.\n\nA register entry dated eighteen months ago is a true record of Thursday's vote and a false record of the control. It asserts that the organisation assessed a deviation, named an owner and set conditions before the deviation began, and none of that happened. That claim is what the exception register exists to make, so a false one does not merely mislead — it converts the register from evidence into decoration.\n\nThe damage is not the single entry. It is that this was the precedent everybody was already citing, and you agreed to give it a reference number. The organisation had one honest account of how a temporary accommodation became permanent, and it lost it to the function whose job was to keep it."
+    }
+  }
+}
