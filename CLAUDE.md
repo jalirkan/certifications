@@ -40,7 +40,8 @@ lose data.
 | Study guides | **all five domains**, same depth |
 | Branching cases | 19 written (~35 needed), blueprint-weighted; 52 of 60 topics, all 23 rules |
 | Tests | **483, all passing** — `python run_tests.py` |
-| Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`) |
+| Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`); certs switchable in the browser via `X-Cert`, dark/light themes |
+| Sibling cert | `cpa-aud/` stood up 2026-08-27: verified Jan-2026 AUD blueprint outline, 60-question reviewed seed bank, own format (78 MCQ / 120 min / 0–99, pass 75) |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
@@ -77,7 +78,8 @@ certifications/
     cases/                  branching audit cases + SCHEMA.md (19 written, ~35 needed)
     study-guides/           topic checklists with notes and a status column
     results/                answer logs + per-profile settings.json — PERSONAL DATA, see rule 13
-  cpa/                reserved sibling, activated after CISA
+  cpa-aud/            CPA AUD Core: verified outline + original seed bank
+  cpa/                pointer README - CPA is four exams, one cert folder each
 ```
 
 ---
@@ -222,9 +224,16 @@ data, which is worse than leaving it alone.
 6. **Build the synthetic learner harness** — `SIMULATION-BRIEF.md`. Plant a known weakness in a
    generated study history and score whether the diagnostics find it, with a negative control and a
    sample-size sweep. This is what lets the project make claims about itself.
-6. **Stand up `cpa/`** after CISA. Verify the current AICPA blueprints first — the exam changed
-   under CPA Evolution, and CPA includes task-based simulations that this multiple-choice engine
-   does not model.
+6. **Stand up `cpa/`** — **started 2026-08-27, as `cpa-aud/`.** CPA is four separate exams, so
+   each section is its own cert — one cert = one exam is what blueprint sampling, mock timing and
+   the scaled-score caveat all assume; `cpa/` keeps a pointer README. Done: AUD outline verified
+   against the January-2026 blueprint (78 MCQ + 7 TBS, 50/50 scoring, 0–99 pass 75 — the tool
+   models the MCQ half and says so on every exam surface), a 60-question original seed bank with
+   every item adversarially reviewed, validate clean with no warnings. CISA remains the priority.
+   Deliberately not done: AUD decision rules and confusable pairs (rules earn their place by
+   recurring across areas — seed them once real drilling shows what recurs, per rule 11), study
+   guides, bank depth (a 78-question mock over a 60-question bank reports its shortfall honestly),
+   and FAR / REG / a discipline, which follow the same pattern when their time comes.
 
 ---
 
@@ -253,4 +262,4 @@ stem. Vary the answer key.
 **Ask before**: changing the question schema, altering the honesty rules in §3, clearing any results
 file, or adding a dependency to `drillkit/`.
 
-Last updated: 2026-07-31
+Last updated: 2026-08-27

@@ -1,7 +1,8 @@
 # Certification study system
 
-Offline study tooling for **CISA** now, **CPA** later. Nothing to install to *use* it, and **no
-network access at runtime** — no API key, no account, no model. It runs on a plane.
+Offline study tooling for **CISA** now, with a seeded **CPA AUD** bank alongside. Nothing to
+install to *use* it, and **no network access at runtime** — no API key, no account, no model. It
+runs on a plane.
 
 ## Two ways to use it
 
@@ -11,7 +12,9 @@ python drill.py      # command line — same engine, same data
 ```
 
 Both front ends read and write the same files, so you can drill in the browser and check `stats` in
-the terminal.
+the terminal. The web app switches certifications from the rail (CISA teal, CPA AUD violet) and has
+dark, light and follow-the-OS themes; the CLI takes `--cert cpa-aud`. Each cert keeps its own
+results, exam format and score scale.
 
 **The engine, the CLI and the server are Python standard library only** — `drillkit/`, `drill.py`
 and `serve.py` have no required third-party dependency, so the tool works on any Python 3.7+ with
