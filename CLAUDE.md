@@ -41,7 +41,7 @@ lose data.
 | Branching cases | 19 written (~35 needed), blueprint-weighted; 52 of 60 topics, all 23 rules |
 | Tests | **491, all passing** — `python run_tests.py` |
 | Front ends | CLI (`drill.py`) and a local web app (`serve.py` serving the built `web/`); certs switchable in the browser via `X-Cert`, dark/light themes |
-| Sibling cert | `cpa-aud/` stood up 2026-08-27: verified Jan-2026 AUD blueprint outline, 60-question reviewed seed bank, own format (78 MCQ / 120 min / 0–99, pass 75) |
+| Sibling cert | `cpa-aud/` stood up 2026-08-27: verified Jan-2026 AUD blueprint outline, **100 reviewed questions**, own format (78 MCQ / 120 min / 0–99, pass 75) — a full mock draws with no shortfall |
 | Web front end | **Vite + React + TypeScript + Recharts**, source in `frontend/`, builds to `web/` |
 | Git | tag `stdlib-only` marks the pre-rebuild, zero-dependency state |
 
@@ -243,8 +243,11 @@ data, which is worse than leaving it alone.
    every item adversarially reviewed, validate clean with no warnings. CISA remains the priority.
    Deliberately not done: AUD decision rules and confusable pairs (rules earn their place by
    recurring across areas — seed them once real drilling shows what recurs, per rule 11), study
-   guides, bank depth (a 78-question mock over a 60-question bank reports its shortfall honestly),
-   and FAR / REG / a discipline, which follow the same pattern when their time comes.
+   guides, and FAR / REG / a discipline, which follow the same pattern when their time comes.
+   **Bank depth: 60 → 100 on 2026-08-28**, so a 78-question mock now draws complete rather than
+   reporting a shortfall, and the five blueprint topics that held no question are covered. Every
+   topic still sits at one to three questions, so a *second* mock will re-serve; the CISA ratio
+   (~3.8× the draw) is the standard to aim at when this is next deepened.
 
 ---
 

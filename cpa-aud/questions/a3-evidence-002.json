@@ -1,0 +1,306 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "3",
+    "batch": "aud-a3-x02",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area III (Performing Further Procedures and Obtaining Evidence) second batch - depth so a full 78-question mock can be drawn without re-serving items. Drafted against existing coverage, adversarially reviewed item by item. Topic values must match ../outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d3a-04",
+      "domain": "3",
+      "section": "A",
+      "topic": "Requesting, preparing and transforming data",
+      "difficulty": "medium",
+      "stem": "An auditor of a regional propane distributor receives three separate extracts from the client's ERP system: an invoice header file, an invoice line file, and a customer master file. The engagement team joins the three files inside its own analytics tool to build the revenue population. The joined dataset contains 1.4 percent fewer revenue dollars than the header file alone, because line records carrying customer numbers that do not appear in the customer master were dropped by the join. Which action is MOST appropriate before the joined dataset is used for the planned analytics?",
+      "options": {
+        "A": "Proceed with the analytics on the joined dataset and describe the 1.4 percent shortfall in the workpapers as an inherent limitation of the analytics tool.",
+        "B": "Reconcile the joined dataset back to the source extracts, isolate the dropped records, and determine why those customer numbers are absent from the master file before treating the dataset as the population.",
+        "C": "Rebuild the join so that unmatched line records are retained with blank customer attributes, which restores the dataset to the full revenue total, and then run the analytics.",
+        "D": "Ask client IT to re-export a single pre-joined file containing all needed fields, so that the engagement team does not have to perform the transformation itself."
+      },
+      "answer": "B",
+      "why_correct": "Completeness and accuracy must hold not only for the data the client delivers but for the data as the auditor transforms it; a join is a step at which records can silently disappear. Reconciling the transformed file back to the source extracts is what makes the loss visible, and identifying the dropped records answers the question that actually matters, which is why invoices exist for customers who are not in the master file. That condition could be a stale master extract, a data-entry problem, or unrecognized customers warranting further work, and the auditor cannot know which without looking.",
+      "why_wrong": {
+        "A": "Labeling an unexplained data loss a tool limitation converts a resolvable audit issue into a permanent excuse. The population would exclude a set of transactions selected by nothing more than a failed key match, which is exactly the kind of non-random exclusion that can hide the items of most interest.",
+        "C": "Restoring the dollar total makes the reconciliation succeed while leaving the underlying anomaly unexamined. This is the trap of fixing the symptom: the numbers now tie, but the auditor still does not know whether the unmatched customer numbers signal an incomplete extract or invoices billed to customers the client's own master file does not recognize.",
+        "D": "Handing the transformation back to the client surrenders the auditor's control over how the population is built and re-introduces the risk that client-written logic filters out records the auditor never sees. It also does not answer the question the failed match raised; a client-built join would simply resolve the mismatch invisibly."
+      }
+    },
+    {
+      "id": "cpa-aud-d3a-05",
+      "domain": "3",
+      "section": "A",
+      "topic": "Reliability of data and information",
+      "difficulty": "medium",
+      "stem": "In auditing net patient service revenue at a nonprofit hospital, an auditor develops an independent expectation using two inputs: reimbursement rates taken from a state Medicaid agency's published fee schedule, and procedure volumes from a spreadsheet that the hospital's decision-support group maintains outside the billing system and updates manually each month. Which consideration should receive the GREATEST attention when the auditor evaluates the reliability of the data underlying the expectation?",
+      "options": {
+        "A": "Whether the state Medicaid agency maintained adequate internal control over the preparation and publication of the fee schedule the auditor used.",
+        "B": "Whether the audit software imported both sources without truncating fields, dropping rows, or misconverting date and numeric formats.",
+        "C": "Whether the fee schedule was downloaded directly from the agency's site rather than provided to the engagement team by hospital personnel.",
+        "D": "Whether the volume spreadsheet is complete and accurate, given that decision-support staff compile it by hand outside the billing system."
+      },
+      "answer": "D",
+      "why_correct": "The weakest link in this expectation is the input the entity produces itself with no system controls around it. A hand-maintained file can omit service lines, double-count procedures, or carry a broken formula, and because volumes enter the expectation multiplicatively, an error there flows undiluted into the auditor's conclusion about revenue. An expectation is only as reliable as its least reliable input, and here that input is also the one nothing outside the hospital can corroborate.",
+      "why_wrong": {
+        "A": "Auditing the internal controls of a state agency lies outside the engagement entirely and is not what reliance on an authoritative public source turns on. This over-applies the idea of evaluating an information source past the point of usefulness; for a published statutory rate schedule the auditor's attention belongs on whether the correct schedule and effective dates were used.",
+        "B": "Import fidelity is a real check, but it is a mechanical one that footing and record counts detect quickly. Ranking a tool-handling risk above the risk in uncontrolled entity-produced data mistakes a housekeeping step for the substantive reliability question the stem is asking.",
+        "C": "Obtaining external information directly rather than through the client genuinely improves reliability, which makes this the most tempting alternative. It remains the lesser concern, because the rate schedule is publicly verifiable at negligible cost, while the volume figures have no external counterpart against which any error could surface."
+      }
+    },
+    {
+      "id": "cpa-aud-d3a-06",
+      "domain": "3",
+      "section": "A",
+      "topic": "Data analytics",
+      "difficulty": "medium",
+      "stem": "An engagement team extracts an industrial distributor's sales invoice file for the year and runs an analytic that recomputes the price-times-quantity extension and the discount applied on all 312,000 invoices in the extract. The routine returns no exceptions. The senior concludes that because the procedure covered the entire population, sampling risk has been eliminated and the team has obtained sufficient appropriate evidence over revenue. Which evaluation of that conclusion is BEST?",
+      "options": {
+        "A": "The conclusion is sound, because examining 100 percent of a population eliminates sampling risk and thereby reduces audit risk to an acceptably low level.",
+        "B": "The conclusion is sound only if a data specialist whose competence the engagement team evaluated executed the routine and documented the parameters used.",
+        "C": "The conclusion is flawed, because the routine reaches only the arithmetic accuracy of what the extract happens to contain, and the extract has not been shown to represent the accounting records completely and accurately.",
+        "D": "The conclusion is flawed, because output produced by audit software the engagement team itself operates is internally generated and therefore less reliable than externally sourced evidence."
+      },
+      "answer": "C",
+      "why_correct": "The senior has confused coverage of a file with coverage of a population. Every conclusion the analytic supports is conditional on the extract being a faithful representation of the recorded transactions, and that condition is established by reconciling the extract to control totals in the general ledger and billing system, not by the routine's own clean output. Coverage also says nothing about which assertion a procedure reaches: recomputing an extension confirms that an amount was calculated correctly, which is evidence of accuracy and of essentially nothing else, so even a verified extract would leave the assertions at greatest risk in revenue untested.",
+      "why_wrong": {
+        "A": "The first clause is correct and the second does not follow from it. Driving sampling risk to zero leaves non-sampling risk entirely intact, including the risk that the procedure is not relevant to the assertion in question and the risk that the data examined is not the population the auditor believes it to be, so audit risk has not been addressed by coverage alone.",
+        "B": "Evaluating the competence of anyone whose work the team relies on is a genuine requirement, which makes this an attractive qualifier. It is the wrong determinant here, because the defect lies in what a recomputation can demonstrate and in what the extract has not been shown to be; flawless execution by an impeccably qualified specialist would leave the senior's conclusion exactly as unsupported.",
+        "D": "This invents a reliability category that does not exist. The internal-versus-external distinction describes the source of the underlying records, not who operated the software, and evidence the auditor obtains directly through the auditor's own procedures is ordinarily more reliable rather than less."
+      }
+    },
+    {
+      "id": "cpa-aud-d3b-03",
+      "domain": "3",
+      "section": "B",
+      "topic": "Sufficient appropriate evidence",
+      "difficulty": "easy",
+      "stem": "To test whether all December shipments at a cold-storage logistics company were billed, a first-year associate selects 60 invoices from the December sales journal, agrees each to a signed bill of lading, finds no exceptions, and documents that the completeness of December revenue has been tested. Reviewing the workpaper, which criticism should the senior raise as MOST appropriate?",
+      "options": {
+        "A": "The evidence is not relevant to completeness, because a selection drawn from recorded invoices cannot reveal shipments that were never invoiced; the selection should begin with shipping documents and trace forward into the sales journal.",
+        "B": "The evidence is not reliable, because bills of lading originate inside the client's warehouse operation and internal documents cannot support a revenue assertion.",
+        "C": "The approach is appropriate for completeness, but a sample of 60 is too small to support a conclusion about a population of this significance.",
+        "D": "The approach is appropriate, because agreeing recorded invoices to signed bills of lading provides evidence about the occurrence and the completeness of December revenue simultaneously."
+      },
+      "answer": "A",
+      "why_correct": "Evidence must be relevant to the assertion being tested, and relevance in a test of details is governed by the direction of testing. Starting from the sales journal can only show that recorded invoices are supported, which addresses occurrence; an unbilled shipment leaves no trace in the journal and can never be selected. Testing completeness requires starting from the population of shipments and looking for the corresponding invoice.",
+      "why_wrong": {
+        "B": "Reaching for reliability when the defect is relevance is the most common misdiagnosis of this workpaper. It also misstates the facts, since a bill of lading is typically signed by the carrier and so is not purely internal, and internal evidence is not categorically incapable of supporting an assertion in any event.",
+        "C": "Sample size is a sufficiency question, and no sample size cures a procedure aimed at the wrong assertion. Selecting 600 invoices instead of 60 would still be incapable of surfacing a shipment that was never billed, which is precisely the misstatement the test was meant to detect.",
+        "D": "A single direction of testing does not deliver both assertions. This is the intuition that supporting documentation somehow proves the record set is whole, when it demonstrates only that the records examined are supported; the two assertions run in opposite directions and require opposite starting populations."
+      }
+    },
+    {
+      "id": "cpa-aud-d3b-04",
+      "domain": "3",
+      "section": "B",
+      "topic": "Sufficient appropriate evidence",
+      "difficulty": "hard",
+      "stem": "Testing capitalized subcontractor costs at a highway construction contractor, an auditor requests support for six large charges. The project manager emails PDF images of the invoices. Two of the images carry a remit-to address and a logo that differ from the other invoices from that same subcontractor, and the vendor master file shows a third address. Asked about it, the project manager says the subcontractor changed billing offices last spring. What should the auditor do NEXT?",
+      "options": {
+        "A": "Accept the explanation and document it, because an auditor may treat records and documents as genuine unless there is reason to believe otherwise, and a change of billing office is an ordinary business event.",
+        "B": "Increase the number of subcontractor charges selected for testing, so that broader coverage compensates for the doubt raised by the two images.",
+        "C": "Report the matter to those charged with governance as a suspected fraud and suspend further testing of capitalized costs until they direct how to proceed.",
+        "D": "Obtain evidence about the two invoices independently of the project manager, for example by communicating directly with the subcontractor about the charges and its billing address, and consider what the condition implies for the reliability of other evidence received from that source."
+      },
+      "answer": "D",
+      "why_correct": "Conditions have arisen that cast doubt on the authenticity of documents the auditor intends to rely on, and the response is to investigate further and modify or extend procedures to resolve the doubt. Because every element of the doubt originates with a single client contact who supplied the images and then explained the discrepancy, resolution requires a source outside that channel, which direct communication with the subcontractor provides. The auditor must also step back and ask what other evidence came through the same hands, since a reliability problem at the source is rarely confined to the two items that happened to be selected.",
+      "why_wrong": {
+        "A": "The stated rule is real but the option applies it past its own boundary. The presumption that documents are genuine holds only in the absence of conditions indicating otherwise, and inconsistent logos and three different addresses for one subcontractor are exactly such conditions; layering an uncorroborated explanation from the person who furnished the documents on top of that compounds the problem rather than resolving it.",
+        "B": "This offers quantity as the cure for a quality defect. Additional items requested through the same project manager would be produced by the same channel whose reliability is in question, so a larger volume of possibly unreliable images does not move the auditor closer to a conclusion about the two invoices already in hand.",
+        "C": "Communication with those charged with governance may well become necessary, and halting work feels appropriately grave, but this is the right action at the wrong point. The auditor has an unresolved authenticity question, not yet a conclusion; performing the procedures that establish what actually happened is what makes any subsequent communication, and any judgment about fraud, something other than speculation."
+      }
+    },
+    {
+      "id": "cpa-aud-d3c-03",
+      "domain": "3",
+      "section": "C",
+      "topic": "Sampling techniques",
+      "difficulty": "hard",
+      "stem": "An auditor of an industrial equipment distributor identifies understatement of accounts payable as a significant risk. A senior proposes to test the assertion by drawing a sample from the year-end accounts payable subsidiary ledger using probability-proportional-to-size (monetary unit) selection. Which objection to that plan is GREATEST?",
+      "options": {
+        "A": "Monetary unit selection requires the auditor to stratify the population before drawing the sample, and the payable ledger has not been stratified by balance size.",
+        "B": "Monetary unit selection is inappropriate whenever the auditor expects to find misstatements, because a single misstatement invalidates the projection to the population.",
+        "C": "Both the population and the selection method are defined by recorded amounts, so vendors whose balances are recorded too low or omitted altogether have little or no chance of selection, which is precisely where understatement resides.",
+        "D": "Monetary unit selection is acceptable here provided the auditor materially increases the sample size to compensate for the risk that some vendor balances were never recorded."
+      },
+      "answer": "C",
+      "why_correct": "Selection proportional to recorded dollars weights the sample toward large recorded balances, and the sampling frame itself is the recorded ledger. An unrecorded invoice contributes no dollars to the frame and therefore cannot be selected, so the design is structurally incapable of detecting the misstatement the auditor is looking for. Testing completeness of payables requires searching populations outside the recorded ledger, such as post-year-end disbursements, unmatched receiving reports and vendor statements.",
+      "why_wrong": {
+        "A": "This invents a prerequisite that does not exist. Monetary unit selection effectively stratifies by dollar amount on its own, since larger balances carry proportionally greater selection probability; a candidate who remembers that stratification is a common efficiency technique over-applies it into a rule.",
+        "B": "Monetary unit sampling has a well-established method for evaluating misstatements found, projecting them through tainting percentages. The method loses efficiency when many misstatements are expected, and this distractor tempts by inflating that practical limitation into an absolute prohibition.",
+        "D": "This is quantity offered as a cure for a structural defect. No sample size makes an item selectable when it contributes zero dollars to the sampling frame, so enlarging the sample simply examines more of the recorded balances that were never the concern."
+      }
+    },
+    {
+      "id": "cpa-aud-d3c-04",
+      "domain": "3",
+      "section": "C",
+      "topic": "Sampling techniques",
+      "difficulty": "medium",
+      "stem": "Repairs and maintenance expense at a hotel operator totals $12.6 million across roughly 3,100 entries. Forty of those entries exceed $50,000 each and account for $7.4 million; the remainder are small and numerous. The auditor is testing the population for costs that should have been capitalized. Which sampling approach is BEST?",
+      "options": {
+        "A": "Examine all 40 entries above $50,000 individually, select a representative sample from the remaining entries, and project the results of that sample to the stratum it was drawn from.",
+        "B": "Select the 100 largest entries, which cover most of the dollars, and base the conclusion about the entire population on the results of examining them.",
+        "C": "Select a haphazard sample from the full population without regard to entry size, since a nonstatistical sample need not be representative of the population.",
+        "D": "Define the population to exclude entries below $50,000 on the grounds that individually immaterial items cannot produce a material misstatement of the account."
+      },
+      "answer": "A",
+      "why_correct": "The population is severely skewed: 40 entries carry $7.4 million of the $12.6 million. Examining that stratum in full removes sampling risk entirely from the dollars where a capitalizable asset is most likely to be buried, because nothing there is inferred from a sample. The remaining $5.2 million is a separate and far more homogeneous stratum, which can be sampled efficiently, with the results projected only to that stratum, the one population the sample actually represents. Stratifying this way yields a supportable conclusion covering every dollar in the account while directing effort toward the greatest exposure.",
+      "why_wrong": {
+        "B": "High dollar coverage is not the same as a conclusion about the population. Examining the largest items produces no evidence at all about the untested small entries, and a capitalizable cost split across many modest invoices is exactly the pattern this approach would miss; the trap is treating coverage as if it were projection.",
+        "C": "Whether a sample is statistical or nonstatistical, the auditor must select items expected to be representative of the population. Nonstatistical means the evaluation is not quantified with statistical theory, not that representativeness is optional, and ignoring size in a population this skewed leaves the large entries likely untested.",
+        "D": "A population cannot be redefined to shed the items the auditor would rather not test. Individually small items aggregate, and the standards require considering misstatement in the account as a whole; excluding the small stratum simply leaves $5.2 million of expense with no audit evidence."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-05",
+      "domain": "3",
+      "section": "D",
+      "topic": "Test of controls and test of details",
+      "difficulty": "medium",
+      "stem": "An auditor of a calendar-year building products distributor tested the operating effectiveness of the purchase order approval control in September, covering January through August, with satisfactory results, and plans to rely on the control for the full year. Which action is MOST appropriate with respect to the September through December remaining period?",
+      "options": {
+        "A": "Re-perform the interim testing at year-end over transactions from the entire year, because evidence supporting reliance must be obtained in a single test covering the whole period of reliance.",
+        "B": "Obtain evidence about whether significant changes occurred in the control after the interim date, and determine what additional evidence is needed for the remaining period based on the assessed risks, the degree of reliance planned and the length of that period.",
+        "C": "Obtain a written representation from the controller confirming that the approval control operated without change from September through December.",
+        "D": "Extend substantive procedures over purchases recorded from September through December, because substantive coverage of the remaining period always eliminates the need for further evidence about the control."
+      },
+      "answer": "B",
+      "why_correct": "Interim control testing does not automatically carry forward. The auditor must first find out whether the control changed after the interim date, since a changed control makes the interim evidence irrelevant to the balance of the year, and then judge how much additional evidence the remaining period requires. That judgment turns on the assessed risk, how heavily the strategy leans on this control, the length of the remaining period and what other evidence exists, and it may be satisfied by testing the control again for a portion of the period or by other procedures.",
+      "why_wrong": {
+        "A": "Interim testing with an appropriate roll-forward response is an accepted and routine approach; nothing requires a single test spanning the full period. This distractor turns a conservative instinct into a rule and would discard sound evidence the team already obtained.",
+        "C": "A representation from the party responsible for the control cannot substitute for evidence the auditor is able to obtain directly, such as inquiry combined with observation, inspection of the approval evidence, or re-performance. Relying on management's word about the very control being relied upon inverts the purpose of the test.",
+        "D": "Additional substantive procedures over the remaining period can legitimately form part of the response, which is what makes this tempting, but the word 'always' is the flaw. Whether substantive procedures alone suffice depends on the risk and the reliance planned, and the auditor must still establish whether the control changed."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-06",
+      "domain": "3",
+      "section": "D",
+      "topic": "Analytical procedures",
+      "difficulty": "easy",
+      "stem": "An auditor of a self-storage operator intends to use a substantive analytical procedure as the principal source of evidence over rental revenue, building an expectation from the number of units at each location, monthly occupancy statistics and posted rental rates. Which consideration is MOST important in deciding whether the procedure can serve that role?",
+      "options": {
+        "A": "Whether the relationship among units, occupancy and rates is sufficiently predictable and the underlying data sufficiently reliable that the expectation is precise enough to identify a material misstatement.",
+        "B": "Whether developing and evaluating the expectation requires less engagement time than testing a sample of rental billings and cash receipts.",
+        "C": "Whether recorded rental revenue for the year falls below overall materiality for the financial statements as a whole.",
+        "D": "Whether management reviews and concurs with the auditor's expectation before the recorded amount is compared to it."
+      },
+      "answer": "A",
+      "why_correct": "A substantive analytical procedure provides evidence only to the extent its expectation is precise, and precision depends on how predictable the underlying relationship is and how reliable the data feeding it is. Occupancy statistics and rate schedules produced by the client are information produced by the entity, so their accuracy and completeness must themselves be established. If the expectation cannot be built tightly enough to signal a material misstatement, the procedure cannot carry the assertion no matter how favorable the comparison looks.",
+      "why_wrong": {
+        "B": "Efficiency may influence which procedures an auditor chooses among adequate alternatives, but it never establishes that a procedure produces sufficient appropriate evidence. Choosing an analytical procedure because it is faster, without regard to the precision of the expectation, substitutes a budget rationale for an evidence rationale.",
+        "C": "Revenue for the period is not compared to materiality to decide whether it needs auditing; materiality bears on the size of misstatement that matters, not on whether an account is subject to procedures. A revenue stream this central would be significant regardless, and the comparison described here is not a meaningful test.",
+        "D": "The expectation must be developed independently of the recorded amounts and of management's views, or it ceases to be a check on the accounting and becomes a reflection of it. Discussing assumptions with management can inform the auditor's understanding, but seeking management's concurrence in the expectation itself introduces exactly the bias the procedure is meant to detect."
+      }
+    },
+    {
+      "id": "cpa-aud-d3d-07",
+      "domain": "3",
+      "section": "D",
+      "topic": "External confirmations",
+      "difficulty": "medium",
+      "stem": "A subscription publisher's receivables consist of a large number of small, similar balances owed by individual subscribers. The balances were migrated to a new billing platform during the year, the auditor has assessed the risk of material misstatement for the accuracy of those balances as moderate rather than low, and controls over the new platform have not been tested for operating effectiveness. A staff auditor proposes to address that risk by sending negative confirmation requests as the only substantive procedure directed at the accuracy of the balances. Which response is MOST appropriate?",
+      "options": {
+        "A": "Approve the plan but substantially increase the number of negative requests mailed, so that the additional coverage offsets the higher assessed risk.",
+        "B": "Approve the plan, because the population consists of a large number of small homogeneous balances, which is the condition that governs the use of negative requests.",
+        "C": "Use positive confirmation requests, because negative requests may serve as the sole substantive procedure only when the assessed risk is low and supported by evidence about the operating effectiveness of relevant controls and a very low exception rate is expected.",
+        "D": "Drop confirmation procedures for these receivables and rely instead on examination of subsequent cash receipts, because responses about balances produced by a newly implemented system would not be reliable."
+      },
+      "answer": "C",
+      "why_correct": "A negative request is the weaker form because silence is treated as agreement, even though an unreturned request may only mean the envelope was never opened. That is why the conditions permitting negatives as the sole substantive response to an assessed risk operate together rather than alternatively: a low assessed risk backed by evidence about the operating effectiveness of relevant controls, a large population of small homogeneous balances, and an expectation of very few exceptions. Here the migration to an untested billing platform is precisely what raised the assessment above low and left the control evidence missing, so the auditor cannot read a non-response as agreement. A positive request, which yields evidence only when the subscriber affirmatively responds, is the form the assessed risk calls for.",
+      "why_wrong": {
+        "A": "More negative requests produce more silence, not more evidence, because each unreturned request contributes essentially nothing. This is quantity offered as a substitute for the quality of evidence, and it leaves the auditor no better informed about the accuracy of the migrated balances.",
+        "B": "Population homogeneity is one condition among several that must all be present, not the governing test. Seizing on the condition that happens to be satisfied while ignoring the assessed risk and the absence of control evidence is the selective-reading trap.",
+        "D": "Examination of subsequent cash receipts is a legitimate procedure, but the stated reason inverts the situation: a system change makes independent third-party evidence more valuable, not less, and subscribers can confirm what they owe without regard to which platform generated the bill. Omitting confirmation of receivables requires a supportable basis, and heightened risk is not one."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-07",
+      "domain": "3",
+      "section": "E",
+      "topic": "Accounting estimates",
+      "difficulty": "hard",
+      "stem": "In the audit of a heavy-civil construction contractor that recognizes revenue over time, the engagement team performs a retrospective review of management's prior-period estimated costs to complete. In each of the three preceding years, actual costs on contracts completed during the year exceeded the estimates management had used at the preceding year-end, and the resulting margin reversals, though individually immaterial, all ran in the same direction. Management attributes the pattern to unforeseeable weather and subcontractor delays. Which response is MOST appropriate?",
+      "options": {
+        "A": "Propose that the prior-period financial statements be restated, because the retrospective review establishes that the earlier estimates were misstated.",
+        "B": "Treat the one-directional pattern as a possible indicator of management bias, reconsider the assessed risks of material misstatement for the current-year estimates, including fraud risk, and evaluate whether the current assumptions reflect the same bias.",
+        "C": "Conclude that no further response is warranted, because estimates inevitably differ from outcomes and each year's difference was immaterial to the financial statements taken as a whole.",
+        "D": "Adjust the current-year estimated costs to complete to the high end of the auditor's supportable range to offset the contractor's demonstrated history of optimism."
+      },
+      "answer": "B",
+      "why_correct": "A retrospective review is performed to inform the auditor's risk assessment for current-period estimates, and differences that consistently fall in one direction are exactly the signal it is designed to surface. A pattern of optimism repeated across three years is more consistent with a systematic tilt in management's assumptions than with random estimation error, so the auditor should treat it as a possible indicator of bias, revisit the assessed risks for the current estimates, and test whether the same tilt is embedded in this year's cost-to-complete assumptions. Indicators of bias also bear on the auditor's evaluation of the financial statements as a whole and on fraud risk, even where no single year's effect is material.",
+      "why_wrong": {
+        "A": "Retrospective review is not intended to call into question prior-period judgments that were reasonable based on the information available when they were made; hindsight about actual outcomes is not evidence that the earlier estimate was unreasonable at the time. The trap is converting a risk-assessment procedure into a restatement finding, which both misuses the review and skips the question that matters now, namely the reliability of this year's estimate.",
+        "C": "It is true that estimates differ from outcomes and that each year's difference was immaterial, which is what makes this the comfortable answer. But the significant fact is direction, not size: random estimation error scatters both ways, and a three-year one-way pattern is a qualitative indicator that survives an immateriality screen. Dismissing it leaves the current estimate assessed at a risk level the evidence no longer supports.",
+        "D": "The auditor evaluates management's estimate; the auditor does not set it, and pushing the recorded amount to an endpoint of a range to punish a track record substitutes the auditor's own bias for management's. Building in a cushion is not a measurement principle, and it would also compromise the auditor's ability to evaluate the estimate objectively at the reporting stage."
+      }
+    },
+    {
+      "id": "cpa-aud-d3e-08",
+      "domain": "3",
+      "section": "E",
+      "topic": "An entity's ability to continue as a going concern",
+      "difficulty": "easy",
+      "stem": "A family-owned commercial printing company has sustained recurring operating losses and has a working capital deficiency at December 31. Management prepares a written evaluation of the company's ability to continue as a going concern, but the evaluation covers only the ten months remaining in the current calendar year, a shorter period than the applicable financial reporting framework requires. Which action should the auditor take FIRST?",
+      "options": {
+        "A": "Perform the going concern evaluation for the uncovered portion of the period using management's forecasting model, and conclude independently on whether substantial doubt exists.",
+        "B": "Conclude that substantial doubt exists and include a separate going concern section in the auditor's report, because the shortened evaluation is itself evidence that management cannot support the entity's continuation.",
+        "C": "Request that management extend its evaluation to cover the full period required by the applicable financial reporting framework, then evaluate the extended assessment together with management's plans.",
+        "D": "Accept the evaluation as submitted, because the auditor's own inquiries about conditions and events continue through the date of the auditor's report and cover the remaining exposure."
+      },
+      "answer": "C",
+      "why_correct": "The evaluation of the entity's ability to continue as a going concern is management's responsibility, and the auditor's role is to evaluate that assessment over the period the applicable framework prescribes. When management's evaluation covers a shorter period, the required first step is to ask management to extend it, because without an assessment spanning the full period the auditor has nothing complete to evaluate. Only after the extended assessment and any related plans are in hand can the auditor judge whether substantial doubt exists and what the reporting consequences are.",
+      "why_wrong": {
+        "A": "Constructing the missing portion of the assessment makes the auditor the preparer of the very analysis the auditor is engaged to evaluate, which impairs objectivity and reverses the allocation of responsibility. The instinct to fill the gap efficiently is understandable, but self-review of one's own forecast is not audit evidence.",
+        "B": "This is the right topic at the wrong stage. Report content follows the evaluation; a short assessment period is an evidence gap to be closed, not a conclusion about the entity's viability. Management may well extend the evaluation and support it, and jumping to a going concern section forecloses that without cause. If management ultimately refuses to extend, the reporting consequence flows from the resulting scope limitation, not from the initial shortfall.",
+        "D": "The auditor does remain alert for conditions and events through the date of the report, which is what makes this sound reasonable, but that alertness supplements management's assessment rather than substituting for it. The framework requires an evaluation spanning a defined forward-looking period, and the auditor's inquiries do not extend management's analysis or provide the forward-looking support it lacks."
+      }
+    },
+    {
+      "id": "cpa-aud-d3f-03",
+      "domain": "3",
+      "section": "F",
+      "topic": "Misstatements and internal control deficiencies",
+      "difficulty": "medium",
+      "stem": "During the audit of a regional staffing services company, the engagement team accumulates fourteen misstatements aggregating to an amount approaching, but below, materiality. Nine of them arose from the same revenue cutoff process at one branch office and surfaced only because the team expanded testing there after an unrelated exception. Management corrects all fourteen before the financial statements are issued. Which action by the auditor is MOST appropriate?",
+      "options": {
+        "A": "Determine whether the number and nature of the misstatements indicate that further misstatements may remain undetected and that the audit strategy and planned procedures require revision, and evaluate the severity of the underlying cutoff control deficiency.",
+        "B": "Conclude that no further audit response is required, because the schedule of uncorrected misstatements is now empty and the aggregate effect on the financial statements is nil.",
+        "C": "Communicate the corrected misstatements to those charged with governance and treat the matter as closed once they acknowledge the communication.",
+        "D": "Classify the branch cutoff process as a material weakness on the basis that a single process produced nine of the fourteen identified misstatements."
+      },
+      "answer": "A",
+      "why_correct": "Correction disposes of the known amounts but not of what those amounts reveal. A cluster of misstatements concentrated in one process, found only because testing was extended by chance, suggests the planned procedures were not calibrated to the risk and that similar errors may remain undetected in periods or locations that were never tested. That inference bears directly on whether sufficient appropriate evidence has been obtained, so the auditor must revisit the assessed risks and the nature, timing and extent of further procedures, and must separately evaluate the severity of the control deficiency that allowed the errors to occur and go undetected.",
+      "why_wrong": {
+        "B": "An empty uncorrected schedule addresses only the evaluation of the misstatements' effect on the financial statements; it says nothing about whether the audit obtained sufficient appropriate evidence. This is the most attractive distractor precisely because the arithmetic looks clean, but a zero balance produced by correcting everything the auditor happened to find is not evidence that little else is there.",
+        "C": "Some communication is expected here, which is what makes the option feel complete: all accumulated misstatements are communicated to the appropriate level of management, corrected misstatements may usefully be shared with those charged with governance, and the deficiency must be communicated in writing if it is a significant deficiency or a material weakness. The flaw is that the option stops at communication. Acknowledgment by the governance body neither reduces the risk that similar misstatements remain undetected nor discharges the auditor's obligation to reconsider the audit approach and evaluate the severity of the deficiency.",
+        "D": "Severity turns on the magnitude of the potential misstatement and the reasonable possibility that the control fails to prevent or detect a misstatement on a timely basis, considering any compensating controls, not on a count of errors found. Nine misstatements in one process is a strong prompt to perform that evaluation, but a headcount of exceptions is not the conclusion, and substituting it can misclassify the deficiency in either direction."
+      }
+    },
+    {
+      "id": "cpa-aud-d3h-02",
+      "domain": "3",
+      "section": "H",
+      "topic": "Subsequent events and subsequently discovered facts",
+      "difficulty": "medium",
+      "stem": "Six weeks after the report release date on a calendar-year equipment dealer, the auditor learns that a substantial portion of the machinery counted and included in inventory at December 31 was held on consignment from a supplier and was never owned by the entity. The condition existed at the date of the auditor's report, and had the auditor known of it, the report would have been modified. Which action should the auditor take NEXT?",
+      "options": {
+        "A": "Notify each known user of the financial statements, and any applicable regulatory agency, that the report should no longer be relied upon.",
+        "B": "Take no further action, because the auditor has no responsibility to perform procedures regarding the financial statements after the date of the auditor's report.",
+        "C": "Reissue the auditor's report dual-dated for the consignment matter, which alerts users that a specific matter came to the auditor's attention after the original report date.",
+        "D": "Discuss the matter with management, and with those charged with governance when appropriate, and determine whether the financial statements need revision and, if so, how management intends to address the matter."
+      },
+      "answer": "D",
+      "why_correct": "When facts that existed at the report date come to the auditor's attention afterward and would have changed the report, the auditor must first establish the facts and the appropriate remedy with the people who can act on them. Discussion with management, and with those charged with governance where warranted, determines whether the statements require revision and how management proposes to handle statements already in circulation. Every later step available to the auditor, including steps to prevent reliance on the report, depends on the outcome of that determination and on whether management is willing to act.",
+      "why_wrong": {
+        "A": "This is the correct action at the wrong point in the sequence. Steps to prevent further reliance become the auditor's responsibility only after management fails to take appropriate action to inform users, and moving first would preempt a revision management may be prepared to make. The auditor also normally consults legal counsel before acting unilaterally, given the interests affected.",
+        "B": "The rule invoked is real but is being stretched past its scope: the auditor has no obligation to perform additional subsequent-events procedures after the date of the report, which is not the same as being free to ignore facts that actually come to attention. Once the auditor knows, the obligation to act is triggered regardless of how the information arrived.",
+        "C": "Dual dating extends the auditor's responsibility to a specific event when a report is revised or reissued in circumstances that permit it; it is not a device for repairing a report already released on financial statements that may be materially wrong. Using it here would skip the threshold question of whether the statements themselves require revision and would leave misstated statements outstanding under a differently dated report."
+      }
+    }
+  ]
+}

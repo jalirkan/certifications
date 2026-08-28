@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "4",
+    "batch": "aud-a4-x02",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area IV (Forming Conclusions and Reporting) second batch - depth so a full 78-question mock can be drawn without re-serving items. Drafted against existing coverage, adversarially reviewed item by item. Topic values must match ../outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d4a-02",
+      "domain": "4",
+      "section": "A",
+      "topic": "Reporting on audit engagements",
+      "difficulty": "hard",
+      "stem": "The engagement terms for the audit of a nonissuer specialty chemicals manufacturer require the auditor to communicate key audit matters. The auditor has concluded that a qualified opinion is necessary because management refuses to write down a customer-relationship intangible that is materially impaired, and the auditor also judges the valuation of that intangible to be among the matters of most significance in the audit. Which treatment of the intangible valuation in the auditor's report is MOST appropriate?",
+      "options": {
+        "A": "Describe the valuation in the Key Audit Matters section in the usual manner, and cross-reference to that description from the Basis for Qualified Opinion section.",
+        "B": "Make no mention of the valuation in the Key Audit Matters section, because the Basis for Qualified Opinion section already gives readers everything they need about the matter.",
+        "C": "Refrain from describing the valuation in the Key Audit Matters section, and instead include in that section a reference to the Basis for Qualified Opinion section.",
+        "D": "Exclude the valuation from key audit matters altogether, because a matter significant enough to modify the opinion is by definition outside the scope of key audit matter reporting."
+      },
+      "answer": "C",
+      "why_correct": "A matter that gives rise to a modified opinion is, by its nature, a matter of most significance, so it does meet the definition of a key audit matter. The reporting mechanics, however, deliberately avoid a second narrative that could dilute or compete with the basis for modification: the auditor does not describe the matter again in the key audit matters section but must point readers there from it. The result is one authoritative description in the Basis for Qualified Opinion section and a signpost in the key audit matters section so no reader concludes the matter was overlooked.",
+      "why_wrong": {
+        "A": "This reverses the direction of the linkage and duplicates the description. A full key audit matter narrative alongside the basis for modification invites readers to treat the impairment as a routine audit focus area rather than the reason the opinion is qualified, which is exactly the dilution the reporting model is built to prevent.",
+        "B": "Silence is half right and half wrong. The auditor correctly declines to describe the matter in the key audit matters section, but omitting the reference as well leaves a reader who turns to that section with the false impression that the impairment was not among the most significant matters.",
+        "D": "This states the concept backwards. Modification does not disqualify a matter from being a key audit matter; the standard expressly recognizes that such matters are key audit matters by their nature, and it addresses them through placement and cross-reference rather than by exclusion."
+      }
+    },
+    {
+      "id": "cpa-aud-d4b-02",
+      "domain": "4",
+      "section": "B",
+      "topic": "Examination or review engagements",
+      "difficulty": "medium",
+      "stem": "The chief financial officer of a nonissuer regional airline asks a practitioner to report on a five-year financial forecast that will accompany a loan application to a syndicate of lenders. Citing cost, the CFO requests \"a review giving limited assurance, the way you would on interim statements, rather than a full examination.\" Which response is MOST appropriate?",
+      "options": {
+        "A": "Perform the requested engagement and report that nothing came to the practitioner's attention causing the practitioner to believe the assumptions do not provide a reasonable basis for the forecast.",
+        "B": "Explain that the attestation standards do not provide for a review of prospective financial information, and that the available engagements are an examination or an agreed-upon procedures engagement.",
+        "C": "Perform a compilation of the forecast and describe the resulting report as conveying limited assurance about the reasonableness of the assumptions.",
+        "D": "Perform the engagement under the SSARSs as a review, because AR-C section 90 permits limited assurance on any financial presentation management has prepared."
+      },
+      "answer": "B",
+      "why_correct": "The attestation standards contemplate only an examination or an agreed-upon procedures engagement on prospective financial information; there is no review level for a forecast or projection. The practitioner's job is therefore to correct the premise and lay out the two engagements that actually exist, so the CFO can weigh an examination against a findings-based alternative on real terms. Pricing pressure does not create an engagement type the standards do not recognize.",
+      "why_wrong": {
+        "A": "The negative-assurance wording is genuine review language, which is what makes it tempting, but attaching it to a forecast delivers a level of assurance no attestation engagement on prospective information supports. Issuing it would put a form of report in lenders' hands that the practitioner's work was never scoped to justify.",
+        "C": "This conflates two different services. A compilation of prospective financial information produces no assurance at all, so labeling its report as limited assurance would misdescribe the practitioner's work to the very lenders the report is meant to inform.",
+        "D": "Reaching for the SSARSs applies the wrong body of standards. AR-C section 90 governs reviews of historical financial statements; a forward-looking forecast is not historical, so the SSARS review framework has no application here regardless of how convenient its assurance level would be."
+      }
+    },
+    {
+      "id": "cpa-aud-d4b-03",
+      "domain": "4",
+      "section": "B",
+      "topic": "Examination or review engagements",
+      "difficulty": "medium",
+      "stem": "A practitioner is engaged to examine a nonissuer craft brewery's schedule of verified sustainable sourcing percentages. The measurement criteria were developed jointly by the brewery and the single grocery chain whose supplier program requires the schedule. The practitioner has determined that the criteria are relevant, objective, measurable, and complete, but they appear only in that program's supplier agreement and are meaningful only to parties to that agreement. The brewery's marketing director asks that the report be worded for unrestricted distribution to consumers. Which course is BEST?",
+      "options": {
+        "A": "Decline the engagement, because criteria devised by the responsible party together with one of its customers cannot be suitable criteria for an examination.",
+        "B": "Convert the engagement to agreed-upon procedures, because criteria not established by a recognized standard setter can support only a findings-based report.",
+        "C": "Perform the examination and issue an unrestricted report, provided the criteria are reproduced in full within the report so that any reader can understand what was measured.",
+        "D": "Perform the examination and restrict use of the report to the brewery and the grocery chain, because the criteria are appropriate only for those parties."
+      },
+      "answer": "D",
+      "why_correct": "Suitability and appropriateness for a given audience are two different tests, and this fact pattern separates them. The practitioner has already satisfied the first: the criteria carry the attributes that make them suitable, so the examination can be performed and an opinion expressed. The second test is what drives the reporting decision, because criteria negotiated for one supplier program are appropriate only for the parties who built them and can be presumed to understand them. That condition is what obliges the practitioner to restrict use, and the restriction is what keeps a consumer from reading a percentage measured on terms that carry no meaning outside the supplier agreement.",
+      "why_wrong": {
+        "A": "This converts a fair suspicion about self-interested criteria into a flat prohibition on entity-developed criteria. Suitability turns on the attributes of the criteria, which the practitioner has already evaluated here, not on the identity of the drafters, so declining would refuse an engagement the standards permit.",
+        "B": "The absence of a recognized standard setter does not cap the work at findings only. Agreed-upon procedures is a legitimate service, but proposing it here answers a distribution question by downgrading the level of assurance, when nothing in the fact pattern prevents the practitioner from obtaining examination-level evidence.",
+        "C": "Printing the criteria in the report is a genuine technique, which is what makes this tempting, but it addresses availability rather than appropriateness. A consumer who can now read the criteria still cannot use a measure engineered for one grocery chain's supplier program, so the use restriction remains required."
+      }
+    },
+    {
+      "id": "cpa-aud-d4c-03",
+      "domain": "4",
+      "section": "C",
+      "topic": "Preparation engagements",
+      "difficulty": "easy",
+      "stem": "A CPA is engaged under AR-C section 70 to prepare monthly financial statements for a nonissuer landscaping contractor. The controller asks the CPA to leave off the statement appearing on each page that no assurance is provided, explaining that the company's bank \"finds that language alarming.\" Which response is MOST appropriate?",
+      "options": {
+        "A": "Explain that the statement must appear on each page, and that if it cannot, the CPA must instead issue a disclaimer making the absence of assurance clear, perform a compilation, or withdraw.",
+        "B": "Omit the statement, because a preparation engagement is a nonattest service and the signed engagement letter already records what the CPA did and did not do.",
+        "C": "Omit the statement and instead label each page \"unaudited,\" which conveys the same limitation in language the bank is accustomed to seeing.",
+        "D": "Discontinue the preparation engagement and offer a compilation, because only a compilation report can communicate the absence of assurance to a third-party user."
+      },
+      "answer": "A",
+      "why_correct": "A preparation engagement produces no report, so the legend on each page is the only signal to a reader that the accountant provides no assurance. Because that signal is indispensable, the standards do not simply let it be dropped: if the accountant cannot include it, the engagement must be escalated to a form that communicates the same thing, through a disclaimer or a compilation, or abandoned. Framing all three permitted paths for the controller is the complete answer.",
+      "why_wrong": {
+        "B": "The engagement letter runs between the CPA and the client, and the bank will never see it. Relying on a private document to inform a third-party reader misses the entire point of a legend that travels on the face of the statements themselves.",
+        "C": "An \"unaudited\" label is a weaker substitute that says only what service was not performed. It leaves open the possibility that some lesser level of assurance was provided, which is the exact misimpression the required statement is worded to foreclose.",
+        "D": "A compilation is one of the permitted responses, so this is close, but it overstates the case and jumps too far. The CPA may also satisfy the requirement with a disclaimer, and abandoning the preparation service is unnecessary if the controller, once the requirement is explained, simply allows the legend to stay."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-05",
+      "domain": "4",
+      "section": "E",
+      "topic": "Review of interim financial information",
+      "difficulty": "medium",
+      "stem": "An auditor of a nonissuer equipment rental company is also engaged to review its second-quarter interim financial information for a lender. All review procedures have been completed and nothing troubling emerged. Management, however, declines to provide written representations covering the interim period, calling them \"duplicative\" of the representations it will sign at year end for the annual audit. What should the auditor do NEXT?",
+      "options": {
+        "A": "Issue the review report with an added paragraph describing management's refusal as a limitation on the scope of the review.",
+        "B": "Issue the review report, relying on the written representations obtained in connection with the most recent annual audit.",
+        "C": "Obtain management's representations orally, document them in the workpapers, and issue the review report.",
+        "D": "Refrain from issuing a review report, communicate the matter to those charged with governance, and evaluate the effect on the annual audit engagement."
+      },
+      "answer": "D",
+      "why_correct": "Written representations from management are a condition of completing an interim review, and refusal to provide them is a scope limitation severe enough that the review cannot be completed at all. Because the review is incomplete, no review report may be issued in any form. The refusal also carries beyond the interim engagement: management's unwillingness to make representations is information the auditor must weigh in deciding whether it can continue to rely on management's representations in the annual audit.",
+      "why_wrong": {
+        "A": "This borrows a mechanism from audit reporting that has no counterpart here. A review report is not modified to describe a scope limitation; when the accountant cannot complete the review, the response is to withhold the report entirely rather than to publish a qualified version of it.",
+        "B": "Representations are tied to specific financial information and a specific period. Prior-year annual representations say nothing about the second-quarter amounts, and treating them as a substitute would let the auditor report on a period no one at the company has been willing to stand behind.",
+        "C": "Oral representations carefully documented look like a workable compromise, but the requirement is that the representations be written and signed by management. Documenting what management said shifts the record from management's assertion to the auditor's, which is the opposite of what a representation letter exists to accomplish."
+      }
+    },
+    {
+      "id": "cpa-aud-d4e-06",
+      "domain": "4",
+      "section": "E",
+      "topic": "Supplementary information",
+      "difficulty": "medium",
+      "stem": "An auditor has issued an unmodified opinion on the consolidated financial statements of a nonissuer holding company and has also been engaged to report on whether the accompanying consolidating schedules are fairly stated, in all material respects, in relation to those statements as a whole. That report will be presented in an other-matter paragraph of the auditor's report rather than issued as a separate report. Procedures on the schedules reveal that intercompany eliminations were allocated incorrectly across the subsidiary columns by an amount well in excess of the materiality used in the audit of the consolidated statements, materially misstating one subsidiary's column, although the consolidated totals are correct. After discussion, management declines to revise the schedules. Which action is MOST appropriate?",
+      "options": {
+        "A": "Qualify the opinion on the consolidated financial statements, because the schedules accompany them and a material misstatement anywhere in the presentation must be reflected in the opinion.",
+        "B": "Leave the opinion on the consolidated financial statements unmodified and modify the auditor's opinion on the supplementary information, describing the misstatement in the report.",
+        "C": "Disclaim an opinion on the supplementary information, because the disagreement with management prevents the auditor from concluding on the schedules.",
+        "D": "Add an emphasis-of-matter paragraph drawing attention to the allocation and stating that the auditor expresses no opinion on the consolidating schedules."
+      },
+      "answer": "B",
+      "why_correct": "AU-C 725.10 leaves the auditor exactly two remedies once management refuses to revise supplementary information the auditor has concluded is materially misstated in relation to the financial statements as a whole: modify the opinion on the supplementary information and describe the misstatement in the report, or withhold the report on the supplementary information if that report is being issued separately. Because this report will appear in an other-matter paragraph rather than separately, only the first remedy is available. The two opinions are independent: the consolidated statements are not misstated, since the misallocation nets out in the totals, so nothing about the audit opinion changes. Modifying the supplementary-information opinion is also the response that serves the reader, identifying the column that is wrong instead of casting doubt on statements that are right.",
+      "why_wrong": {
+        "A": "Trap of proximity. Physical inclusion with the financial statements does not pull supplementary information inside the opinion on them; AU-C 725 keeps the two conclusions separate. The consolidated statements are fairly stated, and qualifying them would tell readers something untrue about the audited financial statements in order to punish a defect in a schedule.",
+        "C": "Trap of confusing disagreement with scope. A disclaimer responds to an inability to obtain sufficient appropriate evidence. Here the auditor knows precisely what is wrong and by how much, and can say so. A disclaimer on the supplementary information is required only when the opinion on the financial statements themselves is adverse or disclaimed, which is not the case.",
+        "D": "Trap of the all-purpose extra paragraph. An emphasis-of-matter paragraph highlights a matter already appropriately presented or disclosed in the financial statements, and a statement that no opinion is expressed on the schedules is what an auditor uses when not engaged to report on them. Neither fits an auditor who was engaged to report and has reached a negative conclusion that must be expressed as a modified opinion."
+      }
+    }
+  ]
+}
