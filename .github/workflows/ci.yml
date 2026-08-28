@@ -137,11 +137,74 @@ jobs:
       # This covers the runtime claim, not the build. The front end job has to
       # reach npm to install, which is an install-time cost the committed web/
       # exists precisely to keep away from anyone who only wants to study.
-      - name: Tests and both banks with no network
+      - name: Deny the network, then run the engine and both banks
+        # The README claims this runs on a plane. Proving that on a runner
+        # which has connectivity means denying the network in-process: an
+        # unprivileged network namespace is not available here (`unshare`
+        # fails writing /proc/self/uid_map), so the namespace trick that
+        # works on a desktop cannot be the check.
+        #
+        # Loopback stays open deliberately. test_webapi starts a real server
+        # on 127.0.0.1 and drives it over HTTP, which is not the access the
+        # claim is about. Resolving a name or connecting off-host raises.
         run: |
-          unshare --map-root-user --net -- sh -c '
-            ip link set lo up
-            python run_tests.py &&
-            python drill.py validate &&
-            python drill.py --cert cpa-aud validate
-          '
+          mkdir -p "$RUNNER_TEMP/nonet"
+          cat > "$RUNNER_TEMP/nonet/sitecustomize.py" <<'PY'
+          import socket
+
+          _LOCAL = {"127.0.0.1", "::1", "localhost", "ip6-localhost", "", None}
+          _getaddrinfo = socket.getaddrinfo
+          _connect = socket.socket.connect
+          _connect_ex = socket.socket.connect_ex
+
+
+          class OfflineViolation(OSError):
+              pass
+
+
+          def _refuse(host):
+              raise OfflineViolation(
+                  "network access attempted to %r; this tool is offline by "
+                  "design" % (host,))
+
+
+          def _guarded_getaddrinfo(host, *a, **k):
+              if host not in _LOCAL:
+                  _refuse(host)
+              return _getaddrinfo(host, *a, **k)
+
+
+          def _guarded_connect(self, address):
+              if isinstance(address, tuple) and address and address[0] not in _LOCAL:
+                  _refuse(address[0])
+              return _connect(self, address)
+
+
+          def _guarded_connect_ex(self, address):
+              if isinstance(address, tuple) and address and address[0] not in _LOCAL:
+                  _refuse(address[0])
+              return _connect_ex(self, address)
+
+
+          socket.getaddrinfo = _guarded_getaddrinfo
+          socket.socket.connect = _guarded_connect
+          socket.socket.connect_ex = _guarded_connect_ex
+          PY
+          export PYTHONPATH="$RUNNER_TEMP/nonet"
+          # The guard must actually bite, and loopback must survive it -
+          # otherwise this job passes by doing nothing.
+          python - <<'PY'
+          import socket, sys
+          try:
+              socket.getaddrinfo("example.com", 80)
+          except OSError:
+              pass
+          else:
+              sys.exit("guard did not take effect: DNS still resolves")
+          s = socket.socket(); s.bind(("127.0.0.1", 0)); s.listen(1)
+          c = socket.socket(); c.connect(s.getsockname()); c.close(); s.close()
+          print("guard active; loopback intact")
+          PY
+          python run_tests.py
+          python drill.py validate
+          python drill.py --cert cpa-aud validate
