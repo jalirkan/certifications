@@ -315,13 +315,28 @@ SCALE_MIN, SCALE_MAX, SCALE_PASS = 200, 800, 450
 ASSUMED_PASS_RAW = 0.70
 
 
-def estimated_scaled_score(raw_fraction: float) -> int:
+def score_scale(outline: Optional[Outline]) -> Tuple[int, int, int]:
+    """(low, high, passing) for this cert.
+
+    Declared in the outline's exam_format (score_scale and passing_score); the
+    CISA constants above are only the fallback for a cert that declares none.
+    CPA runs 0-99 with 75 passing, so baking 200-800-450 into scoring would
+    quietly grade a CPA mock on ISACA's scale.
+    """
+    fmt = (outline.raw.get("exam_format") or {}) if outline else {}
+    scale = fmt.get("score_scale") or [SCALE_MIN, SCALE_MAX]
+    return int(scale[0]), int(scale[1]), int(fmt.get("passing_score", SCALE_PASS))
+
+
+def estimated_scaled_score(raw_fraction: float, low: int = SCALE_MIN,
+                           high: int = SCALE_MAX,
+                           passing: int = SCALE_PASS) -> int:
     raw = max(0.0, min(1.0, raw_fraction))
     if raw <= ASSUMED_PASS_RAW:
-        value = SCALE_MIN + (raw / ASSUMED_PASS_RAW) * (SCALE_PASS - SCALE_MIN)
+        value = low + (raw / ASSUMED_PASS_RAW) * (passing - low)
     else:
         above = (raw - ASSUMED_PASS_RAW) / (1.0 - ASSUMED_PASS_RAW)
-        value = SCALE_PASS + above * (SCALE_MAX - SCALE_PASS)
+        value = passing + above * (high - passing)
     return int(round(value))
 
 
@@ -355,12 +370,18 @@ class ExamResult:
     flagged: List[Question]
     slowest: List[Tuple[Question, float]]
     guessed_right: List[Question]
+    # The scale the estimate was graded on, carried so every surface reports
+    # against this cert's pass mark rather than a constant.
+    scale_low: int = SCALE_MIN
+    scale_high: int = SCALE_MAX
+    pass_mark: int = SCALE_PASS
 
 
 def score(state: ExamState, questions: Sequence[Question],
           outline: Outline) -> ExamResult:
     lookup = {q.id: q for q in questions}
     ordered = [lookup[qid] for qid in state.question_ids if qid in lookup]
+    low, high, passing = score_scale(outline)
 
     correct = 0
     unanswered = 0
@@ -405,8 +426,11 @@ def score(state: ExamState, questions: Sequence[Question],
         correct=correct,
         unanswered=unanswered,
         raw_fraction=raw,
-        scaled_estimate=estimated_scaled_score(raw),
-        passed_estimate=estimated_scaled_score(raw) >= SCALE_PASS,
+        scaled_estimate=estimated_scaled_score(raw, low, high, passing),
+        passed_estimate=estimated_scaled_score(raw, low, high, passing) >= passing,
+        scale_low=low,
+        scale_high=high,
+        pass_mark=passing,
         elapsed_seconds=state.elapsed_seconds,
         duration_seconds=state.duration_seconds,
         by_domain=sorted(per_domain.values(), key=lambda d: d.domain),

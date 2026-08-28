@@ -476,5 +476,23 @@ class TestAgainstRealBank(unittest.TestCase):
         self.assertEqual(shortfall, {}, "bank should be deep enough for a full mock")
 
 
+class TestScoreScaleComesFromTheOutline(unittest.TestCase):
+    """Grading a CPA mock on ISACA's 200-800 scale would be silently wrong,
+    so the scale travels with the cert's outline rather than living in code."""
+
+    def test_a_cpa_style_scale_is_honored(self):
+        outline = Outline(cert="CPA-AUD", raw={"exam_format": {
+            "score_scale": [0, 99], "passing_score": 75}})
+        self.assertEqual(exam_mod.score_scale(outline), (0, 99, 75))
+        self.assertEqual(exam_mod.estimated_scaled_score(0.70, 0, 99, 75), 75)
+        self.assertEqual(exam_mod.estimated_scaled_score(1.0, 0, 99, 75), 99)
+        self.assertEqual(exam_mod.estimated_scaled_score(0.0, 0, 99, 75), 0)
+
+    def test_a_cert_without_a_declared_scale_gets_the_cisa_default(self):
+        self.assertEqual(exam_mod.score_scale(Outline(cert="X", raw={})),
+                         (200, 800, 450))
+        self.assertEqual(exam_mod.score_scale(None), (200, 800, 450))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -370,13 +370,13 @@ def render_report(result: ExamResult, outline: Outline,
         say("Pace           : %s per question"
             % format_ms(result.elapsed_seconds / result.total))
     say()
-    say("Estimated scaled score: %d  (%s)"
+    say("Estimated scaled score: %d  (%s the %d pass mark)"
         % (result.scaled_estimate,
-           "above the 450 pass mark" if result.passed_estimate else "below the 450 pass mark"))
-    say(wrap("This is an approximation, not ISACA's number. ISACA scales raw "
-             "scores psychometrically using a process it does not publish, and "
-             "the raw threshold shifts between exam forms. Treat anything within "
-             "roughly 50 points of 450 as too close to call."))
+           "above" if result.passed_estimate else "below", result.pass_mark))
+    say(wrap("This is an approximation, not the certifying body's number. Raw "
+             "scores are scaled psychometrically using a process that is not "
+             "published, and the raw threshold shifts between exam forms. "
+             "Treat anything close to the pass mark as too close to call."))
 
     say()
     say("BY DOMAIN")
