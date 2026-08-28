@@ -1,0 +1,264 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "2",
+    "batch": "aud-a2-x02",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area II (Assessing Risk and Developing a Planned Response) second batch - depth so a full 78-question mock can be drawn without re-serving items. Drafted against existing coverage, adversarially reviewed item by item. Topic values must match ../outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d2a-03",
+      "domain": "2",
+      "section": "A",
+      "topic": "Overall engagement strategy",
+      "difficulty": "easy",
+      "stem": "A partner is beginning the current-year audit of a regional credit union (nonissuer) that the firm has audited for three years. The prior-year file is closed, the team roster has changed, and the partner wants to establish the overall audit strategy for the current engagement. Which of the following should the partner complete FIRST?",
+      "options": {
+        "A": "Determine performance materiality for the loan portfolio so that the extent of testing can be scheduled against the reporting deadline.",
+        "B": "Perform procedures regarding continuance of the client relationship and evaluate compliance with relevant ethical requirements, including independence.",
+        "C": "Obtain an understanding of the design of controls over loan origination and determine whether those controls have been implemented.",
+        "D": "Draft the substantive procedures to be performed over the allowance for credit losses."
+      },
+      "answer": "B",
+      "why_correct": "Preliminary engagement activities come before the overall audit strategy is established, not after: the auditor performs continuance procedures and evaluates ethical and independence requirements so that the engagement is one the firm may properly perform at all. Establishing scope, timing, and direction is pointless if the relationship should not continue or if an independence impairment exists. Recurring engagements are not exempt — conditions and personnel change from year to year.",
+      "why_wrong": {
+        "A": "Performance materiality is genuinely a planning determination, but it is derived from materiality for the financial statements as a whole and belongs to the work that follows once the engagement is properly undertaken. The trap is ranking a familiar planning computation ahead of the gating activities that make planning appropriate.",
+        "C": "Understanding and evaluating the design of controls is a risk assessment procedure carried out under the strategy and plan. Doing it first inverts the sequence and commits team effort before continuance and independence have been resolved.",
+        "D": "This is audit plan detail, several steps removed from the question asked. The allowance is the most judgmental area at a credit union, which makes it feel urgent, but drafting procedures for it presupposes both an accepted engagement and a completed risk assessment."
+      }
+    },
+    {
+      "id": "cpa-aud-d2a-04",
+      "domain": "2",
+      "section": "A",
+      "topic": "Engagement plan",
+      "difficulty": "medium",
+      "stem": "An in-charge auditor is reviewing a first-year staff auditor's draft audit plan for a nonissuer wholesale bakery. The draft is the firm's standard program for entities of similar size, was assembled before the team performed any risk assessment procedures, and repeats the further audit procedures the staff auditor used on a different client last year. Which criticism of the draft is MOST significant?",
+      "options": {
+        "A": "The plan was not submitted to those charged with governance for their approval before fieldwork begins, contrary to the auditor's communication responsibilities.",
+        "B": "The plan does not specify the sample sizes or identify the particular documents to be inspected for each of the procedures it lists.",
+        "C": "The plan should have been prepared before the engagement letter was signed, so that the agreed terms would reflect the procedures actually planned.",
+        "D": "The planned procedures are not responsive to assessed risks of material misstatement at the relevant assertion level, and no risk assessment procedures are planned at all."
+      },
+      "answer": "D",
+      "why_correct": "The audit plan's substance is the nature, timing, and extent of planned risk assessment procedures and of planned further audit procedures at the relevant assertion level, designed as a response to the risks the team has assessed. A program lifted from a different engagement before any risk assessment was performed cannot be responsive, because nothing has yet been identified for it to respond to, and the omitted risk assessment procedures are what would have supplied that linkage. The competing criticisms concern polish or the ordering of adjacent steps; this one goes to whether the document can direct an audit at all.",
+      "why_wrong": {
+        "A": "Borrows the authority of a real requirement. The auditor does communicate an overview of the planned scope and timing to those charged with governance, but governance neither approves nor authorizes the plan, and communicating it in excessive detail can make the procedures predictable and undermine their effectiveness.",
+        "B": "Demands the wrong level of granularity. Sample sizes and specific items are settled as the plan is developed and executed and are evidenced in the workpapers; their absence from a draft plan is an unfinished detail, not the reason this plan cannot serve as a response to risk.",
+        "C": "Reverses two adjacent steps. Agreeing the terms of the engagement and obtaining the engagement letter is a preliminary engagement activity that precedes planning; the letter is not drafted around a program that does not yet exist. The trap is sensing correctly that something is out of sequence and pinning it on the wrong pair of steps."
+      }
+    },
+    {
+      "id": "cpa-aud-d2b-03",
+      "domain": "2",
+      "section": "B",
+      "topic": "External factors",
+      "difficulty": "medium",
+      "stem": "The auditor of a community bank (nonissuer) learns that during the year the bank's primary regulator issued interpretive guidance directing institutions to segment loan pools more granularly and to extend the forecast horizon used in estimating expected credit losses. Peer institutions in the region have responded with noticeably different segmentation approaches. How should the auditor MOST appropriately use this external development in the risk assessment?",
+      "options": {
+        "A": "Consider how the guidance affects inherent risk factors such as complexity, subjectivity, and estimation uncertainty for the allowance, and assess where the allowance falls on the spectrum of inherent risk.",
+        "B": "Conclude that a significant risk exists solely because the regulator issued new guidance affecting the estimate during the period under audit.",
+        "C": "Conclude that the bank's allowance is misstated unless its segmentation approach conforms to the approach predominant among comparable peer institutions.",
+        "D": "Defer consideration of the guidance until substantive testing of the allowance, since external regulatory matters bear on the evaluation of evidence rather than on planning."
+      },
+      "answer": "A",
+      "why_correct": "Understanding external factors matters only insofar as it feeds the identification and assessment of risks of material misstatement. New guidance that adds segmentation and lengthens the forecast horizon increases the complexity of the model and the subjectivity of the assumptions, and divergent peer practice signals genuine estimation uncertainty — precisely the inherent risk factors that place an assertion higher on the spectrum of inherent risk and drive the audit response.",
+      "why_wrong": {
+        "B": "Skips the assessment rather than performing it. A significant risk is one assessed as close to the upper end of the spectrum of inherent risk, a conclusion reached by weighing the inherent risk factors against the entity's circumstances — not conferred automatically by the fact that a regulator published something.",
+        "C": "Turns peer practice into the reporting framework. Comparability among institutions is useful analytical context and a source of questions about management's assumptions, but conformity with what other banks chose is not the criterion for whether this bank's estimate complies with the applicable framework, and the facts state that peers themselves differ.",
+        "D": "Postpones a planning input to the execution phase. The whole purpose of understanding the entity's regulatory environment is to shape the assessment and the planned response; discovering only during substantive testing that the estimate became far more complex leaves the procedures already designed unresponsive to the risk."
+      }
+    },
+    {
+      "id": "cpa-aud-d2b-04",
+      "domain": "2",
+      "section": "B",
+      "topic": "Internal factors",
+      "difficulty": "medium",
+      "stem": "While updating the understanding of a regional restaurant group (nonissuer), the auditor notes that unit managers can earn a bonus of up to 40% of base pay based on store-level operating margin, and that those same managers perform the month-end physical inventory counts at their stores and develop the estimates of accrued repair and maintenance costs. Which of the following BEST characterizes the audit significance of this arrangement?",
+      "options": {
+        "A": "It strengthens the control environment, because it enforces accountability by holding unit managers responsible for results within their own control.",
+        "B": "It is relevant only to the audit of payroll and accrued compensation, because the bonus is simply another form of employee compensation.",
+        "C": "It creates both incentive and opportunity to misstate manager-controlled inputs, bearing on fraud risk identification and on inherent risk for store inventory and accrued liabilities.",
+        "D": "It is adequately addressed by recomputing a sample of manager bonuses for agreement with the terms of the compensation plan documents."
+      },
+      "answer": "C",
+      "why_correct": "How an entity measures and reviews financial performance is an internal factor precisely because it shapes behavior. These managers influence the very figures that determine their own pay, and they do so through a physical count and an accrual that leave little independent evidence behind, so the incentive is paired with the opportunity to act on it over identifiable accounts. That combination is what the auditor must carry into the identification of fraud risks and into the assessment of inherent risk for store-level inventory and accrued liabilities.",
+      "why_wrong": {
+        "A": "Takes a real COSO principle past its scope. Accountability for performance is a control environment principle, but it presumes measures the individual cannot unilaterally determine; pairing a large incentive with self-reported inputs converts accountability into pressure, which the framework itself treats as a risk consideration rather than a strength.",
+        "B": "Follows the money instead of the risk. The bonus expense is where the cash goes, but the misstatement exposure sits in the inventory and accrual balances the bonus formula depends on. Confining the issue to payroll would leave the accounts actually at risk untouched.",
+        "D": "The right procedure aimed at the wrong objective. Agreeing bonuses to the plan documents tests compliance with a compensation agreement; it reveals nothing about whether the underlying margins were earned or manufactured, and it substitutes a substantive test of a comparatively small expense for a risk assessment judgment."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-06",
+      "domain": "2",
+      "section": "C",
+      "topic": "Control environment, entity-level controls and IT general controls",
+      "difficulty": "medium",
+      "stem": "On the audit of a specialty chemicals distributor, the only control the team has identified over the accuracy of cost of sales is an entity-level monitoring control: the CFO's monthly review of a system-generated report of gross margin by product line, comparing each line's margin with the prior month and with plan. The team must decide whether this review can support a reduced scope of substantive testing of the accuracy assertion for cost of sales. Which consideration is MOST important to that decision?",
+      "options": {
+        "A": "That the CFO has the authority to require correction of any error he identifies and long experience with chemical product costing, and that each month's report is signed and dated as evidence that the review occurred.",
+        "B": "That the review is completed within ten business days of month-end and before the monthly reporting package is distributed to the entity's lender under its debt covenants.",
+        "C": "That the report is disaggregated enough, and the variance investigation threshold low enough, that a misstatement material to the assertion would be identified, that investigations are resolved and evidenced, and that the data underlying the report are accurate and complete.",
+        "D": "That management has designated the review as a key control in its documented internal control matrix and has mapped it to the cost of sales accounts subject to the auditor's testing."
+      },
+      "answer": "C",
+      "why_correct": "A monitoring control supports reliance only to the extent it would actually identify a misstatement material to the assertion. Margin reviewed at product-line aggregation, against an investigation threshold set above performance materiality, can leave a material error invisible however diligently the review is performed, so precision governs the decision rather than any other attribute. The margin report is also information produced by the entity, and AU-C 500.09 requires the auditor to establish its accuracy and completeness before evidence generated by the review means anything at all.",
+      "why_wrong": {
+        "A": "Competence, authority, and a signature evidence that a review occurred and that the reviewer could act on what he found, but none of them speaks to whether the review would surface a material misstatement. The trap is accepting credentials and a signoff in place of evaluating precision: an experienced officer scanning an over-aggregated report still cannot see the error.",
+        "B": "Timeliness is a genuine attribute of a review control and matters to the reliability of period-end reporting, but it is secondary here — a control performed promptly and imprecisely merely detects nothing sooner. The distractor rewards recall of a real attribute that does not resolve the question posed.",
+        "D": "Management's own labeling determines nothing about audit reliance. Under AU-C 315 the auditor identifies the controls relevant to the audit and evaluates them independently; adopting the entity's key-control designation outsources the auditor's judgment to the party being audited."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-07",
+      "domain": "2",
+      "section": "C",
+      "topic": "Business processes and the design of internal controls, including the IT environment",
+      "difficulty": "medium",
+      "stem": "While documenting a facilities-services company's purchase-to-pay process, the auditor identifies a specific risk of what could go wrong: an accounts payable specialist whose ERP profile permits both vendor record creation and invoice entry could set up a fictitious vendor and process payments to it against fabricated supporting documents. A substantial share of the company's spend is subcontracted labor, for which no receiving report is generated and the ERP accepts invoices with no purchase order. Which control, if suitably designed and implemented, MOST directly addresses that risk?",
+      "options": {
+        "A": "The ERP blocks payment of any invoice that does not match an approved purchase order and a receiving report within stated tolerances.",
+        "B": "The monthly bank reconciliation is prepared by an accounts payable specialist and reviewed and signed by the controller.",
+        "C": "Operations managers review budget-to-actual departmental spending each quarter and explain variances to the CFO.",
+        "D": "Additions and changes to the vendor master file require documented approval by a supervisor outside accounts payable, and system access to master-file maintenance is restricted to users who cannot enter or approve invoices."
+      },
+      "answer": "D",
+      "why_correct": "The risk is created at the moment the payee is established, so the control must operate on the vendor master file and must be enforced by the ERP's access configuration rather than by policy alone. Independent approval of master-file changes, combined with access rules denying master-file maintenance to anyone who can enter or approve invoices, removes the specialist's ability to be both the creator of the payee and the processor of its payments, which is the one feature every variant of this scheme depends on.",
+      "why_wrong": {
+        "A": "The three-way match is the most familiar purchasing control, which is exactly what makes it tempting. Here it largely never engages: the subcontracted-labor spend generates no receiving report and the ERP accepts those invoices without a purchase order. Even where a match does run, it tests the internal consistency of documents rather than whether the payee is a real vendor.",
+        "B": "Bank reconciliation is detective and, more to the point, blind to this risk: disbursements to a fictitious vendor clear the bank normally and reconcile without exception. Having the accounts payable function prepare it compounds the problem by giving the same group a self-review over its own disbursements.",
+        "C": "Quarterly budget-to-actual review is far too imprecise to detect payments to a fictitious vendor, which are typically individually small and fall inside budgeted spending categories. The trap is treating a legitimate monitoring activity as though it addressed a specific transaction-level risk."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-08",
+      "domain": "2",
+      "section": "C",
+      "topic": "Implications of an entity using a service organization",
+      "difficulty": "medium",
+      "stem": "An auditor of a nonissuer benefits administrator plans to rely on controls at the service organization that hosts the client's claims-processing platform. The SOC 1 Type 2 report obtained covers the full period and carries an unmodified service auditor's opinion. In the report's description of tests and results, however, the service auditor notes that for the control over authorization of claim-rate table changes — the control the user auditor intended to rely on — 4 of 25 changes selected lacked evidence of approval. Which action by the user auditor is MOST appropriate?",
+      "options": {
+        "A": "Rely on the control as planned, because the service auditor issued an unmodified opinion that the controls operated effectively throughout the period.",
+        "B": "Obtain a bridge letter from the service organization stating that no significant changes to its control environment occurred, which addresses the exceptions identified in the report.",
+        "C": "Evaluate the nature, cause, and frequency of the exceptions and their effect on the assessed risks of material misstatement, and then reduce or eliminate the planned reliance and extend procedures at the user entity accordingly.",
+        "D": "Conclude that a scope limitation exists and modify the opinion on the benefits administrator's financial statements."
+      },
+      "answer": "C",
+      "why_correct": "An unmodified opinion is rendered on the system taken as a whole; it does not certify that every individual control was exception-free. The user auditor must read the detailed test results for the specific controls being relied on and assess whether documented exceptions undermine that reliance, considering what caused them and how often they occurred. Where reliance is no longer supportable, the response is to change the audit approach — more substantive work on claim rates at the client.",
+      "why_wrong": {
+        "A": "This is the most common misreading of a SOC 1 report: treating the opinion page as the entire answer and never reading the results of tests. The opinion accommodates exceptions the service auditor judged immaterial to the system overall, which says nothing about whether a 16% failure rate in one control supports this auditor's specific reliance.",
+        "B": "A bridge letter is a real and useful device, but it addresses the wrong problem — it covers the gap between the report's period end and the user entity's year end. It offers no evidence about control failures the service auditor already documented inside the covered period; the right tool applied to the wrong defect.",
+        "D": "A dramatic overreaction. Nothing prevents the auditor from obtaining evidence here; substantive procedures over claim rates at the user entity remain available, and a control the auditor cannot rely on is a reason to do more work, not a limitation on the scope of the audit."
+      }
+    },
+    {
+      "id": "cpa-aud-d2c-09",
+      "domain": "2",
+      "section": "C",
+      "topic": "Limitations of controls and risk of management override",
+      "difficulty": "medium",
+      "stem": "A family-owned wholesale bakery is audited annually for its lender. The CEO owns a majority interest, personally approves all disbursements above a stated amount, reviews every bank reconciliation, and retains the ability to post entries directly to the general ledger; the controller reports to him and there is no audit committee. The engagement team's memorandum documents this concentration as a strength, reasoning that the owner's close involvement compensates for the limited segregation of duties possible in a company of this size. How should the engagement partner MOST appropriately evaluate that documentation?",
+      "options": {
+        "A": "The memorandum is deficient: the same individual who performs the compensating procedures can circumvent them without detection, so his involvement cannot support reduced testing of the areas he controls, and the engagement should respond with procedures directed at the override risk, including unpredictability and examination of entries he originated.",
+        "B": "The memorandum is supportable: owner-manager involvement is a recognized compensating control in smaller entities, and the auditor may therefore reduce substantive testing of disbursements and cash.",
+        "C": "The memorandum is deficient because internal control can never provide absolute assurance; the auditor should therefore assess control risk at the maximum and disregard the control environment in assessing the risks of material misstatement.",
+        "D": "The memorandum is acceptable because concentration of authority is an inherent limitation common to virtually all closely held entities; being unavoidable, it does not affect the assessed risks of material misstatement or the planned audit approach."
+      },
+      "answer": "A",
+      "why_correct": "Owner involvement can be a genuine strength, but it stops being a control the auditor can lean on wherever the owner is both the performer and the person with motive and opportunity to circumvent it. Management override is a presumed fraud risk in every audit, and this fact pattern concentrates it: the CEO can post entries, approve payments, and review the reconciliation that would otherwise catch him. The correct response is a designed one — unpredictable procedures and targeted examination of the entries and transactions he originated.",
+      "why_wrong": {
+        "B": "States a real proposition — owner-manager involvement genuinely can compensate for thin segregation — and then applies it past its limit. Compensation requires that someone other than the person at risk performs the mitigating procedure; here the compensating control and the override exposure are the same person, so the logic collapses.",
+        "C": "The premise is a correct textbook statement about inherent limitations, which makes the conclusion sound rigorous, but the conclusion is wrong twice over. Control risk is assessed on the basis of the auditor's testing plan and evidence, and the control environment must be understood and factored into the risk assessment in every audit — never disregarded.",
+        "D": "Converts 'common' into 'irrelevant.' That a condition is typical of closely held entities does not neutralize it; the auditor assesses the risks presented by the entity actually being audited, and an unavoidable risk still has to be responded to rather than excused."
+      }
+    },
+    {
+      "id": "cpa-aud-d2d-03",
+      "domain": "2",
+      "section": "D",
+      "topic": "For the financial statements as a whole",
+      "difficulty": "medium",
+      "stem": "In planning the audit of a closely held equipment rental company (nonissuer), the auditor determines materiality for the financial statements as a whole to be $900,000 using total revenues as the benchmark. The company's loan agreement caps management fees payable to an affiliate controlled by the majority owner, the lender has told management it reviews that disclosure closely each year, and management fees for the year total $310,000. Which action is MOST appropriate?",
+      "options": {
+        "A": "Increase materiality for the financial statements as a whole so that it comfortably accommodates the management fee disclosure.",
+        "B": "Apply the $900,000 amount to every class of transactions, account balance, and disclosure, because a single benchmark-derived amount promotes consistency across the engagement.",
+        "C": "Conclude that the management fee disclosure is evaluated only qualitatively, because narrative disclosures are not subject to a materiality amount.",
+        "D": "Determine a lower materiality level for the related party management fee disclosure, because misstatements of amounts below overall materiality could reasonably be expected to influence the lender's decisions."
+      },
+      "answer": "D",
+      "why_correct": "Materiality for the financial statements as a whole is calibrated to the general expectation of users, but the standards require the auditor to go further when specific circumstances indicate that smaller misstatements in a particular class, balance, or disclosure would still sway users. A covenant-constrained related party fee watched by the lender is exactly that circumstance, so a separate, lower materiality is set for that disclosure and drives the extent of work on it.",
+      "why_wrong": {
+        "A": "Moves materiality in the wrong direction and for the wrong reason. Overall materiality is derived from the benchmark and users' needs, not adjusted so that a sensitive item falls comfortably inside it; raising it would tolerate more misstatement in exactly the area under the most scrutiny.",
+        "B": "Treats uniformity as a virtue in itself. Consistency of application is not the objective — sensitivity to what would influence users is, and the standards expressly contemplate one or more lower amounts for particular items when their nature makes smaller misstatements consequential.",
+        "C": "Half right and therefore misleading. Qualitative characteristics do matter for disclosures, but disclosures are subject to materiality determinations like any other element of the financial statements, and this one is quantified in dollars. Exempting it from an amount would leave the auditor with no threshold for planning or for evaluating misstatements in it."
+      }
+    },
+    {
+      "id": "cpa-aud-d2d-04",
+      "domain": "2",
+      "section": "D",
+      "topic": "Tolerable misstatement and performance materiality",
+      "difficulty": "hard",
+      "stem": "On a nonissuer plastics manufacturer with materiality for the financial statements as a whole of $1.2 million, the manager sets performance materiality at $900,000 for most areas but at $500,000 for inventory, where controls over standard costing are weak and the prior two audits produced several uncorrected misstatements. A staff auditor objects, arguing that performance materiality must be a single amount applied uniformly and that tolerable misstatement for the inventory sampling application should be set equal to overall materiality. Which evaluation of these positions is MOST appropriate?",
+      "options": {
+        "A": "The staff auditor is correct that a single uniform amount is required, because uncorrected misstatements must ultimately be aggregated and evaluated against one threshold at the conclusion of the audit.",
+        "B": "The manager's approach is sound: performance materiality may be set at different amounts for particular classes, balances, or disclosures, and tolerable misstatement is bounded by performance materiality, not overall materiality.",
+        "C": "The manager's approach is acceptable only if the $500,000 amount also replaces overall materiality as the threshold against which misstatements identified in inventory are evaluated at the conclusion of the audit.",
+        "D": "The manager should move performance materiality for inventory closer to overall materiality, because the elevated risk in that area will already be addressed through larger sample sizes."
+      },
+      "answer": "B",
+      "why_correct": "Performance materiality is a tool for managing aggregation risk, and nothing requires it to be a single figure: the auditor may set lower amounts for particular classes, balances, or disclosures whose characteristics warrant it, which is what weak standard-costing controls and a history of uncorrected misstatements warrant here. Tolerable misstatement is then the application of performance materiality to a specific sampling procedure and cannot exceed it, so anchoring the inventory sample to the $1.2 million overall figure would abandon the very margin performance materiality exists to preserve.",
+      "why_wrong": {
+        "A": "Confuses two different stages that use two different thresholds. Uncorrected misstatements are aggregated and evaluated against materiality for the financial statements as a whole at the conclusion of the audit; performance materiality operates during the audit to make it likely that the aggregate stays below that threshold. Nothing about the final evaluation constrains performance materiality to one number.",
+        "C": "Pulls the lower planning amount into the wrong role, and conflates performance materiality with a separate lower materiality level established because misstatements of smaller amounts would influence users. Performance materiality is deliberately set below overall materiality to leave room for undetected and uncorrected misstatements; using it as the evaluation threshold would double-count that cushion and force correction of misstatements that are not in fact material to the financial statements.",
+        "D": "Backwards on the direction of the adjustment and wrong about the mechanism. Higher assessed risk in an area calls for a lower performance materiality, which is itself one of the drivers that increases the extent of testing; treating sample size as an independent fix while relaxing the threshold that determines sample size is self-defeating."
+      }
+    },
+    {
+      "id": "cpa-aud-d2e-03",
+      "domain": "2",
+      "section": "E",
+      "topic": "Assessing and responding to risks of material misstatement, whether due to fraud or error",
+      "difficulty": "hard",
+      "stem": "On a recurring nonissuer audit of a plastics manufacturer, the entity reconfigured its standard-cost module during a second-quarter ERP upgrade. The team performed walkthroughs of the redesigned inventory costing process, concluded the controls were suitably designed and had been implemented, and noted in the file that the predecessor controls had been tested and found effective in the prior year. For the current year the team judged substantive procedures more efficient and performed no tests of operating effectiveness of any control. The workpapers nonetheless record control risk for the inventory valuation assertion as 'low to moderate' and set a correspondingly reduced scope of substantive testing. Reviewing the file, the engagement quality reviewer should identify which criticism as MOST significant?",
+      "options": {
+        "A": "Evidence of operating effectiveness obtained in a prior audit may be carried forward for up to two intervening audits, so the assessment is supportable as long as the controls have not changed since they were last tested.",
+        "B": "The walkthroughs support the recorded assessment, because tracing an actual transaction through each control step provides evidence that the controls operated as designed.",
+        "C": "Inherent risk and control risk must be combined into a single assessment of the risk of material misstatement, and the file's error is separately recording a control risk conclusion at all.",
+        "D": "Because the team does not plan to test the operating effectiveness of controls in the current period, control risk must be assessed so that the risk of material misstatement is the same as the assessed inherent risk — meaning no reduction in substantive testing may be based on controls."
+      },
+      "answer": "D",
+      "why_correct": "There is no default presumption that controls operate effectively; an assessment of control risk below maximum has to be earned with evidence of operating effectiveness. Where the auditor does not plan to test controls, AU-C 315 as amended by SAS 145 requires the assessment to be set so that the risk of material misstatement equals inherent risk, which leaves nothing on which to trim the substantive scope. This file takes the benefit of reliance while declining the work that would support it, and because the substantive scope was actually reduced, the shortfall runs straight through to the sufficiency of the evidence obtained.",
+      "why_wrong": {
+        "A": "Invokes a real allowance whose conditions this fact pattern defeats. AU-C 330.14-.16 permits carrying prior-period evidence forward only for controls that have not changed, and the standard-cost module was reconfigured during the year. Even for unchanged controls the allowance requires procedures each period to establish continued relevance, testing of some controls in every period, testing of any such control at least once in every third audit, and it is unavailable for controls addressing a significant risk.",
+        "B": "Conflates two different conclusions. A walkthrough yields evidence about design and implementation, that the control exists and would function as described, but observing one transaction at one moment says nothing about consistent operation throughout the period, which is what a reduced control risk assessment requires.",
+        "C": "Backwards on current standards. SAS 145 requires inherent risk and control risk to be assessed separately, precisely so the auditor can see how much of the assessed risk of material misstatement is resting on controls. That separation is what exposes this file's defect rather than being the defect itself."
+      }
+    },
+    {
+      "id": "cpa-aud-d2g-05",
+      "domain": "2",
+      "section": "G",
+      "topic": "Accounting estimates",
+      "difficulty": "medium",
+      "stem": "Auditing the allowance for credit losses of a consumer-finance company, the auditor developed an auditor's range rather than a point estimate. After narrowing the range so that every amount within it is supported by sufficient appropriate evidence and considered reasonable, the auditor's range is $8,400,000 to $9,600,000. Management's recorded allowance is $7,900,000. The auditor also observes that in each of the two preceding years management's recorded allowance fell at or just below the low end of the auditor's range for that year. Which conclusion is MOST appropriate?",
+      "options": {
+        "A": "The misstatement is $1,100,000, the difference between management's allowance and the $9,000,000 midpoint of the auditor's range; the recurring pattern is a planning consideration for next year's engagement.",
+        "B": "The misstatement is $500,000, the difference between management's allowance and the nearest endpoint of the auditor's range, and the recurring low-side pattern is evaluated as a possible indicator of management bias.",
+        "C": "No misstatement exists, because estimation uncertainty makes any single correct amount unattainable and management's allowance is close enough to the range that the difference reflects judgment rather than error.",
+        "D": "The difference is not accumulated as a misstatement, because it arises from a difference in methodology rather than in data; the auditor documents the disagreement and asks management to refine the model prospectively."
+      },
+      "answer": "B",
+      "why_correct": "Once the auditor has narrowed the range so that every amount inside it is supported by sufficient appropriate evidence, each of those amounts is equally acceptable, so the only unsupported portion of management's estimate is the distance to the closest acceptable amount: $8,400,000 - $7,900,000 = $500,000. That amount is accumulated and evaluated with other misstatements rather than dismissed as judgment. The multi-year observation carries separate weight: differences that are individually modest but always understate the allowance are evidence of a lack of neutrality, which the auditor must evaluate both for its effect on the assessed risks of material misstatement, including fraud risk, and for its effect on the financial statements taken as a whole.",
+      "why_wrong": {
+        "A": "Springs the midpoint trap. The midpoint has no special standing once the range has been narrowed so that all outcomes within it are reasonable; treating $9,000,000 as the only acceptable figure manufactures $600,000 of misstatement the evidence does not support. It also demotes the bias signal to a future-planning item, when indicators of bias bear on the current period's risk assessment and on the evaluation of the financial statements as a whole.",
+        "C": "Uses a true observation about estimates to excuse a result the evidence does not support. Estimation uncertainty is precisely why the auditor builds a range; once that range contains only reasonable amounts, 'close to it' is outside it. Proximity is not a tolerance the standards recognize, and the recurring one-directional pattern is the opposite of a neutral judgment.",
+        "D": "Miscategorizes the difference to make it disappear. Differences arising from estimates are judgmental misstatements and are accumulated like any other misstatement other than those that are clearly trivial; a prospective model change does not cure a current-period balance that lies outside the supportable range, and deferring the issue lets management's methodology define what counts as reasonable."
+      }
+    }
+  ]
+}

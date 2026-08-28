@@ -9,7 +9,8 @@ honesty all assume, so each section gets its own cert folder rather than one
 Active now:
 
 - **`cpa-aud/`** — Auditing and Attestation (AUD Core). Verified January-2026
-  blueprint outline, 60 original questions, every item adversarially reviewed.
+  blueprint outline, 100 original questions, every item adversarially reviewed;
+  a full 78-question mock draws with no shortfall.
   `python drill.py --cert cpa-aud drill -n 20`, or switch certs from the rail
   in the web app.
 

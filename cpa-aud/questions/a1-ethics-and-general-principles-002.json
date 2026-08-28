@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "cert": "CPA-AUD",
+    "domain": "1",
+    "batch": "aud-a1-x02",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No AICPA, QAE, prep-course, or other third-party question content is reproduced here.",
+    "note": "Area I (Ethics, Professional Responsibilities and General Principles) second batch - depth so a full 78-question mock can be drawn without re-serving items. Drafted against existing coverage, adversarially reviewed item by item. Topic values must match ../outline.json."
+  },
+  "questions": [
+    {
+      "id": "cpa-aud-d1a-04",
+      "domain": "1",
+      "section": "A",
+      "topic": "AICPA Code of Professional Conduct",
+      "difficulty": "medium",
+      "stem": "A firm audits a privately held specialty coffee roaster. Two months before year end the roaster's controller begins an extended medical leave, and the owner asks the firm's advisory group to run the monthly close during the absence: gathering the operating data, deciding on and recording the accrual and deferral entries, and closing the ledger each month. The owner offers to have the company treasurer, a former controller, oversee the arrangement. Under the AICPA Code of Professional Conduct, which response is MOST appropriate?",
+      "options": {
+        "A": "Accept the arrangement, because the treasurer has the suitable skill, knowledge, and experience needed to oversee the service, which satisfies the general requirements for nonattest services.",
+        "B": "Accept the arrangement for the duration of the leave only, provided it ends before year end and the fee is disclosed to those charged with governance.",
+        "C": "Decline to run the close, because determining and recording the entries and closing the ledger assumes a management responsibility that no safeguard can reduce to an acceptable level; the firm may instead propose entries that client personnel review, approve, and record.",
+        "D": "Decline the request, because a firm may not provide any nonattest service to an attest client during the period covered by the financial statements it audits."
+      },
+      "answer": "C",
+      "why_correct": "Independence is impaired when a member assumes a management responsibility for an attest client, and no safeguard cures that impairment. Operating the client's monthly close — deciding which accruals and deferrals are appropriate, recording them, and closing the ledger — is the ongoing performance of a client function, not assistance with one. The firm can still help within bounds: proposing entries that competent client personnel evaluate, approve, and record keeps the decision with management and leaves the general requirements for nonattest services available.",
+      "why_wrong": {
+        "A": "The suitable-skill-knowledge-and-experience requirement is real, but it is a precondition for permissible nonattest services, not a cure for impermissible ones. An overseer cannot make a management responsibility acceptable, because the analysis fails before the general requirements are ever reached.",
+        "B": "Independence must be maintained throughout the period covered by the financial statements and the period of the professional engagement, so ending the arrangement before year end does not erase the impairment. Fee disclosure to those charged with governance addresses a different concern and does nothing about assumption of a management role.",
+        "D": "This is over-broad. The Code contemplates a wide range of permitted nonattest services for attest clients, including bookkeeping assistance and proposing entries, when management assumes responsibility, designates an appropriate individual, and the other general requirements are met. The problem here is the specific nature of the service, not the existence of a nonattest service."
+      }
+    },
+    {
+      "id": "cpa-aud-d1a-05",
+      "domain": "1",
+      "section": "A",
+      "topic": "Requirements of the Securities and Exchange Commission and the Public Company Accounting Oversight Board",
+      "difficulty": "hard",
+      "stem": "A firm audits an issuer that manufactures semiconductor test equipment. The audit manager served on the engagement team throughout the fiscal 2025 audit, which was reported in February 2026. In April 2026 the manager resigns from the firm, and the issuer's audit committee tells the engagement partner it intends to appoint the manager as corporate controller effective in May 2026 as part of the issuer's routine succession planning, with no emergency or unusual circumstance prompting the hire. Fieldwork planning for the fiscal 2026 audit is scheduled to begin in June 2026. Which conclusion is MOST consistent with SEC independence requirements?",
+      "options": {
+        "A": "Independence is preserved, because the audit committee has considered and approved the appointment and the manager is no longer employed by the firm.",
+        "B": "Independence with respect to the fiscal 2026 audit would be impaired, because the manager served on the audit engagement team during the one-year period preceding the commencement of the fiscal 2026 audit procedures; the partner should raise this with the audit committee before the appointment is finalized.",
+        "C": "Independence is preserved so long as the firm removes the manager from all engagement responsibilities immediately and reassigns the fiscal 2026 engagement to a team none of whose members worked with the manager.",
+        "D": "Independence is preserved if the firm confirms that the manager retains no capital balance or other financial arrangement with the firm and the engagement quality reviewer assesses whether remaining team members can exercise appropriate skepticism."
+      },
+      "answer": "B",
+      "why_correct": "Rule 2-01(c)(2)(iii)(B) bars a former member of the audit engagement team from taking a financial reporting oversight role at an issuer audit client unless that person was off the engagement team for the full one-year period preceding the date audit procedures commence for the fiscal period that includes the date employment begins. Employment begins May 2026, fiscal 2026 procedures commence in June 2026, and the manager was on the team through the February 2026 report date — squarely inside the lookback. A controller is a financial reporting oversight role, and the manager's service was continuous, so the ten-or-fewer-hours carve-out from the definition of the audit engagement team is unavailable. Because the consequence is impairment of the firm's own independence for fiscal 2026, the partner must surface it before the hire is made rather than after.",
+      "why_wrong": {
+        "A": "Audit committee approval is a governance step, not an independence cure. The rule does contain a narrow escape where the individual is employed by the issuer because of an emergency or other unusual circumstance and the audit committee determines the relationship is in investors' best interests, but the stem forecloses it: this is routine succession planning. Ordinary preapproval authority reaches permissible non-audit services and cannot waive a condition fixed by the timing of the individual's departure from the engagement team.",
+        "C": "Removing the individual and rotating the team is the right reflex for a familiarity or self-review threat arising inside the firm, but the manager has already left. The cooling-off test looks backward at when the person last served on the engagement team relative to the start of current-year procedures, so no prospective staffing change can satisfy it.",
+        "D": "These conditions are real but incomplete. Rule 2-01(c)(2)(iii)(B) does require that a former professional employee in a financial reporting oversight role hold no capital balance and no continuing financial arrangement with the firm; those conditions are necessary, not sufficient, and they operate alongside the one-year cooling-off condition the manager fails. Layering on an engagement quality reviewer's assessment of the remaining team's objectivity borrows an AICPA-style safeguards analysis that the SEC's bright-line period does not accommodate."
+      }
+    },
+    {
+      "id": "cpa-aud-d1b-02",
+      "domain": "1",
+      "section": "B",
+      "topic": "Professional skepticism and professional judgment",
+      "difficulty": "medium",
+      "stem": "On the audit of a nonissuer that manufactures electric utility service vehicles, the warranty reserve has been recorded at 1.8 percent of sales for four consecutive years, and each prior audit concluded the reserve was reasonable. This year the client's service database shows a rising volume of battery module failures in vehicles built since the prior spring, and average claim cost has climbed. The engagement manager instructs staff to roll forward the prior-year approach because \"the rate has held up every year we have tested it.\" Which action BEST reflects professional skepticism and professional judgment?",
+      "options": {
+        "A": "Evaluate the current-period failure and cost data on its own terms, require management to support the rate with current experience, and perform a retrospective review of prior-period warranty estimates for indications of management bias.",
+        "B": "Accept the rolled-forward rate, because the method has been applied consistently and prior audits identified no misstatement in the reserve.",
+        "C": "Expand the sample of individual warranty claims paid during the year and vouch each selection to service records and disbursements.",
+        "D": "Ask management to engage an external actuarial specialist to value the reserve, and base the audit conclusion on the specialist's report."
+      },
+      "answer": "A",
+      "why_correct": "Skepticism requires resisting the anchor of a conclusion reached in a different fact pattern; the rate's history is evidence about prior periods, not about a population whose failure experience has visibly changed. The auditor should test the estimate against the conditions that exist now and press management to support the assumption with current data. A retrospective review of prior estimates is the standards' own tool for detecting bias and is directly indicated when an estimate has been unchanged while underlying conditions moved.",
+      "why_wrong": {
+        "B": "Consistency of method is exactly the comfort the standards warn against relying on. Prior conclusions rested on prior evidence, and new information about a specific failure mode is contradictory information that must be evaluated rather than absorbed into an unchanged rate.",
+        "C": "Vouching paid claims is a well-designed procedure aimed at the wrong assertion. It tests the occurrence and accuracy of claims already settled; the question here is whether the accrual is sufficient for failures that have occurred but not yet been claimed, which more claim vouching cannot answer.",
+        "D": "Outsourcing the judgment does not discharge it. A management specialist's work is evidence the auditor must evaluate — competence, objectivity, assumptions, and data — and adopting the specialist's conclusion as the audit conclusion substitutes someone else's judgment for the auditor's own."
+      }
+    },
+    {
+      "id": "cpa-aud-d1c-03",
+      "domain": "1",
+      "section": "C",
+      "topic": "Audit engagements",
+      "difficulty": "easy",
+      "stem": "During the planning meeting for the audit of a nonissuer regional freight carrier, a board member asks the engagement partner, \"When you finish, will the audit tell us whether our internal controls are working?\" Which response BEST describes the nature and scope of a financial statement audit?",
+      "options": {
+        "A": "Yes. The auditor tests the operating effectiveness of controls over each significant account balance and reports separately on whether the entity's internal control over financial reporting is effective.",
+        "B": "Yes, as to the controls addressing significant risks, because the standards require the auditor to test the operating effectiveness of those controls in every audit and to report the results to the board.",
+        "C": "No. The auditor's evaluation of internal control is confined to the entity-level control environment; at the assertion level the auditor performs only substantive procedures.",
+        "D": "No opinion on control effectiveness is expressed. The auditor evaluates the design and implementation of the controls identified as addressing assertion-level risks in order to assess risk, and tests operating effectiveness only when planning to rely on controls or when substantive procedures alone would not provide sufficient appropriate evidence."
+      },
+      "answer": "D",
+      "why_correct": "The objective of a nonissuer audit is an opinion on the financial statements, so control work is instrumental rather than an end in itself. AU-C 315, as amended by SAS 145, requires the auditor to understand the components of the entity's system of internal control, identify the controls that address risks of material misstatement at the assertion level, and evaluate their design and determine whether they have been implemented. AU-C 330 then makes operating-effectiveness testing conditional: it is required only where the risk assessment expects controls to operate effectively, or where substantive procedures alone cannot furnish sufficient appropriate evidence. Reporting on the effectiveness of internal control is a separate examination engagement under AT-C section 940, not a byproduct of the audit.",
+      "why_wrong": {
+        "A": "This imports the issuer integrated audit under PCAOB AS 2201 into a nonissuer engagement. It promises the board both a scope — effectiveness testing across every significant account — and a report on internal control that the engagement does not include, and it would misstate the deliverable to a governance body.",
+        "B": "Significant risks do receive heightened attention, and AU-C 330.15 requires that controls over a significant risk be tested in the current period if the auditor intends to rely on them. The trap is the leap from that conditional rule to a universal one: no standard compels reliance, a wholly substantive response to a significant risk remains available, and control results are not reported to the board as a matter of course.",
+        "C": "This understates the required work. Understanding the control environment alone does not satisfy AU-C 315, which reaches all components of the system of internal control and requires the auditor to identify and evaluate the design and implementation of controls addressing assertion-level risks. Deficiencies identified along the way also carry communication obligations under AU-C 265, which a purely substantive posture would never surface."
+      }
+    },
+    {
+      "id": "cpa-aud-d1c-04",
+      "domain": "1",
+      "section": "C",
+      "topic": "Other engagements",
+      "difficulty": "medium",
+      "stem": "A commercial landscaping contractor asks its accounting firm for annual financial statements accompanied by \"a report from our accountant\" to satisfy a bank that has said it does not need an audit or any assurance. While evaluating the request, the firm determines that a partner's spouse holds a direct financial interest in the contractor, so the firm is not independent. Which engagement can the firm MOST appropriately accept, and on what condition?",
+      "options": {
+        "A": "A review under AR-C section 90, provided the accountant's review report discloses the lack of independence.",
+        "B": "A compilation under AR-C section 80, provided the accountant's compilation report discloses that the accountant is not independent.",
+        "C": "A preparation engagement under AR-C section 70, provided the accountant issues a report describing the independence impairment.",
+        "D": "An agreed-upon procedures engagement on the financial statements, because independence is not required when the engaging party and the report user is a lender rather than the entity."
+      },
+      "answer": "B",
+      "why_correct": "A compilation provides no assurance, so SSARS permits an accountant who is not independent to perform one as long as the compilation report states that the accountant is not independent; the reason for the impairment may be disclosed, but if any reason is given all reasons must be. That fits the bank's stated needs exactly, because it wants a report on the statements without assurance. The firm therefore has a workable path without curing the independence problem.",
+      "why_wrong": {
+        "A": "A review conveys limited assurance, and independence is a condition of performing one. There is no disclosure mechanism that lets a nonindependent accountant issue a review report; the engagement simply may not be accepted.",
+        "C": "A preparation engagement is indeed available to a nonindependent accountant, but AR-C 70 produces no accountant's report at all — only a legend on each page stating that no assurance is provided. Offering a report under that section describes an engagement that does not exist, and it fails the bank's request for a report.",
+        "D": "Agreed-upon procedures is an attestation engagement, and independence is required. The identity of the engaging party affects use and acknowledgment of the procedures, not whether the practitioner must be independent, and an AUP engagement yields findings on specified procedures rather than a report on the financial statements."
+      }
+    },
+    {
+      "id": "cpa-aud-d1c-05",
+      "domain": "1",
+      "section": "C",
+      "topic": "Other engagements",
+      "difficulty": "hard",
+      "stem": "A firm is engaged by a commercial bakery, at its lender's request, to perform an agreed-upon procedures engagement over the bakery's fourth-quarter debt covenant computation. The lender's credit officer tells the partner, \"You know this area better than we do — draft the procedures yourself, and just tell us in the report whether the covenants were met.\" Which course of action is MOST consistent with the attestation standards as revised by SSAE No. 19?",
+      "options": {
+        "A": "Explain that the practitioner may develop or assist in developing the procedures, but must obtain the engaging party's acknowledgment that the procedures performed are appropriate for the intended purpose before issuing a report that presents findings rather than an opinion or conclusion on covenant compliance.",
+        "B": "Decline any role in designing the procedures, because the specified parties must determine and agree to the procedures in advance and acknowledge in writing that those procedures are sufficient for their purposes.",
+        "C": "Agree to design the procedures and, if they prove extensive enough in the aggregate, include a statement in the report that nothing came to the practitioner's attention indicating that the covenants were not met.",
+        "D": "Agree to design the procedures, and obtain the engaging party's acknowledgment of their appropriateness only if the report is to be issued for general use, because a report restricted to the bakery and the lender does not require that acknowledgment."
+      },
+      "answer": "A",
+      "why_correct": "SSAE No. 19 expressly permits the practitioner to develop or assist in developing the procedures, replacing the older model in which users specified them and took responsibility for their sufficiency. The safeguard the standard substitutes is the engaging party's acknowledgment, obtained before the report is issued, that the procedures performed are appropriate for the intended purpose. What does not change is the output: an agreed-upon procedures report reports findings, and expressing an opinion or a conclusion on the subject matter is outside the engagement, so the credit officer cannot be told whether the covenants were met.",
+      "why_wrong": {
+        "B": "This states the pre-SSAE 19 requirement, which is precisely why it is tempting. The revision eliminated both the prohibition on the practitioner developing procedures and the requirement that specified parties agree to them and acknowledge their sufficiency; adhering to the retired rule refuses work the standard now allows.",
+        "C": "Negative assurance is the province of a review engagement, not agreed-upon procedures. No volume of procedures converts an AUP into a limited assurance engagement, and a \"nothing came to our attention\" statement in an AUP report is prohibited because it invites users to read assurance into findings.",
+        "D": "This inverts the standard by making the acknowledgment contingent on the report's distribution. The acknowledgment of the appropriateness of the procedures for the intended purpose is required in every agreed-upon procedures engagement before the report is issued; whether a use-restricting alert is also needed turns on the criteria and the parties involved and never substitutes for the acknowledgment."
+      }
+    },
+    {
+      "id": "cpa-aud-d1d-03",
+      "domain": "1",
+      "section": "D",
+      "topic": "Preconditions for an engagement",
+      "difficulty": "medium",
+      "stem": "During acceptance discussions for a first-year audit of a nonissuer building products distributor, the majority owner, who also serves as chief executive officer, tells the partner that he will not acknowledge responsibility for the company's internal control: \"Internal control is what I am hiring auditors for. If the controls are weak, that is your problem to find and fix, not mine to warrant.\" He is otherwise willing to sign an engagement letter, provide the accounting records, and give the audit team unrestricted access to personnel. Which course of action is MOST appropriate?",
+      "options": {
+        "A": "Accept the engagement and treat the chief executive's stance as a fraud risk factor, responding with a lower performance materiality and substantially expanded substantive testing at year end.",
+        "B": "Accept the engagement and obtain the acknowledgment at the end of fieldwork in the written representation letter, where management's responsibility for internal control is customarily confirmed.",
+        "C": "Do not accept the engagement, because management's acknowledgment of its responsibility for internal control relevant to the preparation of financial statements free from material misstatement is a precondition without which the premise underlying an audit does not exist.",
+        "D": "Accept the engagement and include an emphasis-of-matter paragraph in the auditor's report describing management's refusal to acknowledge responsibility for the entity's internal control."
+      },
+      "answer": "C",
+      "why_correct": "An audit rests on an agreed premise: management acknowledges responsibility for the financial statements, for internal control relevant to their preparation, and for providing the auditor access to information and people. Establishing that acknowledgment is a precondition the auditor confirms before accepting, and the chief executive has refused one of its three legs outright. Because the premise is absent, the auditor should not accept unless law or regulation compels it; a willingness to supply records does not substitute for accepting responsibility for the control environment that produces them.",
+      "why_wrong": {
+        "A": "Adjusting the audit response is the correct reflex for a risk, and management's attitude toward control is a genuine risk factor. But no amount of substantive work supplies a missing precondition, and this option quietly accepts an engagement that lacks the foundation the audit is built on.",
+        "B": "The representation letter does contain this acknowledgment, which is what makes deferring to it sound orderly. It is the right document at the wrong time: the acknowledgment is needed up front so the terms of the engagement can be agreed, and postponing it to the end guarantees an impasse after the fees and effort are sunk.",
+        "D": "An emphasis-of-matter paragraph draws attention to a matter appropriately presented or disclosed in the financial statements; it is not a device for disclosing a defect in the engagement's terms. Reporting language cannot repair an acceptance decision that should not have been made."
+      }
+    },
+    {
+      "id": "cpa-aud-d1f-03",
+      "domain": "1",
+      "section": "F",
+      "topic": "Internal control related matters",
+      "difficulty": "medium",
+      "stem": "During last year's audit of a nonissuer specialty pharmacy, the auditor identified and communicated in writing a material weakness in controls over inventory costing. The weakness remains uncorrected at the current year end; remediation has been budgeted for the coming year. The CFO asks the auditor to leave it out of this year's communication, noting that the board received the prior letter, discussed it, and is fully aware of the issue. Which action is MOST consistent with professional standards?",
+      "options": {
+        "A": "Omit the matter from this year's communication, because it was already communicated in writing and those charged with governance are demonstrably aware of it.",
+        "B": "Communicate the matter orally to the board and document the oral communication in the audit file, so that the board is reminded without duplicating last year's letter.",
+        "C": "Describe the material weakness in the auditor's report on the financial statements so that the pharmacy's lenders are informed of the condition.",
+        "D": "Communicate the material weakness in writing again for the current period, either by repeating the description or by referring to the previously issued written communication and its date."
+      },
+      "answer": "D",
+      "why_correct": "The requirement to communicate material weaknesses in writing to management and those charged with governance applies to each audit in which the weakness exists, not only to the period in which it was first identified. Awareness does not discharge the obligation, because the written record is what documents that the condition persisted through another reporting period. The standards do accommodate efficiency: the auditor may satisfy the requirement by referring to the earlier written communication and the date it was issued rather than restating the detail.",
+      "why_wrong": {
+        "A": "Prior communication and actual awareness are exactly the arguments the standards decline to accept. A previously communicated deficiency that remains uncorrected must be communicated again, and letting awareness substitute for the writing erodes the record on which governance oversight and future auditors rely.",
+        "B": "Form matters here. Significant deficiencies and material weaknesses must be communicated in writing; oral communication may supplement the letter but cannot replace it, and documenting an oral conversation does not convert it into the required written communication.",
+        "C": "The auditor expresses no opinion on internal control in a nonissuer financial statement audit, and the report is not the vehicle for control deficiencies. Placing the weakness there would suggest a scope and an assurance the engagement does not provide, and it discloses to general users a matter the standards route to management and those charged with governance."
+      }
+    }
+  ]
+}
