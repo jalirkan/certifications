@@ -1,0 +1,757 @@
+{
+  "meta": {
+    "cert": "CISA",
+    "domain": "4",
+    "section": "A",
+    "batch": "d4a-003",
+    "created": "2026-08-28",
+    "origin": "Original questions written for this study system. No ISACA, QAE, or other third-party question content is reproduced here.",
+    "note": "Third D4 section A batch - depth for mock-exam headroom (CLAUDE.md §5). Drafted against existing coverage, adversarially reviewed item by item, then conservatively mapped to decision rules and confusable pairs. Topic values must match ../outline.json. Run 'python drill.py validate' after editing."
+  },
+  "questions": [
+    {
+      "id": "cisa-d4a-055",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Components",
+      "difficulty": "medium",
+      "stem": "An IS auditor at a hospital group finds that networked biomedical devices such as infusion pumps and patient monitors sit on the same flat network as administrative systems. The devices run embedded operating systems that cannot be patched without invalidating the manufacturer's certification. Which recommendation BEST addresses the resulting risk?",
+      "options": {
+        "A": "Require the manufacturer to release security patches on the same cycle applied to the hospital's server estate.",
+        "B": "Segment the devices into isolated network zones, restricting traffic to the specific flows each device requires to function.",
+        "C": "Deploy the hospital's standard endpoint protection agent to every biomedical device.",
+        "D": "Replace the devices with models that support routine patching at the next capital refresh."
+      },
+      "answer": "B",
+      "why_correct": "When a vulnerability cannot be removed from the device, the compensating control is to remove the device's reachability. Segmentation with tightly restricted flows means an attacker on the administrative network cannot reach the unpatchable devices, and a compromised device cannot pivot outward. It is the accepted control pattern for embedded and operational technology precisely because it works without touching the certified device at all.",
+      "why_wrong": {
+        "A": "This applies the enterprise patching rule to equipment it cannot govern. The patch cycle belongs to the manufacturer and the certification regime, and the hospital cannot recommend its way out of a constraint it does not control — the exposure would remain open while the demand is negotiated.",
+        "C": "Endpoint agents assume a general-purpose operating system able to host them. Embedded medical devices typically cannot run the agent, and installing third-party software would invalidate the same certification that prevents patching.",
+        "D": "Replacement is the eventual answer and the wrong timescale. A capital refresh is years away, and a recommendation that leaves a known exposure unmitigated until then is the right action at the wrong time."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-056",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Components",
+      "difficulty": "medium",
+      "stem": "During an infrastructure review at a logistics company, an IS auditor learns that the configurations of firewalls, routers and switches exist only on the running devices themselves. No copies are stored elsewhere and no history of configuration changes is retained. The GREATEST risk is that:",
+      "options": {
+        "A": "engineers may apply inconsistent settings when configuring similar devices.",
+        "B": "network documentation and diagrams will drift out of date.",
+        "C": "audit testing of the network will take longer because each device must be inspected individually.",
+        "D": "recovery from a device failure requires rebuilding the configuration from memory, prolonging the outage, and unauthorized configuration changes cannot be detected against any known-good copy."
+      },
+      "answer": "D",
+      "why_correct": "The running configuration is simultaneously the only recovery artifact and the only evidence of what the device should look like. A hardware failure that would otherwise be a swap-and-restore becomes an extended outage while someone reconstructs firewall rules from recollection, and in the meantime any change — authorized or not — silently becomes the new normal because there is nothing to compare against. Both the availability and the integrity consequences flow from the same single missing control.",
+      "why_wrong": {
+        "A": "Inconsistency between similar devices is a baseline and standards concern, and it is visible and correctable. It is a lesser weakness than being unable to recover or to detect tampering at all.",
+        "B": "Documentation drift is an ordinary operational housekeeping problem. Diagrams describe the network for humans; the configuration is the network, and losing it is a different order of problem.",
+        "C": "Audit effort is the auditor's inconvenience, not the organization's exposure. Framing the risk in terms of testing time mistakes the cost of the audit for the risk being audited."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-057",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Components",
+      "difficulty": "easy",
+      "stem": "An IS auditor touring a regional insurer's data centre notes that the server estate is supported by an uninterruptible power supply rated to carry the load for approximately fifteen minutes, backed by a standby generator. The PRIMARY function of the uninterruptible power supply in this design is to:",
+      "options": {
+        "A": "maintain power through the interval between a mains failure and the generator assuming the load, or long enough for an orderly shutdown if the generator fails to start.",
+        "B": "supply the data centre with power for the full duration of an extended utility outage.",
+        "C": "smooth voltage fluctuations in the utility supply as its principal purpose.",
+        "D": "provide the redundant power feed that regulators require for insurance operations."
+      },
+      "answer": "A",
+      "why_correct": "A fifteen-minute rating only makes sense as a bridge. The UPS carries the load instantly when mains power fails, covering the seconds to minutes a generator needs to start and stabilize, and if the generator does not start, the window is used to shut systems down cleanly rather than crash them. Sustained supply is the generator's job, not the UPS's.",
+      "why_wrong": {
+        "B": "Fifteen minutes of battery cannot cover an extended outage, and it is not meant to. This reverses the division of labour between the UPS and the generator standing behind it.",
+        "C": "Power conditioning is a genuine secondary benefit of many UPS designs, but elevating it to the principal purpose ignores why the battery capacity and the generator pairing exist.",
+        "D": "This invents a compliance rationale. The design is an availability engineering decision, and no element of it depends on a regulatory mandate for redundant power."
+      },
+      "no_principle": true,
+      "asks": "definition"
+    },
+    {
+      "id": "cisa-d4a-058",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "A software company provisions its cloud infrastructure through code, and virtual servers are created and destroyed many times each day. The configuration management database is updated by an analyst at each month end. Which of the following would BEST ensure the asset inventory remains reliable?",
+      "options": {
+        "A": "Increase the frequency of the manual update from monthly to weekly.",
+        "B": "Require a change ticket to be raised and approved before any virtual server is created.",
+        "C": "Populate the inventory automatically from the cloud provider's records, reconciled continuously against the provisioning pipeline.",
+        "D": "Restrict provisioning rights to the analyst responsible for maintaining the inventory."
+      },
+      "answer": "C",
+      "why_correct": "When assets live for hours, any human-paced update cycle is stale before it finishes. The provider's API and the provisioning pipeline are authoritative sources that already know every creation and destruction, so drawing the inventory from them makes its accuracy a property of the architecture rather than of anyone's diligence. Continuous reconciliation between the two sources also surfaces anything created outside the pipeline.",
+      "why_wrong": {
+        "A": "Weekly is a faster version of a control that cannot work. In an environment where servers live for hours, any manual cadence records a population that no longer exists.",
+        "B": "This over-applies change management to elastic provisioning it was never designed for. Ticketing every automated instance creation would either paralyse the pipeline or be rubber-stamped into meaninglessness, and it still would not update the inventory.",
+        "D": "Funnelling all provisioning through one person creates a bottleneck that defeats the purpose of automation, concentrates a key-person dependency, and still relies on that person to record accurately what they did."
+      }
+    },
+    {
+      "id": "cisa-d4a-059",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "A consulting firm operates almost entirely remotely. An IS auditor finds that when employees leave, network access is revoked promptly, but no process reconciles the laptops and mobile devices that were assigned to them, and dozens of devices are unaccounted for. The GREATEST risk is that:",
+      "options": {
+        "A": "unreturned devices holding cached client data and stored credentials remain permanently outside the organization's control.",
+        "B": "the cost of replacing the unrecovered hardware will exceed the equipment budget.",
+        "C": "depreciation of the missing assets will be misstated in the financial records.",
+        "D": "software licenses tied to the devices cannot be reclaimed and reassigned."
+      },
+      "answer": "A",
+      "why_correct": "Revoking network access closes the live connection and does nothing about what is already on the disk: cached files, synchronized mailboxes, saved credentials and client material accumulated over years of remote work. A device nobody can locate can never be wiped, recovered or confirmed encrypted, so the exposure is permanent and grows with every departure. The data protection consequence dwarfs every financial one.",
+      "why_wrong": {
+        "B": "Replacement cost is a bounded, budgetable financial loss. Confusing the price of the hardware with the value of what is stored on it is the trap this option embodies.",
+        "C": "Misstated depreciation is a records accuracy issue of modest materiality. It is the kind of finding that matters only after the data exposure has been dealt with.",
+        "D": "Stranded licenses are a commercial inefficiency, recoverable through vendor true-ups. Nothing about them threatens the confidentiality of client information."
+      }
+    },
+    {
+      "id": "cisa-d4a-060",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Asset Management",
+      "difficulty": "hard",
+      "stem": "A manufacturer's IT asset inventory is complete, current and reconciled monthly against network discovery, recording location, custodian and patch status for every asset. During a ransomware tabletop exercise, the recovery team could not determine which servers to restore first, even though the disaster recovery plan names the critical business processes. Which of the following is the MOST significant gap?",
+      "options": {
+        "A": "Inventory completeness has not been confirmed against a second, independent discovery source.",
+        "B": "The custodian field identifies an IT contact instead of the accountable business owner.",
+        "C": "Recovery team members have not been trained on the priorities in the disaster recovery plan.",
+        "D": "No inventory attribute maps each asset to the business processes it supports, so process priorities cannot be converted into a restoration order."
+      },
+      "answer": "D",
+      "why_correct": "The exercise failed at the join between two individually sound documents: the plan ranks processes, the inventory lists servers, and nothing maps one to the other. Business criticality and dependency attributes on the inventory are what make a process-level plan executable at the level where recovery actually happens, and their absence also weakens risk-based patching and incident triage in ordinary operations.",
+      "why_wrong": {
+        "A": "Reaches for the completeness control when completeness is the one property already demonstrated; a second source would re-confirm the same list of servers whose criticality nobody knows.",
+        "B": "A genuinely related attribute and a partial answer; knowing who owns a server still would not tell the team which servers the tier-one processes require, or in what order.",
+        "C": "Blames execution rather than data; no amount of training can supply a process-to-asset mapping that does not exist anywhere to be taught."
+      }
+    },
+    {
+      "id": "cisa-d4a-061",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Asset Management",
+      "difficulty": "medium",
+      "stem": "A marketing agency centrally procures roughly sixty software-as-a-service applications, each renewing automatically. The IT asset inventory covers hardware and installed software only. Which of the following is the GREATEST risk?",
+      "options": {
+        "A": "Unauthorized subscriptions cannot be distinguished from sanctioned applications.",
+        "B": "Inventory-driven lifecycle controls, such as access removal at termination and vendor security review, are never applied to the services holding the agency's data.",
+        "C": "Contracts renew automatically without periodic review of continuing business need.",
+        "D": "Subscription expenditure may be misclassified in the agency's financial reporting."
+      },
+      "answer": "B",
+      "why_correct": "An inventory is the trigger for every downstream control that asks, for each asset, whether something has been done. Sixty services holding client data, credentials and personal information fall outside that question entirely, so leavers keep accounts, vendors go unassessed, and nobody knows which jurisdictions hold the data — the control framework still points at the hardware estate while the data has moved.",
+      "why_wrong": {
+        "A": "The stem establishes central procurement, so the purchasing channel already distinguishes sanctioned services; this imports a shadow IT concern into a scenario where procurement is the one control operating.",
+        "C": "Renewal without review wastes money on unused tools — a real commercial inefficiency, but not an exposure of the data the services hold.",
+        "D": "Expense classification is an accounting presentation matter with no security or availability consequence; it is the least significant of the four."
+      }
+    },
+    {
+      "id": "cisa-d4a-062",
+      "domain": "4",
+      "section": "A",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "medium",
+      "stem": "A regional bank's scheduler starts a payments load job at a fixed time each night, processing whichever clearing file is present in the landing directory. When the clearing partner's file was delayed one night, the job reprocessed the previous night's file, and the duplicated postings were discovered weeks later. Which control would BEST prevent recurrence?",
+      "options": {
+        "A": "Move the job's start time one hour later to allow for late file arrivals.",
+        "B": "Require an operator to inspect the file manually before releasing the job each night.",
+        "C": "Trigger the job on validated file arrival, checking a header date and sequence number and halting with an alert when the expected file is absent or out of sequence.",
+        "D": "Amend the contract with the clearing partner to make the delivery deadline binding."
+      },
+      "answer": "C",
+      "why_correct": "The failure was structural: the job's trigger was the clock, but its true dependency was the file. Making arrival the trigger, and validating that the file is the expected one before any record is processed, removes the race condition entirely rather than shrinking it. Halting with an alert converts a silent wrong-file run into a visible, recoverable delay, which is the correct trade for a payments process.",
+      "why_wrong": {
+        "A": "A later start time narrows the window and leaves the mechanism intact. The night the file is delayed by ninety minutes instead of thirty, the identical failure recurs.",
+        "B": "A nightly manual inspection reintroduces a human step to guard an automated process, and it depends on the operator's attention every single night forever. The check is trivially automatable, which is exactly when manual controls should not be used.",
+        "D": "A contractual deadline governs the partner's obligations, not the bank's processing logic. Files will still occasionally be late whatever the contract says, and the bank's job would still consume the stale file when they are."
+      }
+    },
+    {
+      "id": "cisa-d4a-063",
+      "domain": "4",
+      "section": "A",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing an insurer's enterprise job scheduler finds that all production jobs run under a single service account holding administrative access to every application and database the schedule touches. The password is known to the entire scheduling team and has not been changed in three years. The GREATEST concern is that:",
+      "options": {
+        "A": "compromise or misuse of that one shared credential yields administrative access across the entire production estate, and no use of it can be attributed to an individual.",
+        "B": "the password's age breaches the organization's password policy.",
+        "C": "changing the password could cause widespread job failures.",
+        "D": "the scheduling team is a single point of failure for maintaining the job definitions."
+      },
+      "answer": "A",
+      "why_correct": "The account concentrates the aggregate privilege of every job into one credential, so its blast radius is the whole estate rather than any single application. Because several people legitimately know the password, any interactive use of it — by an insider or by an attacker who phished one team member — is unattributable, which defeats both deterrence and investigation. Concentration plus shared knowledge is the pairing that makes this the standout exposure.",
+      "why_wrong": {
+        "B": "Policy breach is the compliance symptom, not the risk. Rotating the password of an account that still holds everything and is still shared would satisfy the policy and leave the exposure essentially intact.",
+        "C": "Fear of breaking jobs is the operational reason the situation arose and persists. Citing it as the main concern adopts the rationalization that created the finding.",
+        "D": "Team key-person risk affects the maintainability of the schedule, a staffing continuity matter. It is unrelated to what the credential can reach and who can be held accountable for using it."
+      }
+    },
+    {
+      "id": "cisa-d4a-064",
+      "domain": "4",
+      "section": "A",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "hard",
+      "stem": "To automate invoice processing, a utility company deployed a software robot that both enters supplier invoices and releases them for payment, operating under a single account granted the combined access of the two clerks it replaced. Which of the following should be of MOST concern to an IS auditor?",
+      "options": {
+        "A": "The robot may process invoices faster than the accounts payable team can review its output.",
+        "B": "The headcount savings projected in the automation business case may not be realized.",
+        "C": "The robot may mishandle unusual invoice formats and generate processing exceptions.",
+        "D": "Anyone able to direct the robot or use its credentials can enter and release a payment without any independent check."
+      },
+      "answer": "D",
+      "why_correct": "The two-clerk split was a control, not an accident of staffing, and granting one bot account the union of both roles quietly deleted it. The risk does not disappear because the actor is software — it transfers to every human who can edit the bot's process definitions or obtain its credentials, any of whom can now originate and release a payment alone. Automation projects collapse segregation this way routinely because combined access is the path of least resistance.",
+      "why_wrong": {
+        "A": "Throughput is the point of the automation, not a defect of it; speed matters only if a control must keep pace, and the missing control is the concern, not the tempo.",
+        "B": "Benefit realization is a legitimate value-for-money question for a different review; it has no bearing on whether payments can be created and released without independent involvement.",
+        "C": "Exception handling is a quality concern with a visible failure mode — mishandled invoices surface as errors people investigate — and is secondary to a silent structural loss of segregation."
+      }
+    },
+    {
+      "id": "cisa-d4a-065",
+      "domain": "4",
+      "section": "A",
+      "topic": "Job Scheduling and Production Process Automation",
+      "difficulty": "easy",
+      "stem": "At a retail chain, the overnight schedule defines the store sales polling job as a predecessor that must complete successfully before the inventory replenishment job is allowed to start. The PRIMARY purpose of this dependency is to ensure that:",
+      "options": {
+        "A": "the two jobs run in parallel so the batch window is as short as possible.",
+        "B": "server capacity is not exceeded by concurrent workloads.",
+        "C": "replenishment calculations run only against complete sales data, never against a partial or missing feed.",
+        "D": "operators can restart failed jobs in any order without consequence."
+      },
+      "answer": "C",
+      "why_correct": "The dependency encodes a data relationship: replenishment quantities are computed from the sales the stores reported, so running before polling completes means ordering stock against yesterday's picture or against half the estate. Requiring successful completion of the predecessor is how the scheduler guarantees the input exists and is whole before the consumer of that input runs.",
+      "why_wrong": {
+        "A": "A predecessor relationship serializes the two jobs, which is the opposite of parallel execution. This reverses what the mechanism does.",
+        "B": "Capacity is managed through workload balancing and scheduling windows, not through logical dependencies. The dependency would exist even on a server with unlimited headroom.",
+        "D": "Dependencies constrain order rather than removing the need for it. A restart still has to respect the same sequence, which is precisely what the definition enforces."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-066",
+      "domain": "4",
+      "section": "A",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "A hospital group is replacing its patient administration system. The integration team cannot produce a complete list of the current system's interfaces, which were built point-to-point by different teams over fifteen years. The GREATEST risk to the replacement program is that:",
+      "options": {
+        "A": "the project timeline will slip while the interfaces are catalogued.",
+        "B": "unidentified downstream systems may stop receiving clinical and billing data at cutover.",
+        "C": "the historical interface development did not comply with the organization's documentation standards.",
+        "D": "integration capabilities of the new system may go unused."
+      },
+      "answer": "B",
+      "why_correct": "An interface that is not in the inventory is not in the migration design, the test plan or the cutover checklist, so its downstream consumer breaks silently when the old system is retired. In a hospital those consumers include laboratory, pharmacy and billing feeds, so the failure mode is interrupted clinical data flow rather than a visible error — a direct patient-safety and revenue exposure, which is why the inventory gap is the risk that dominates all others here.",
+      "why_wrong": {
+        "A": "Schedule slip is the cost of doing the discovery work the situation demands; treating the delay as the greatest risk inverts the priority, since cutting over on time without the inventory is the dangerous choice.",
+        "C": "A retrospective compliance observation about fifteen-year-old documentation practice explains how the gap arose without describing its consequence. The exposure that matters is what breaks at cutover, not which standard was ignored.",
+        "D": "Under-used capability is an efficiency and value-realization observation about the new platform. It does not threaten continuity of the data flows the business currently depends on."
+      }
+    },
+    {
+      "id": "cisa-d4a-067",
+      "domain": "4",
+      "section": "A",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "An IS auditor at a payment processor finds interface scripts containing database and file-transfer credentials in plain text, stored in a code repository readable by all IT staff. The interface accounts carry broad access and the passwords have not been changed in years. Which recommendation is BEST?",
+      "options": {
+        "A": "Restrict access to the repository to the integration team that maintains the scripts.",
+        "B": "Enable encryption at rest on the repository's storage.",
+        "C": "Move the credentials into a managed secrets vault retrieved at runtime, reduce each interface account to the specific access its interface requires, and rotate the secrets on a defined cycle.",
+        "D": "Require the passwords to be changed annually, with the scripts updated to match each time."
+      },
+      "answer": "C",
+      "why_correct": "The finding has three strands — exposure of the secrets, excessive privilege behind them, and their unlimited lifetime — and only this recommendation addresses all three. Vaulting takes the credentials out of code and out of every clone of the repository, least privilege caps what a leaked credential is worth, and rotation bounds how long any past exposure remains usable. Fixing one strand while leaving the others is how this class of finding gets closed on paper and exploited later.",
+      "why_wrong": {
+        "A": "Narrowing the audience shrinks the exposure without removing it: the credentials are still plain text in every historical copy and clone, still over-privileged and still permanent. It is a partial fix likely to be mistaken for the fix.",
+        "B": "Encryption at rest protects against theft of the underlying storage and is transparent to every authorized reader, who still sees plain text. It operates at the wrong layer for this exposure entirely.",
+        "D": "Annual rotation with the passwords still embedded in scripts adds churn while preserving the storage mechanism that caused the finding. Each new password lands in the same readable location as the old one."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-068",
+      "domain": "4",
+      "section": "A",
+      "topic": "System Interfaces",
+      "difficulty": "hard",
+      "stem": "A travel company's booking platform submits payment capture requests to an acquiring bank's API and automatically retries when no response arrives within the timeout. Reconciliation revealed customers charged twice: the original requests had in fact succeeded, but the responses were lost before arriving. Which design change would BEST prevent recurrence?",
+      "options": {
+        "A": "Attach a unique idempotency identifier to each capture request, so the receiving API recognizes a retry of an already-processed request and returns the original result rather than charging again.",
+        "B": "Extend the timeout so that fewer requests are retried unnecessarily.",
+        "C": "Disable automatic retry and route timed-out requests to a queue for manual investigation.",
+        "D": "Reconcile captures daily against the acquirer's settlement file and refund any duplicates identified."
+      },
+      "answer": "A",
+      "why_correct": "A lost response leaves the sender genuinely unable to know whether the request was processed, so the fix cannot live on the sending side alone: retrying must be made safe rather than avoided. An idempotency key lets the receiver detect that a retry refers to a request it already processed and return the earlier outcome, which makes the retry mechanism harmless while preserving its availability benefit. This is the standard design answer for exactly-once effects over an unreliable connection.",
+      "why_wrong": {
+        "B": "A longer timeout reduces how often the ambiguity arises and cannot eliminate it, because no finite wait distinguishes a slow response from a lost one. The duplicate charge still occurs on the occasions that matter.",
+        "C": "Removing retry trades duplicate charges for failed captures and a daily manual workload, sacrificing a legitimate resilience mechanism because it was unsafe rather than making it safe. It treats the retry as the fault when the fault is the receiver's inability to recognize one.",
+        "D": "Daily reconciliation with refunds is a detective control that operates after customers have been double-charged, with the reputational and card-dispute damage already done. It is worth keeping as a backstop and is not prevention."
+      }
+    },
+    {
+      "id": "cisa-d4a-069",
+      "domain": "4",
+      "section": "A",
+      "topic": "System Interfaces",
+      "difficulty": "medium",
+      "stem": "A wholesaler's online orders flow into its ERP system through an interface that inserts records directly into the database, bypassing the edit checks that apply when staff key orders through the application screens. The GREATEST risk is that:",
+      "options": {
+        "A": "order numbers generated by the interface may collide with those created through manual entry.",
+        "B": "the interface may load orders outside business hours when support staff are unavailable.",
+        "C": "direct database inserts may degrade performance for interactive users.",
+        "D": "invalid or malformed orders can enter production without being validated."
+      },
+      "answer": "D",
+      "why_correct": "The application's edit checks are the organization's input integrity control, and management assumes they govern every order. Direct inserts open a second door into the same tables through which wrong codes, impossible quantities and incomplete records arrive unchecked, so the assurance the business takes from its validation quietly covers only the manual channel — and as online volume grows, the unvalidated population becomes the majority of transactions without anyone having decided to accept that.",
+      "why_wrong": {
+        "A": "Key collision is one narrow technical instance of the general problem, and a well-designed numbering scheme prevents it. Fixing collisions still leaves every other class of invalid data flowing in unchecked.",
+        "B": "Out-of-hours arrival is normal for an online sales channel and is what schedulers and alerting exist to support. Timing says nothing about whether the arriving data is valid.",
+        "C": "Performance contention is an operational tuning matter, visible in monitoring and fixable with capacity. It does not threaten the integrity of the order data itself."
+      }
+    },
+    {
+      "id": "cisa-d4a-070",
+      "domain": "4",
+      "section": "A",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "An IS auditor at a regional insurance carrier is asked to establish the extent of unsanctioned SaaS use across the organization. Which of the following would give the MOST complete picture?",
+      "options": {
+        "A": "A survey asking each department head to list the cloud services their teams currently use.",
+        "B": "A review of the approved application catalog maintained by the central IT function.",
+        "C": "An extract of the applications integrated with the corporate single sign-on service.",
+        "D": "Analysis of outbound network traffic corroborated against expense records for software subscriptions."
+      },
+      "answer": "D",
+      "why_correct": "Shadow IT is defined by being outside the records IT keeps, so evidence must come from sources the practice cannot avoid touching. Every SaaS service generates network traffic, and paid ones leave a payment trail; combining the two catches free tools that never appear in expenses and paid tools reached from outside the office network. Neither source depends on anyone declaring anything.",
+      "why_wrong": {
+        "A": "Self-reporting relies on managers knowing what their teams use and recognizing it as reportable. Staff rarely think of a free browser-based tool as 'software', and a manager who authorized a workaround has a reason not to volunteer it.",
+        "B": "The approved catalog is by definition the population that is not shadow IT. Reviewing it can only describe the sanctioned estate, never what sits outside it.",
+        "C": "Single sign-on integration is something sanctioned applications get. Unsanctioned services are reached with personal credentials precisely because they were never onboarded, so this extract systematically excludes the target population."
+      }
+    },
+    {
+      "id": "cisa-d4a-071",
+      "domain": "4",
+      "section": "A",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "medium",
+      "stem": "During walkthroughs at a healthcare billing company, an IS auditor learns that staff routinely paste claim details into a free public generative AI assistant to draft appeal letters. Which of the following is the GREATEST concern?",
+      "options": {
+        "A": "Regulated patient and financial data is being disclosed to an external service under no contract, with no control over its retention, onward use, or protection.",
+        "B": "The generated letters may contain factual errors that damage the quality of appeals.",
+        "C": "The organization has not yet issued a policy governing the use of AI tools.",
+        "D": "The free service could be withdrawn or repriced, disrupting a process that now depends on it."
+      },
+      "answer": "A",
+      "why_correct": "The moment claim details are pasted into a public service, regulated data has left the organization's control with no agreement governing what happens to it, and consumer AI terms typically permit retention and reuse of submitted content. The disclosure has already occurred, is continuing daily, and cannot be recalled, which puts it ahead of every quality or governance observation.",
+      "why_wrong": {
+        "B": "Output accuracy is a real quality concern, but the letters pass through staff who read and send them, so errors have a human checkpoint. The disclosure has none.",
+        "C": "The missing policy is the control gap that allowed the practice, not the harm itself. Citing the absence of a policy as the top concern mistakes the cause for the consequence, and a policy alone would not retrieve the data already sent.",
+        "D": "Dependence on a free service is a continuity inconvenience. Losing access to a drafting aid is trivial next to an ongoing uncontrolled disclosure of regulated data."
+      }
+    },
+    {
+      "id": "cisa-d4a-072",
+      "domain": "4",
+      "section": "A",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "hard",
+      "stem": "A logistics company has deployed a sanctioned low-code platform on which business users build their own workflow applications, and IT administers the platform itself. Reviewing this arrangement, the IS auditor's PRIMARY concern should be that:",
+      "options": {
+        "A": "citizen developers building the workflow applications have received no formal software development training.",
+        "B": "licensing costs for the platform are charged to the business units rather than to the IT budget.",
+        "C": "individual applications reach production data through broadly privileged shared connectors, with no per-application review of access, testing, or ownership.",
+        "D": "several of the workflow applications duplicate functionality already available in sanctioned enterprise systems."
+      },
+      "answer": "C",
+      "why_correct": "Sanctioning the platform answers where the applications run, not what they do. The risk that used to live in unsanctioned tools has moved into ungoverned applications on a sanctioned tool: each app inherits the reach of connectors provisioned once at platform level, so a workflow built in an afternoon can read and write production data with nobody having assessed that specific app, who owns it, or who can execute it. The platform's approval creates an appearance of control precisely where none operates.",
+      "why_wrong": {
+        "A": "Training is a proxy for build quality, not a substitute for control: even well-trained developers still need per-application access review, testing, and ownership. Fixing training would leave the ungoverned production access untouched.",
+        "B": "Cost allocation is a commercial arrangement with no bearing on control. Chargeback of platform costs to business units is common and often deliberate.",
+        "D": "Duplication is an efficiency and architecture observation. A redundant app under proper control is a smaller problem than a unique app with unreviewed production access."
+      }
+    },
+    {
+      "id": "cisa-d4a-073",
+      "domain": "4",
+      "section": "A",
+      "topic": "Shadow IT and End-User Computing",
+      "difficulty": "easy",
+      "stem": "An IS auditor at an engineering consultancy finds that several staff synchronize client project folders to personal cloud storage accounts in order to work from home. The GREATEST risk is that:",
+      "options": {
+        "A": "the enterprise storage the organization already pays for goes underused.",
+        "B": "file versions will conflict when the same documents are edited on multiple devices.",
+        "C": "client data now persists in accounts the organization cannot secure, monitor, or wipe, including after the staff member leaves.",
+        "D": "the personal accounts may exceed their free storage allowance."
+      },
+      "answer": "C",
+      "why_correct": "Once data is in a personal account it is outside every organizational control: no access management, no monitoring, no legal hold, no offboarding. A departing employee walks out with a synchronized copy of client work that the organization cannot even see, let alone delete, and contractual confidentiality commitments to clients are breached without anyone acting maliciously.",
+      "why_wrong": {
+        "A": "Underused storage is a cost efficiency observation, not a risk to the data.",
+        "B": "Version conflicts are an inconvenience that users notice and resolve; the invisible exposure is where the copies live, not how they merge.",
+        "D": "Storage allowances are the staff member's problem and have no bearing on the organization's exposure."
+      }
+    },
+    {
+      "id": "cisa-d4a-074",
+      "domain": "4",
+      "section": "A",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "After migrating its customer platform to a public cloud with autoscaling enabled, a retailer disbands its capacity management process on the basis that the cloud now scales on demand. Which observation by the IS auditor is MOST appropriate?",
+      "options": {
+        "A": "Autoscaling makes a capacity management process unnecessary provided billing alerts are configured to catch cost overruns.",
+        "B": "Capacity management remains necessary because subscription quotas, configured scaling limits, and components that do not scale horizontally still constrain the service.",
+        "C": "The capacity management process should be retained solely to negotiate reserved-capacity discounts with the cloud provider.",
+        "D": "Responsibility for capacity management transfers to the cloud provider under the shared responsibility model."
+      },
+      "answer": "B",
+      "why_correct": "Elasticity changes the failure mode; it does not remove the discipline. Account quotas, autoscaling group ceilings, and stateful components such as the database remain hard limits that on-demand scaling cannot cross, and each will surface exactly at peak demand if nobody is forecasting against them. Meanwhile the old risk of running out of capacity acquires a twin: unmanaged elasticity turns every demand spike, legitimate or not, into uncontrolled spend.",
+      "why_wrong": {
+        "A": "This over-applies the elasticity promise. Billing alerts address the cost half after the fact and do nothing about quotas and non-scaling components, which are availability constraints, not cost ones.",
+        "C": "Commercial optimization is one output of capacity management, not its purpose. Retaining the process only for discounts abandons the availability objective it exists to serve.",
+        "D": "The provider is responsible for the capacity of its infrastructure, not for the customer's architecture, quotas, or scaling configuration. Assigning this to the provider misreads where the shared responsibility line sits."
+      }
+    },
+    {
+      "id": "cisa-d4a-075",
+      "domain": "4",
+      "section": "A",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "A ticketing company expects transaction volumes during its annual on-sale event to reach roughly eight times normal load. Which of the following provides the BEST assurance that systems will remain available through the event?",
+      "options": {
+        "A": "Load testing of the end-to-end service beyond projected event volumes in a production-representative environment.",
+        "B": "Analysis showing current peak utilization leaves substantial headroom above normal daily load.",
+        "C": "The infrastructure vendor's published throughput specifications for the deployed hardware.",
+        "D": "The absence of any availability incident during last year's on-sale event."
+      },
+      "answer": "A",
+      "why_correct": "Systems do not degrade linearly: connection pools, locks, and downstream integrations fail in ways that appear only under load, and the first component to saturate defines the ceiling regardless of how healthy everything else looks. End-to-end testing at and beyond projected volume in a representative environment is the only direct evidence of how the whole service behaves at event scale — and it surfaces the bottlenecks so they can be remediated and the test repeated before the real event.",
+      "why_wrong": {
+        "B": "Extrapolation trap: headroom over normal load draws a straight line to eight times volume, but the failure modes that matter emerge from contention and queuing, which utilization at normal load cannot reveal.",
+        "C": "Vendor-assurance trap: specifications describe components under laboratory conditions, not this application, configuration, and transaction mix operating together end to end.",
+        "D": "Historical-evidence trap: last year's success speaks to last year's volume on last year's configuration; both the demand and the estate have changed, and this year's projection is the number that matters."
+      }
+    },
+    {
+      "id": "cisa-d4a-076",
+      "domain": "4",
+      "section": "A",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "easy",
+      "stem": "A hospital group's clinical records system runs on a high-availability cluster designed to fail over automatically. The failover has never been exercised since implementation three years ago. The GREATEST concern is that:",
+      "options": {
+        "A": "the standby node's hardware warranty may have lapsed unnoticed.",
+        "B": "the cluster software licensing may not cover the standby node.",
+        "C": "operations staff may be unfamiliar with cluster recovery procedures.",
+        "D": "the failover capability may not function as intended when it is required."
+      },
+      "answer": "D",
+      "why_correct": "A failover that has never run is a design assumption, not a demonstrated capability. Three years of patching, configuration drift, and data growth have changed the environment the failover was built for, and its first real invocation would occur during a live clinical outage — the exact moment the organization cannot afford to discover it does not work. Until the mechanism is exercised under controlled conditions, the system's availability claims are unsupported.",
+      "why_wrong": {
+        "A": "Housekeeping trap: warranty status is an asset management matter that does not determine whether the failover functions.",
+        "B": "Commercial-exposure trap: licensing gaps are resolved with invoices, not outages, and do not bear on availability.",
+        "C": "Secondary-control trap: procedural familiarity matters, but for an automatic mechanism the prior question is whether the failover works at all — training on a broken capability assures nothing."
+      }
+    },
+    {
+      "id": "cisa-d4a-077",
+      "domain": "4",
+      "section": "A",
+      "topic": "Systems Availability and Capacity Management",
+      "difficulty": "medium",
+      "stem": "The operations team at a regional payment processor receives several thousand monitoring alerts each day, most of which are acknowledged in bulk without investigation. The GREATEST risk is that:",
+      "options": {
+        "A": "alert data accumulation will increase monitoring platform storage costs.",
+        "B": "alerts signaling genuine service degradation will go unnoticed among the noise.",
+        "C": "repetitive alert handling will erode operations staff morale and retention.",
+        "D": "the monitoring tool subscription may require an upgrade to a higher volume tier."
+      },
+      "answer": "B",
+      "why_correct": "Bulk acknowledgment means the detective control exists on paper but not in operation: every alert is technically received and effectively none is evaluated. Genuine degradation signals drown in the noise, so outages progress until customers feel them — and for a payment processor, the interval between onset and customer impact is precisely where the monitoring investment was supposed to pay off. The fix is alert tuning and rationalization, but the risk the auditor reports is the lost detection function.",
+      "why_wrong": {
+        "A": "Trivial-cost trap: storage expense is negligible next to the loss of the detection function itself.",
+        "C": "Mechanism-versus-impact trap: fatigue and attrition are real but are how the control fails, not the risk that matters; the harm lands on service availability, not the roster.",
+        "D": "Commercial-distraction trap: subscription tiering is a procurement matter, and buying capacity for more unread alerts improves nothing."
+      }
+    },
+    {
+      "id": "cisa-d4a-078",
+      "domain": "4",
+      "section": "A",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "Analyzing a utility company's incident records, an IS auditor finds that the majority of service outages were first reported by customers or business users rather than detected by monitoring. The MOST significant implication is that:",
+      "options": {
+        "A": "the service desk requires additional staffing to answer outage calls more quickly.",
+        "B": "users need reminding of the correct channel for reporting incidents.",
+        "C": "monitoring coverage is not aligned with the services the business depends on.",
+        "D": "incident categorization should distinguish user-reported from system-detected events."
+      },
+      "answer": "C",
+      "why_correct": "Detection source is one of the most telling metrics in incident data. When users consistently beat the tooling, every outage runs uncontained for as long as it takes someone to notice and call it in: the outage clock starts before anyone responsible knows it is running, and response begins from a cold start. A majority pattern shows the monitoring estate is watching the wrong things — a coverage misalignment, not an occasional blind spot.",
+      "why_wrong": {
+        "A": "Wrong-stage trap: faster call answering optimizes after the failure has already occurred, and staffing the reporting channel institutionalizes users as the detection mechanism.",
+        "B": "Blame-the-reporter trap: users are performing the detection the tooling should have done; the reporting channel is demonstrably working.",
+        "D": "Measurement-versus-remediation trap: better categorization would quantify the weakness more precisely without reducing it."
+      }
+    },
+    {
+      "id": "cisa-d4a-079",
+      "domain": "4",
+      "section": "A",
+      "topic": "Problem and Incident Management",
+      "difficulty": "medium",
+      "stem": "A logistics provider conducts a post-incident review after every major incident, and the reviews consistently identify root causes and corrective actions. An IS auditor finds that no mechanism tracks the corrective actions to completion. The GREATEST concern is that:",
+      "options": {
+        "A": "review meetings consume senior technical staff time without formal agendas.",
+        "B": "review documentation does not follow a recognized service management framework.",
+        "C": "incident records remain open longer while reviews are pending.",
+        "D": "identified root causes may remain unremediated and incidents will recur."
+      },
+      "answer": "D",
+      "why_correct": "The organization has done the expensive part — the analysis — and skipped the inexpensive part that delivers the value: verifying the fix happens. Untracked actions decay into good intentions as attention moves to the next incident, and the review process becomes a ritual producing documents rather than a control removing causes. The recurrence exposure is the same as having no problem management process at all, but harder to see because the analysis artifacts all exist.",
+      "why_wrong": {
+        "A": "Efficiency-observation trap: undisciplined meetings that drove fixes to completion would be a stronger position than tidy ones that do not.",
+        "B": "Form-over-substance trap: a review in any format that closed its actions would achieve the control objective; framework conformance is not the objective.",
+        "C": "Administrative-metric trap: closing records faster while causes persist would improve the statistic and nothing else."
+      }
+    },
+    {
+      "id": "cisa-d4a-080",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "hard",
+      "stem": "A fintech company releases application changes through an automated pipeline that deploys any code merged to the main branch into production, with no manual change approval step. When auditing change management here, the IS auditor should PRIMARILY evaluate whether:",
+      "options": {
+        "A": "a change advisory board approves each merge before the pipeline is permitted to deploy it to production.",
+        "B": "the pipeline enforces the control objectives: independent review before merge, test gates that block failing builds, and a pipeline configuration its developers cannot alter.",
+        "C": "every automated deployment is written to a log that the change manager independently reviews each month.",
+        "D": "developers are prevented from accessing the production operating system and database directly."
+      },
+      "answer": "B",
+      "why_correct": "The control objectives have not changed — authorization, testing, and segregation before production — but in this model they are enforced by the pipeline rather than by meetings and signatures. The audit question is whether each objective has a working technical equivalent, and critically whether the pipeline definition itself is protected: a developer who can edit the pipeline can remove its gates, which is the modern form of the developer who can migrate their own code.",
+      "why_wrong": {
+        "A": "Bolting board approval onto every merge over-applies the traditional control form to a model built to eliminate that latency; a body approving dozens of merges daily would rubber-stamp within weeks. The objective is approval, not a committee.",
+        "C": "A monthly log review is detective and slow; it answers who deployed what, not whether anything stood between unreviewed code and production at the moment of release.",
+        "D": "Blocking direct server access is a real control that misses the point here: the pipeline is the pathway to production, so an unprotected pipeline makes direct access unnecessary for anyone wanting to bypass control."
+      }
+    },
+    {
+      "id": "cisa-d4a-081",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "medium",
+      "stem": "Sampling change records at a hospital group, an IS auditor finds implementation steps documented in detail but no rollback or backout plan recorded for any change. The GREATEST risk is that:",
+      "options": {
+        "A": "when a change fails in production, restoration will be improvised under pressure, prolonging the outage and risking further damage to systems and data.",
+        "B": "the change records will be cited as a deficiency at the next accreditation review.",
+        "C": "changes will take longer to implement than their scheduled windows allow.",
+        "D": "the change advisory board cannot assess the technical quality of the proposed changes."
+      },
+      "answer": "A",
+      "why_correct": "A backout plan is written before the change because the moment it is needed is the worst possible time to design it: the system is degraded, the window is closing, and the person improvising is the same one whose change just failed. Unplanned reversal under pressure is how a failed change becomes a corrupted database, and in a hospital the prolonged outage lands on clinical operations.",
+      "why_wrong": {
+        "B": "An accreditation citation is a consequence of the documentation gap, not the operational harm the documentation exists to prevent.",
+        "C": "Implementation duration is a scheduling matter; the missing plan costs nothing at all until a change fails, which is exactly when it costs the most.",
+        "D": "The board assesses risk and readiness rather than technical quality, and while a missing backout plan should concern it, the board's visibility is a governance detail next to the unmanaged failure scenario itself."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-082",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Change, Configuration, and Patch Management",
+      "difficulty": "medium",
+      "stem": "A manufacturing company applies all security patches in a single monthly cycle regardless of severity, with internet-facing systems patched in the same window as internal ones. Which recommendation by the IS auditor is BEST?",
+      "options": {
+        "A": "Shorten the standard cycle from monthly to fortnightly for all systems.",
+        "B": "Prioritize patching by risk, expediting fixes for actively exploited vulnerabilities and internet-exposed systems ahead of the routine cycle.",
+        "C": "Patch internal systems first each cycle, so patches are proven stable before reaching the internet-facing estate.",
+        "D": "Schedule patches strictly according to the severity rating published by each vendor."
+      },
+      "answer": "B",
+      "why_correct": "A uniform cycle spends the same urgency on every patch, which means the vulnerability being exploited in the wild on a perimeter system waits in the same queue as a low-severity fix on an isolated server. Risk-based prioritization matches speed to exposure: severity combined with whether the system is reachable and whether exploitation is actually occurring. That is where a fixed calendar creates the exposure, and where the recommendation buys the most risk reduction for the effort.",
+      "why_wrong": {
+        "A": "Accelerating everything uniformly keeps the underlying flaw: effort is still spread evenly rather than directed at exposure, and critical perimeter vulnerabilities can still wait up to two weeks.",
+        "C": "Stability soak-testing sounds prudent and is exactly backwards here: it guarantees the systems attackers can reach are patched last, every cycle. Stability risk is managed through staged rollout within a ring, not by deferring the highest-exposure estate.",
+        "D": "Vendor severity is one input, scored without knowledge of this organization's architecture. A medium-severity flaw on an internet-facing system with a public exploit outranks a critical one on an isolated segment, and a single-factor rule cannot see that."
+      }
+    },
+    {
+      "id": "cisa-d4a-083",
+      "domain": "4",
+      "section": "A",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "stem": "A regional insurer forwards logs from its servers, firewalls and cloud workloads to a central security monitoring platform. During fieldwork, an IS auditor discovers that a group of database servers stopped forwarding logs four months earlier after a failed agent upgrade, and that the gap came to light only when the auditor requested the records. Which control weakness does this finding PRIMARILY demonstrate?",
+      "options": {
+        "A": "Log retention on the central platform is too short to support investigations.",
+        "B": "The completeness of log collection is not itself monitored, so a broken feed can go undetected indefinitely.",
+        "C": "Agent software upgrades are not being adequately tested before deployment to production servers.",
+        "D": "Too many log sources have been concentrated onto a single central monitoring platform."
+      },
+      "answer": "B",
+      "why_correct": "A monitoring platform is only as good as the feeds actually arriving at it, and an expected source going quiet is itself an event that should raise an alert. Absence monitoring — heartbeats or per-source volume baselines — converts a silent collection failure into a detected one. Without it, every correlation rule and detection downstream ran against an incomplete picture while reporting green, which is exactly what happened here for four months.",
+      "why_wrong": {
+        "A": "Retention governs how far back you can look at logs that were collected. These logs were never collected, so no retention period would have preserved them.",
+        "C": "Better upgrade testing might have prevented this particular failure, but agents will still occasionally break for other reasons. The demonstrated weakness is that a broken feed went undetected for four months, which no amount of pre-deployment testing addresses.",
+        "D": "Centralizing log collection is the intended design, not the flaw. Distributing logs across more platforms would multiply the places where a feed could silently fail."
+      },
+      "asks": "evidence"
+    },
+    {
+      "id": "cisa-d4a-084",
+      "domain": "4",
+      "section": "A",
+      "topic": "Operational Log Management",
+      "difficulty": "medium",
+      "stem": "A hospital group retains operational and security logs for 30 days across all systems, a period chosen by the infrastructure team to contain storage costs. After a ransomware attack is contained, forensic analysts establish that initial access most likely occurred about five months before the encryption event. Which consequence of the retention decision should the IS auditor consider MOST significant?",
+      "options": {
+        "A": "The organization's cyber insurer may criticize its log management practices when the claim is assessed.",
+        "B": "The storage savings were achieved at the cost of slower day-to-day alert triage.",
+        "C": "The 30-day period falls short of commonly cited industry benchmarks for log retention.",
+        "D": "Logs covering the intrusion's initial access and lateral movement no longer exist, so entry point and scope cannot be reliably established."
+      },
+      "answer": "D",
+      "why_correct": "Retention should be derived from how far back the organization may need to look — attacker dwell time routinely runs to months, and regulatory and legal needs run longer still. A period set by storage budget alone was measured against the wrong requirement, and the price is paid at the worst moment: scoping, root cause and eradication now rest on inference, and recurrence through the same entry path cannot be ruled out because nobody can say what the path was.",
+      "why_wrong": {
+        "A": "Insurer scrutiny is a downstream commercial consequence of the same gap. It describes who else will notice the problem, not the problem itself.",
+        "B": "Triage speed depends on how logs are reviewed and alerted on, not on how long they are kept. Retention and review are separate disciplines, and shortening one does not slow the other.",
+        "C": "Falling short of a benchmark is only meaningful if the benchmark matches this organization's needs. The demonstrated failure is against the organization's own investigative requirement, which is a far stronger basis for the finding than someone else's number."
+      }
+    },
+    {
+      "id": "cisa-d4a-085",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Service Level Management",
+      "difficulty": "medium",
+      "stem": "A logistics company outsources its IT service desk. The provider missed the contracted resolution target in nine of the last twelve months and paid the agreed service credits promptly on each occasion. IT management cites the promptly paid credits as evidence that the contract is being managed effectively. What should the IS auditor be MOST concerned about?",
+      "options": {
+        "A": "The credits compensate for failure without correcting it, and nothing being exercised in the contract obliges the provider to improve.",
+        "B": "The credit amounts are too small relative to the business impact of each missed resolution target.",
+        "C": "Nine misses in twelve months shows the provider is fundamentally unable to deliver the contracted service.",
+        "D": "The resolution targets were set at a level the provider cannot realistically be expected to meet."
+      },
+      "answer": "A",
+      "why_correct": "Service credits are a remedy for occasional failure, not a substitute for the service. When misses are the normal monthly pattern and the only response is a payment, the commercial mechanism has replaced the service objective — the business absorbs degraded support every month while the provider's cheapest option may simply be to keep paying. Effective service level management would be invoking improvement plans, escalation and root-cause obligations, and the auditor's concern is that none of that is happening.",
+      "why_wrong": {
+        "B": "Larger credits would move more money and still restore nothing. Nothing in the scenario establishes the credits are undersized, and treating any payment as the objective is the underlying flaw.",
+        "C": "A capability verdict is premature: the contract's improvement and escalation mechanisms have never been exercised, so there is no evidence yet of what the provider delivers when actually pressed to correct.",
+        "D": "This assumes the measure, not the performance, is the problem. Targets derive from what the business needs, and nothing suggests these were misaligned; relaxing them would convert real underperformance into reported success."
+      }
+    },
+    {
+      "id": "cisa-d4a-086",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Service Level Management",
+      "difficulty": "medium",
+      "stem": "Three years ago a retailer traded only during store hours; it now takes most of its orders through a 24/7 e-commerce channel. The service level agreement for the order management platform still commits to support and incident response between 08:00 and 18:00 on weekdays and has not been revisited since it was signed. Which recommendation by the IS auditor would be MOST appropriate?",
+      "options": {
+        "A": "Add financial penalties to the existing agreement to strengthen its enforcement.",
+        "B": "Extend infrastructure monitoring of the platform to operate around the clock.",
+        "C": "Re-derive the service levels from the business's current requirements and establish a periodic review so the agreement continues to track the business as it changes.",
+        "D": "Benchmark the support hours against those offered by comparable retailers."
+      },
+      "answer": "C",
+      "why_correct": "A service level agreement is a statement of current business need, and this one describes a business that no longer exists: overnight and weekend failures of what is now the main revenue channel carry no committed response at all. Realigning the targets fixes this instance, and the missing review cycle is what allowed a three-year divergence to accumulate — without adding one, the corrected agreement simply starts going stale on the day it is signed.",
+      "why_wrong": {
+        "A": "Penalties strengthen enforcement of whatever is written, and what is written is wrong. Rigorously enforcing weekday business-hours support does nothing for the overnight outage that now matters most.",
+        "B": "Round-the-clock monitoring would detect overnight failures that nobody is committed to respond to. It treats a symptom of the gap while leaving the commitment itself unchanged.",
+        "D": "Other retailers' support hours reflect their channel mix, systems and risk appetite. The requirement has to come from this business's own trading pattern, which the scenario already makes clear."
+      }
+    },
+    {
+      "id": "cisa-d4a-087",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Service Level Management",
+      "difficulty": "hard",
+      "stem": "A mid-sized employer plans to move payroll to a SaaS provider whose standard terms are non-negotiable: 99.5% monthly availability measured by the provider, with remedies limited to service credits capped at one month's fees. Payroll must complete by a fixed date every month. Before the business commits, which action is MOST important for the IS auditor to recommend?",
+      "options": {
+        "A": "Negotiate a custom service level agreement with availability and remedy terms that reflect payroll's criticality.",
+        "B": "Assess the residual risk the standard terms leave against the payroll deadline, and have the business formally accept or mitigate it before committing.",
+        "C": "Reject the SaaS option and retain payroll in-house, since the offered remedies are inadequate for a critical process.",
+        "D": "Require the provider to permit independent measurement of availability before go-live."
+      },
+      "answer": "B",
+      "why_correct": "When the terms cannot be changed, the decision left to the organization is whether to accept them, and that decision has to be informed. 99.5% monthly permits roughly 3.7 hours of downtime that could land exactly on the payroll deadline, and capped credits will not make anyone whole for a missed pay run — so the exposure must be sized against the business cycle and either knowingly accepted or offset by measures under the organization's own control, such as a contingency payroll arrangement. This is service level management for commodity SaaS: managing the gap the provider's commitment leaves rather than negotiating the commitment.",
+      "why_wrong": {
+        "A": "The stem states the terms are non-negotiable, and a standard multi-tenant SaaS provider does not write custom SLAs for mid-sized customers. Recommending an unobtainable remedy leaves the actual exposure unaddressed.",
+        "C": "Rejecting the option is a risk decision that belongs to the business, taken after the assessment rather than in place of it. The standard terms may prove acceptable once the exposure is quantified against the deadline.",
+        "D": "Independent measurement strengthens confidence in the reported number, but the concern is not that 99.5% is misreported — it is whether 99.5% with capped credits is tolerable at all, and a standard-terms provider will not grant this anyway."
+      }
+    },
+    {
+      "id": "cisa-d4a-088",
+      "domain": "4",
+      "section": "A",
+      "topic": "IT Service Level Management",
+      "difficulty": "easy",
+      "stem": "A university's IT service desk has agreed a four-hour resolution target with the finance office for the core finance system. Most incidents can be resolved only with work by the separate server and network teams, neither of which has any agreed response commitment to the service desk. Which of the following would BEST support the service desk's ability to meet its target?",
+      "options": {
+        "A": "Operational level agreements with the server and network teams, with response commitments that fit inside the four-hour target.",
+        "B": "Increasing the staffing of the service desk itself.",
+        "C": "Reducing the resolution target to a level the service desk can achieve without the other teams.",
+        "D": "Reporting each missed target to the finance office together with an explanation."
+      },
+      "answer": "A",
+      "why_correct": "A service commitment is only deliverable if every internal dependency behind it is bound to timescales consistent with it. Operational level agreements are the instrument for exactly this: they translate the external four-hour promise into internal commitments — for example a two-hour response from the infrastructure teams — so the target rests on agreed obligations rather than on goodwill between departments.",
+      "why_wrong": {
+        "B": "More desk staff adds capacity at the one point in the chain that already has a commitment. The stem places the bottleneck in the teams behind the desk, which extra desk headcount cannot reach.",
+        "C": "The target exists to serve the finance office's need, not the desk's convenience, and most incidents would still require the other teams. Shrinking the promise to fit the dysfunction abandons the requirement instead of supporting it.",
+        "D": "Explaining each failure is transparency about missing the target, not a means of meeting it. The finance office needs the four hours, not a well-documented account of why it was not achieved."
+      },
+      "no_principle": true
+    },
+    {
+      "id": "cisa-d4a-089",
+      "domain": "4",
+      "section": "A",
+      "topic": "Database Management",
+      "difficulty": "medium",
+      "stem": "An IS auditor reviewing database operations at a health insurer finds that the production claims database is copied in full to the development and test environments every week so that developers can work with realistic data. Which of the following should be the auditor's GREATEST concern?",
+      "options": {
+        "A": "The weekly refresh may overwrite test data that developers have prepared for work in progress.",
+        "B": "The additional environment copies triple the storage consumed by the claims data.",
+        "C": "Sensitive claims data is exposed in environments with weaker access controls and no production-level monitoring.",
+        "D": "Developers may come to rely on refreshed production data instead of building repeatable test cases."
+      },
+      "answer": "C",
+      "why_correct": "The data does not become less sensitive by changing environments, but the controls around it do: non-production systems typically carry wider access including contractors, weaker hardening and patching, and none of the activity monitoring applied to production. Copying the claims database wholesale means the organization's most sensitive data exists in three places and is protected in one, and a breach of a test server discloses exactly what a breach of production would. Masking or synthetic data would give developers the realism they need without replicating the exposure.",
+      "why_wrong": {
+        "A": "Losing in-progress test setups is an operational inconvenience solved by scheduling and communication. It carries no consequence outside the development team.",
+        "B": "Storage cost is a commercial efficiency matter, and trivial next to unmonitored copies of regulated health data.",
+        "D": "Dependence on refreshed data is a genuine testing-practice weakness that degrades repeatability, but it affects the quality of the development process rather than exposing the data itself."
+      }
+    }
+  ]
+}

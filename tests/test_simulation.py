@@ -200,15 +200,19 @@ class TestChecksDiscriminate(HarnessTestBase):
             simulation.detect_scheduler_returns(rows, self.bank, targets))
 
     def test_confident_and_wrong_answers_are_surfaced(self):
-        """At 600, where the check detects on every seed measured.
+        """At 1200, where the check detects on every seed measured.
 
-        It used to sit at 1200, which is a size where detection runs around
-        7 in 12 - fine as a sweep number, brittle as a single-seed assertion.
-        The confidence-aware scheduler changed which questions get served and
-        tipped this particular seed over; the check itself is unaffected
-        (12/12 at 600, 9/12 at 3000 across twelve seeds).
+        This anchor has now moved twice, in both directions, and the history
+        matters: it sat at 1200, moved to 600 when the confidence-aware
+        scheduler changed which questions get served, and returns to 1200
+        because the bank grew from 386 to 501 questions - the same answers
+        spread over more items, so per-question evidence at 600 thinned out.
+        Measured on the 501-question bank across twelve seeds: 8/12 at 600,
+        9/12 at 900, 12/12 at 1200, 8/12 at 1500. The check itself is
+        unaffected; the sweep numbers, not this single-seed anchor, are the
+        real report card.
         """
-        rows, targets = self._rows("confidence", 1, 600)
+        rows, targets = self._rows("confidence", 1, 1200)
         self.assertTrue(
             simulation.detect_dangerous_quadrant(rows, self.bank, targets))
 
